@@ -29,6 +29,7 @@ import { getFSRSCard } from '../lib/fsrsVaultEntry'
 import { fsrsPreviewIntervals } from '../lib/fsrs'
 import { useDocumentThemeMode } from '../hooks/useDocumentThemeMode'
 import { getRuntimeStyleNonce } from '../lib/runtimeStyleNonce'
+import { useEditorTheme } from '../hooks/useTheme'
 import type { FSRSRating } from '../lib/fsrs'
 import type { VaultEntry } from '../types'
 import { schema } from './editorSchema'
@@ -69,6 +70,7 @@ const RATING_CONFIG: Record<FSRSRating, RatingLabel> = {
  */
 function BlockNoteReadOnly({ content }: { content: string }) {
   const theme = useDocumentThemeMode()
+  const { cssVars } = useEditorTheme()
   const editor = useCreateBlockNote({
     schema,
     _tiptapOptions: { injectNonce: getRuntimeStyleNonce() },
@@ -135,7 +137,12 @@ function BlockNoteReadOnly({ content }: { content: string }) {
   )
 
   return (
-    <div className="editor__blocknote-container [&_.bn-editor]:px-0 [&_.bn-editor]:py-0 [&_.bn-block-outer:first-child_.bn-block-content]:pt-0">
+    // cssVars injects all theme CSS custom properties (--colors-text, --headings-h1-color, etc.)
+    // exactly like SingleEditorView does, so EditorTheme.css selectors get the correct values.
+    <div
+      className="editor__blocknote-container [&_.bn-editor]:px-0 [&_.bn-editor]:py-0 [&_.bn-block-outer:first-child_.bn-block-content]:pt-0"
+      style={cssVars as React.CSSProperties}
+    >
       <MantineProvider
         withCssVariables={false}
         getStyleNonce={getRuntimeStyleNonce}
