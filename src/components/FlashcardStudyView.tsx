@@ -13,7 +13,8 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { invoke } from '@tauri-apps/api/core'
-import { X } from '@phosphor-icons/react'
+import { Books, CalendarBlank, Confetti, Sparkle, X } from '@phosphor-icons/react'
+import './EditorTheme.css'
 import {
   BlockNoteViewRaw,
   ComponentsContext,
@@ -172,7 +173,9 @@ function ProgressBar({ current, total }: { current: number; total: number }) {
 function SessionComplete({ onClose }: { onClose: () => void }) {
   return (
     <div className="flex flex-col items-center justify-center gap-6 py-16 text-center">
-      <div className="text-6xl">🎉</div>
+      <div className="flex items-center justify-center w-16 h-16 rounded-full bg-violet-500/10">
+        <Confetti size={36} weight="duotone" className="text-violet-500" />
+      </div>
       <div>
         <h2 className="text-xl font-bold mb-2">Session complete!</h2>
         <p className="text-sm text-muted-foreground">All cards reviewed. Great work!</p>
@@ -315,7 +318,10 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
         <div className="flex-1 min-w-0">
           <ProgressBar current={queueIndex} total={entries.length} />
           {deckName && (
-            <p className="mt-0.5 text-[10px] text-muted-foreground truncate">📚 {deckName}</p>
+            <p className="mt-0.5 text-[10px] text-muted-foreground truncate flex items-center gap-1">
+              <Books size={10} />
+              {deckName}
+            </p>
           )}
         </div>
         <span className="text-xs text-muted-foreground shrink-0">
@@ -339,19 +345,19 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
                     <span className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground border border-border">
                       {entry.isA}
                     </span>
-                    <span className="text-xs text-muted-foreground">
+                    <span className="text-xs text-muted-foreground flex items-center gap-1">
                       {card?.state === 'new'
-                        ? '🆕 New'
+                        ? (<><Sparkle size={12} weight="fill" className="text-emerald-500" /> New</>)
                         : card?.state === 'learning'
-                          ? '📘 Learning'
-                          : `📅 ${card?.reps ?? 0} reviews`}
+                          ? (<><Books size={12} weight="fill" className="text-blue-500" /> Learning</>)
+                          : (<><CalendarBlank size={12} weight="fill" className="text-violet-500" /> {card?.reps ?? 0} reviews</>)}
                     </span>
                   </div>
                 )}
 
                 {/* Front face — BlockNote read-only, full content, scrollable */}
                 <div
-                  className="flex-1 min-h-0 overflow-y-auto rounded-xl border border-border bg-card px-6 py-4"
+                  className="flex-1 min-h-0 overflow-y-auto rounded-xl bg-card px-6 py-4"
                   aria-label="Front face"
                 >
                   {cardContent === null
@@ -391,7 +397,7 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
                         {/* Back face (only when note has <!-- FLASHCARD:BACK --> marker) */}
                         {hasBack && (
                           <div
-                            className="max-h-48 overflow-y-auto rounded-xl border border-border bg-card/60 px-6 py-4"
+                            className="max-h-48 overflow-y-auto rounded-xl bg-card/60 px-6 py-4"
                             aria-label="Back face"
                           >
                             <BlockNoteReadOnly content={back} />
