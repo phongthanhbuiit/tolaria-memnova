@@ -28,11 +28,12 @@ import {
 import { fsrsSchedule } from '../lib/fsrs'
 import type { FSRSRating } from '../lib/fsrs'
 import type { VaultEntry } from '../types'
+import type { FrontmatterValue } from '../components/Inspector'
 
 interface UseFlashcardSessionOptions {
   entries: VaultEntry[]
   /** Tolaria's frontmatter update function — updates one key at a time */
-  onUpdateFrontmatter: (path: string, key: string, value: unknown) => Promise<void>
+  onUpdateFrontmatter: (path: string, key: string, value: FrontmatterValue, options?: Record<string, unknown>) => Promise<void>
 }
 
 export interface FlashcardSession {
@@ -76,10 +77,10 @@ export function useFlashcardSession({
    * Tolaria's onUpdateFrontmatter updates one key at a time, so we batch them.
    */
   const persistFSRSPatch = useCallback(
-    async (path: string, patch: Record<string, unknown>) => {
+    async (path: string, patch: Record<string, string | number | boolean | null>) => {
       await Promise.all(
         Object.entries(patch).map(([key, value]) =>
-          onUpdateFrontmatter(path, key, value),
+          onUpdateFrontmatter(path, key, value as FrontmatterValue),
         ),
       )
     },
