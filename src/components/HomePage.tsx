@@ -121,7 +121,7 @@ export function HomePage({
   }, [stats.heatmap])
 
   const formattedDate = useMemo(() => {
-    const options: Intl.DateTimeFormatOptions = { ddr: undefined, weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+    const options: Intl.DateTimeFormatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
     return new Date().toLocaleDateString(locale === 'vi' ? 'vi-VN' : 'en-US', options)
   }, [locale])
 
