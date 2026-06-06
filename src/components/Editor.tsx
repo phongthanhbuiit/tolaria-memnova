@@ -132,6 +132,11 @@ interface EditorProps {
   onKeepMine?: (path: string) => void
   /** Resolve conflict by keeping the remote version. */
   onKeepTheirs?: (path: string) => void
+  onScheduleForReview?: () => void
+  onScheduleAsDeck?: () => void
+  onStartDeckSession?: () => void
+  hasDeckMembers?: boolean
+  fsrsDueDate?: string | null
   /** Registers a hook that flushes pending rich-editor changes into app state before external actions. */
   flushPendingEditorContentRef?: React.MutableRefObject<((path: string) => void) | null>
   /** Registers a hook that flushes the raw editor buffer into app state before external actions. */
@@ -406,6 +411,11 @@ function EditorLayout({
   workspaces,
   onUnsupportedAiPaste,
   locale,
+  onScheduleForReview,
+  onScheduleAsDeck,
+  onStartDeckSession,
+  hasDeckMembers,
+  fsrsDueDate,
 }: {
   tabs: Tab[]
   activeTabPath: string | null
@@ -480,6 +490,11 @@ function EditorLayout({
   onUnsupportedAiPaste?: (message: string) => void
   locale?: AppLocale
   onExportPdf?: (source?: NotePdfExportSource) => void
+  onScheduleForReview?: () => void
+  onScheduleAsDeck?: () => void
+  onStartDeckSession?: () => void
+  hasDeckMembers?: boolean
+  fsrsDueDate?: string | null
 }) {
   const activeBinaryTab = activeTab?.entry.fileKind === 'binary' ? activeTab : null
   const showEmptyState = tabs.length === 0 && activeTabPath === null && !isVaultLoading
@@ -545,6 +560,11 @@ function EditorLayout({
               isConflicted={isConflicted}
               onKeepMine={onKeepMine}
               onKeepTheirs={onKeepTheirs}
+              onScheduleForReview={onScheduleForReview}
+              onScheduleAsDeck={onScheduleAsDeck}
+              onStartDeckSession={onStartDeckSession}
+              hasDeckMembers={hasDeckMembers}
+              fsrsDueDate={fsrsDueDate}
               locale={locale}
             />
         }

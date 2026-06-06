@@ -8,6 +8,7 @@ import {
   getDueReviewCount,
   getFSRSFrontmatterPatch,
   getInitialFSRSPatch,
+  collectDeckMembers,
   FSRS_FIELD,
 } from './fsrsVaultEntry'
 import type { VaultEntry } from '../types'
@@ -245,5 +246,84 @@ describe('getInitialFSRSPatch', () => {
     expect(patch[FSRS_FIELD.enabled]).toBe(true)
     expect(patch[FSRS_FIELD.state]).toBe('new')
     expect(patch[FSRS_FIELD.reps]).toBe(0)
+  })
+})
+
+// ---------------------------------------------------------------------------
+// collectDeckMembers
+// ---------------------------------------------------------------------------
+
+describe('collectDeckMembers', () => {
+  function noteEntry(path: string, title: string, belongsTo: string[] = []): VaultEntry {
+    return makeEntry({ path, filename: path.split('/').pop() ?? path, title, belongsTo })
+  }
+
+  it('returns empty array when no notes have belongsTo root', () => {
+    const root = noteEntry('notes/root.md', 'Root')
+    const other = noteEntry('notes/other.md', 'Other')
+    expect(collectDeckMembers(root, [root, other])).toHaveLength(0)
+  })
+
+  it('returns direct children that belongsTo root by title', () => {
+    const root = noteEntry('notes/root.md', 'Root')
+    const child = noteEntry('notes/child.md', 'Child', ['[[Root]]'])
+    const other = noteEntry('notes/other.md', 'Other')
+    const result = collectDeckMembers(root, [root, child, other])
+    expect(result).toHaveLength(1)
+    expect(result[0].path).toBe('notes/child.md')
+  })
+
+  it('recursively collects grandchildren', () => {
+    const root = noteEntry('notes/root.md', 'Root')
+    const child = noteEntry('notes/child.md', 'Child', ['[[Root]]'])
+    const grandchild = noteEntry('notes/grandchild.md', 'Grandchild', ['[[Child]]'])
+    const result = collectDeckMembers(root, [root, child, grandchild])
+    expect(result).toHaveLength(2)
+    expect(result.map((e) => e.path)).toContain('notes/child.md')
+    expect(result.map((e) => e.path)).toContain('notes/grandchild.md')
+  })
+
+  it('excludes the root entry itself from results', () => {
+    const root = noteEntry('notes/root.md', 'Root')
+    const child = noteEntry('notes/child.md', 'Child', ['[[Root]]'])
+    const result = collectDeckMembers(root, [root, child])
+    expect(result.map((e) => e.path)).not.toContain('notes/root.md')
+  })
+
+  it('excludes notes linked only via outgoingLinks (body wikilinks)', () => {
+    const root = noteEntry('notes/root.md', 'Root')
+    // This note is linked in the body of root but does NOT set belongsTo
+    const bodyLink = makeEntry({
+      path: 'notes/keyword.md',
+      filename: 'keyword.md',
+      title: 'Keyword',
+      belongsTo: [],
+      outgoingLinks: [],
+    })
+    // root has outgoingLinks to keyword but keyword does not belongsTo root
+    const rootWithLinks = { ...root, outgoingLinks: ['Keyword'] }
+    const result = collectDeckMembers(rootWithLinks, [rootWithLinks, bodyLink])
+    expect(result).toHaveLength(0)
+  })
+
+  it('prevents infinite loops with circular belongsTo references', () => {
+    const a = noteEntry('notes/a.md', 'A', ['[[B]]'])
+    const b = noteEntry('notes/b.md', 'B', ['[[A]]'])
+    // Should not throw and should return finite result
+    expect(() => collectDeckMembers(a, [a, b])).not.toThrow()
+    const result = collectDeckMembers(a, [a, b])
+    // B belongs to A directly, A is already visited so no infinite loop
+    expect(result).toHaveLength(1)
+    expect(result[0].path).toBe('notes/b.md')
+  })
+
+  it('deduplicates entries that appear via multiple paths', () => {
+    const root = noteEntry('notes/root.md', 'Root')
+    const child1 = noteEntry('notes/c1.md', 'C1', ['[[Root]]'])
+    // grandchild belongs to both root and child1 — should appear only once
+    const grandchild = noteEntry('notes/gc.md', 'GC', ['[[Root]]', '[[C1]]'])
+    const result = collectDeckMembers(root, [root, child1, grandchild])
+    const paths = result.map((e) => e.path)
+    expect(paths.filter((p) => p === 'notes/gc.md')).toHaveLength(1)
   })
 })

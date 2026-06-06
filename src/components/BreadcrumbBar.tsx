@@ -76,6 +76,12 @@ interface BreadcrumbBarProps {
   content?: string | null
   /** Called to enable FSRS scheduling on this note (sets _fsrs_enabled: true) */
   onScheduleForReview?: () => void
+  /** Called to enable FSRS on all deck members (notes with belongsTo pointing to this note) */
+  onScheduleAsDeck?: () => void
+  /** Called to start a deck review session scoped to this note's members */
+  onStartDeckSession?: () => void
+  /** True when the current note has child notes via belongsTo (deck parent) */
+  hasDeckMembers?: boolean
   /** If set, shows the due date instead of the Schedule button */
   fsrsDueDate?: string | null
 }
@@ -808,35 +814,99 @@ function BreadcrumbTitleSkeleton() {
 
 function ScheduleForReviewAction({
   onScheduleForReview,
+  onScheduleAsDeck,
+  onStartDeckSession,
+  hasDeckMembers,
   fsrsDueDate,
 }: {
   onScheduleForReview?: () => void
+  onScheduleAsDeck?: () => void
+  onStartDeckSession?: () => void
+  hasDeckMembers?: boolean
   fsrsDueDate?: string | null
 }) {
   if (!onScheduleForReview && !fsrsDueDate) return null
 
   if (fsrsDueDate) {
-    // Already scheduled — show due date pill
+    // Already scheduled — show due date pill with optional "Review Deck" option
     const label = fsrsDueDate === 'today' ? 'Due today' : `Due ${fsrsDueDate}`
     return (
-      <ActionTooltip copy={{ label: 'FSRS: next review date' }} side="bottom">
-        <button
-          type="button"
-          onClick={onScheduleForReview}
-          className={cn(
-            'flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium',
-            'bg-violet-500/10 text-violet-500 border border-violet-500/20',
-            'hover:bg-violet-500/20 transition-colors cursor-pointer',
-          )}
-          aria-label={label}
-        >
-          <Cards size={12} weight="fill" />
-          <span>{label}</span>
-        </button>
-      </ActionTooltip>
+      <div className="flex items-center gap-1">
+        <ActionTooltip copy={{ label: 'FSRS: next review date' }} side="bottom">
+          <button
+            type="button"
+            onClick={onScheduleForReview}
+            className={cn(
+              'flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium',
+              'bg-violet-500/10 text-violet-500 border border-violet-500/20',
+              'hover:bg-violet-500/20 transition-colors cursor-pointer',
+            )}
+            aria-label={label}
+          >
+            <Cards size={12} weight="fill" />
+            <span>{label}</span>
+          </button>
+        </ActionTooltip>
+        {hasDeckMembers && onStartDeckSession && (
+          <ActionTooltip copy={{ label: 'Review Deck — study all due notes in this deck' }} side="bottom">
+            <button
+              type="button"
+              onClick={onStartDeckSession}
+              data-testid="breadcrumb-review-deck"
+              className={cn(
+                'flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium',
+                'bg-violet-600/20 text-violet-400 border border-violet-500/30',
+                'hover:bg-violet-600/30 transition-colors cursor-pointer',
+              )}
+              aria-label="Review Deck"
+            >
+              <span>📚 Review Deck</span>
+            </button>
+          </ActionTooltip>
+        )}
+      </div>
     )
   }
 
+  // Not yet scheduled — show Schedule / Schedule as Deck
+  if (hasDeckMembers && onScheduleAsDeck) {
+    // Note has children via belongsTo: show dropdown with two options
+    return (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            type="button"
+            variant="ghost"
+            size="xs"
+            className="h-auto gap-1 px-2 py-1 text-[11px] text-muted-foreground hover:text-foreground border border-dashed border-border hover:border-foreground/30 transition-colors"
+            aria-label="Schedule options"
+            data-testid="breadcrumb-schedule-review"
+          >
+            <Cards size={13} />
+            <span>Schedule</span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-52">
+          <DropdownMenuItem onClick={onScheduleForReview}>
+            <Cards size={14} className="mr-2 text-muted-foreground" />
+            <div>
+              <div className="text-xs font-medium">This note only</div>
+              <div className="text-[10px] text-muted-foreground">Enable FSRS on this note</div>
+            </div>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={onScheduleAsDeck}>
+            <span className="mr-2 text-sm">📚</span>
+            <div>
+              <div className="text-xs font-medium">Schedule as Deck</div>
+              <div className="text-[10px] text-muted-foreground">Enable FSRS on all member notes</div>
+            </div>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    )
+  }
+
+  // Simple single-action button
   return (
     <ActionTooltip copy={{ label: 'Schedule note for spaced repetition review' }} side="bottom">
       <Button
@@ -879,6 +949,9 @@ function BreadcrumbActions({
   onUnarchive,
   onEnterNeighborhood,
   onScheduleForReview,
+  onScheduleAsDeck,
+  onStartDeckSession,
+  hasDeckMembers,
   fsrsDueDate,
   actionsRef,
   overflowCollapsed,
@@ -896,6 +969,9 @@ function BreadcrumbActions({
     >
       <ScheduleForReviewAction
         onScheduleForReview={onScheduleForReview}
+        onScheduleAsDeck={onScheduleAsDeck}
+        onStartDeckSession={onStartDeckSession}
+        hasDeckMembers={hasDeckMembers}
         fsrsDueDate={fsrsDueDate}
       />
       <FavoriteAction favorite={entry.favorite} locale={locale} onToggleFavorite={onToggleFavorite} />

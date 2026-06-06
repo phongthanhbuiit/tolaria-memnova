@@ -1,8 +1,8 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
-  "productName": "Tolaria",
+  "productName": "tolaria-memnova",
   "version": "0.1.0",
-  "identifier": "club.refactoring.tolaria",
+  "identifier": "club.refactoring.tolaria-memnova",
   "build": {
     "frontendDist": "../dist",
     "devUrl": "http://localhost:5202",
@@ -80,7 +80,7 @@
     },
     "updater": {
       "endpoints": [
-        "https://refactoringhq.github.io/tolaria/stable/latest.json"
+        "https://phongthanhbuiit.github.io/tolaria-memnova/stable/latest.json"
       ],
       "windows": {
         "installMode": "passive"

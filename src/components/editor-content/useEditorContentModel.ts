@@ -57,6 +57,11 @@ export interface EditorContentProps {
   isConflicted?: boolean
   onKeepMine?: (path: string) => void
   onKeepTheirs?: (path: string) => void
+  onScheduleForReview?: () => void
+  onScheduleAsDeck?: () => void
+  onStartDeckSession?: () => void
+  hasDeckMembers?: boolean
+  fsrsDueDate?: string | null
   locale?: AppLocale
 }
 

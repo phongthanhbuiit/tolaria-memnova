@@ -44,6 +44,11 @@ type BreadcrumbActions = Pick<
   | 'onRenameFilename'
   | 'noteWidth'
   | 'onToggleNoteWidth'
+  | 'onScheduleForReview'
+  | 'onScheduleAsDeck'
+  | 'onStartDeckSession'
+  | 'hasDeckMembers'
+  | 'fsrsDueDate'
 >
 
 const LOADING_BREADCRUMB_ENTRY: VaultEntry = {
@@ -213,6 +218,11 @@ function ActiveTabBreadcrumb({
       onRenameFilename={actions.onRenameFilename}
       noteWidth={actions.noteWidth}
       onToggleNoteWidth={actions.onToggleNoteWidth}
+      onScheduleForReview={actions.onScheduleForReview}
+      onScheduleAsDeck={actions.onScheduleAsDeck}
+      onStartDeckSession={actions.onStartDeckSession}
+      hasDeckMembers={actions.hasDeckMembers}
+      fsrsDueDate={actions.fsrsDueDate}
       locale={locale}
     />
   )
@@ -280,6 +290,11 @@ function buildBreadcrumbActions(model: EditorContentModel): BreadcrumbActions {
     onRenameFilename: model.onRenameFilename,
     noteWidth: model.noteWidth,
     onToggleNoteWidth: model.onToggleNoteWidth,
+    onScheduleForReview: model.onScheduleForReview,
+    onScheduleAsDeck: model.onScheduleAsDeck,
+    onStartDeckSession: model.onStartDeckSession,
+    hasDeckMembers: model.hasDeckMembers,
+    fsrsDueDate: model.fsrsDueDate,
   }
 }
 

@@ -96,7 +96,7 @@ export function formatSearchSubtitle(
   return parts.join(' \u00b7 ')
 }
 
-function refMatchesEntry(ref: string, entry: VaultEntry): boolean {
+export function refMatchesEntry(ref: string, entry: VaultEntry): boolean {
   const target = wikilinkTarget(ref).trim()
   if (!target) return false
 

@@ -5,8 +5,8 @@ use tauri_plugin_updater::UpdaterExt;
 
 const ALPHA_METADATA_ASSET_NAME: &str = "alpha-latest.json";
 const GITHUB_RELEASES_API_URL: &str =
-    "https://api.github.com/repos/refactoringhq/tolaria/releases?per_page=100";
-const RELEASES_BASE_URL: &str = "https://refactoringhq.github.io/tolaria";
+    "https://api.github.com/repos/phongthanhbuiit/tolaria-memnova/releases?per_page=100";
+const RELEASES_BASE_URL: &str = "https://phongthanhbuiit.github.io/tolaria-memnova";
 const UPDATER_HTTP_TIMEOUT: Duration = Duration::from_secs(5);
 const UPDATER_USER_AGENT: &str = concat!("Tolaria/", env!("CARGO_PKG_VERSION"));
 
@@ -297,11 +297,11 @@ mod tests {
     fn release_channel_endpoints_match_expected_paths() {
         assert_eq!(
             ReleaseChannel::Alpha.updater_endpoint().unwrap().as_str(),
-            "https://refactoringhq.github.io/tolaria/alpha/latest.json"
+            "https://phongthanhbuiit.github.io/tolaria-memnova/alpha/latest.json"
         );
         assert_eq!(
             ReleaseChannel::Stable.updater_endpoint().unwrap().as_str(),
-            "https://refactoringhq.github.io/tolaria/stable/latest.json"
+            "https://phongthanhbuiit.github.io/tolaria-memnova/stable/latest.json"
         );
     }
 

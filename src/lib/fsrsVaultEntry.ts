@@ -21,6 +21,7 @@ import {
   type FSRSState,
 } from './fsrs'
 import type { VaultEntry, VaultPropertyValue } from '../types'
+import { refMatchesEntry } from '../utils/noteListHelpers'
 
 // ---------------------------------------------------------------------------
 // FSRS frontmatter field names
@@ -209,4 +210,47 @@ export function getInitialFSRSPatch(): Record<string, string | number | boolean 
     [FSRS_FIELD.lapses]: fresh.lapses,
     [FSRS_FIELD.lastReview]: fresh.lastReview,
   }
+}
+
+/**
+ * Collect all vault entries that are members of the deck rooted at `root`.
+ *
+ * A note is a deck member if its `belongsTo` field references `root` (or any
+ * descendant of `root` that is itself a member). The root entry itself is NOT
+ * included in the result.
+ *
+ * Uses BFS + a visited-path Set to prevent infinite loops from circular
+ * belongsTo references.
+ *
+ * Design note: only `belongsTo` determines deck membership. Body wikilinks
+ * (`outgoingLinks`) are intentionally ignored — they are content references,
+ * not structural deck relationships.
+ */
+export function collectDeckMembers(
+  root: VaultEntry,
+  allEntries: VaultEntry[],
+): VaultEntry[] {
+  const visited = new Set<string>()
+  visited.add(root.path)
+
+  const result: VaultEntry[] = []
+  const queue: VaultEntry[] = [root]
+
+  while (queue.length > 0) {
+    const current = queue.shift()!
+
+    const children = allEntries.filter(
+      (e) =>
+        !visited.has(e.path) &&
+        e.belongsTo.some((ref) => refMatchesEntry(ref, current)),
+    )
+
+    for (const child of children) {
+      visited.add(child.path)
+      result.push(child)
+      queue.push(child)
+    }
+  }
+
+  return result
 }

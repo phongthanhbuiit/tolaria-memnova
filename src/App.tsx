@@ -137,7 +137,7 @@ import {
 import './App.css'
 import { useFlashcardSession } from './hooks/useFlashcardSession'
 import { FlashcardStudyView } from './components/FlashcardStudyView'
-import { getDueReviewCount } from './lib/fsrsVaultEntry'
+import { getDueReviewCount, isFSRSEnabled, getFSRSCard, collectDeckMembers, isFSRSEntryDue } from './lib/fsrsVaultEntry'
 
 // Type declarations for mock content storage and test overrides
 declare global {
@@ -1407,6 +1407,44 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
     [visibleEntries],
   )
 
+  const fsrsDueDate = useMemo(() => {
+    const activeEntry = activeTab?.entry
+    if (!activeEntry || !isFSRSEnabled(activeEntry)) return null
+    const card = getFSRSCard(activeEntry)
+    const dueTime = new Date(card.due).getTime()
+    const todayEnd = new Date()
+    todayEnd.setHours(23, 59, 59, 999)
+    if (dueTime <= todayEnd.getTime()) {
+      return 'today'
+    }
+    return card.due.split('T')[0]
+  }, [activeTab?.entry])
+
+  const hasDeckMembers = useMemo(() => {
+    const activeEntry = activeTab?.entry
+    if (!activeEntry) return false
+    return collectDeckMembers(activeEntry, visibleEntries).length > 0
+  }, [activeTab?.entry, visibleEntries])
+
+  const handleScheduleForReview = useCallback(async (scope: 'self' | 'deck' = 'self') => {
+    const activeEntry = activeTab?.entry
+    if (activeEntry) {
+      await flashcardSession.scheduleForReview(activeEntry, scope)
+    }
+  }, [activeTab?.entry, flashcardSession])
+
+  const handleStartDeckSession = useCallback(() => {
+    const activeEntry = activeTab?.entry
+    if (!activeEntry) return
+    const members = collectDeckMembers(activeEntry, visibleEntries)
+    const hasDue = members.some((m) => isFSRSEntryDue(m))
+    if (hasDue) {
+      flashcardSession.startSession(activeEntry)
+    } else {
+      flashcardSession.startSession()
+    }
+  }, [activeTab?.entry, visibleEntries, flashcardSession])
+
   // Update the ref after each render so handleSetSelection (empty-deps useCallback)
   // always calls the latest startSession. Updating a ref inside useEffect is allowed.
   useEffect(() => {
@@ -1705,6 +1743,11 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
               flushPendingEditorContentRef={flushPendingEditorContentRef}
               flushPendingRawContentRef={flushPendingRawContentRef}
               onToast={setToastMessage}
+              onScheduleForReview={() => handleScheduleForReview('self')}
+              onScheduleAsDeck={() => handleScheduleForReview('deck')}
+              onStartDeckSession={handleStartDeckSession}
+              hasDeckMembers={hasDeckMembers}
+              fsrsDueDate={fsrsDueDate}
               locale={appLocale}
             />
           </div>
@@ -1714,6 +1757,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
         {flashcardSession.isActive && (
           <FlashcardStudyView
             entries={flashcardSession.dueEntries}
+            deckName={flashcardSession.deckRoot?.title ?? undefined}
             onRate={flashcardSession.handleRate}
             onClose={flashcardSession.endSession}
           />
