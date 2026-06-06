@@ -56,8 +56,7 @@ pub async fn append_fsrs_review(
 
     // Ensure parent directory exists
     if let Some(parent) = log_path.parent() {
-        fs::create_dir_all(parent)
-            .map_err(|e| format!("Failed to create log directory: {e}"))?;
+        fs::create_dir_all(parent).map_err(|e| format!("Failed to create log directory: {e}"))?;
     }
 
     let entry = FsrsReviewEntry {

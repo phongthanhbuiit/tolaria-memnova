@@ -8,6 +8,9 @@ function getElementForNode(node: Node | null): Element | null {
 }
 
 function getEditorContainers(): HTMLElement[] {
+  // Guard for environments where document is not available (e.g. deferred timers
+  // firing after jsdom teardown in tests).
+  if (typeof document === 'undefined') return []
   return Array.from(document.querySelectorAll<HTMLElement>(EDITOR_CONTAINER_SELECTOR))
 }
 
