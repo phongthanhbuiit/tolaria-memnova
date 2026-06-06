@@ -1,4 +1,4 @@
-import { Archive, FileText, Tray, Cards } from '@phosphor-icons/react'
+import { Archive, FileText, Tray, House, Brain } from '@phosphor-icons/react'
 import type { SidebarSelection } from '../../types'
 import { isSelectionActive, NavItem } from '../SidebarParts'
 import { translate, type AppLocale } from '../../lib/i18n'
@@ -29,6 +29,12 @@ export function SidebarTopNav({
 }: SidebarTopNavProps) {
   return (
     <div className="border-b border-border" data-testid="sidebar-top-nav" style={{ padding: '4px 6px' }}>
+      <NavItem
+        icon={House}
+        label={translate(locale, 'sidebar.nav.home')}
+        isActive={isSelectionActive(selection, { kind: 'filter', filter: 'home' })}
+        onClick={() => onSelect({ kind: 'filter', filter: 'home' })}
+      />
       {showInbox && (
         <NavItem
           icon={Tray}
@@ -53,20 +59,17 @@ export function SidebarTopNav({
         activeBadgeClassName="bg-primary text-primary-foreground"
         onClick={() => onSelect({ kind: 'filter', filter: 'all' })}
       />
-      {/* Review filter — only shown when there are FSRS-enabled notes */}
-      {(reviewCount > 0 || isSelectionActive(selection, { kind: 'filter', filter: 'review' })) && (
-        <NavItem
-          icon={Cards}
-          label="Review"
-          count={reviewCount}
-          countLoading={loading}
-          isActive={isSelectionActive(selection, { kind: 'filter', filter: 'review' })}
-          badgeClassName="text-violet-500"
-          badgeStyle={{ background: 'hsl(262 83% 58% / 0.12)' }}
-          activeBadgeClassName="bg-violet-600 text-white"
-          onClick={() => onSelect({ kind: 'filter', filter: 'review' })}
-        />
-      )}
+      <NavItem
+        icon={Brain}
+        label={translate(locale, 'sidebar.nav.decks')}
+        count={reviewCount}
+        countLoading={loading}
+        isActive={isSelectionActive(selection, { kind: 'filter', filter: 'decks' })}
+        badgeClassName="text-[var(--accent-purple)]"
+        badgeStyle={{ background: 'var(--accent-purple-light)' }}
+        activeBadgeClassName="bg-[var(--accent-purple)] text-white"
+        onClick={() => onSelect({ kind: 'filter', filter: 'decks' })}
+      />
       <NavItem
         icon={Archive}
         label={translate(locale, 'sidebar.nav.archive')}

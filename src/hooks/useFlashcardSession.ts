@@ -43,6 +43,8 @@ interface UseFlashcardSessionOptions {
   entries: VaultEntry[]
   /** Tolaria's frontmatter update function — updates one key at a time */
   onUpdateFrontmatter: (path: string, key: string, value: FrontmatterValue, options?: Record<string, unknown>) => Promise<void>
+  /** Callback to record XP & update gamification metrics */
+  onRecordReview?: (rating: number, durationMs: number) => number
 }
 
 export interface FlashcardSession {
@@ -59,7 +61,7 @@ export interface FlashcardSession {
   /** Close the study session and clear deck context */
   endSession: () => void
   /** Rate the current card and advance */
-  handleRate: (entry: VaultEntry, rating: FSRSRating) => Promise<void>
+  handleRate: (entry: VaultEntry, rating: FSRSRating, durationMs?: number) => Promise<void>
   /**
    * Enable FSRS on a note.
    * - scope='self' (default): enable only on the given entry.
@@ -72,6 +74,7 @@ export interface FlashcardSession {
 export function useFlashcardSession({
   entries,
   onUpdateFrontmatter,
+  onRecordReview,
 }: UseFlashcardSessionOptions): FlashcardSession {
   const [isActive, setIsActive] = useState(false)
   const [deckRoot, setDeckRoot] = useState<VaultEntry | null>(null)
@@ -121,11 +124,16 @@ export function useFlashcardSession({
   )
 
   const handleRate = useCallback(
-    async (entry: VaultEntry, rating: FSRSRating) => {
+    async (entry: VaultEntry, rating: FSRSRating, durationMs?: number) => {
       const card = getFSRSCard(entry)
       const ratingNow = new Date()
       const result = fsrsSchedule(card, rating, ratingNow)
       const patch = getFSRSFrontmatterPatch(result)
+
+      // Record gamification stats
+      if (onRecordReview) {
+        onRecordReview(rating, durationMs ?? 0)
+      }
 
       // Persist to frontmatter
       await persistFSRSPatch(entry.path, patch)
@@ -138,7 +146,7 @@ export function useFlashcardSession({
         scheduledDays: result.scheduledDays,
       }).catch((err) => console.warn('[FSRS] Failed to append review log:', err))
     },
-    [persistFSRSPatch],
+    [persistFSRSPatch, onRecordReview],
   )
 
   const scheduleForReview = useCallback(

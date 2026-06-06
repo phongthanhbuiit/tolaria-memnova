@@ -14,6 +14,7 @@ import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { invoke } from '@tauri-apps/api/core'
 import { Books, CalendarBlank, Confetti, Sparkle, X } from '@phosphor-icons/react'
+import { Button } from '@/components/ui/button'
 import './EditorTheme.css'
 import {
   BlockNoteViewRaw,
@@ -44,7 +45,7 @@ export interface FlashcardStudyViewProps {
   /** Ordered queue of entries to study */
   entries: VaultEntry[]
   /** Called when user rates the current card */
-  onRate: (entry: VaultEntry, rating: FSRSRating) => void
+  onRate: (entry: VaultEntry, rating: FSRSRating, durationMs?: number) => void
   /** Called when session ends (X button, Escape, or queue exhausted) */
   onClose: () => void
   /** Optional deck name to display in the session header */
@@ -54,10 +55,10 @@ export interface FlashcardStudyViewProps {
 type RatingLabel = { label: string; emoji: string; color: string; key: string }
 
 const RATING_CONFIG: Record<FSRSRating, RatingLabel> = {
-  1: { label: 'Again', emoji: '😰', color: 'bg-red-500/10 text-red-500 border-red-500/30 hover:bg-red-500/20', key: '1' },
-  2: { label: 'Hard', emoji: '😓', color: 'bg-orange-500/10 text-orange-500 border-orange-500/30 hover:bg-orange-500/20', key: '2' },
-  3: { label: 'Good', emoji: '😊', color: 'bg-emerald-500/10 text-emerald-600 border-emerald-500/30 hover:bg-emerald-500/20', key: '3' },
-  4: { label: 'Easy', emoji: '😄', color: 'bg-blue-500/10 text-blue-500 border-blue-500/30 hover:bg-blue-500/20', key: '4' },
+  1: { label: 'Again', emoji: '😰', color: 'bg-[var(--accent-red-light)] text-[var(--accent-red)] border-[var(--accent-red)]/30 hover:bg-[var(--accent-red)]/20', key: '1' },
+  2: { label: 'Hard', emoji: '😓', color: 'bg-[var(--accent-orange-light)] text-[var(--accent-orange)] border-[var(--accent-orange)]/30 hover:bg-[var(--accent-orange)]/20', key: '2' },
+  3: { label: 'Good', emoji: '😊', color: 'bg-[var(--accent-green-light)] text-[var(--accent-green)] border-[var(--accent-green)]/30 hover:bg-[var(--accent-green)]/20', key: '3' },
+  4: { label: 'Easy', emoji: '😄', color: 'bg-[var(--accent-blue-light)] text-[var(--accent-blue)] border-[var(--accent-blue)]/30 hover:bg-[var(--accent-blue)]/20', key: '4' },
 }
 
 // ---------------------------------------------------------------------------
@@ -164,7 +165,7 @@ function ProgressBar({ current, total }: { current: number; total: number }) {
     <div className="flex items-center gap-3">
       <div className="flex-1 h-1.5 rounded-full bg-muted overflow-hidden">
         <div
-          className="h-full rounded-full bg-violet-500 transition-all duration-300"
+          className="h-full rounded-full bg-[var(--accent-purple)] transition-all duration-300"
           style={{ width: `${pct}%` }}
           role="progressbar"
           aria-valuenow={pct}
@@ -180,20 +181,20 @@ function ProgressBar({ current, total }: { current: number; total: number }) {
 function SessionComplete({ onClose }: { onClose: () => void }) {
   return (
     <div className="flex flex-col items-center justify-center gap-6 py-16 text-center">
-      <div className="flex items-center justify-center w-16 h-16 rounded-full bg-violet-500/10">
-        <Confetti size={36} weight="duotone" className="text-violet-500" />
+      <div className="flex items-center justify-center w-16 h-16 rounded-full bg-[var(--accent-purple-light)]">
+        <Confetti size={36} weight="duotone" className="text-[var(--accent-purple)]" />
       </div>
       <div>
         <h2 className="text-xl font-bold mb-2">Session complete!</h2>
         <p className="text-sm text-muted-foreground">All cards reviewed. Great work!</p>
       </div>
-      <button
+      <Button
         type="button"
         onClick={onClose}
-        className="px-6 py-2 rounded-lg bg-violet-600 text-white text-sm font-medium hover:bg-violet-700 transition-colors"
+        className="px-6 py-2 rounded-lg bg-[var(--accent-purple)] text-white text-sm font-medium hover:opacity-90 transition-colors h-auto"
       >
         Done
-      </button>
+      </Button>
     </div>
   )
 }
@@ -211,6 +212,12 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
   const [queueIndex, setQueueIndex] = useState(0)
   const [flipped, setFlipped] = useState(false)
   const [isRating, setIsRating] = useState(false)
+  const cardStartTimeRef = useRef(Date.now())
+
+  useEffect(() => {
+    cardStartTimeRef.current = Date.now()
+  }, [queueIndex])
+
   // Full markdown content loaded on-demand per card
   const [cardContent, setCardContent] = useState<string | null>(null)
   // Left padding read from the breadcrumb-bar element so the portal header
@@ -264,7 +271,8 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
   const handleRate = useCallback(async (rating: FSRSRating) => {
     if (!entry || isRating) return
     setIsRating(true)
-    onRate(entry, rating)
+    const duration = Date.now() - cardStartTimeRef.current
+    onRate(entry, rating, duration)
     setTimeout(() => {
       setQueueIndex((i) => i + 1)
       setFlipped(false)
@@ -314,14 +322,14 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
         className="flex items-center gap-3 border-b border-border shrink-0"
         style={{ padding: `10px 16px 10px ${headerLeftPad}`, minHeight: 52 }}
       >
-        <button
+        <Button
           type="button"
           onClick={onClose}
-          className="rounded-md p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors shrink-0"
+          className="rounded-md p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors shrink-0 h-auto w-auto"
           aria-label="End session"
         >
           <X size={18} />
-        </button>
+        </Button>
         <div className="flex-1 min-w-0">
           <ProgressBar current={queueIndex} total={entries.length} />
           {deckName && (
@@ -354,10 +362,10 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
                     </span>
                     <span className="text-xs text-muted-foreground flex items-center gap-1">
                       {card?.state === 'new'
-                        ? (<><Sparkle size={12} weight="fill" className="text-emerald-500" /> New</>)
+                        ? (<><Sparkle size={12} weight="fill" className="text-[var(--accent-green)]" /> New</>)
                         : card?.state === 'learning'
-                          ? (<><Books size={12} weight="fill" className="text-blue-500" /> Learning</>)
-                          : (<><CalendarBlank size={12} weight="fill" className="text-violet-500" /> {card?.reps ?? 0} reviews</>)}
+                          ? (<><Books size={12} weight="fill" className="text-[var(--accent-blue)]" /> Learning</>)
+                          : (<><CalendarBlank size={12} weight="fill" className="text-[var(--accent-purple)]" /> {card?.reps ?? 0} reviews</>)}
                     </span>
                   </div>
                 )}
@@ -381,19 +389,19 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
                 {!flipped
                   ? (
                       <div className="flex flex-col items-center gap-2 shrink-0 py-2">
-                        <button
+                        <Button
                           type="button"
                           onClick={handleFlip}
                           className={cn(
-                            'px-8 py-3 rounded-xl text-sm font-medium transition-all duration-150',
-                            'bg-violet-600 text-white hover:bg-violet-700 shadow-sm hover:shadow-md',
-                            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500',
+                            'px-8 py-3 rounded-xl text-sm font-medium transition-all duration-150 h-auto',
+                            'bg-[var(--accent-purple)] text-white hover:opacity-90 shadow-sm hover:shadow-md',
+                            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-purple)]',
                           )}
                           data-testid="flashcard-show-answer"
                         >
                           Show answer
-                          <span className="ml-2 text-violet-200 text-xs">[Space]</span>
-                        </button>
+                          <span className="ml-2 text-[var(--accent-purple-light)] text-xs">[Space]</span>
+                        </Button>
                         <p className="text-[10px] text-muted-foreground">
                           Rate after revealing — 1 Again · 2 Hard · 3 Good · 4 Easy
                         </p>
@@ -417,13 +425,13 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
                             const cfg = RATING_CONFIG[r]
                             const interval = intervals ? formatInterval(intervals[r]) : '…'
                             return (
-                              <button
+                              <Button
                                 key={r}
                                 type="button"
                                 onClick={() => handleRate(r)}
                                 disabled={isRating}
                                 className={cn(
-                                  'flex flex-col items-center gap-1 py-3 px-2 rounded-xl border text-sm font-medium',
+                                  'flex flex-col items-center gap-1 py-3 px-2 rounded-xl border text-sm font-medium h-auto',
                                   'transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed',
                                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
                                   cfg.color,
@@ -435,7 +443,7 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
                                 <span className="font-semibold">{cfg.label}</span>
                                 <span className="text-xs opacity-70">{interval}</span>
                                 <span className="text-[10px] opacity-50">[{cfg.key}]</span>
-                              </button>
+                              </Button>
                             )
                           })}
                         </div>

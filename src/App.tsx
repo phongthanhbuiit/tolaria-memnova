@@ -138,6 +138,9 @@ import './App.css'
 import { useFlashcardSession } from './hooks/useFlashcardSession'
 import { FlashcardStudyView } from './components/FlashcardStudyView'
 import { getDueReviewCount, isFSRSEnabled, getFSRSCard, collectDeckMembers, isFSRSEntryDue } from './lib/fsrsVaultEntry'
+import { useStats } from './hooks/useStats'
+import { HomePage } from './components/HomePage'
+import { DecksPage } from './components/DecksPage'
 
 // Type declarations for mock content storage and test overrides
 declare global {
@@ -1394,12 +1397,15 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
     void notes.handleRedo()
   }, [notes])
 
+  const statsManager = useStats()
+
   // ── FSRS Flashcard Session ────────────────────────────────────────────────
   // Must be declared BEFORE useAppCommands so flashcardSession is initialized
   // when referenced in the onStartReview prop.
   const flashcardSession = useFlashcardSession({
     entries: visibleEntries,
     onUpdateFrontmatter: notes.handleUpdateFrontmatter,
+    onRecordReview: statsManager.recordReview,
   })
 
   const reviewCount = useMemo(
@@ -1657,100 +1663,126 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
               <ResizeHandle onResize={layout.handleSidebarResize} />
             </>
           )}
-          {noteListVisible && (
+          {effectiveSelection.kind === 'filter' && (effectiveSelection.filter === 'home' || effectiveSelection.filter === 'decks') ? (
+            <div className="app__dashboard flex-1 overflow-y-auto bg-background">
+              {effectiveSelection.filter === 'home' ? (
+                <HomePage
+                  stats={statsManager.stats}
+                  level={statsManager.level}
+                  currentLevelXP={statsManager.currentLevelXP}
+                  nextLevelXP={statsManager.nextLevelXP}
+                  duePercent={statsManager.duePercent}
+                  entries={visibleEntries}
+                  onStartReview={() => flashcardSession.startSession()}
+                  onNavigate={handleSetSelection}
+                  locale={appLocale}
+                />
+              ) : (
+                <DecksPage
+                  entries={visibleEntries}
+                  onStartStudyDeck={(deck) => flashcardSession.startSession(deck)}
+                  locale={appLocale}
+                />
+              )}
+            </div>
+          ) : (
             <>
-              <div className={`app__note-list${aiActivity.highlightElement === 'notelist' ? ' ai-highlight' : ''}`} style={{ width: layout.noteListWidth }}>
-                {effectiveSelection.kind === 'filter' && effectiveSelection.filter === 'pulse' ? (
-                  <PulseView vaultPath={gitSurfaces.historyRepositoryPath} onOpenNote={handlePulseOpenNote} sidebarCollapsed={!sidebarVisible} onExpandSidebar={() => handleSetViewMode('all')} repositories={gitRepositories} selectedRepositoryPath={gitSurfaces.historyRepositoryPath} onRepositoryChange={gitSurfaces.setHistoryRepositoryPath} locale={appLocale} />
-                ) : (
-                  <NoteList entries={visibleEntries} selection={effectiveSelection} selectedNote={activeTab?.entry ?? null} loading={isVaultContentLoading} noteListFilter={noteListFilter} onNoteListFilterChange={setNoteListFilter} inboxPeriod={inboxPeriod} modifiedFiles={noteListModifiedFiles} modifiedFilesError={noteListModifiedFilesError} gitRepositories={gitRepositories} selectedGitRepositoryPath={gitSurfaces.changesRepositoryPath} onGitRepositoryChange={gitSurfaces.setChangesRepositoryPath} getNoteStatus={vault.getNoteStatus} sidebarCollapsed={!sidebarVisible} onSelectNote={notes.handleSelectNote} onReplaceActiveTab={handleReplaceActiveTabWithQueuedDiff} onEnterNeighborhood={handleEnterNeighborhood} onCreateNote={notes.handleCreateNoteImmediate} onBulkOrganize={explicitOrganizationEnabled ? bulkActions.handleBulkOrganize : undefined} onBulkArchive={bulkActions.handleBulkArchive} onBulkDeletePermanently={deleteActions.handleBulkDeletePermanently} onUpdateTypeSort={notes.handleUpdateFrontmatter} onUpdateViewDefinition={handleUpdateViewDefinition} updateEntry={vault.updateEntry} onOpenInNewWindow={handleOpenEntryInNewWindow} onExportPdf={handleExportNotePdfFromList} onToggleFavorite={entryActions.handleToggleFavorite} onToggleOrganized={explicitOrganizationEnabled ? entryActions.handleToggleOrganized : undefined} onRevealFile={fileActions.revealFile} onCopyFilePath={fileActions.copyFilePath} onDiscardFile={handleDiscardFile} onOpenDeletedNote={handleOpenDeletedNote} allNotesNoteListProperties={vaultConfig.allNotes?.noteListProperties ?? null} onUpdateAllNotesNoteListProperties={handleUpdateAllNotesNoteListProperties} inboxNoteListProperties={vaultConfig.inbox?.noteListProperties ?? null} onUpdateInboxNoteListProperties={handleUpdateInboxNoteListProperties} views={vault.views} visibleNotesRef={visibleNotesRef} allNotesFileVisibility={allNotesFileVisibility} multiSelectionCommandRef={multiSelectionCommandRef} locale={appLocale} />
-                )}
+              {noteListVisible && (
+                <>
+                  <div className={`app__note-list${aiActivity.highlightElement === 'notelist' ? ' ai-highlight' : ''}`} style={{ width: layout.noteListWidth }}>
+                    {effectiveSelection.kind === 'filter' && effectiveSelection.filter === 'pulse' ? (
+                      <PulseView vaultPath={gitSurfaces.historyRepositoryPath} onOpenNote={handlePulseOpenNote} sidebarCollapsed={!sidebarVisible} onExpandSidebar={() => handleSetViewMode('all')} repositories={gitRepositories} selectedRepositoryPath={gitSurfaces.historyRepositoryPath} onRepositoryChange={gitSurfaces.setHistoryRepositoryPath} locale={appLocale} />
+                    ) : (
+                      <NoteList entries={visibleEntries} selection={effectiveSelection} selectedNote={activeTab?.entry ?? null} loading={isVaultContentLoading} noteListFilter={noteListFilter} onNoteListFilterChange={setNoteListFilter} inboxPeriod={inboxPeriod} modifiedFiles={noteListModifiedFiles} modifiedFilesError={noteListModifiedFilesError} gitRepositories={gitRepositories} selectedGitRepositoryPath={gitSurfaces.changesRepositoryPath} onGitRepositoryChange={gitSurfaces.setChangesRepositoryPath} getNoteStatus={vault.getNoteStatus} sidebarCollapsed={!sidebarVisible} onSelectNote={notes.handleSelectNote} onReplaceActiveTab={handleReplaceActiveTabWithQueuedDiff} onEnterNeighborhood={handleEnterNeighborhood} onCreateNote={notes.handleCreateNoteImmediate} onBulkOrganize={explicitOrganizationEnabled ? bulkActions.handleBulkOrganize : undefined} onBulkArchive={bulkActions.handleBulkArchive} onBulkDeletePermanently={deleteActions.handleBulkDeletePermanently} onUpdateTypeSort={notes.handleUpdateFrontmatter} onUpdateViewDefinition={handleUpdateViewDefinition} updateEntry={vault.updateEntry} onOpenInNewWindow={handleOpenEntryInNewWindow} onExportPdf={handleExportNotePdfFromList} onToggleFavorite={entryActions.handleToggleFavorite} onToggleOrganized={explicitOrganizationEnabled ? entryActions.handleToggleOrganized : undefined} onRevealFile={fileActions.revealFile} onCopyFilePath={fileActions.copyFilePath} onDiscardFile={handleDiscardFile} onOpenDeletedNote={handleOpenDeletedNote} allNotesNoteListProperties={vaultConfig.allNotes?.noteListProperties ?? null} onUpdateAllNotesNoteListProperties={handleUpdateAllNotesNoteListProperties} inboxNoteListProperties={vaultConfig.inbox?.noteListProperties ?? null} onUpdateInboxNoteListProperties={handleUpdateInboxNoteListProperties} views={vault.views} visibleNotesRef={visibleNotesRef} allNotesFileVisibility={allNotesFileVisibility} multiSelectionCommandRef={multiSelectionCommandRef} locale={appLocale} />
+                    )}
+                  </div>
+                  <ResizeHandle onResize={layout.handleNoteListResize} />
+                </>
+              )}
+              <div className={`app__editor${aiActivity.highlightElement === 'editor' || aiActivity.highlightElement === 'tab' ? ' ai-highlight' : ''}`}>
+                <Editor
+                  tabs={notes.tabs}
+                  activeTabPath={notes.activeTabPath}
+                  isVaultLoading={isVaultContentLoading}
+                  entries={visibleEntries}
+                  onNavigateWikilink={notes.handleNavigateWikilink}
+                  onLoadDiff={loadDiffForPath}
+                  onLoadDiffAtCommit={loadDiffAtCommitForPath}
+                  pendingCommitDiffRequest={pendingDiffRequest}
+                  onPendingCommitDiffHandled={handlePendingDiffHandled}
+                  getNoteStatus={vault.getNoteStatus}
+                  onCreateNote={notes.handleCreateNoteImmediate}
+                  inspectorCollapsed={layout.inspectorCollapsed}
+                  onToggleInspector={handleToggleInspector}
+                  inspectorWidth={layout.inspectorWidth}
+                  defaultAiAgent={aiAgentPreferences.defaultAiAgent}
+                  defaultAiTarget={aiAgentPreferences.defaultAiTarget}
+                  defaultAiAgentReadiness={aiAgentPreferences.defaultAiAgentReadiness}
+                  defaultAiAgentReady={aiAgentPreferences.defaultAiAgentReady}
+                  onUnsupportedAiPaste={setToastMessage}
+                  onInspectorResize={layout.handleInspectorResize}
+                  inspectorEntry={activeTab?.entry ?? null}
+                  inspectorContent={activeTab?.content ?? null}
+                  gitHistory={gitHistory}
+                  onUpdateFrontmatter={notes.handleUpdateFrontmatter}
+                  onDeleteProperty={notes.handleDeleteProperty}
+                  onAddProperty={notes.handleAddProperty}
+                  onCreateMissingType={handleCreateMissingType}
+                  onCreateAndOpenNote={notes.handleCreateNoteForRelationship}
+                  onChangeWorkspace={activeDeletedFile ? undefined : handleChangeWorkspace}
+                  onInitializeProperties={handleInitializeProperties}
+                  showAIChat={effectiveShowAIChat}
+                  onToggleAIChat={aiFeaturesEnabled ? handleToggleAiWorkspace : undefined}
+                  aiWorkspaceSurface={aiWorkspaceSurface}
+                  vaultPath={activeEditorVaultPath}
+                  vaultPaths={writableVaultPaths}
+                  noteList={aiNoteList}
+                  noteListFilter={aiNoteListFilter}
+                  onToggleFavorite={activeDeletedFile ? undefined : entryActions.handleToggleFavorite}
+                  onToggleOrganized={activeDeletedFile || !explicitOrganizationEnabled ? undefined : toggleOrganizedCommand}
+                  onEnterNeighborhood={activeDeletedFile ? undefined : handleEnterNeighborhood}
+                  onRevealFile={fileActions.revealFile}
+                  onCopyFilePath={fileActions.copyFilePath}
+                  onCopyDeepLink={activeDeletedFile ? undefined : deepLinks.copyEntryDeepLink}
+                  onOpenExternalFile={fileActions.openExternalFile}
+                  onDeleteNote={activeDeletedFile ? undefined : deleteActions.handleDeleteNote}
+                  onArchiveNote={activeDeletedFile ? undefined : entryActions.handleArchiveNote}
+                  onUnarchiveNote={activeDeletedFile ? undefined : entryActions.handleUnarchiveNote}
+                  onContentChange={handleTrackedContentChange}
+                  onSave={handleTrackedSave}
+                  onRenameFilename={activeDeletedFile ? undefined : appSave.handleFilenameRename}
+                  noteWidth={activeNoteWidth}
+                  onToggleNoteWidth={handleToggleNoteWidth}
+                  rawToggleRef={rawToggleRef}
+                  tableOfContentsToggleRef={tableOfContentsToggleRef}
+                  pdfExportRef={pdfExportRef}
+                  findInNoteRef={findInNoteRef}
+                  diffToggleRef={diffToggleRef}
+                  canGoBack={canGoBack}
+                  canGoForward={canGoForward}
+                  onGoBack={handleGoBack}
+                  onGoForward={handleGoForward}
+                  leftPanelsCollapsed={!sidebarVisible && !noteListVisible}
+                  onFileCreated={vaultBridge.handleAgentFileCreated}
+                  onFileModified={vaultBridge.handleAgentFileModified}
+                  onVaultChanged={vaultBridge.handleAgentVaultChanged}
+                  workspaces={inspectorWorkspaces}
+                  isConflicted={conflictFlow.isConflicted}
+                  onKeepMine={conflictFlow.handleKeepMine}
+                  onKeepTheirs={conflictFlow.handleKeepTheirs}
+                  flushPendingEditorContentRef={flushPendingEditorContentRef}
+                  flushPendingRawContentRef={flushPendingRawContentRef}
+                  onToast={setToastMessage}
+                  onScheduleForReview={() => handleScheduleForReview('self')}
+                  onScheduleAsDeck={() => handleScheduleForReview('deck')}
+                  onStartDeckSession={handleStartDeckSession}
+                  hasDeckMembers={hasDeckMembers}
+                  fsrsDueDate={fsrsDueDate}
+                  locale={appLocale}
+                />
               </div>
-              <ResizeHandle onResize={layout.handleNoteListResize} />
             </>
           )}
-          <div className={`app__editor${aiActivity.highlightElement === 'editor' || aiActivity.highlightElement === 'tab' ? ' ai-highlight' : ''}`}>
-            <Editor
-              tabs={notes.tabs}
-              activeTabPath={notes.activeTabPath}
-              isVaultLoading={isVaultContentLoading}
-              entries={visibleEntries}
-              onNavigateWikilink={notes.handleNavigateWikilink}
-              onLoadDiff={loadDiffForPath}
-              onLoadDiffAtCommit={loadDiffAtCommitForPath}
-              pendingCommitDiffRequest={pendingDiffRequest}
-              onPendingCommitDiffHandled={handlePendingDiffHandled}
-              getNoteStatus={vault.getNoteStatus}
-              onCreateNote={notes.handleCreateNoteImmediate}
-              inspectorCollapsed={layout.inspectorCollapsed}
-              onToggleInspector={handleToggleInspector}
-              inspectorWidth={layout.inspectorWidth}
-              defaultAiAgent={aiAgentPreferences.defaultAiAgent}
-              defaultAiTarget={aiAgentPreferences.defaultAiTarget}
-              defaultAiAgentReadiness={aiAgentPreferences.defaultAiAgentReadiness}
-              defaultAiAgentReady={aiAgentPreferences.defaultAiAgentReady}
-              onUnsupportedAiPaste={setToastMessage}
-              onInspectorResize={layout.handleInspectorResize}
-              inspectorEntry={activeTab?.entry ?? null}
-              inspectorContent={activeTab?.content ?? null}
-              gitHistory={gitHistory}
-              onUpdateFrontmatter={notes.handleUpdateFrontmatter}
-              onDeleteProperty={notes.handleDeleteProperty}
-              onAddProperty={notes.handleAddProperty}
-              onCreateMissingType={handleCreateMissingType}
-              onCreateAndOpenNote={notes.handleCreateNoteForRelationship}
-              onChangeWorkspace={activeDeletedFile ? undefined : handleChangeWorkspace}
-              onInitializeProperties={handleInitializeProperties}
-              showAIChat={effectiveShowAIChat}
-              onToggleAIChat={aiFeaturesEnabled ? handleToggleAiWorkspace : undefined}
-              aiWorkspaceSurface={aiWorkspaceSurface}
-              vaultPath={activeEditorVaultPath}
-              vaultPaths={writableVaultPaths}
-              noteList={aiNoteList}
-              noteListFilter={aiNoteListFilter}
-              onToggleFavorite={activeDeletedFile ? undefined : entryActions.handleToggleFavorite}
-              onToggleOrganized={activeDeletedFile || !explicitOrganizationEnabled ? undefined : toggleOrganizedCommand}
-              onEnterNeighborhood={activeDeletedFile ? undefined : handleEnterNeighborhood}
-              onRevealFile={fileActions.revealFile}
-              onCopyFilePath={fileActions.copyFilePath}
-              onCopyDeepLink={activeDeletedFile ? undefined : deepLinks.copyEntryDeepLink}
-              onOpenExternalFile={fileActions.openExternalFile}
-              onDeleteNote={activeDeletedFile ? undefined : deleteActions.handleDeleteNote}
-              onArchiveNote={activeDeletedFile ? undefined : entryActions.handleArchiveNote}
-              onUnarchiveNote={activeDeletedFile ? undefined : entryActions.handleUnarchiveNote}
-              onContentChange={handleTrackedContentChange}
-              onSave={handleTrackedSave}
-              onRenameFilename={activeDeletedFile ? undefined : appSave.handleFilenameRename}
-              noteWidth={activeNoteWidth}
-              onToggleNoteWidth={handleToggleNoteWidth}
-              rawToggleRef={rawToggleRef}
-              tableOfContentsToggleRef={tableOfContentsToggleRef}
-              pdfExportRef={pdfExportRef}
-              findInNoteRef={findInNoteRef}
-              diffToggleRef={diffToggleRef}
-              canGoBack={canGoBack}
-              canGoForward={canGoForward}
-              onGoBack={handleGoBack}
-              onGoForward={handleGoForward}
-              leftPanelsCollapsed={!sidebarVisible && !noteListVisible}
-              onFileCreated={vaultBridge.handleAgentFileCreated}
-              onFileModified={vaultBridge.handleAgentFileModified}
-              onVaultChanged={vaultBridge.handleAgentVaultChanged}
-              workspaces={inspectorWorkspaces}
-              isConflicted={conflictFlow.isConflicted}
-              onKeepMine={conflictFlow.handleKeepMine}
-              onKeepTheirs={conflictFlow.handleKeepTheirs}
-              flushPendingEditorContentRef={flushPendingEditorContentRef}
-              flushPendingRawContentRef={flushPendingRawContentRef}
-              onToast={setToastMessage}
-              onScheduleForReview={() => handleScheduleForReview('self')}
-              onScheduleAsDeck={() => handleScheduleForReview('deck')}
-              onStartDeckSession={handleStartDeckSession}
-              hasDeckMembers={hasDeckMembers}
-              fsrsDueDate={fsrsDueDate}
-              locale={appLocale}
-            />
-          </div>
         </div>
         <UpdateBanner status={updateStatus} actions={updateActions} locale={appLocale} />
         {/* FSRS Study Session overlay */}

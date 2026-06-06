@@ -974,12 +974,12 @@ describe('Sidebar', () => {
     expect(mondaySections).toHaveLength(1)
   })
 
-  it('renders Inbox as the first item in the top nav', () => {
+  it('renders Inbox in the top nav', () => {
     render(<Sidebar entries={[]} selection={defaultSelection} onSelect={() => {}} inboxCount={5} />)
     const topNav = screen.getByTestId('sidebar-top-nav')
     const items = topNav.children
-    expect(items[0].textContent).toContain('Inbox')
-    expect(items[1].textContent).toContain('All Notes')
+    expect(items[1].textContent).toContain('Inbox')
+    expect(items[2].textContent).toContain('All Notes')
   })
 
   it('displays inbox count badge', () => {
@@ -998,7 +998,7 @@ describe('Sidebar', () => {
     render(<Sidebar entries={[]} selection={defaultSelection} onSelect={() => {}} showInbox={false} inboxCount={3} />)
     expect(screen.queryByText('Inbox')).not.toBeInTheDocument()
     const topNav = screen.getByTestId('sidebar-top-nav')
-    expect(topNav.children[0].textContent).toContain('All Notes')
+    expect(topNav.children[1].textContent).toContain('All Notes')
   })
 
   it('excludes attachments-folder markdown from top-nav note totals', () => {
@@ -1079,8 +1079,8 @@ describe('Sidebar', () => {
     render(<Sidebar entries={entries} selection={defaultSelection} onSelect={() => {}} />)
 
     const topNav = screen.getByTestId('sidebar-top-nav')
-    expect(topNav.children[1].textContent).toContain('All Notes1')
-    expect(topNav.children[2].textContent).toContain('Archive1')
+    expect(topNav.children[2].textContent).toContain('All Notes1')
+    expect(topNav.children[4].textContent).toContain('Archive1')
   })
 
   it('does not show inline entries — no child items in type sections', () => {
