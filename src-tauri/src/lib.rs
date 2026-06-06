@@ -571,7 +571,8 @@ macro_rules! app_invoke_handler {
             commands::save_view_cmd,
             commands::delete_view_cmd,
             vault_watcher::start_vault_watcher,
-            vault_watcher::stop_vault_watcher
+            vault_watcher::stop_vault_watcher,
+            commands::append_fsrs_review
         ]
     };
 }
