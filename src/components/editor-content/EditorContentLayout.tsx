@@ -10,6 +10,8 @@ import { ArchivedNoteBanner } from '../ArchivedNoteBanner'
 import { ConflictNoteBanner } from '../ConflictNoteBanner'
 import { RawEditorView } from '../RawEditorView'
 import { SingleEditorView } from '../SingleEditorView'
+import { FlashcardEditorTabs } from '../FlashcardEditorTabs'
+import { useFlashcardEditorFace } from '../../hooks/useFlashcardEditorFace'
 import type { useEditorContentModel } from './useEditorContentModel'
 
 type EditorContentModel = ReturnType<typeof useEditorContentModel>
@@ -360,6 +362,7 @@ function EditorCanvas({
   cssVars,
   editor,
   activeTab,
+  editorDisplayContent,
   entries,
   onNavigateWikilink,
   onEditorChange,
@@ -378,8 +381,15 @@ function EditorCanvas({
   | 'isDeletedPreview'
   | 'vaultPath'
   | 'locale'
->) {
+> & { editorDisplayContent?: string | null }) {
   if (!showEditor) return null
+
+  // Build a synthetic tab for the face we're displaying.
+  // If editorDisplayContent is provided (flashcard face slice), we override
+  // the tab's content so BlockNote renders only that portion.
+  const displayTab = activeTab && editorDisplayContent != null
+    ? { ...activeTab, content: editorDisplayContent }
+    : activeTab
 
   return (
     <EditorFindScope
@@ -392,7 +402,7 @@ function EditorCanvas({
           entries={entries}
           onNavigateWikilink={onNavigateWikilink}
           onChange={onEditorChange}
-          sourceEntry={activeTab?.entry ?? null}
+          sourceEntry={displayTab?.entry ?? null}
           vaultPath={vaultPath}
           editable={!isDeletedPreview}
           locale={locale}
@@ -469,6 +479,14 @@ export function EditorContentLayout(model: EditorContentModel) {
     locale,
     isVaultLoading,
   } = model
+
+  // ── Flashcard tab state ──────────────────────────────────────────────────
+  const flashcard = useFlashcardEditorFace({
+    entry: activeTab?.entry ?? null,
+    fullContent: activeTab?.content ?? '',
+    onContentChange: onRawContentChange ?? (() => {}),
+  })
+
   const rootClassName = cn(
     'flex flex-1 flex-col min-w-0 min-h-0',
     noteWidth === 'wide' ? 'editor-content-width--wide' : 'editor-content-width--normal',
@@ -491,6 +509,15 @@ export function EditorContentLayout(model: EditorContentModel) {
         isVaultLoading={isVaultLoading}
         locale={locale}
       />
+      {/* Flashcard tab bar — only shown when FSRS is enabled on the active note */}
+      {showActiveContent && flashcard.isFSRS && !effectiveRawMode && !diffMode && (
+        <FlashcardEditorTabs
+          activeFace={flashcard.activeFace}
+          hasBack={flashcard.hasBack}
+          onChangeFace={flashcard.setActiveFace}
+          onAddBack={flashcard.handleAddBack}
+        />
+      )}
       {showActiveContent && (
         <>
           <EditorChrome
@@ -521,6 +548,11 @@ export function EditorContentLayout(model: EditorContentModel) {
             showEditor={showEditor}
             cssVars={cssVars}
             activeTab={activeTab}
+            editorDisplayContent={
+              flashcard.isFSRS && !effectiveRawMode
+                ? flashcard.editorContent
+                : null
+            }
             vaultPath={vaultPath}
             editor={editor}
             entries={entries}

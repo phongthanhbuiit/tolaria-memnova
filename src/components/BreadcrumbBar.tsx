@@ -34,6 +34,7 @@ import {
   ArrowsInLineHorizontal,
   ArrowsOutLineHorizontal,
   DotsThree,
+  Cards,
 } from '@phosphor-icons/react'
 import { slugify } from '../hooks/useNoteCreation'
 import { useDragRegion } from '../hooks/useDragRegion'
@@ -73,6 +74,10 @@ interface BreadcrumbBarProps {
   locale?: AppLocale
   loadingTitle?: boolean
   content?: string | null
+  /** Called to enable FSRS scheduling on this note (sets _fsrs_enabled: true) */
+  onScheduleForReview?: () => void
+  /** If set, shows the due date instead of the Schedule button */
+  fsrsDueDate?: string | null
 }
 
 const BREADCRUMB_ICON_CLASS = 'size-[16px]'
@@ -801,6 +806,55 @@ function BreadcrumbTitleSkeleton() {
   )
 }
 
+function ScheduleForReviewAction({
+  onScheduleForReview,
+  fsrsDueDate,
+}: {
+  onScheduleForReview?: () => void
+  fsrsDueDate?: string | null
+}) {
+  if (!onScheduleForReview && !fsrsDueDate) return null
+
+  if (fsrsDueDate) {
+    // Already scheduled — show due date pill
+    const label = fsrsDueDate === 'today' ? 'Due today' : `Due ${fsrsDueDate}`
+    return (
+      <ActionTooltip copy={{ label: 'FSRS: next review date' }} side="bottom">
+        <button
+          type="button"
+          onClick={onScheduleForReview}
+          className={cn(
+            'flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium',
+            'bg-violet-500/10 text-violet-500 border border-violet-500/20',
+            'hover:bg-violet-500/20 transition-colors cursor-pointer',
+          )}
+          aria-label={label}
+        >
+          <Cards size={12} weight="fill" />
+          <span>{label}</span>
+        </button>
+      </ActionTooltip>
+    )
+  }
+
+  return (
+    <ActionTooltip copy={{ label: 'Schedule note for spaced repetition review' }} side="bottom">
+      <Button
+        type="button"
+        variant="ghost"
+        size="xs"
+        className="h-auto gap-1 px-2 py-1 text-[11px] text-muted-foreground hover:text-foreground border border-dashed border-border hover:border-foreground/30 transition-colors"
+        onClick={onScheduleForReview}
+        aria-label="Schedule for review"
+        data-testid="breadcrumb-schedule-review"
+      >
+        <Cards size={13} />
+        <span>Schedule</span>
+      </Button>
+    </ActionTooltip>
+  )
+}
+
 function BreadcrumbActions({
   entry,
   showDiffToggle,
@@ -824,6 +878,8 @@ function BreadcrumbActions({
   onArchive,
   onUnarchive,
   onEnterNeighborhood,
+  onScheduleForReview,
+  fsrsDueDate,
   actionsRef,
   overflowCollapsed,
   locale = 'en',
@@ -838,6 +894,10 @@ function BreadcrumbActions({
       data-overflow-collapsed={overflowCollapsed}
       style={{ gap: 8 }}
     >
+      <ScheduleForReviewAction
+        onScheduleForReview={onScheduleForReview}
+        fsrsDueDate={fsrsDueDate}
+      />
       <FavoriteAction favorite={entry.favorite} locale={locale} onToggleFavorite={onToggleFavorite} />
       <OrganizedAction organized={entry.organized} locale={locale} onToggleOrganized={onToggleOrganized} />
       <OverflowToolbarAction>

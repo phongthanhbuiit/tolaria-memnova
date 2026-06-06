@@ -136,6 +136,10 @@ interface CommandRegistryConfig {
   selection?: SidebarSelection
   noteListFilter?: NoteListFilter
   onSetNoteListFilter?: (filter: NoteListFilter) => void
+  /** Opens FSRS study session from command palette */
+  onStartReview?: () => void
+  /** Number of flashcards due today */
+  reviewCount?: number
 }
 
 function currentFolderCreateOptions(selection: SidebarSelection | undefined): ImmediateCreateOptions | undefined {
@@ -176,6 +180,8 @@ export function useCommandRegistry(config: CommandRegistryConfig): import('./com
     gitFeaturesEnabled, isGitVault, gitRepositories, onInitializeGit, onPullRepository,
   } = config
 
+  const { onStartReview, reviewCount = 0 } = config
+
   const hasActiveNote = activeTabPath !== null
 
   const activeEntry = useMemo(
@@ -207,10 +213,13 @@ export function useCommandRegistry(config: CommandRegistryConfig): import('./com
     onGoForward,
     canGoBack,
     canGoForward,
+    onStartReview,
+    reviewCount,
   }), [
     onQuickOpen, onSelect, selection, onRenameFolder, onDeleteFolder,
     onRevealSelectedFolder, onCopySelectedFolderPath, showInbox,
     onGoBack, onGoForward, canGoBack, canGoForward,
+    onStartReview, reviewCount,
   ])
 
   const noteCommands = useMemo(() => buildNoteCommands({

@@ -29,6 +29,22 @@ vi.mock('../DiffView', () => ({
   DiffView: () => <div data-testid="diff-view" />,
 }))
 
+vi.mock('../FlashcardEditorTabs', () => ({
+  FlashcardEditorTabs: () => null,
+}))
+
+vi.mock('../../hooks/useFlashcardEditorFace', () => ({
+  useFlashcardEditorFace: () => ({
+    isFSRS: false,
+    activeFace: 'front' as const,
+    setActiveFace: () => {},
+    editorContent: '',
+    hasBack: false,
+    handleAddBack: () => {},
+    handleEditorContentChange: () => {},
+  }),
+}))
+
 function createModel(overrides: Record<string, unknown> = {}) {
   return {
     activeTab: {

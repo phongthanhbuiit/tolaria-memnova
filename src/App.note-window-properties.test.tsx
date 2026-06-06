@@ -201,6 +201,26 @@ vi.mock('./mock-tauri', () => ({
   updateMockContent: vi.fn(),
 }))
 
+vi.mock('./hooks/useFlashcardSession', () => ({
+  useFlashcardSession: () => ({
+    isActive: false,
+    dueEntries: [],
+    startSession: vi.fn(),
+    endSession: vi.fn(),
+    handleRate: vi.fn(),
+    reviewCount: 0,
+  }),
+}))
+
+vi.mock('./components/FlashcardStudyView', () => ({
+  FlashcardStudyView: () => null,
+}))
+
+vi.mock('./lib/fsrsVaultEntry', async () => {
+  const actual = await vi.importActual<typeof import('./lib/fsrsVaultEntry')>('./lib/fsrsVaultEntry')
+  return { ...actual, getDueReviewCount: () => 0 }
+})
+
 import App from './App'
 
 function renderApp(children: ReactNode) {

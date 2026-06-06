@@ -156,6 +156,22 @@ vi.mock('./tolariaEditorFormatting', () => ({
   TolariaFormattingToolbarController: () => null,
 }))
 
+vi.mock('../hooks/useFlashcardEditorFace', () => ({
+  useFlashcardEditorFace: ({ fullContent }: { fullContent: string }) => ({
+    isFSRS: false,
+    activeFace: 'front' as const,
+    setActiveFace: vi.fn(),
+    editorContent: fullContent,
+    hasBack: false,
+    handleAddBack: vi.fn(),
+    handleEditorContentChange: vi.fn(),
+  }),
+}))
+
+vi.mock('./FlashcardEditorTabs', () => ({
+  FlashcardEditorTabs: () => null,
+}))
+
 import { Editor } from './Editor'
 import type { VaultEntry } from '../types'
 import { bindVaultConfigStore, resetVaultConfigStore } from '../utils/vaultConfigStore'

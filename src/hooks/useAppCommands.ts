@@ -135,6 +135,10 @@ interface AppCommandsConfig {
   noteListColumnsLabel?: string
   onRestoreDeletedNote?: () => void
   canRestoreDeletedNote?: boolean
+  /** Opens FSRS study session from command palette */
+  onStartReview?: () => void
+  /** Number of flashcards due today for command label */
+  reviewCount?: number
 }
 
 type CommandRegistryConfig = Parameters<typeof useCommandRegistry>[0]
@@ -261,6 +265,8 @@ type CommandRegistryNoteActions = Pick<
   | 'canCustomizeNoteListColumns'
   | 'noteListColumnsLabel'
   | 'onExportNoteAsPdf'
+  | 'onStartReview'
+  | 'reviewCount'
 >
 
 function aiFeaturesAreEnabled(config: Pick<AppCommandsConfig, 'aiFeaturesEnabled'>): boolean {
@@ -590,6 +596,8 @@ function createCommandRegistryNoteConfig(
     canCustomizeNoteListColumns: config.canCustomizeNoteListColumns,
     noteListColumnsLabel: config.noteListColumnsLabel,
     onExportNoteAsPdf: config.onExportNoteAsPdf,
+    onStartReview: config.onStartReview,
+    reviewCount: config.reviewCount,
   }
 }
 

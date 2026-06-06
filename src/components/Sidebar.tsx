@@ -67,6 +67,8 @@ interface SidebarProps {
   workspaceOrder?: readonly string[]
   showInbox?: boolean
   inboxCount?: number
+  /** Number of FSRS-enabled notes due for review today */
+  reviewCount?: number
   allNotesFileVisibility?: AllNotesFileVisibility
   pluralizeTypeLabels?: boolean
   locale?: AppLocale
@@ -103,6 +105,7 @@ interface SidebarNavigationProps extends Pick<
   | 'workspaceOrder'
   | 'showInbox'
   | 'inboxCount'
+  | 'reviewCount'
   | 'onCreateNewType'
   | 'locale'
   | 'loading'
@@ -383,6 +386,7 @@ function SidebarTopNavigation(props: SidebarNavigationProps) {
         onSelect={props.onSelect}
         showInbox={props.showInbox ?? true}
         inboxCount={props.inboxCount ?? 0}
+        reviewCount={props.reviewCount ?? 0}
         activeCount={props.activeCount}
         archivedCount={props.archivedCount}
         locale={props.locale ?? 'en'}

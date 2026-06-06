@@ -135,6 +135,9 @@ import {
   shouldPreferOnboardingVaultPath,
 } from './utils/appOrchestration'
 import './App.css'
+import { useFlashcardSession } from './hooks/useFlashcardSession'
+import { FlashcardStudyView } from './components/FlashcardStudyView'
+import { getDueReviewCount } from './lib/fsrsVaultEntry'
 
 // Type declarations for mock content storage and test overrides
 declare global {
@@ -165,6 +168,9 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
   const selectionRef = useRef<SidebarSelection>(DEFAULT_SELECTION)
   const neighborhoodHistoryRef = useRef<SidebarSelection[]>([])
   const inboxPeriod: InboxPeriod = 'all'
+  // Stable ref so handleSetSelection (no deps) can call startSession without
+  // capturing a stale closure.
+  const startReviewRef = useRef<() => void>(() => {})
   const handleSetSelection = useCallback((sel: SidebarSelection, options?: { preserveNeighborhoodHistory?: boolean }) => {
     if (!options?.preserveNeighborhoodHistory && sel.kind !== 'entity') {
       neighborhoodHistoryRef.current = []
@@ -172,6 +178,10 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
     selectionRef.current = sel
     setSelection(sel)
     setNoteListFilter('open')
+    // Open FSRS study session when user clicks "Review" in sidebar
+    if (sel.kind === 'filter' && sel.filter === 'review') {
+      startReviewRef.current()
+    }
   }, [])
   const handleEnterNeighborhood = useNeighborhoodEntry({
     neighborhoodHistoryRef,
@@ -1384,6 +1394,29 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
     void notes.handleRedo()
   }, [notes])
 
+  // ── FSRS Flashcard Session ────────────────────────────────────────────────
+  // Must be declared BEFORE useAppCommands so flashcardSession is initialized
+  // when referenced in the onStartReview prop.
+  const flashcardSession = useFlashcardSession({
+    entries: visibleEntries,
+    onUpdateFrontmatter: notes.handleUpdateFrontmatter,
+  })
+
+  const reviewCount = useMemo(
+    () => getDueReviewCount(visibleEntries, new Date()),
+    [visibleEntries],
+  )
+
+  // Update the ref after each render so handleSetSelection (empty-deps useCallback)
+  // always calls the latest startSession. Updating a ref inside useEffect is allowed.
+  useEffect(() => {
+    startReviewRef.current = () => {
+      if (flashcardSession.dueEntries.length > 0) {
+        flashcardSession.startSession()
+      }
+    }
+  })
+
   const commands = useAppCommands({
     activeTabPath: notes.activeTabPath, activeTabPathRef: notes.activeTabPathRef,
     entries: visibleEntries,
@@ -1483,6 +1516,8 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
     noteListColumnsLabel,
     onRestoreDeletedNote: restoreDeletedNoteCommand,
     canRestoreDeletedNote: !!activeDeletedFile,
+    onStartReview: flashcardSession.dueEntries.length > 0 ? flashcardSession.startSession : undefined,
+    reviewCount,
   })
 
   const {
@@ -1499,6 +1534,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
     tabs: notes.tabs,
     views: vault.views,
   })
+
 
   const handleAiWorkspaceConversationsChange = useCallback((conversations: AiWorkspaceConversationSetting[]) => {
     void saveSettings({ ...settings, ai_workspace_conversations: conversations })
@@ -1578,7 +1614,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
           {sidebarVisible && (
             <>
               <div className="app__sidebar" style={{ width: layout.sidebarWidth }}>
-                <Sidebar entries={visibleEntries} folders={vault.folders} views={vault.views} selection={effectiveSelection} onSelect={handleSetSelection} onSelectNote={notes.handleSelectNote} onSelectFavorite={handleOpenFavorite} onReorderFavorites={entryActions.handleReorderFavorites} onCreateType={notes.handleCreateNoteImmediate} onCreateNewType={dialogs.openCreateType} onCustomizeType={entryActions.handleCustomizeType} onUpdateTypeTemplate={entryActions.handleUpdateTypeTemplate} onReorderSections={entryActions.handleReorderSections} onRenameSection={entryActions.handleRenameSection} onDeleteType={handleDeleteType} onToggleTypeVisibility={entryActions.handleToggleTypeVisibility} onCreateFolder={handleCreateFolder} onRenameFolder={folderActions.renameFolder} onDeleteFolder={folderActions.requestDeleteFolder} folderFileActions={fileActions.folderActions} renamingFolderPath={folderActions.renamingFolderPath} onStartRenameFolder={folderActions.startFolderRename} onCancelRenameFolder={folderActions.cancelFolderRename} onCreateView={dialogs.openCreateView} onEditView={handleEditView} onDeleteView={handleDeleteView} onUpdateViewDefinition={handleSidebarUpdateViewDefinition} onReorderViews={canReorderSavedViews ? viewOrdering.onReorderViews : undefined} showInbox={explicitOrganizationEnabled} inboxCount={inboxCount} allNotesFileVisibility={allNotesFileVisibility} pluralizeTypeLabels={settings.sidebar_type_pluralization_enabled ?? true} onCollapse={handleCollapseSidebar} onGoBack={handleGoBack} onGoForward={handleGoForward} canGoBack={canGoBack} canGoForward={canGoForward} locale={appLocale} loading={isVaultContentLoading} vaultRootPath={resolvedPath} workspaceOrder={vaultWorkspaceOrder} />
+                <Sidebar entries={visibleEntries} folders={vault.folders} views={vault.views} selection={effectiveSelection} onSelect={handleSetSelection} onSelectNote={notes.handleSelectNote} onSelectFavorite={handleOpenFavorite} onReorderFavorites={entryActions.handleReorderFavorites} onCreateType={notes.handleCreateNoteImmediate} onCreateNewType={dialogs.openCreateType} onCustomizeType={entryActions.handleCustomizeType} onUpdateTypeTemplate={entryActions.handleUpdateTypeTemplate} onReorderSections={entryActions.handleReorderSections} onRenameSection={entryActions.handleRenameSection} onDeleteType={handleDeleteType} onToggleTypeVisibility={entryActions.handleToggleTypeVisibility} onCreateFolder={handleCreateFolder} onRenameFolder={folderActions.renameFolder} onDeleteFolder={folderActions.requestDeleteFolder} folderFileActions={fileActions.folderActions} renamingFolderPath={folderActions.renamingFolderPath} onStartRenameFolder={folderActions.startFolderRename} onCancelRenameFolder={folderActions.cancelFolderRename} onCreateView={dialogs.openCreateView} onEditView={handleEditView} onDeleteView={handleDeleteView} onUpdateViewDefinition={handleSidebarUpdateViewDefinition} onReorderViews={canReorderSavedViews ? viewOrdering.onReorderViews : undefined} showInbox={explicitOrganizationEnabled} inboxCount={inboxCount} reviewCount={reviewCount} allNotesFileVisibility={allNotesFileVisibility} pluralizeTypeLabels={settings.sidebar_type_pluralization_enabled ?? true} onCollapse={handleCollapseSidebar} onGoBack={handleGoBack} onGoForward={handleGoForward} canGoBack={canGoBack} canGoForward={canGoForward} locale={appLocale} loading={isVaultContentLoading} vaultRootPath={resolvedPath} workspaceOrder={vaultWorkspaceOrder} />
               </div>
               <ResizeHandle onResize={layout.handleSidebarResize} />
             </>
@@ -1674,6 +1710,14 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
           </div>
         </div>
         <UpdateBanner status={updateStatus} actions={updateActions} locale={appLocale} />
+        {/* FSRS Study Session overlay */}
+        {flashcardSession.isActive && (
+          <FlashcardStudyView
+            entries={flashcardSession.dueEntries}
+            onRate={flashcardSession.handleRate}
+            onClose={flashcardSession.endSession}
+          />
+        )}
         <RenameDetectedBanner renames={detectedRenames} onUpdate={handleUpdateWikilinks} onDismiss={handleDismissRenames} />
         <StatusBar noteCount={visibleEntries.length} modifiedCount={gitModifiedCount} vaultPath={resolvedPath} defaultWorkspacePath={defaultWorkspacePath} vaults={vaultSwitcher.allVaults} multiWorkspaceEnabled={multiWorkspaceEnabled} onSwitchVault={vaultSwitcher.switchVault} onSetDefaultWorkspace={vaultSwitcher.setDefaultWorkspace} onOpenSettings={handleOpenSettings} onOpenVaultSettings={handleOpenVaultSettings} onOpenFeedback={openFeedback} onOpenDocs={openDocs} onOpenLocalFolder={vaultSwitcher.handleOpenLocalFolder} onCreateEmptyVault={vaultSwitcher.handleCreateEmptyVault} onCloneVault={dialogs.openCloneVault} onCloneGettingStarted={cloneGettingStartedVault} onClickPending={() => handleSetSelection({ kind: 'filter', filter: 'changes' })} onClickPulse={() => handleSetSelection({ kind: 'filter', filter: 'pulse' })} onCommitPush={handleCommitPush} commitActionPending={commitFlow.isOpeningCommitDialog} gitFeaturesEnabled={gitFeaturesEnabled} onInitializeGit={openGitSetupDialog} isOffline={networkStatus.isOffline} isGitVault={isGitVault} isVaultReloading={vault.isReloading || isVaultContentLoading} syncStatus={autoSync.syncStatus} lastSyncTime={autoSync.lastSyncTime} conflictCount={autoSync.conflictFiles.length} remoteStatus={autoSync.remoteStatus} repositories={gitRepositories} selectedRepositoryPath={gitSurfaces.syncRepositoryPath} onRepositoryChange={gitSurfaces.setSyncRepositoryPath} onTriggerSync={handlePullSelectedRepository} onPullAndPush={handlePullAndPushSelectedRepository} onOpenConflictResolver={conflictFlow.handleOpenConflictResolver} zoomLevel={zoom.zoomLevel} themeMode={documentThemeMode} onZoomReset={zoom.zoomReset} onToggleThemeMode={settingsLoaded ? handleToggleThemeMode : undefined} buildNumber={buildNumber} onCheckForUpdates={handleCheckForUpdates} onRemoveVault={vaultSwitcher.removeVault} onReorderVaults={vaultSwitcher.reorderVaults} onUpdateWorkspaceIdentity={vaultSwitcher.updateWorkspaceIdentity} aiFeaturesEnabled={aiFeaturesEnabled} mcpStatus={mcpSetupDialog.status} onInstallMcp={mcpSetupDialog.openDialog} locale={appLocale} />
         {aiFeaturesEnabled && !effectiveShowAIChat ? (

@@ -15,6 +15,10 @@ interface NavigationCommandsConfig {
   onGoForward?: () => void
   canGoBack?: boolean
   canGoForward?: boolean
+  /** Opens FSRS study session */
+  onStartReview?: () => void
+  /** Number of cards due today */
+  reviewCount?: number
 }
 
 interface FolderCommandsConfig {
@@ -86,7 +90,22 @@ function buildBaseCommands(config: NavigationCommandsConfig): CommandAction[] {
     onGoForward,
     canGoBack,
     canGoForward,
+    onStartReview,
+    reviewCount = 0,
   } = config
+
+  const reviewLabel = reviewCount > 0
+    ? `Start Review Session (${reviewCount} due)`
+    : 'Start Review Session'
+
+  const reviewCommand: CommandAction = {
+    id: 'start-review-session',
+    label: reviewLabel,
+    group: 'Navigation',
+    keywords: ['fsrs', 'flashcard', 'review', 'study', 'spaced', 'repetition', 'memorize'],
+    enabled: !!onStartReview,
+    execute: () => onStartReview?.(),
+  }
 
   return [
     { id: 'search-notes', label: 'Search Notes', group: 'Navigation', shortcut: getAppCommandShortcutDisplay(APP_COMMAND_IDS.fileQuickOpen), keywords: ['find', 'open', 'quick'], enabled: true, execute: onQuickOpen },
@@ -94,6 +113,7 @@ function buildBaseCommands(config: NavigationCommandsConfig): CommandAction[] {
     { id: 'go-archived', label: 'Go to Archived', group: 'Navigation', keywords: [], enabled: true, execute: () => onSelect({ kind: 'filter', filter: 'archived' }) },
     { id: 'go-changes', label: 'Go to Changes', group: 'Navigation', keywords: ['git', 'modified', 'pending'], enabled: true, execute: () => onSelect({ kind: 'filter', filter: 'changes' }) },
     { id: 'go-pulse', label: 'Go to History', group: 'Navigation', keywords: ['activity', 'history', 'commits', 'git', 'feed'], enabled: true, execute: () => onSelect({ kind: 'filter', filter: 'pulse' }) },
+    reviewCommand,
     { id: 'go-back', label: 'Go Back', group: 'Navigation', shortcut: getAppCommandShortcutDisplay(APP_COMMAND_IDS.viewGoBack), keywords: ['previous', 'history', 'back'], enabled: !!canGoBack, execute: () => onGoBack?.() },
     { id: 'go-forward', label: 'Go Forward', group: 'Navigation', shortcut: getAppCommandShortcutDisplay(APP_COMMAND_IDS.viewGoForward), keywords: ['next', 'history', 'forward'], enabled: !!canGoForward, execute: () => onGoForward?.() },
   ]
