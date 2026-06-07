@@ -37,6 +37,10 @@ import { schema } from './editorSchema'
 import { createArrowLigaturesExtension } from './arrowLigaturesExtension'
 import { createMathInputExtension } from './mathInputExtension'
 import { resolveFlashcardAudioUrl } from '../utils/flashcardAudio'
+import { preProcessDurableEditorMarkdown, injectDurableEditorMarkdownBlocks } from '../utils/editorDurableMarkdown'
+import { resolveImageUrls } from '../utils/vaultImages'
+import { preProcessWikilinks, injectWikilinks } from '../utils/wikilinks'
+import { preProcessMathMarkdown, injectMathInBlocks } from '../utils/mathMarkdown'
 
 // ---------------------------------------------------------------------------
 // Types
@@ -70,7 +74,17 @@ const RATING_CONFIG: Record<FSRSRating, RatingLabel> = {
  * Renders markdown content using the same BlockNote renderer as the main editor,
  * so headings, colors, and all custom styles apply identically.
  */
-function BlockNoteReadOnly({ content }: { content: string }) {
+function BlockNoteReadOnly({
+  content,
+  vaultPath,
+  notePath,
+  onImageClick,
+}: {
+  content: string
+  vaultPath?: string | null
+  notePath?: string
+  onImageClick?: (src: string) => void
+}) {
   const theme = useDocumentThemeMode()
   const { cssVars } = useEditorTheme()
   const editor = useCreateBlockNote({
@@ -94,13 +108,24 @@ function BlockNoteReadOnly({ content }: { content: string }) {
 
     const parseAndSetBlocks = async () => {
       try {
-        const blocks = await Promise.resolve(editor.tryParseMarkdownToBlocks(body))
+        // Preprocess markdown
+        const withDurableBlocks = preProcessDurableEditorMarkdown({ markdown: body })
+        const withImages = vaultPath ? resolveImageUrls(withDurableBlocks, vaultPath, notePath) : withDurableBlocks
+        const withWikilinks = preProcessWikilinks(withImages)
+        const preprocessed = preProcessMathMarkdown({ markdown: withWikilinks })
+
+        const blocks = await Promise.resolve(editor.tryParseMarkdownToBlocks(preprocessed))
 
         if (cancelled) return
 
-        const safeBlocks = blocks && blocks.length > 0
+        let safeBlocks = blocks && blocks.length > 0
           ? blocks
           : [{ type: 'paragraph' as const, content: [] }]
+
+        // Inject custom structures
+        const withWikilinksInBlocks = injectWikilinks(safeBlocks)
+        const withMathInBlocks = injectMathInBlocks(withWikilinksInBlocks)
+        safeBlocks = injectDurableEditorMarkdownBlocks(withMathInBlocks) as typeof safeBlocks
 
         editor.replaceBlocks(editor.document, safeBlocks)
         if (!cancelled) setReady(true)
@@ -115,7 +140,7 @@ function BlockNoteReadOnly({ content }: { content: string }) {
     return () => {
       cancelled = true
     }
-  }, [content, editor])
+  }, [content, editor, vaultPath, notePath])
 
   if (!ready) {
     return (
@@ -124,6 +149,16 @@ function BlockNoteReadOnly({ content }: { content: string }) {
         Loading…
       </div>
     )
+  }
+
+  const handleEditorClick = (e: React.MouseEvent) => {
+    const target = e.target as HTMLElement
+    if (target.tagName === 'IMG') {
+      const src = target.getAttribute('src')
+      if (src && onImageClick) {
+        onImageClick(src)
+      }
+    }
   }
 
   const view = (
@@ -142,8 +177,9 @@ function BlockNoteReadOnly({ content }: { content: string }) {
     // cssVars injects all theme CSS custom properties (--colors-text, --headings-h1-color, etc.)
     // exactly like SingleEditorView does, so EditorTheme.css selectors get the correct values.
     <div
-      className="editor__blocknote-container [&_.bn-editor]:px-0 [&_.bn-editor]:py-0 [&_.bn-block-outer:first-child_.bn-block-content]:pt-0"
+      className="editor__blocknote-container [&_.bn-editor]:px-0 [&_.bn-editor]:py-0 [&_.bn-block-outer:first-child_.bn-block-content]:pt-0 cursor-pointer"
       style={cssVars as React.CSSProperties}
+      onClick={handleEditorClick}
     >
       <MantineProvider
         withCssVariables={false}
@@ -216,6 +252,11 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
   const cardStartTimeRef = useRef(Date.now())
   const [xpFloats, setXpFloats] = useState<{ id: number; x: number; y: number; xp: number }[]>([])
   const xpFloatIdRef = useRef(0)
+  const [lightboxImg, setLightboxImg] = useState<string | null>(null)
+
+  const handleImageClick = useCallback((src: string) => {
+    setLightboxImg(src)
+  }, [])
 
   useEffect(() => {
     cardStartTimeRef.current = Date.now()
@@ -439,7 +480,12 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
                       Loading…
                     </div>
                   ) : (
-                    <BlockNoteReadOnly content={front} />
+                    <BlockNoteReadOnly
+                      content={front}
+                      vaultPath={vaultPath}
+                      notePath={entry.path}
+                      onImageClick={handleImageClick}
+                    />
                   )}
                 </div>
 
@@ -460,7 +506,12 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
                 {/* Back face */}
                 {flipped && hasBack && (
                   <div className="px-8 py-6 bg-muted/20 border-t border-border/30 animate-in fade-in slide-in-from-bottom-2 duration-300" aria-label="Back face">
-                    <BlockNoteReadOnly content={back} />
+                    <BlockNoteReadOnly
+                      content={back}
+                      vaultPath={vaultPath}
+                      notePath={entry.path}
+                      onImageClick={handleImageClick}
+                    />
                   </div>
                 )}
               </div>
@@ -577,6 +628,122 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
           document.body,
         )
       )}
+      {lightboxImg && (
+        <ImageLightbox key={lightboxImg} src={lightboxImg} onClose={() => setLightboxImg(null)} />
+      )}
     </>
   )
 })
+
+// ---------------------------------------------------------------------------
+// Image Lightbox component for Memory Palace / large images zoom & pan
+// ---------------------------------------------------------------------------
+
+interface ImageLightboxProps {
+  src: string
+  onClose: () => void
+}
+
+function ImageLightbox({ src, onClose }: ImageLightboxProps) {
+  const [scale, setScale] = useState(1)
+  const [position, setPosition] = useState({ x: 0, y: 0 })
+  const [isDragging, setIsDragging] = useState(false)
+  const dragStartRef = useRef({ x: 0, y: 0 })
+  const imgRef = useRef<HTMLImageElement>(null)
+
+  // Close on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [onClose])
+
+  const handleZoomIn = (e?: React.MouseEvent) => {
+    e?.stopPropagation()
+    setScale(s => Math.min(s + 0.25, 4))
+  }
+  const handleZoomOut = (e?: React.MouseEvent) => {
+    e?.stopPropagation()
+    setScale(s => Math.max(s - 0.25, 0.5))
+  }
+  const handleReset = (e?: React.MouseEvent) => {
+    e?.stopPropagation()
+    setScale(1)
+    setPosition({ x: 0, y: 0 })
+  }
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault()
+    setIsDragging(true)
+    dragStartRef.current = { x: e.clientX - position.x, y: e.clientY - position.y }
+  }
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return
+    setPosition({
+      x: e.clientX - dragStartRef.current.x,
+      y: e.clientY - dragStartRef.current.y
+    })
+  }
+
+  const handleMouseUp = () => {
+    setIsDragging(false)
+  }
+
+  const handleWheel = (e: React.WheelEvent) => {
+    e.preventDefault()
+    const zoomFactor = 0.1
+    const nextScale = e.deltaY < 0 ? Math.min(scale + zoomFactor, 4) : Math.max(scale - zoomFactor, 0.5)
+    setScale(nextScale)
+  }
+
+  return createPortal(
+    <div
+      className="fixed inset-0 z-[100] flex flex-col bg-black/95 backdrop-blur-md select-none animate-in fade-in duration-200"
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseUp}
+    >
+      {/* Top Bar controls */}
+      <div className="flex items-center justify-between px-6 py-4 text-white z-10 shrink-0 bg-gradient-to-b from-black/60 to-transparent">
+        <span className="text-sm font-medium opacity-85 truncate max-w-md">Memory Palace Viewfinder</span>
+        <div className="flex items-center gap-2">
+          <Button variant="ghost" size="sm" onClick={handleZoomOut} className="text-white hover:bg-white/10 h-8 px-3 text-xs">Zoom Out</Button>
+          <Button variant="ghost" size="sm" onClick={handleReset} className="text-white hover:bg-white/10 h-8 px-3 text-xs font-mono">{Math.round(scale * 100)}%</Button>
+          <Button variant="ghost" size="sm" onClick={handleZoomIn} className="text-white hover:bg-white/10 h-8 px-3 text-xs">Zoom In</Button>
+          <Button variant="ghost" size="icon" onClick={onClose} className="text-white hover:bg-white/10 rounded-full h-8 w-8 ml-2 flex items-center justify-center">
+            <X size={18} />
+          </Button>
+        </div>
+      </div>
+
+      {/* Image container */}
+      <div
+        className="flex-1 min-h-0 relative overflow-hidden flex items-center justify-center cursor-grab active:cursor-grabbing"
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onWheel={handleWheel}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) onClose()
+        }}
+      >
+        <img
+          ref={imgRef}
+          src={src}
+          alt="Zoomed memory palace"
+          className="max-h-[92vh] max-w-[92vw] object-contain transition-transform duration-75 ease-out pointer-events-none"
+          style={{
+            transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
+          }}
+        />
+      </div>
+
+      {/* Help tooltip bottom */}
+      <div className="py-3 text-center text-xs text-white/50 z-10 bg-gradient-to-t from-black/60 to-transparent pointer-events-none">
+        Cuộn chuột để Phóng to/Thu nhỏ • Kéo thả để Di chuyển • Nhấn ESC hoặc click vùng trống để đóng
+      </div>
+    </div>,
+    document.body
+  )
+}

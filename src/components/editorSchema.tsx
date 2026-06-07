@@ -360,6 +360,7 @@ const TldrawBlock = createReactBlockSpec(
           height={props.block.props.height}
           snapshot={props.block.props.snapshot}
           width={props.block.props.width}
+          readOnly={!props.editor.isEditable}
           onSnapshotChange={(snapshot) => {
             updateTldrawBlockPropsSafely({
               blockId: props.block.id,

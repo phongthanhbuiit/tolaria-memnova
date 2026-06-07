@@ -41,6 +41,7 @@ interface TldrawWhiteboardProps {
   height: string
   snapshot: string
   width: string
+  readOnly?: boolean
   onSnapshotChange: (snapshot: string) => void
   onSizeChange: (size: TldrawWhiteboardSize) => void
 }
@@ -515,6 +516,7 @@ export function TldrawWhiteboard({
   height,
   snapshot,
   width,
+  readOnly = false,
   onSnapshotChange,
   onSizeChange,
 }: TldrawWhiteboardProps) {
@@ -571,6 +573,7 @@ export function TldrawWhiteboard({
   }, [boardId, normalizedSnapshot, store])
 
   useEffect(() => {
+    if (readOnly) return
     let timeoutId: number | null = null
 
     const flushSnapshot = () => {
@@ -600,7 +603,7 @@ export function TldrawWhiteboard({
       cleanup()
       if (timeoutId !== null) window.clearTimeout(timeoutId)
     }
-  }, [boardId, store])
+  }, [boardId, store, readOnly])
 
   const startResize = (mode: ResizeMode) => (event: ReactPointerEvent<HTMLButtonElement>) => {
     event.preventDefault()
@@ -639,6 +642,13 @@ export function TldrawWhiteboard({
     window.addEventListener('pointerup', onPointerUp, { once: true })
   }
 
+  const handleMount = useCallback((editor: Editor) => {
+    if (readOnly) {
+      editor.updatePageState({ isReadonly: true })
+    }
+    return installWhiteboardRuntimeGuards(editor)
+  }, [readOnly])
+
   return (
     <div
       ref={boardRef}
@@ -651,7 +661,7 @@ export function TldrawWhiteboard({
         assetUrls={tldrawAssetUrls}
         components={tldrawUiComponents}
         key={boardId}
-        onMount={installWhiteboardRuntimeGuards}
+        onMount={handleMount}
         store={store}
         user={tldrawUser}
       />
@@ -670,24 +680,28 @@ export function TldrawWhiteboard({
           {fullscreen ? <ArrowsIn aria-hidden="true" /> : <ArrowsOut aria-hidden="true" />}
         </Button>
       </ActionTooltip>
-      <button
-        type="button"
-        aria-label="Resize whiteboard width"
-        className="tldraw-whiteboard__resize-handle tldraw-whiteboard__resize-handle--width border-0 bg-transparent p-0"
-        onPointerDown={startResize('width')}
-      />
-      <button
-        type="button"
-        aria-label="Resize whiteboard height"
-        className="tldraw-whiteboard__resize-handle tldraw-whiteboard__resize-handle--height border-0 bg-transparent p-0"
-        onPointerDown={startResize('height')}
-      />
-      <button
-        type="button"
-        aria-label="Resize whiteboard"
-        className="tldraw-whiteboard__resize-handle tldraw-whiteboard__resize-handle--corner border-0 bg-transparent p-0"
-        onPointerDown={startResize('both')}
-      />
+      {!readOnly && (
+        <>
+          <button
+            type="button"
+            aria-label="Resize whiteboard width"
+            className="tldraw-whiteboard__resize-handle tldraw-whiteboard__resize-handle--width border-0 bg-transparent p-0"
+            onPointerDown={startResize('width')}
+          />
+          <button
+            type="button"
+            aria-label="Resize whiteboard height"
+            className="tldraw-whiteboard__resize-handle tldraw-whiteboard__resize-handle--height border-0 bg-transparent p-0"
+            onPointerDown={startResize('height')}
+          />
+          <button
+            type="button"
+            aria-label="Resize whiteboard"
+            className="tldraw-whiteboard__resize-handle tldraw-whiteboard__resize-handle--corner border-0 bg-transparent p-0"
+            onPointerDown={startResize('both')}
+          />
+        </>
+      )}
     </div>
   )
 }
