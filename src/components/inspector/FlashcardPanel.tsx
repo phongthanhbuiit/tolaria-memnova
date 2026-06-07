@@ -10,7 +10,7 @@
  */
 
 import { useCallback, useEffect, useState } from 'react'
-import { Cards, CalendarBlank, FolderOpen, MusicNote, Sparkle, TextAa } from '@phosphor-icons/react'
+import { Cards, CalendarBlank, FolderOpen, MusicNote, PlusCircle, Sparkle, TextAa } from '@phosphor-icons/react'
 import { invoke } from '@tauri-apps/api/core'
 import { Switch } from '@/components/ui/switch'
 import { Input } from '@/components/ui/input'
@@ -24,6 +24,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { isTauri } from '../../mock-tauri'
+import { FLASHCARD_BACK_MARKER } from '../../utils/flashcardMarkdown'
 import type { VaultEntry, VaultPropertyValue } from '../../types'
 
 // ---------------------------------------------------------------------------
@@ -38,6 +39,10 @@ interface FlashcardPanelProps {
    *  entry.workspace is undefined (notes in the default vault). */
   vaultPath?: string
   onUpdateFrontmatter?: (path: string, key: string, value: FrontmatterValue) => Promise<void>
+  /** Raw markdown content of the note — used to detect whether a back face already exists. */
+  noteContent?: string | null
+  /** Called when the user wants to add a back face marker to the note. */
+  onAppendBackFace?: () => Promise<void>
 }
 
 // ---------------------------------------------------------------------------
@@ -184,12 +189,24 @@ function resolveCardType(props: Record<string, VaultPropertyValue> | undefined):
   return readStringProp(props, 'card_type') === 'vocabulary' ? 'vocabulary' : 'basic'
 }
 
-export function FlashcardPanel({ entry, vaultPath, onUpdateFrontmatter }: FlashcardPanelProps) {
+export function FlashcardPanel({ entry, vaultPath, onUpdateFrontmatter, noteContent, onAppendBackFace }: FlashcardPanelProps) {
   const isEnabled = entry.fsrsEnabled === true
   const cardType = resolveCardType(entry.properties)
   const isVocabulary = cardType === 'vocabulary'
   const ipaValue = readStringProp(entry.properties, 'IPA')
   const audioValue = readStringProp(entry.properties, 'audio')
+  const hasBackFace = noteContent != null && noteContent.includes(FLASHCARD_BACK_MARKER)
+  const [isAppending, setIsAppending] = useState(false)
+
+  const handleAddBackFace = useCallback(async () => {
+    if (!onAppendBackFace || isAppending) return
+    setIsAppending(true)
+    try {
+      await onAppendBackFace()
+    } finally {
+      setIsAppending(false)
+    }
+  }, [onAppendBackFace, isAppending])
 
   const handleToggle = useCallback(
     async (checked: boolean) => {
@@ -324,6 +341,31 @@ export function FlashcardPanel({ entry, vaultPath, onUpdateFrontmatter }: Flashc
           <p className="text-[10px] text-muted-foreground/70 leading-relaxed">
             Drag an audio file into the editor — Tolaria copies it to{' '}
             <span className="font-mono">attachments/</span>. Then type the filename above.
+          </p>
+        </div>
+      )}
+
+      {/* Add back face button — only shown when FSRS is on and the note has no back marker yet */}
+      {isEnabled && !hasBackFace && onAppendBackFace && (
+        <div className="mt-2 px-1.5">
+          <Button
+            type="button"
+            variant="outline"
+            disabled={isAppending}
+            onClick={handleAddBackFace}
+            className={cn(
+              'w-full h-[28px] gap-1.5 text-[11px] font-medium border-dashed',
+              'border-[var(--accent-blue)]/40 text-[var(--accent-blue)] hover:bg-[var(--accent-blue-light)] hover:border-[var(--accent-blue)]',
+              'disabled:opacity-50 disabled:cursor-not-allowed transition-colors',
+            )}
+            aria-label="Add back face to this flashcard"
+            data-testid="flashcard-add-back-face"
+          >
+            <PlusCircle size={12} weight="bold" />
+            {isAppending ? 'Adding…' : 'Add Back Face'}
+          </Button>
+          <p className="mt-1 text-[10px] text-muted-foreground/60 leading-relaxed px-0.5">
+            Adds a divider — type the answer below it in the editor.
           </p>
         </div>
       )}

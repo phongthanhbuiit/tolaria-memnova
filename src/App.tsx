@@ -1778,6 +1778,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
                   onStartDeckSession={handleStartDeckSession}
                   hasDeckMembers={hasDeckMembers}
                   fsrsDueDate={fsrsDueDate}
+                  onUpdateNoteContent={notes.updateTabContent}
                   locale={appLocale}
                 />
               </div>

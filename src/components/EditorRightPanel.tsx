@@ -48,6 +48,8 @@ interface EditorRightPanelProps {
   onFileCreated?: (relativePath: string) => void
   onFileModified?: (relativePath: string) => void
   onVaultChanged?: () => void
+  /** Called after note body content is saved externally (e.g. adding a back face) so the active tab refreshes. */
+  onUpdateNoteContent?: (path: string, content: string) => void
   workspaces?: WorkspaceIdentity[]
   locale?: AppLocale
 }
@@ -174,6 +176,7 @@ export function EditorRightPanel({
   onToggleInspector, onToggleAIChat, onToggleTableOfContents, onNavigateWikilink, onViewCommitDiff,
   onUpdateFrontmatter, onDeleteProperty, onAddProperty, onCreateMissingType, onCreateAndOpenNote, onChangeWorkspace, onInitializeProperties, onToggleRawEditor, onOpenNote,
   onFileCreated, onFileModified, onVaultChanged,
+  onUpdateNoteContent,
   workspaces,
   locale,
 }: EditorRightPanelProps) {
@@ -231,6 +234,7 @@ export function EditorRightPanel({
           onChangeWorkspace={onChangeWorkspace}
           onInitializeProperties={onInitializeProperties}
           onToggleRawEditor={onToggleRawEditor}
+          onUpdateNoteContent={onUpdateNoteContent}
           workspaces={workspaces}
           locale={locale}
         />

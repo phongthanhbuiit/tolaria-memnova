@@ -314,4 +314,67 @@ describe('FlashcardPanel', () => {
     fireEvent.click(screen.getByRole('switch', { name: /spaced repetition/i }))
     // No assertion error = no handler called
   })
+
+  // ---------------------------------------------------------------------------
+  // Add Back Face button
+  // ---------------------------------------------------------------------------
+
+  it('hides "Add Back Face" button when FSRS is disabled', () => {
+    render(
+      <FlashcardPanel
+        entry={makeEntry({ fsrsEnabled: false })}
+        noteContent="# Front\n\nsome content"
+        onAppendBackFace={vi.fn()}
+      />,
+    )
+    expect(screen.queryByTestId('flashcard-add-back-face')).not.toBeInTheDocument()
+  })
+
+  it('shows "Add Back Face" button when FSRS is enabled and note has no back marker', () => {
+    render(
+      <FlashcardPanel
+        entry={makeEnabledEntry()}
+        noteContent="# Front\n\nsome content"
+        onAppendBackFace={vi.fn()}
+      />,
+    )
+    expect(screen.getByTestId('flashcard-add-back-face')).toBeInTheDocument()
+  })
+
+  it('hides "Add Back Face" button when note already has back marker', () => {
+    render(
+      <FlashcardPanel
+        entry={makeEnabledEntry()}
+        noteContent="# Front\n\n<!-- FLASHCARD:BACK -->\n\n# Answer"
+        onAppendBackFace={vi.fn()}
+      />,
+    )
+    expect(screen.queryByTestId('flashcard-add-back-face')).not.toBeInTheDocument()
+  })
+
+  it('hides "Add Back Face" button when onAppendBackFace prop is absent', () => {
+    render(
+      <FlashcardPanel
+        entry={makeEnabledEntry()}
+        noteContent="# Front\n\nsome content"
+        // no onAppendBackFace
+      />,
+    )
+    expect(screen.queryByTestId('flashcard-add-back-face')).not.toBeInTheDocument()
+  })
+
+  it('calls onAppendBackFace when button is clicked', async () => {
+    const onAppend = vi.fn().mockResolvedValue(undefined)
+    render(
+      <FlashcardPanel
+        entry={makeEnabledEntry()}
+        noteContent="# Front\n\nsome content"
+        onAppendBackFace={onAppend}
+      />,
+    )
+    fireEvent.click(screen.getByTestId('flashcard-add-back-face'))
+    await waitFor(() => {
+      expect(onAppend).toHaveBeenCalledTimes(1)
+    })
+  })
 })

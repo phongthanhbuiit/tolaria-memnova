@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useCallback } from 'react'
 import type { VaultEntry, GitCommit, WorkspaceIdentity } from '../types'
 import { cn } from '@/lib/utils'
 import { Separator } from './ui/separator'
@@ -19,6 +19,10 @@ import { EmptyInspector, InitializePropertiesPrompt, InspectorHeader, InvalidFro
 import { useBacklinks, useReferencedBy } from './inspector/useInspectorData'
 import { useInspectorPropertyActions } from './inspector/useInspectorPropertyActions'
 import { FlashcardPanel } from './inspector/FlashcardPanel'
+import { appendFlashcardBackMarker } from '../utils/flashcardMarkdown'
+import { persistContent } from '../hooks/useSaveNote'
+import { isTauri, mockInvoke } from '../mock-tauri'
+import { invoke } from '@tauri-apps/api/core'
 import type { AppLocale } from '../lib/i18n'
 
 export type FrontmatterValue = string | number | boolean | string[] | null
@@ -41,6 +45,8 @@ interface InspectorProps {
   onChangeWorkspace?: (entry: VaultEntry, workspace: WorkspaceIdentity) => Promise<void> | void
   onInitializeProperties?: (path: string) => void
   onToggleRawEditor?: () => void
+  /** Called after the back-face marker is saved so the active tab refreshes. */
+  onUpdateNoteContent?: (path: string, content: string) => void
   workspaces?: WorkspaceIdentity[]
   locale?: AppLocale
 }
@@ -230,6 +236,7 @@ function InspectorBody({
   onCreateAndOpenNote,
   onInitializeProperties,
   onToggleRawEditor,
+  onUpdateNoteContent,
   workspaces,
   locale = 'en',
 }: Omit<InspectorProps, 'collapsed' | 'onToggle'>) {
@@ -250,6 +257,20 @@ function InspectorBody({
     onAddProperty,
     onCreateMissingType,
   })
+
+  const handleAppendBackFace = useCallback(async () => {
+    if (!entry) return
+    // Use the already-loaded content if available; fall back to a disk read.
+    const current = content ?? (
+      isTauri()
+        ? await invoke<string>('get_note_content', { path: entry.path })
+        : await mockInvoke<string>('get_note_content', { path: entry.path })
+    )
+    const updated = appendFlashcardBackMarker(current)
+    if (updated === current) return // already has marker
+    await persistContent(entry.path, updated)
+    onUpdateNoteContent?.(entry.path, updated)
+  }, [entry, content, onUpdateNoteContent])
 
   if (!entry) {
     return <EmptyInspector locale={locale} />
@@ -288,6 +309,8 @@ function InspectorBody({
             entry={entry}
             vaultPath={vaultPath}
             onUpdateFrontmatter={onUpdateFrontmatter}
+            noteContent={content}
+            onAppendBackFace={handleAppendBackFace}
           />
           <Separator />
         </>

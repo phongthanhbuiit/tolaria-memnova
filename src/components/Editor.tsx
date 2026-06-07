@@ -103,6 +103,8 @@ interface EditorProps {
   onSave?: () => void
   /** Called when the user explicitly renames the filename from the breadcrumb. */
   onRenameFilename?: (path: string, newFilenameStem: string) => void
+  /** Called after note body content is modified externally (e.g. back face added) so the active tab refreshes. */
+  onUpdateNoteContent?: (path: string, content: string) => void
   noteWidth?: NoteWidthMode
   onToggleNoteWidth?: () => void
   canGoBack?: boolean
@@ -416,6 +418,7 @@ function EditorLayout({
   onStartDeckSession,
   hasDeckMembers,
   fsrsDueDate,
+  onUpdateNoteContent,
 }: {
   tabs: Tab[]
   activeTabPath: string | null
@@ -495,6 +498,7 @@ function EditorLayout({
   onStartDeckSession?: () => void
   hasDeckMembers?: boolean
   fsrsDueDate?: string | null
+  onUpdateNoteContent?: (path: string, content: string) => void
 }) {
   const activeBinaryTab = activeTab?.entry.fileKind === 'binary' ? activeTab : null
   const showEmptyState = tabs.length === 0 && activeTabPath === null && !isVaultLoading
@@ -605,6 +609,7 @@ function EditorLayout({
           onFileCreated={onFileCreated}
           onFileModified={onFileModified}
           onVaultChanged={onVaultChanged}
+          onUpdateNoteContent={onUpdateNoteContent}
           workspaces={workspaces}
           locale={locale}
         />

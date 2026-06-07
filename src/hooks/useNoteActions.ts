@@ -706,6 +706,7 @@ interface NoteActionsResultParts {
   handleNavigateWikilink: (target: string) => void
   rename: ReturnType<typeof useNoteRename>
   tabMgmt: ReturnType<typeof useTabManagement>
+  updateTabContent: (path: string, content: string) => void
 }
 
 function buildNoteActionsResult({
@@ -715,6 +716,7 @@ function buildNoteActionsResult({
   handleNavigateWikilink,
   rename,
   tabMgmt,
+  updateTabContent,
 }: NoteActionsResultParts) {
   return {
     ...tabMgmt,
@@ -738,6 +740,7 @@ function buildNoteActionsResult({
     redoLabel: actionHistory.redoLabel,
     handleUndo: actionHistory.undo,
     handleRedo: actionHistory.redo,
+    updateTabContent,
   }
 }
 
@@ -817,5 +820,6 @@ export function useNoteActions(config: NoteActionsConfig) {
     handleNavigateWikilink,
     rename,
     tabMgmt,
+    updateTabContent,
   })
 }
