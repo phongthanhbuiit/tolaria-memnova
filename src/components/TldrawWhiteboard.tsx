@@ -521,7 +521,7 @@ export function TldrawWhiteboard({
   }, [onSnapshotChange])
 
   useEffect(() => {
-    if (boardId === savedBoardIdRef.current && snapshot === savedSnapshotRef.current) return
+    if (boardId === savedBoardIdRef.current && snapshot.trim() === (savedSnapshotRef.current ?? '').trim()) return
 
     const parsed = parseSnapshot(snapshot)
     if (parsed) {
@@ -548,7 +548,7 @@ export function TldrawWhiteboard({
     const flushSnapshot = () => {
       timeoutId = null
       const nextSnapshot = serializeSnapshot(getSnapshot(store).document)
-      if (nextSnapshot === savedSnapshotRef.current) return
+      if (nextSnapshot.trim() === (savedSnapshotRef.current ?? '').trim()) return
 
       savedBoardIdRef.current = boardId
       savedSnapshotRef.current = nextSnapshot
