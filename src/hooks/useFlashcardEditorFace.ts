@@ -57,35 +57,44 @@ export function useFlashcardEditorFace({
 }: UseFlashcardEditorFaceOptions): FlashcardEditorFaceState {
   const [activeFace, setActiveFace] = useState<FlashcardFace>('front')
 
-  const setActiveFaceWithFlush = useCallback((nextFace: FlashcardFace) => {
-    if (flushPendingEditorChangeRef?.current) {
-      flushPendingEditorChangeRef.current()
-    }
-    setActiveFace(nextFace)
-  }, [flushPendingEditorChangeRef])
-
-  // Reset to 'front' when the active note path changes.
-  // React derived-state-reset pattern: setState during render is safe and
-  // avoids the cascading-render lint rule. Both sides normalized to null so
-  // undefined vs null doesn't trigger an infinite loop when entry is absent.
   const currentPath = entry?.path ?? null
   const [prevPath, setPrevPath] = useState<string | null>(currentPath)
+  const [prevFullContent, setPrevFullContent] = useState<string>(fullContent)
+  const [latestMergedContent, setLatestMergedContent] = useState<string>(fullContent)
+
+  const initialHasBack = useMemo(() => splitFlashcardContent(fullContent).hasBack, [fullContent])
+  const [prevHasBack, setPrevHasBack] = useState(initialHasBack)
+
+  // Derived state reset when note path changes
   if (currentPath !== prevPath) {
     setPrevPath(currentPath)
     setActiveFace('front')
+    setPrevFullContent(fullContent)
+    setLatestMergedContent(fullContent)
+
+    const newHasBack = splitFlashcardContent(fullContent).hasBack
+    setPrevHasBack(newHasBack)
   }
 
-  const isFSRS = useMemo(() => entry ? isFSRSEnabled(entry) : false, [entry])
+  // Sync external changes (such as from git sync or other panels) safely during render
+  if (currentPath === prevPath && fullContent !== prevFullContent) {
+    setPrevFullContent(fullContent)
+    setLatestMergedContent(fullContent)
 
-  // Split the full content into front + back (memoised, recomputes when content changes)
+    const externalHasBack = splitFlashcardContent(fullContent).hasBack
+    setPrevHasBack(externalHasBack)
+  }
+
+  const isFSRS = useMemo(() => (entry ? isFSRSEnabled(entry) : false), [entry])
+
+  // Split the latest merged content into front + back
   const { front, back, hasBack } = useMemo(
-    () => splitFlashcardContent(fullContent),
-    [fullContent],
+    () => splitFlashcardContent(latestMergedContent),
+    [latestMergedContent],
   )
 
   // Auto-switch to Back face when the marker first appears in the content
   // (e.g. after Inspector's "Add Back Face" button writes it to disk).
-  const [prevHasBack, setPrevHasBack] = useState(hasBack)
   if (hasBack !== prevHasBack) {
     setPrevHasBack(hasBack)
     if (!prevHasBack && hasBack) {
@@ -93,10 +102,19 @@ export function useFlashcardEditorFace({
     }
   }
 
+  const setActiveFaceWithFlush = useCallback((nextFace: FlashcardFace) => {
+    if (flushPendingEditorChangeRef?.current) {
+      flushPendingEditorChangeRef.current()
+    }
+    setActiveFace(nextFace)
+  }, [flushPendingEditorChangeRef])
+
   // The content slice to pass to the editor
   const editorContent = isFSRS
-    ? activeFace === 'front' ? front : back
-    : fullContent
+    ? activeFace === 'front'
+      ? front
+      : back
+    : latestMergedContent
 
   // When the editor changes the slice, merge it with the other face and propagate
   const handleEditorContentChange = useCallback(
@@ -106,28 +124,30 @@ export function useFlashcardEditorFace({
         return
       }
 
-      // Read the current other face directly from the latest full content to prevent stale/race conditions
-      // (avoiding reliance on delayed effects or refs during tab swaps)
-      const { front: currentFront, back: currentBack } = splitFlashcardContent(fullContent)
+      const { front: currentFront, back: currentBack } = splitFlashcardContent(latestMergedContent)
 
       const merged =
         activeFace === 'front'
           ? joinFlashcardContent(sliceContent, currentBack)
           : joinFlashcardContent(currentFront, sliceContent)
 
+      setLatestMergedContent(merged)
+      setPrevFullContent(merged)
       onContentChange(path, merged)
     },
-    [isFSRS, activeFace, fullContent, onContentChange],
+    [isFSRS, activeFace, latestMergedContent, onContentChange],
   )
 
   // Add the back marker to the current note
   const handleAddBack = useCallback(() => {
     if (!entry) return
-    const withMarker = appendFlashcardBackMarker(fullContent)
+    const withMarker = appendFlashcardBackMarker(latestMergedContent)
+    setLatestMergedContent(withMarker)
+    setPrevFullContent(withMarker)
     onContentChange(entry.path, withMarker)
     // Switch to back face so user can start writing it
     setActiveFace('back')
-  }, [entry, fullContent, onContentChange])
+  }, [entry, latestMergedContent, onContentChange])
 
   return {
     isFSRS,
