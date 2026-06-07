@@ -10,7 +10,7 @@
  */
 
 import { useCallback, useEffect, useState } from 'react'
-import { Cards, CalendarBlank, FolderOpen, MusicNote, PlusCircle, Sparkle, TextAa } from '@phosphor-icons/react'
+import { Cards, CalendarBlank, FolderOpen, MusicNote, PlusCircle, Sparkle, TextAa, Image as ImageIcon } from '@phosphor-icons/react'
 import { invoke } from '@tauri-apps/api/core'
 import { Switch } from '@/components/ui/switch'
 import { Input } from '@/components/ui/input'
@@ -195,6 +195,7 @@ export function FlashcardPanel({ entry, vaultPath, onUpdateFrontmatter, noteCont
   const isVocabulary = cardType === 'vocabulary'
   const ipaValue = readStringProp(entry.properties, 'IPA')
   const audioValue = readStringProp(entry.properties, 'audio')
+  const imageValue = readStringProp(entry.properties, 'image')
   const hasBackFace = noteContent != null && noteContent.includes(FLASHCARD_BACK_MARKER)
   const [isAppending, setIsAppending] = useState(false)
 
@@ -244,6 +245,43 @@ export function FlashcardPanel({ entry, vaultPath, onUpdateFrontmatter, noteCont
     },
     [entry.path, onUpdateFrontmatter],
   )
+
+  const handleImageCommit = useCallback(
+    async (value: string) => {
+      if (!onUpdateFrontmatter) return
+      await onUpdateFrontmatter(entry.path, 'image', value)
+    },
+    [entry.path, onUpdateFrontmatter],
+  )
+
+  const handleBrowseImage = useCallback(async () => {
+    if (!onUpdateFrontmatter) return
+    if (!isTauri()) return
+
+    const resolvedVaultPath = vaultPath ?? entry.workspace?.path
+    if (!resolvedVaultPath) return
+
+    const { open } = await import('@tauri-apps/plugin-dialog')
+    const selected = await open({
+      multiple: false,
+      title: 'Select image file',
+      filters: [{
+        name: 'Image',
+        extensions: ['png', 'jpg', 'jpeg', 'gif', 'svg', 'webp', 'bmp'],
+      }],
+    })
+
+    if (!selected || typeof selected !== 'string') return
+
+    const absolutePath = await invoke<string>('copy_image_to_vault', {
+      vaultPath: resolvedVaultPath,
+      sourcePath: selected,
+    })
+    const baseName = absolutePath.split(/[\\/]/).pop() || ''
+    const portablePath = `attachments/${baseName}`
+
+    await onUpdateFrontmatter(entry.path, 'image', portablePath)
+  }, [entry.path, entry.workspace, vaultPath, onUpdateFrontmatter])
 
   /** Open native file picker for audio files, copy to vault, commit filename. */
   const handleBrowseAudio = useCallback(async () => {
@@ -317,7 +355,7 @@ export function FlashcardPanel({ entry, vaultPath, onUpdateFrontmatter, noteCont
         </div>
       )}
 
-      {/* Vocabulary-only fields: IPA + audio */}
+      {/* Vocabulary-only fields: IPA + audio + image */}
       {isEnabled && isVocabulary && (
         <div className="mt-2 flex flex-col gap-2 px-1.5">
           <VocabField
@@ -338,8 +376,17 @@ export function FlashcardPanel({ entry, vaultPath, onUpdateFrontmatter, noteCont
             onCommit={handleAudioCommit}
             onBrowse={isTauri() ? handleBrowseAudio : undefined}
           />
+          <VocabField
+            id={`fsrs-image-${entry.path}`}
+            label="Image file"
+            icon={ImageIcon}
+            value={imageValue}
+            placeholder="png · jpg · webp · gif …"
+            onCommit={handleImageCommit}
+            onBrowse={isTauri() ? handleBrowseImage : undefined}
+          />
           <p className="text-[10px] text-muted-foreground/70 leading-relaxed">
-            Drag an audio file into the editor — Tolaria copies it to{' '}
+            Drag an audio/image file into the editor — Tolaria copies it to{' '}
             <span className="font-mono">attachments/</span>. Then type the filename above.
           </p>
         </div>

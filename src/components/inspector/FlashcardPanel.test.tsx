@@ -255,12 +255,12 @@ describe('FlashcardPanel', () => {
 
   it('shows drag-and-drop hint when card type is vocabulary', () => {
     render(<FlashcardPanel entry={makeVocabularyEntry()} />)
-    expect(screen.getByText(/drag an audio file/i)).toBeInTheDocument()
+    expect(screen.getByText(/drag an audio\/image file/i)).toBeInTheDocument()
   })
 
   it('hides drag-and-drop hint for basic card type', () => {
     render(<FlashcardPanel entry={makeEnabledEntry()} />)
-    expect(screen.queryByText(/drag an audio file/i)).not.toBeInTheDocument()
+    expect(screen.queryByText(/drag an audio\/image file/i)).not.toBeInTheDocument()
   })
 
   // ---------------------------------------------------------------------------

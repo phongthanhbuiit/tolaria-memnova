@@ -35,7 +35,7 @@ import { observeNativeTextAssistanceDisabled } from '../lib/nativeTextAssistance
 import { getRuntimeStyleNonce } from '../lib/runtimeStyleNonce'
 import { WikilinkSuggestionMenu, type WikilinkSuggestionItem } from './WikilinkSuggestionMenu'
 import type { VaultEntry } from '../types'
-import { _wikilinkEntriesRef } from './editorSchema'
+import { _wikilinkEntriesRef, _activeVaultPathRef } from './editorSchema'
 import {
   handleEditorFileBlockClick,
   openEditorAttachmentOrUrl,
@@ -1269,7 +1269,8 @@ export function SingleEditorView({ editor, entries, onNavigateWikilink, onChange
 
   useEffect(() => {
     _wikilinkEntriesRef.current = entries
-  }, [entries])
+    _activeVaultPathRef.current = vaultPath ?? ''
+  }, [entries, vaultPath])
 
   useEffect(() => {
     return subscribeRichEditorExternalChange(editor, handleEditorChange)

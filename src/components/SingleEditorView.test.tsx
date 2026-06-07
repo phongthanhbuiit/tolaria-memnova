@@ -191,6 +191,7 @@ vi.mock('./WikilinkSuggestionMenu', () => ({
 
 vi.mock('./editorSchema', () => ({
   _wikilinkEntriesRef: state.wikilinkEntriesRef,
+  _activeVaultPathRef: { current: '' },
 }))
 
 vi.mock('./blockNoteSideMenuHoverGuard', () => ({

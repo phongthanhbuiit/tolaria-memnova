@@ -33,7 +33,7 @@ import { getRuntimeStyleNonce } from '../lib/runtimeStyleNonce'
 import { useEditorTheme } from '../hooks/useTheme'
 import type { FSRSRating } from '../lib/fsrs'
 import type { VaultEntry } from '../types'
-import { schema } from './editorSchema'
+import { schema, _wikilinkEntriesRef, _activeVaultPathRef } from './editorSchema'
 import { createArrowLigaturesExtension } from './arrowLigaturesExtension'
 import { createMathInputExtension } from './mathInputExtension'
 import { resolveFlashcardAudioUrl } from '../utils/flashcardAudio'
@@ -304,6 +304,11 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
   // Vault path for resolving attachment asset:// URLs
   const vaultPath = entry?.workspace?.path ?? null
 
+  useEffect(() => {
+    _wikilinkEntriesRef.current = entries
+    _activeVaultPathRef.current = vaultPath ?? ''
+  }, [entries, vaultPath])
+
   // Resolve best playable audio URL (property > wikilink > full URL)
   const audioUrl = useMemo(
     () => resolveFlashcardAudioUrl({
@@ -483,7 +488,7 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
                     <BlockNoteReadOnly
                       content={front}
                       vaultPath={vaultPath}
-                      notePath={entry.path}
+                      notePath={entry?.path ?? ''}
                       onImageClick={handleImageClick}
                     />
                   )}
@@ -509,7 +514,7 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
                     <BlockNoteReadOnly
                       content={back}
                       vaultPath={vaultPath}
-                      notePath={entry.path}
+                      notePath={entry?.path ?? ''}
                       onImageClick={handleImageClick}
                     />
                   </div>

@@ -47,6 +47,7 @@ type MediaBlockPreviewProps = {
 
 // Module-level cache so the WikiLink renderer (defined outside React) can access entries
 export const _wikilinkEntriesRef: { current: VaultEntry[] } = { current: [] }
+export const _activeVaultPathRef: { current: string } = { current: '' }
 
 function resolveWikilinkColor(target: string) {
   return resolveColor(_wikilinkEntriesRef.current, target)

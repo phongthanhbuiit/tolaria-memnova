@@ -1,6 +1,6 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type MouseEvent as ReactMouseEvent, type MutableRefObject, type PointerEvent as ReactPointerEvent } from 'react'
 import { getAssetUrlsByImport } from '@tldraw/assets/imports.vite'
-import { ArrowsIn, ArrowsOut } from '@phosphor-icons/react'
+import { ArrowsIn, ArrowsOut, Plus } from '@phosphor-icons/react'
 import { Dialog as DialogPrimitive } from 'radix-ui'
 import {
   Box,
@@ -23,8 +23,12 @@ import { useDocumentThemeMode } from '../hooks/useDocumentThemeMode'
 import { resolveEffectiveLocale, translate, type AppLocale } from '../lib/i18n'
 import type { ResolvedThemeMode } from '../lib/themeMode'
 import { Button } from './ui/button'
+import { Input } from './ui/input'
 import { ActionTooltip } from './ui/action-tooltip'
 import { installTldrawTextMeasurementGuard } from './tldrawTextMeasurementGuard'
+import { vaultAttachmentAssetUrl } from '../utils/vaultAttachments'
+import { _wikilinkEntriesRef, _activeVaultPathRef } from './editorSchema'
+import type { VaultEntry } from '../types'
 
 const EMPTY_TLDRAW_TRANSLATION_URL = 'data:application/json;base64,e30K'
 const TOLARIA_TLDRAW_USER_ID = 'tolaria-whiteboard'
@@ -522,6 +526,7 @@ export function TldrawWhiteboard({
 }: TldrawWhiteboardProps) {
   const store = useMemo(() => createBoardStore(boardId), [boardId])
   const boardRef = useRef<HTMLDivElement | null>(null)
+  const tldrawEditorRef = useRef<Editor | null>(null)
   const savedSnapshotRef = useRef<string | null>(null)
   const savedBoardIdRef = useRef<string | null>(null)
   const onSnapshotChangeRef = useRef(onSnapshotChange)
@@ -541,6 +546,92 @@ export function TldrawWhiteboard({
     userPreferences,
   })
   const tldrawUiComponents = useMemo(() => ({ Dialogs: TolariaTldrawDialogs }), [])
+
+  const [showVocabMenu, setShowVocabMenu] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const vocabEntries = _wikilinkEntriesRef.current.filter((e) => {
+    const type = e.properties?.['card_type']
+    const image = e.properties?.['image']
+    return type === 'vocabulary' && typeof image === 'string' && image.trim().length > 0
+  })
+
+  const filteredVocabs = vocabEntries.filter(e =>
+    e.title.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+
+  const handleInsertVocabImage = useCallback(async (entry: VaultEntry) => {
+    const editor = tldrawEditorRef.current
+    if (!editor) return
+
+    const imageProp = entry.properties?.['image']
+    if (typeof imageProp !== 'string' || !imageProp.trim()) return
+
+    const vaultPath = _activeVaultPathRef.current
+    if (!vaultPath) return
+
+    const assetUrl = vaultAttachmentAssetUrl({
+      vaultPath,
+      attachmentPath: imageProp,
+    })
+
+    const getImgSize = (url: string): Promise<{ w: number; h: number }> => {
+      return new Promise((resolve) => {
+        const img = new Image()
+        img.onload = () => {
+          resolve({ w: img.naturalWidth || 300, h: img.naturalHeight || 300 })
+        }
+        img.onerror = () => {
+          resolve({ w: 300, h: 300 })
+        }
+        img.src = url
+      })
+    }
+
+    const { w, h } = await getImgSize(assetUrl)
+    const assetId = editor.assets.createId()
+
+    editor.createAssets([
+      {
+        id: assetId,
+        type: 'image',
+        props: {
+          name: entry.title,
+          src: assetUrl,
+          w,
+          h,
+          mimeType: 'image/png',
+        },
+        meta: {},
+      }
+    ])
+
+    const shapeId = editor.shapes.createId()
+    const center = editor.getViewportPageBounds().center
+
+    editor.createShapes([
+      {
+        id: shapeId,
+        type: 'image',
+        x: center.x - w / 2,
+        y: center.y - h / 2,
+        props: {
+          assetId,
+          w,
+          h,
+        }
+      }
+    ])
+
+    setShowVocabMenu(false)
+    setSearchQuery('')
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      tldrawEditorRef.current = null
+    }
+  }, [])
 
   const normalizedSnapshot = useMemo(() => {
     const trimmed = snapshot.trim()
@@ -643,8 +734,9 @@ export function TldrawWhiteboard({
   }
 
   const handleMount = useCallback((editor: Editor) => {
+    tldrawEditorRef.current = editor
     if (readOnly) {
-      editor.updatePageState({ isReadonly: true })
+      editor.updateInstanceState({ isReadonly: true })
     }
     return installWhiteboardRuntimeGuards(editor)
   }, [readOnly])
@@ -665,6 +757,50 @@ export function TldrawWhiteboard({
         store={store}
         user={tldrawUser}
       />
+      {!readOnly && (
+        <div className="absolute top-2 right-12 z-[90] flex items-center gap-2">
+          <div className="relative">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="h-7 px-2.5 text-xs bg-background shadow-md border border-border"
+              onClick={() => setShowVocabMenu(prev => !prev)}
+            >
+              <Plus size={12} className="mr-1" />
+              Vocab Image
+            </Button>
+            {showVocabMenu && (
+              <div className="absolute right-0 top-8 w-64 bg-popover text-popover-foreground border border-border rounded-lg shadow-xl z-50 p-2 flex flex-col gap-2">
+                <Input
+                  placeholder="Search vocabulary..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="h-8 text-xs focus-visible:ring-1"
+                  autoFocus
+                />
+                <div className="max-h-48 overflow-y-auto flex flex-col gap-1">
+                  {filteredVocabs.map((entry) => (
+                    <button
+                      key={entry.path}
+                      type="button"
+                      onClick={() => handleInsertVocabImage(entry)}
+                      className="text-left text-xs px-2 py-1.5 hover:bg-accent hover:text-accent-foreground rounded transition-colors truncate w-full"
+                    >
+                      {entry.title}
+                    </button>
+                  ))}
+                  {filteredVocabs.length === 0 && (
+                    <div className="text-[10px] text-muted-foreground p-2 text-center">
+                      No vocabulary notes found
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
       <ActionTooltip copy={{ label: fullscreenLabel }} side="left">
         <Button
           type="button"
