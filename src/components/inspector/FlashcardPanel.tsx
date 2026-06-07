@@ -13,6 +13,13 @@ import { useCallback, useEffect, useState } from 'react'
 import { Cards, CalendarBlank, MusicNote, Sparkle, TextAa } from '@phosphor-icons/react'
 import { Switch } from '@/components/ui/switch'
 import { Input } from '@/components/ui/input'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { cn } from '@/lib/utils'
 import type { VaultEntry, VaultPropertyValue } from '../../types'
 
@@ -150,8 +157,17 @@ function readStringProp(props: Record<string, VaultPropertyValue> | undefined, k
   return typeof v === 'string' ? v : ''
 }
 
+/** Card type stored in frontmatter as `card_type: vocabulary` */
+type CardType = 'basic' | 'vocabulary'
+
+function resolveCardType(props: Record<string, VaultPropertyValue> | undefined): CardType {
+  return readStringProp(props, 'card_type') === 'vocabulary' ? 'vocabulary' : 'basic'
+}
+
 export function FlashcardPanel({ entry, onUpdateFrontmatter }: FlashcardPanelProps) {
   const isEnabled = entry.fsrsEnabled === true
+  const cardType = resolveCardType(entry.properties)
+  const isVocabulary = cardType === 'vocabulary'
   const ipaValue = readStringProp(entry.properties, 'IPA')
   const audioValue = readStringProp(entry.properties, 'audio')
 
@@ -159,6 +175,19 @@ export function FlashcardPanel({ entry, onUpdateFrontmatter }: FlashcardPanelPro
     async (checked: boolean) => {
       if (!onUpdateFrontmatter) return
       await onUpdateFrontmatter(entry.path, '_fsrs_enabled', checked)
+    },
+    [entry.path, onUpdateFrontmatter],
+  )
+
+  const handleCardTypeChange = useCallback(
+    async (value: string) => {
+      if (!onUpdateFrontmatter) return
+      // Store as regular frontmatter property — 'basic' removes the key
+      if (value === 'vocabulary') {
+        await onUpdateFrontmatter(entry.path, 'card_type', 'vocabulary')
+      } else {
+        await onUpdateFrontmatter(entry.path, 'card_type', '')
+      }
     },
     [entry.path, onUpdateFrontmatter],
   )
@@ -198,8 +227,32 @@ export function FlashcardPanel({ entry, onUpdateFrontmatter }: FlashcardPanelPro
         />
       </div>
 
-      {/* Vocabulary fields — IPA + audio — visible when FSRS is on */}
+      {/* Card type selector — only visible when FSRS is on */}
       {isEnabled && (
+        <div className="flex items-center justify-between px-1.5 py-1">
+          <span className="text-[12px] text-muted-foreground">Card type</span>
+          <Select
+            value={cardType}
+            onValueChange={handleCardTypeChange}
+            disabled={!onUpdateFrontmatter}
+          >
+            <SelectTrigger
+              id={`fsrs-card-type-${entry.path}`}
+              className="h-[22px] w-[100px] border-border bg-muted px-1.5 py-0 text-[11px] shadow-none"
+              style={{ borderRadius: 4 }}
+            >
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="basic">Basic</SelectItem>
+              <SelectItem value="vocabulary">Vocabulary</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      )}
+
+      {/* Vocabulary-only fields: IPA + audio */}
+      {isEnabled && isVocabulary && (
         <div className="mt-2 flex flex-col gap-2 px-1.5">
           <VocabField
             id={`fsrs-ipa-${entry.path}`}
