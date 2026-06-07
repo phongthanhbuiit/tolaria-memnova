@@ -245,7 +245,7 @@ function useEditorChangeHandler(options: {
       tabs: tabsRef.current,
       cache: tabCacheRef.current,
     })
-    if (!previousContent) return
+    if (previousContent === undefined) return
 
     const next = serializedEditorChange({
       editor,
