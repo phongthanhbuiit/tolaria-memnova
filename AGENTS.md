@@ -18,7 +18,18 @@
 - Push directly to `main` — no PRs, no branches. Pre-push blocks non-`main` pushes.
 - Commit every 20–30 min: `feat:`, `fix:`, `refactor:`, `test:`, `docs:`
 - Pre-push hook runs full check suite (build + tests + core Playwright smoke + CodeScene)
-- **A task is NOT done until `git push origin main` succeeds.** If the hook blocks: read the error, fix it (clippy, tests, CodeScene, build), commit the fix, push again. **⛔ NEVER use --no-verify**
+- **A task is NOT done until `git push origin main` succeeds.** If the hook blocks: read the error, fix it (clippy, tests, CodeScene, build), commit the fix, push again. **⛔ NEVER use --no-verify for AI agents.**
+- 💡 **Mẹo tối ưu hóa Git Push dành cho Developer (User):**
+  Do bộ pre-push check chạy toàn bộ suite (build + 4400+ unit tests + Playwright E2E + Rust tests) tốn rất nhiều thời gian (từ 5 đến 8 phút), Developer có thể chọn quy trình đẩy nhanh như sau:
+  1. Chủ động chạy test thủ công trước trên local để kiểm tra lỗi:
+     ```bash
+     pnpm test             # Test frontend
+     cargo test            # Test backend Rust
+     ```
+  2. Tiến hành push bỏ qua kiểm tra tự động của Git Hook:
+     ```bash
+     git push origin main --no-verify
+     ```
 
 ### TDD (mandatory)
 
