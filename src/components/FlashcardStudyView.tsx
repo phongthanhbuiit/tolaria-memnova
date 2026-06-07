@@ -350,7 +350,7 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
 
   const overlay = (
     <div
-      className="fixed inset-0 z-50 flex flex-col bg-background/95 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex flex-col bg-background/95 backdrop-blur-sm overflow-hidden"
       aria-modal="true"
       role="dialog"
       aria-label="Flashcard study session"
@@ -384,153 +384,180 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
         </span>
       </div>
 
-      {/* Content */}
+      {/* Scrollable Content Area */}
       <div
         ref={containerRef}
         tabIndex={-1}
-        className="flex flex-col flex-1 min-h-0 gap-4 p-6 overflow-hidden focus:outline-none max-w-3xl mx-auto w-full"
+        className="flex-1 min-h-0 overflow-y-auto p-6 focus:outline-none"
       >
-        {isComplete
-          ? <SessionComplete onClose={onClose} />
-          : (
-              <>
-                {/* Type + state badge */}
-                {entry?.isA && (
-                  <div className="flex items-center gap-2 shrink-0">
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground border border-border">
-                      {entry.isA}
-                    </span>
-                    <span className="text-xs text-muted-foreground flex items-center gap-1">
-                      {card?.state === 'new'
-                        ? (<><Sparkle size={12} weight="fill" className="text-[var(--accent-green)]" /> New</>)
-                        : card?.state === 'learning'
-                          ? (<><Books size={12} weight="fill" className="text-[var(--accent-blue)]" /> Learning</>)
-                          : (<><CalendarBlank size={12} weight="fill" className="text-[var(--accent-blue)]" /> {card?.reps ?? 0} reviews</>)}
-                    </span>
-                  </div>
-                )}
+        <div className="max-w-3xl mx-auto w-full flex flex-col gap-4 pb-12">
+          {isComplete ? (
+            <SessionComplete onClose={onClose} />
+          ) : (
+            <>
+              {/* Type + state badge */}
+              {entry?.isA && (
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground border border-border">
+                    {entry.isA}
+                  </span>
+                  <span className="text-xs text-muted-foreground flex items-center gap-1">
+                    {card?.state === 'new' ? (
+                      <>
+                        <Sparkle size={12} weight="fill" className="text-[var(--accent-green)]" /> New
+                      </>
+                    ) : card?.state === 'learning' ? (
+                      <>
+                        <Books size={12} weight="fill" className="text-[var(--accent-blue)]" /> Learning
+                      </>
+                    ) : (
+                      <>
+                        <CalendarBlank size={12} weight="fill" className="text-[var(--accent-blue)]" />{' '}
+                        {card?.reps ?? 0} reviews
+                      </>
+                    )}
+                  </span>
+                </div>
+              )}
 
-                {/* Language badge above front — helps identify the word's source language */}
-                {language && !ipa && (
-                  <div className="flex items-center gap-2 shrink-0">
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--accent-blue-light)] text-[var(--accent-blue)] font-medium">
-                      {language}
-                    </span>
-                  </div>
-                )}
+              {/* Language badge above front */}
+              {language && !ipa && (
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--accent-blue-light)] text-[var(--accent-blue)] font-medium">
+                    {language}
+                  </span>
+                </div>
+              )}
 
-                {/* Front face — BlockNote read-only, full content, scrollable */}
-                <div
-                  className="flex-1 min-h-0 overflow-y-auto rounded-xl bg-card px-6 py-4"
-                  aria-label="Front face"
-                >
-                  {cardContent === null
-                    ? (
-                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <span className="animate-spin inline-block w-3 h-3 border-2 border-current border-t-transparent rounded-full" />
-                          Loading…
-                        </div>
-                      )
-                    : <BlockNoteReadOnly content={front} />}
+              {/* Unified Card Container */}
+              <div className="rounded-2xl border border-border bg-card shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col">
+                {/* Front face */}
+                <div className="px-8 py-6" aria-label="Front face">
+                  {cardContent === null ? (
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <span className="animate-spin inline-block w-3 h-3 border-2 border-current border-t-transparent rounded-full" />
+                      Loading…
+                    </div>
+                  ) : (
+                    <BlockNoteReadOnly content={front} />
+                  )}
                 </div>
 
-                {/* Flip area */}
-                {!flipped
-                  ? (
-                      <div className="flex flex-col items-center gap-2 shrink-0 py-2">
-                        <Button
-                          type="button"
-                          onClick={handleFlip}
-                          className={cn(
-                            'px-8 py-3 rounded-xl text-sm font-medium transition-all duration-150 h-auto',
-                            'bg-[var(--accent-blue)] text-white hover:opacity-90 shadow-sm hover:shadow-md',
-                            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-blue)]',
-                          )}
-                          data-testid="flashcard-show-answer"
-                        >
-                          Show answer
-                          <span className="ml-2 text-[var(--accent-blue-light)] text-xs">[Space]</span>
-                        </Button>
-                        <p className="text-[10px] text-muted-foreground">
-                          Rate after revealing — 1 Again · 2 Hard · 3 Good · 4 Easy
-                        </p>
-                      </div>
-                    )
-                  : (
-                      <div className="flex flex-col shrink-0 gap-3 animate-in fade-in duration-200">
-                        {/* IPA + language + audio row — shown when note has IPA property */}
-                        {(ipa ?? audioUrl) && (
-                          <div className="flex items-center gap-3 shrink-0 flex-wrap">
-                            {ipa && (
-                              <span
-                                className="font-mono text-base px-3 py-1 rounded-lg bg-[var(--accent-blue-light)] text-[var(--accent-blue)] select-all"
-                                title="IPA pronunciation"
-                              >
-                                {ipa}
-                              </span>
-                            )}
-                            {language && (
-                              <span className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
-                                {language}
-                              </span>
-                            )}
-                            {audioUrl && (
-                              <Button
-                                type="button"
-                                onClick={handlePlayAudio}
-                                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg h-auto text-sm font-medium bg-[var(--accent-green-light)] text-[var(--accent-green)] hover:bg-[var(--accent-green)]/20 transition-colors"
-                                aria-label="Play pronunciation audio"
-                                title="Play pronunciation"
-                              >
-                                <SpeakerHigh size={16} weight="fill" />
-                                Play
-                              </Button>
-                            )}
-                          </div>
-                        )}
+                {/* Divider when flipped */}
+                {flipped && hasBack && (
+                  <div className="relative shrink-0 py-2">
+                    <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                      <div className="w-full border-t border-dashed border-border" />
+                    </div>
+                    <div className="relative flex justify-center text-xs uppercase">
+                      <span className="bg-card px-3 text-muted-foreground font-semibold tracking-wider text-[10px]">
+                        Đáp án / Answer
+                      </span>
+                    </div>
+                  </div>
+                )}
 
-                        {/* Back face (only when note has <!-- FLASHCARD:BACK --> marker) */}
-                        {hasBack && (
-                          <div
-                            className="max-h-48 overflow-y-auto rounded-xl bg-card/60 px-6 py-4"
-                            aria-label="Back face"
-                          >
-                            <BlockNoteReadOnly content={back} />
-                          </div>
-                        )}
-
-                        {/* Rating buttons */}
-                        <div className="grid grid-cols-4 gap-2" role="group" aria-label="Rate your recall">
-                          {([1, 2, 3, 4] as FSRSRating[]).map((r) => {
-                            const cfg = RATING_CONFIG[r]
-                            const interval = intervals ? formatInterval(intervals[r]) : '…'
-                            return (
-                              <Button
-                                key={r}
-                                type="button"
-                                onClick={(e) => handleRate(r, e)}
-                                disabled={isRating}
-                                className={cn(
-                                  'flex flex-col items-center gap-1 py-3 px-2 rounded-xl border text-sm font-medium h-auto',
-                                  'transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed',
-                                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
-                                  cfg.color,
-                                )}
-                                data-testid={`flashcard-rate-${r}`}
-                                aria-label={`${cfg.label} — ${interval}`}
-                              >
-                                <span className="font-semibold">{cfg.label}</span>
-                                <span className="text-xs opacity-70">{interval}</span>
-                                <span className="text-[10px] opacity-50">[{cfg.key}]</span>
-                              </Button>
-                            )
-                          })}
-                        </div>
-                      </div>
-                    )}
-              </>
-            )}
+                {/* Back face */}
+                {flipped && hasBack && (
+                  <div className="px-8 py-6 bg-muted/20 border-t border-border/30 animate-in fade-in slide-in-from-bottom-2 duration-300" aria-label="Back face">
+                    <BlockNoteReadOnly content={back} />
+                  </div>
+                )}
+              </div>
+            </>
+          )}
+        </div>
       </div>
+
+      {/* Sticky Footer */}
+      {!isComplete && (
+        <div className="border-t border-border bg-background/80 backdrop-blur-md px-6 py-4 shrink-0">
+          <div className="max-w-3xl mx-auto w-full">
+            {!flipped ? (
+              <div className="flex flex-col items-center gap-2 py-1">
+                <Button
+                  type="button"
+                  onClick={handleFlip}
+                  className={cn(
+                    'px-10 py-3.5 rounded-xl text-sm font-medium transition-all duration-150 h-auto',
+                    'bg-[var(--accent-blue)] text-white hover:opacity-90 shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]',
+                    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-blue)]',
+                  )}
+                  data-testid="flashcard-show-answer"
+                >
+                  Show answer
+                  <span className="ml-2 text-[var(--accent-blue-light)] text-xs font-normal">[Space]</span>
+                </Button>
+                <p className="text-[10px] text-muted-foreground">
+                  Rate after revealing — 1 Again · 2 Hard · 3 Good · 4 Easy
+                </p>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-3 animate-in fade-in duration-200">
+                {/* IPA + language + audio row */}
+                {(ipa ?? audioUrl) && (
+                  <div className="flex items-center gap-3 shrink-0 flex-wrap justify-center">
+                    {ipa && (
+                      <span
+                        className="font-mono text-sm px-2.5 py-0.5 rounded-lg bg-[var(--accent-blue-light)] text-[var(--accent-blue)] select-all"
+                        title="IPA pronunciation"
+                      >
+                        {ipa}
+                      </span>
+                    )}
+                    {language && (
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
+                        {language}
+                      </span>
+                    )}
+                    {audioUrl && (
+                      <Button
+                        type="button"
+                        onClick={handlePlayAudio}
+                        className="flex items-center gap-1.5 px-3 py-1 rounded-lg h-auto text-xs font-semibold bg-[var(--accent-green-light)] text-[var(--accent-green)] hover:bg-[var(--accent-green)]/20 transition-colors"
+                        aria-label="Play pronunciation audio"
+                        title="Play pronunciation"
+                      >
+                        <SpeakerHigh size={14} weight="fill" />
+                        Play
+                      </Button>
+                    )}
+                  </div>
+                )}
+
+                {/* Rating buttons */}
+                <div className="grid grid-cols-4 gap-3" role="group" aria-label="Rate your recall">
+                  {([1, 2, 3, 4] as FSRSRating[]).map((r) => {
+                    const cfg = RATING_CONFIG[r]
+                    const interval = intervals ? formatInterval(intervals[r]) : '…'
+                    return (
+                      <Button
+                        key={r}
+                        type="button"
+                        onClick={(e) => handleRate(r, e)}
+                        disabled={isRating}
+                        className={cn(
+                          'flex flex-col items-center gap-0.5 py-2 px-1 rounded-xl border text-xs font-medium h-auto',
+                          'transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed',
+                          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+                          'hover:scale-[1.02] active:scale-[0.98] shadow-sm hover:shadow-md',
+                          cfg.color,
+                        )}
+                        data-testid={`flashcard-rate-${r}`}
+                        aria-label={`${cfg.label} — ${interval}`}
+                      >
+                        <span className="font-bold">{cfg.label}</span>
+                        <span className="text-[10px] opacity-70">{interval}</span>
+                        <span className="text-[9px] opacity-40">[{cfg.key}]</span>
+                      </Button>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   )
 
