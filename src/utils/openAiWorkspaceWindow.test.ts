@@ -78,7 +78,7 @@ describe('openAiWorkspaceWindow', () => {
       vaultPath: '/tmp/vault',
       vaultPaths: ['/tmp/vault', '/tmp/other'],
     })
-    const parsed = new URL(url, 'https://tolaria.localhost')
+    const parsed = new URL(url, 'https://memnova.localhost')
 
     expect(parsed.pathname).toBe('/')
     expect(parsed.searchParams.get('window')).toBe('ai-workspace')

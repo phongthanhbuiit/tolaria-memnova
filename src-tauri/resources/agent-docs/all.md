@@ -57,7 +57,7 @@ URL: /start/getting-started-vault
 
 # Getting Started Vault
 
-The Getting Started vault is a small public sample vault hosted at [refactoringhq/tolaria-getting-started](https://github.com/refactoringhq/tolaria-getting-started).
+The Getting Started vault is a small public sample vault hosted at [refactoringhq/tolaria-getting-started](https://github.com/phongthanhbuiit/tolaria-memnova-getting-started).
 
 It exists to show Tolaria's conventions without requiring you to restructure your own notes first.
 
@@ -103,9 +103,9 @@ Tolaria publishes desktop builds for macOS, Windows, and Linux. macOS is the pri
 
 Use the latest stable release unless you are intentionally testing pre-release builds:
 
-- <a href="https://tolaria.md/download/" target="_self">Download the latest stable build</a>
-- [Browse all GitHub releases](https://github.com/refactoringhq/tolaria/releases)
-- <a href="https://tolaria.md/releases/" target="_self">Read the release notes</a>
+- <a href="https://memnova.net/download/" target="_self">Download the latest stable build</a>
+- [Browse all GitHub releases](https://github.com/phongthanhbuiit/tolaria-memnova/releases)
+- <a href="https://memnova.net/releases/" target="_self">Read the release notes</a>
 
 ## Homebrew
 
@@ -1122,19 +1122,19 @@ The best way to support Tolaria is to subscribe to [Refactoring](https://refacto
 
 ## Feature Requests
 
-Use the [product board](https://tolaria.canny.io/) for feature ideas. Search first, upvote existing ideas, and create a new post when the request is genuinely new.
+Use the [product board](https://memnova.net/) for feature ideas. Search first, upvote existing ideas, and create a new post when the request is genuinely new.
 
 ## Discussions
 
-Use [GitHub Discussions](https://github.com/refactoringhq/tolaria/discussions) for questions, conversations, show and tell, and broader community context.
+Use [GitHub Discussions](https://github.com/phongthanhbuiit/tolaria-memnova/discussions) for questions, conversations, show and tell, and broader community context.
 
 ## Contribute Code
 
-Small, focused pull requests are welcome. Check the product board first so you build the right thing, then open a PR on [GitHub](https://github.com/refactoringhq/tolaria/pulls). The [contributing guide](https://github.com/refactoringhq/tolaria/blob/main/CONTRIBUTING.md) explains the local workflow.
+Small, focused pull requests are welcome. Check the product board first so you build the right thing, then open a PR on [GitHub](https://github.com/phongthanhbuiit/tolaria-memnova/pulls). The [contributing guide](https://github.com/phongthanhbuiit/tolaria-memnova/blob/main/CONTRIBUTING.md) explains the local workflow.
 
 ## Report A Bug
 
-Use [GitHub Issues](https://github.com/refactoringhq/tolaria/issues) for bugs. Include what happened, what you expected, and clear reproduction steps. If you are reporting from inside Tolaria, use the Contribute panel to copy sanitized diagnostics and attach them to the issue.
+Use [GitHub Issues](https://github.com/phongthanhbuiit/tolaria-memnova/issues) for bugs. Include what happened, what you expected, and clear reproduction steps. If you are reporting from inside Tolaria, use the Contribute panel to copy sanitized diagnostics and attach them to the issue.
 
 ---
 

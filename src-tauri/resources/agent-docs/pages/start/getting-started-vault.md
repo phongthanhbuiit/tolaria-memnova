@@ -5,7 +5,7 @@ URL: /start/getting-started-vault
 
 # Getting Started Vault
 
-The Getting Started vault is a small public sample vault hosted at [refactoringhq/tolaria-getting-started](https://github.com/refactoringhq/tolaria-getting-started).
+The Getting Started vault is a small public sample vault hosted at [refactoringhq/tolaria-getting-started](https://github.com/phongthanhbuiit/tolaria-memnova-getting-started).
 
 It exists to show Tolaria's conventions without requiring you to restructure your own notes first.
 

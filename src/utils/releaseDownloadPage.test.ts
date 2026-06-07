@@ -175,8 +175,7 @@ describe('buildStableDownloadRedirectPage', () => {
 
     expect(html).toContain('Tolaria Stable Download Unavailable')
     expect(html).toContain('View release history')
-    expect(html).toContain('https://tolaria.md/releases/')
-    expect(html).not.toContain('https://refactoringhq.github.io/tolaria/')
+    expect(html).toContain('https://memnova.net/releases/')
     expect(html).not.toContain('DOWNLOAD_TARGETS')
   })
 })

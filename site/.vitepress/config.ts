@@ -28,7 +28,7 @@ export default defineConfig({
       { text: "Concepts", link: "/concepts/vaults" },
       { text: "Guides", link: "/guides/capture-a-note" },
       { text: "Templates", link: "/templates/portent" },
-      { text: "Downloads", link: "https://tolaria.md/download/", target: "_self", noIcon: true },
+      { text: "Downloads", link: "https://memnova.net/download/", target: "_self", noIcon: true },
     ],
     search: {
       provider: "local",

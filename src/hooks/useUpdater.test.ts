@@ -279,7 +279,7 @@ describe('useUpdater', () => {
     })
 
     expect(mockOpenExternalUrl).toHaveBeenCalledWith(
-      'https://tolaria.md/releases/'
+      'https://memnova.net/releases/'
     )
   })
 

@@ -58,7 +58,7 @@ describe('openNoteWindow', () => {
 
   it('builds a root-app route that preserves the note window params', () => {
     const url = buildNoteWindowUrl('/vault/Folder/My Note.md', '/Users/luca/Laputa Vault', 'AI / ML')
-    const parsed = new URL(url, 'https://tolaria.localhost')
+    const parsed = new URL(url, 'https://memnova.localhost')
 
     expectNoteWindowRoute(parsed)
   })

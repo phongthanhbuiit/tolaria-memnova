@@ -1671,10 +1671,10 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
                   level={statsManager.level}
                   currentLevelXP={statsManager.currentLevelXP}
                   nextLevelXP={statsManager.nextLevelXP}
-                  duePercent={statsManager.duePercent}
                   entries={visibleEntries}
                   onStartReview={() => flashcardSession.startSession()}
                   onNavigate={handleSetSelection}
+                  onUpdateDailyGoal={statsManager.updateDailyGoal}
                   locale={appLocale}
                 />
               ) : (

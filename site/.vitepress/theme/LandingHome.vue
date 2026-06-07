@@ -182,7 +182,7 @@ const testimonials = [
       <div class="hero-actions">
         <a
           class="landing-button primary"
-          href="https://tolaria.md/download/"
+          href="https://memnova.net/download/"
           target="_self"
         >
           <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -190,7 +190,7 @@ const testimonials = [
           </svg>
           Download Tolaria
         </a>
-        <a class="landing-button secondary" href="https://github.com/refactoringhq/tolaria">
+        <a class="landing-button secondary" href="https://github.com/phongthanhbuiit/tolaria-memnova">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path
               d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.1-1.3-.3-2.6-1.2-3.6.2-1.1.2-2.3-.1-3.4 0 0-1 0-3.3 1.2a11.5 11.5 0 0 0-6 0C7 2 6 2 6 2c-.3 1.1-.3 2.3-.1 3.4A5 5 0 0 0 4.7 9c0 3.5 3 5.5 6 5.5a4.8 4.8 0 0 0-1 3.5v4"

@@ -118,7 +118,7 @@ onBeforeUnmount(() => {
       <template #nav-bar-content-after>
         <a
           class="github-star-widget"
-          href="https://github.com/refactoringhq/tolaria"
+          href="https://github.com/phongthanhbuiit/tolaria-memnova"
           target="_blank"
           rel="noreferrer"
           :aria-label="`${githubStars} GitHub stars`"

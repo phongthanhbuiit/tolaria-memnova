@@ -48,7 +48,7 @@ URL: /start/getting-started-vault
 
 # Getting Started Vault
 
-The Getting Started vault is a small public sample vault hosted at [refactoringhq/tolaria-getting-started](https://github.com/refactoringhq/tolaria-getting-started).
+The Getting Started vault is a small public sample vault hosted at [refactoringhq/tolaria-getting-started](https://github.com/phongthanhbuiit/tolaria-memnova-getting-started).
 
 It exists to show Tolaria's conventions without requiring you to restructure your own notes first.
 
@@ -94,9 +94,9 @@ Tolaria publishes desktop builds for macOS, Windows, and Linux. macOS is the pri
 
 Use the latest stable release unless you are intentionally testing pre-release builds:
 
-- <a href="https://tolaria.md/download/" target="_self">Download the latest stable build</a>
-- [Browse all GitHub releases](https://github.com/refactoringhq/tolaria/releases)
-- <a href="https://tolaria.md/releases/" target="_self">Read the release notes</a>
+- <a href="https://memnova.net/download/" target="_self">Download the latest stable build</a>
+- [Browse all GitHub releases](https://github.com/phongthanhbuiit/tolaria-memnova/releases)
+- <a href="https://memnova.net/releases/" target="_self">Read the release notes</a>
 
 ## Homebrew
 

@@ -3,14 +3,18 @@
  *
  * Bento-style Dashboard for Tolaria Flashcard Workspace.
  * Shows stats, gamification info, heatmap, and quick deck action hooks.
+ *
+ * Progress ring uses actual card clearance rate (todayReviews / startOfDayDue)
+ * rather than a fixed daily goal number.
  */
 
-import { useMemo } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import {
   Brain,
   CalendarBlank,
   CheckCircle,
   FireSimple,
+  PencilSimple,
   Play,
   Sparkle,
   Timer,
@@ -29,10 +33,10 @@ interface HomePageProps {
   level: number
   currentLevelXP: number
   nextLevelXP: number
-  duePercent: number
   entries: VaultEntry[]
   onStartReview: () => void
   onNavigate: (selection: { kind: 'filter'; filter: 'decks' }) => void
+  onUpdateDailyGoal: (goal: number) => void
   locale?: AppLocale
 }
 
@@ -41,10 +45,10 @@ export function HomePage({
   level,
   currentLevelXP,
   nextLevelXP,
-  duePercent,
   entries,
   onStartReview,
   onNavigate,
+  onUpdateDailyGoal,
   locale = 'en',
 }: HomePageProps) {
   const hour = new Date().getHours()
@@ -54,6 +58,26 @@ export function HomePage({
     return translate(locale, 'home.greeting_evening')
   }, [hour, locale])
 
+  // Inline-edit state for daily goal badge
+  const [editingGoal, setEditingGoal] = useState(false)
+  const [goalDraft, setGoalDraft] = useState(String(stats.dailyGoal))
+  const goalInputRef = useRef<HTMLInputElement>(null)
+
+  const startEditGoal = () => {
+    setGoalDraft(String(stats.dailyGoal))
+    setEditingGoal(true)
+    // Focus after state update
+    setTimeout(() => goalInputRef.current?.select(), 0)
+  }
+
+  const commitGoal = () => {
+    const parsed = parseInt(goalDraft, 10)
+    if (!isNaN(parsed) && parsed > 0) {
+      onUpdateDailyGoal(parsed)
+    }
+    setEditingGoal(false)
+  }
+
   const formatStudyTime = (ms: number) => {
     const totalMinutes = Math.floor(ms / 60000)
     if (totalMinutes < 60) return `${totalMinutes}m`
@@ -62,9 +86,10 @@ export function HomePage({
     return `${hours}h ${minutes}m`
   }
 
-  // Calculate deck groupings and due cards per deck
+  // ---------------------------------------------------------------------------
+  // Deck data for "Continue Learning" bento
+  // ---------------------------------------------------------------------------
   const decksData = useMemo(() => {
-    // A deck is any note that serves as a Type or note parent (having belongsTo children)
     const potentialDecks = entries.filter(
       (e) => e.isA === 'Type' || entries.some((child) => child.belongsTo.some((ref) => ref.includes(e.title))),
     )
@@ -76,29 +101,26 @@ export function HomePage({
         if (fsrsMembers.length === 0) return null
 
         const dueCount = fsrsMembers.filter((m) => isFSRSEntryDue(m)).length
-        return {
-          entry: deck,
-          totalCards: fsrsMembers.length,
-          dueCount,
-        }
+        return { entry: deck, totalCards: fsrsMembers.length, dueCount }
       })
       .filter((d): d is NonNullable<typeof d> => d !== null)
-      .slice(0, 4) // Show top 4 recent decks
+      .slice(0, 4)
   }, [entries])
 
-  // Heatmap rendering helpers (6 months = 26 weeks)
+  // ---------------------------------------------------------------------------
+  // Heatmap grid (6 months = 26 weeks)
+  // ---------------------------------------------------------------------------
   const heatmapGrid = useMemo(() => {
     const grid: { dateStr: string; dayOfWeek: number; count: number }[][] = []
     const today = new Date()
-    // Calculate start date: 26 weeks ago, starting on Sunday
     const startDate = new Date()
     startDate.setDate(today.getDate() - 182)
     const startDay = startDate.getDay()
-    startDate.setDate(startDate.getDate() - startDay) // Align to Sunday
+    startDate.setDate(startDate.getDate() - startDay)
 
     const heatmapMap = new Map(stats.heatmap.map((h) => [h.date, h.count]))
-
     const currentDate = new Date(startDate.getTime())
+
     for (let w = 0; w < 26; w++) {
       const week: { dateStr: string; dayOfWeek: number; count: number }[] = []
       for (let d = 0; d < 7; d++) {
@@ -106,13 +128,7 @@ export function HomePage({
         const month = String(currentDate.getMonth() + 1).padStart(2, '0')
         const day = String(currentDate.getDate()).padStart(2, '0')
         const dateStr = `${year}-${month}-${day}`
-        const count = heatmapMap.get(dateStr) ?? 0
-
-        week.push({
-          dateStr,
-          dayOfWeek: d,
-          count,
-        })
+        week.push({ dateStr, dayOfWeek: d, count: heatmapMap.get(dateStr) ?? 0 })
         currentDate.setDate(currentDate.getDate() + 1)
       }
       grid.push(week)
@@ -127,45 +143,95 @@ export function HomePage({
 
   const totalDue = getDueReviewCount(entries, new Date())
 
+  // ---------------------------------------------------------------------------
+  // Progress ring: how much of TODAY'S actual due queue has been cleared?
+  //
+  // totalAtStartOfDay ≈ todayReviews + totalDue (remaining)
+  // This is meaningful regardless of what the user's personal "goal" is.
+  // ---------------------------------------------------------------------------
+  const totalAtStart = stats.todayReviews + totalDue
+  const clearancePercent = totalAtStart > 0
+    ? Math.min(100, Math.round((stats.todayReviews / totalAtStart) * 100))
+    : 100
+
+  // Separate: how far toward the user's personal daily goal?
+  const goalPercent = stats.dailyGoal > 0
+    ? Math.min(100, Math.round((stats.todayReviews / stats.dailyGoal) * 100))
+    : 0
+
   return (
-    <div className="p-8 min-h-screen max-w-5xl mx-auto space-y-8 animate-in fade-in duration-300">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div className="p-8 min-h-screen max-w-5xl mx-auto space-y-6 animate-in fade-in duration-300">
+
+      {/* ── Page header ─────────────────────────────────────────── */}
+      <div className="flex items-start justify-between gap-4 flex-wrap">
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-widest text-[var(--accent-purple)] mb-1">
-            {formattedDate}
-          </p>
-          <h1 className="text-3xl font-black tracking-tight text-foreground">
-            {greeting} 👋
-          </h1>
+          <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">{formattedDate}</p>
+          <h1 className="text-3xl font-black tracking-tight text-foreground">{greeting}</h1>
           <p className="text-sm text-muted-foreground mt-0.5 font-medium">
             {translate(locale, 'home.subtitle')}
           </p>
         </div>
 
-        {/* Daily Goal Badge */}
-        <div className="px-4 py-2 bg-card border border-border shadow-sm rounded-2xl flex items-center gap-2 w-fit">
-          <CalendarBlank size={18} className="text-[var(--accent-purple)]" />
+        {/* Daily Goal Badge — click the number to edit */}
+        <div className="px-4 py-2 bg-card border border-border shadow-sm rounded-2xl flex items-center gap-2 w-fit shrink-0 group">
+          <CalendarBlank size={18} className="text-[var(--accent-blue)]" />
           <span className="text-xs font-bold text-foreground">
-            {translate(locale, 'home.daily_goal')}: {translate(locale, 'home.daily_goal_reviews', { n: stats.dailyGoal })}
+            {translate(locale, 'home.daily_goal')}:
           </span>
+          {editingGoal ? (
+            <input
+              ref={goalInputRef}
+              type="number"
+              min={1}
+              max={500}
+              value={goalDraft}
+              onChange={(e) => setGoalDraft(e.target.value)}
+              onBlur={commitGoal}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') commitGoal()
+                if (e.key === 'Escape') setEditingGoal(false)
+              }}
+              className="w-12 text-xs font-black text-center bg-muted rounded px-1 py-0.5 border border-[var(--accent-blue)] focus:outline-none"
+              aria-label="Edit daily goal"
+              autoFocus
+            />
+          ) : (
+            <button
+              type="button"
+              onClick={startEditGoal}
+              title="Click to edit daily goal"
+              className="flex items-center gap-1 text-xs font-black text-foreground hover:text-[var(--accent-blue)] transition-colors"
+            >
+              {stats.dailyGoal}
+              <PencilSimple size={10} className="opacity-0 group-hover:opacity-60 transition-opacity" />
+            </button>
+          )}
+          <span className="text-xs text-muted-foreground font-semibold">
+            {translate(locale, 'home.daily_goal_reviews', { n: '' }).replace(/\d+\s*/, '')}
+          </span>
+          {goalPercent >= 100 && (
+            <CheckCircle size={14} className="text-[var(--accent-green)]" weight="fill" />
+          )}
         </div>
       </div>
 
-      {/* Bento Grid */}
+      {/* ── Bento Grid ─────────────────────────────────────────── */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
         {/* Bento 1: Welcome & CTA (col-span-2) */}
         <div
           className={cn(
             'md:col-span-2 p-8 rounded-[32px] relative overflow-hidden flex flex-col justify-between min-h-[220px] shadow-sm border group bg-card transition-all duration-300',
-            totalDue > 0 ? 'bg-[var(--accent-purple-light)]/10 border-[var(--accent-purple)]/15' : 'bg-[var(--accent-green-light)]/10 border-[var(--accent-green)]/15',
+            totalDue > 0
+              ? 'bg-[var(--accent-blue-light)]/10 border-[var(--accent-blue)]/15'
+              : 'bg-[var(--accent-green-light)]/10 border-[var(--accent-green)]/15',
           )}
         >
           {/* Subtle background glow */}
           <div
             className={cn(
               'absolute -right-12 -top-12 w-56 h-56 rounded-full blur-3xl group-hover:scale-110 transition-transform duration-700 opacity-10',
-              totalDue > 0 ? 'bg-[var(--accent-purple)]' : 'bg-[var(--accent-green)]',
+              totalDue > 0 ? 'bg-[var(--accent-blue)]' : 'bg-[var(--accent-green)]',
             )}
           />
 
@@ -175,7 +241,7 @@ export function HomePage({
                 className={cn(
                   'text-[10px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full border',
                   totalDue > 0
-                    ? 'bg-[var(--accent-purple-light)] border-[var(--accent-purple)]/20 text-[var(--accent-purple)]'
+                    ? 'bg-[var(--accent-blue-light)] border-[var(--accent-blue)]/20 text-[var(--accent-blue)]'
                     : 'bg-[var(--accent-green-light)] border-[var(--accent-green)]/20 text-[var(--accent-green)]',
                 )}
               >
@@ -200,7 +266,7 @@ export function HomePage({
               <Button
                 type="button"
                 onClick={onStartReview}
-                className="px-6 py-3 font-bold rounded-2xl text-sm transition-all duration-200 flex items-center gap-2 shadow-sm text-white bg-[var(--accent-purple)] hover:opacity-90 active:scale-95 h-auto"
+                className="px-6 py-3 font-bold rounded-2xl text-sm transition-all duration-200 flex items-center gap-2 shadow-sm text-white bg-[var(--accent-blue)] hover:opacity-90 active:scale-95 h-auto"
               >
                 <Play size={16} weight="fill" />
                 {translate(locale, 'home.start_review')}
@@ -218,10 +284,12 @@ export function HomePage({
           </div>
         </div>
 
-        {/* Bento 2: Daily Goal & Level Progress */}
+        {/* Bento 2: Progress Ring & Level */}
         <div className="p-6 rounded-[32px] bg-card border border-border shadow-sm flex flex-col items-center justify-center text-center relative transition-all duration-300">
+          {/* Progress ring — shows actual clearance (not vs fixed goal) */}
           <div className="relative w-28 h-28 mb-3">
             <svg className="w-28 h-28 -rotate-90" viewBox="0 0 100 100">
+              {/* Track */}
               <circle
                 cx="50"
                 cy="50"
@@ -231,6 +299,7 @@ export function HomePage({
                 strokeWidth="7"
                 className="text-muted/20"
               />
+              {/* Clearance arc (actual progress) */}
               <circle
                 cx="50"
                 cy="50"
@@ -240,43 +309,62 @@ export function HomePage({
                 strokeWidth="7"
                 strokeLinecap="round"
                 strokeDasharray={`${2 * Math.PI * 42}`}
-                strokeDashoffset={`${2 * Math.PI * 42 * (1 - duePercent / 100)}`}
+                strokeDashoffset={`${2 * Math.PI * 42 * (1 - clearancePercent / 100)}`}
                 className="transition-all duration-500"
               />
               <defs>
                 <linearGradient id="progressGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="var(--accent-purple)" />
-                  <stop offset="100%" stopColor="var(--accent-purple)" stopOpacity={0.8} />
+                  <stop offset="0%" stopColor="var(--accent-blue)" />
+                  <stop offset="100%" stopColor="var(--accent-blue)" stopOpacity={0.8} />
                 </linearGradient>
               </defs>
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="text-2xl font-black text-foreground tracking-tighter leading-none">
-                {duePercent}%
-              </span>
-              <span className="text-[9px] font-black text-muted-foreground uppercase tracking-widest mt-1">
-                {translate(locale, 'home.goal_label')}
-              </span>
+              {totalAtStart > 0 ? (
+                <>
+                  <span className="text-xl font-black text-foreground tracking-tighter leading-none">
+                    {stats.todayReviews}
+                    <span className="text-sm font-bold text-muted-foreground">/{totalAtStart}</span>
+                  </span>
+                  <span className="text-[9px] font-black text-muted-foreground uppercase tracking-widest mt-1">
+                    {translate(locale, 'home.goal_label')}
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="text-2xl font-black text-[var(--accent-green)] tracking-tighter leading-none">✓</span>
+                  <span className="text-[9px] font-black text-muted-foreground uppercase tracking-widest mt-1">
+                    Done
+                  </span>
+                </>
+              )}
             </div>
           </div>
 
           <div className="w-full px-4 mt-2">
             <div className="flex items-center justify-center gap-1.5 mb-1">
               <Trophy size={14} className="text-[var(--accent-yellow)]" weight="fill" />
-              <span className="px-2 py-0.5 rounded-full bg-[var(--accent-purple-light)] text-[var(--accent-purple)] text-[10px] font-black uppercase tracking-wider">
+              <span className="px-2 py-0.5 rounded-full bg-[var(--accent-blue-light)] text-[var(--accent-blue)] text-[10px] font-black uppercase tracking-wider">
                 {translate(locale, 'home.level')} {level}
               </span>
             </div>
             {/* XP progress bar */}
             <div className="h-1.5 bg-muted rounded-full overflow-hidden mt-2 mb-1">
               <div
-                className="h-full bg-[var(--accent-purple)] rounded-full transition-all duration-500"
+                className="h-full bg-[var(--accent-blue)] rounded-full transition-all duration-500"
                 style={{ width: `${Math.min((currentLevelXP / nextLevelXP) * 100, 100)}%` }}
               />
             </div>
             <p className="text-[10px] text-muted-foreground font-semibold">
               {translate(locale, 'home.xp_to_level', { current: currentLevelXP, next: nextLevelXP, level: level + 1 })}
             </p>
+            {/* Goal progress hint */}
+            {stats.dailyGoal > 0 && (
+              <p className="text-[10px] text-muted-foreground mt-2">
+                Goal: {stats.todayReviews}/{stats.dailyGoal} reviews
+                {goalPercent >= 100 && <span className="ml-1 text-[var(--accent-green)] font-bold">✓</span>}
+              </p>
+            )}
           </div>
         </div>
 
@@ -285,7 +373,7 @@ export function HomePage({
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Reviewed */}
             <div className="p-4 bg-card border border-border rounded-2xl flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[var(--accent-purple-light)] flex items-center justify-center text-[var(--accent-purple)]">
+              <div className="w-10 h-10 rounded-xl bg-[var(--accent-blue-light)] flex items-center justify-center text-[var(--accent-blue)]">
                 <Brain size={20} weight="fill" />
               </div>
               <div>
@@ -364,7 +452,7 @@ export function HomePage({
             </div>
           </div>
 
-          {/* Simple Heatmap Grid SVG */}
+          {/* Heatmap Grid */}
           <div className="w-full overflow-x-auto py-2">
             <div className="flex flex-col gap-1 min-w-[500px]">
               <div className="flex gap-1 justify-between text-[9px] text-muted-foreground px-1 mb-1">
@@ -385,10 +473,10 @@ export function HomePage({
                             count === 0
                               ? 'bg-muted/30'
                               : count < 5
-                                ? 'bg-[var(--accent-purple)]/20'
+                                ? 'bg-[var(--accent-blue)]/20'
                                 : count < 15
-                                  ? 'bg-[var(--accent-purple)]/50'
-                                  : 'bg-[var(--accent-purple)]',
+                                  ? 'bg-[var(--accent-blue)]/50'
+                                  : 'bg-[var(--accent-blue)]',
                           )}
                         />
                       )
@@ -418,7 +506,7 @@ export function HomePage({
                 >
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex-1 min-w-0 mr-3">
-                      <p className="font-bold text-foreground truncate group-hover:text-[var(--accent-purple)] transition-colors">
+                      <p className="font-bold text-foreground truncate group-hover:text-[var(--accent-blue)] transition-colors">
                         {deck.entry.title}
                       </p>
                       <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider mt-0.5">
@@ -426,7 +514,7 @@ export function HomePage({
                       </p>
                     </div>
                     {deck.dueCount > 0 ? (
-                      <span className="px-3 py-1 bg-[var(--accent-purple-light)] text-[var(--accent-purple)] text-[10px] font-black rounded-full whitespace-nowrap">
+                      <span className="px-3 py-1 bg-[var(--accent-blue-light)] text-[var(--accent-blue)] text-[10px] font-black rounded-full whitespace-nowrap">
                         {translate(locale, 'decks.due', { n: deck.dueCount })}
                       </span>
                     ) : (
@@ -439,7 +527,7 @@ export function HomePage({
                   {/* Mini progress bar */}
                   <div className="h-1.5 bg-muted rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-[var(--accent-purple)] rounded-full"
+                      className="h-full bg-[var(--accent-blue)] rounded-full"
                       style={{
                         width: `${Math.round(((deck.totalCards - deck.dueCount) / deck.totalCards) * 100)}%`,
                       }}

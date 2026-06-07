@@ -7,7 +7,7 @@ Thanks for being here! Tolaria is still early, and every bug report, idea, and c
 To keep things clean:
 
 - 🐛 Bugs → GitHub Issues
-- 💡 Feature requests / ideas → Canny • <https://tolaria.canny.io/>
+- 💡 Feature requests / ideas → Canny • <https://memnova.net/>
 
 If you have a feature idea, please check Canny first and upvote it if it already exists.
 
@@ -27,7 +27,7 @@ A few things to keep in mind before opening one:
 - Follow the dev process described in Tolaria’s `AGENTS.md` (tests, code health, etc.)
 - Avoid bundling unrelated refactors into the same PR
 
-If you want to contribute a feature, the best place to start is here: <https://tolaria.canny.io/>
+If you want to contribute a feature, the best place to start is here: <https://memnova.net/>
 
 ## 📋 What makes a good bug report
 

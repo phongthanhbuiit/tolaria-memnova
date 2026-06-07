@@ -310,15 +310,15 @@ mod tests {
         let releases = vec![
             github_alpha_release(
                 "alpha-v2026.5.8-alpha.0007",
-                "https://github.com/refactoringhq/tolaria/releases/download/alpha-v2026.5.8-alpha.0007/alpha-latest.json",
+                "https://github.com/phongthanhbuiit/tolaria-memnova/releases/download/alpha-v2026.5.8-alpha.0007/alpha-latest.json",
             ),
             github_alpha_release(
                 "alpha-v2026.5.8-alpha.0017",
-                "https://github.com/refactoringhq/tolaria/releases/download/alpha-v2026.5.8-alpha.0017/alpha-latest.json",
+                "https://github.com/phongthanhbuiit/tolaria-memnova/releases/download/alpha-v2026.5.8-alpha.0017/alpha-latest.json",
             ),
             github_alpha_release(
                 "alpha-v2026.5.7-alpha.0099",
-                "https://github.com/refactoringhq/tolaria/releases/download/alpha-v2026.5.7-alpha.0099/alpha-latest.json",
+                "https://github.com/phongthanhbuiit/tolaria-memnova/releases/download/alpha-v2026.5.7-alpha.0099/alpha-latest.json",
             ),
         ];
 
@@ -326,7 +326,7 @@ mod tests {
             latest_alpha_release_metadata_url(&releases)
                 .unwrap()
                 .as_str(),
-            "https://github.com/refactoringhq/tolaria/releases/download/alpha-v2026.5.8-alpha.0017/alpha-latest.json"
+            "https://github.com/phongthanhbuiit/tolaria-memnova/releases/download/alpha-v2026.5.8-alpha.0017/alpha-latest.json"
         );
     }
 
