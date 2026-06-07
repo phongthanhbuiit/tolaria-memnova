@@ -10,7 +10,7 @@
  *  - onClose:      Called when the session ends or user dismisses
  */
 
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { invoke } from '@tauri-apps/api/core'
 import { Books, CalendarBlank, Confetti, SpeakerHigh, Sparkle, X } from '@phosphor-icons/react'
