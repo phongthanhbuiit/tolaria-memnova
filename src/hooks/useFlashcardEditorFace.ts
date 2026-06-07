@@ -128,6 +128,9 @@ export function useFlashcardEditorFace({
   const handleEditorContentChange = useCallback(
     (path: string, sliceContent: string) => {
       if (!isFSRS) {
+        setLatestMergedContent(sliceContent)
+        setPrevFullContent(sliceContent)
+        setIsPendingPropUpdate(true)
         onContentChange(path, sliceContent)
         return
       }
