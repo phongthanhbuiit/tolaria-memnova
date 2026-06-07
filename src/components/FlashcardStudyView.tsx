@@ -13,7 +13,7 @@
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { invoke } from '@tauri-apps/api/core'
-import { Books, CalendarBlank, Confetti, Sparkle, X } from '@phosphor-icons/react'
+import { Books, CalendarBlank, Confetti, SpeakerHigh, Sparkle, X } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/button'
 import './EditorTheme.css'
 import {
@@ -260,6 +260,40 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
     return splitFlashcardContent(cardContent ?? entry.snippet ?? '')
   }, [cardContent, entry])
 
+  // IPA and language from entry user-defined properties (not FSRS fields)
+  const ipa = entry?.properties?.['IPA'] != null ? String(entry.properties['IPA']) : null
+  const language = entry?.properties?.['language'] != null ? String(entry.properties['language']) : null
+
+  // Extract first audio URL from back markdown for the Play button.
+  // Tolaria audio blocks are serialized as ![[filename.mp3]] or asset:// URLs.
+  const audioUrl = useMemo(() => {
+    if (!back) return null
+    // Match ![[file.mp3]], ![[file.wav]], ![[file.ogg]], ![[file.m4a]]
+    const wikilinkMatch = back.match(/!\[\[([^\]]+\.(?:mp3|wav|ogg|m4a|aac|flac))\]\]/i)
+    if (wikilinkMatch) return wikilinkMatch[1]
+    // Match asset:// or http(s):// URLs in markdown image/link syntax (RegExp constructor avoids lint parse issue)
+    const urlPattern = new RegExp('!\\[[^\\]]*\\]\\(((?:asset|https?):\\/\\/[^)]+\\.(?:mp3|wav|ogg|m4a|aac|flac))\\)', 'i')
+    const urlMatch = back.match(urlPattern)
+    if (urlMatch) return urlMatch[1]
+    return null
+  }, [back])
+
+  const audioRef = useRef<HTMLAudioElement | null>(null)
+
+  const handlePlayAudio = useCallback(() => {
+    if (!audioUrl) return
+    if (!audioRef.current) {
+      audioRef.current = new Audio()
+    }
+    const audio = audioRef.current
+    if (!audio.paused) {
+      audio.pause()
+      audio.currentTime = 0
+    }
+    audio.src = audioUrl
+    audio.play().catch(() => { /* ignore: user may have blocked autoplay */ })
+  }, [audioUrl])
+
   // Next-interval previews for the rating buttons
   const intervals = useMemo(() => (card ? fsrsPreviewIntervals(card) : null), [card])
 
@@ -370,6 +404,15 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
                   </div>
                 )}
 
+                {/* Language badge above front — helps identify the word's source language */}
+                {language && !ipa && (
+                  <div className="flex items-center gap-2 shrink-0">
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--accent-blue-light)] text-[var(--accent-blue)] font-medium">
+                      {language}
+                    </span>
+                  </div>
+                )}
+
                 {/* Front face — BlockNote read-only, full content, scrollable */}
                 <div
                   className="flex-1 min-h-0 overflow-y-auto rounded-xl bg-card px-6 py-4"
@@ -409,6 +452,37 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
                     )
                   : (
                       <div className="flex flex-col shrink-0 gap-3 animate-in fade-in duration-200">
+                        {/* IPA + language + audio row — shown when note has IPA property */}
+                        {(ipa ?? audioUrl) && (
+                          <div className="flex items-center gap-3 shrink-0 flex-wrap">
+                            {ipa && (
+                              <span
+                                className="font-mono text-base px-3 py-1 rounded-lg bg-[var(--accent-blue-light)] text-[var(--accent-blue)] select-all"
+                                title="IPA pronunciation"
+                              >
+                                {ipa}
+                              </span>
+                            )}
+                            {language && (
+                              <span className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
+                                {language}
+                              </span>
+                            )}
+                            {audioUrl && (
+                              <Button
+                                type="button"
+                                onClick={handlePlayAudio}
+                                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg h-auto text-sm font-medium bg-[var(--accent-green-light)] text-[var(--accent-green)] hover:bg-[var(--accent-green)]/20 transition-colors"
+                                aria-label="Play pronunciation audio"
+                                title="Play pronunciation"
+                              >
+                                <SpeakerHigh size={16} weight="fill" />
+                                Play
+                              </Button>
+                            )}
+                          </div>
+                        )}
+
                         {/* Back face (only when note has <!-- FLASHCARD:BACK --> marker) */}
                         {hasBack && (
                           <div

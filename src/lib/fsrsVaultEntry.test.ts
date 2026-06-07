@@ -57,19 +57,46 @@ function makeEntry(overrides: Partial<VaultEntry> & { properties?: Record<string
 }
 
 function fsrsEntry(overrides: Record<string, unknown> = {}): VaultEntry {
+  // Extract FSRS fields from overrides for struct fields, rest goes to properties
+  const {
+    [FSRS_FIELD.enabled]: enabled = true,
+    [FSRS_FIELD.state]: state = 'new',
+    [FSRS_FIELD.due]: due = NOW.toISOString(),
+    [FSRS_FIELD.stability]: stability = 0,
+    [FSRS_FIELD.difficulty]: difficulty = 0,
+    [FSRS_FIELD.elapsedDays]: elapsedDays = 0,
+    [FSRS_FIELD.scheduledDays]: scheduledDays = 0,
+    [FSRS_FIELD.reps]: reps = 0,
+    [FSRS_FIELD.lapses]: lapses = 0,
+    [FSRS_FIELD.lastReview]: lastReview = null,
+    ...extraProperties
+  } = overrides
+
   return makeEntry({
+    // Dedicated VaultEntry struct fields (read by isFSRSEnabled / getFSRSCard)
+    fsrsEnabled: Boolean(enabled),
+    fsrsState: String(state),
+    fsrsDue: String(due),
+    fsrsStability: Number(stability),
+    fsrsDifficulty: Number(difficulty),
+    fsrsElapsedDays: Number(elapsedDays),
+    fsrsScheduledDays: Number(scheduledDays),
+    fsrsReps: Number(reps),
+    fsrsLapses: Number(lapses),
+    fsrsLastReview: lastReview != null ? String(lastReview) : undefined,
+    // Keep properties in sync so FSRS_FIELD constant tests still work
     properties: {
-      [FSRS_FIELD.enabled]: true,
-      [FSRS_FIELD.state]: 'new',
-      [FSRS_FIELD.due]: NOW.toISOString(),
-      [FSRS_FIELD.stability]: 0,
-      [FSRS_FIELD.difficulty]: 0,
-      [FSRS_FIELD.elapsedDays]: 0,
-      [FSRS_FIELD.scheduledDays]: 0,
-      [FSRS_FIELD.reps]: 0,
-      [FSRS_FIELD.lapses]: 0,
-      [FSRS_FIELD.lastReview]: null,
-      ...overrides,
+      [FSRS_FIELD.enabled]: Boolean(enabled),
+      [FSRS_FIELD.state]: String(state),
+      [FSRS_FIELD.due]: String(due),
+      [FSRS_FIELD.stability]: Number(stability),
+      [FSRS_FIELD.difficulty]: Number(difficulty),
+      [FSRS_FIELD.elapsedDays]: Number(elapsedDays),
+      [FSRS_FIELD.scheduledDays]: Number(scheduledDays),
+      [FSRS_FIELD.reps]: Number(reps),
+      [FSRS_FIELD.lapses]: Number(lapses),
+      [FSRS_FIELD.lastReview]: lastReview,
+      ...extraProperties,
     },
   })
 }
@@ -176,6 +203,17 @@ describe('getDueReviewEntries', () => {
     const reviewEntry = makeEntry({
       path: 'review.md',
       filename: 'review.md',
+      // Struct fields (read by isFSRSEnabled / getFSRSCard)
+      fsrsEnabled: true,
+      fsrsState: 'review',
+      fsrsDue: new Date(NOW.getTime() - 1000).toISOString(),
+      fsrsStability: 10,
+      fsrsDifficulty: 5,
+      fsrsElapsedDays: 10,
+      fsrsScheduledDays: 10,
+      fsrsReps: 5,
+      fsrsLapses: 0,
+      // Properties kept in sync for completeness
       properties: {
         [FSRS_FIELD.enabled]: true,
         [FSRS_FIELD.state]: 'review',

@@ -2,8 +2,8 @@
  * FlashcardEditorTabs.tsx
  *
  * A tab switcher rendered above the editor when a note has FSRS enabled.
- * Shows [📖 Front] [✏️ Back] tabs. When active tab switches, the parent
- * manages which portion of the note content is rendered in the editor.
+ * Shows [Front] [Back] tabs using Phosphor icons. When active tab switches,
+ * the parent manages which portion of the note content is rendered in the editor.
  *
  * Design:
  *  - Tabs are purely a VIEW concern — they don't split or mutate content.
@@ -12,7 +12,8 @@
  *  - This component is a pure presentational element.
  */
 
-import { memo } from 'react'
+import { type ReactNode, memo } from 'react'
+import { BookOpen, Cards, PencilSimpleLine, Plus } from '@phosphor-icons/react'
 import { cn } from '@/lib/utils'
 
 export type FlashcardFace = 'front' | 'back'
@@ -28,7 +29,7 @@ interface FlashcardEditorTabsProps {
 
 interface TabProps {
   label: string
-  icon: string
+  icon: ReactNode
   isActive: boolean
   onClick: () => void
   testId?: string
@@ -52,7 +53,7 @@ function Tab({ label, icon, isActive, onClick, testId }: TabProps) {
           : 'text-muted-foreground hover:text-foreground hover:bg-background/50',
       )}
     >
-      <span aria-hidden="true" className="text-[13px] leading-none">{icon}</span>
+      <span aria-hidden="true" className="flex items-center">{icon}</span>
       <span>{label}</span>
       {isActive && (
         <span
@@ -76,7 +77,7 @@ function AddBackButton({ onClick }: { onClick: () => void }) {
         'hover:text-foreground hover:border-foreground/30 transition-colors duration-150',
       )}
     >
-      <span aria-hidden="true" className="text-[11px]">+</span>
+      <Plus size={11} aria-hidden="true" />
       <span>Add back</span>
     </button>
   )
@@ -103,7 +104,7 @@ export const FlashcardEditorTabs = memo(function FlashcardEditorTabs({
     >
       <Tab
         label="Front"
-        icon="📖"
+        icon={<BookOpen size={13} weight="bold" />}
         isActive={activeFace === 'front'}
         onClick={() => onChangeFace('front')}
         testId="flashcard-tab-front"
@@ -112,7 +113,7 @@ export const FlashcardEditorTabs = memo(function FlashcardEditorTabs({
         ? (
             <Tab
               label="Back"
-              icon="🖊"
+              icon={<PencilSimpleLine size={13} weight="bold" />}
               isActive={activeFace === 'back'}
               onClick={() => onChangeFace('back')}
               testId="flashcard-tab-back"
@@ -133,10 +134,11 @@ export const FlashcardEditorTabs = memo(function FlashcardEditorTabs({
             'bg-violet-500/10 text-violet-500 border border-violet-500/20',
           )}
         >
-          <span aria-hidden="true">🎴</span>
+          <Cards size={11} weight="duotone" aria-hidden="true" />
           FSRS
         </span>
       </div>
     </div>
   )
 })
+

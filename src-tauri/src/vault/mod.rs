@@ -170,6 +170,16 @@ pub fn parse_md_file(path: &Path, git_dates: Option<(u64, u64)>) -> Result<Vault
         properties,
         has_h1,
         file_kind: "markdown".to_string(),
+        fsrs_enabled: frontmatter.fsrs_enabled.unwrap_or(false),
+        fsrs_state: frontmatter.fsrs_state,
+        fsrs_due: frontmatter.fsrs_due,
+        fsrs_stability: frontmatter.fsrs_stability,
+        fsrs_difficulty: frontmatter.fsrs_difficulty,
+        fsrs_elapsed_days: frontmatter.fsrs_elapsed_days,
+        fsrs_scheduled_days: frontmatter.fsrs_scheduled_days,
+        fsrs_reps: frontmatter.fsrs_reps,
+        fsrs_lapses: frontmatter.fsrs_lapses,
+        fsrs_last_review: frontmatter.fsrs_last_review,
     })
 }
 

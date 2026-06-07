@@ -860,7 +860,7 @@ function ScheduleForReviewAction({
               )}
               aria-label="Review Deck"
             >
-              <span>📚 Review Deck</span>
+              <Cards size={11} weight="duotone" aria-hidden="true" /> Review Deck
             </button>
           </ActionTooltip>
         )}
@@ -895,7 +895,7 @@ function ScheduleForReviewAction({
             </div>
           </DropdownMenuItem>
           <DropdownMenuItem onClick={onScheduleAsDeck}>
-            <span className="mr-2 text-sm">📚</span>
+            <Cards size={14} className="mr-2 text-muted-foreground" aria-hidden="true" />
             <div>
               <div className="text-xs font-medium">Schedule as Deck</div>
               <div className="text-[10px] text-muted-foreground">Enable FSRS on all member notes</div>

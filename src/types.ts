@@ -64,6 +64,26 @@ export interface VaultEntry {
   /** File kind: "markdown", "text", or "binary". Determines editor behavior.
    *  Defaults to "markdown" when absent (for backwards compatibility). */
   fileKind?: 'markdown' | 'text' | 'binary'
+  /** Whether FSRS spaced-repetition scheduling is enabled for this note. */
+  fsrsEnabled?: boolean
+  /** FSRS card state: "new" | "learning" | "review" | "relearning". Absent when not scheduled. */
+  fsrsState?: string
+  /** ISO-8601 datetime when this card is next due for review. */
+  fsrsDue?: string
+  /** FSRS stability value (days before 90% retention). */
+  fsrsStability?: number
+  /** FSRS difficulty value (0–10). */
+  fsrsDifficulty?: number
+  /** Days elapsed since last review. */
+  fsrsElapsedDays?: number
+  /** Days scheduled until next review. */
+  fsrsScheduledDays?: number
+  /** Number of successful reviews. */
+  fsrsReps?: number
+  /** Number of lapses (failed reviews). */
+  fsrsLapses?: number
+  /** ISO-8601 datetime of last review. */
+  fsrsLastReview?: string
 }
 
 export interface WorkspaceIdentity {

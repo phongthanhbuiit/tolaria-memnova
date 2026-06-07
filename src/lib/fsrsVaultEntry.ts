@@ -20,7 +20,7 @@ import {
   type FSRSScheduleResult,
   type FSRSState,
 } from './fsrs'
-import type { VaultEntry, VaultPropertyValue } from '../types'
+import type { VaultEntry } from '../types'
 import { refMatchesEntry } from '../utils/noteListHelpers'
 
 // ---------------------------------------------------------------------------
@@ -44,57 +44,20 @@ export const FSRS_FIELD = {
 export const FLASHCARD_BACK_MARKER = '<!-- FLASHCARD:BACK -->'
 
 // ---------------------------------------------------------------------------
-// Read helpers
-// ---------------------------------------------------------------------------
-
-function readBool(
-  props: Record<string, VaultPropertyValue>,
-  key: string,
-): boolean {
-  return props[key] === true
-}
-
-function readStr(
-  props: Record<string, VaultPropertyValue>,
-  key: string,
-): string | null {
-  const v = props[key]
-  if (typeof v === 'string' && v.trim()) return v.trim()
-  return null
-}
-
-function readNum(
-  props: Record<string, VaultPropertyValue>,
-  key: string,
-  fallback = 0,
-): number {
-  const v = props[key]
-  if (typeof v === 'number' && Number.isFinite(v)) return v
-  if (typeof v === 'string') {
-    const parsed = Number.parseFloat(v)
-    if (Number.isFinite(parsed)) return parsed
-  }
-  return fallback
-}
-
-function readFSRSState(
-  props: Record<string, VaultPropertyValue>,
-): FSRSState {
-  const v = readStr(props, FSRS_FIELD.state)
-  if (v === 'learning' || v === 'review' || v === 'relearning') return v
-  return 'new'
-}
-
-// ---------------------------------------------------------------------------
 // Public helpers
 // ---------------------------------------------------------------------------
 
 /**
  * Returns true if this note has FSRS scheduling enabled
  * (`_fsrs_enabled: true` in frontmatter).
+ *
+ * Reads from the dedicated `fsrsEnabled` field on VaultEntry (set by the Rust
+ * vault parser) rather than `entry.properties`, because the Rust parser filters
+ * all `_`-prefixed keys out of `properties` unless they are explicitly registered
+ * as known system fields that populate dedicated struct fields.
  */
 export function isFSRSEnabled(entry: VaultEntry): boolean {
-  return readBool(entry.properties, FSRS_FIELD.enabled)
+  return entry.fsrsEnabled === true
 }
 
 /**
@@ -102,24 +65,27 @@ export function isFSRSEnabled(entry: VaultEntry): boolean {
  * Returns a default new card if fields are missing.
  */
 export function getFSRSCard(entry: VaultEntry): FSRSCard {
-  const props = entry.properties
   const now = new Date().toISOString()
 
-  // If the entry has no FSRS fields at all, return a fresh card
-  if (!props[FSRS_FIELD.state]) {
+  // If the entry has no FSRS state, return a fresh card
+  if (!entry.fsrsState) {
     return createNewFSRSCard(now)
   }
 
+  const state = entry.fsrsState
+  const validState: FSRSState =
+    state === 'learning' || state === 'review' || state === 'relearning' ? state : 'new'
+
   return {
-    state: readFSRSState(props),
-    stability: readNum(props, FSRS_FIELD.stability),
-    difficulty: readNum(props, FSRS_FIELD.difficulty),
-    elapsedDays: readNum(props, FSRS_FIELD.elapsedDays),
-    scheduledDays: readNum(props, FSRS_FIELD.scheduledDays),
-    reps: readNum(props, FSRS_FIELD.reps),
-    lapses: readNum(props, FSRS_FIELD.lapses),
-    lastReview: readStr(props, FSRS_FIELD.lastReview),
-    due: readStr(props, FSRS_FIELD.due) ?? now,
+    state: validState,
+    stability: entry.fsrsStability ?? 0,
+    difficulty: entry.fsrsDifficulty ?? 0,
+    elapsedDays: entry.fsrsElapsedDays ?? 0,
+    scheduledDays: entry.fsrsScheduledDays ?? 0,
+    reps: entry.fsrsReps ?? 0,
+    lapses: entry.fsrsLapses ?? 0,
+    lastReview: entry.fsrsLastReview ?? null,
+    due: entry.fsrsDue ?? now,
   }
 }
 

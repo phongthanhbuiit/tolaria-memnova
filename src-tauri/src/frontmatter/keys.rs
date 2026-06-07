@@ -132,6 +132,70 @@ const KNOWN_FRONTMATTER_KEYS: &[FrontmatterKeyRule] = &[
         aliases: &["_list_properties_display"],
         canonicalize_on_write: false,
     },
+    // FSRS scheduling fields — registered here so that is_reserved() returns true
+    // for these keys, causing extract_properties() to skip them (they are consumed
+    // by the Frontmatter struct deserializer instead and exposed via dedicated
+    // VaultEntry fields).
+    FrontmatterKeyRule {
+        read_key: "_fsrs_enabled",
+        write_key: "_fsrs_enabled",
+        aliases: &["_fsrs_enabled"],
+        canonicalize_on_write: false,
+    },
+    FrontmatterKeyRule {
+        read_key: "_fsrs_state",
+        write_key: "_fsrs_state",
+        aliases: &["_fsrs_state"],
+        canonicalize_on_write: false,
+    },
+    FrontmatterKeyRule {
+        read_key: "_fsrs_due",
+        write_key: "_fsrs_due",
+        aliases: &["_fsrs_due"],
+        canonicalize_on_write: false,
+    },
+    FrontmatterKeyRule {
+        read_key: "_fsrs_stability",
+        write_key: "_fsrs_stability",
+        aliases: &["_fsrs_stability"],
+        canonicalize_on_write: false,
+    },
+    FrontmatterKeyRule {
+        read_key: "_fsrs_difficulty",
+        write_key: "_fsrs_difficulty",
+        aliases: &["_fsrs_difficulty"],
+        canonicalize_on_write: false,
+    },
+    FrontmatterKeyRule {
+        read_key: "_fsrs_elapsed_days",
+        write_key: "_fsrs_elapsed_days",
+        aliases: &["_fsrs_elapsed_days"],
+        canonicalize_on_write: false,
+    },
+    FrontmatterKeyRule {
+        read_key: "_fsrs_scheduled_days",
+        write_key: "_fsrs_scheduled_days",
+        aliases: &["_fsrs_scheduled_days"],
+        canonicalize_on_write: false,
+    },
+    FrontmatterKeyRule {
+        read_key: "_fsrs_reps",
+        write_key: "_fsrs_reps",
+        aliases: &["_fsrs_reps"],
+        canonicalize_on_write: false,
+    },
+    FrontmatterKeyRule {
+        read_key: "_fsrs_lapses",
+        write_key: "_fsrs_lapses",
+        aliases: &["_fsrs_lapses"],
+        canonicalize_on_write: false,
+    },
+    FrontmatterKeyRule {
+        read_key: "_fsrs_last_review",
+        write_key: "_fsrs_last_review",
+        aliases: &["_fsrs_last_review"],
+        canonicalize_on_write: false,
+    },
 ];
 
 impl FrontmatterKeyRule {

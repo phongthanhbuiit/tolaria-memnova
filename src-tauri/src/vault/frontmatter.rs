@@ -61,6 +61,27 @@ pub(crate) struct Frontmatter {
     pub favorite_index: Option<i64>,
     #[serde(rename = "_list_properties_display", default)]
     pub list_properties_display: Option<Vec<String>>,
+    // FSRS scheduling fields
+    #[serde(rename = "_fsrs_enabled", default, deserialize_with = "deserialize_bool_or_string")]
+    pub fsrs_enabled: Option<bool>,
+    #[serde(rename = "_fsrs_state", default)]
+    pub fsrs_state: Option<String>,
+    #[serde(rename = "_fsrs_due", default)]
+    pub fsrs_due: Option<String>,
+    #[serde(rename = "_fsrs_stability", default)]
+    pub fsrs_stability: Option<f64>,
+    #[serde(rename = "_fsrs_difficulty", default)]
+    pub fsrs_difficulty: Option<f64>,
+    #[serde(rename = "_fsrs_elapsed_days", default)]
+    pub fsrs_elapsed_days: Option<f64>,
+    #[serde(rename = "_fsrs_scheduled_days", default)]
+    pub fsrs_scheduled_days: Option<f64>,
+    #[serde(rename = "_fsrs_reps", default)]
+    pub fsrs_reps: Option<i64>,
+    #[serde(rename = "_fsrs_lapses", default)]
+    pub fsrs_lapses: Option<i64>,
+    #[serde(rename = "_fsrs_last_review", default)]
+    pub fsrs_last_review: Option<String>,
 }
 
 /// Custom deserializer for boolean fields that may arrive as strings.

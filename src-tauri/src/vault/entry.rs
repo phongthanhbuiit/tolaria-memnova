@@ -89,6 +89,36 @@ pub struct VaultEntry {
     /// Determines how the frontend renders and opens the file.
     #[serde(rename = "fileKind", default = "default_file_kind")]
     pub file_kind: String,
+    /// Whether FSRS spaced-repetition scheduling is enabled for this note.
+    #[serde(rename = "fsrsEnabled", default)]
+    pub fsrs_enabled: bool,
+    /// FSRS card state: "new" | "learning" | "review" | "relearning". None = not scheduled.
+    #[serde(rename = "fsrsState", default)]
+    pub fsrs_state: Option<String>,
+    /// ISO-8601 datetime when this card is next due for review.
+    #[serde(rename = "fsrsDue", default)]
+    pub fsrs_due: Option<String>,
+    /// FSRS stability value (days before 90% retention).
+    #[serde(rename = "fsrsStability", default)]
+    pub fsrs_stability: Option<f64>,
+    /// FSRS difficulty value (0–10).
+    #[serde(rename = "fsrsDifficulty", default)]
+    pub fsrs_difficulty: Option<f64>,
+    /// Days elapsed since last review.
+    #[serde(rename = "fsrsElapsedDays", default)]
+    pub fsrs_elapsed_days: Option<f64>,
+    /// Days scheduled until next review.
+    #[serde(rename = "fsrsScheduledDays", default)]
+    pub fsrs_scheduled_days: Option<f64>,
+    /// Number of successful reviews.
+    #[serde(rename = "fsrsReps", default)]
+    pub fsrs_reps: Option<i64>,
+    /// Number of lapses (failed reviews).
+    #[serde(rename = "fsrsLapses", default)]
+    pub fsrs_lapses: Option<i64>,
+    /// ISO-8601 datetime of last review.
+    #[serde(rename = "fsrsLastReview", default)]
+    pub fsrs_last_review: Option<String>,
 }
 
 fn default_file_kind() -> String {
