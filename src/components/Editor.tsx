@@ -15,6 +15,7 @@ import type { FrontmatterOpOptions } from '../hooks/frontmatterOps'
 import { ResizeHandle } from './ResizeHandle'
 import { useDiffMode, type CommitDiffRequest } from '../hooks/useDiffMode'
 import { useEditorFocus } from '../hooks/useEditorFocus'
+import { useFlashcardEditorFace } from '../hooks/useFlashcardEditorFace'
 import { useDragRegion } from '../hooks/useDragRegion'
 import { formatShortcutDisplay } from '../hooks/appCommandCatalog'
 import { EditorRightPanel } from './EditorRightPanel'
@@ -253,7 +254,23 @@ function useEditorSetup({
     vaultPath,
     flushPendingEditorChangeRef,
   )
-  const tabsForEditorSwap = applyPendingRawExitContent(tabs, pendingRawExitContent)
+
+  const flashcard = useFlashcardEditorFace({
+    entry: activeTab?.entry ?? null,
+    fullContent: activeTab?.content ?? '',
+    onContentChange,
+  })
+
+  const rawTabsForEditorSwap = applyPendingRawExitContent(tabs, pendingRawExitContent)
+  const tabsForEditorSwap = useMemo(() => {
+    if (!flashcard.isFSRS || !activeTab) return rawTabsForEditorSwap
+    return rawTabsForEditorSwap.map((tab) =>
+      tab.entry.path === activeTab.entry.path
+        ? { ...tab, content: flashcard.editorContent }
+        : tab
+    )
+  }, [flashcard.isFSRS, flashcard.editorContent, rawTabsForEditorSwap, activeTab])
+
   const rawModeContent = resolveRawModeContent({ activeTab, rawModeContentOverride })
 
   useEffect(() => {
@@ -265,7 +282,12 @@ function useEditorSetup({
   }, [activeTabPath, setPendingRawExitContent, tabs])
 
   const { handleEditorChange, flushPendingEditorChange, editorMountedRef } = useEditorTabSwap({
-    tabs: tabsForEditorSwap, activeTabPath, editor, onContentChange, rawMode, vaultPath,
+    tabs: tabsForEditorSwap,
+    activeTabPath,
+    editor,
+    onContentChange: flashcard.handleEditorContentChange,
+    rawMode,
+    vaultPath,
   })
   useEffect(() => {
     flushPendingEditorChangeRef.current = flushPendingEditorChange
@@ -298,7 +320,7 @@ function useEditorSetup({
     rawMode, diffMode, diffContent, diffLoading,
     handleToggleDiffExclusive, handleToggleRawExclusive,
     handleEditorChange, flushPendingEditorChange, handleViewCommitDiff,
-    isLoadingNewTab, activeStatus, showDiffToggle,
+    isLoadingNewTab, activeStatus, showDiffToggle, flashcard,
   }
 }
 
@@ -419,6 +441,7 @@ function EditorLayout({
   hasDeckMembers,
   fsrsDueDate,
   onUpdateNoteContent,
+  flashcard,
 }: {
   tabs: Tab[]
   activeTabPath: string | null

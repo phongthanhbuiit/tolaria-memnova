@@ -6,6 +6,7 @@ import type { NoteWidthMode, NoteStatus, VaultEntry } from '../../types'
 import { useEditorTheme } from '../../hooks/useTheme'
 import { deriveEditorContentState } from './editorContentState'
 import type { RawEditorFindRequest } from '../RawEditorFindBar'
+import type { useFlashcardEditorFace } from '../../hooks/useFlashcardEditorFace'
 
 export interface Tab {
   entry: VaultEntry
@@ -63,6 +64,7 @@ export interface EditorContentProps {
   hasDeckMembers?: boolean
   fsrsDueDate?: string | null
   locale?: AppLocale
+  flashcard?: ReturnType<typeof useFlashcardEditorFace>
 }
 
 export function useEditorContentModel(props: EditorContentProps) {
