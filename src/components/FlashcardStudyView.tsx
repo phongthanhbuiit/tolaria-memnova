@@ -552,3 +552,4 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
       )}
     </>
   )
+})
