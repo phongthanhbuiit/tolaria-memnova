@@ -62,7 +62,11 @@ pub(crate) struct Frontmatter {
     #[serde(rename = "_list_properties_display", default)]
     pub list_properties_display: Option<Vec<String>>,
     // FSRS scheduling fields
-    #[serde(rename = "_fsrs_enabled", default, deserialize_with = "deserialize_bool_or_string")]
+    #[serde(
+        rename = "_fsrs_enabled",
+        default,
+        deserialize_with = "deserialize_bool_or_string"
+    )]
     pub fsrs_enabled: Option<bool>,
     #[serde(rename = "_fsrs_state", default)]
     pub fsrs_state: Option<String>,

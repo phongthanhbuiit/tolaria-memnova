@@ -29,6 +29,7 @@ const ENTRY_DELETE_MAP: Record<string, Partial<VaultEntry>> = {
   _organized: { organized: false },
   _favorite: { favorite: false }, _favorite_index: { favoriteIndex: null },
   _list_properties_display: { listPropertiesDisplay: [] },
+  _fsrs_enabled: { fsrsEnabled: false },
 }
 
 /** Check if a string contains a wikilink pattern `[[...]]`. */
@@ -126,6 +127,8 @@ function knownFrontmatterUpdates(value: FrontmatterValue | undefined): Record<Fr
     _favorite: { favorite: Boolean(value) },
     _favorite_index: { favoriteIndex: frontmatterNumber(value) },
     _list_properties_display: { listPropertiesDisplay: arr },
+    // FSRS: optimistic toggle — mirrors the Rust struct field mapping
+    _fsrs_enabled: { fsrsEnabled: Boolean(value) },
   }
 }
 
