@@ -24,7 +24,7 @@
   1. Chủ động chạy test thủ công trước trên local để kiểm tra lỗi:
      ```bash
      pnpm test             # Test frontend
-     cargo test            # Test backend Rust
+     cargo test --manifest-path src-tauri/Cargo.toml  # Test backend Rust
      ```
   2. Tiến hành push bỏ qua kiểm tra tự động của Git Hook:
      ```bash
