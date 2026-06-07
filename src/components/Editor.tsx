@@ -593,6 +593,7 @@ function EditorLayout({
               hasDeckMembers={hasDeckMembers}
               fsrsDueDate={fsrsDueDate}
               locale={locale}
+              flashcard={flashcard}
             />
         }
         {(showTableOfContents || !inspectorCollapsed) && <ResizeHandle onResize={onInspectorResize} />}
