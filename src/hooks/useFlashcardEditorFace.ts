@@ -61,6 +61,7 @@ export function useFlashcardEditorFace({
   const [prevPath, setPrevPath] = useState<string | null>(currentPath)
   const [prevFullContent, setPrevFullContent] = useState<string>(fullContent)
   const [latestMergedContent, setLatestMergedContent] = useState<string>(fullContent)
+  const [isPendingPropUpdate, setIsPendingPropUpdate] = useState(false)
 
   const initialHasBack = useMemo(() => splitFlashcardContent(fullContent).hasBack, [fullContent])
   const [prevHasBack, setPrevHasBack] = useState(initialHasBack)
@@ -71,18 +72,25 @@ export function useFlashcardEditorFace({
     setActiveFace('front')
     setPrevFullContent(fullContent)
     setLatestMergedContent(fullContent)
+    setIsPendingPropUpdate(false)
 
     const newHasBack = splitFlashcardContent(fullContent).hasBack
     setPrevHasBack(newHasBack)
   }
 
   // Sync external changes (such as from git sync or other panels) safely during render
-  if (currentPath === prevPath && fullContent !== prevFullContent) {
-    setPrevFullContent(fullContent)
-    setLatestMergedContent(fullContent)
+  if (currentPath === prevPath) {
+    if (isPendingPropUpdate) {
+      if (fullContent === latestMergedContent) {
+        setIsPendingPropUpdate(false)
+      }
+    } else if (fullContent !== prevFullContent) {
+      setPrevFullContent(fullContent)
+      setLatestMergedContent(fullContent)
 
-    const externalHasBack = splitFlashcardContent(fullContent).hasBack
-    setPrevHasBack(externalHasBack)
+      const externalHasBack = splitFlashcardContent(fullContent).hasBack
+      setPrevHasBack(externalHasBack)
+    }
   }
 
   const isFSRS = useMemo(() => (entry ? isFSRSEnabled(entry) : false), [entry])
@@ -133,6 +141,7 @@ export function useFlashcardEditorFace({
 
       setLatestMergedContent(merged)
       setPrevFullContent(merged)
+      setIsPendingPropUpdate(true)
       onContentChange(path, merged)
     },
     [isFSRS, activeFace, latestMergedContent, onContentChange],
@@ -144,6 +153,7 @@ export function useFlashcardEditorFace({
     const withMarker = appendFlashcardBackMarker(latestMergedContent)
     setLatestMergedContent(withMarker)
     setPrevFullContent(withMarker)
+    setIsPendingPropUpdate(true)
     onContentChange(entry.path, withMarker)
     // Switch to back face so user can start writing it
     setActiveFace('back')
