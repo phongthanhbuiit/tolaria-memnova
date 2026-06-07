@@ -10,7 +10,8 @@
  */
 
 import { useCallback, useEffect, useState } from 'react'
-import { Cards, CalendarBlank, MusicNote, Sparkle, TextAa } from '@phosphor-icons/react'
+import { Cards, CalendarBlank, FolderOpen, MusicNote, Sparkle, TextAa } from '@phosphor-icons/react'
+import { invoke } from '@tauri-apps/api/core'
 import { Switch } from '@/components/ui/switch'
 import { Input } from '@/components/ui/input'
 import {
@@ -20,7 +21,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { isTauri } from '../../mock-tauri'
 import type { VaultEntry, VaultPropertyValue } from '../../types'
 
 // ---------------------------------------------------------------------------
@@ -90,6 +93,7 @@ function VocabField({
   placeholder,
   mono,
   onCommit,
+  onBrowse,
 }: {
   id: string
   label: string
@@ -98,10 +102,10 @@ function VocabField({
   placeholder: string
   mono?: boolean
   onCommit: (v: string) => void
+  onBrowse?: () => void
 }) {
   const [draft, setDraft] = useState(value)
 
-  // Sync when the vault entry updates (e.g. another device or direct YAML edit)
   useEffect(() => {
     setDraft(value)
   }, [value])
@@ -131,19 +135,32 @@ function VocabField({
         <Icon size={9} />
         {label}
       </label>
-      <Input
-        id={id}
-        className={cn(
-          'h-[26px] rounded border-border bg-muted px-1.5 text-[12px] text-foreground',
-          'focus-visible:border-primary focus-visible:ring-0',
-          mono && 'font-mono',
+      <div className="flex gap-1">
+        <Input
+          id={id}
+          className={cn(
+            'h-[26px] flex-1 rounded border-border bg-muted px-1.5 text-[12px] text-foreground',
+            'focus-visible:border-primary focus-visible:ring-0',
+            mono && 'font-mono',
+          )}
+          placeholder={placeholder}
+          value={draft}
+          onChange={(e) => setDraft(e.target.value)}
+          onBlur={handleBlur}
+          onKeyDown={handleKeyDown}
+        />
+        {onBrowse && (
+          <Button
+            size="icon-xs"
+            variant="outline"
+            onClick={onBrowse}
+            title="Browse audio file"
+            className="h-[26px] w-[26px] shrink-0 border-border bg-muted"
+          >
+            <FolderOpen size={12} />
+          </Button>
         )}
-        placeholder={placeholder}
-        value={draft}
-        onChange={(e) => setDraft(e.target.value)}
-        onBlur={handleBlur}
-        onKeyDown={handleKeyDown}
-      />
+      </div>
     </div>
   )
 }
@@ -208,6 +225,31 @@ export function FlashcardPanel({ entry, onUpdateFrontmatter }: FlashcardPanelPro
     [entry.path, onUpdateFrontmatter],
   )
 
+  /** Open native file picker for audio files, copy to vault, commit filename. */
+  const handleBrowseAudio = useCallback(async () => {
+    if (!onUpdateFrontmatter || !entry.workspace?.path) return
+    if (!isTauri()) return
+
+    const { open } = await import('@tauri-apps/plugin-dialog')
+    const selected = await open({
+      multiple: false,
+      title: 'Select audio file',
+      filters: [{
+        name: 'Audio',
+        extensions: ['mp3', 'wav', 'ogg', 'm4a', 'aac', 'flac', 'opus', 'webm'],
+      }],
+    })
+
+    if (!selected || typeof selected !== 'string') return
+
+    const filename = await invoke<string>('copy_audio_to_vault', {
+      vaultPath: entry.workspace.path,
+      sourcePath: selected,
+    })
+
+    await onUpdateFrontmatter(entry.path, 'audio', filename)
+  }, [entry.path, entry.workspace, onUpdateFrontmatter])
+
   return (
     <div>
       <h4 className="font-mono-overline mb-2 flex items-center gap-1 text-muted-foreground">
@@ -268,8 +310,9 @@ export function FlashcardPanel({ entry, onUpdateFrontmatter }: FlashcardPanelPro
             label="Audio file"
             icon={MusicNote}
             value={audioValue}
-            placeholder="word.mp3"
+            placeholder="mp3 · wav · ogg · m4a · flac …"
             onCommit={handleAudioCommit}
+            onBrowse={isTauri() ? handleBrowseAudio : undefined}
           />
           <p className="text-[10px] text-muted-foreground/70 leading-relaxed">
             Drag an audio file into the editor — Tolaria copies it to{' '}

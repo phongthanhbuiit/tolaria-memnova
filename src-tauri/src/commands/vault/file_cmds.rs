@@ -277,6 +277,21 @@ pub fn copy_image_to_vault(
     })
 }
 
+/// Copy an audio file selected via the native file picker into the vault's
+/// attachments directory. Returns the **filename only** (e.g. `12345-word.mp3`)
+/// so the caller can store it directly as the `audio` frontmatter property.
+#[tauri::command]
+pub fn copy_audio_to_vault(
+    app_handle: tauri::AppHandle,
+    vault_path: PathBuf,
+    source_path: PathBuf,
+) -> Result<String, String> {
+    with_image_asset_scope(&app_handle, vault_path.as_path(), |requested_root| {
+        vault::copy_audio_to_vault(requested_root, source_path.to_string_lossy().as_ref())
+    })
+}
+
+
 #[tauri::command]
 pub async fn list_vault(path: PathBuf) -> Result<Vec<VaultEntry>, String> {
     tokio::task::spawn_blocking(move || {
