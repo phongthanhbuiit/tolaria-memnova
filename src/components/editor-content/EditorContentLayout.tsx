@@ -12,6 +12,7 @@ import { RawEditorView } from '../RawEditorView'
 import { SingleEditorView } from '../SingleEditorView'
 import { FlashcardEditorTabs } from '../FlashcardEditorTabs'
 import { useFlashcardEditorFace } from '../../hooks/useFlashcardEditorFace'
+import { dispatchRichEditorExternalChange } from '../editorExternalChangeEvents'
 import type { useEditorContentModel } from './useEditorContentModel'
 
 type EditorContentModel = ReturnType<typeof useEditorContentModel>
@@ -501,6 +502,14 @@ export function EditorContentLayout(model: EditorContentModel) {
     fullContent: activeTab?.content ?? '',
     onContentChange: onRawContentChange ?? (() => {}),
   })
+
+  // When the active face switches (Front ↔ Back), tell BlockNote to reload.
+  // The editor responds to the external-change event bus, not to prop changes.
+  useEffect(() => {
+    if (!flashcard.isFSRS || !editor) return
+    dispatchRichEditorExternalChange(editor)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [flashcard.activeFace, flashcard.isFSRS])
 
   const rootClassName = cn(
     'flex flex-1 flex-col min-w-0 min-h-0',
