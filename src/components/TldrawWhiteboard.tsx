@@ -17,6 +17,8 @@ import {
   type TLUiDialog,
   type TLStoreSnapshot,
   type TLUserPreferences,
+  AssetRecordType,
+  createShapeId,
 } from 'tldraw'
 import 'tldraw/tldraw.css'
 import { useDocumentThemeMode } from '../hooks/useDocumentThemeMode'
@@ -589,24 +591,26 @@ export function TldrawWhiteboard({
     }
 
     const { w, h } = await getImgSize(assetUrl)
-    const assetId = editor.assets.createId()
+    const assetId = AssetRecordType.createId()
 
     editor.createAssets([
       {
         id: assetId,
         type: 'image',
+        typeName: 'asset',
         props: {
           name: entry.title,
           src: assetUrl,
           w,
           h,
           mimeType: 'image/png',
+          isAnimated: false,
         },
         meta: {},
       }
     ])
 
-    const shapeId = editor.shapes.createId()
+    const shapeId = createShapeId()
     const center = editor.getViewportPageBounds().center
 
     editor.createShapes([
