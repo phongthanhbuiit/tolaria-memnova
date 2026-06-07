@@ -603,3 +603,15 @@
   0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
   30% { opacity: 1; transform: translateY(-2px); }
 }
+
+/* --- XP Float animation (flashcard rating reward) --- */
+
+.xp-float {
+  animation: xp-float-up 0.9s ease-out forwards;
+}
+
+@keyframes xp-float-up {
+  0%   { opacity: 1; transform: translateY(0) scale(1); }
+  60%  { opacity: 1; transform: translateY(-28px) scale(1.15); }
+  100% { opacity: 0; transform: translateY(-52px) scale(0.9); }
+}

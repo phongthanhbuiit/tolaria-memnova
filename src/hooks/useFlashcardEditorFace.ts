@@ -89,6 +89,16 @@ export function useFlashcardEditorFace({
     }
   }, [activeFace, front, back])
 
+  // Auto-switch to Back face when the marker first appears in the content
+  // (e.g. after Inspector's "Add Back Face" button writes it to disk).
+  const prevHasBackRef = useRef(hasBack)
+  useEffect(() => {
+    if (!prevHasBackRef.current && hasBack) {
+      setActiveFace('back')
+    }
+    prevHasBackRef.current = hasBack
+  }, [hasBack])
+
   // The content slice to pass to the editor
   const editorContent = isFSRS
     ? activeFace === 'front' ? front : back

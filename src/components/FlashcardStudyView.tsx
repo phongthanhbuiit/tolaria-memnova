@@ -53,13 +53,13 @@ export interface FlashcardStudyViewProps {
   deckName?: string
 }
 
-type RatingLabel = { label: string; emoji: string; color: string; key: string }
+type RatingLabel = { label: string; color: string; key: string; xp: number }
 
 const RATING_CONFIG: Record<FSRSRating, RatingLabel> = {
-  1: { label: 'Again', emoji: '😰', color: 'bg-[var(--accent-red-light)] text-[var(--accent-red)] border-[var(--accent-red)]/30 hover:bg-[var(--accent-red)]/20', key: '1' },
-  2: { label: 'Hard', emoji: '😓', color: 'bg-[var(--accent-orange-light)] text-[var(--accent-orange)] border-[var(--accent-orange)]/30 hover:bg-[var(--accent-orange)]/20', key: '2' },
-  3: { label: 'Good', emoji: '😊', color: 'bg-[var(--accent-green-light)] text-[var(--accent-green)] border-[var(--accent-green)]/30 hover:bg-[var(--accent-green)]/20', key: '3' },
-  4: { label: 'Easy', emoji: '😄', color: 'bg-[var(--accent-blue-light)] text-[var(--accent-blue)] border-[var(--accent-blue)]/30 hover:bg-[var(--accent-blue)]/20', key: '4' },
+  1: { label: 'Again', color: 'bg-[var(--accent-red-light)] text-[var(--accent-red)] border-[var(--accent-red)]/30 hover:bg-[var(--accent-red)]/20', key: '1', xp: 0 },
+  2: { label: 'Hard', color: 'bg-[var(--accent-orange-light)] text-[var(--accent-orange)] border-[var(--accent-orange)]/30 hover:bg-[var(--accent-orange)]/20', key: '2', xp: 3 },
+  3: { label: 'Good', color: 'bg-[var(--accent-green-light)] text-[var(--accent-green)] border-[var(--accent-green)]/30 hover:bg-[var(--accent-green)]/20', key: '3', xp: 5 },
+  4: { label: 'Easy', color: 'bg-[var(--accent-blue-light)] text-[var(--accent-blue)] border-[var(--accent-blue)]/30 hover:bg-[var(--accent-blue)]/20', key: '4', xp: 7 },
 }
 
 // ---------------------------------------------------------------------------
@@ -214,6 +214,8 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
   const [flipped, setFlipped] = useState(false)
   const [isRating, setIsRating] = useState(false)
   const cardStartTimeRef = useRef(Date.now())
+  const [xpFloats, setXpFloats] = useState<{ id: number; x: number; y: number; xp: number }[]>([])
+  const xpFloatIdRef = useRef(0)
 
   useEffect(() => {
     cardStartTimeRef.current = Date.now()
@@ -295,11 +297,21 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
 
   const handleFlip = useCallback(() => setFlipped(true), [])
 
-  const handleRate = useCallback(async (rating: FSRSRating) => {
+  const handleRate = useCallback(async (rating: FSRSRating, event?: React.MouseEvent) => {
     if (!entry || isRating) return
     setIsRating(true)
     const duration = Date.now() - cardStartTimeRef.current
     onRate(entry, rating, duration)
+
+    // XP float animation
+    const xp = RATING_CONFIG[rating].xp
+    if (xp > 0 && event) {
+      const id = xpFloatIdRef.current++
+      const { clientX, clientY } = event
+      setXpFloats((prev) => [...prev, { id, x: clientX, y: clientY, xp }])
+      setTimeout(() => setXpFloats((prev) => prev.filter((f) => f.id !== id)), 900)
+    }
+
     setTimeout(() => {
       setQueueIndex((i) => i + 1)
       setFlipped(false)
@@ -496,7 +508,7 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
                               <Button
                                 key={r}
                                 type="button"
-                                onClick={() => handleRate(r)}
+                                onClick={(e) => handleRate(r, e)}
                                 disabled={isRating}
                                 className={cn(
                                   'flex flex-col items-center gap-1 py-3 px-2 rounded-xl border text-sm font-medium h-auto',
@@ -507,7 +519,6 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
                                 data-testid={`flashcard-rate-${r}`}
                                 aria-label={`${cfg.label} — ${interval}`}
                               >
-                                <span className="text-lg leading-none">{cfg.emoji}</span>
                                 <span className="font-semibold">{cfg.label}</span>
                                 <span className="text-xs opacity-70">{interval}</span>
                                 <span className="text-[10px] opacity-50">[{cfg.key}]</span>
@@ -523,5 +534,21 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
     </div>
   )
 
-  return createPortal(overlay, document.body)
-})
+  return (
+    <>
+      {createPortal(overlay, document.body)}
+      {/* XP float animations — rendered at the click position */}
+      {xpFloats.map((f) =>
+        createPortal(
+          <div
+            key={f.id}
+            className="xp-float pointer-events-none fixed z-[9999] text-sm font-black text-[var(--accent-blue)] select-none"
+            style={{ left: f.x, top: f.y - 20 }}
+          >
+            +{f.xp} XP ✨
+          </div>,
+          document.body,
+        )
+      )}
+    </>
+  )
