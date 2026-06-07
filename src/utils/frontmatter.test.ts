@@ -127,6 +127,10 @@ describe('detectFrontmatterState', () => {
     expect(detectFrontmatterState('---\ntitle: Test\n---\n')).toBe('valid')
   })
 
+  it('returns "valid" for frontmatter with only hidden properties starting with underscore', () => {
+    expect(detectFrontmatterState('---\n_fsrs_enabled: true\n_favorite_index: 2\n---\nBody')).toBe('valid')
+  })
+
   it('returns "invalid" for malformed YAML (missing colon)', () => {
     expect(detectFrontmatterState('---\nthis is not yaml\n---\nBody')).toBe('invalid')
   })

@@ -486,6 +486,30 @@ function useFullscreenWhiteboard() {
   return { fullscreen, toggleFullscreen }
 }
 
+let cachedEmptySnapshotStruct: ReturnType<typeof getSnapshot>['document'] | null = null
+let cachedEmptySnapshotJson: string = ''
+
+function getEmptySnapshot(): {
+  struct: ReturnType<typeof getSnapshot>['document']
+  json: string
+} {
+  if (!cachedEmptySnapshotStruct) {
+    let struct: ReturnType<typeof getSnapshot>['document']
+    try {
+      const emptyStore = createTLStore()
+      struct = getSnapshot(emptyStore).document
+    } catch {
+      struct = { records: {} } as unknown as ReturnType<typeof getSnapshot>['document']
+    }
+    cachedEmptySnapshotStruct = struct
+    cachedEmptySnapshotJson = serializeSnapshot(struct as unknown as TLStoreSnapshot)
+  }
+  return {
+    struct: cachedEmptySnapshotStruct,
+    json: cachedEmptySnapshotJson,
+  }
+}
+
 export function TldrawWhiteboard({
   boardId,
   height,
@@ -516,31 +540,35 @@ export function TldrawWhiteboard({
   })
   const tldrawUiComponents = useMemo(() => ({ Dialogs: TolariaTldrawDialogs }), [])
 
+  const normalizedSnapshot = useMemo(() => {
+    const trimmed = snapshot.trim()
+    return trimmed === '{}' ? '' : trimmed
+  }, [snapshot])
+
   useEffect(() => {
     onSnapshotChangeRef.current = onSnapshotChange
   }, [onSnapshotChange])
 
   useEffect(() => {
-    if (boardId === savedBoardIdRef.current && snapshot.trim() === (savedSnapshotRef.current ?? '').trim()) return
+    if (boardId === savedBoardIdRef.current && normalizedSnapshot === (savedSnapshotRef.current ?? '')) return
 
-    const parsed = parseSnapshot(snapshot)
+    const parsed = parseSnapshot(normalizedSnapshot)
     if (parsed) {
       try {
         loadSnapshot(store, parsed)
         savedBoardIdRef.current = boardId
-        savedSnapshotRef.current = snapshot
+        savedSnapshotRef.current = normalizedSnapshot
         return
       } catch {
         // Fall through to an empty board when legacy or hand-edited JSON is invalid.
       }
     }
 
-    const emptyStore = createTLStore()
-    const emptySnapshot = getSnapshot(emptyStore).document
-    loadSnapshot(store, emptySnapshot)
+    const { struct } = getEmptySnapshot()
+    loadSnapshot(store, struct)
     savedBoardIdRef.current = boardId
-    savedSnapshotRef.current = serializeSnapshot(emptySnapshot)
-  }, [boardId, snapshot, store])
+    savedSnapshotRef.current = normalizedSnapshot
+  }, [boardId, normalizedSnapshot, store])
 
   useEffect(() => {
     let timeoutId: number | null = null
@@ -548,7 +576,14 @@ export function TldrawWhiteboard({
     const flushSnapshot = () => {
       timeoutId = null
       const nextSnapshot = serializeSnapshot(getSnapshot(store).document)
-      if (nextSnapshot.trim() === (savedSnapshotRef.current ?? '').trim()) return
+      const currentSaved = savedSnapshotRef.current ?? ''
+
+      if (nextSnapshot.trim() === currentSaved.trim()) return
+
+      const { json: emptyJson } = getEmptySnapshot()
+      const isNextEmpty = nextSnapshot.trim() === emptyJson.trim()
+      const isSavedEmpty = !currentSaved.trim() || currentSaved.trim() === '{}'
+      if (isNextEmpty && isSavedEmpty) return
 
       savedBoardIdRef.current = boardId
       savedSnapshotRef.current = nextSnapshot

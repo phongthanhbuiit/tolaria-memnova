@@ -87,7 +87,7 @@ export function detectFrontmatterState(content: MarkdownContent | null): Frontma
   const body = frontmatterBody.trim()
   if (!body) return 'empty'
   // Valid frontmatter needs at least one line starting with a word character followed by colon
-  const hasValidLine = body.split(/\r?\n/).some(line => /^[A-Za-z][\w -]*:/.test(line))
+  const hasValidLine = body.split(/\r?\n/).some(line => /^[A-Za-z_][\w -]*:/.test(line))
   return hasValidLine ? 'valid' : 'invalid'
 }
 
