@@ -12,7 +12,7 @@
  *  5. Reset to 'front' when the active note path changes
  */
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import {
   splitFlashcardContent,
   joinFlashcardContent,
@@ -73,22 +73,6 @@ export function useFlashcardEditorFace({
     [fullContent],
   )
 
-  // Keep a stable ref to the "other face" content so we can merge on save
-  // without having to re-split on every keystroke.
-  const otherFaceRef = useRef<{ face: FlashcardFace; content: string }>({
-    face: 'back',
-    content: back,
-  })
-
-  // When full content or active face changes, update the ref for the OTHER face
-  useEffect(() => {
-    if (activeFace === 'front') {
-      otherFaceRef.current = { face: 'back', content: back }
-    } else {
-      otherFaceRef.current = { face: 'front', content: front }
-    }
-  }, [activeFace, front, back])
-
   // Auto-switch to Back face when the marker first appears in the content
   // (e.g. after Inspector's "Add Back Face" button writes it to disk).
   const [prevHasBack, setPrevHasBack] = useState(hasBack)
@@ -112,14 +96,18 @@ export function useFlashcardEditorFace({
         return
       }
 
+      // Read the current other face directly from the latest full content to prevent stale/race conditions
+      // (avoiding reliance on delayed effects or refs during tab swaps)
+      const { front: currentFront, back: currentBack } = splitFlashcardContent(fullContent)
+
       const merged =
         activeFace === 'front'
-          ? joinFlashcardContent(sliceContent, otherFaceRef.current.content)
-          : joinFlashcardContent(otherFaceRef.current.content, sliceContent)
+          ? joinFlashcardContent(sliceContent, currentBack)
+          : joinFlashcardContent(currentFront, sliceContent)
 
       onContentChange(path, merged)
     },
-    [isFSRS, activeFace, onContentChange],
+    [isFSRS, activeFace, fullContent, onContentChange],
   )
 
   // Add the back marker to the current note

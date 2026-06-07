@@ -258,7 +258,7 @@ function useEditorSetup({
   const flashcard = useFlashcardEditorFace({
     entry: activeTab?.entry ?? null,
     fullContent: activeTab?.content ?? '',
-    onContentChange,
+    onContentChange: onContentChange ?? (() => {}),
   })
 
   const rawTabsForEditorSwap = applyPendingRawExitContent(tabs, pendingRawExitContent)
