@@ -259,6 +259,7 @@ function useEditorSetup({
     entry: activeTab?.entry ?? null,
     fullContent: activeTab?.content ?? '',
     onContentChange: onContentChange ?? (() => {}),
+    flushPendingEditorChangeRef,
   })
 
   const rawTabsForEditorSwap = applyPendingRawExitContent(tabs, pendingRawExitContent)

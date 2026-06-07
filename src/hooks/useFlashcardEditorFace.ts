@@ -28,6 +28,8 @@ interface UseFlashcardEditorFaceOptions {
   fullContent: string
   /** Called when the editor content changes (merged front+back) */
   onContentChange: (path: string, content: string) => void
+  /** Ref to flush pending editor changes before face swaps */
+  flushPendingEditorChangeRef?: React.RefObject<(() => boolean) | null>
 }
 
 interface FlashcardEditorFaceState {
@@ -51,8 +53,16 @@ export function useFlashcardEditorFace({
   entry,
   fullContent,
   onContentChange,
+  flushPendingEditorChangeRef,
 }: UseFlashcardEditorFaceOptions): FlashcardEditorFaceState {
   const [activeFace, setActiveFace] = useState<FlashcardFace>('front')
+
+  const setActiveFaceWithFlush = useCallback((nextFace: FlashcardFace) => {
+    if (flushPendingEditorChangeRef?.current) {
+      flushPendingEditorChangeRef.current()
+    }
+    setActiveFace(nextFace)
+  }, [flushPendingEditorChangeRef])
 
   // Reset to 'front' when the active note path changes.
   // React derived-state-reset pattern: setState during render is safe and
@@ -122,7 +132,7 @@ export function useFlashcardEditorFace({
   return {
     isFSRS,
     activeFace,
-    setActiveFace,
+    setActiveFace: setActiveFaceWithFlush,
     editorContent,
     hasBack,
     handleAddBack,
