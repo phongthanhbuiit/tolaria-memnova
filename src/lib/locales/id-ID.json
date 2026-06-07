@@ -742,5 +742,11 @@
   "locale.plPL": "Polandia",
   "locale.beBY": "Belarusia",
   "locale.beLatn": "Belarusia (Latin)",
-  "locale.idID": "Bahasa Indonesia"
+  "locale.idID": "Bahasa Indonesia",
+  "decks.empty_search": "No decks match your search.",
+  "decks.filter.all": "All",
+  "decks.filter.due": "Due",
+  "decks.filter.done": "Up to date",
+  "decks.search_placeholder": "Search decks…",
+  "decks.total_due": "{n} due today"
 }

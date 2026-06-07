@@ -742,5 +742,11 @@
   "locale.plPL": "Польская",
   "locale.beBY": "Беларуская",
   "locale.beLatn": "Беларуская (Лацінка)",
-  "locale.idID": "Інданезійская"
+  "locale.idID": "Інданезійская",
+  "decks.empty_search": "No decks match your search.",
+  "decks.filter.all": "All",
+  "decks.filter.due": "Due",
+  "decks.filter.done": "Up to date",
+  "decks.search_placeholder": "Search decks…",
+  "decks.total_due": "{n} due today"
 }

@@ -742,5 +742,11 @@
   "locale.plPL": "Tiếng Ba Lan",
   "locale.beBY": "Tiếng Belarus",
   "locale.beLatn": "Tiếng Belarus (Latinh)",
-  "locale.idID": "Tiếng Indonesia"
+  "locale.idID": "Tiếng Indonesia",
+  "decks.empty_search": "No decks match your search.",
+  "decks.filter.all": "All",
+  "decks.filter.due": "Due",
+  "decks.filter.done": "Up to date",
+  "decks.search_placeholder": "Search decks…",
+  "decks.total_due": "{n} due today"
 }

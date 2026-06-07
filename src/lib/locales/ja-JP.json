@@ -742,5 +742,11 @@
   "locale.plPL": "ポーランド語",
   "locale.beBY": "ベラルーシ語",
   "locale.beLatn": "ベラルーシ語（ラテン文字）",
-  "locale.idID": "インドネシア語"
+  "locale.idID": "インドネシア語",
+  "decks.empty_search": "No decks match your search.",
+  "decks.filter.all": "All",
+  "decks.filter.due": "Due",
+  "decks.filter.done": "Up to date",
+  "decks.search_placeholder": "Search decks…",
+  "decks.total_due": "{n} due today"
 }

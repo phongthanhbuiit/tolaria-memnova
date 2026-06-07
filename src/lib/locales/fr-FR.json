@@ -742,5 +742,11 @@
   "locale.plPL": "Polonais",
   "locale.beBY": "Biélorusse",
   "locale.beLatn": "Biélorusse (Latin)",
-  "locale.idID": "Indonésien"
+  "locale.idID": "Indonésien",
+  "decks.empty_search": "No decks match your search.",
+  "decks.filter.all": "All",
+  "decks.filter.due": "Due",
+  "decks.filter.done": "Up to date",
+  "decks.search_placeholder": "Search decks…",
+  "decks.total_due": "{n} due today"
 }

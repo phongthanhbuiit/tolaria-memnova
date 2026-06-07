@@ -166,7 +166,7 @@ function ProgressBar({ current, total }: { current: number; total: number }) {
     <div className="flex items-center gap-3">
       <div className="flex-1 h-1.5 rounded-full bg-muted overflow-hidden">
         <div
-          className="h-full rounded-full bg-[var(--accent-purple)] transition-all duration-300"
+          className="h-full rounded-full bg-[var(--accent-blue)] transition-all duration-300"
           style={{ width: `${pct}%` }}
           role="progressbar"
           aria-valuenow={pct}
@@ -182,8 +182,8 @@ function ProgressBar({ current, total }: { current: number; total: number }) {
 function SessionComplete({ onClose }: { onClose: () => void }) {
   return (
     <div className="flex flex-col items-center justify-center gap-6 py-16 text-center">
-      <div className="flex items-center justify-center w-16 h-16 rounded-full bg-[var(--accent-purple-light)]">
-        <Confetti size={36} weight="duotone" className="text-[var(--accent-purple)]" />
+      <div className="flex items-center justify-center w-16 h-16 rounded-full bg-[var(--accent-blue-light)]">
+        <Confetti size={36} weight="duotone" className="text-[var(--accent-blue)]" />
       </div>
       <div>
         <h2 className="text-xl font-bold mb-2">Session complete!</h2>
@@ -192,7 +192,7 @@ function SessionComplete({ onClose }: { onClose: () => void }) {
       <Button
         type="button"
         onClick={onClose}
-        className="px-6 py-2 rounded-lg bg-[var(--accent-purple)] text-white text-sm font-medium hover:opacity-90 transition-colors h-auto"
+        className="px-6 py-2 rounded-lg bg-[var(--accent-blue)] text-white text-sm font-medium hover:opacity-90 transition-colors h-auto"
       >
         Done
       </Button>
@@ -393,7 +393,7 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
                         ? (<><Sparkle size={12} weight="fill" className="text-[var(--accent-green)]" /> New</>)
                         : card?.state === 'learning'
                           ? (<><Books size={12} weight="fill" className="text-[var(--accent-blue)]" /> Learning</>)
-                          : (<><CalendarBlank size={12} weight="fill" className="text-[var(--accent-purple)]" /> {card?.reps ?? 0} reviews</>)}
+                          : (<><CalendarBlank size={12} weight="fill" className="text-[var(--accent-blue)]" /> {card?.reps ?? 0} reviews</>)}
                     </span>
                   </div>
                 )}
@@ -431,13 +431,13 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
                           onClick={handleFlip}
                           className={cn(
                             'px-8 py-3 rounded-xl text-sm font-medium transition-all duration-150 h-auto',
-                            'bg-[var(--accent-purple)] text-white hover:opacity-90 shadow-sm hover:shadow-md',
-                            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-purple)]',
+                            'bg-[var(--accent-blue)] text-white hover:opacity-90 shadow-sm hover:shadow-md',
+                            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-blue)]',
                           )}
                           data-testid="flashcard-show-answer"
                         >
                           Show answer
-                          <span className="ml-2 text-[var(--accent-purple-light)] text-xs">[Space]</span>
+                          <span className="ml-2 text-[var(--accent-blue-light)] text-xs">[Space]</span>
                         </Button>
                         <p className="text-[10px] text-muted-foreground">
                           Rate after revealing — 1 Again · 2 Hard · 3 Good · 4 Easy
