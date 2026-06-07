@@ -246,9 +246,18 @@ mod tests {
 
         let filename = result.unwrap();
         // Must be just the filename, not a full path
-        assert!(!filename.contains('/'), "expected filename only, got: {filename}");
-        assert!(!filename.contains('\\'), "expected filename only, got: {filename}");
-        assert!(filename.ends_with("word.mp3"), "expected .mp3 suffix, got: {filename}");
+        assert!(
+            !filename.contains('/'),
+            "expected filename only, got: {filename}"
+        );
+        assert!(
+            !filename.contains('\\'),
+            "expected filename only, got: {filename}"
+        );
+        assert!(
+            filename.ends_with("word.mp3"),
+            "expected .mp3 suffix, got: {filename}"
+        );
     }
 
     #[test]

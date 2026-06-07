@@ -291,7 +291,6 @@ pub fn copy_audio_to_vault(
     })
 }
 
-
 #[tauri::command]
 pub async fn list_vault(path: PathBuf) -> Result<Vec<VaultEntry>, String> {
     tokio::task::spawn_blocking(move || {
