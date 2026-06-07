@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback, memo, useState, type ReactNode } from 'react'
+import { useRef, useEffect, useCallback, useMemo, memo, useState, type ReactNode } from 'react'
 import { useEditorTabSwap } from '../hooks/useEditorTabSwap'
 import { useCreateBlockNote } from '@blocknote/react'
 import '@blocknote/mantine/style.css'
@@ -263,13 +263,13 @@ function useEditorSetup({
 
   const rawTabsForEditorSwap = applyPendingRawExitContent(tabs, pendingRawExitContent)
   const tabsForEditorSwap = useMemo(() => {
-    if (!flashcard.isFSRS || !activeTab) return rawTabsForEditorSwap
+    if (!flashcard?.isFSRS || !activeTab) return rawTabsForEditorSwap
     return rawTabsForEditorSwap.map((tab) =>
       tab.entry.path === activeTab.entry.path
         ? { ...tab, content: flashcard.editorContent }
         : tab
     )
-  }, [flashcard.isFSRS, flashcard.editorContent, rawTabsForEditorSwap, activeTab])
+  }, [flashcard, rawTabsForEditorSwap, activeTab])
 
   const rawModeContent = resolveRawModeContent({ activeTab, rawModeContentOverride })
 
@@ -285,7 +285,7 @@ function useEditorSetup({
     tabs: tabsForEditorSwap,
     activeTabPath,
     editor,
-    onContentChange: flashcard.handleEditorContentChange,
+    onContentChange: flashcard?.handleEditorContentChange,
     rawMode,
     vaultPath,
   })
@@ -522,6 +522,7 @@ function EditorLayout({
   hasDeckMembers?: boolean
   fsrsDueDate?: string | null
   onUpdateNoteContent?: (path: string, content: string) => void
+  flashcard?: ReturnType<typeof useFlashcardEditorFace>
 }) {
   const activeBinaryTab = activeTab?.entry.fileKind === 'binary' ? activeTab : null
   const showEmptyState = tabs.length === 0 && activeTabPath === null && !isVaultLoading

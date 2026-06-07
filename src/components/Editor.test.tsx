@@ -157,14 +157,22 @@ vi.mock('./tolariaEditorFormatting', () => ({
 }))
 
 vi.mock('../hooks/useFlashcardEditorFace', () => ({
-  useFlashcardEditorFace: ({ fullContent }: { fullContent: string }) => ({
+  useFlashcardEditorFace: ({
+    fullContent,
+    onContentChange,
+  }: {
+    fullContent: string
+    onContentChange: (path: string, content: string) => void
+  }) => ({
     isFSRS: false,
     activeFace: 'front' as const,
     setActiveFace: vi.fn(),
     editorContent: fullContent,
     hasBack: false,
     handleAddBack: vi.fn(),
-    handleEditorContentChange: vi.fn(),
+    handleEditorContentChange: (path: string, sliceContent: string) => {
+      onContentChange(path, sliceContent)
+    },
   }),
 }))
 

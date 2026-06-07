@@ -33,18 +33,6 @@ vi.mock('../FlashcardEditorTabs', () => ({
   FlashcardEditorTabs: () => null,
 }))
 
-vi.mock('../../hooks/useFlashcardEditorFace', () => ({
-  useFlashcardEditorFace: () => ({
-    isFSRS: false,
-    activeFace: 'front' as const,
-    setActiveFace: () => {},
-    editorContent: '',
-    hasBack: false,
-    handleAddBack: () => {},
-    handleEditorContentChange: () => {},
-  }),
-}))
-
 function createModel(overrides: Record<string, unknown> = {}) {
   return {
     activeTab: {
@@ -93,6 +81,15 @@ function createModel(overrides: Record<string, unknown> = {}) {
     onToggleOrganized: vi.fn(),
     onDeleteNote: vi.fn(),
     onArchiveNote: vi.fn(),
+    flashcard: {
+      isFSRS: false,
+      activeFace: 'front',
+      setActiveFace: vi.fn(),
+      editorContent: '',
+      hasBack: false,
+      handleAddBack: vi.fn(),
+      handleEditorContentChange: vi.fn(),
+    },
     ...overrides,
   } as never
 }
