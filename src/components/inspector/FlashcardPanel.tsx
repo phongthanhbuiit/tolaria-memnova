@@ -2,22 +2,34 @@
  * FlashcardPanel.tsx
  *
  * Shows a "Flashcard" section in the Properties / Inspector panel.
- * Allows the user to toggle FSRS spaced-repetition on/off for the current note
- * and displays current scheduling state when enabled.
+ * Allows the user to:
+ *  - Toggle FSRS spaced-repetition on/off for the current note
+ *  - Set IPA phonetics (writes the `IPA` frontmatter property directly)
+ *  - Set audio filename (writes the `audio` frontmatter property)
+ *  - View current FSRS scheduling state
  */
 
-import { useCallback } from 'react'
-import { Cards, CalendarBlank, Sparkle } from '@phosphor-icons/react'
+import { useCallback, useEffect, useState } from 'react'
+import { Cards, CalendarBlank, MusicNote, Sparkle, TextAa } from '@phosphor-icons/react'
 import { Switch } from '@/components/ui/switch'
+import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
-import type { VaultEntry } from '../../types'
-import type { AppLocale } from '../../lib/i18n'
+import type { VaultEntry, VaultPropertyValue } from '../../types'
+
+// ---------------------------------------------------------------------------
+// Prop types
+// ---------------------------------------------------------------------------
+
+type FrontmatterValue = string | number | boolean | string[] | null
 
 interface FlashcardPanelProps {
   entry: VaultEntry
-  onUpdateFrontmatter?: (path: string, key: string, value: boolean) => Promise<void>
-  locale?: AppLocale
+  onUpdateFrontmatter?: (path: string, key: string, value: FrontmatterValue) => Promise<void>
 }
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
 
 function formatDueDate(due: string | undefined): string {
   if (!due) return '—'
@@ -59,13 +71,110 @@ function StateChip({ state }: { state: string | undefined }) {
   )
 }
 
+// ---------------------------------------------------------------------------
+// Inline editable field — commits on blur / Enter, reverts on Escape
+// ---------------------------------------------------------------------------
+
+function VocabField({
+  id,
+  label,
+  icon: Icon,
+  value,
+  placeholder,
+  mono,
+  onCommit,
+}: {
+  id: string
+  label: string
+  icon: React.ElementType
+  value: string
+  placeholder: string
+  mono?: boolean
+  onCommit: (v: string) => void
+}) {
+  const [draft, setDraft] = useState(value)
+
+  // Sync when the vault entry updates (e.g. another device or direct YAML edit)
+  useEffect(() => {
+    setDraft(value)
+  }, [value])
+
+  const handleBlur = useCallback(() => {
+    const trimmed = draft.trim()
+    if (trimmed !== value) onCommit(trimmed)
+  }, [draft, value, onCommit])
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Enter') e.currentTarget.blur()
+      if (e.key === 'Escape') {
+        setDraft(value)
+        e.currentTarget.blur()
+      }
+    },
+    [value],
+  )
+
+  return (
+    <div className="flex flex-col gap-0.5">
+      <label
+        htmlFor={id}
+        className="flex items-center gap-1 text-[10px] uppercase tracking-wide text-muted-foreground"
+      >
+        <Icon size={9} />
+        {label}
+      </label>
+      <Input
+        id={id}
+        className={cn(
+          'h-[26px] rounded border-border bg-muted px-1.5 text-[12px] text-foreground',
+          'focus-visible:border-primary focus-visible:ring-0',
+          mono && 'font-mono',
+        )}
+        placeholder={placeholder}
+        value={draft}
+        onChange={(e) => setDraft(e.target.value)}
+        onBlur={handleBlur}
+        onKeyDown={handleKeyDown}
+      />
+    </div>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Main component
+// ---------------------------------------------------------------------------
+
+function readStringProp(props: Record<string, VaultPropertyValue> | undefined, key: string): string {
+  const v = props?.[key]
+  return typeof v === 'string' ? v : ''
+}
+
 export function FlashcardPanel({ entry, onUpdateFrontmatter }: FlashcardPanelProps) {
   const isEnabled = entry.fsrsEnabled === true
+  const ipaValue = readStringProp(entry.properties, 'IPA')
+  const audioValue = readStringProp(entry.properties, 'audio')
 
   const handleToggle = useCallback(
     async (checked: boolean) => {
       if (!onUpdateFrontmatter) return
       await onUpdateFrontmatter(entry.path, '_fsrs_enabled', checked)
+    },
+    [entry.path, onUpdateFrontmatter],
+  )
+
+  const handleIpaCommit = useCallback(
+    async (value: string) => {
+      if (!onUpdateFrontmatter) return
+      await onUpdateFrontmatter(entry.path, 'IPA', value)
+    },
+    [entry.path, onUpdateFrontmatter],
+  )
+
+  const handleAudioCommit = useCallback(
+    async (value: string) => {
+      if (!onUpdateFrontmatter) return
+      await onUpdateFrontmatter(entry.path, 'audio', value)
     },
     [entry.path, onUpdateFrontmatter],
   )
@@ -77,7 +186,7 @@ export function FlashcardPanel({ entry, onUpdateFrontmatter }: FlashcardPanelPro
         Flashcard
       </h4>
 
-      {/* Toggle row */}
+      {/* Spaced repetition toggle */}
       <div className="flex items-center justify-between px-1.5 py-1">
         <span className="text-[12px] text-muted-foreground">Spaced repetition</span>
         <Switch
@@ -89,11 +198,38 @@ export function FlashcardPanel({ entry, onUpdateFrontmatter }: FlashcardPanelPro
         />
       </div>
 
-      {/* Scheduling info — only when enabled */}
+      {/* Vocabulary fields — IPA + audio — visible when FSRS is on */}
+      {isEnabled && (
+        <div className="mt-2 flex flex-col gap-2 px-1.5">
+          <VocabField
+            id={`fsrs-ipa-${entry.path}`}
+            label="IPA phonetics"
+            icon={TextAa}
+            value={ipaValue}
+            placeholder="/ˈvɒkəb.jʊ.lər.i/"
+            mono
+            onCommit={handleIpaCommit}
+          />
+          <VocabField
+            id={`fsrs-audio-${entry.path}`}
+            label="Audio file"
+            icon={MusicNote}
+            value={audioValue}
+            placeholder="word.mp3"
+            onCommit={handleAudioCommit}
+          />
+          <p className="text-[10px] text-muted-foreground/70 leading-relaxed">
+            Drag an audio file into the editor — Tolaria copies it to{' '}
+            <span className="font-mono">attachments/</span>. Then type the filename above.
+          </p>
+        </div>
+      )}
+
+      {/* FSRS scheduling stats */}
       {isEnabled && (
         <div
           className={cn(
-            'mt-2 flex flex-col gap-1 rounded-lg px-2 py-1.5',
+            'mt-3 flex flex-col gap-1 rounded-lg px-2 py-1.5',
             'bg-muted/50 border border-border',
           )}
         >

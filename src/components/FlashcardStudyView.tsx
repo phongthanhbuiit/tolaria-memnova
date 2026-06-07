@@ -36,6 +36,7 @@ import type { VaultEntry } from '../types'
 import { schema } from './editorSchema'
 import { createArrowLigaturesExtension } from './arrowLigaturesExtension'
 import { createMathInputExtension } from './mathInputExtension'
+import { resolveFlashcardAudioUrl } from '../utils/flashcardAudio'
 
 // ---------------------------------------------------------------------------
 // Types
@@ -264,19 +265,18 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
   const ipa = entry?.properties?.['IPA'] != null ? String(entry.properties['IPA']) : null
   const language = entry?.properties?.['language'] != null ? String(entry.properties['language']) : null
 
-  // Extract first audio URL from back markdown for the Play button.
-  // Tolaria audio blocks are serialized as ![[filename.mp3]] or asset:// URLs.
-  const audioUrl = useMemo(() => {
-    if (!back) return null
-    // Match ![[file.mp3]], ![[file.wav]], ![[file.ogg]], ![[file.m4a]]
-    const wikilinkMatch = back.match(/!\[\[([^\]]+\.(?:mp3|wav|ogg|m4a|aac|flac))\]\]/i)
-    if (wikilinkMatch) return wikilinkMatch[1]
-    // Match asset:// or http(s):// URLs in markdown image/link syntax (RegExp constructor avoids lint parse issue)
-    const urlPattern = new RegExp('!\\[[^\\]]*\\]\\(((?:asset|https?):\\/\\/[^)]+\\.(?:mp3|wav|ogg|m4a|aac|flac))\\)', 'i')
-    const urlMatch = back.match(urlPattern)
-    if (urlMatch) return urlMatch[1]
-    return null
-  }, [back])
+  // Vault path for resolving attachment asset:// URLs
+  const vaultPath = entry?.workspace?.path ?? null
+
+  // Resolve best playable audio URL (property > wikilink > full URL)
+  const audioUrl = useMemo(
+    () => resolveFlashcardAudioUrl({
+      properties: entry?.properties ?? {},
+      backMarkdown: back,
+      vaultPath,
+    }),
+    [entry?.properties, back, vaultPath],
+  )
 
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
