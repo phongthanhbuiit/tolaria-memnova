@@ -34,6 +34,9 @@ type FrontmatterValue = string | number | boolean | string[] | null
 
 interface FlashcardPanelProps {
   entry: VaultEntry
+  /** Active vault path — passed from Inspector so browse works even when
+   *  entry.workspace is undefined (notes in the default vault). */
+  vaultPath?: string
   onUpdateFrontmatter?: (path: string, key: string, value: FrontmatterValue) => Promise<void>
 }
 
@@ -181,7 +184,7 @@ function resolveCardType(props: Record<string, VaultPropertyValue> | undefined):
   return readStringProp(props, 'card_type') === 'vocabulary' ? 'vocabulary' : 'basic'
 }
 
-export function FlashcardPanel({ entry, onUpdateFrontmatter }: FlashcardPanelProps) {
+export function FlashcardPanel({ entry, vaultPath, onUpdateFrontmatter }: FlashcardPanelProps) {
   const isEnabled = entry.fsrsEnabled === true
   const cardType = resolveCardType(entry.properties)
   const isVocabulary = cardType === 'vocabulary'
@@ -227,8 +230,12 @@ export function FlashcardPanel({ entry, onUpdateFrontmatter }: FlashcardPanelPro
 
   /** Open native file picker for audio files, copy to vault, commit filename. */
   const handleBrowseAudio = useCallback(async () => {
-    if (!onUpdateFrontmatter || !entry.workspace?.path) return
+    if (!onUpdateFrontmatter) return
     if (!isTauri()) return
+
+    // Prefer the explicit vaultPath prop; fall back to workspace identity path.
+    const resolvedVaultPath = vaultPath ?? entry.workspace?.path
+    if (!resolvedVaultPath) return
 
     const { open } = await import('@tauri-apps/plugin-dialog')
     const selected = await open({
@@ -243,12 +250,12 @@ export function FlashcardPanel({ entry, onUpdateFrontmatter }: FlashcardPanelPro
     if (!selected || typeof selected !== 'string') return
 
     const filename = await invoke<string>('copy_audio_to_vault', {
-      vaultPath: entry.workspace.path,
+      vaultPath: resolvedVaultPath,
       sourcePath: selected,
     })
 
     await onUpdateFrontmatter(entry.path, 'audio', filename)
-  }, [entry.path, entry.workspace, onUpdateFrontmatter])
+  }, [entry.path, entry.workspace, vaultPath, onUpdateFrontmatter])
 
   return (
     <div>

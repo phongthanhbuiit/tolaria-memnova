@@ -286,6 +286,7 @@ function InspectorBody({
         <>
           <FlashcardPanel
             entry={entry}
+            vaultPath={vaultPath}
             onUpdateFrontmatter={onUpdateFrontmatter}
           />
           <Separator />

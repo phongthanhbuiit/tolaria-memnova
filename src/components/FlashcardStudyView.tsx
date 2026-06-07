@@ -221,21 +221,14 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
 
   // Full markdown content loaded on-demand per card
   const [cardContent, setCardContent] = useState<string | null>(null)
-  // Left padding read from the breadcrumb-bar element so the portal header
-  // clears the macOS traffic-light buttons even though the portal is at body.
-  const [headerLeftPad, setHeaderLeftPad] = useState('80px')
-  const containerRef = useRef<HTMLDivElement>(null)
+  // Left padding: on macOS with titlebar overlay (body.mac-chrome) always
+  // use 80px so the close button never overlaps the traffic-light buttons,
+  // regardless of whether the sidebar/note-list is open.
+  const [headerLeftPad] = useState(() =>
+    document.body.classList.contains('mac-chrome') ? '80px' : '16px'
+  )
 
-  // Read the CSS variable value from the actual DOM element that has it set
-  useEffect(() => {
-    const breadcrumbEl = document.querySelector('.breadcrumb-bar')
-    if (breadcrumbEl instanceof HTMLElement) {
-      const val = getComputedStyle(breadcrumbEl)
-        .getPropertyValue('--breadcrumb-bar-left-padding')
-        .trim()
-      if (val) setHeaderLeftPad(val)
-    }
-  }, [])
+  const containerRef = useRef<HTMLDivElement>(null)
 
   const isComplete = queueIndex >= entries.length
   const entry = !isComplete ? entries[queueIndex] : null
@@ -358,6 +351,7 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
       >
         <Button
           type="button"
+          variant="ghost"
           onClick={onClose}
           className="rounded-md p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors shrink-0 h-auto w-auto"
           aria-label="End session"
