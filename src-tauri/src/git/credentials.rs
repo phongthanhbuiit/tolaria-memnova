@@ -107,11 +107,12 @@ mod tests {
 
     #[test]
     fn credential_fill_input_extracts_https_remote_parts() {
-        let input = credential_fill_input("https://github.com/phongthanhbuiit/tolaria-memnova.git").unwrap();
+        let input = credential_fill_input("https://github.com/phongthanhbuiit/tolaria-memnova.git")
+            .unwrap();
 
         assert!(input.contains("protocol=https\n"));
         assert!(input.contains("host=github.com\n"));
-        assert!(input.contains("path=refactoringhq/tolaria.git\n"));
+        assert!(input.contains("path=phongthanhbuiit/tolaria-memnova.git\n"));
         assert!(input.ends_with("\n\n"));
     }
 
