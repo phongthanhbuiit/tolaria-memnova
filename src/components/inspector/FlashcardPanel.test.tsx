@@ -452,4 +452,78 @@ describe('FlashcardPanel', () => {
 
     expect(onNavigate).toHaveBeenCalledWith('happy')
   })
+
+  it('populates level field', () => {
+    const entry = makeVocabularyEntry({ properties: { card_type: 'vocabulary', level: 'B2' } })
+    render(<FlashcardPanel entry={entry} />)
+    expect(screen.getByLabelText(/level \/ difficulty/i)).toHaveValue('B2')
+  })
+
+  it('calls onUpdateFrontmatter with level key on blur', async () => {
+    const onUpdate = vi.fn().mockResolvedValue(undefined)
+    const entry = makeVocabularyEntry({ properties: { card_type: 'vocabulary' } })
+    render(<FlashcardPanel entry={entry} onUpdateFrontmatter={onUpdate} />)
+
+    const input = screen.getByLabelText(/level \/ difficulty/i)
+    fireEvent.change(input, { target: { value: 'C1' } })
+    fireEvent.blur(input)
+
+    await waitFor(() => {
+      expect(onUpdate).toHaveBeenCalledWith('/vault/note.md', 'level', 'C1')
+    })
+  })
+
+  it('renders prefix and suffix chips from frontmatter', () => {
+    const entry = makeVocabularyEntry({
+      properties: {
+        card_type: 'vocabulary',
+        prefixes: '[[un]], [[dis]]',
+        suffixes: '[[able]]',
+      }
+    })
+    render(<FlashcardPanel entry={entry} />)
+    expect(screen.getByText('un')).toBeInTheDocument()
+    expect(screen.getByText('dis')).toBeInTheDocument()
+    expect(screen.getByText('able')).toBeInTheDocument()
+  })
+
+  it('calls onUpdateFrontmatter when removing a prefix chip', async () => {
+    const onUpdate = vi.fn().mockResolvedValue(undefined)
+    const entry = makeVocabularyEntry({
+      properties: {
+        card_type: 'vocabulary',
+        prefixes: '[[un]], [[dis]]',
+      }
+    })
+    render(<FlashcardPanel entry={entry} onUpdateFrontmatter={onUpdate} />)
+
+    const unChip = screen.getByText('un').closest('.inline-flex')
+    const closeBtn = unChip?.querySelector('button')
+    expect(closeBtn).toBeInTheDocument()
+    fireEvent.click(closeBtn!)
+
+    await waitFor(() => {
+      expect(onUpdate).toHaveBeenCalledWith('/vault/note.md', 'prefixes', '[[dis]]')
+    })
+  })
+
+  it('calls onUpdateFrontmatter when removing a suffix chip', async () => {
+    const onUpdate = vi.fn().mockResolvedValue(undefined)
+    const entry = makeVocabularyEntry({
+      properties: {
+        card_type: 'vocabulary',
+        suffixes: '[[able]], [[ful]]',
+      }
+    })
+    render(<FlashcardPanel entry={entry} onUpdateFrontmatter={onUpdate} />)
+
+    const ableChip = screen.getByText('able').closest('.inline-flex')
+    const closeBtn = ableChip?.querySelector('button')
+    expect(closeBtn).toBeInTheDocument()
+    fireEvent.click(closeBtn!)
+
+    await waitFor(() => {
+      expect(onUpdate).toHaveBeenCalledWith('/vault/note.md', 'suffixes', '[[ful]]')
+    })
+  })
 })

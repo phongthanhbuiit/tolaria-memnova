@@ -10,7 +10,7 @@
  */
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Cards, CalendarBlank, FolderOpen, MusicNote, PlusCircle, Sparkle, TextAa, Image as ImageIcon, Tag, LinkSimple, X } from '@phosphor-icons/react'
+import { Cards, CalendarBlank, FolderOpen, MusicNote, PlusCircle, Sparkle, TextAa, Image as ImageIcon, Tag, LinkSimple, X, GraduationCap } from '@phosphor-icons/react'
 import { invoke } from '@tauri-apps/api/core'
 import { Switch } from '@/components/ui/switch'
 import { Input } from '@/components/ui/input'
@@ -303,6 +303,9 @@ export function FlashcardPanel({
   const partOfSpeechValue = readStringProp(entry.properties, 'part_of_speech')
   const synonymsValue = readStringProp(entry.properties, 'synonyms')
   const antonymsValue = readStringProp(entry.properties, 'antonyms')
+  const prefixesValue = readStringProp(entry.properties, 'prefixes')
+  const suffixesValue = readStringProp(entry.properties, 'suffixes')
+  const levelValue = readStringProp(entry.properties, 'level')
   const hasBackFace = noteContent != null && noteContent.includes(FLASHCARD_BACK_MARKER)
   const [isAppending, setIsAppending] = useState(false)
 
@@ -367,6 +370,56 @@ export function FlashcardPanel({
       await onUpdateFrontmatter(entry.path, 'part_of_speech', value)
     },
     [entry.path, onUpdateFrontmatter],
+  )
+
+  const handleLevelCommit = useCallback(
+    async (value: string) => {
+      if (!onUpdateFrontmatter) return
+      await onUpdateFrontmatter(entry.path, 'level', value)
+    },
+    [entry.path, onUpdateFrontmatter],
+  )
+
+  const handlePrefixAdd = useCallback(
+    async (target: string) => {
+      if (!onUpdateFrontmatter) return
+      const current = parseWikilinks(prefixesValue)
+      if (current.includes(target)) return
+      const next = [...current, target]
+      await onUpdateFrontmatter(entry.path, 'prefixes', stringifyWikilinks(next))
+    },
+    [entry.path, prefixesValue, onUpdateFrontmatter],
+  )
+
+  const handlePrefixRemove = useCallback(
+    async (target: string) => {
+      if (!onUpdateFrontmatter) return
+      const current = parseWikilinks(prefixesValue)
+      const next = current.filter(t => t !== target)
+      await onUpdateFrontmatter(entry.path, 'prefixes', stringifyWikilinks(next))
+    },
+    [entry.path, prefixesValue, onUpdateFrontmatter],
+  )
+
+  const handleSuffixAdd = useCallback(
+    async (target: string) => {
+      if (!onUpdateFrontmatter) return
+      const current = parseWikilinks(suffixesValue)
+      if (current.includes(target)) return
+      const next = [...current, target]
+      await onUpdateFrontmatter(entry.path, 'suffixes', stringifyWikilinks(next))
+    },
+    [entry.path, suffixesValue, onUpdateFrontmatter],
+  )
+
+  const handleSuffixRemove = useCallback(
+    async (target: string) => {
+      if (!onUpdateFrontmatter) return
+      const current = parseWikilinks(suffixesValue)
+      const next = current.filter(t => t !== target)
+      await onUpdateFrontmatter(entry.path, 'suffixes', stringifyWikilinks(next))
+    },
+    [entry.path, suffixesValue, onUpdateFrontmatter],
   )
 
   const handleSynonymAdd = useCallback(
@@ -533,6 +586,14 @@ export function FlashcardPanel({
             onCommit={handlePartOfSpeechCommit}
           />
           <VocabField
+            id={`fsrs-level-${entry.path}`}
+            label="Level / Difficulty"
+            icon={GraduationCap}
+            value={levelValue}
+            placeholder="A1 · A2 · B1 · B2 · C1 · C2 …"
+            onCommit={handleLevelCommit}
+          />
+          <VocabField
             id={`fsrs-audio-${entry.path}`}
             label="Audio file"
             icon={MusicNote}
@@ -572,6 +633,30 @@ export function FlashcardPanel({
             typeEntryMap={typeEntryMap}
             onAdd={handleAntonymAdd}
             onRemove={handleAntonymRemove}
+            onNavigate={onNavigate}
+          />
+          <WikilinkPropertyField
+            id={`fsrs-prefixes-${entry.path}`}
+            label="Prefixes"
+            icon={LinkSimple}
+            value={prefixesValue}
+            placeholder="Add prefix..."
+            entries={entries}
+            typeEntryMap={typeEntryMap}
+            onAdd={handlePrefixAdd}
+            onRemove={handlePrefixRemove}
+            onNavigate={onNavigate}
+          />
+          <WikilinkPropertyField
+            id={`fsrs-suffixes-${entry.path}`}
+            label="Suffixes"
+            icon={LinkSimple}
+            value={suffixesValue}
+            placeholder="Add suffix..."
+            entries={entries}
+            typeEntryMap={typeEntryMap}
+            onAdd={handleSuffixAdd}
+            onRemove={handleSuffixRemove}
             onNavigate={onNavigate}
           />
           <p className="text-[10px] text-muted-foreground/70 leading-relaxed">
