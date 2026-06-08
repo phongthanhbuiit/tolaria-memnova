@@ -311,6 +311,9 @@ function InspectorBody({
             onUpdateFrontmatter={onUpdateFrontmatter}
             noteContent={content}
             onAppendBackFace={handleAppendBackFace}
+            entries={entries}
+            typeEntryMap={typeEntryMap}
+            onNavigate={onNavigate}
           />
           <Separator />
         </>

@@ -9,8 +9,8 @@
  *  - View current FSRS scheduling state
  */
 
-import { useCallback, useEffect, useState } from 'react'
-import { Cards, CalendarBlank, FolderOpen, MusicNote, PlusCircle, Sparkle, TextAa, Image as ImageIcon } from '@phosphor-icons/react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { Cards, CalendarBlank, FolderOpen, MusicNote, PlusCircle, Sparkle, TextAa, Image as ImageIcon, Tag, LinkSimple, X } from '@phosphor-icons/react'
 import { invoke } from '@tauri-apps/api/core'
 import { Switch } from '@/components/ui/switch'
 import { Input } from '@/components/ui/input'
@@ -26,6 +26,7 @@ import { cn } from '@/lib/utils'
 import { isTauri } from '../../mock-tauri'
 import { FLASHCARD_BACK_MARKER } from '../../utils/flashcardMarkdown'
 import type { VaultEntry, VaultPropertyValue } from '../../types'
+import { NoteAutocomplete } from '../NoteAutocomplete'
 
 // ---------------------------------------------------------------------------
 // Prop types
@@ -43,6 +44,9 @@ interface FlashcardPanelProps {
   noteContent?: string | null
   /** Called when the user wants to add a back face marker to the note. */
   onAppendBackFace?: () => Promise<void>
+  entries?: VaultEntry[]
+  typeEntryMap?: Record<string, VaultEntry>
+  onNavigate?: (target: string) => void
 }
 
 // ---------------------------------------------------------------------------
@@ -174,7 +178,7 @@ function VocabField({
 }
 
 // ---------------------------------------------------------------------------
-// Main component
+// Helpers
 // ---------------------------------------------------------------------------
 
 function readStringProp(props: Record<string, VaultPropertyValue> | undefined, key: string): string {
@@ -189,13 +193,116 @@ function resolveCardType(props: Record<string, VaultPropertyValue> | undefined):
   return readStringProp(props, 'card_type') === 'vocabulary' ? 'vocabulary' : 'basic'
 }
 
-export function FlashcardPanel({ entry, vaultPath, onUpdateFrontmatter, noteContent, onAppendBackFace }: FlashcardPanelProps) {
+function parseWikilinks(value: string): string[] {
+  if (!value) return []
+  const matches = value.match(/\[\[(.*?)\]\]/g)
+  if (!matches) return []
+  return matches.map(m => m.slice(2, -2).split('|')[0]!.trim()).filter(Boolean)
+}
+
+function stringifyWikilinks(targets: string[]): string {
+  return targets.map(t => `[[${t}]]`).join(', ')
+}
+
+function WikilinkPropertyField({
+  id,
+  label,
+  icon: Icon,
+  value,
+  placeholder,
+  entries = [],
+  typeEntryMap = {},
+  onAdd,
+  onRemove,
+  onNavigate,
+}: {
+  id: string
+  label: string
+  icon: React.ElementType
+  value: string
+  placeholder: string
+  entries?: VaultEntry[]
+  typeEntryMap?: Record<string, VaultEntry>
+  onAdd: (target: string) => void
+  onRemove: (target: string) => void
+  onNavigate?: (target: string) => void
+}) {
+  const [query, setQuery] = useState('')
+  const targets = useMemo(() => parseWikilinks(value), [value])
+
+  const handleSelect = useCallback((title: string) => {
+    onAdd(title)
+    setQuery('')
+  }, [onAdd])
+
+  return (
+    <div className="flex flex-col gap-0.5">
+      <span className="flex items-center gap-1 text-[10px] uppercase tracking-wide text-muted-foreground">
+        <Icon size={9} />
+        {label}
+      </span>
+
+      {/* Chips list */}
+      {targets.length > 0 && (
+        <div className="flex flex-wrap gap-1 mb-1 mt-0.5">
+          {targets.map(target => (
+            <span
+              key={target}
+              className={cn(
+                "inline-flex items-center gap-1 text-[11px] px-1.5 py-0.5 rounded border border-border bg-muted/60 text-foreground",
+                onNavigate && "cursor-pointer hover:bg-muted hover:border-primary/30"
+              )}
+              onClick={() => onNavigate?.(target)}
+            >
+              <span className="truncate max-w-[100px]">{target}</span>
+              <button
+                type="button"
+                className="text-muted-foreground hover:text-foreground shrink-0"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  onRemove(target)
+                }}
+              >
+                <X size={8} weight="bold" />
+              </button>
+            </span>
+          ))}
+        </div>
+      )}
+
+      {/* Autocomplete selector */}
+      <NoteAutocomplete
+        entries={entries}
+        typeEntryMap={typeEntryMap}
+        value={query}
+        onChange={setQuery}
+        onSelect={handleSelect}
+        placeholder={placeholder}
+        testId={id}
+      />
+    </div>
+  )
+}
+
+export function FlashcardPanel({
+  entry,
+  vaultPath,
+  onUpdateFrontmatter,
+  noteContent,
+  onAppendBackFace,
+  entries = [],
+  typeEntryMap = {},
+  onNavigate,
+}: FlashcardPanelProps) {
   const isEnabled = entry.fsrsEnabled === true
   const cardType = resolveCardType(entry.properties)
   const isVocabulary = cardType === 'vocabulary'
   const ipaValue = readStringProp(entry.properties, 'IPA')
   const audioValue = readStringProp(entry.properties, 'audio')
   const imageValue = readStringProp(entry.properties, 'image')
+  const partOfSpeechValue = readStringProp(entry.properties, 'part_of_speech')
+  const synonymsValue = readStringProp(entry.properties, 'synonyms')
+  const antonymsValue = readStringProp(entry.properties, 'antonyms')
   const hasBackFace = noteContent != null && noteContent.includes(FLASHCARD_BACK_MARKER)
   const [isAppending, setIsAppending] = useState(false)
 
@@ -252,6 +359,56 @@ export function FlashcardPanel({ entry, vaultPath, onUpdateFrontmatter, noteCont
       await onUpdateFrontmatter(entry.path, 'image', value)
     },
     [entry.path, onUpdateFrontmatter],
+  )
+
+  const handlePartOfSpeechCommit = useCallback(
+    async (value: string) => {
+      if (!onUpdateFrontmatter) return
+      await onUpdateFrontmatter(entry.path, 'part_of_speech', value)
+    },
+    [entry.path, onUpdateFrontmatter],
+  )
+
+  const handleSynonymAdd = useCallback(
+    async (target: string) => {
+      if (!onUpdateFrontmatter) return
+      const current = parseWikilinks(synonymsValue)
+      if (current.includes(target)) return
+      const next = [...current, target]
+      await onUpdateFrontmatter(entry.path, 'synonyms', stringifyWikilinks(next))
+    },
+    [entry.path, synonymsValue, onUpdateFrontmatter],
+  )
+
+  const handleSynonymRemove = useCallback(
+    async (target: string) => {
+      if (!onUpdateFrontmatter) return
+      const current = parseWikilinks(synonymsValue)
+      const next = current.filter(t => t !== target)
+      await onUpdateFrontmatter(entry.path, 'synonyms', stringifyWikilinks(next))
+    },
+    [entry.path, synonymsValue, onUpdateFrontmatter],
+  )
+
+  const handleAntonymAdd = useCallback(
+    async (target: string) => {
+      if (!onUpdateFrontmatter) return
+      const current = parseWikilinks(antonymsValue)
+      if (current.includes(target)) return
+      const next = [...current, target]
+      await onUpdateFrontmatter(entry.path, 'antonyms', stringifyWikilinks(next))
+    },
+    [entry.path, antonymsValue, onUpdateFrontmatter],
+  )
+
+  const handleAntonymRemove = useCallback(
+    async (target: string) => {
+      if (!onUpdateFrontmatter) return
+      const current = parseWikilinks(antonymsValue)
+      const next = current.filter(t => t !== target)
+      await onUpdateFrontmatter(entry.path, 'antonyms', stringifyWikilinks(next))
+    },
+    [entry.path, antonymsValue, onUpdateFrontmatter],
   )
 
   const handleBrowseImage = useCallback(async () => {
@@ -355,7 +512,7 @@ export function FlashcardPanel({ entry, vaultPath, onUpdateFrontmatter, noteCont
         </div>
       )}
 
-      {/* Vocabulary-only fields: IPA + audio + image */}
+      {/* Vocabulary-only fields: IPA + audio + image + part_of_speech + synonyms + antonyms */}
       {isEnabled && isVocabulary && (
         <div className="mt-2 flex flex-col gap-2 px-1.5">
           <VocabField
@@ -366,6 +523,14 @@ export function FlashcardPanel({ entry, vaultPath, onUpdateFrontmatter, noteCont
             placeholder="/ˈvɒkəb.jʊ.lər.i/"
             mono
             onCommit={handleIpaCommit}
+          />
+          <VocabField
+            id={`fsrs-part-of-speech-${entry.path}`}
+            label="Part of speech"
+            icon={Tag}
+            value={partOfSpeechValue}
+            placeholder="noun · verb · adjective · adverb …"
+            onCommit={handlePartOfSpeechCommit}
           />
           <VocabField
             id={`fsrs-audio-${entry.path}`}
@@ -384,6 +549,30 @@ export function FlashcardPanel({ entry, vaultPath, onUpdateFrontmatter, noteCont
             placeholder="png · jpg · webp · gif …"
             onCommit={handleImageCommit}
             onBrowse={isTauri() ? handleBrowseImage : undefined}
+          />
+          <WikilinkPropertyField
+            id={`fsrs-synonyms-${entry.path}`}
+            label="Synonyms"
+            icon={LinkSimple}
+            value={synonymsValue}
+            placeholder="Add synonym..."
+            entries={entries}
+            typeEntryMap={typeEntryMap}
+            onAdd={handleSynonymAdd}
+            onRemove={handleSynonymRemove}
+            onNavigate={onNavigate}
+          />
+          <WikilinkPropertyField
+            id={`fsrs-antonyms-${entry.path}`}
+            label="Antonyms"
+            icon={LinkSimple}
+            value={antonymsValue}
+            placeholder="Add antonym..."
+            entries={entries}
+            typeEntryMap={typeEntryMap}
+            onAdd={handleAntonymAdd}
+            onRemove={handleAntonymRemove}
+            onNavigate={onNavigate}
           />
           <p className="text-[10px] text-muted-foreground/70 leading-relaxed">
             Drag an audio/image file into the editor — Tolaria copies it to{' '}

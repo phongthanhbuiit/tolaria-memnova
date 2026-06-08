@@ -377,4 +377,79 @@ describe('FlashcardPanel', () => {
       expect(onAppend).toHaveBeenCalledTimes(1)
     })
   })
+
+  // ---------------------------------------------------------------------------
+  // Vocabulary-only fields: Part of Speech, Synonyms, Antonyms
+  // ---------------------------------------------------------------------------
+
+  it('populates part of speech field', () => {
+    const entry = makeVocabularyEntry({ properties: { card_type: 'vocabulary', part_of_speech: 'noun' } })
+    render(<FlashcardPanel entry={entry} />)
+    expect(screen.getByLabelText(/part of speech/i)).toHaveValue('noun')
+  })
+
+  it('calls onUpdateFrontmatter with part_of_speech key on blur', async () => {
+    const onUpdate = vi.fn().mockResolvedValue(undefined)
+    const entry = makeVocabularyEntry({ properties: { card_type: 'vocabulary' } })
+    render(<FlashcardPanel entry={entry} onUpdateFrontmatter={onUpdate} />)
+
+    const input = screen.getByLabelText(/part of speech/i)
+    fireEvent.change(input, { target: { value: 'verb' } })
+    fireEvent.blur(input)
+
+    await waitFor(() => {
+      expect(onUpdate).toHaveBeenCalledWith('/vault/note.md', 'part_of_speech', 'verb')
+    })
+  })
+
+  it('renders synonym and antonym chips from frontmatter', () => {
+    const entry = makeVocabularyEntry({
+      properties: {
+        card_type: 'vocabulary',
+        synonyms: '[[happy]], [[cheerful]]',
+        antonyms: '[[sad]]',
+      }
+    })
+    render(<FlashcardPanel entry={entry} />)
+    expect(screen.getByText('happy')).toBeInTheDocument()
+    expect(screen.getByText('cheerful')).toBeInTheDocument()
+    expect(screen.getByText('sad')).toBeInTheDocument()
+  })
+
+  it('calls onUpdateFrontmatter when removing a synonym chip', async () => {
+    const onUpdate = vi.fn().mockResolvedValue(undefined)
+    const entry = makeVocabularyEntry({
+      properties: {
+        card_type: 'vocabulary',
+        synonyms: '[[happy]], [[cheerful]]',
+      }
+    })
+    render(<FlashcardPanel entry={entry} onUpdateFrontmatter={onUpdate} />)
+
+    // Find the close button for 'happy' chip
+    const happyChip = screen.getByText('happy').closest('.inline-flex')
+    const closeBtn = happyChip?.querySelector('button')
+    expect(closeBtn).toBeInTheDocument()
+    fireEvent.click(closeBtn!)
+
+    await waitFor(() => {
+      expect(onUpdate).toHaveBeenCalledWith('/vault/note.md', 'synonyms', '[[cheerful]]')
+    })
+  })
+
+  it('calls onNavigate when clicking a synonym chip', () => {
+    const onNavigate = vi.fn()
+    const entry = makeVocabularyEntry({
+      properties: {
+        card_type: 'vocabulary',
+        synonyms: '[[happy]]',
+      }
+    })
+    render(<FlashcardPanel entry={entry} onNavigate={onNavigate} />)
+
+    const chipText = screen.getByText('happy')
+    fireEvent.click(chipText)
+
+    expect(onNavigate).toHaveBeenCalledWith('happy')
+  })
 })
