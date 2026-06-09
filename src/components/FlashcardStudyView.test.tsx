@@ -54,7 +54,7 @@ vi.mock('@mantine/core', () => ({
 
 // Mock audio
 vi.mock('../utils/flashcardAudio', () => ({
-  resolveFlashcardAudioUrl: () => null,
+  resolveFlashcardAudioUrl: () => 'asset://localhost/audio.mp3',
 }))
 
 describe('FlashcardStudyView', () => {
@@ -104,8 +104,21 @@ describe('FlashcardStudyView', () => {
     } as unknown as VaultEntry,
   ]
 
+  const playSpy = vi.fn().mockResolvedValue(undefined)
+  const pauseSpy = vi.fn()
+
   beforeEach(() => {
     vi.clearAllMocks()
+    
+    // Mock global Audio
+    globalThis.Audio = vi.fn().mockImplementation(function() {
+      return {
+        play: playSpy,
+        pause: pauseSpy,
+        paused: true,
+        src: '',
+      }
+    }) as unknown as typeof Audio
   })
 
   it('renders front face with vocabulary badges (part_of_speech & level)', async () => {
@@ -142,6 +155,10 @@ describe('FlashcardStudyView', () => {
     await act(async () => {
       fireEvent.click(screen.getByTestId('flashcard-show-answer'))
     })
+
+    // Verify audio auto-played
+    expect(globalThis.Audio).toHaveBeenCalled()
+    expect(playSpy).toHaveBeenCalled()
 
     // Image illustration should render
     const image = await screen.findByAltText('Vocabulary illustration')

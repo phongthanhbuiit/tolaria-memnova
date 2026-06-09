@@ -364,6 +364,13 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
     audio.play().catch(() => { /* ignore: user may have blocked autoplay */ })
   }, [audioUrl])
 
+  // Auto-play audio pronunciation when card is flipped to show answer
+  useEffect(() => {
+    if (flipped && audioUrl) {
+      handlePlayAudio()
+    }
+  }, [flipped, audioUrl, handlePlayAudio])
+
   // Next-interval previews for the rating buttons
   const intervals = useMemo(() => (card ? fsrsPreviewIntervals(card) : null), [card])
 
