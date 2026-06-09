@@ -1408,6 +1408,11 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
     onRecordReview: statsManager.recordReview,
   })
 
+  const handleFlashcardNavigate = useCallback((target: string) => {
+    flashcardSession.endSession()
+    notes.handleNavigateWikilink(target)
+  }, [flashcardSession, notes])
+
   const reviewCount = useMemo(
     () => getDueReviewCount(visibleEntries, new Date()),
     [visibleEntries],
@@ -1793,6 +1798,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
             deckName={flashcardSession.deckRoot?.title ?? undefined}
             onRate={flashcardSession.handleRate}
             onClose={flashcardSession.endSession}
+            onNavigate={handleFlashcardNavigate}
           />
         )}
         <RenameDetectedBanner renames={detectedRenames} onUpdate={handleUpdateWikilinks} onDismiss={handleDismissRenames} />

@@ -41,6 +41,7 @@ import { preProcessDurableEditorMarkdown, injectDurableEditorMarkdownBlocks } fr
 import { resolveImageUrls } from '../utils/vaultImages'
 import { preProcessWikilinks, injectWikilinks } from '../utils/wikilinks'
 import { preProcessMathMarkdown, injectMathInBlocks } from '../utils/mathMarkdown'
+import { vaultAttachmentAssetUrl } from '../utils/vaultAttachments'
 
 // ---------------------------------------------------------------------------
 // Types
@@ -55,6 +56,8 @@ export interface FlashcardStudyViewProps {
   onClose: () => void
   /** Optional deck name to display in the session header */
   deckName?: string
+  /** Called when user navigates to a related note */
+  onNavigate?: (target: string) => void
 }
 
 type RatingLabel = { label: string; color: string; key: string; xp: number }
@@ -240,11 +243,19 @@ function SessionComplete({ onClose }: { onClose: () => void }) {
 // Main component
 // ---------------------------------------------------------------------------
 
+function parseWikilinks(value: string): string[] {
+  if (!value) return []
+  const matches = value.match(/\[\[(.*?)\]\]/g)
+  if (!matches) return []
+  return matches.map(m => m.slice(2, -2).split('|')[0]!.trim()).filter(Boolean)
+}
+
 export const FlashcardStudyView = memo(function FlashcardStudyView({
   entries,
   onRate,
   onClose,
   deckName,
+  onNavigate,
 }: FlashcardStudyViewProps) {
   const [queueIndex, setQueueIndex] = useState(0)
   const [flipped, setFlipped] = useState(false)
@@ -297,12 +308,30 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
     return splitFlashcardContent(cardContent ?? entry.snippet ?? '')
   }, [cardContent, entry])
 
+  // Vault path for resolving attachment asset:// URLs
+  const vaultPath = entry?.workspace?.path ?? null
+
   // IPA and language from entry user-defined properties (not FSRS fields)
   const ipa = entry?.properties?.['IPA'] != null ? String(entry.properties['IPA']) : null
   const language = entry?.properties?.['language'] != null ? String(entry.properties['language']) : null
 
-  // Vault path for resolving attachment asset:// URLs
-  const vaultPath = entry?.workspace?.path ?? null
+  // Vocabulary specific properties
+  const isVocabulary = entry?.properties?.card_type === 'vocabulary'
+  const partOfSpeech = entry?.properties?.['part_of_speech'] != null ? String(entry.properties['part_of_speech']) : null
+  const level = entry?.properties?.['level'] != null ? String(entry.properties['level']) : null
+  const imageProp = entry?.properties?.['image'] != null ? String(entry.properties['image']) : null
+  const synonyms = entry?.properties?.['synonyms'] != null ? String(entry.properties['synonyms']) : null
+  const antonyms = entry?.properties?.['antonyms'] != null ? String(entry.properties['antonyms']) : null
+  const prefixes = entry?.properties?.['prefixes'] != null ? String(entry.properties['prefixes']) : null
+  const suffixes = entry?.properties?.['suffixes'] != null ? String(entry.properties['suffixes']) : null
+
+  const resolvedImageUrl = useMemo(() => {
+    if (!imageProp || !vaultPath) return null
+    if (imageProp.startsWith('http') || imageProp.startsWith('asset://') || imageProp.startsWith('data:')) {
+      return imageProp
+    }
+    return vaultAttachmentAssetUrl({ vaultPath, attachmentPath: imageProp })
+  }, [imageProp, vaultPath])
 
   useEffect(() => {
     _wikilinkEntriesRef.current = entries
@@ -443,10 +472,20 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
             <>
               {/* Type + state badge */}
               {entry?.isA && (
-                <div className="flex items-center gap-2 shrink-0">
+                <div className="flex items-center gap-2 shrink-0 flex-wrap">
                   <span className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground border border-border">
                     {entry.isA}
                   </span>
+                  {isVocabulary && partOfSpeech && (
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--accent-purple-light)] text-[var(--accent-purple)] border border-[var(--accent-purple)]/10 font-medium uppercase">
+                      {partOfSpeech}
+                    </span>
+                  )}
+                  {isVocabulary && level && (
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--accent-orange-light)] text-[var(--accent-orange)] border border-[var(--accent-orange)]/10 font-bold uppercase">
+                      {level}
+                    </span>
+                  )}
                   <span className="text-xs text-muted-foreground flex items-center gap-1">
                     {card?.state === 'new' ? (
                       <>
@@ -510,13 +549,102 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
 
                 {/* Back face */}
                 {flipped && hasBack && (
-                  <div className="px-8 py-6 bg-muted/20 border-t border-border/30 animate-in fade-in slide-in-from-bottom-2 duration-300" aria-label="Back face">
+                  <div className="px-8 py-6 bg-muted/20 border-t border-border/30 animate-in fade-in slide-in-from-bottom-2 duration-300 flex flex-col gap-4" aria-label="Back face">
                     <BlockNoteReadOnly
                       content={back}
                       vaultPath={vaultPath}
                       notePath={entry?.path ?? ''}
                       onImageClick={handleImageClick}
                     />
+
+                    {/* Vocabulary Illustration Image */}
+                    {isVocabulary && resolvedImageUrl && (
+                      <div className="mt-2 flex justify-center shrink-0">
+                        <img
+                          src={resolvedImageUrl}
+                          alt="Vocabulary illustration"
+                          className="max-h-64 object-contain rounded-lg border border-border shadow-sm cursor-zoom-in hover:opacity-95 transition-opacity"
+                          onClick={() => handleImageClick(resolvedImageUrl)}
+                        />
+                      </div>
+                    )}
+
+                    {/* Vocabulary Related Relations */}
+                    {isVocabulary && (synonyms || antonyms || prefixes || suffixes) && (
+                      <div className="mt-4 pt-4 border-t border-border/40 flex flex-col gap-2 text-[11px] leading-normal text-muted-foreground">
+                        <h5 className="font-semibold text-muted-foreground uppercase tracking-wider text-[9px] mb-1">
+                          Từ vựng liên quan
+                        </h5>
+                        
+                        {synonyms && (
+                          <div className="flex items-start gap-2">
+                            <span className="shrink-0 w-24 font-medium">Từ đồng nghĩa:</span>
+                            <div className="flex flex-wrap gap-1">
+                              {parseWikilinks(synonyms).map(target => (
+                                <span
+                                  key={target}
+                                  className="px-1.5 py-0.5 rounded border border-border bg-background hover:bg-muted text-foreground cursor-pointer transition-colors"
+                                  onClick={() => onNavigate?.(target)}
+                                >
+                                  [[{target}]]
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {antonyms && (
+                          <div className="flex items-start gap-2">
+                            <span className="shrink-0 w-24 font-medium">Từ trái nghĩa:</span>
+                            <div className="flex flex-wrap gap-1">
+                              {parseWikilinks(antonyms).map(target => (
+                                <span
+                                  key={target}
+                                  className="px-1.5 py-0.5 rounded border border-border bg-background hover:bg-muted text-foreground cursor-pointer transition-colors"
+                                  onClick={() => onNavigate?.(target)}
+                                >
+                                  [[{target}]]
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {prefixes && (
+                          <div className="flex items-start gap-2">
+                            <span className="shrink-0 w-24 font-medium">Tiền tố:</span>
+                            <div className="flex flex-wrap gap-1">
+                              {parseWikilinks(prefixes).map(target => (
+                                <span
+                                  key={target}
+                                  className="px-1.5 py-0.5 rounded border border-border bg-background hover:bg-muted text-foreground cursor-pointer transition-colors"
+                                  onClick={() => onNavigate?.(target)}
+                                >
+                                  [[{target}]]
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {suffixes && (
+                          <div className="flex items-start gap-2">
+                            <span className="shrink-0 w-24 font-medium">Hậu tố:</span>
+                            <div className="flex flex-wrap gap-1">
+                              {parseWikilinks(suffixes).map(target => (
+                                <span
+                                  key={target}
+                                  className="px-1.5 py-0.5 rounded border border-border bg-background hover:bg-muted text-foreground cursor-pointer transition-colors"
+                                  onClick={() => onNavigate?.(target)}
+                                >
+                                  [[{target}]]
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
@@ -717,7 +845,7 @@ function ImageLightbox({ src, onClose }: ImageLightboxProps) {
           <Button variant="ghost" size="sm" onClick={handleZoomOut} className="text-white hover:bg-white/10 h-8 px-3 text-xs">Zoom Out</Button>
           <Button variant="ghost" size="sm" onClick={handleReset} className="text-white hover:bg-white/10 h-8 px-3 text-xs font-mono">{Math.round(scale * 100)}%</Button>
           <Button variant="ghost" size="sm" onClick={handleZoomIn} className="text-white hover:bg-white/10 h-8 px-3 text-xs">Zoom In</Button>
-          <Button variant="ghost" size="icon" onClick={onClose} className="text-white hover:bg-white/10 rounded-full h-8 w-8 ml-2 flex items-center justify-center">
+          <Button variant="ghost" size="icon" onClick={onClose} aria-label="Close" className="text-white hover:bg-white/10 rounded-full h-8 w-8 ml-2 flex items-center justify-center">
             <X size={18} />
           </Button>
         </div>
