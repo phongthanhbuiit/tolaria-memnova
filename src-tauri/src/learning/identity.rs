@@ -41,6 +41,13 @@ pub(super) fn library_identity(directory: &Path) -> Result<String, String> {
             }
         }
     }
+    read_library_identity(directory)
+}
+
+pub(super) fn read_library_identity(directory: &Path) -> Result<String, String> {
+    reject_symlink(directory)?;
+    let path = directory.join("library.json");
+    reject_symlink(&path)?;
     let manifest: Manifest = serde_json::from_slice(&fs::read(path).map_err(|e| e.to_string())?)
         .map_err(|e| e.to_string())?;
     if manifest.format_version != 1 {

@@ -115,3 +115,37 @@ fn card_commands_round_trip_and_keep_stale_edits_out_of_the_database() {
         "# Retained lesson"
     );
 }
+
+#[test]
+fn backup_commands_restore_only_into_a_fresh_directory_inside_the_library() {
+    assert!(
+        serde_json::from_value::<LearningRequest>(serde_json::json!({
+            "kind": "restoreBackup", "backupId": "arbitrary", "target": "/outside-library"
+        }))
+        .is_err()
+    );
+    let dir = tempfile::tempdir().unwrap();
+    std::fs::write(dir.path().join("lesson.md"), "# Original lesson").unwrap();
+    let path = dir.path().to_string_lossy().into_owned();
+    let descriptor = execute(&path, None, LearningRequest::Describe).unwrap();
+    let library_id = Some(descriptor["libraryId"].as_str().unwrap().to_string());
+    let backup = execute(&path, library_id.clone(), LearningRequest::CreateBackup).unwrap();
+    let restored = execute(
+        &path,
+        library_id,
+        LearningRequest::RestoreBackup {
+            backup_id: backup["id"].as_str().unwrap().to_string(),
+        },
+    )
+    .unwrap();
+    let target = std::path::Path::new(restored["path"].as_str().unwrap());
+    assert!(target.starts_with(dir.path().canonicalize().unwrap().join(".memnova/restores")));
+    assert_eq!(
+        std::fs::read_to_string(target.join("lesson.md")).unwrap(),
+        "# Original lesson"
+    );
+    assert_eq!(
+        std::fs::read_to_string(dir.path().join("lesson.md")).unwrap(),
+        "# Original lesson"
+    );
+}

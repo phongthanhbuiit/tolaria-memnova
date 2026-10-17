@@ -19,7 +19,7 @@ This ledger tracks the plan from the conversation. A checked implementation is n
 | C03 | C02 | Rust SQLite ownership, versioned migration, WAL, foreign keys, boundaries | Backend implemented; migration wiring/release checks pending |
 | C04 | C03 | Pages/cards/schedules/reviews/sessions/decks with indexes and constraints | Backend implemented; migration wiring/release checks pending |
 | C05 | C04 | Typed IPC/client; frontend cannot supply SQL or arbitrary database paths | Backend implemented; migration wiring/release checks pending |
-| D01 | C05 | Consistent backup of SQLite, lessons and media; verified restore into fresh directory | Pending |
+| D01 | C05 | Consistent backup of SQLite, lessons and media; verified restore into fresh directory | Backend implemented; migration/UI wiring and release checks pending |
 | D02 | D01 | Read-only migration preview reports counts, invalid schedules and conflicts | Pending |
 | D03 | D02 | Backup-first, idempotent/resumable legacy migration preserves schedules/history/media | Pending |
 | D04 | D03 | Explicit verified cutover; no duplicate legacy writes; recoverable failure | Pending |

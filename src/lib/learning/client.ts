@@ -1,9 +1,15 @@
 import { invoke } from '@tauri-apps/api/core'
-import type { CardDraft, LearningCard, LibraryDescriptor } from './types'
+import type { BackupDescriptor, CardDraft, LearningCard, LibraryDescriptor } from './types'
 
 /** A connection is bound to both the validated folder and persistent UUID. */
 export class LearningClient {
-  private constructor(readonly vaultPath: string, readonly libraryId: string) {}
+  readonly vaultPath: string
+  readonly libraryId: string
+
+  private constructor(vaultPath: string, libraryId: string) {
+    this.vaultPath = vaultPath
+    this.libraryId = libraryId
+  }
 
   static async connect(vaultPath: string): Promise<LearningClient> {
     const descriptor = await invoke<LibraryDescriptor>('learning_command', {
@@ -33,5 +39,13 @@ export class LearningClient {
 
   cloneCard(cardId: string): Promise<LearningCard> {
     return this.call({ kind: 'cloneCard', cardId })
+  }
+
+  createBackup(): Promise<BackupDescriptor> {
+    return this.call({ kind: 'createBackup' })
+  }
+
+  restoreBackup(backupId: string): Promise<{ path: string }> {
+    return this.call({ kind: 'restoreBackup', backupId })
   }
 }

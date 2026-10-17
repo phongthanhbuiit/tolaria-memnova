@@ -29,3 +29,11 @@ export interface LibraryDescriptor {
   libraryId: string
   schemaVersion: 1
 }
+
+export interface BackupDescriptor {
+  id: string
+  libraryId: string
+  createdAt: number
+  fileCount: number
+  bytes: number
+}

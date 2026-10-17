@@ -28,6 +28,10 @@ pub enum LearningRequest {
     CloneCard {
         card_id: String,
     },
+    CreateBackup,
+    RestoreBackup {
+        backup_id: String,
+    },
 }
 
 pub(super) fn execute(
@@ -61,6 +65,12 @@ pub(super) fn execute(
             .map_err(|e| e.to_string())?,
         LearningRequest::CloneCard { card_id } => {
             serde_json::to_value(store.clone_card(&card_id)?).map_err(|e| e.to_string())?
+        }
+        LearningRequest::CreateBackup => {
+            serde_json::to_value(store.create_backup()?).map_err(|e| e.to_string())?
+        }
+        LearningRequest::RestoreBackup { backup_id } => {
+            json!({ "path": store.restore_local_backup(&backup_id)? })
         }
     };
     Ok(result)
