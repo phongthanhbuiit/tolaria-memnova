@@ -26,19 +26,18 @@ impl Store {
         let version: u32 = conn
             .pragma_query_value(None, "user_version", |row| row.get(0))
             .map_err(|e| e.to_string())?;
-        if version > 1 {
+        if version > super::SCHEMA_VERSION {
             return Err("Learning database was created by a newer Memnova version".into());
+        }
+        if version == super::SCHEMA_VERSION {
+            super::storage_metadata::validate_owner(&conn, &library_id)?;
         }
         conn.execute_batch(
             "PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL;",
         )
         .map_err(|e| e.to_string())?;
-        if version == 0 {
-            let transaction = conn.transaction().map_err(|e| e.to_string())?;
-            transaction
-                .execute_batch(include_str!("schema.sql"))
-                .map_err(|e| e.to_string())?;
-            transaction.commit().map_err(|e| e.to_string())?;
+        if version < super::SCHEMA_VERSION {
+            super::storage_metadata::initialize_schema(&mut conn, &library_id)?;
         }
         Ok(Self {
             conn,
@@ -51,17 +50,7 @@ impl Store {
         uuid::Uuid::parse_str(id).map_err(|_| "Invalid page identity")?;
         self.page_path(path)?;
         let transaction = self.conn.transaction().map_err(|e| e.to_string())?;
-        let previous: Option<String> = transaction
-            .query_row("SELECT path FROM pages WHERE id=?1", [id], |row| row.get(0))
-            .optional()
-            .map_err(|e| e.to_string())?;
-        if previous
-            .as_deref()
-            .is_some_and(|old| old != path && self.root.join(old).exists())
-        {
-            return Err("Duplicate page identity: the original page still exists".into());
-        }
-        transaction.execute("INSERT INTO pages(id,path,title) VALUES(?1,?2,?3) ON CONFLICT(id) DO UPDATE SET path=excluded.path,title=excluded.title,deleted_at=NULL", (id,path,title)).map_err(|e| e.to_string())?;
+        register_page_in(&transaction, &self.root, id, path, title)?;
         transaction.commit().map_err(|e| e.to_string())
     }
 
@@ -84,6 +73,11 @@ impl Store {
         {
             return Err("A learning page must be a Markdown file".into());
         }
+        let mut candidate = self.root.clone();
+        for component in path.components() {
+            candidate.push(component.as_os_str());
+            reject_symlink(&candidate)?;
+        }
         let absolute = self
             .root
             .join(path)
@@ -94,4 +88,25 @@ impl Store {
         }
         Ok(absolute)
     }
+}
+
+pub(super) fn register_page_in(
+    transaction: &rusqlite::Transaction<'_>,
+    root: &Path,
+    id: &str,
+    path: &str,
+    title: &str,
+) -> Result<(), String> {
+    let previous: Option<String> = transaction
+        .query_row("SELECT path FROM pages WHERE id=?1", [id], |row| row.get(0))
+        .optional()
+        .map_err(|e| e.to_string())?;
+    if previous
+        .as_deref()
+        .is_some_and(|old| old != path && root.join(old).exists())
+    {
+        return Err("Duplicate page identity: the original page still exists".into());
+    }
+    transaction.execute("INSERT INTO pages(id,path,title) VALUES(?1,?2,?3) ON CONFLICT(id) DO UPDATE SET path=excluded.path,title=excluded.title,deleted_at=NULL", (id,path,title)).map_err(|e| e.to_string())?;
+    Ok(())
 }

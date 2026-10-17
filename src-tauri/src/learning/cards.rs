@@ -70,6 +70,7 @@ pub(super) fn insert_card(
 
 impl Store {
     pub fn create_card(&mut self, page_id: &str, draft: CardDraft) -> Result<Card, String> {
+        self.ensure_card_writes_allowed()?;
         let id = uuid::Uuid::new_v4().to_string();
         let transaction = self.conn.transaction().map_err(|e| e.to_string())?;
         insert_card(&transaction, &id, page_id, &draft, &Schedule::fresh())?;
@@ -102,6 +103,7 @@ impl Store {
         revision: u32,
         draft: CardDraft,
     ) -> Result<Card, String> {
+        self.ensure_card_writes_allowed()?;
         draft.validate()?;
         let changed = self.conn.execute("UPDATE cards SET front=?1,back=?2,answer_mode=?3,status=?4,position=?5,properties_json=?6,updated_at=?7,revision=revision+1 WHERE id=?8 AND revision=?9", params![draft.front,draft.back,draft.answer_mode,draft.status,draft.position,draft.properties.to_string(),chrono::Utc::now().timestamp_millis(),id,revision]).map_err(|e| e.to_string())?;
         if changed != 1 {

@@ -22,6 +22,8 @@ pub struct MigrationPreview {
     pub suspended_cards: usize,
     pub whole_page_cards: usize,
     pub fingerprint: String,
+    pub review_count: usize,
+    pub unassigned_review_count: usize,
     pub issues: Vec<MigrationIssue>,
     pub pages: Vec<LegacyPage>,
 }
@@ -219,7 +221,34 @@ pub(super) fn scan_legacy(root: &Path) -> Result<MigrationPreview, String> {
 
 pub fn preview_migration(
     root: &Path,
-    _legacy_log: Option<&Path>,
+    legacy_log: Option<&Path>,
 ) -> Result<MigrationPreview, String> {
-    scan_legacy(root)
+    let mut preview = scan_legacy(root)?;
+    let raw = super::legacy_log::recovery_log(root, legacy_log)?;
+    let parsed = super::legacy_log::captured_log(root, raw.as_deref())?;
+    let paths: std::collections::HashSet<_> = preview
+        .pages
+        .iter()
+        .filter(|page| page.card.is_some())
+        .map(|page| page.path.as_str())
+        .collect();
+    preview.review_count = parsed
+        .reviews
+        .iter()
+        .filter(|review| paths.contains(review.note_path.as_str()))
+        .count();
+    preview.unassigned_review_count =
+        parsed.invalid + parsed.unscoped + parsed.reviews.len() - preview.review_count;
+    if preview.unassigned_review_count > 0 {
+        preview.issues.push(MigrationIssue::warning("", "unassignedReviews",
+            "Some review rows cannot be safely assigned; their original log will be preserved in the backup"));
+    }
+    let mut fingerprint = Sha256::new();
+    fingerprint.update(preview.fingerprint.as_bytes());
+    for review in parsed.reviews {
+        fingerprint.update(review.id.as_bytes());
+        fingerprint.update([0]);
+    }
+    preview.fingerprint = format!("{:x}", fingerprint.finalize());
+    Ok(preview)
 }

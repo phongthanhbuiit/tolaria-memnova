@@ -1,5 +1,5 @@
 import { invoke } from '@tauri-apps/api/core'
-import type { BackupDescriptor, CardDraft, LearningCard, LibraryDescriptor, MigrationPreview } from './types'
+import type { BackupDescriptor, CardDraft, LearningCard, LibraryDescriptor, MigrationPreview, MigrationProgress } from './types'
 
 /** A connection is bound to both the validated folder and persistent UUID. */
 export class LearningClient {
@@ -19,7 +19,7 @@ export class LearningClient {
     const descriptor = await invoke<LibraryDescriptor>('learning_command', {
       vaultPath, libraryId: null, request: { kind: 'describe' },
     })
-    if (!descriptor || descriptor.schemaVersion !== 1 || !descriptor.libraryId) {
+    if (!descriptor || ![1, 2].includes(descriptor.schemaVersion) || !descriptor.libraryId) {
       throw new Error('Unsupported learning database')
     }
     return new LearningClient(vaultPath, descriptor.libraryId)
@@ -27,6 +27,18 @@ export class LearningClient {
 
   private call<T>(request: Record<string, unknown>): Promise<T> {
     return invoke<T>('learning_command', { vaultPath: this.vaultPath, libraryId: this.libraryId, request })
+  }
+
+  migrationStatus(): Promise<MigrationProgress> {
+    return this.call({ kind: 'migrationStatus' })
+  }
+
+  beginMigration(fingerprint: string, profileRaw: string | null): Promise<MigrationProgress> {
+    return this.call({ kind: 'beginMigration', fingerprint, profileRaw })
+  }
+
+  resumeMigration(batchSize = 100): Promise<MigrationProgress> {
+    return this.call({ kind: 'resumeMigration', batchSize })
   }
 
   listCards(pageId: string | null = null, includeTrashed = false): Promise<LearningCard[]> {

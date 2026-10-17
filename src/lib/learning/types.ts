@@ -28,7 +28,8 @@ export interface LearningCard extends CardDraft {
 
 export interface LibraryDescriptor {
   libraryId: string
-  schemaVersion: 1
+  schemaVersion: 1 | 2
+  migrationState?: 'legacy' | 'migrating' | 'ready'
 }
 
 export interface BackupDescriptor {
@@ -61,7 +62,20 @@ export interface MigrationPreview {
   draftCards: number
   suspendedCards: number
   wholePageCards: number
+  reviewCount: number
+  unassignedReviewCount: number
   fingerprint: string
   issues: MigrationIssue[]
   pages: LegacyPagePreview[]
+}
+
+export interface MigrationProgress {
+  state: 'legacy' | 'migrating' | 'ready'
+  libraryId: string
+  backupId: string | null
+  totalPages: number
+  importedPages: number
+  totalCards: number
+  importedCards: number
+  importedReviews: number
 }

@@ -13,6 +13,14 @@ use serde_json::{json, Value};
 pub enum LearningRequest {
     Describe,
     PreviewMigration,
+    BeginMigration {
+        fingerprint: String,
+        profile_raw: Option<String>,
+    },
+    ResumeMigration {
+        batch_size: usize,
+    },
+    MigrationStatus,
     ListCards {
         page_id: Option<String>,
         include_trashed: bool,
@@ -35,16 +43,26 @@ pub enum LearningRequest {
     },
 }
 
+#[cfg(test)]
 pub(super) fn execute(
     vault_path: &str,
     library_id: Option<String>,
     request: LearningRequest,
 ) -> Result<Value, String> {
+    execute_with_log(vault_path, library_id, request, None)
+}
+
+fn execute_with_log(
+    vault_path: &str,
+    library_id: Option<String>,
+    request: LearningRequest,
+    legacy_log: Option<&std::path::Path>,
+) -> Result<Value, String> {
     let boundary = VaultBoundary::from_request(Some(vault_path))?;
     if matches!(request, LearningRequest::PreviewMigration) {
         return serde_json::to_value(crate::learning::preview_migration(
             boundary.requested_root(),
-            None,
+            legacy_log,
         )?)
         .map_err(|error| error.to_string());
     }
@@ -55,45 +73,64 @@ pub(super) fn execute(
     {
         return Err("Library identity changed; reload before continuing".into());
     }
-    let result = match request {
+    dispatch(&mut store, request, legacy_log)
+}
+
+fn encode(value: impl serde::Serialize) -> Result<Value, String> {
+    serde_json::to_value(value).map_err(|error| error.to_string())
+}
+
+fn dispatch(
+    store: &mut Store,
+    request: LearningRequest,
+    legacy_log: Option<&std::path::Path>,
+) -> Result<Value, String> {
+    match request {
         LearningRequest::PreviewMigration => {
-            return Err("Migration preview must run before storage initialization".into())
+            Err("Migration preview must run before storage initialization".into())
         }
-        LearningRequest::Describe => json!({"libraryId":store.library_id,"schemaVersion":1}),
+        LearningRequest::Describe => Ok(
+            json!({"libraryId":store.library_id,"schemaVersion":crate::learning::SCHEMA_VERSION,"migrationState":store.migration_state()?}),
+        ),
+        LearningRequest::BeginMigration {
+            fingerprint,
+            profile_raw,
+        } => encode(store.prepare_migration(&fingerprint, profile_raw, legacy_log)?),
+        LearningRequest::ResumeMigration { batch_size } => {
+            encode(store.resume_migration(batch_size)?)
+        }
+        LearningRequest::MigrationStatus => encode(store.migration_progress()?),
         LearningRequest::ListCards {
             page_id,
             include_trashed,
-        } => serde_json::to_value(store.list_cards(page_id.as_deref(), include_trashed)?)
-            .map_err(|e| e.to_string())?,
+        } => encode(store.list_cards(page_id.as_deref(), include_trashed)?),
         LearningRequest::CreateCard { page_id, draft } => {
-            serde_json::to_value(store.create_card(&page_id, draft)?).map_err(|e| e.to_string())?
+            encode(store.create_card(&page_id, draft)?)
         }
         LearningRequest::UpdateCard {
             card_id,
             revision,
             draft,
-        } => serde_json::to_value(store.update_card(&card_id, revision, draft)?)
-            .map_err(|e| e.to_string())?,
-        LearningRequest::CloneCard { card_id } => {
-            serde_json::to_value(store.clone_card(&card_id)?).map_err(|e| e.to_string())?
-        }
-        LearningRequest::CreateBackup => {
-            serde_json::to_value(store.create_backup()?).map_err(|e| e.to_string())?
-        }
+        } => encode(store.update_card(&card_id, revision, draft)?),
+        LearningRequest::CloneCard { card_id } => encode(store.clone_card(&card_id)?),
+        LearningRequest::CreateBackup => encode(store.create_backup()?),
         LearningRequest::RestoreBackup { backup_id } => {
-            json!({ "path": store.restore_local_backup(&backup_id)? })
+            Ok(json!({"path":store.restore_local_backup(&backup_id)?}))
         }
-    };
-    Ok(result)
+    }
 }
 
 #[tauri::command]
 pub async fn learning_command(
+    app: tauri::AppHandle,
     vault_path: String,
     library_id: Option<String>,
     request: LearningRequest,
 ) -> Result<Value, String> {
-    tauri::async_runtime::spawn_blocking(move || execute(&vault_path, library_id, request))
-        .await
-        .map_err(|e| e.to_string())?
+    let legacy_log = super::fsrs_log::resolve_log_path(&app)?;
+    tauri::async_runtime::spawn_blocking(move || {
+        execute_with_log(&vault_path, library_id, request, Some(&legacy_log))
+    })
+    .await
+    .map_err(|e| e.to_string())?
 }

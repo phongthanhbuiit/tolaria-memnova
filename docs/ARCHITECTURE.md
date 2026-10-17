@@ -6,13 +6,18 @@ The staged Memnova learning-storage transition is tracked in [MEMNOVA-IMPLEMENTA
 
 Legacy study queues take a session snapshot so an index refresh cannot shift the next card under a numeric cursor. Enabling an already enabled note preserves its schedule. A scoped deck includes its root and descendants and never falls back to unrelated cards. The due clock refreshes while the app remains open. These are compatibility fixes, not a scheduler algorithm change.
 
+
+Schema v2 binds the database to its Library UUID and stores an immutable migration checkpoint. `beginMigration` verifies the preview fingerprint and a complete backup before committing `migrating`; `resumeMigration` imports bounded batches using fixed UUIDs and original/post-ID hashes. Page ID insertion preserves all other source bytes. A failed database write can replay the same ID without duplicate cards. File changes and symlink substitutions block replay. Legacy schedule writes serialize with cutover and are rejected once migration starts. `ready` is committed only after the source set, schedule projections, profile and attributable review records are verified/imported. Normal card edits are blocked while migrating.
+
+Native migration resolves the existing installation review-log location itself. Relative/ambiguous rows are reported rather than guessed; repetition counts never invent history. Original profile/log bytes and a Library-bound relative review map are included in the original backup, so restoring to a new folder retains attribution. Partial backups carry their checkpoint in SQLite and resume without the original machine. Restores always use fresh directories. UI onboarding and migration controls remain a later stage of the implementation ledger.
+
 Tolaria is a personal knowledge and life management desktop app. It reads a vault of markdown files with YAML frontmatter and presents them in a four-panel UI inspired by Bear Notes.
 
 ## Design Principles
 
-### Filesystem as the single source of truth
+### Content files and learning authority
 
-The vault is a folder of plain markdown files. The app never owns the data — it only reads and writes files. The cache, React state, and any in-memory representation are always derived from the filesystem and must be reconstructible by deleting them. When in doubt, the file on disk wins.
+Lesson content and attachments remain ordinary files. After verified Memnova cutover, `.memnova/learning.sqlite3` is the authority for independent cards, schedules, review history and durable learning state (ADR-0138/0140). It is user data and must never be deleted as a cache. React state and content indexes remain derived representations. A verified Library backup includes both authorities.
 
 ### Convention over configuration
 

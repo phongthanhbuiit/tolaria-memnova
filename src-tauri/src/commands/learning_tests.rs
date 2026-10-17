@@ -168,3 +168,31 @@ fn migration_preview_does_not_initialize_a_library_database() {
         "# Original lesson\n"
     );
 }
+
+#[test]
+fn migration_commands_checkpoint_resume_and_cut_over() {
+    let dir = tempfile::tempdir().unwrap();
+    std::fs::write(
+        dir.path().join("lesson.md"),
+        "# Lesson\n<!-- FLASHCARD:BACK -->\nAnswer",
+    )
+    .unwrap();
+    let path = dir.path().to_string_lossy().into_owned();
+    let description = execute(&path, None, LearningRequest::Describe).unwrap();
+    let id = Some(description["libraryId"].as_str().unwrap().to_owned());
+    let preview = execute(&path, None, LearningRequest::PreviewMigration).unwrap();
+    let request = serde_json::from_value(serde_json::json!({"kind":"beginMigration","fingerprint":preview["fingerprint"],"profileRaw":"{\"totalXp\":10}"})).unwrap();
+    assert_eq!(
+        execute(&path, id.clone(), request).unwrap()["state"],
+        "migrating"
+    );
+    let request =
+        serde_json::from_value(serde_json::json!({"kind":"resumeMigration","batchSize":20}))
+            .unwrap();
+    assert_eq!(
+        execute(&path, id.clone(), request).unwrap()["state"],
+        "ready"
+    );
+    let request = serde_json::from_value(serde_json::json!({"kind":"migrationStatus"})).unwrap();
+    assert_eq!(execute(&path, id, request).unwrap()["importedCards"], 1);
+}

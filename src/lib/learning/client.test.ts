@@ -19,6 +19,11 @@ describe('learning IPC client', () => {
     vi.mocked(invoke).mockResolvedValue({ libraryId: 'library-1', schemaVersion: 99 })
     await expect(LearningClient.connect('/library')).rejects.toThrow('Unsupported learning database')
   })
+
+  it('connects to the additive schema-v2 upgrade', async () => {
+    vi.mocked(invoke).mockResolvedValue({ libraryId: 'library-1', schemaVersion: 2, migrationState: 'legacy' })
+    await expect(LearningClient.connect('/library')).resolves.toMatchObject({ libraryId: 'library-1' })
+  })
   it('propagates persistence failures to the editing UI', async () => {
     vi.mocked(invoke).mockResolvedValueOnce({ libraryId: 'library-1', schemaVersion: 1 }).mockRejectedValueOnce(new Error('Disk full'))
     const client = await LearningClient.connect('/library')
@@ -34,4 +39,18 @@ describe('learning IPC client', () => {
       vaultPath: '/library', libraryId: null, request: { kind: 'previewMigration' },
     })
   })
+  it('keeps migration consent and resumable batches bound to the library', async () => {
+    vi.mocked(invoke).mockResolvedValueOnce({ libraryId: 'library-1', schemaVersion: 2 }).mockResolvedValue({ state: 'migrating' })
+    const client = await LearningClient.connect('/library')
+    await client.beginMigration('preview-hash', '{"totalXp":42}')
+    expect(invoke).toHaveBeenLastCalledWith('learning_command', {
+      vaultPath: '/library', libraryId: 'library-1', request: { kind: 'beginMigration', fingerprint: 'preview-hash', profileRaw: '{"totalXp":42}' },
+    })
+    await client.resumeMigration(25)
+    expect(invoke).toHaveBeenLastCalledWith('learning_command', {
+      vaultPath: '/library', libraryId: 'library-1', request: { kind: 'resumeMigration', batchSize: 25 },
+    })
+    await expect(client.migrationStatus()).resolves.toEqual({ state: 'migrating' })
+  })
+
 })

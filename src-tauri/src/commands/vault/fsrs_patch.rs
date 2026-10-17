@@ -29,11 +29,16 @@ pub fn update_fsrs_schedule(
         return Err("Invalid FSRS schedule fields".into());
     }
     let _guard = SCHEDULE_WRITE.lock().map_err(|e| e.to_string())?;
+    let boundary = super::boundary::VaultBoundary::from_request(vault_path.as_deref())?;
     with_validated_path(
         &path,
         vault_path.as_deref(),
         ValidatedPathMode::Existing,
-        |validated| persist_schedule(Path::new(validated), patch),
+        |validated| {
+            crate::learning::with_legacy_write(boundary.requested_root(), || {
+                persist_schedule(Path::new(validated), patch)
+            })
+        },
     )
 }
 

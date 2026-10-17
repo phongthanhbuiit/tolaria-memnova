@@ -212,3 +212,37 @@ fn copying_rejects_bytes_that_differ_from_the_captured_snapshot() {
         "# Changed after snapshot capture"
     );
 }
+
+#[test]
+fn pre_migration_backup_keeps_raw_legacy_profile_and_review_log_for_recovery() {
+    use super::backup::RecoverySnapshot;
+    let (_dir, store) = fixture();
+    let profile = br#"{ "totalXp": 1234, "dailyGoal": 45, "custom": "preserved" }"#.to_vec();
+    let reviews = b"{\"rating\":3,\"note_path\":\"lesson.md\"}\r\n".to_vec();
+    let backup = store
+        .create_backup_with_recovery(&RecoverySnapshot {
+            profile: Some(profile.clone()),
+            reviews: Some(reviews.clone()),
+            ..Default::default()
+        })
+        .unwrap();
+    let parent = tempfile::tempdir().unwrap();
+    let target = parent.path().join("restored");
+    store.restore_backup(&backup.id, &target).unwrap();
+    assert_eq!(
+        std::fs::read(target.join(".memnova/legacy-profile.json")).unwrap(),
+        profile
+    );
+    assert_eq!(
+        std::fs::read(target.join(".memnova/legacy-review-log.jsonl")).unwrap(),
+        reviews
+    );
+    assert_eq!(
+        Store::open(&target)
+            .unwrap()
+            .list_cards(None, true)
+            .unwrap()
+            .len(),
+        1
+    );
+}

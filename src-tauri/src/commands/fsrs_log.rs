@@ -24,7 +24,7 @@ struct FsrsReviewEntry {
 /// `{app_data_dir}/fsrs-reviews.jsonl`
 ///
 /// The log is stored outside the vault (installation-specific data).
-fn resolve_log_path(app: &AppHandle) -> Result<PathBuf, String> {
+pub(super) fn resolve_log_path(app: &AppHandle) -> Result<PathBuf, String> {
     use tauri::Manager;
 
     let data_dir = app

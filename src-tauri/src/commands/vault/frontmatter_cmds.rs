@@ -3,6 +3,19 @@ use crate::frontmatter::FrontmatterValue;
 
 use super::boundary::{with_existing_paths, with_validated_path, ValidatedPathMode};
 
+fn with_learning_property<T>(
+    key: &str,
+    root: Option<&str>,
+    write: impl FnOnce() -> Result<T, String>,
+) -> Result<T, String> {
+    if key.starts_with("_fsrs_") {
+        let boundary = super::boundary::VaultBoundary::from_request(root)?;
+        crate::learning::with_legacy_write(boundary.requested_root(), write)
+    } else {
+        write()
+    }
+}
+
 #[tauri::command]
 pub fn update_frontmatter(
     path: String,
@@ -14,7 +27,11 @@ pub fn update_frontmatter(
         &path,
         vault_path.as_deref(),
         ValidatedPathMode::Existing,
-        |validated_path| frontmatter::update_frontmatter(validated_path, &key, value),
+        |validated_path| {
+            with_learning_property(&key, vault_path.as_deref(), || {
+                frontmatter::update_frontmatter(validated_path, &key, value)
+            })
+        },
     )
 }
 
@@ -28,7 +45,11 @@ pub fn delete_frontmatter_property(
         &path,
         vault_path.as_deref(),
         ValidatedPathMode::Existing,
-        |validated_path| frontmatter::delete_frontmatter_property(validated_path, &key),
+        |validated_path| {
+            with_learning_property(&key, vault_path.as_deref(), || {
+                frontmatter::delete_frontmatter_property(validated_path, &key)
+            })
+        },
     )
 }
 

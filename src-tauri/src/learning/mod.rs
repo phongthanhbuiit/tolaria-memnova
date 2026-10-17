@@ -21,3 +21,37 @@ mod legacy_markdown;
 mod migration_preview;
 pub use legacy_markdown::{LegacyCard, LegacyPage};
 pub use migration_preview::{preview_migration, MigrationIssue, MigrationPreview};
+#[cfg(test)]
+mod metadata_tests;
+
+mod storage_metadata;
+pub use storage_metadata::MigrationState;
+pub const SCHEMA_VERSION: u32 = 2;
+#[cfg(test)]
+mod migration_tests;
+mod page_identity;
+#[cfg(test)]
+mod page_identity_tests;
+
+mod migration_plan;
+pub use migration_plan::MigrationProgress;
+mod migration_import;
+
+mod legacy_log;
+
+/// Serialize the legacy bridge with cutover without initializing untouched libraries.
+pub(crate) fn with_legacy_write<T>(
+    root: &std::path::Path,
+    write: impl FnOnce() -> Result<T, String>,
+) -> Result<T, String> {
+    let _operation = migration_import::MIGRATION_OPERATION
+        .lock()
+        .map_err(|error| error.to_string())?;
+    identity::reject_symlink(&root.join(".memnova"))?;
+    if root.join(".memnova/learning.sqlite3").exists()
+        && Store::open(root)?.migration_state()? != MigrationState::Legacy
+    {
+        return Err("Learning schedules are owned by SQLite after migration starts".into());
+    }
+    write()
+}

@@ -23,6 +23,21 @@ pub struct BackupDescriptor {
     pub bytes: u64,
 }
 
+#[derive(Default)]
+pub(super) struct RecoverySnapshot {
+    pub profile: Option<Vec<u8>>,
+    pub reviews: Option<Vec<u8>>,
+    pub review_map: Option<Vec<u8>>,
+}
+
+const SNAPSHOT_METADATA: &[&str] = &[
+    ".memnova/library.json",
+    ".memnova/learning.sqlite3",
+    ".memnova/legacy-profile.json",
+    ".memnova/legacy-review-log.jsonl",
+    ".memnova/legacy-review-map.json",
+];
+
 #[derive(Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 struct Manifest {
@@ -33,7 +48,7 @@ struct Manifest {
     directories: Vec<String>,
 }
 
-fn verify_database(path: &Path) -> Result<(), String> {
+fn verify_database(path: &Path, library_id: &str) -> Result<(), String> {
     let conn =
         rusqlite::Connection::open_with_flags(path, rusqlite::OpenFlags::SQLITE_OPEN_READ_ONLY)
             .map_err(|e| e.to_string())?;
@@ -43,17 +58,39 @@ fn verify_database(path: &Path) -> Result<(), String> {
     let version: u32 = conn
         .query_row("PRAGMA user_version", [], |row| row.get(0))
         .map_err(|e| e.to_string())?;
+    if version >= 2 {
+        super::storage_metadata::validate_owner(&conn, library_id)?;
+    }
     let mut violations = conn
         .prepare("PRAGMA foreign_key_check")
         .map_err(|e| e.to_string())?;
     let invalid = violations.exists([]).map_err(|e| e.to_string())?;
-    if check != "ok" || version != 1 || invalid {
+    if check != "ok" || (version == 0 || version > super::SCHEMA_VERSION) || invalid {
         return Err("Backup database failed integrity or version checks".into());
     }
     Ok(())
 }
 
 impl Store {
+    fn ensure_snapshot_unchanged(
+        &self,
+        version: i64,
+        original: &[SnapshotFile],
+        original_directories: &[String],
+    ) -> Result<(), String> {
+        let final_version: i64 = self
+            .conn
+            .query_row("PRAGMA data_version", [], |row| row.get(0))
+            .map_err(|e| e.to_string())?;
+        if version != final_version
+            || original != inventory(&self.root, true)?.as_slice()
+            || original_directories != directories(&self.root)?.as_slice()
+        {
+            return Err("Library changed during backup; retry after saving".into());
+        }
+        Ok(())
+    }
+
     pub fn verify_backup(&self, id: &str) -> Result<BackupDescriptor, String> {
         self.verified_backup(id)
             .map(|(manifest, _)| manifest.description)
@@ -77,6 +114,13 @@ impl Store {
     }
 
     pub fn create_backup(&self) -> Result<BackupDescriptor, String> {
+        self.create_backup_with_recovery(&RecoverySnapshot::from_root(&self.root)?)
+    }
+
+    pub(super) fn create_backup_with_recovery(
+        &self,
+        recovery: &RecoverySnapshot,
+    ) -> Result<BackupDescriptor, String> {
         let original = inventory(&self.root, true)?;
         let original_directories = directories(&self.root)?;
         let version: i64 = self
@@ -94,21 +138,13 @@ impl Store {
             fs::create_dir_all(files.join(relative_path(directory)?)).map_err(|e| e.to_string())?;
         }
         copy_learning_snapshot(&self.conn, &self.root, &files)?;
+        recovery.write_to(&files)?;
         for file in &original {
             copy_snapshot_file(&self.root, &files, file)?;
         }
-        let final_version: i64 = self
-            .conn
-            .query_row("PRAGMA data_version", [], |row| row.get(0))
-            .map_err(|e| e.to_string())?;
-        if version != final_version
-            || original != inventory(&self.root, true)?
-            || original_directories != directories(&self.root)?
-        {
-            return Err("Library changed during backup; retry after saving".into());
-        }
+        self.ensure_snapshot_unchanged(version, &original, &original_directories)?;
         verify_library_identity(&files, &self.library_id)?;
-        verify_database(&files.join(".memnova/learning.sqlite3"))?;
+        verify_database(&files.join(".memnova/learning.sqlite3"), &self.library_id)?;
         let inventory = inventory(&files, false)?;
         let description = BackupDescriptor {
             id: uuid::Uuid::new_v4().to_string(),
@@ -148,7 +184,7 @@ impl Store {
         verify_directories(&root, &manifest.directories)?;
         verify_files(&root, &manifest.files)?;
         verify_library_identity(&root, &self.library_id)?;
-        verify_database(&root.join(".memnova/learning.sqlite3"))?;
+        verify_database(&root.join(".memnova/learning.sqlite3"), &self.library_id)?;
         Ok((manifest, root))
     }
 
@@ -171,7 +207,10 @@ impl Store {
         for file in &manifest.files {
             copy_snapshot_file(&source, staged.path(), file)?;
         }
-        verify_database(&staged.path().join(".memnova/learning.sqlite3"))?;
+        verify_database(
+            &staged.path().join(".memnova/learning.sqlite3"),
+            &self.library_id,
+        )?;
         fs::rename(staged.path(), target).map_err(|e| e.to_string())
     }
 }
@@ -211,9 +250,7 @@ fn verify_files(root: &Path, files: &[SnapshotFile]) -> Result<(), String> {
         if !seen.insert(file.path.as_str()) {
             return Err("Backup has duplicate paths".into());
         }
-        if file.path.starts_with(".memnova/")
-            && ![".memnova/library.json", ".memnova/learning.sqlite3"].contains(&file.path.as_str())
-        {
+        if file.path.starts_with(".memnova/") && !SNAPSHOT_METADATA.contains(&file.path.as_str()) {
             return Err("Unexpected Library metadata in backup".into());
         }
         let source = checked_source(root, &file.path)?;
@@ -263,4 +300,43 @@ fn copy_learning_snapshot(
         &files.join(".memnova/library.json"),
     )?;
     Ok(())
+}
+
+impl RecoverySnapshot {
+    pub(super) fn from_root(root: &Path) -> Result<Self, String> {
+        Ok(Self {
+            profile: read_optional_recovery(&root.join(".memnova/legacy-profile.json"))?,
+            reviews: read_optional_recovery(&root.join(".memnova/legacy-review-log.jsonl"))?,
+            review_map: read_optional_recovery(&root.join(".memnova/legacy-review-map.json"))?,
+        })
+    }
+
+    fn write_to(&self, root: &Path) -> Result<(), String> {
+        for (relative, bytes) in [
+            (".memnova/legacy-profile.json", &self.profile),
+            (".memnova/legacy-review-log.jsonl", &self.reviews),
+            (".memnova/legacy-review-map.json", &self.review_map),
+        ] {
+            if let Some(bytes) = bytes {
+                use std::io::Write;
+                let mut output = fs::OpenOptions::new()
+                    .write(true)
+                    .create_new(true)
+                    .open(root.join(relative))
+                    .map_err(|error| error.to_string())?;
+                output.write_all(bytes).map_err(|error| error.to_string())?;
+                output.sync_all().map_err(|error| error.to_string())?;
+            }
+        }
+        Ok(())
+    }
+}
+
+pub(super) fn read_optional_recovery(path: &Path) -> Result<Option<Vec<u8>>, String> {
+    reject_symlink(path)?;
+    match fs::read(path) {
+        Ok(bytes) => Ok(Some(bytes)),
+        Err(error) if error.kind() == std::io::ErrorKind::NotFound => Ok(None),
+        Err(error) => Err(error.to_string()),
+    }
 }
