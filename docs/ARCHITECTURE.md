@@ -11,6 +11,8 @@ Schema v2 binds the database to its Library UUID and stores an immutable migrati
 
 Native migration resolves the existing installation review-log location itself. Relative/ambiguous rows are reported rather than guessed; repetition counts never invent history. Original profile/log bytes and a Library-bound relative review map are included in the original backup, so restoring to a new folder retains attribution. Partial backups carry their checkpoint in SQLite and resume without the original machine. Restores always use fresh directories. UI onboarding and migration controls remain a later stage of the implementation ledger.
 
+The next-stage pure scheduler adapter pins `ts-fsrs` 5.4.2 with deterministic FSRS-6 outcomes and explicit learning steps (ADR-0141). Legacy schedules remain unchanged until rated; imports never run the adapter. Native transactional sessions and the new study UI are still tracked as separate implementation steps.
+
 Tolaria is a personal knowledge and life management desktop app. It reads a vault of markdown files with YAML frontmatter and presents them in a four-panel UI inspired by Bear Notes.
 
 ## Design Principles
