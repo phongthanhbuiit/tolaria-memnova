@@ -290,6 +290,7 @@ export function LearningStudyView({
                   {t('learning.front')}
                 </p>
                 <BlockNoteReadOnly
+                  key={`${key}:question`}
                   content={item.card.front}
                   onReady={questionRendered}
                   preserveBody
@@ -344,6 +345,7 @@ export function LearningStudyView({
                     {t('learning.back')}
                   </p>
                   <BlockNoteReadOnly
+                    key={`${key}:answer`}
                     content={answer}
                     onReady={answerRendered}
                     preserveBody

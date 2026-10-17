@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, within } from '@testing-library/react'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { expect, it, vi } from 'vitest'
 import { LearningStudyView } from './LearningStudyView'
 import type { useLearningStudy } from '../../hooks/useLearningStudy'
@@ -20,9 +20,13 @@ vi.mock('../FlashcardStudyView', () => ({
     onReady?: () => void
     notePath?: string
   }) => {
+    const callback = useRef(onReady)
     useEffect(() => {
-      if (renderer.ready) onReady?.()
+      callback.current = onReady
     }, [onReady])
+    useEffect(() => {
+      if (renderer.ready) callback.current?.()
+    }, [content, notePath])
     return (
       <div data-note-path={notePath}>
         {renderer.ready ? content : 'Loading test content'}
@@ -241,4 +245,35 @@ it('keeps preview keyboard events from rating the underlying study card', async 
   )
   fireEvent.keyDown(screen.getByRole('dialog'), { key: '3' })
   expect(study.rate).toHaveBeenCalledWith(3)
+})
+
+it('renders a new snapshot after source reload even when the question text is unchanged', () => {
+  const study = fixture()
+  const item = study.session!.current!
+  item.card.answerMode = 'page'
+  item.card.answerPageId = 'source-id'
+  item.answerPage = {
+    id: 'source-id',
+    path: 'source.md',
+    title: 'Source',
+    content: 'First answer',
+    fingerprint: 'first',
+  }
+  const { rerender } = render(
+    <LearningStudyView study={study} root="/library" locale="en" />,
+  )
+  fireEvent.click(screen.getByRole('button', { name: 'Show answer' }))
+  expect(screen.getByRole('button', { name: /^Good/ })).toBeEnabled()
+  item.answerPage = {
+    ...item.answerPage,
+    content: 'Changed answer',
+    fingerprint: 'changed',
+  }
+  rerender(
+    <LearningStudyView study={{ ...study }} root="/library" locale="en" />,
+  )
+  expect(screen.getByRole('button', { name: 'Show answer' })).toBeEnabled()
+  fireEvent.click(screen.getByRole('button', { name: 'Show answer' }))
+  expect(screen.getByText('Changed answer')).toBeVisible()
+  expect(screen.getByRole('button', { name: /^Good/ })).toBeEnabled()
 })
