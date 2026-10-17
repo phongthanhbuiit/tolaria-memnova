@@ -79,3 +79,46 @@ export interface MigrationProgress {
   importedCards: number
   importedReviews: number
 }
+
+export interface SessionScope { pageIds: string[] | null }
+export interface StudyPage {
+  id: string
+  path: string
+  title: string
+  content: string
+  fingerprint: string
+}
+export interface StudyItem {
+  card: LearningCard
+  page: StudyPage | null
+  sourceError: string | null
+}
+export interface StudySession {
+  id: string
+  scope: SessionScope
+  initialCount: number
+  currentIndex: number
+  status: 'active' | 'paused' | 'completed'
+  revision: number
+  updatedAt: number
+  current: StudyItem | null
+  waitingUntil: number | null
+  completedCount: number
+  reviewCount: number
+  correctCount: number
+  lastReviewId: string | null
+  canUndo: boolean
+}
+export interface RateRequest {
+  reviewId: string
+  sessionId: string
+  sessionRevision: number
+  cardId: string
+  cardRevision: number
+  sourceFingerprint: string
+  rating: 1 | 2 | 3 | 4
+  durationMs: number
+  reviewedAt: number
+  schedule: LearningSchedule
+}
+export interface RateResult { session: StudySession; earnedXp: number; replayed: boolean }

@@ -1,5 +1,5 @@
 import { invoke } from '@tauri-apps/api/core'
-import type { BackupDescriptor, CardDraft, LearningCard, LibraryDescriptor, MigrationPreview, MigrationProgress } from './types'
+import type { BackupDescriptor, CardDraft, LearningCard, LibraryDescriptor, MigrationPreview, MigrationProgress, SessionScope, StudySession, RateRequest, RateResult } from './types'
 
 /** A connection is bound to both the validated folder and persistent UUID. */
 export class LearningClient {
@@ -39,6 +39,34 @@ export class LearningClient {
 
   resumeMigration(batchSize = 100): Promise<MigrationProgress> {
     return this.call({ kind: 'resumeMigration', batchSize })
+  }
+
+  startSession(scope: SessionScope = { pageIds: null }): Promise<StudySession> {
+    return this.call({ kind: 'startSession', scope })
+  }
+
+  getSession(sessionId: string): Promise<StudySession> {
+    return this.call({ kind: 'getSession', sessionId })
+  }
+
+  resumeSession(sessionId: string): Promise<StudySession> {
+    return this.call({ kind: 'resumeSession', sessionId })
+  }
+
+  pauseSession(sessionId: string, revision: number): Promise<StudySession> {
+    return this.call({ kind: 'pauseSession', sessionId, revision })
+  }
+
+  skipSessionCard(sessionId: string, revision: number): Promise<StudySession> {
+    return this.call({ kind: 'skipSessionCard', sessionId, revision })
+  }
+
+  rateCard(review: RateRequest): Promise<RateResult> {
+    return this.call({ kind: 'rateCard', review })
+  }
+
+  undoReview(sessionId: string, reviewId: string, revision: number): Promise<StudySession> {
+    return this.call({ kind: 'undoReview', sessionId, reviewId, revision })
   }
 
   listCards(pageId: string | null = null, includeTrashed = false): Promise<LearningCard[]> {

@@ -23,9 +23,9 @@ This ledger tracks the plan from the conversation. A checked implementation is n
 | D02 | D01 | Read-only migration preview reports counts, invalid schedules and conflicts | Read-only page/card preview implemented; history/import/UI stages pending |
 | D03 | D02 | Backup-first, idempotent/resumable legacy migration preserves schedules/history/media | Backend verified/pushed at 941a1e87; UI wiring pending |
 | D04 | D03 | Explicit verified cutover; no duplicate legacy writes; recoverable failure | Backend verified/pushed at 941a1e87; UI wiring and native QA pending |
-| E01 | D04 | Scheduler adapter; maintained engine update is separate from data import | Pure adapter implemented; validation/push and study wiring pending |
-| E02 | E01 | Session state machine, stable IDs, persisted rating transaction, Again waiting/reinsertion | Pending |
-| E03 | E02 | Resume and last-review undo with concurrency/idempotency guards | Pending |
+| E01 | D04 | Scheduler adapter; maintained engine update is separate from data import | Pure adapter verified/pushed at b90cd298; study wiring pending |
+| E02 | E01 | Session state machine, stable IDs, persisted rating transaction, Again waiting/reinsertion | Native implementation/coverage verified; push and UI wiring pending |
+| E03 | E02 | Resume and last-review undo with concurrency/idempotency guards | Native implementation/coverage verified; push and UI wiring pending |
 | F01 | C05,D04 | Page Content/Flashcards tabs with independent lesson and card editing | Pending |
 | F02 | F01 | Card CRUD/drafts/clone/suspend/trash, whole-page answer, retained vocabulary/media | Pending |
 | F03 | E03,F02 | Study loading/saving/error/focus/mouse/keyboard behavior and responsive styling | Pending |

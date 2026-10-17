@@ -196,3 +196,53 @@ fn migration_commands_checkpoint_resume_and_cut_over() {
     let request = serde_json::from_value(serde_json::json!({"kind":"migrationStatus"})).unwrap();
     assert_eq!(execute(&path, id, request).unwrap()["importedCards"], 1);
 }
+
+#[test]
+fn study_commands_require_cutover_and_resume_a_durable_session() {
+    let dir = tempfile::tempdir().unwrap();
+    std::fs::write(
+        dir.path().join("lesson.md"),
+        "---\n_fsrs_enabled: true\n---\nQuestion\n<!-- FLASHCARD:BACK -->\nAnswer",
+    )
+    .unwrap();
+    let path = dir.path().to_string_lossy().into_owned();
+    let describe = execute(&path, None, LearningRequest::Describe).unwrap();
+    let library = Some(describe["libraryId"].as_str().unwrap().to_owned());
+    let request = || {
+        serde_json::from_value(serde_json::json!({"kind":"startSession","scope":{"pageIds":null}}))
+            .unwrap()
+    };
+    assert!(execute(&path, library.clone(), request()).is_err());
+    let preview = execute(&path, None, LearningRequest::PreviewMigration).unwrap();
+    execute(
+        &path,
+        library.clone(),
+        LearningRequest::BeginMigration {
+            fingerprint: preview["fingerprint"].as_str().unwrap().into(),
+            profile_raw: None,
+        },
+    )
+    .unwrap();
+    execute(
+        &path,
+        library.clone(),
+        LearningRequest::ResumeMigration { batch_size: 20 },
+    )
+    .unwrap();
+    let started = execute(&path, library.clone(), request()).unwrap();
+    assert_eq!(started["initialCount"], 1);
+    assert_eq!(started["current"]["card"]["front"], "Question");
+    let paused=serde_json::from_value(serde_json::json!({"kind":"pauseSession","sessionId":started["id"],"revision":started["revision"]})).unwrap();
+    assert_eq!(
+        execute(&path, library.clone(), paused).unwrap()["status"],
+        "paused"
+    );
+    let resumed = serde_json::from_value(
+        serde_json::json!({"kind":"resumeSession","sessionId":started["id"]}),
+    )
+    .unwrap();
+    assert_eq!(
+        execute(&path, library, resumed).unwrap()["id"],
+        started["id"]
+    );
+}

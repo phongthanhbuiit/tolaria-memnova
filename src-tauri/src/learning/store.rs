@@ -55,39 +55,37 @@ impl Store {
     }
 
     pub(super) fn page_path(&self, relative: &str) -> Result<PathBuf, String> {
-        let path = Path::new(relative);
-        if path
-            .components()
-            .any(|part| !matches!(part, Component::Normal(_)))
-            || relative.is_empty()
-            || relative.contains('\\')
-        {
-            return Err("Page path must stay inside the library".into());
-        }
-        if !path
-            .extension()
-            .and_then(|ext| ext.to_str())
-            .is_some_and(|ext| {
-                ext.eq_ignore_ascii_case("md") || ext.eq_ignore_ascii_case("markdown")
-            })
-        {
-            return Err("A learning page must be a Markdown file".into());
-        }
-        let mut candidate = self.root.clone();
-        for component in path.components() {
-            candidate.push(component.as_os_str());
-            reject_symlink(&candidate)?;
-        }
-        let absolute = self
-            .root
-            .join(path)
-            .canonicalize()
-            .map_err(|e| e.to_string())?;
-        if !absolute.starts_with(&self.root) {
-            return Err("Page path must stay inside the library".into());
-        }
-        Ok(absolute)
+        checked_page_path(&self.root, relative)
     }
+}
+
+pub(super) fn checked_page_path(root: &Path, relative: &str) -> Result<PathBuf, String> {
+    let path = Path::new(relative);
+    if path
+        .components()
+        .any(|part| !matches!(part, Component::Normal(_)))
+        || relative.is_empty()
+        || relative.contains('\\')
+    {
+        return Err("Page path must stay inside the library".into());
+    }
+    if !path
+        .extension()
+        .and_then(|ext| ext.to_str())
+        .is_some_and(|ext| ext.eq_ignore_ascii_case("md") || ext.eq_ignore_ascii_case("markdown"))
+    {
+        return Err("A learning page must be a Markdown file".into());
+    }
+    let mut candidate = root.to_path_buf();
+    for component in path.components() {
+        candidate.push(component.as_os_str());
+        reject_symlink(&candidate)?;
+    }
+    let absolute = root.join(path).canonicalize().map_err(|e| e.to_string())?;
+    if !absolute.starts_with(root) {
+        return Err("Page path must stay inside the library".into());
+    }
+    Ok(absolute)
 }
 
 pub(super) fn register_page_in(

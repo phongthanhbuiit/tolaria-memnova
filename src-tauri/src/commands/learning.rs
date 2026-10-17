@@ -1,5 +1,5 @@
 use super::vault::VaultBoundary;
-use crate::learning::{CardDraft, Store};
+use crate::learning::{CardDraft, RateRequest, SessionScope, Store};
 use serde::Deserialize;
 use serde_json::{json, Value};
 
@@ -36,6 +36,31 @@ pub enum LearningRequest {
     },
     CloneCard {
         card_id: String,
+    },
+    StartSession {
+        scope: SessionScope,
+    },
+    GetSession {
+        session_id: String,
+    },
+    ResumeSession {
+        session_id: String,
+    },
+    PauseSession {
+        session_id: String,
+        revision: u32,
+    },
+    SkipSessionCard {
+        session_id: String,
+        revision: u32,
+    },
+    RateCard {
+        review: RateRequest,
+    },
+    UndoReview {
+        session_id: String,
+        review_id: String,
+        revision: u32,
     },
     CreateBackup,
     RestoreBackup {
@@ -113,6 +138,23 @@ fn dispatch(
             draft,
         } => encode(store.update_card(&card_id, revision, draft)?),
         LearningRequest::CloneCard { card_id } => encode(store.clone_card(&card_id)?),
+        LearningRequest::StartSession { scope } => encode(store.start_session(scope)?),
+        LearningRequest::GetSession { session_id } => encode(store.get_session(&session_id)?),
+        LearningRequest::ResumeSession { session_id } => encode(store.resume_session(&session_id)?),
+        LearningRequest::PauseSession {
+            session_id,
+            revision,
+        } => encode(store.pause_session(&session_id, revision)?),
+        LearningRequest::SkipSessionCard {
+            session_id,
+            revision,
+        } => encode(store.skip_session_card(&session_id, revision)?),
+        LearningRequest::RateCard { review } => encode(store.rate_card(review)?),
+        LearningRequest::UndoReview {
+            session_id,
+            review_id,
+            revision,
+        } => encode(store.undo_review(&session_id, &review_id, revision)?),
         LearningRequest::CreateBackup => encode(store.create_backup()?),
         LearningRequest::RestoreBackup { backup_id } => {
             Ok(json!({"path":store.restore_local_backup(&backup_id)?}))
