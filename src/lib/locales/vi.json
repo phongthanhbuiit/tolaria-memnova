@@ -853,5 +853,9 @@
   "learning.editCard": "Sửa thẻ",
   "learning.status": "Trạng thái",
   "learning.wholePage": "Câu trả lời là toàn bộ trang",
-  "learning.savedRefreshFailed": "Đã lưu nhưng chưa tải lại được danh sách. Thử lại để cập nhật."
+  "learning.savedRefreshFailed": "Đã lưu nhưng chưa tải lại được danh sách. Thử lại để cập nhật.",
+  "learning.backupHistory": "Lịch sử sao lưu",
+  "learning.verifyBackup": "Xác minh bản sao lưu",
+  "learning.backupVerified": "Đã xác minh bản sao lưu",
+  "learning.noBackups": "Chưa có bản sao lưu."
 }

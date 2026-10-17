@@ -1,12 +1,12 @@
 /** Browser-only QA fixture. Native learning data always uses Rust/SQLite. */
-import type { CardDraft, LearningCard, LearningPage, LearningSchedule, RateRequest, SessionScope, StudyPage, StudySession } from '../lib/learning/types'
+import type { BackupDescriptor, CardDraft, LearningCard, LearningPage, LearningSchedule, RateRequest, SessionScope, StudyPage, StudySession } from '../lib/learning/types'
 import { splitFrontmatter } from '../utils/wikilinks'
 import type { StudyStats } from '../hooks/useStats'
 import type { VaultEntry } from '../types'
 
 type FixtureSession = { id: string; scope: SessionScope; ids: string[]; initial: number; index: number; revision: number; status: StudySession['status'] }
 type Receipt = { request: RateRequest; before: LearningSchedule; index: number; reinserted: boolean; xp: number; undone: boolean }
-type Fixture = { id: string; pages: LearningPage[]; cards: LearningCard[]; sessions: FixtureSession[]; reviews: Receipt[]; goal: number }
+type Fixture = { id: string; pages: LearningPage[]; cards: LearningCard[]; sessions: FixtureSession[]; reviews: Receipt[]; goal: number; backups?: { descriptor: BackupDescriptor; snapshot: string; files: Record<string, string> }[]; restoredFiles?: Record<string,string> }
 type Context = { read: (path: string) => Promise<string>; entries: () => Promise<VaultEntry[]> }
 const fixtures = new Map<string, Fixture>()
 const fresh = (): LearningSchedule => ({ state: 'new', due: new Date().toISOString(), stability: 0, difficulty: 0, reps: 0, lapses: 0, elapsedDays: 0, scheduledDays: 0, lastReview: null, learningSteps: 0, engine: 'legacy-fsrs5', revision: 0 })
@@ -19,7 +19,7 @@ function fixture(root: string): Fixture {
   return data
 }
 async function source(root: string, page: LearningPage, context: Context): Promise<StudyPage> {
-  const content = await context.read(`${root}/${page.path}`)
+  const content = fixture(root).restoredFiles?.[page.path] ?? await context.read(`${root}/${page.path}`)
   const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(content))
   return { ...page, content: splitFrontmatter(content)[1], fingerprint: Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('') }
 }
@@ -57,7 +57,7 @@ export async function mockLearningCommand(args: Record<string, unknown>, context
   const root = String(args.vaultPath).replace(/\/$/, '')
   const data = fixture(root)
   const request = args.request as Record<string, unknown>
-  let changed = !['describe', 'migrationStatus', 'listPages', 'listCards', 'studyStats', 'syncPages'].includes(String(request.kind))
+  let changed = !['describe', 'migrationStatus', 'listPages', 'listCards', 'studyStats', 'syncPages', 'listBackups', 'verifyBackup'].includes(String(request.kind))
   const call = async (): Promise<unknown> => {
     switch (request.kind) {
       case 'describe': return { libraryId: data.id, schemaVersion: 2, migrationState: 'ready' }
@@ -96,6 +96,23 @@ export async function mockLearningCommand(args: Record<string, unknown>, context
         const input = draft(request.draft)
         if (card.status === 'trashed' && (input.status !== 'draft' || ['front', 'back', 'answerMode', 'position', 'properties'].some(key => JSON.stringify(Reflect.get(input, key)) !== JSON.stringify(Reflect.get(card, key))))) throw new Error('Restore a trashed card to Draft before editing')
         Object.assign(card, input, { revision: card.revision + 1, updatedAt: Date.now() }); return card
+      }
+      case 'listBackups': return (data.backups ?? []).map(backup => ({ id: backup.descriptor.id, descriptor: backup.descriptor, error: null }))
+      case 'verifyBackup': return required(data.backups?.find(backup => backup.descriptor.id === request.backupId)).descriptor
+      case 'createBackup': {
+        const files: Record<string, string> = {}
+        await Promise.all(data.pages.map(async page => { files[page.path] = data.restoredFiles?.[page.path] ?? await context.read(`${root}/${page.path}`) }))
+        const descriptor: BackupDescriptor = { id: crypto.randomUUID(), libraryId: data.id, createdAt: Date.now(), fileCount: Object.keys(files).length, bytes: new TextEncoder().encode(JSON.stringify(files)).length }
+        const snapshot = JSON.stringify({ ...data, backups: [] })
+        ;(data.backups ??= []).unshift({ descriptor, snapshot, files })
+        return descriptor
+      }
+      case 'restoreBackup': {
+        const backup = required(data.backups?.find(backup => backup.descriptor.id === request.backupId))
+        const path = `${root}/restored-${crypto.randomUUID()}`
+        const restored: Fixture = { ...JSON.parse(backup.snapshot), restoredFiles: backup.files }
+        fixtures.set(path, restored); localStorage.setItem(`memnova:qa-learning:${path}`, JSON.stringify(restored))
+        return { path }
       }
       case 'studyStats': return stats(data)
       case 'setDailyGoal': data.goal = Number(request.goal); return stats(data)

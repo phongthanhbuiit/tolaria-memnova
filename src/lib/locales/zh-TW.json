@@ -853,5 +853,9 @@
   "learning.editCard": "編輯卡片",
   "learning.status": "狀態",
   "learning.wholePage": "整頁作為答案",
-  "learning.savedRefreshFailed": "已儲存，但無法重新整理清單。請重試以重新整理清單。"
+  "learning.savedRefreshFailed": "已儲存，但無法重新整理清單。請重試以重新整理清單。",
+  "learning.backupHistory": "備份歷程",
+  "learning.verifyBackup": "驗證備份",
+  "learning.backupVerified": "備份已驗證",
+  "learning.noBackups": "尚無備份。"
 }

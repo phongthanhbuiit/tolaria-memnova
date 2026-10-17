@@ -853,5 +853,9 @@
   "learning.editCard": "Edytuj fiszkę",
   "learning.status": "Status",
   "learning.wholePage": "Cała strona jako odpowiedź",
-  "learning.savedRefreshFailed": "Zapisano, ale nie udało się odświeżyć listy. Spróbuj ponownie ją odświeżyć."
+  "learning.savedRefreshFailed": "Zapisano, ale nie udało się odświeżyć listy. Spróbuj ponownie ją odświeżyć.",
+  "learning.backupHistory": "Historia kopii zapasowych",
+  "learning.verifyBackup": "Sprawdź kopię",
+  "learning.backupVerified": "Kopia sprawdzona",
+  "learning.noBackups": "Nie ma jeszcze kopii zapasowych."
 }

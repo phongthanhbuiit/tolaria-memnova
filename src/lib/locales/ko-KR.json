@@ -853,5 +853,9 @@
   "learning.editCard": "카드 수정",
   "learning.status": "상태",
   "learning.wholePage": "전체 페이지 답변",
-  "learning.savedRefreshFailed": "저장했지만 목록을 새로 고치지 못했습니다. 다시 시도해 주세요."
+  "learning.savedRefreshFailed": "저장했지만 목록을 새로 고치지 못했습니다. 다시 시도해 주세요.",
+  "learning.backupHistory": "백업 기록",
+  "learning.verifyBackup": "백업 검증",
+  "learning.backupVerified": "백업 검증 완료",
+  "learning.noBackups": "아직 백업이 없습니다."
 }

@@ -853,5 +853,9 @@
   "learning.editCard": "Karte bearbeiten",
   "learning.status": "Status",
   "learning.wholePage": "Ganze Seite als Antwort",
-  "learning.savedRefreshFailed": "Gespeichert, aber die Liste konnte nicht aktualisiert werden. Versuche es erneut."
+  "learning.savedRefreshFailed": "Gespeichert, aber die Liste konnte nicht aktualisiert werden. Versuche es erneut.",
+  "learning.backupHistory": "Sicherungsverlauf",
+  "learning.verifyBackup": "Sicherung prüfen",
+  "learning.backupVerified": "Sicherung geprüft",
+  "learning.noBackups": "Noch keine Sicherungen."
 }

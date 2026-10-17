@@ -853,5 +853,9 @@
   "learning.editCard": "カードを編集",
   "learning.status": "状態",
   "learning.wholePage": "ページ全体を回答にする",
-  "learning.savedRefreshFailed": "保存しましたが、一覧を更新できませんでした。もう一度お試しください。"
+  "learning.savedRefreshFailed": "保存しましたが、一覧を更新できませんでした。もう一度お試しください。",
+  "learning.backupHistory": "バックアップ履歴",
+  "learning.verifyBackup": "バックアップを検証",
+  "learning.backupVerified": "検証済みのバックアップ",
+  "learning.noBackups": "バックアップはまだありません。"
 }

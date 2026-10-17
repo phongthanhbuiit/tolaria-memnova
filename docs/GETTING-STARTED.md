@@ -538,3 +538,5 @@ Use behavior-oriented tests per function, hook, service or component; inject cli
 The old `<!-- FLASHCARD:BACK -->` separator is still recognized during import: text before it becomes one card's question and text after it becomes that card's inline answer. Original Markdown is preserved. The separator is hidden only in the note-list preview, without rewriting the source.
 
 For new lessons, write the lesson normally and create multiple cards in **Flashcards**. Prefer a short question and an inline answer for each idea, plus an optional whole-page card for recalling the entire lesson. Whole-page answers read the current lesson; inline answers are independent SQLite card content after migration and are not automatically overwritten by subsequent lesson edits. Switching the whole-page option off and on while editing keeps the inline draft. Every card retains its own schedule.
+
+In Home → Advanced → Backup history, select an existing backup, choose Verify backup, then Restore backup. Discovery works after restarting. Verification is repeated by restore, which opens a new Library directory. A damaged entry is reported without hiding healthy backups.

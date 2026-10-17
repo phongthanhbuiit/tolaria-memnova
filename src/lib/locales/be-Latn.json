@@ -853,5 +853,9 @@
   "learning.editCard": "Źmianić kartku",
   "learning.status": "Stan",
   "learning.wholePage": "Usia staronka jak adkaz",
-  "learning.savedRefreshFailed": "Zachavana, ale nie ŭdałosia abnavić śpis. Pasprabujcie abnavić jaho jašče raz."
+  "learning.savedRefreshFailed": "Zachavana, ale nie ŭdałosia abnavić śpis. Pasprabujcie abnavić jaho jašče raz.",
+  "learning.backupHistory": "Historyja rezervovych kopij",
+  "learning.verifyBackup": "Pravieryć kopiju",
+  "learning.backupVerified": "Kopija pravierana",
+  "learning.noBackups": "Rezervovych kopij pakuĺ niama."
 }

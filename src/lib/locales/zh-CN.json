@@ -853,5 +853,9 @@
   "learning.editCard": "编辑卡片",
   "learning.status": "状态",
   "learning.wholePage": "整页作为答案",
-  "learning.savedRefreshFailed": "已保存，但无法刷新列表。请重试以刷新列表。"
+  "learning.savedRefreshFailed": "已保存，但无法刷新列表。请重试以刷新列表。",
+  "learning.backupHistory": "备份历史",
+  "learning.verifyBackup": "验证备份",
+  "learning.backupVerified": "备份已验证",
+  "learning.noBackups": "暂无备份。"
 }

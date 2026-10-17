@@ -853,5 +853,9 @@
   "learning.editCard": "Edit kartu",
   "learning.status": "Status",
   "learning.wholePage": "Seluruh halaman sebagai jawaban",
-  "learning.savedRefreshFailed": "Tersimpan, tetapi daftar tidak dapat dimuat ulang. Coba lagi untuk memuatnya ulang."
+  "learning.savedRefreshFailed": "Tersimpan, tetapi daftar tidak dapat dimuat ulang. Coba lagi untuk memuatnya ulang.",
+  "learning.backupHistory": "Riwayat cadangan",
+  "learning.verifyBackup": "Verifikasi cadangan",
+  "learning.backupVerified": "Cadangan terverifikasi",
+  "learning.noBackups": "Belum ada cadangan."
 }

@@ -853,5 +853,9 @@
   "learning.editCard": "Edit card",
   "learning.status": "Status",
   "learning.wholePage": "Whole page answer",
-  "learning.savedRefreshFailed": "Saved, but the list could not refresh. Retry to refresh it."
+  "learning.savedRefreshFailed": "Saved, but the list could not refresh. Retry to refresh it.",
+  "learning.backupHistory": "Backup history",
+  "learning.verifyBackup": "Verify backup",
+  "learning.backupVerified": "Backup verified",
+  "learning.noBackups": "No backups yet."
 }

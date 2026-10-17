@@ -853,5 +853,9 @@
   "learning.editCard": "Modifier la carte",
   "learning.status": "Statut",
   "learning.wholePage": "Réponse avec la page entière",
-  "learning.savedRefreshFailed": "Enregistré, mais la liste n’a pas pu être actualisée. Réessayez pour l’actualiser."
+  "learning.savedRefreshFailed": "Enregistré, mais la liste n’a pas pu être actualisée. Réessayez pour l’actualiser.",
+  "learning.backupHistory": "Historique des sauvegardes",
+  "learning.verifyBackup": "Vérifier la sauvegarde",
+  "learning.backupVerified": "Sauvegarde vérifiée",
+  "learning.noBackups": "Aucune sauvegarde pour le moment."
 }

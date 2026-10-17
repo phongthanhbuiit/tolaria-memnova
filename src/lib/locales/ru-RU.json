@@ -853,5 +853,9 @@
   "learning.editCard": "Изменить карточку",
   "learning.status": "Статус",
   "learning.wholePage": "Вся страница в ответе",
-  "learning.savedRefreshFailed": "Сохранено, но список не удалось обновить. Повторите попытку обновления."
+  "learning.savedRefreshFailed": "Сохранено, но список не удалось обновить. Повторите попытку обновления.",
+  "learning.backupHistory": "История резервных копий",
+  "learning.verifyBackup": "Проверить копию",
+  "learning.backupVerified": "Копия проверена",
+  "learning.noBackups": "Резервных копий пока нет."
 }

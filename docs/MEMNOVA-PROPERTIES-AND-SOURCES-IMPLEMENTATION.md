@@ -1,15 +1,15 @@
 # Properties and answer sources implementation ledger
 
-Plan: [N00–N17](./MEMNOVA-PROPERTIES-AND-SOURCES-PLAN.md). Starting checkout: `89fd0465` on main, clean. User authorized the full ordered implementation on 2026-10-18; the per-task stop instruction in the handoff prompt does not apply to this full run. A task is released only after its verified normal push.
+Plan: [N00–N17](./MEMNOVA-PROPERTIES-AND-SOURCES-PLAN.md). Starting checkout: `89fd0465` on main, clean. User authorized the full ordered implementation on 2026-10-18; the per-task stop instruction in the handoff prompt does not apply to this full run. A task is released only after its verified normal push. In this authorized full run, implementation dependencies are checked against local committed code and test evidence; normal pushes group related checkpoints. Pending tasks are not marked DONE before their checkpoint is pushed.
 
 | Task | State | Evidence / commit |
 |---|---|---|
 | N00 | DONE | Frontend baseline 35/35; four expected failing review probes. Rust baseline rerun passed after cleaning regenerable build artifacts. Schema v2. /tmp/memnova-n00-{frontend,rust,probes}.log |
 | N01 | DONE | 6c0e5fb4 pushed. ADR-0145 defines wire/storage/editor boundaries; docs-only, contract follows the plan. |
-| N02 | Verified, push pending | Three RED regressions, then 38/38 learning tests; metadata arrays/aliases preserved. /tmp/memnova-n02-{red,green,types,codacy}.log. No UI copy, schema, schedule or analytics change. |
-| N03 | Verified, push pending | RED UI/backend probes then 39 learning UI tests and card backend tests passed. Trash restores unchanged content to Draft; clone/edit bypass rejected. Browser fixture matches native. No new copy/schema/events. |
-| N04 | Verified, push pending | Catalog reopen/corrupt/symlink/traversal tests and backup suite passed; the full commit hook exposed inherited GIT_AUTHOR/COMMITTER environment in Rust fixtures. A RED workflow regression now protects child-process identity isolation; ID-bound list/verify client tests. Catalog does not claim full verification. /tmp/memnova-n04-* |
-| N05 | TODO | |
+| N02 | Verified, push pending | 23ee018e. Three RED regressions, then 38/38 learning tests; metadata arrays/aliases preserved. /tmp/memnova-n02-{red,green,types,codacy}.log. No UI copy, schema, schedule or analytics change. |
+| N03 | Verified, push pending | a3d052a9. RED UI/backend probes then 39 learning UI tests and card backend tests passed. Trash restores unchanged content to Draft; clone/edit bypass rejected. Browser fixture matches native. No new copy/schema/events. |
+| N04 | Verified, push pending | e84c4422. Catalog reopen/corrupt/symlink/traversal tests and backup suite passed; the full commit hook exposed inherited GIT_AUTHOR/COMMITTER environment in Rust fixtures. A RED workflow regression now protects child-process identity isolation; ID-bound list/verify client tests. Catalog does not claim full verification. /tmp/memnova-n04-* |
+| N05 | Verified, push pending | 3 component tests, 43 learning tests, browser catalog reload test 15.6s; four other learning flows passed separately. Native create/remount/discover/verify/fresh-directory restore passed; integrity ok, 4 cards/5 review rows/2 sessions preserved. 18 locales validated, Lara unavailable/manual translations. |
 | N06 | TODO | |
 | N07 | TODO | |
 | N08 | TODO | |

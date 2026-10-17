@@ -1017,3 +1017,5 @@ Trashed cards expose only Restore in PageFlashcards. Native and browser-fixture 
 LearningClient.listBackups/verifyBackup expose an ID-bound catalog and explicit verification. Store.list_backups reads manifests, isolates invalid entries, skips incomplete names and rejects symlinks. A descriptor is unchecked until verify/restore; restore revalidates all files and writes a fresh directory.
 
 The pre-commit runner removes Git hook author/committer environment variables only from cargo child processes, so temporary Git fixture repositories use their own configured identities. The commit process and user Git configuration are unchanged.
+
+BackupPanel loads an ID-bound catalog per Library visit, requires explicit verification before enabling Restore, and discards late results after switching/unmounting. It tracks backup create/verify/restore using safe file counts only. Browser fixtures simulate note snapshots; native QA verifies actual SQLite/files/media.

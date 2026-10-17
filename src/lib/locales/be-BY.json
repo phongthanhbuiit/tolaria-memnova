@@ -853,5 +853,9 @@
   "learning.editCard": "Змяніць картку",
   "learning.status": "Стан",
   "learning.wholePage": "Уся старонка як адказ",
-  "learning.savedRefreshFailed": "Захавана, але не ўдалося абнавіць спіс. Паспрабуйце абнавіць яго яшчэ раз."
+  "learning.savedRefreshFailed": "Захавана, але не ўдалося абнавіць спіс. Паспрабуйце абнавіць яго яшчэ раз.",
+  "learning.backupHistory": "Гісторыя рэзервовых копій",
+  "learning.verifyBackup": "Праверыць копію",
+  "learning.backupVerified": "Копія праверана",
+  "learning.noBackups": "Рэзервовых копій пакуль няма."
 }

@@ -853,5 +853,9 @@
   "learning.editCard": "Editar tarjeta",
   "learning.status": "Estado",
   "learning.wholePage": "Página completa como respuesta",
-  "learning.savedRefreshFailed": "Guardado, pero no se pudo actualizar la lista. Reintenta para actualizarla."
+  "learning.savedRefreshFailed": "Guardado, pero no se pudo actualizar la lista. Reintenta para actualizarla.",
+  "learning.backupHistory": "Historial de respaldos",
+  "learning.verifyBackup": "Verificar respaldo",
+  "learning.backupVerified": "Respaldo verificado",
+  "learning.noBackups": "Aún no hay respaldos."
 }

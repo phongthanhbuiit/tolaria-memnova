@@ -853,5 +853,9 @@
   "learning.editCard": "Editar cartão",
   "learning.status": "Estado",
   "learning.wholePage": "Página inteira como resposta",
-  "learning.savedRefreshFailed": "Guardado, mas não foi possível atualizar a lista. Tente novamente para a atualizar."
+  "learning.savedRefreshFailed": "Guardado, mas não foi possível atualizar a lista. Tente novamente para a atualizar.",
+  "learning.backupHistory": "Histórico de cópias de segurança",
+  "learning.verifyBackup": "Verificar cópia",
+  "learning.backupVerified": "Cópia verificada",
+  "learning.noBackups": "Ainda não existem cópias."
 }

@@ -853,5 +853,9 @@
   "learning.editCard": "Editar cartão",
   "learning.status": "Status",
   "learning.wholePage": "Página inteira como resposta",
-  "learning.savedRefreshFailed": "Salvo, mas não foi possível atualizar a lista. Tente novamente para atualizá-la."
+  "learning.savedRefreshFailed": "Salvo, mas não foi possível atualizar a lista. Tente novamente para atualizá-la.",
+  "learning.backupHistory": "Histórico de backups",
+  "learning.verifyBackup": "Verificar backup",
+  "learning.backupVerified": "Backup verificado",
+  "learning.noBackups": "Ainda não há backups."
 }
