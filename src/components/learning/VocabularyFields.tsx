@@ -1,3 +1,4 @@
+import { cardEditorStyles } from './cardEditorStyles'
 import { LinkSimple } from '@phosphor-icons/react'
 import { Input } from '../ui/input'
 import {
@@ -61,7 +62,7 @@ export function VocabularyFields({
             <SelectTrigger aria-label={translate(locale, 'learning.cardType')}>
               <SelectValue />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className={cardEditorStyles.portal}>
               {(['basic', 'vocabulary'] as const).map((value) => (
                 <SelectItem key={value} value={value}>
                   {translate(locale, `learning.${value}`)}

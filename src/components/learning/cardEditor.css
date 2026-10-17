@@ -1,0 +1,69 @@
+.learning-editor,
+.learning-editor-portal {
+  font-size: 13px;
+  line-height: 20px;
+}
+.learning-editor [data-slot='dialog-title'] {
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 600;
+}
+.learning-editor [data-slot='dialog-header'] { text-align: left; }
+.learning-editor label {
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 500;
+}
+.learning-editor [data-slot='input'],
+.learning-editor [data-slot='select-trigger'] {
+  height: 32px;
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 400;
+}
+.learning-editor [data-slot='select-trigger'] { max-width: 100%; }
+.learning-editor [data-slot='textarea'] {
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 400;
+  min-height: 112px;
+}
+.learning-editor [data-slot='button'] {
+  min-height: 32px;
+  height: auto;
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 500;
+  padding: 5px 10px;
+  transition-property: color, background-color, border-color, box-shadow;
+}
+.learning-editor [data-slot='button'][data-size^='icon'] {
+  width: 32px;
+  height: 32px;
+  padding: 7px;
+}
+.learning-editor .learning-editor-footer [data-slot='button'] {
+  min-height: 36px;
+  min-width: 80px;
+}
+.learning-editor [data-slot='dialog-description'],
+.learning-editor .text-xs,
+.learning-editor .learning-editor-helper {
+  font-size: 12px;
+  line-height: 18px;
+}
+.learning-editor h3,
+.learning-editor-section-title { font-size: 13px; line-height: 18px; font-weight: 600; }
+.learning-editor-icon { width: 16px; height: 16px; flex-shrink: 0; }
+.learning-editor-portal [data-slot='select-item'],
+.learning-editor-portal [data-slot='dropdown-menu-item'] { font-size: 13px; line-height: 20px; min-height: 32px; }
+.learning-editor-portal [data-slot='button'] { font-size: 13px; }
+@media (pointer: coarse) {
+  .learning-editor [data-slot='button'],
+  .learning-editor [data-slot='input'],
+  .learning-editor [data-slot='select-trigger'] { min-height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .learning-editor *,
+  .learning-editor-portal * { transition-duration: 0s; animation-duration: 0s; }
+}

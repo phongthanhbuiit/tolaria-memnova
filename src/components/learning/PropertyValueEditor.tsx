@@ -1,3 +1,4 @@
+import { cardEditorStyles } from './cardEditorStyles'
 import { useState } from 'react'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
@@ -60,7 +61,7 @@ function DateValue({ name, value, disabled, onChange, locale }: Props) {
           {text || translate(locale, 'inspector.properties.pickDate')}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto p-0">
+      <PopoverContent className={`${cardEditorStyles.portal} w-auto p-0`}>
         <Calendar
           mode="single"
           selected={date}

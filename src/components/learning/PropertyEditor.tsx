@@ -1,3 +1,4 @@
+import { cardEditorStyles } from './cardEditorStyles'
 import { useState } from 'react'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
@@ -62,7 +63,7 @@ function KindSelect({
       <SelectTrigger aria-label={label}>
         <SelectValue placeholder={translate(locale, 'properties.opaque')} />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent className={cardEditorStyles.portal}>
         {kinds.map((kind) => (
           <SelectItem key={kind} value={kind}>
             {translate(locale, `properties.kind.${kind}` as TranslationKey)}
@@ -289,7 +290,7 @@ export function PropertyEditor(props: Props) {
     }
   }
   return (
-    <div className="min-w-0 space-y-3">
+    <div className={`${cardEditorStyles.root} min-w-0 space-y-3`}>
       {Object.entries(values)
         .filter(([key]) => !excludedKeys.includes(key))
         .map(([key, value]) => {

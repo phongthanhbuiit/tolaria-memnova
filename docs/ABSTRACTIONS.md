@@ -1043,3 +1043,5 @@ CardMediaFields expands separate image/audio controls and uses the existing nati
 PagePropertyEditor keeps its initial owner lookup stable across its own successful registration/refresh, while rejecting a genuinely different known owner. Regression coverage protects the new-owner refresh race. The browser fixture helper can explicitly retain learning mock state across reload; Markdown persistence integration uses a real temporary fixture and the browser API, not the desktop-menu invoke stub.
 
 LearningStudyView keys each Markdown renderer by the complete displayed study snapshot. Reloading a changed source therefore acknowledges a newly rendered question even when its text is identical. Readiness callbacks are not assumed to rerun merely because their function identity changed; the regression renderer follows the real content/path lifecycle.
+
+Learning editor typography lives in cardEditorStyles/cardEditor.css and is scoped to learning-editor roots and explicitly marked portals. Explicit pixel font/control dimensions avoid breakpoint/rem drift with the app's 14px root; global shadcn primitives and app theme tokens remain unchanged.

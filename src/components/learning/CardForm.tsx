@@ -1,3 +1,4 @@
+import { cardEditorStyles } from './cardEditorStyles'
 import { useId, useState } from 'react'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
@@ -147,7 +148,7 @@ export function CardForm({
     >
       <DialogContent
         showCloseButton={false}
-        className="flex max-h-[90dvh] flex-col gap-0 overflow-hidden p-0 sm:max-w-2xl"
+        className={`${cardEditorStyles.root} flex max-h-[90dvh] flex-col gap-0 overflow-hidden p-0 sm:max-w-2xl`}
         onEscapeKeyDown={(event) => {
           if (busy || sourceBusy || propertyBusy) event.preventDefault()
         }}
@@ -193,7 +194,7 @@ export function CardForm({
               <SelectTrigger aria-labelledby={`${statusId}-answer-label`}>
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className={cardEditorStyles.portal}>
                 <SelectItem value="inline">
                   {t('learning.answerInline')}
                 </SelectItem>
@@ -246,7 +247,7 @@ export function CardForm({
               <SelectTrigger id={statusId}>
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className={cardEditorStyles.portal}>
                 {(['draft', 'active', 'suspended'] as const).map((status) => (
                   <SelectItem key={status} value={status}>
                     {t(`learning.${status}`)}
@@ -364,7 +365,7 @@ export function CardForm({
             </div>
           )}
         </div>
-        <div className="flex shrink-0 justify-end gap-2 border-t bg-background p-4">
+        <div className={`${cardEditorStyles.footer} flex shrink-0 justify-end gap-2 border-t bg-background p-4`}>
           <Button
             variant="outline"
             disabled={busy || sourceBusy || propertyBusy}
