@@ -53,8 +53,8 @@ export function PagePropertyEditor({
   const root = workspace?.root ?? client?.vaultPath ?? ''
   const initialPages = useRef(workspace?.pages ?? [])
   const page = workspace?.pages.find((page) => `${root}/${page.path}` === path)
-  const pageId = page?.id
-  const ownerId = useRef(pageId ?? null)
+  const initialPageId = useRef(page?.id)
+  const ownerId = useRef(initialPageId.current ?? null)
   const initial = useRef(structuredClone(values))
   const progress = useRef(structuredClone(values))
   const expected = useRef<PropertyDefinitions>({})
@@ -88,6 +88,7 @@ export function PagePropertyEditor({
       return () => {
         if (active.current === visit) active.current = null
       }
+    const pageId = initialPageId.current
     const load = pageId
       ? client.pagePropertyDefinitions(pageId)
       : Promise.resolve({})
@@ -109,7 +110,7 @@ export function PagePropertyEditor({
       cancelled = true
       if (active.current === visit) active.current = null
     }
-  }, [client, pageId, attempt])
+  }, [client, attempt])
   const save = async () => {
     if (
       !draft ||
@@ -126,6 +127,8 @@ export function PagePropertyEditor({
     setBusy(true)
     setError(null)
     try {
+      if (page?.id && ownerId.current && page.id !== ownerId.current)
+        throw Error(t('properties.pageChanged'))
       if (!pendingHint.current) {
         const wire = pageWireValues(
           draft.values,

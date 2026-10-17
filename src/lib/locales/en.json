@@ -883,5 +883,15 @@
   "properties.pageHelp": "Values stay in Markdown. Display types are saved separately.",
   "properties.hintFailed": "Values were saved, but display types were not. Retry to save the types.",
   "properties.readyHelp": "Custom display types are available after the Library is ready. Existing property controls still work.",
-  "properties.pageChanged": "The page changed. Reopen properties before saving."
+  "properties.pageChanged": "The page changed. Reopen properties before saving.",
+  "properties.media": "Media",
+  "properties.mediaUnavailable": "Media could not load. Check the file path.",
+  "properties.chooseImage": "Choose image",
+  "properties.chooseAudio": "Choose audio",
+  "properties.nativePicker": "File selection is available in the desktop app.",
+  "properties.memory": "Review schedule · read only",
+  "properties.due": "Next review",
+  "properties.reps": "Reviews",
+  "properties.lapses": "Lapses",
+  "properties.invalidValue": "Enter a valid value or choose a page before saving."
 }

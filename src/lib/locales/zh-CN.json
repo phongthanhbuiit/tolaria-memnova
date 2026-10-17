@@ -883,5 +883,15 @@
   "properties.pageHelp": "值仍保存在 Markdown 中，显示类型单独保存。",
   "properties.hintFailed": "值已保存，但显示类型未保存。请重试以保存类型。",
   "properties.readyHelp": "Library 就绪后即可设置显示类型，现有属性控件仍可使用。",
-  "properties.pageChanged": "页面已更改，请重新打开属性后再保存。"
+  "properties.pageChanged": "页面已更改，请重新打开属性后再保存。",
+  "properties.media": "媒体",
+  "properties.mediaUnavailable": "无法加载媒体，请检查文件路径。",
+  "properties.chooseImage": "选择图片",
+  "properties.chooseAudio": "选择音频",
+  "properties.nativePicker": "文件选择功能在桌面应用中可用。",
+  "properties.memory": "复习计划 · 只读",
+  "properties.due": "下次复习",
+  "properties.reps": "复习次数",
+  "properties.lapses": "遗忘次数",
+  "properties.invalidValue": "请在保存前输入有效值或选择页面。"
 }

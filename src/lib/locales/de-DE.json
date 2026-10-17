@@ -883,5 +883,15 @@
   "properties.pageHelp": "Werte bleiben in Markdown. Anzeigetypen werden getrennt gespeichert.",
   "properties.hintFailed": "Werte gespeichert, Anzeigetypen nicht. Erneut versuchen, um die Typen zu speichern.",
   "properties.readyHelp": "Eigene Anzeigetypen sind verfügbar, sobald die Library bereit ist. Bestehende Felder funktionieren weiterhin.",
-  "properties.pageChanged": "Die Seite wurde geändert. Eigenschaften vor dem Speichern erneut öffnen."
+  "properties.pageChanged": "Die Seite wurde geändert. Eigenschaften vor dem Speichern erneut öffnen.",
+  "properties.media": "Medien",
+  "properties.mediaUnavailable": "Medium konnte nicht geladen werden. Dateipfad prüfen.",
+  "properties.chooseImage": "Bild auswählen",
+  "properties.chooseAudio": "Audio auswählen",
+  "properties.nativePicker": "Dateiauswahl ist in der Desktop-App verfügbar.",
+  "properties.memory": "Lernplan · schreibgeschützt",
+  "properties.due": "Nächste Wiederholung",
+  "properties.reps": "Wiederholungen",
+  "properties.lapses": "Fehlversuche",
+  "properties.invalidValue": "Vor dem Speichern einen gültigen Wert eingeben oder eine Seite wählen."
 }

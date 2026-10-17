@@ -883,5 +883,15 @@
   "properties.pageHelp": "Значэнні застаюцца ў Markdown. Тыпы адлюстравання захоўваюцца асобна.",
   "properties.hintFailed": "Значэнні захаваны, але тыпы — не. Паўтарыце захаванне тыпаў.",
   "properties.readyHelp": "Уласныя тыпы даступны пасля падрыхтоўкі Library. Звычайныя палі працягваюць працаваць.",
-  "properties.pageChanged": "Старонка змянілася. Перад захаваннем адкрыйце ўласцівасці нанова."
+  "properties.pageChanged": "Старонка змянілася. Перад захаваннем адкрыйце ўласцівасці нанова.",
+  "properties.media": "Медыя",
+  "properties.mediaUnavailable": "Не ўдалося загрузіць медыя. Праверце шлях да файла.",
+  "properties.chooseImage": "Выбраць выяву",
+  "properties.chooseAudio": "Выбраць аўдыя",
+  "properties.nativePicker": "Выбар файлаў даступны ў настольнай праграме.",
+  "properties.memory": "Расклад паўтораў · толькі чытанне",
+  "properties.due": "Наступны паўтор",
+  "properties.reps": "Паўторы",
+  "properties.lapses": "Забыванні",
+  "properties.invalidValue": "Перад захаваннем увядзіце дапушчальнае значэнне або выберыце старонку."
 }

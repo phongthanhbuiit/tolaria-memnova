@@ -34,12 +34,12 @@ function Harness() {
 }
 it('edits falsy values, renames and removes only explicitly while preserving opaque data', () => {
   render(<Harness />)
-  expect(screen.getByLabelText('zero')).toHaveValue('0')
+  expect(screen.getByRole('textbox', { name: 'zero', exact: true })).toHaveValue('0')
   expect(screen.getByRole('switch', { name: 'flag' })).not.toBeChecked()
   fireEvent.click(screen.getByRole('switch', { name: 'flag' }))
-  fireEvent.change(screen.getByLabelText('zero'), { target: { value: '' } })
-  expect(screen.getByLabelText('zero')).toHaveAttribute('aria-invalid', 'true')
-  fireEvent.change(screen.getByLabelText('zero'), { target: { value: '12' } })
+  fireEvent.change(screen.getByRole('textbox', { name: 'zero', exact: true }), { target: { value: '' } })
+  expect(screen.getByRole('textbox', { name: 'zero', exact: true })).toHaveAttribute('aria-invalid', 'true')
+  fireEvent.change(screen.getByRole('textbox', { name: 'zero', exact: true }), { target: { value: '12' } })
   fireEvent.change(screen.getByLabelText('Property name empty'), {
     target: { value: 'renamed' },
   })

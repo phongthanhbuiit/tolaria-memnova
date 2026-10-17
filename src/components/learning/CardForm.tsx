@@ -2,6 +2,7 @@ import { useId, useState } from 'react'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 import { Textarea } from '../ui/textarea'
+import { CardMediaFields } from './CardMediaFields'
 import { PropertyEditor } from './PropertyEditor'
 import { matchesProperty } from '../../lib/learning/propertyValues'
 import {
@@ -66,6 +67,8 @@ export function CardForm({
   const [savedDraft, setSavedDraft] = useState<CardDraft | null>(null)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const root = workspace?.root ?? workspace?.client?.vaultPath ?? ''
+  const ownerPath = workspace?.pages?.find((page) => page.id === pageId)?.path
   const definitions = draft.propertyDefinitions ?? {}
   const presetFields = cardPresetFields(draft.properties, definitions)
   const hiddenPresetFields = cardPresetKeys.filter(
@@ -253,11 +256,11 @@ export function CardForm({
             </Select>
           </div>
           <div className="grid gap-3 sm:grid-cols-3">
-            {(['IPA', 'audio', 'image'] as const)
+            {(['IPA'] as const)
               .filter((key) => presetFields.includes(key))
               .map((key) => (
                 <label key={key} className="grid gap-2 text-sm">
-                  {key === 'IPA' ? 'IPA' : t(`learning.${key}`)}
+                  IPA
                   <Input
                     name={key}
                     autoComplete="off"
@@ -299,6 +302,50 @@ export function CardForm({
               }
             />
           </section>
+          <CardMediaFields
+            root={root}
+            ownerPath={ownerPath ? `${root}/${ownerPath}` : undefined}
+            properties={draft.properties}
+            visibleKeys={presetFields}
+            locale={locale}
+            disabled={busy || sourceBusy || propertyBusy}
+            onChange={metadata}
+            onBusyChange={setPropertyBusy}
+          />
+          {persisted && (
+            <section className="space-y-2 rounded-lg border bg-muted/30 p-3">
+              <h3 className="text-sm font-semibold">
+                {t('properties.memory')}
+              </h3>
+              <dl className="grid grid-cols-3 gap-3 text-sm">
+                <div>
+                  <dt className="text-xs text-muted-foreground">
+                    {t('properties.due')}
+                  </dt>
+                  <dd className="mt-1 break-words">
+                    {Number.isFinite(Date.parse(persisted.schedule.due))
+                      ? new Intl.DateTimeFormat(locale, {
+                          dateStyle: 'medium',
+                          timeStyle: 'short',
+                        }).format(new Date(persisted.schedule.due))
+                      : t('learning.error')}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-xs text-muted-foreground">
+                    {t('properties.reps')}
+                  </dt>
+                  <dd>{persisted.schedule.reps}</dd>
+                </div>
+                <div>
+                  <dt className="text-xs text-muted-foreground">
+                    {t('properties.lapses')}
+                  </dt>
+                  <dd>{persisted.schedule.lapses}</dd>
+                </div>
+              </dl>
+            </section>
+          )}
           {error && (
             <div
               role="alert"

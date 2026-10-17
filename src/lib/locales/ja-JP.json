@@ -883,5 +883,15 @@
   "properties.pageHelp": "値はMarkdownに保存されます。表示形式は別に保存されます。",
   "properties.hintFailed": "値は保存されましたが表示形式は未保存です。再試行して形式を保存してください。",
   "properties.readyHelp": "Libraryの準備が完了すると表示形式を指定できます。既存のプロパティ操作は引き続き使えます。",
-  "properties.pageChanged": "ページが変更されました。保存前にプロパティを開き直してください。"
+  "properties.pageChanged": "ページが変更されました。保存前にプロパティを開き直してください。",
+  "properties.media": "メディア",
+  "properties.mediaUnavailable": "メディアを読み込めません。ファイルのパスを確認してください。",
+  "properties.chooseImage": "画像を選択",
+  "properties.chooseAudio": "音声を選択",
+  "properties.nativePicker": "ファイル選択はデスクトップアプリで利用できます。",
+  "properties.memory": "復習予定 · 読み取り専用",
+  "properties.due": "次の復習",
+  "properties.reps": "復習回数",
+  "properties.lapses": "忘れた回数",
+  "properties.invalidValue": "保存前に有効な値を入力するかページを選択してください。"
 }

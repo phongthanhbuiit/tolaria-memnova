@@ -883,5 +883,15 @@
   "properties.pageHelp": "Los valores permanecen en Markdown. Los tipos de visualización se guardan por separado.",
   "properties.hintFailed": "Los valores se guardaron, pero los tipos no. Reintenta para guardar los tipos.",
   "properties.readyHelp": "Los tipos personalizados están disponibles cuando la Library esté lista. Los controles existentes siguen funcionando.",
-  "properties.pageChanged": "La página cambió. Vuelve a abrir las propiedades antes de guardar."
+  "properties.pageChanged": "La página cambió. Vuelve a abrir las propiedades antes de guardar.",
+  "properties.media": "Multimedia",
+  "properties.mediaUnavailable": "No se pudo cargar el archivo. Revisa la ruta.",
+  "properties.chooseImage": "Elegir imagen",
+  "properties.chooseAudio": "Elegir audio",
+  "properties.nativePicker": "La selección de archivos está disponible en la aplicación de escritorio.",
+  "properties.memory": "Programa de repaso · solo lectura",
+  "properties.due": "Próximo repaso",
+  "properties.reps": "Repasos",
+  "properties.lapses": "Olvidos",
+  "properties.invalidValue": "Ingresa un valor válido o elige una página antes de guardar."
 }

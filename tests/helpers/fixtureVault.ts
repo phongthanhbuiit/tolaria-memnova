@@ -13,6 +13,7 @@ const CLAUDE_CODE_ONBOARDING_DISMISSED_KEY = 'tolaria:claude-code-onboarding-dis
 type FixtureCommandArgs = Record<string, unknown> | undefined
 
 interface FixtureVaultPageArgs {
+  preserveLearningState?: boolean
   page: Page
   vaultPath: string
   isGitRepo: boolean
@@ -24,6 +25,7 @@ interface FixturePageArgs {
 }
 
 interface FixtureVaultOptions {
+  preserveLearningState?: boolean
   isGitRepo?: boolean
   expectedReadyTitle?: string
   folders?: FolderNode[]
@@ -71,9 +73,11 @@ export function removeFixtureVaultCopy(tempVaultDir: string | null | undefined):
   removeFixtureVaultDirectory({ tempVaultDir })
 }
 
-async function installFixtureVaultInitScript({ page, vaultPath, isGitRepo, folders }: FixtureVaultPageArgs): Promise<void> {
-  await page.addInitScript(({ dismissedKey, fixtureFolders, initialIsGitRepo, resolvedVaultPath }: { dismissedKey: string; fixtureFolders: FolderNode[]; initialIsGitRepo: boolean; resolvedVaultPath: string }) => {
+async function installFixtureVaultInitScript({ page, vaultPath, isGitRepo, folders, preserveLearningState }: FixtureVaultPageArgs): Promise<void> {
+  await page.addInitScript(({ dismissedKey, fixtureFolders, initialIsGitRepo, resolvedVaultPath, keepLearningState }: { keepLearningState?: boolean; dismissedKey: string; fixtureFolders: FolderNode[]; initialIsGitRepo: boolean; resolvedVaultPath: string }) => {
+    const learningState = keepLearningState ? Object.entries(localStorage).filter(([key]) => key.startsWith('memnova:qa-learning:')) : []
     localStorage.clear()
+    for (const [key, value] of learningState) localStorage.setItem(key, value)
     localStorage.setItem(dismissedKey, '1')
     let gitRepoReady = initialIsGitRepo
 
@@ -449,6 +453,7 @@ async function installFixtureVaultInitScript({ page, vaultPath, isGitRepo, folde
     fixtureFolders: folders,
     initialIsGitRepo: isGitRepo,
     resolvedVaultPath: vaultPath,
+    keepLearningState: preserveLearningState,
   })
 }
 
@@ -471,6 +476,7 @@ export async function openFixtureVault(
     vaultPath,
     isGitRepo: options.isGitRepo ?? true,
     folders: options.folders ?? [],
+    preserveLearningState: options.preserveLearningState,
   })
   await waitForFixtureVaultReady({
     page,

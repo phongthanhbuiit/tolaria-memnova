@@ -883,5 +883,15 @@
   "properties.pageHelp": "值仍儲存在 Markdown 中，顯示類型另行儲存。",
   "properties.hintFailed": "值已儲存，但顯示類型尚未儲存。請重試以儲存類型。",
   "properties.readyHelp": "Library 就緒後即可設定顯示類型，現有屬性控制項仍可使用。",
-  "properties.pageChanged": "頁面已變更，請重新開啟屬性後再儲存。"
+  "properties.pageChanged": "頁面已變更，請重新開啟屬性後再儲存。",
+  "properties.media": "媒體",
+  "properties.mediaUnavailable": "無法載入媒體，請檢查檔案路徑。",
+  "properties.chooseImage": "選擇圖片",
+  "properties.chooseAudio": "選擇音訊",
+  "properties.nativePicker": "檔案選擇功能可在桌面應用程式使用。",
+  "properties.memory": "複習排程 · 唯讀",
+  "properties.due": "下次複習",
+  "properties.reps": "複習次數",
+  "properties.lapses": "遺忘次數",
+  "properties.invalidValue": "請在儲存前輸入有效值或選擇頁面。"
 }

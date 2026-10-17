@@ -883,5 +883,15 @@
   "properties.pageHelp": "Les valeurs restent dans Markdown. Les types d’affichage sont enregistrés séparément.",
   "properties.hintFailed": "Les valeurs sont enregistrées, mais pas les types. Réessayez pour enregistrer les types.",
   "properties.readyHelp": "Les types personnalisés seront disponibles quand la Library sera prête. Les champs existants restent utilisables.",
-  "properties.pageChanged": "La page a changé. Rouvrez les propriétés avant d’enregistrer."
+  "properties.pageChanged": "La page a changé. Rouvrez les propriétés avant d’enregistrer.",
+  "properties.media": "Médias",
+  "properties.mediaUnavailable": "Impossible de charger le média. Vérifiez le chemin du fichier.",
+  "properties.chooseImage": "Choisir une image",
+  "properties.chooseAudio": "Choisir un son",
+  "properties.nativePicker": "La sélection de fichiers est disponible dans l’application de bureau.",
+  "properties.memory": "Calendrier de révision · lecture seule",
+  "properties.due": "Prochaine révision",
+  "properties.reps": "Révisions",
+  "properties.lapses": "Oublis",
+  "properties.invalidValue": "Saisissez une valeur valide ou choisissez une page avant d’enregistrer."
 }

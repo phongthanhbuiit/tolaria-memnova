@@ -883,5 +883,15 @@
   "properties.pageHelp": "Nilai tetap disimpan di Markdown. Jenis tampilan disimpan terpisah.",
   "properties.hintFailed": "Nilai tersimpan, tetapi jenis tampilan belum. Coba lagi untuk menyimpan jenis.",
   "properties.readyHelp": "Jenis tampilan khusus tersedia setelah Library siap. Kontrol properti yang ada tetap berfungsi.",
-  "properties.pageChanged": "Halaman berubah. Buka kembali properti sebelum menyimpan."
+  "properties.pageChanged": "Halaman berubah. Buka kembali properti sebelum menyimpan.",
+  "properties.media": "Media",
+  "properties.mediaUnavailable": "Media tidak dapat dimuat. Periksa lokasi berkas.",
+  "properties.chooseImage": "Pilih gambar",
+  "properties.chooseAudio": "Pilih audio",
+  "properties.nativePicker": "Pemilihan berkas tersedia di aplikasi desktop.",
+  "properties.memory": "Jadwal ulasan · hanya baca",
+  "properties.due": "Ulasan berikutnya",
+  "properties.reps": "Ulasan",
+  "properties.lapses": "Lupa",
+  "properties.invalidValue": "Masukkan nilai yang valid atau pilih halaman sebelum menyimpan."
 }

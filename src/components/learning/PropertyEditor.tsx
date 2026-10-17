@@ -126,7 +126,11 @@ function PropertyRow(props: {
   )
   const t = (key: TranslationKey) => translate(locale, key)
   return (
-    <div className="space-y-3 rounded-lg border p-3">
+    <div
+      role="group"
+      aria-label={name}
+      className="space-y-3 rounded-lg border p-3"
+    >
       <div className="flex flex-wrap items-center gap-2">
         <Input
           aria-label={`${t('inspector.properties.propertyName')} ${name}`}
@@ -196,6 +200,11 @@ function PropertyRow(props: {
             {JSON.stringify(value, null, 2)}
           </pre>
         </div>
+      )}
+      {editable && hint && !matchesProperty(value, hint) && (
+        <p role="alert" className="text-sm text-destructive">
+          {t('properties.invalidValue')}
+        </p>
       )}
       {conversion && (
         <div className="space-y-2 rounded border p-2">

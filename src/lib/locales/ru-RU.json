@@ -883,5 +883,15 @@
   "properties.pageHelp": "Значения остаются в Markdown. Типы отображения сохраняются отдельно.",
   "properties.hintFailed": "Значения сохранены, но типы — нет. Повторите попытку сохранения типов.",
   "properties.readyHelp": "Настраиваемые типы доступны после подготовки Library. Обычные поля по-прежнему работают.",
-  "properties.pageChanged": "Страница изменилась. Перед сохранением откройте свойства заново."
+  "properties.pageChanged": "Страница изменилась. Перед сохранением откройте свойства заново.",
+  "properties.media": "Медиа",
+  "properties.mediaUnavailable": "Не удалось загрузить медиа. Проверьте путь к файлу.",
+  "properties.chooseImage": "Выбрать изображение",
+  "properties.chooseAudio": "Выбрать аудио",
+  "properties.nativePicker": "Выбор файлов доступен в настольном приложении.",
+  "properties.memory": "Расписание повторений · только чтение",
+  "properties.due": "Следующее повторение",
+  "properties.reps": "Повторения",
+  "properties.lapses": "Забывания",
+  "properties.invalidValue": "Перед сохранением введите допустимое значение или выберите страницу."
 }

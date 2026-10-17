@@ -334,3 +334,9 @@ export function portableImageUrls(
 
   return rewriteMarkdownImages(markdown, url => portableImageUrl({ url, vaultPath, notePath }))
 }
+
+/** Reuse the note media resolver for property previews without parsing synthetic Markdown. */
+export function resolveNoteMediaUrl(url: string, vaultPath: string, notePath?: string): string {
+  if (!isTauri() || !vaultPath) return url
+  return resolveImageUrl({ url, vaultPath, notePath }) ?? url
+}

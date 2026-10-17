@@ -883,5 +883,15 @@
   "properties.pageHelp": "Giá trị vẫn lưu trong Markdown. Kiểu hiển thị được lưu riêng.",
   "properties.hintFailed": "Giá trị đã lưu nhưng kiểu hiển thị chưa lưu. Hãy thử lại để lưu kiểu.",
   "properties.readyHelp": "Kiểu hiển thị tùy chỉnh dùng được sau khi Library sẵn sàng. Các ô thuộc tính hiện có vẫn hoạt động.",
-  "properties.pageChanged": "Trang đã thay đổi. Mở lại thuộc tính trước khi lưu."
+  "properties.pageChanged": "Trang đã thay đổi. Mở lại thuộc tính trước khi lưu.",
+  "properties.media": "Media",
+  "properties.mediaUnavailable": "Không tải được media. Hãy kiểm tra đường dẫn file.",
+  "properties.chooseImage": "Chọn ảnh",
+  "properties.chooseAudio": "Chọn âm thanh",
+  "properties.nativePicker": "Chọn file có trong ứng dụng desktop.",
+  "properties.memory": "Lịch ôn · chỉ đọc",
+  "properties.due": "Lần ôn tiếp theo",
+  "properties.reps": "Lượt ôn",
+  "properties.lapses": "Lần quên",
+  "properties.invalidValue": "Nhập giá trị hợp lệ hoặc chọn trang trước khi lưu."
 }

@@ -2,69 +2,443 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { SourcePagePreview } from './SourcePagePreview'
 import { VocabularyStudyDetails } from './VocabularyFields'
 import { Button } from '../ui/button'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../ui/dialog'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '../ui/dialog'
 import { BlockNoteReadOnly } from '../FlashcardStudyView'
 import type { useLearningStudy } from '../../hooks/useLearningStudy'
 import { translate, type AppLocale, type TranslationKey } from '../../lib/i18n'
 import { previewSchedule } from '../../lib/learning/scheduler'
 import type { FSRSRating } from '../../lib/fsrs'
-import { resolveFlashcardAudioUrl } from '../../utils/flashcardAudio'
-import { vaultAttachmentAssetUrl } from '../../utils/vaultAttachments'
+import { MediaPreview } from './MediaPreview'
+import { learningMediaUrl } from '../../lib/learning/media'
 
 const ratings = [1, 2, 3, 4] as const
-const labels: Record<FSRSRating, TranslationKey> = { 1: 'learning.again', 2: 'learning.hard', 3: 'learning.good', 4: 'learning.easy' }
-const colors = ['border-[var(--accent-red)]', 'border-[var(--accent-orange)]', 'border-[var(--accent-green)]', 'border-[var(--accent-blue)]']
-export function LearningStudyView({ study, root, locale }: { study: ReturnType<typeof useLearningStudy>; root: string; locale: AppLocale }) {
+const labels: Record<FSRSRating, TranslationKey> = {
+  1: 'learning.again',
+  2: 'learning.hard',
+  3: 'learning.good',
+  4: 'learning.easy',
+}
+const colors = [
+  'border-[var(--accent-red)]',
+  'border-[var(--accent-orange)]',
+  'border-[var(--accent-green)]',
+  'border-[var(--accent-blue)]',
+]
+export function LearningStudyView({
+  study,
+  root,
+  locale,
+}: {
+  study: ReturnType<typeof useLearningStudy>
+  root: string
+  locale: AppLocale
+}) {
   const { open, busy, error, reload } = study
   const session = study.session
   const item = session?.current
-  const answerPage = item?.card.answerMode === 'page' && item.card.answerPageId ? item.answerPage : item?.page
-  const sourceReady = !!item?.page && !item.sourceError && (item.card.answerMode === 'inline' || !!answerPage)
-  const key = item ? `${session?.id}:${session?.currentIndex}:${item.card.id}:${item.card.revision}:${item.card.schedule.revision}:${item.page?.fingerprint}:${item.answerPage?.fingerprint}` : ''
+  const answerPage =
+    item?.card.answerMode === 'page' && item.card.answerPageId
+      ? item.answerPage
+      : item?.page
+  const sourceReady =
+    !!item?.page &&
+    !item.sourceError &&
+    (item.card.answerMode === 'inline' || !!answerPage)
+  const key = item
+    ? `${session?.id}:${session?.currentIndex}:${item.card.id}:${item.card.revision}:${item.card.schedule.revision}:${item.page?.fingerprint}:${item.answerPage?.fingerprint}`
+    : ''
   const [face, setFace] = useState({ key: '', revealed: false })
   const revealed = face.key === key && face.revealed
-  const [rendered, setRendered] = useState({ key: '', question: false, answer: false })
+  const [rendered, setRendered] = useState({
+    key: '',
+    question: false,
+    answer: false,
+  })
   const questionReady = rendered.key === key && rendered.question
   const answerReady = rendered.key === key && rendered.answer
-  const questionRendered = useCallback(() => setRendered(previous => previous.key === key && previous.question ? previous : { key, question: true, answer: previous.key === key && previous.answer }), [key])
-  const answerRendered = useCallback(() => setRendered(previous => previous.key === key && previous.answer ? previous : { key, question: previous.key === key && previous.question, answer: true }), [key])
+  const questionRendered = useCallback(
+    () =>
+      setRendered((previous) =>
+        previous.key === key && previous.question
+          ? previous
+          : {
+              key,
+              question: true,
+              answer: previous.key === key && previous.answer,
+            },
+      ),
+    [key],
+  )
+  const answerRendered = useCallback(
+    () =>
+      setRendered((previous) =>
+        previous.key === key && previous.answer
+          ? previous
+          : {
+              key,
+              question: previous.key === key && previous.question,
+              answer: true,
+            },
+      ),
+    [key],
+  )
   const revealButton = useRef<HTMLButtonElement>(null)
   const t = (key: TranslationKey) => translate(locale, key)
-  const preview = useMemo(() => { try { const at = new Date(); return item ? { at: at.getTime(), outcomes: previewSchedule(item.card.schedule, at) } : null } catch { return null } }, [item])
-  useEffect(() => { if (open && questionReady && !revealed) revealButton.current?.focus() }, [key, open, questionReady, revealed])
+  const preview = useMemo(() => {
+    try {
+      const at = new Date()
+      return item
+        ? {
+            at: at.getTime(),
+            outcomes: previewSchedule(item.card.schedule, at),
+          }
+        : null
+    } catch {
+      return null
+    }
+  }, [item])
+  useEffect(() => {
+    if (open && questionReady && !revealed) revealButton.current?.focus()
+  }, [key, open, questionReady, revealed])
   useEffect(() => {
     if (!open || !session?.waitingUntil || busy || error) return
-    const timer = setTimeout(() => { void reload() }, Math.max(0, session.waitingUntil - Date.now()) + 50)
+    const timer = setTimeout(
+      () => {
+        void reload()
+      },
+      Math.max(0, session.waitingUntil - Date.now()) + 50,
+    )
     return () => clearTimeout(timer)
   }, [open, reload, busy, error, session?.waitingUntil])
-  const answer = item?.card.answerMode === 'page' ? answerPage?.content ?? '' : item?.card.back ?? ''
-  const audio = item ? resolveFlashcardAudioUrl({ properties: item.card.properties, backMarkdown: answer, vaultPath: root }) : null
-  const image = item?.card.properties.image
-  const imageUrl = typeof image === 'string' && image ? (/^https?:\/\//.test(image) ? image : vaultAttachmentAssetUrl({ attachmentPath: image.startsWith('attachments/') ? image : `attachments/${image}`, vaultPath: root })) : null
+  const answer =
+    item?.card.answerMode === 'page'
+      ? (answerPage?.content ?? '')
+      : (item?.card.back ?? '')
+  const ownerPath = item?.page ? `${root}/${item.page.path}` : undefined
+  const audio = learningMediaUrl(item?.card.properties.audio, root, ownerPath)
+  const imageUrl = learningMediaUrl(
+    item?.card.properties.image,
+    root,
+    ownerPath,
+  )
   const interval = (rating: FSRSRating) => {
     if (!preview) return ''
-    const minutes = Math.max(1, Math.ceil((Date.parse(preview.outcomes[rating].due) - preview.at) / 60_000))
-    return new Intl.RelativeTimeFormat(locale, { numeric: 'always', style: 'short' }).format(minutes < 60 ? minutes : minutes < 1440 ? Math.ceil(minutes / 60) : Math.ceil(minutes / 1440), minutes < 60 ? 'minute' : minutes < 1440 ? 'hour' : 'day')
+    const minutes = Math.max(
+      1,
+      Math.ceil(
+        (Date.parse(preview.outcomes[rating].due) - preview.at) / 60_000,
+      ),
+    )
+    return new Intl.RelativeTimeFormat(locale, {
+      numeric: 'always',
+      style: 'short',
+    }).format(
+      minutes < 60
+        ? minutes
+        : minutes < 1440
+          ? Math.ceil(minutes / 60)
+          : Math.ceil(minutes / 1440),
+      minutes < 60 ? 'minute' : minutes < 1440 ? 'hour' : 'day',
+    )
   }
-  return <Dialog open={study.open} onOpenChange={open => { if (!open) void study.close() }}>
-    <DialogContent showCloseButton={false} className="flex max-h-[94dvh] flex-col gap-0 overflow-hidden p-0 sm:max-w-4xl" onEscapeKeyDown={event => { event.preventDefault(); void study.close() }} onKeyDown={event => {
-      if (event.metaKey || event.ctrlKey || event.altKey || study.busy || study.hasPending || study.error || !sourceReady || !questionReady) return
-      if ((event.target as HTMLElement).closest('input,textarea,select,[contenteditable="true"]')) return
-      if (event.key === ' ' && !revealed) { event.preventDefault(); setFace({ key, revealed: true }) }
-      if (revealed && answerReady && /^[1-4]$/.test(event.key)) { event.preventDefault(); void study.rate(Number(event.key) as FSRSRating) }
-    }}>
-      <DialogHeader className="border-b p-5"><div className="flex items-center justify-between gap-3"><DialogTitle>{item?.page?.title ?? t('learning.study')}</DialogTitle><Button variant="ghost" disabled={study.busy || study.hasPending} onClick={() => { void study.close() }}>{t('learning.close')}</Button></div><DialogDescription>{session ? `${session.completedCount}/${session.initialCount} · ${translate(locale, 'home.daily_goal_reviews', { n: session.reviewCount })}` : t('learning.loading')}</DialogDescription>{session && <div className="mt-3 h-1.5 overflow-hidden rounded bg-muted" role="progressbar" aria-label={t('decks.progress')} aria-valuemin={0} aria-valuemax={session.initialCount || 1} aria-valuenow={session.completedCount}><div className="h-full bg-primary transition-[width] motion-reduce:transition-none" style={{ width: `${session.initialCount ? session.completedCount / session.initialCount * 100 : 0}%` }} /></div>}</DialogHeader>
-      <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-5 sm:p-8">
-        {study.error && <div role="alert" className="mb-5 rounded-lg border border-destructive p-4"><p>{t('learning.error')}</p><pre className="my-3 whitespace-pre-wrap break-words text-xs">{study.error}</pre><div className="flex gap-2"><Button onClick={() => { void study.retry() }}>{t('learning.retry')}</Button><Button variant="outline" onClick={() => { void study.reload() }}>{t('learning.reload')}</Button></div></div>}
-        {!session && <p role="status">{t(study.busy ? 'learning.loading' : 'learning.error')}</p>}
-        {session?.status === 'completed' && <div className="py-16 text-center"><h2 className="text-3xl font-semibold">{t('decks.done_all')}</h2><p className="mt-4 text-muted-foreground">{translate(locale, 'home.daily_goal_reviews', { n: session.reviewCount })}</p></div>}
-        {session?.waitingUntil && !item && <div role="status" className="py-16 text-center"><h2 className="text-xl font-semibold">{t('learning.wait')}</h2><p className="mt-3 text-muted-foreground">{new Intl.DateTimeFormat(locale, { hour: 'numeric', minute: '2-digit', second: '2-digit' }).format(session.waitingUntil)}</p></div>}
-        {item && <div className="mx-auto max-w-2xl space-y-6"><div className="rounded-xl border bg-card p-6 shadow-sm"><p className="mb-4 text-xs font-medium uppercase tracking-wide text-muted-foreground">{t('learning.front')}</p><BlockNoteReadOnly content={item.card.front} onReady={questionRendered} preserveBody locale={locale} vaultPath={root} notePath={item.page ? `${root}/${item.page.path}` : undefined} />{typeof item.card.properties.IPA === 'string' && <p className="mt-4 text-muted-foreground">{item.card.properties.IPA}</p>}<VocabularyStudyDetails properties={item.card.properties} locale={locale} />{imageUrl && <img src={imageUrl} alt={item.card.front} className="mt-5 max-h-64 max-w-full rounded-lg object-contain" />}{audio && <audio className="mt-5 max-w-full" controls src={audio} aria-label={t('learning.audio')} />}</div>
-          {item.sourceError && <div role="alert" className="rounded-lg border border-destructive p-4"><p>{t('learning.error')}</p><pre className="whitespace-pre-wrap break-words text-xs">{item.sourceError}</pre><Button variant="outline" onClick={() => { void study.reload() }}>{t('learning.reload')}</Button><Button variant="outline" onClick={() => { void study.skip() }}>{t('learning.skip')}</Button></div>}
-          {revealed && sourceReady && <div className="rounded-xl border border-primary/30 bg-muted/30 p-6"><p className="mb-4 text-xs font-medium uppercase tracking-wide text-muted-foreground">{t('learning.back')}</p><BlockNoteReadOnly content={answer} onReady={answerRendered} preserveBody locale={locale} vaultPath={root} notePath={answerPage ? `${root}/${answerPage.path}` : undefined} /><VocabularyStudyDetails properties={item.card.properties} locale={locale} answer />{item.card.answerPageId && answerPage && <div className="mt-4 border-t pt-3"><SourcePagePreview pageId={answerPage.id} title={answerPage.title} locale={locale} /><p className="break-all text-xs text-muted-foreground">{answerPage.path}</p></div>}</div>}
-        </div>}
-      </div>
-      <footer className="shrink-0 border-t bg-background p-4 sm:px-8"><div className="mx-auto max-w-2xl space-y-3">{item?.page && !revealed && <Button ref={revealButton} className="w-full" disabled={study.busy || !!study.error || !sourceReady || !questionReady} onClick={() => setFace({ key, revealed: true })}>{t('learning.showAnswer')}</Button>}{item?.page && revealed && <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">{ratings.map(rating => <Button key={rating} variant="outline" className={`h-auto min-h-16 flex-col gap-1 whitespace-normal border-2 ${colors[rating - 1]}`} disabled={study.busy || study.hasPending || !!study.error || !preview || !sourceReady || !answerReady} onClick={() => { void study.rate(rating) }}><span>{t(labels[rating])} <kbd className="ml-1 opacity-50">{rating}</kbd></span><span className="text-xs font-normal text-muted-foreground">{interval(rating)}</span></Button>)}</div>}<div className="flex items-center justify-between"><Button variant="ghost" size="sm" disabled={!session?.canUndo || study.busy || study.hasPending} onClick={() => { void study.undo() }}>{t('learning.undo')}</Button>{study.busy && <span role="status" className="text-sm text-muted-foreground">{t('learning.saving')}</span>}</div></div></footer>
-    </DialogContent>
-  </Dialog>
+  return (
+    <Dialog
+      open={study.open}
+      onOpenChange={(open) => {
+        if (!open) void study.close()
+      }}
+    >
+      <DialogContent
+        showCloseButton={false}
+        className="flex max-h-[94dvh] flex-col gap-0 overflow-hidden p-0 sm:max-w-4xl"
+        onEscapeKeyDown={(event) => {
+          event.preventDefault()
+          void study.close()
+        }}
+        onKeyDown={(event) => {
+          if (
+            event.metaKey ||
+            event.ctrlKey ||
+            event.altKey ||
+            study.busy ||
+            study.hasPending ||
+            study.error ||
+            !sourceReady ||
+            !questionReady
+          )
+            return
+          if (
+            (event.target as HTMLElement).closest(
+              'input,textarea,select,[contenteditable="true"]',
+            )
+          )
+            return
+          if (event.key === ' ' && !revealed) {
+            event.preventDefault()
+            setFace({ key, revealed: true })
+          }
+          if (revealed && answerReady && /^[1-4]$/.test(event.key)) {
+            event.preventDefault()
+            void study.rate(Number(event.key) as FSRSRating)
+          }
+        }}
+      >
+        <DialogHeader className="border-b p-5">
+          <div className="flex items-center justify-between gap-3">
+            <DialogTitle>
+              {item?.page?.title ?? t('learning.study')}
+            </DialogTitle>
+            <Button
+              variant="ghost"
+              disabled={study.busy || study.hasPending}
+              onClick={() => {
+                void study.close()
+              }}
+            >
+              {t('learning.close')}
+            </Button>
+          </div>
+          <DialogDescription>
+            {session
+              ? `${session.completedCount}/${session.initialCount} · ${translate(locale, 'home.daily_goal_reviews', { n: session.reviewCount })}`
+              : t('learning.loading')}
+          </DialogDescription>
+          {session && (
+            <div
+              className="mt-3 h-1.5 overflow-hidden rounded bg-muted"
+              role="progressbar"
+              aria-label={t('decks.progress')}
+              aria-valuemin={0}
+              aria-valuemax={session.initialCount || 1}
+              aria-valuenow={session.completedCount}
+            >
+              <div
+                className="h-full bg-primary transition-[width] motion-reduce:transition-none"
+                style={{
+                  width: `${session.initialCount ? (session.completedCount / session.initialCount) * 100 : 0}%`,
+                }}
+              />
+            </div>
+          )}
+        </DialogHeader>
+        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-5 sm:p-8">
+          {study.error && (
+            <div
+              role="alert"
+              className="mb-5 rounded-lg border border-destructive p-4"
+            >
+              <p>{t('learning.error')}</p>
+              <pre className="my-3 whitespace-pre-wrap break-words text-xs">
+                {study.error}
+              </pre>
+              <div className="flex gap-2">
+                <Button
+                  onClick={() => {
+                    void study.retry()
+                  }}
+                >
+                  {t('learning.retry')}
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    void study.reload()
+                  }}
+                >
+                  {t('learning.reload')}
+                </Button>
+              </div>
+            </div>
+          )}
+          {!session && (
+            <p role="status">
+              {t(study.busy ? 'learning.loading' : 'learning.error')}
+            </p>
+          )}
+          {session?.status === 'completed' && (
+            <div className="py-16 text-center">
+              <h2 className="text-3xl font-semibold">{t('decks.done_all')}</h2>
+              <p className="mt-4 text-muted-foreground">
+                {translate(locale, 'home.daily_goal_reviews', {
+                  n: session.reviewCount,
+                })}
+              </p>
+            </div>
+          )}
+          {session?.waitingUntil && !item && (
+            <div role="status" className="py-16 text-center">
+              <h2 className="text-xl font-semibold">{t('learning.wait')}</h2>
+              <p className="mt-3 text-muted-foreground">
+                {new Intl.DateTimeFormat(locale, {
+                  hour: 'numeric',
+                  minute: '2-digit',
+                  second: '2-digit',
+                }).format(session.waitingUntil)}
+              </p>
+            </div>
+          )}
+          {item && (
+            <div className="mx-auto max-w-2xl space-y-6">
+              <div className="rounded-xl border bg-card p-6 shadow-sm">
+                <p className="mb-4 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                  {t('learning.front')}
+                </p>
+                <BlockNoteReadOnly
+                  content={item.card.front}
+                  onReady={questionRendered}
+                  preserveBody
+                  locale={locale}
+                  vaultPath={root}
+                  notePath={item.page ? `${root}/${item.page.path}` : undefined}
+                />
+                {typeof item.card.properties.IPA === 'string' && (
+                  <p className="mt-4 text-muted-foreground">
+                    {item.card.properties.IPA}
+                  </p>
+                )}
+                <VocabularyStudyDetails
+                  properties={item.card.properties}
+                  locale={locale}
+                />
+                <div className="mt-5 space-y-3">
+                  <MediaPreview src={imageUrl} kind="image" locale={locale} />
+                  <MediaPreview src={audio} kind="audio" locale={locale} />
+                </div>
+              </div>
+              {item.sourceError && (
+                <div
+                  role="alert"
+                  className="rounded-lg border border-destructive p-4"
+                >
+                  <p>{t('learning.error')}</p>
+                  <pre className="whitespace-pre-wrap break-words text-xs">
+                    {item.sourceError}
+                  </pre>
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      void study.reload()
+                    }}
+                  >
+                    {t('learning.reload')}
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      void study.skip()
+                    }}
+                  >
+                    {t('learning.skip')}
+                  </Button>
+                </div>
+              )}
+              {revealed && sourceReady && (
+                <div className="rounded-xl border border-primary/30 bg-muted/30 p-6">
+                  <p className="mb-4 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    {t('learning.back')}
+                  </p>
+                  <BlockNoteReadOnly
+                    content={answer}
+                    onReady={answerRendered}
+                    preserveBody
+                    locale={locale}
+                    vaultPath={root}
+                    notePath={
+                      answerPage ? `${root}/${answerPage.path}` : undefined
+                    }
+                  />
+                  <VocabularyStudyDetails
+                    properties={item.card.properties}
+                    locale={locale}
+                    answer
+                  />
+                  {item.card.answerPageId && answerPage && (
+                    <div className="mt-4 border-t pt-3">
+                      <SourcePagePreview
+                        pageId={answerPage.id}
+                        title={answerPage.title}
+                        locale={locale}
+                      />
+                      <p className="break-all text-xs text-muted-foreground">
+                        {answerPage.path}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+        <footer className="shrink-0 border-t bg-background p-4 sm:px-8">
+          <div className="mx-auto max-w-2xl space-y-3">
+            {item?.page && !revealed && (
+              <Button
+                ref={revealButton}
+                className="w-full"
+                disabled={
+                  study.busy || !!study.error || !sourceReady || !questionReady
+                }
+                onClick={() => setFace({ key, revealed: true })}
+              >
+                {t('learning.showAnswer')}
+              </Button>
+            )}
+            {item?.page && revealed && (
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                {ratings.map((rating) => (
+                  <Button
+                    key={rating}
+                    variant="outline"
+                    className={`h-auto min-h-16 flex-col gap-1 whitespace-normal border-2 ${colors[rating - 1]}`}
+                    disabled={
+                      study.busy ||
+                      study.hasPending ||
+                      !!study.error ||
+                      !preview ||
+                      !sourceReady ||
+                      !answerReady
+                    }
+                    onClick={() => {
+                      void study.rate(rating)
+                    }}
+                  >
+                    <span>
+                      {t(labels[rating])}{' '}
+                      <kbd className="ml-1 opacity-50">{rating}</kbd>
+                    </span>
+                    <span className="text-xs font-normal text-muted-foreground">
+                      {interval(rating)}
+                    </span>
+                  </Button>
+                ))}
+              </div>
+            )}
+            <div className="flex items-center justify-between">
+              <Button
+                variant="ghost"
+                size="sm"
+                disabled={!session?.canUndo || study.busy || study.hasPending}
+                onClick={() => {
+                  void study.undo()
+                }}
+              >
+                {t('learning.undo')}
+              </Button>
+              {study.busy && (
+                <span role="status" className="text-sm text-muted-foreground">
+                  {t('learning.saving')}
+                </span>
+              )}
+            </div>
+          </div>
+        </footer>
+      </DialogContent>
+    </Dialog>
+  )
 }

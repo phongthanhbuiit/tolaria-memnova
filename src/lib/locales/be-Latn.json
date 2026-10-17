@@ -883,5 +883,15 @@
   "properties.pageHelp": "Značeńni zastajucca ŭ Markdown. Typy adlustrawańnia zachoŭvajucca asobna.",
   "properties.hintFailed": "Značeńni zachavany, ale typy — nie. Paŭtarycie zachavańnie typaŭ.",
   "properties.readyHelp": "Ułasnyja typy dastupny paśla padrychtoŭki Library. Zvyčajnyja pali praciahvajuć pracavać.",
-  "properties.pageChanged": "Staronka źmianiłasia. Pierad zachavańniem adkryjcie ŭłaścivaści nanova."
+  "properties.pageChanged": "Staronka źmianiłasia. Pierad zachavańniem adkryjcie ŭłaścivaści nanova.",
+  "properties.media": "Medyja",
+  "properties.mediaUnavailable": "Nie ŭdałosia zahruzić medyja. Praviercie šlach da fajła.",
+  "properties.chooseImage": "Vybrać vyjavu",
+  "properties.chooseAudio": "Vybrać aŭdyja",
+  "properties.nativePicker": "Vybar fajłaŭ dastupny ŭ nastolnaj prahramie.",
+  "properties.memory": "Raskład paŭtoraŭ · tolki čytańnie",
+  "properties.due": "Nastupny paŭtor",
+  "properties.reps": "Paŭtory",
+  "properties.lapses": "Zabyvańni",
+  "properties.invalidValue": "Pierad zachavańniem uviadzicie dapuščalnaje značennie abo vybierycie staronku."
 }

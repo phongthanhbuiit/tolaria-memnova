@@ -883,5 +883,15 @@
   "properties.pageHelp": "Wartości pozostają w Markdown. Typy wyświetlania są zapisywane oddzielnie.",
   "properties.hintFailed": "Wartości zapisano, ale typów nie. Ponów zapis typów.",
   "properties.readyHelp": "Własne typy są dostępne po przygotowaniu Library. Dotychczasowe pola nadal działają.",
-  "properties.pageChanged": "Strona uległa zmianie. Przed zapisem otwórz ponownie właściwości."
+  "properties.pageChanged": "Strona uległa zmianie. Przed zapisem otwórz ponownie właściwości.",
+  "properties.media": "Multimedia",
+  "properties.mediaUnavailable": "Nie udało się wczytać multimediów. Sprawdź ścieżkę pliku.",
+  "properties.chooseImage": "Wybierz obraz",
+  "properties.chooseAudio": "Wybierz dźwięk",
+  "properties.nativePicker": "Wybór plików jest dostępny w aplikacji komputerowej.",
+  "properties.memory": "Harmonogram powtórek · tylko do odczytu",
+  "properties.due": "Następna powtórka",
+  "properties.reps": "Powtórki",
+  "properties.lapses": "Zapomnienia",
+  "properties.invalidValue": "Przed zapisem wpisz prawidłową wartość lub wybierz stronę."
 }
