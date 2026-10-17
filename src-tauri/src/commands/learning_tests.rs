@@ -149,3 +149,22 @@ fn backup_commands_restore_only_into_a_fresh_directory_inside_the_library() {
         "# Original lesson"
     );
 }
+
+#[test]
+fn migration_preview_does_not_initialize_a_library_database() {
+    let dir = tempfile::tempdir().unwrap();
+    std::fs::write(dir.path().join("lesson.md"), "# Original lesson\n").unwrap();
+    let preview = execute(
+        &dir.path().to_string_lossy(),
+        None,
+        LearningRequest::PreviewMigration,
+    )
+    .unwrap();
+    assert_eq!(preview["pageCount"], 1);
+    assert_eq!(preview["cardCount"], 0);
+    assert!(!dir.path().join(".memnova").exists());
+    assert_eq!(
+        std::fs::read_to_string(dir.path().join("lesson.md")).unwrap(),
+        "# Original lesson\n"
+    );
+}

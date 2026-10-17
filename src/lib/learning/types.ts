@@ -1,5 +1,6 @@
 import type { FSRSCard } from '../fsrs'
-import type { VaultPropertyValue } from '../../types'
+
+export type LearningProperty = string | number | boolean | null | LearningProperty[] | { [key: string]: LearningProperty }
 
 export interface LearningSchedule extends FSRSCard {
   learningSteps: number
@@ -13,7 +14,7 @@ export interface CardDraft {
   answerMode: 'inline' | 'page'
   status: 'draft' | 'active' | 'suspended' | 'trashed'
   position: number
-  properties: Record<string, VaultPropertyValue>
+  properties: Record<string, LearningProperty>
 }
 
 export interface LearningCard extends CardDraft {
@@ -36,4 +37,31 @@ export interface BackupDescriptor {
   createdAt: number
   fileCount: number
   bytes: number
+}
+
+export interface MigrationIssue {
+  path: string
+  code: string
+  severity: 'error' | 'warning'
+  detail: string
+}
+
+export interface LegacyPagePreview {
+  path: string
+  title: string
+  existingId: string | null
+  fingerprint: string
+  card: { draft: CardDraft; schedule: LearningSchedule } | null
+}
+
+export interface MigrationPreview {
+  pageCount: number
+  cardCount: number
+  activeCards: number
+  draftCards: number
+  suspendedCards: number
+  wholePageCards: number
+  fingerprint: string
+  issues: MigrationIssue[]
+  pages: LegacyPagePreview[]
 }

@@ -24,4 +24,14 @@ describe('learning IPC client', () => {
     const client = await LearningClient.connect('/library')
     await expect(client.cloneCard('card-1')).rejects.toThrow('Disk full')
   })
+
+  it('previews legacy data without initializing a database connection', async () => {
+    const preview = { pageCount: 4, cardCount: 3, fingerprint: 'source-snapshot' }
+    vi.mocked(invoke).mockResolvedValue(preview)
+    await expect(LearningClient.previewMigration('/library')).resolves.toEqual(preview)
+    expect(invoke).toHaveBeenCalledTimes(1)
+    expect(invoke).toHaveBeenCalledWith('learning_command', {
+      vaultPath: '/library', libraryId: null, request: { kind: 'previewMigration' },
+    })
+  })
 })

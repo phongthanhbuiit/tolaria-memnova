@@ -13,4 +13,11 @@ mod backup_tests;
 #[cfg(test)]
 mod card_tests;
 #[cfg(test)]
+mod migration_preview_tests;
+#[cfg(test)]
 mod store_tests;
+
+mod legacy_markdown;
+mod migration_preview;
+pub use legacy_markdown::{LegacyCard, LegacyPage};
+pub use migration_preview::{preview_migration, MigrationIssue, MigrationPreview};

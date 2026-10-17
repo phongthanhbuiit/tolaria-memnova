@@ -20,7 +20,7 @@ This ledger tracks the plan from the conversation. A checked implementation is n
 | C04 | C03 | Pages/cards/schedules/reviews/sessions/decks with indexes and constraints | Base backend verified/pushed; remaining endpoints/profile integration pending |
 | C05 | C04 | Typed IPC/client; frontend cannot supply SQL or arbitrary database paths | Base backend verified/pushed; remaining endpoints/profile integration pending |
 | D01 | C05 | Consistent backup of SQLite, lessons and media; verified restore into fresh directory | Backend verified/pushed; migration/UI wiring pending |
-| D02 | D01 | Read-only migration preview reports counts, invalid schedules and conflicts | Pending |
+| D02 | D01 | Read-only migration preview reports counts, invalid schedules and conflicts | Read-only page/card preview implemented; history/import/UI stages pending |
 | D03 | D02 | Backup-first, idempotent/resumable legacy migration preserves schedules/history/media | Pending |
 | D04 | D03 | Explicit verified cutover; no duplicate legacy writes; recoverable failure | Pending |
 | E01 | D04 | Scheduler adapter; maintained engine update is separate from data import | Pending |

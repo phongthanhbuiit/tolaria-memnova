@@ -12,6 +12,7 @@ use serde_json::{json, Value};
 )]
 pub enum LearningRequest {
     Describe,
+    PreviewMigration,
     ListCards {
         page_id: Option<String>,
         include_trashed: bool,
@@ -40,6 +41,13 @@ pub(super) fn execute(
     request: LearningRequest,
 ) -> Result<Value, String> {
     let boundary = VaultBoundary::from_request(Some(vault_path))?;
+    if matches!(request, LearningRequest::PreviewMigration) {
+        return serde_json::to_value(crate::learning::preview_migration(
+            boundary.requested_root(),
+            None,
+        )?)
+        .map_err(|error| error.to_string());
+    }
     boundary.child_path(".memnova")?;
     let mut store = Store::open(boundary.requested_root())?;
     if !matches!(request, LearningRequest::Describe)
@@ -48,6 +56,9 @@ pub(super) fn execute(
         return Err("Library identity changed; reload before continuing".into());
     }
     let result = match request {
+        LearningRequest::PreviewMigration => {
+            return Err("Migration preview must run before storage initialization".into())
+        }
         LearningRequest::Describe => json!({"libraryId":store.library_id,"schemaVersion":1}),
         LearningRequest::ListCards {
             page_id,

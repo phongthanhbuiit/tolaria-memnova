@@ -223,6 +223,14 @@ fn extract_yml_name(path: &Path) -> Option<String> {
 
 /// Re-read a single file from disk and return a fresh VaultEntry.
 /// Uses filesystem dates (no git lookup) since the file was likely just saved.
+pub(crate) fn title_from_markdown(
+    frontmatter_title: Option<&str>,
+    content: &str,
+    filename: &str,
+) -> String {
+    parsing::extract_title(frontmatter_title, content, filename)
+}
+
 pub fn reload_entry(path: &Path) -> Result<VaultEntry, String> {
     if !path.exists() {
         return Err(format!("File does not exist: {}", path.display()));
