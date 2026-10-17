@@ -893,5 +893,12 @@
   "properties.due": "Nächste Wiederholung",
   "properties.reps": "Wiederholungen",
   "properties.lapses": "Fehlversuche",
-  "properties.invalidValue": "Vor dem Speichern einen gültigen Wert eingeben oder eine Seite wählen."
+  "properties.invalidValue": "Vor dem Speichern einen gültigen Wert eingeben oder eine Seite wählen.",
+  "cardEditor.applyName": "Namen übernehmen",
+  "cardEditor.applyType": "Typ übernehmen",
+  "cardEditor.manageField": "Feld verwalten",
+  "cardEditor.changeType": "Typ ändern",
+  "cardEditor.previewSource": "Quelle ansehen",
+  "cardEditor.currentValue": "Aktueller Wert",
+  "cardEditor.nextValue": "Neuer Wert"
 }

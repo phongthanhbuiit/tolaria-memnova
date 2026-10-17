@@ -893,5 +893,12 @@
   "properties.due": "다음 복습",
   "properties.reps": "복습 횟수",
   "properties.lapses": "잊은 횟수",
-  "properties.invalidValue": "저장하기 전에 올바른 값을 입력하거나 페이지를 선택하세요."
+  "properties.invalidValue": "저장하기 전에 올바른 값을 입력하거나 페이지를 선택하세요.",
+  "cardEditor.applyName": "이름 적용",
+  "cardEditor.applyType": "유형 적용",
+  "cardEditor.manageField": "필드 관리",
+  "cardEditor.changeType": "유형 변경",
+  "cardEditor.previewSource": "원본 미리 보기",
+  "cardEditor.currentValue": "현재 값",
+  "cardEditor.nextValue": "새 값"
 }

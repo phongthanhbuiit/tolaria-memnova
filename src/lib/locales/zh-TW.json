@@ -893,5 +893,12 @@
   "properties.due": "下次複習",
   "properties.reps": "複習次數",
   "properties.lapses": "遺忘次數",
-  "properties.invalidValue": "請在儲存前輸入有效值或選擇頁面。"
+  "properties.invalidValue": "請在儲存前輸入有效值或選擇頁面。",
+  "cardEditor.applyName": "套用名稱",
+  "cardEditor.applyType": "套用類型",
+  "cardEditor.manageField": "管理欄位",
+  "cardEditor.changeType": "變更類型",
+  "cardEditor.previewSource": "預覽來源",
+  "cardEditor.currentValue": "目前值",
+  "cardEditor.nextValue": "新值"
 }

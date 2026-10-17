@@ -1,3 +1,4 @@
+import { Check, Plus, PencilSimple, Trash } from '@phosphor-icons/react'
 import { cardEditorStyles } from './cardEditorStyles'
 import { useState } from 'react'
 import { Button } from '../ui/button'
@@ -153,7 +154,7 @@ function PropertyRow(props: {
             }
           }}
         >
-          {t('properties.rename')}
+          <PencilSimple className={cardEditorStyles.icon} aria-hidden="true" />{t('properties.rename')}
         </Button>
         <Button
           variant="ghost"
@@ -162,7 +163,7 @@ function PropertyRow(props: {
           disabled={disabled}
           onClick={onRemove}
         >
-          {t('common.remove')}
+          <Trash className={cardEditorStyles.icon} aria-hidden="true" />{t('common.remove')}
         </Button>
       </div>
       <KindSelect
@@ -213,6 +214,7 @@ function PropertyRow(props: {
             {JSON.stringify(conversion.value)}
           </pre>
           <Button
+            variant="secondary"
             size="sm"
             disabled={disabled}
             onClick={() => {
@@ -220,7 +222,7 @@ function PropertyRow(props: {
               setConversion(null)
             }}
           >
-            {t('common.save')}
+            <Check className={cardEditorStyles.icon} aria-hidden="true" />{t('cardEditor.applyType')}
           </Button>
           <Button
             variant="ghost"
@@ -347,11 +349,11 @@ export function PropertyEditor(props: Props) {
           onChange={setKind}
         />
         <Button
-          variant="outline"
+          variant="ghost"
           disabled={disabled || !name.trim()}
           onClick={add}
         >
-          {t('inspector.properties.addProperty')}
+          <Plus className={cardEditorStyles.icon} aria-hidden="true" />{t('inspector.properties.addProperty')}
         </Button>
         {error && (
           <p role="alert" className="text-sm text-destructive">

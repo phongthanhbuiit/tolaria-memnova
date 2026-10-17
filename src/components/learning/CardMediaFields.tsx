@@ -1,3 +1,5 @@
+import { CaretDown, ImageSquare, MusicNotes } from '@phosphor-icons/react'
+import { cardEditorStyles } from './cardEditorStyles'
 import { useEffect, useId, useRef, useState } from 'react'
 import { invoke } from '@tauri-apps/api/core'
 import { trackEvent } from '../../lib/telemetry'
@@ -107,7 +109,7 @@ export function CardMediaFields(props: Props) {
         onClick={() => setExpanded((value) => !value)}
       >
         {translate(locale, 'properties.media')}
-        <span aria-hidden="true">{expanded ? '−' : '+'}</span>
+        <CaretDown className={`${cardEditorStyles.icon} ${expanded ? 'rotate-180' : ''}`} aria-hidden="true" />
       </Button>
       {expanded && (
         <div id={id} className="space-y-4 border-t p-3">
@@ -140,6 +142,7 @@ export function CardMediaFields(props: Props) {
                   }
                   onClick={() => void choose(kind)}
                 >
+                  {kind === 'image' ? <ImageSquare className={cardEditorStyles.icon} aria-hidden="true" /> : <MusicNotes className={cardEditorStyles.icon} aria-hidden="true" />}
                   {translate(
                     locale,
                     kind === 'image'

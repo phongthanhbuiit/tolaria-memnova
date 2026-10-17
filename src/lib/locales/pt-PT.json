@@ -893,5 +893,12 @@
   "properties.due": "Próxima revisão",
   "properties.reps": "Revisões",
   "properties.lapses": "Esquecimentos",
-  "properties.invalidValue": "Introduza um valor válido ou escolha uma página antes de guardar."
+  "properties.invalidValue": "Introduza um valor válido ou escolha uma página antes de guardar.",
+  "cardEditor.applyName": "Aplicar nome",
+  "cardEditor.applyType": "Aplicar tipo",
+  "cardEditor.manageField": "Gerir campo",
+  "cardEditor.changeType": "Alterar tipo",
+  "cardEditor.previewSource": "Pré-visualizar fonte",
+  "cardEditor.currentValue": "Valor atual",
+  "cardEditor.nextValue": "Novo valor"
 }

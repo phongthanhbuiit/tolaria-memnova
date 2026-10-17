@@ -1,3 +1,4 @@
+import { FloppyDisk, CircleNotch } from '@phosphor-icons/react'
 import { cardEditorStyles } from './cardEditorStyles'
 import { useId, useState } from 'react'
 import { Button } from '../ui/button'
@@ -367,7 +368,7 @@ export function CardForm({
         </div>
         <div className={`${cardEditorStyles.footer} flex shrink-0 justify-end gap-2 border-t bg-background p-4`}>
           <Button
-            variant="outline"
+            variant="ghost"
             disabled={busy || sourceBusy || propertyBusy}
             onClick={onClose}
           >
@@ -385,6 +386,7 @@ export function CardForm({
               void save()
             }}
           >
+            {busy ? <CircleNotch className={`${cardEditorStyles.icon} animate-spin`} aria-hidden="true" /> : <FloppyDisk className={cardEditorStyles.icon} aria-hidden="true" />}
             {t(
               busy
                 ? 'learning.saving'

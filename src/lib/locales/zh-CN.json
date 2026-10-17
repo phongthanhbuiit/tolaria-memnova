@@ -893,5 +893,12 @@
   "properties.due": "下次复习",
   "properties.reps": "复习次数",
   "properties.lapses": "遗忘次数",
-  "properties.invalidValue": "请在保存前输入有效值或选择页面。"
+  "properties.invalidValue": "请在保存前输入有效值或选择页面。",
+  "cardEditor.applyName": "应用名称",
+  "cardEditor.applyType": "应用类型",
+  "cardEditor.manageField": "管理字段",
+  "cardEditor.changeType": "更改类型",
+  "cardEditor.previewSource": "预览来源",
+  "cardEditor.currentValue": "当前值",
+  "cardEditor.nextValue": "新值"
 }

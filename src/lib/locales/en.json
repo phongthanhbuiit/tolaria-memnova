@@ -893,5 +893,12 @@
   "properties.due": "Next review",
   "properties.reps": "Reviews",
   "properties.lapses": "Lapses",
-  "properties.invalidValue": "Enter a valid value or choose a page before saving."
+  "properties.invalidValue": "Enter a valid value or choose a page before saving.",
+  "cardEditor.applyName": "Apply name",
+  "cardEditor.applyType": "Apply type",
+  "cardEditor.manageField": "Manage field",
+  "cardEditor.changeType": "Change type",
+  "cardEditor.previewSource": "Preview source",
+  "cardEditor.currentValue": "Current value",
+  "cardEditor.nextValue": "New value"
 }

@@ -893,5 +893,12 @@
   "properties.due": "Prossimo ripasso",
   "properties.reps": "Ripassi",
   "properties.lapses": "Dimenticanze",
-  "properties.invalidValue": "Inserisci un valore valido o scegli una pagina prima di salvare."
+  "properties.invalidValue": "Inserisci un valore valido o scegli una pagina prima di salvare.",
+  "cardEditor.applyName": "Applica nome",
+  "cardEditor.applyType": "Applica tipo",
+  "cardEditor.manageField": "Gestisci campo",
+  "cardEditor.changeType": "Cambia tipo",
+  "cardEditor.previewSource": "Anteprima della fonte",
+  "cardEditor.currentValue": "Valore attuale",
+  "cardEditor.nextValue": "Nuovo valore"
 }

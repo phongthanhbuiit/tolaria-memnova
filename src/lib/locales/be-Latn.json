@@ -893,5 +893,12 @@
   "properties.due": "Nastupny paŭtor",
   "properties.reps": "Paŭtory",
   "properties.lapses": "Zabyvańni",
-  "properties.invalidValue": "Pierad zachavańniem uviadzicie dapuščalnaje značennie abo vybierycie staronku."
+  "properties.invalidValue": "Pierad zachavańniem uviadzicie dapuščalnaje značennie abo vybierycie staronku.",
+  "cardEditor.applyName": "Užyć nazvu",
+  "cardEditor.applyType": "Užyć typ",
+  "cardEditor.manageField": "Kiravannie poliem",
+  "cardEditor.changeType": "Źmianić typ",
+  "cardEditor.previewSource": "Prahlad krynicy",
+  "cardEditor.currentValue": "Biahučaje značeńnie",
+  "cardEditor.nextValue": "Novaje značeńnie"
 }

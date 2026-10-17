@@ -7,5 +7,5 @@ export const cardEditorStyles = {
   footer: 'learning-editor-footer',
   sectionTitle: 'learning-editor-section-title',
   helper: 'learning-editor-helper',
-  icon: 'learning-editor-icon',
+  icon: 'learning-editor-icon size-[16px]',
 } as const

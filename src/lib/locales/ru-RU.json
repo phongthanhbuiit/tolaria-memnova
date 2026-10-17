@@ -893,5 +893,12 @@
   "properties.due": "Следующее повторение",
   "properties.reps": "Повторения",
   "properties.lapses": "Забывания",
-  "properties.invalidValue": "Перед сохранением введите допустимое значение или выберите страницу."
+  "properties.invalidValue": "Перед сохранением введите допустимое значение или выберите страницу.",
+  "cardEditor.applyName": "Применить имя",
+  "cardEditor.applyType": "Применить тип",
+  "cardEditor.manageField": "Управление полем",
+  "cardEditor.changeType": "Изменить тип",
+  "cardEditor.previewSource": "Просмотр источника",
+  "cardEditor.currentValue": "Текущее значение",
+  "cardEditor.nextValue": "Новое значение"
 }

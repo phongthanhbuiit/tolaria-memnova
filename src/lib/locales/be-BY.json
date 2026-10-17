@@ -893,5 +893,12 @@
   "properties.due": "Наступны паўтор",
   "properties.reps": "Паўторы",
   "properties.lapses": "Забыванні",
-  "properties.invalidValue": "Перад захаваннем увядзіце дапушчальнае значэнне або выберыце старонку."
+  "properties.invalidValue": "Перад захаваннем увядзіце дапушчальнае значэнне або выберыце старонку.",
+  "cardEditor.applyName": "Ужыць назву",
+  "cardEditor.applyType": "Ужыць тып",
+  "cardEditor.manageField": "Кіраванне полем",
+  "cardEditor.changeType": "Змяніць тып",
+  "cardEditor.previewSource": "Прагляд крыніцы",
+  "cardEditor.currentValue": "Бягучае значэнне",
+  "cardEditor.nextValue": "Новае значэнне"
 }

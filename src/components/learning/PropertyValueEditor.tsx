@@ -1,3 +1,4 @@
+import { CalendarBlank, Plus } from '@phosphor-icons/react'
 import { cardEditorStyles } from './cardEditorStyles'
 import { useState } from 'react'
 import { Input } from '../ui/input'
@@ -58,7 +59,7 @@ function DateValue({ name, value, disabled, onChange, locale }: Props) {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant="outline" disabled={disabled} aria-label={name}>
-          {text || translate(locale, 'inspector.properties.pickDate')}
+          <CalendarBlank className={cardEditorStyles.icon} aria-hidden="true" />{text || translate(locale, 'inspector.properties.pickDate')}
         </Button>
       </PopoverTrigger>
       <PopoverContent className={`${cardEditorStyles.portal} w-auto p-0`}>
@@ -155,12 +156,12 @@ function ListValue(props: Props) {
         />
       ) : (
         <Button
-          variant="outline"
+          variant="ghost"
           size="sm"
           disabled={disabled}
           onClick={() => onChange([...items, ''])}
         >
-          {translate(locale, 'properties.addItem')}
+          <Plus className={cardEditorStyles.icon} aria-hidden="true" />{translate(locale, 'properties.addItem')}
         </Button>
       )}
     </div>

@@ -893,5 +893,12 @@
   "properties.due": "次の復習",
   "properties.reps": "復習回数",
   "properties.lapses": "忘れた回数",
-  "properties.invalidValue": "保存前に有効な値を入力するかページを選択してください。"
+  "properties.invalidValue": "保存前に有効な値を入力するかページを選択してください。",
+  "cardEditor.applyName": "名前を適用",
+  "cardEditor.applyType": "型を適用",
+  "cardEditor.manageField": "項目を管理",
+  "cardEditor.changeType": "型を変更",
+  "cardEditor.previewSource": "参照元を表示",
+  "cardEditor.currentValue": "現在の値",
+  "cardEditor.nextValue": "新しい値"
 }

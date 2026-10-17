@@ -893,5 +893,12 @@
   "properties.due": "Lần ôn tiếp theo",
   "properties.reps": "Lượt ôn",
   "properties.lapses": "Lần quên",
-  "properties.invalidValue": "Nhập giá trị hợp lệ hoặc chọn trang trước khi lưu."
+  "properties.invalidValue": "Nhập giá trị hợp lệ hoặc chọn trang trước khi lưu.",
+  "cardEditor.applyName": "Áp dụng tên",
+  "cardEditor.applyType": "Áp dụng kiểu",
+  "cardEditor.manageField": "Quản lý trường",
+  "cardEditor.changeType": "Đổi kiểu",
+  "cardEditor.previewSource": "Xem nguồn",
+  "cardEditor.currentValue": "Giá trị hiện tại",
+  "cardEditor.nextValue": "Giá trị mới"
 }

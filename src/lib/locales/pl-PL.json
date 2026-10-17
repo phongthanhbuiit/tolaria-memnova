@@ -893,5 +893,12 @@
   "properties.due": "Następna powtórka",
   "properties.reps": "Powtórki",
   "properties.lapses": "Zapomnienia",
-  "properties.invalidValue": "Przed zapisem wpisz prawidłową wartość lub wybierz stronę."
+  "properties.invalidValue": "Przed zapisem wpisz prawidłową wartość lub wybierz stronę.",
+  "cardEditor.applyName": "Zastosuj nazwę",
+  "cardEditor.applyType": "Zastosuj typ",
+  "cardEditor.manageField": "Zarządzaj polem",
+  "cardEditor.changeType": "Zmień typ",
+  "cardEditor.previewSource": "Podgląd źródła",
+  "cardEditor.currentValue": "Bieżąca wartość",
+  "cardEditor.nextValue": "Nowa wartość"
 }

@@ -893,5 +893,12 @@
   "properties.due": "Ulasan berikutnya",
   "properties.reps": "Ulasan",
   "properties.lapses": "Lupa",
-  "properties.invalidValue": "Masukkan nilai yang valid atau pilih halaman sebelum menyimpan."
+  "properties.invalidValue": "Masukkan nilai yang valid atau pilih halaman sebelum menyimpan.",
+  "cardEditor.applyName": "Terapkan nama",
+  "cardEditor.applyType": "Terapkan tipe",
+  "cardEditor.manageField": "Kelola bidang",
+  "cardEditor.changeType": "Ubah tipe",
+  "cardEditor.previewSource": "Pratinjau sumber",
+  "cardEditor.currentValue": "Nilai saat ini",
+  "cardEditor.nextValue": "Nilai baru"
 }

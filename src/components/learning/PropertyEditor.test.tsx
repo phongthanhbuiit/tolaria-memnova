@@ -81,7 +81,7 @@ it('rejects duplicate and reserved names and previews a safe type conversion', (
   expect(JSON.parse(screen.getByTestId('draft').textContent!).values.zero).toBe(
     0,
   )
-  fireEvent.click(screen.getByRole('button', { name: 'Save', exact: true }))
+  fireEvent.click(screen.getByRole('button', { name: 'Apply type', exact: true }))
   expect(JSON.parse(screen.getByTestId('draft').textContent!).values.zero).toBe(
     '0',
   )
