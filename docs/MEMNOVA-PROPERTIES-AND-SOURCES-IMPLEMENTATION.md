@@ -4,9 +4,9 @@ Plan: [N00–N17](./MEMNOVA-PROPERTIES-AND-SOURCES-PLAN.md). Starting checkout: 
 
 | Task | State | Evidence / commit |
 |---|---|---|
-| N00 | Verified, push pending | Frontend baseline 35/35; four expected failing review probes. Rust baseline rerun passed after cleaning regenerable build artifacts. Schema v2. /tmp/memnova-n00-{frontend,rust,probes}.log |
-| N01 | Verified, push pending | ADR-0145 defines wire/storage/editor boundaries; docs-only, contract follows the plan. |
-| N02 | TODO | |
+| N00 | DONE | Frontend baseline 35/35; four expected failing review probes. Rust baseline rerun passed after cleaning regenerable build artifacts. Schema v2. /tmp/memnova-n00-{frontend,rust,probes}.log |
+| N01 | DONE | 6c0e5fb4 pushed. ADR-0145 defines wire/storage/editor boundaries; docs-only, contract follows the plan. |
+| N02 | Verified, push pending | Three RED regressions, then 38/38 learning tests; metadata arrays/aliases preserved. /tmp/memnova-n02-{red,green,types,codacy}.log. No UI copy, schema, schedule or analytics change. |
 | N03 | TODO | |
 | N04 | TODO | |
 | N05 | TODO | |

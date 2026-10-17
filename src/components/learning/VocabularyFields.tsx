@@ -4,11 +4,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { WikilinkPropertyField } from '../WikilinkPropertyField'
 import { translate, type AppLocale } from '../../lib/i18n'
 import type { LearningProperty } from '../../lib/learning/types'
-import { addVocabularyLink, parseVocabularyLinks, removeVocabularyLink, vocabularyContext, vocabularyRelations, vocabularyText } from '../../lib/learning/vocabulary'
+import { addVocabularyRelation, parseVocabularyLinks, removeVocabularyRelation, vocabularyEditable, vocabularyContext, vocabularyRelations, vocabularyText } from '../../lib/learning/vocabulary'
 import { useLearningWorkspace } from './LearningContext'
 
 type Properties = Record<string, LearningProperty>
-export function VocabularyFields({ properties, locale, disabled, onChange }: { properties: Properties; locale: AppLocale; disabled: boolean; onChange: (key: string, value: string) => void }) {
+export function VocabularyFields({ properties, locale, disabled, onChange }: { properties: Properties; locale: AppLocale; disabled: boolean; onChange: (key: string, value: LearningProperty) => void }) {
   const workspace = useLearningWorkspace()
   const entries = (workspace?.entries ?? []).filter(entry => entry.path.startsWith(`${workspace?.root ?? workspace?.client?.vaultPath}/`))
   const types = Object.fromEntries(entries.filter(entry => entry.isA === 'Type').map(entry => [entry.title, entry]))
@@ -16,8 +16,8 @@ export function VocabularyFields({ properties, locale, disabled, onChange }: { p
   return <div className="space-y-4">
     <div className="grid gap-2 text-sm font-medium"><span>{translate(locale, 'learning.cardType')}</span><Select disabled={disabled} value={cardType} onValueChange={value => onChange('card_type', value)}><SelectTrigger aria-label={translate(locale, 'learning.cardType')}><SelectValue /></SelectTrigger><SelectContent>{(['basic', 'vocabulary'] as const).map(value => <SelectItem key={value} value={value}>{translate(locale, `learning.${value}`)}</SelectItem>)}</SelectContent></Select></div>
     {cardType === 'vocabulary' && <div className="grid gap-4 sm:grid-cols-2">
-      {vocabularyContext.map(([key, label]) => <label key={key} className="grid gap-2 text-sm">{translate(locale, label)}<Input disabled={disabled} value={vocabularyText(properties, key)} onChange={event => onChange(key, event.target.value)} /></label>)}
-      {vocabularyRelations.map(([key, label]) => <WikilinkPropertyField key={key} id={`learning-${key}`} label={translate(locale, label)} icon={LinkSimple} locale={locale} disabled={disabled} value={vocabularyText(properties, key)} placeholder={translate(locale, 'learning.addRelated')} entries={entries} typeEntryMap={types} onAdd={target => onChange(key, addVocabularyLink(vocabularyText(properties, key), target))} onRemove={target => onChange(key, removeVocabularyLink(vocabularyText(properties, key), target))} />)}
+      {vocabularyContext.map(([key, label]) => <label key={key} className="grid gap-2 text-sm">{translate(locale, label)}<Input disabled={disabled || !vocabularyEditable(properties[key])} value={vocabularyText(properties, key)} onChange={event => onChange(key, event.target.value)} /></label>)}
+      {vocabularyRelations.map(([key, label]) => <WikilinkPropertyField key={key} id={`learning-${key}`} label={translate(locale, label)} icon={LinkSimple} locale={locale} disabled={disabled || !vocabularyEditable(properties[key])} value={vocabularyText(properties, key)} placeholder={translate(locale, 'learning.addRelated')} entries={entries} typeEntryMap={types} onAdd={target => onChange(key, addVocabularyRelation(properties[key], target))} onRemove={target => onChange(key, removeVocabularyRelation(properties[key], target))} />)}
     </div>}
   </div>
 }

@@ -5,7 +5,7 @@ import { Textarea } from '../ui/textarea'
 import { Switch } from '../ui/switch'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../ui/dialog'
-import type { CardDraft, LearningCard } from '../../lib/learning/types'
+import type { CardDraft, LearningCard, LearningProperty } from '../../lib/learning/types'
 import { translate, type TranslationKey, type AppLocale } from '../../lib/i18n'
 import { trackEvent } from '../../lib/telemetry'
 import { VocabularyFields } from './VocabularyFields'
@@ -38,7 +38,7 @@ export function CardForm({ card, initialDraft, pageId, locale, onClose }: { card
     finally { setBusy(false) }
   }
   const field = (key: 'front' | 'back', value: string) => setDraft(previous => ({ ...previous, [key]: value }))
-  const metadata = (key: string, value: string) => setDraft(previous => ({ ...previous, properties: { ...previous.properties, [key]: value } }))
+  const metadata = (key: string, value: LearningProperty) => setDraft(previous => ({ ...previous, properties: { ...previous.properties, [key]: value } }))
   return <Dialog open onOpenChange={open => { if (!open && !busy) onClose() }}>
     <DialogContent showCloseButton={false} className="flex max-h-[90dvh] flex-col gap-0 overflow-hidden p-0 sm:max-w-2xl" onEscapeKeyDown={event => { if (busy) event.preventDefault() }} onInteractOutside={event => { if (busy) event.preventDefault() }}>
       <DialogHeader className="shrink-0 border-b p-5"><DialogTitle>{t(persisted ? 'learning.editCard' : 'learning.addCard')}</DialogTitle><DialogDescription>{t('learning.questionHelp')}</DialogDescription></DialogHeader>

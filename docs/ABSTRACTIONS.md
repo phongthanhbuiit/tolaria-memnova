@@ -1009,3 +1009,5 @@ Page-registration and source-synchronization transactions use `TransactionBehavi
 - `hooks/useLearningStudy.ts`: per-visit async ownership, shared mutation lock, exact rating replay and pending committed-data refresh. Errors must not leak from an earlier Library visit.
 - `hooks/useLearningLibrary.ts`: generation-guarded loading, including rejection of delayed background refresh errors after a Library switch.
 - `scripts/precommit-checks.mjs`: pure staged-path check planning plus fail-fast execution with argv arrays. Tested separately with Node's test runner; the full pre-push release gate remains authoritative.
+
+Vocabulary relation adapters preserve string-array storage and opaque values; add/remove affects only the chosen target. Unsupported metadata shapes disable destructive preset editors. CardForm metadata callbacks accept LearningProperty rather than forcing every value to a string.
