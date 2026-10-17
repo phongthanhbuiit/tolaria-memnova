@@ -122,3 +122,12 @@ export interface RateRequest {
   schedule: LearningSchedule
 }
 export interface RateResult { session: StudySession; earnedXp: number; replayed: boolean }
+
+export interface LearningPage {
+  id: string
+  path: string
+  title: string
+  available: boolean
+  createdAt: number | null
+  modifiedAt: number | null
+}

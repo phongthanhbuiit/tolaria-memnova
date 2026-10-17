@@ -167,7 +167,7 @@ test('opening an existing vault from onboarding persists the selection and survi
   await expect(page.getByTestId('status-vault-trigger')).toContainText('Work')
 
   await expect.poll(() => readPersistedState(page)).toEqual({
-    vaults: [{ label: 'Work', path: vaultPath }],
+    vaults: [{ label: 'Work', path: vaultPath, alias: null, color: null, icon: null, mounted: true }],
     active_vault: vaultPath,
     hidden_defaults: [],
     availablePaths: [vaultPath],
@@ -189,6 +189,7 @@ test('cloning Getting Started from onboarding persists the default vault and sur
   await page.goto('/', { waitUntil: 'domcontentloaded' })
 
   await expect(page.getByTestId('welcome-screen')).toBeVisible()
+  await page.getByRole('button', { name: 'Advanced', exact: true }).click()
   await page.getByTestId('welcome-create-vault').click()
 
   await expect(page.getByTestId('note-list-container')).toBeVisible({ timeout: 5_000 })

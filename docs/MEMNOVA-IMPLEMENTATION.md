@@ -15,21 +15,21 @@ This ledger tracks the plan from the conversation. A checked implementation is n
 | B02 | B01 | One atomic schedule write, save failures propagate, stats follow save | Implemented and pushed through verified hooks |
 | B03 | B02 | Stable session queue, live due clock, deck root, load cancellation, empty answer marker | Implemented and pushed through verified hooks |
 | C01 | A01–B03 | ADR defines learning authority, identifiers, transactions, backup and compatibility | Recorded in ADR-0138 |
-| C02 | C01 | Persistent library UUID and page UUID survive moves/renames; duplicate detection | Backend verified/pushed; Markdown ID assignment pending D03 |
-| C03 | C02 | Rust SQLite ownership, versioned migration, WAL, foreign keys, boundaries | Base backend verified/pushed; remaining endpoints/profile integration pending |
-| C04 | C03 | Pages/cards/schedules/reviews/sessions/decks with indexes and constraints | Base backend verified/pushed; remaining endpoints/profile integration pending |
-| C05 | C04 | Typed IPC/client; frontend cannot supply SQL or arbitrary database paths | Base backend verified/pushed; remaining endpoints/profile integration pending |
-| D01 | C05 | Consistent backup of SQLite, lessons and media; verified restore into fresh directory | Backend verified/pushed; migration/UI wiring pending |
-| D02 | D01 | Read-only migration preview reports counts, invalid schedules and conflicts | Read-only page/card preview implemented; history/import/UI stages pending |
-| D03 | D02 | Backup-first, idempotent/resumable legacy migration preserves schedules/history/media | Backend verified/pushed at 941a1e87; UI wiring pending |
-| D04 | D03 | Explicit verified cutover; no duplicate legacy writes; recoverable failure | Backend verified/pushed at 941a1e87; UI wiring and native QA pending |
-| E01 | D04 | Scheduler adapter; maintained engine update is separate from data import | Pure adapter verified/pushed at b90cd298; study wiring pending |
-| E02 | E01 | Session state machine, stable IDs, persisted rating transaction, Again waiting/reinsertion | Native implementation/coverage verified; push and UI wiring pending |
-| E03 | E02 | Resume and last-review undo with concurrency/idempotency guards | Native implementation/coverage verified; push and UI wiring pending |
-| F01 | C05,D04 | Page Content/Flashcards tabs with independent lesson and card editing | Pending |
-| F02 | F01 | Card CRUD/drafts/clone/suspend/trash, whole-page answer, retained vocabulary/media | Pending |
-| F03 | E03,F02 | Study loading/saving/error/focus/mouse/keyboard behavior and responsive styling | Pending |
-| F04 | F03 | Library/pages/decks/stats query the same learning authority, no duplicate totals | Pending |
+| C02 | C01 | Persistent library UUID and page UUID survive moves/renames; duplicate detection | Implemented; migration identity assignment verified |
+| C03 | C02 | Rust SQLite ownership, versioned migration, WAL, foreign keys, boundaries | Implemented; UUID-bound pages/cards/sessions/stats integrated |
+| C04 | C03 | Pages/cards/schedules/reviews/sessions/decks with indexes and constraints | Implemented; UUID-bound pages/cards/sessions/stats integrated |
+| C05 | C04 | Typed IPC/client; frontend cannot supply SQL or arbitrary database paths | Implemented; UUID-bound pages/cards/sessions/stats integrated |
+| D01 | C05 | Consistent backup of SQLite, lessons and media; verified restore into fresh directory | Backend and backup/restore controls integrated; native QA pending G02 |
+| D02 | D01 | Read-only migration preview reports counts, invalid schedules and conflicts | Read-only page/card/history preview and import controls integrated |
+| D03 | D02 | Backup-first, idempotent/resumable legacy migration preserves schedules/history/media | Backend pushed at 941a1e87; UI integrated, native QA pending G02 |
+| D04 | D03 | Explicit verified cutover; no duplicate legacy writes; recoverable failure | Backend pushed at 941a1e87; UI integrated, native QA pending G02 |
+| E01 | D04 | Scheduler adapter; maintained engine update is separate from data import | Adapter pushed at b90cd298; study integrated |
+| E02 | E01 | Session state machine, stable IDs, persisted rating transaction, Again waiting/reinsertion | Native pushed at 6f030e50; UI integrated, native QA pending G02 |
+| E03 | E02 | Resume and last-review undo with concurrency/idempotency guards | Native pushed at 6f030e50; UI integrated, native QA pending G02 |
+| F01 | C05,D04 | Page Content/Flashcards tabs with independent lesson and card editing | Implemented; focused regression tests passed, final native QA pending G02 |
+| F02 | F01 | Card CRUD/drafts/clone/suspend/trash, whole-page answer, retained vocabulary/media | Implemented; focused regression tests passed, final native QA pending G02 |
+| F03 | E03,F02 | Study loading/saving/error/focus/mouse/keyboard behavior and responsive styling | Implemented; focused regression tests passed, final native QA pending G02 |
+| F04 | F03 | Library/pages/decks/stats query the same learning authority, no duplicate totals | Implemented; focused regression tests passed, final native QA pending G02 |
 | G01 | F04 | Local Library onboarding; Git optional under advanced controls | Pending |
 | G02 | G01 | Retire legacy writer, retain importer; localization, docs, native QA and release checks | Pending |
 

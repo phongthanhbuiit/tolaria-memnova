@@ -246,7 +246,7 @@ else
   HOTSPOT_SCORE=$(echo "$API_RESPONSE" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['analysis']['hotspot_code_health']['now'])" 2>/dev/null || echo "")
   AVERAGE_SCORE=$(echo "$API_RESPONSE" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['analysis']['code_health']['now'])" 2>/dev/null || echo "")
   if [ -z "$HOTSPOT_SCORE" ] || [ -z "$AVERAGE_SCORE" ]; then
-    echo "  ⚠️  Could not fetch remote scores — skipping (CI will enforce)"
+    echo "  ⚠️  Could not fetch remote scores — not run (optional integration unavailable)"
   else
     echo "  Remote Hotspot Code Health: $HOTSPOT_SCORE (threshold: $HOTSPOT_MIN)"
     echo "  Remote Average Code Health: $AVERAGE_SCORE (threshold: $AVERAGE_MIN)"

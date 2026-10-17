@@ -132,7 +132,7 @@ describe('mockHandlers additional coverage', () => {
   it('persists last-vault state, reports vault existence, and restores AI guidance state', async () => {
     const { mockHandlers } = await loadHandlers()
 
-    expect(mockHandlers.get_last_vault_path()).toBe('/Users/mock/demo-vault-v2')
+    expect(mockHandlers.get_last_vault_path()).toBe('/Users/luca/Laputa')
     expect(mockHandlers.set_last_vault_path({ path: '/Users/mock/Documents/Work' })).toBeNull()
     expect(mockHandlers.get_last_vault_path()).toBe('/Users/mock/Documents/Work')
 

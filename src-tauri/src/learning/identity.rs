@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use std::{fs, fs::OpenOptions, io::Write, path::Path};
+use std::{fs, io::Write, path::Path};
 
 #[derive(Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -60,12 +60,27 @@ pub(super) fn read_library_identity(directory: &Path) -> Result<String, String> 
 fn protect_learning_data_from_git(directory: &Path) -> Result<(), String> {
     let path = directory.join(".gitignore");
     reject_symlink(&path)?;
-    match OpenOptions::new().write(true).create_new(true).open(path) {
-        Ok(mut file) => {
-            file.write_all(b"*\n").map_err(|e| e.to_string())?;
-            file.sync_all().map_err(|e| e.to_string())
-        }
-        Err(error) if error.kind() == std::io::ErrorKind::AlreadyExists => Ok(()),
-        Err(error) => Err(error.to_string()),
+    let existing = match fs::read_to_string(&path) {
+        Ok(value) => value,
+        Err(error) if error.kind() == std::io::ErrorKind::NotFound => String::new(),
+        Err(error) => return Err(error.to_string()),
+    };
+    if existing
+        .lines()
+        .rfind(|line| !line.trim().is_empty() && !line.starts_with('#'))
+        == Some("*")
+    {
+        return Ok(());
     }
+    let mut staged = tempfile::NamedTempFile::new_in(directory).map_err(|e| e.to_string())?;
+    staged
+        .write_all(existing.as_bytes())
+        .map_err(|e| e.to_string())?;
+    if !existing.is_empty() && !existing.ends_with('\n') {
+        staged.write_all(b"\n").map_err(|e| e.to_string())?;
+    }
+    staged.write_all(b"*\n").map_err(|e| e.to_string())?;
+    staged.as_file().sync_all().map_err(|e| e.to_string())?;
+    staged.persist(path).map_err(|e| e.to_string())?;
+    Ok(())
 }

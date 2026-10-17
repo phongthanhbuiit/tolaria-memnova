@@ -26,6 +26,7 @@ export const DEFAULT_VAULTS: VaultOption[] = [
 ]
 
 interface UseVaultSwitcherOptions {
+  mcpBridgeEnabled?: boolean
   onSwitch: () => void
   onToast: (msg: string) => void
 }
@@ -555,16 +556,16 @@ function usePersistedVaultState(onSwitchRef: MutableRefObject<() => void>): Pers
   }
 }
 
-function useMcpBridgeVaultSync(loaded: boolean, selectedVaultPath: string | null) {
+function useMcpBridgeVaultSync(loaded: boolean, selectedVaultPath: string | null, enabled: boolean) {
   useEffect(() => {
     if (!loaded) return
 
     tauriCall<string>('sync_mcp_bridge_vault', {
-      vaultPath: selectedBridgeVaultPath(selectedVaultPath),
+      vaultPath: enabled ? selectedBridgeVaultPath(selectedVaultPath) : null,
     }).catch(err => {
       console.warn('Failed to sync MCP bridge vault:', err)
     })
-  }, [loaded, selectedVaultPath])
+  }, [loaded, selectedVaultPath, enabled])
 }
 
 function formatGettingStartedRestoreError(err: unknown): string {
@@ -1214,7 +1215,7 @@ async function restoreGettingStartedVault({
 
 /** Manages vault path, extra vaults, switching, cloning, and local folder opening.
  *  Vault list and active vault are persisted via Tauri backend to survive app updates. */
-export function useVaultSwitcher({ onSwitch, onToast }: UseVaultSwitcherOptions) {
+export function useVaultSwitcher({ onSwitch, onToast, mcpBridgeEnabled = false }: UseVaultSwitcherOptions) {
   const onSwitchRef = useRef(onSwitch)
   const onToastRef = useRef(onToast)
   useEffect(() => { onSwitchRef.current = onSwitch; onToastRef.current = onToast })
@@ -1236,7 +1237,7 @@ export function useVaultSwitcher({ onSwitch, onToast }: UseVaultSwitcherOptions)
     hiddenDefaults,
     extraVaults,
   )
-  useMcpBridgeVaultSync(loaded, selectedVaultPath)
+  useMcpBridgeVaultSync(loaded, selectedVaultPath, mcpBridgeEnabled)
   const {
     handleCreateEmptyVault,
     handleOpenLocalFolder,

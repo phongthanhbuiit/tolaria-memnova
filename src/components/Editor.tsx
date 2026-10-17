@@ -15,6 +15,7 @@ import type { FrontmatterOpOptions } from '../hooks/frontmatterOps'
 import { ResizeHandle } from './ResizeHandle'
 import { useDiffMode, type CommitDiffRequest } from '../hooks/useDiffMode'
 import { useEditorFocus } from '../hooks/useEditorFocus'
+import { useLearningWorkspace } from './learning/LearningContext'
 import { useFlashcardEditorFace } from '../hooks/useFlashcardEditorFace'
 import { useDragRegion } from '../hooks/useDragRegion'
 import { formatShortcutDisplay } from '../hooks/appCommandCatalog'
@@ -255,7 +256,9 @@ function useEditorSetup({
     flushPendingEditorChangeRef,
   )
 
+  const learningWorkspace = useLearningWorkspace()
   const flashcard = useFlashcardEditorFace({
+    disableLegacy: learningWorkspace?.phase === 'ready',
     entry: activeTab?.entry ?? null,
     fullContent: activeTab?.content ?? '',
     onContentChange: onContentChange ?? (() => {}),

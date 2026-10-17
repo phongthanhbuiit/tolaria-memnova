@@ -9,6 +9,7 @@ pub fn get_file_history(vault_path: &str, file_path: &str) -> Result<Vec<GitComm
     let vault = Path::new(vault_path);
     let file = Path::new(file_path);
     let relative_str = vault_relative_path_string(vault, file)?;
+    super::learning_guard::ensure_content_path(&relative_str)?;
 
     let output = git_command()
         .args([
@@ -65,6 +66,7 @@ pub fn get_file_diff(vault_path: &str, file_path: &str) -> Result<String, String
     let vault = Path::new(vault_path);
     let file = Path::new(file_path);
     let relative_str = vault_relative_path_string(vault, file)?;
+    super::learning_guard::ensure_content_path(&relative_str)?;
 
     // First try tracked file diff
     let output = git_command()
@@ -122,6 +124,7 @@ pub fn get_file_diff_at_commit(
     let vault = Path::new(vault_path);
     let file = Path::new(file_path);
     let relative_str = vault_relative_path_string(vault, file)?;
+    super::learning_guard::ensure_content_path(&relative_str)?;
 
     // Show diff between commit^ and commit for this file
     let output = git_command()

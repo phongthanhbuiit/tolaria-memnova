@@ -1,5 +1,11 @@
 import { invoke } from '@tauri-apps/api/core'
-import type { BackupDescriptor, CardDraft, LearningCard, LibraryDescriptor, MigrationPreview, MigrationProgress, SessionScope, StudySession, RateRequest, RateResult } from './types'
+import { isTauri, mockInvoke } from '../../mock-tauri'
+import type { StudyStats } from '../../hooks/useStats'
+import type { BackupDescriptor, CardDraft, LearningCard, LibraryDescriptor, MigrationPreview, MigrationProgress, SessionScope, StudySession, RateRequest, RateResult, LearningPage } from './types'
+
+function learningInvoke<T>(command: string, args: Record<string, unknown>): Promise<T> {
+  return isTauri() ? invoke<T>(command, args) : mockInvoke<T>(command, args)
+}
 
 /** A connection is bound to both the validated folder and persistent UUID. */
 export class LearningClient {
@@ -12,11 +18,11 @@ export class LearningClient {
   }
 
   static previewMigration(vaultPath: string): Promise<MigrationPreview> {
-    return invoke('learning_command', { vaultPath, libraryId: null, request: { kind: 'previewMigration' } })
+    return learningInvoke('learning_command', { vaultPath, libraryId: null, request: { kind: 'previewMigration' } })
   }
 
   static async connect(vaultPath: string): Promise<LearningClient> {
-    const descriptor = await invoke<LibraryDescriptor>('learning_command', {
+    const descriptor = await learningInvoke<LibraryDescriptor>('learning_command', {
       vaultPath, libraryId: null, request: { kind: 'describe' },
     })
     if (!descriptor || ![1, 2].includes(descriptor.schemaVersion) || !descriptor.libraryId) {
@@ -26,7 +32,7 @@ export class LearningClient {
   }
 
   private call<T>(request: Record<string, unknown>): Promise<T> {
-    return invoke<T>('learning_command', { vaultPath: this.vaultPath, libraryId: this.libraryId, request })
+    return learningInvoke<T>('learning_command', { vaultPath: this.vaultPath, libraryId: this.libraryId, request })
   }
 
   migrationStatus(): Promise<MigrationProgress> {
@@ -69,12 +75,18 @@ export class LearningClient {
     return this.call({ kind: 'undoReview', sessionId, reviewId, revision })
   }
 
+  listPages(): Promise<LearningPage[]> { return this.call({ kind: 'listPages' }) }
+  syncPages(): Promise<LearningPage[]> { return this.call({ kind: 'syncPages' }) }
+  ensurePage(path: string): Promise<LearningPage> { return this.call({ kind: 'ensurePage', path }) }
+  studyStats(): Promise<StudyStats> { return this.call({ kind: 'studyStats' }) }
+  setDailyGoal(goal: number): Promise<StudyStats> { return this.call({ kind: 'setDailyGoal', goal }) }
+
   listCards(pageId: string | null = null, includeTrashed = false): Promise<LearningCard[]> {
     return this.call({ kind: 'listCards', pageId, includeTrashed })
   }
 
-  createCard(pageId: string, draft: CardDraft): Promise<LearningCard> {
-    return this.call({ kind: 'createCard', pageId, draft })
+  createCard(pageId: string, draft: CardDraft, operationId: string | null = null): Promise<LearningCard> {
+    return this.call({ kind: 'createCard', pageId, draft, operationId })
   }
 
   updateCard(cardId: string, revision: number, draft: CardDraft): Promise<LearningCard> {

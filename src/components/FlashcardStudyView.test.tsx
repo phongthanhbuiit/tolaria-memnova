@@ -1,8 +1,10 @@
 import React from 'react'
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { FlashcardStudyView } from './FlashcardStudyView'
+import { FlashcardStudyView, BlockNoteReadOnly } from './FlashcardStudyView'
 import type { VaultEntry } from '../types'
+
+const { parseMarkdown } = vi.hoisted(() => ({ parseMarkdown: vi.fn().mockResolvedValue([]) }))
 
 // Mock @tauri-apps/api/core
 vi.mock('@tauri-apps/api/core', () => ({
@@ -36,12 +38,12 @@ vi.mock('@blocknote/react', () => ({
   ComponentsContext: {
     Provider: ({ children }: { children?: React.ReactNode }) => <>{children}</>,
   },
-  useCreateBlockNote: () => ({
-    tryParseMarkdownToBlocks: async () => [],
+  useCreateBlockNote: () => React.useMemo(() => ({
+    tryParseMarkdownToBlocks: parseMarkdown,
     replaceBlocks: () => {},
     document: [],
     onMount: (cb: () => void) => { cb(); return () => {} },
-  }),
+  }), []),
 }))
 
 vi.mock('@blocknote/mantine', () => ({
@@ -270,4 +272,17 @@ describe('FlashcardStudyView', () => {
     })
     expect(screen.queryByText('Memory Palace Viewfinder')).not.toBeInTheDocument()
   })
+})
+
+it('keeps thematic breaks inside card answers instead of stripping them as frontmatter', async () => {
+  parseMarkdown.mockResolvedValue([])
+  render(<BlockNoteReadOnly content={'Question\n\n---\n\nAnswer\n\n---\n\nKeep'} preserveBody locale="en" />)
+  await waitFor(() => expect(parseMarkdown).toHaveBeenCalled())
+  expect(parseMarkdown.mock.calls.at(-1)?.[0]).toContain('Answer')
+})
+
+it('shows the original answer if rich Markdown rendering fails', async () => {
+  parseMarkdown.mockRejectedValueOnce(new Error('Parser failed'))
+  render(<BlockNoteReadOnly content="Important answer text" preserveBody locale="en" />)
+  await waitFor(() => expect(screen.getByText('Important answer text')).toBeInTheDocument())
 })

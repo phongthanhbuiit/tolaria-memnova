@@ -9,6 +9,13 @@ vi.mock('../hooks/useDragRegion', () => ({
   useDragRegion: () => ({ onMouseDown: dragRegionMouseDown }),
 }))
 
+function renderWelcome(ui: React.ReactElement) {
+  const result = render(ui)
+  const advanced = screen.getByRole('button', { name: 'Advanced', exact: true })
+  if (advanced.getAttribute('aria-expanded') !== 'true' && !advanced.hasAttribute('disabled')) fireEvent.click(advanced)
+  return result
+}
+
 const defaultProps = {
   mode: 'welcome' as const,
   defaultVaultPath: '~/Documents/Laputa',
@@ -29,54 +36,54 @@ describe('WelcomeScreen', () => {
 
   describe('welcome mode', () => {
     it('renders welcome title and subtitle', () => {
-      render(<WelcomeScreen {...defaultProps} />)
-      expect(screen.getByText('Welcome to Tolaria')).toBeInTheDocument()
-      expect(screen.getByText('Markdown knowledge management for the age of AI')).toBeInTheDocument()
+      renderWelcome(<WelcomeScreen {...defaultProps} />)
+      expect(screen.getByText('Welcome to Memnova')).toBeInTheDocument()
+      expect(screen.getByText('Turn your pages into lasting knowledge.')).toBeInTheDocument()
     })
 
     it('renders the local Tolaria branding icon', () => {
-      render(<WelcomeScreen {...defaultProps} />)
+      renderWelcome(<WelcomeScreen {...defaultProps} />)
 
-      const brandIcon = screen.getByAltText('Tolaria icon')
+      const brandIcon = screen.getByAltText('')
       expect(brandIcon).toHaveAttribute('src', tolariaIcon)
     })
 
     it('shows the onboarding actions in the guided-first order', () => {
-      render(<WelcomeScreen {...defaultProps} />)
+      renderWelcome(<WelcomeScreen {...defaultProps} />)
 
       const optionButtons = screen.getAllByRole('button')
-      expect(optionButtons[0]).toBe(screen.getByTestId('welcome-create-vault'))
-      expect(optionButtons[1]).toBe(screen.getByTestId('welcome-create-new'))
-      expect(optionButtons[2]).toBe(screen.getByTestId('welcome-open-folder'))
+      expect(optionButtons[0]).toBe(screen.getByTestId('welcome-create-new'))
+      expect(optionButtons[1]).toBe(screen.getByTestId('welcome-open-folder'))
+      expect(optionButtons[3]).toBe(screen.getByTestId('welcome-create-vault'))
     })
 
     it('focuses the first action for keyboard users', () => {
-      render(<WelcomeScreen {...defaultProps} />)
-      expect(screen.getByTestId('welcome-create-vault')).toHaveFocus()
+      renderWelcome(<WelcomeScreen {...defaultProps} />)
+      expect(screen.getByTestId('welcome-create-new')).toHaveFocus()
     })
 
     it('shows the simplified template option description', () => {
-      render(<WelcomeScreen {...defaultProps} />)
-      expect(screen.getByText('Download the getting started vault')).toBeInTheDocument()
+      renderWelcome(<WelcomeScreen {...defaultProps} />)
+      expect(screen.getByText('Optional Tolaria template. Requires internet.')).toBeInTheDocument()
       expect(screen.queryByText(/~\/Documents\/Laputa/)).not.toBeInTheDocument()
     })
 
     it('shows offline guidance and disables the template option when offline', () => {
-      render(<WelcomeScreen {...defaultProps} isOffline={true} />)
+      renderWelcome(<WelcomeScreen {...defaultProps} isOffline={true} />)
       expect(screen.getByTestId('welcome-create-vault')).toBeDisabled()
-      expect(screen.getByText(/Requires internet — clone later/)).toBeInTheDocument()
+      expect(screen.getByText(/Requires internet/)).toBeInTheDocument()
     })
 
     it('calls onCreateEmptyVault when create empty button is clicked', () => {
       const onCreateEmptyVault = vi.fn()
-      render(<WelcomeScreen {...defaultProps} onCreateEmptyVault={onCreateEmptyVault} />)
+      renderWelcome(<WelcomeScreen {...defaultProps} onCreateEmptyVault={onCreateEmptyVault} />)
       fireEvent.click(screen.getByTestId('welcome-create-new'))
       expect(onCreateEmptyVault).toHaveBeenCalledOnce()
     })
 
     it('calls onCreateEmptyVault when create empty button is activated with Enter', () => {
       const onCreateEmptyVault = vi.fn()
-      render(<WelcomeScreen {...defaultProps} onCreateEmptyVault={onCreateEmptyVault} />)
+      renderWelcome(<WelcomeScreen {...defaultProps} onCreateEmptyVault={onCreateEmptyVault} />)
       const button = screen.getByTestId('welcome-create-new')
 
       button.focus()
@@ -87,7 +94,7 @@ describe('WelcomeScreen', () => {
 
     it('calls onCreateEmptyVault when create empty button is activated with Space', () => {
       const onCreateEmptyVault = vi.fn()
-      render(<WelcomeScreen {...defaultProps} onCreateEmptyVault={onCreateEmptyVault} />)
+      renderWelcome(<WelcomeScreen {...defaultProps} onCreateEmptyVault={onCreateEmptyVault} />)
       const button = screen.getByTestId('welcome-create-new')
 
       button.focus()
@@ -98,54 +105,54 @@ describe('WelcomeScreen', () => {
 
     it('calls onCreateVault when template button is clicked', () => {
       const onCreateVault = vi.fn()
-      render(<WelcomeScreen {...defaultProps} onCreateVault={onCreateVault} />)
+      renderWelcome(<WelcomeScreen {...defaultProps} onCreateVault={onCreateVault} />)
       fireEvent.click(screen.getByTestId('welcome-create-vault'))
       expect(onCreateVault).toHaveBeenCalledOnce()
     })
 
     it('calls onOpenFolder when open folder button is clicked', () => {
       const onOpenFolder = vi.fn()
-      render(<WelcomeScreen {...defaultProps} onOpenFolder={onOpenFolder} />)
+      renderWelcome(<WelcomeScreen {...defaultProps} onOpenFolder={onOpenFolder} />)
       fireEvent.click(screen.getByTestId('welcome-open-folder'))
       expect(onOpenFolder).toHaveBeenCalledOnce()
     })
 
     it('cycles onboarding actions with Tab and activates the selected action with Enter', () => {
-      const onCreateEmptyVault = vi.fn()
-      render(<WelcomeScreen {...defaultProps} onCreateEmptyVault={onCreateEmptyVault} />)
+      const onOpenFolder = vi.fn()
+      renderWelcome(<WelcomeScreen {...defaultProps} onOpenFolder={onOpenFolder} />)
 
       fireEvent.keyDown(window, { key: 'Tab' })
       fireEvent.keyDown(window, { key: 'Enter' })
 
-      expect(onCreateEmptyVault).toHaveBeenCalledOnce()
+      expect(onOpenFolder).toHaveBeenCalledOnce()
     })
 
     it('disables all buttons while creating', () => {
-      render(<WelcomeScreen {...defaultProps} creatingAction="template" />)
+      renderWelcome(<WelcomeScreen {...defaultProps} creatingAction="template" />)
       expect(screen.getByTestId('welcome-create-new')).toBeDisabled()
       expect(screen.getByTestId('welcome-open-folder')).toBeDisabled()
       expect(screen.getByTestId('welcome-create-vault')).toBeDisabled()
     })
 
     it('shows loading text on template button while creating', () => {
-      render(<WelcomeScreen {...defaultProps} creatingAction="template" />)
+      renderWelcome(<WelcomeScreen {...defaultProps} creatingAction="template" />)
       expect(screen.getByTestId('welcome-create-vault')).toHaveTextContent(/Downloading template/)
       expect(screen.getByTestId('welcome-status')).toHaveAttribute('aria-live', 'polite')
     })
 
     it('shows loading text on create-new button while creating an empty vault', () => {
-      render(<WelcomeScreen {...defaultProps} creatingAction="empty" />)
-      expect(screen.getByTestId('welcome-create-new')).toHaveTextContent(/Creating vault/)
+      renderWelcome(<WelcomeScreen {...defaultProps} creatingAction="empty" />)
+      expect(screen.getByTestId('welcome-create-new')).toHaveTextContent(/Creating Library/)
     })
 
     it('shows error message when error is set', () => {
-      render(<WelcomeScreen {...defaultProps} error="Permission denied" />)
+      renderWelcome(<WelcomeScreen {...defaultProps} error="Permission denied" />)
       expect(screen.getByTestId('welcome-error')).toHaveTextContent('Permission denied')
       expect(screen.getByTestId('welcome-error')).toHaveAttribute('aria-live', 'assertive')
     })
 
     it('does not show error when error is null', () => {
-      render(<WelcomeScreen {...defaultProps} />)
+      renderWelcome(<WelcomeScreen {...defaultProps} />)
       expect(screen.queryByTestId('welcome-error')).not.toBeInTheDocument()
     })
 
@@ -165,7 +172,7 @@ describe('WelcomeScreen', () => {
     })
 
     it('does not show path badge in welcome mode', () => {
-      render(<WelcomeScreen {...defaultProps} />)
+      renderWelcome(<WelcomeScreen {...defaultProps} />)
       expect(screen.queryByText('~/Laputa')).not.toBeInTheDocument()
     })
   })
@@ -178,30 +185,30 @@ describe('WelcomeScreen', () => {
     }
 
     it('renders vault not found title', () => {
-      render(<WelcomeScreen {...missingProps} />)
-      expect(screen.getByText('Vault not found')).toBeInTheDocument()
+      renderWelcome(<WelcomeScreen {...missingProps} />)
+      expect(screen.getByText('Library not found')).toBeInTheDocument()
       expect(screen.getByText(/could not be found on disk/)).toBeInTheDocument()
     })
 
     it('does not show the missing vault path in a badge', () => {
-      render(<WelcomeScreen {...missingProps} />)
+      renderWelcome(<WelcomeScreen {...missingProps} />)
       expect(screen.queryByText('~/Laputa')).not.toBeInTheDocument()
     })
 
-    it('shows "Choose a different folder" instead of "Open existing vault"', () => {
-      render(<WelcomeScreen {...missingProps} />)
-      expect(screen.getByTestId('welcome-open-folder')).toHaveTextContent('Choose a different folder')
+    it('shows "Open existing Library" instead of "Open existing vault"', () => {
+      renderWelcome(<WelcomeScreen {...missingProps} />)
+      expect(screen.getByTestId('welcome-open-folder')).toHaveTextContent('Open existing Library')
     })
   })
 
   describe('data-testid', () => {
     it('has welcome-screen container testid', () => {
-      render(<WelcomeScreen {...defaultProps} />)
+      renderWelcome(<WelcomeScreen {...defaultProps} />)
       expect(screen.getByTestId('welcome-screen')).toBeInTheDocument()
     })
 
     it('uses the surrounding surface as a drag region and excludes the card', () => {
-      render(<WelcomeScreen {...defaultProps} />)
+      renderWelcome(<WelcomeScreen {...defaultProps} />)
 
       const screenContainer = screen.getByTestId('welcome-screen')
       fireEvent.mouseDown(screenContainer)
@@ -210,4 +217,22 @@ describe('WelcomeScreen', () => {
       expect(screenContainer.querySelector('[data-no-drag]')).not.toBeNull()
     })
   })
+})
+
+it('starts with a local Library and keeps template downloads under Advanced', () => {
+  render(<WelcomeScreen {...defaultProps} />)
+  expect(screen.getByTestId('welcome-create-new')).toHaveFocus()
+  expect(screen.queryByTestId('welcome-create-vault')).not.toBeInTheDocument()
+  fireEvent.click(screen.getByRole('button', { name: 'Advanced', exact: true }))
+  expect(screen.getByTestId('welcome-create-vault')).toBeVisible()
+})
+
+it('keeps the Advanced template path reachable by keyboard', () => {
+  render(<WelcomeScreen {...defaultProps} />)
+  fireEvent.keyDown(window, { key: 'Tab' })
+  fireEvent.keyDown(window, { key: 'Tab' })
+  expect(screen.getByRole('button', { name: 'Advanced', exact: true })).toHaveFocus()
+  fireEvent.keyDown(window, { key: 'Enter' })
+  fireEvent.keyDown(window, { key: 'Tab' })
+  expect(screen.getByTestId('welcome-create-vault')).toHaveFocus()
 })

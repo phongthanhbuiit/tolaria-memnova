@@ -73,7 +73,7 @@ STAGED_TS=$(echo "$STAGED_FILES" | grep -E '\.(ts|tsx)$' || true)
 if [ -n "$STAGED_TS" ]; then
   echo "  → lint + tsc..."
   pnpm lint --quiet
-  npx tsc --noEmit
+  pnpm exec tsc -b
 fi
 
 # Unit tests
@@ -92,9 +92,9 @@ echo "✅ Pre-commit passed"
 echo "🏥 CodeScene code health check..."
 THRESHOLDS_FILE=".codescene-thresholds"
 if [ -z "$CODESCENE_PAT" ] || [ -z "$CODESCENE_PROJECT_ID" ]; then
-  echo "  ⚠️  CODESCENE_PAT or CODESCENE_PROJECT_ID not set — skipping (CI will enforce)"
+  echo "  ⚠️  CODESCENE_PAT or CODESCENE_PROJECT_ID not set — not run (optional integration unavailable)"
 elif [ ! -f "$THRESHOLDS_FILE" ]; then
-  echo "  ⚠️  $THRESHOLDS_FILE not found — skipping (CI will enforce)"
+  echo "  ⚠️  $THRESHOLDS_FILE not found — not run (optional integration unavailable)"
 else
   # Read ratchet thresholds
   HOTSPOT_THRESHOLD=$(grep '^HOTSPOT_THRESHOLD=' "$THRESHOLDS_FILE" | cut -d= -f2)
@@ -109,7 +109,7 @@ else
     HOTSPOT_SCORE=$(echo "$API_RESPONSE" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['analysis']['hotspot_code_health']['now'])" 2>/dev/null || echo "")
     AVERAGE_SCORE=$(echo "$API_RESPONSE" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['analysis']['code_health']['now'])" 2>/dev/null || echo "")
     if [ -z "$HOTSPOT_SCORE" ] || [ -z "$AVERAGE_SCORE" ]; then
-      echo "  ⚠️  Could not fetch CodeScene scores — skipping (CI will enforce)"
+      echo "  ⚠️  Could not fetch CodeScene scores — not run (optional integration unavailable)"
     else
       echo "  Hotspot Code Health: $HOTSPOT_SCORE (threshold: $HOTSPOT_THRESHOLD)"
       echo "  Average Code Health: $AVERAGE_SCORE (threshold: $AVERAGE_THRESHOLD)"

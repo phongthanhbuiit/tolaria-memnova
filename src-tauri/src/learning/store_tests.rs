@@ -131,3 +131,24 @@ fn corrupt_database_is_reported_without_replacing_its_bytes() {
     assert!(Store::open(dir.path()).is_err());
     assert_eq!(std::fs::read(&path).unwrap(), b"not a sqlite database");
 }
+
+#[test]
+fn existing_metadata_ignore_cannot_reinclude_private_learning_data() {
+    let dir = tempfile::tempdir().unwrap();
+    std::fs::create_dir(dir.path().join(".memnova")).unwrap();
+    std::fs::write(
+        dir.path().join(".memnova/.gitignore"),
+        "# custom\n!learning.sqlite3\n",
+    )
+    .unwrap();
+    let store = super::Store::open(dir.path()).unwrap();
+    drop(store);
+    let ignore = std::fs::read_to_string(dir.path().join(".memnova/.gitignore")).unwrap();
+    assert!(ignore.starts_with("# custom\n!learning.sqlite3\n"));
+    assert_eq!(ignore.lines().last(), Some("*"));
+    let _reopen = super::Store::open(dir.path()).unwrap();
+    assert_eq!(
+        std::fs::read_to_string(dir.path().join(".memnova/.gitignore")).unwrap(),
+        ignore
+    );
+}

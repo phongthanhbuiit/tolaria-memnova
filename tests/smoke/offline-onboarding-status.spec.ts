@@ -51,8 +51,9 @@ test('offline onboarding disables template cloning and explains clone-later beha
   await expect(page.getByTestId('welcome-screen')).toBeVisible()
   await expect(page.getByTestId('welcome-create-new')).toBeEnabled()
   await expect(page.getByTestId('welcome-open-folder')).toBeEnabled()
+  await page.getByRole('button', { name: 'Advanced', exact: true }).click()
   await expect(page.getByTestId('welcome-create-vault')).toBeDisabled()
-  await expect(page.getByText('Requires internet — clone later. Suggested path: /Users/mock/Documents/Getting Started')).toBeVisible()
+  await expect(page.getByText('Optional Tolaria template. Requires internet.')).toBeVisible()
 })
 
 test('status bar keeps a Getting Started clone entry available after onboarding', async ({ page }) => {
@@ -61,6 +62,7 @@ test('status bar keeps a Getting Started clone entry available after onboarding'
   await page.goto('/', { waitUntil: 'domcontentloaded' })
   await expect(page.getByTestId('welcome-screen')).toBeVisible()
 
+  await page.getByRole('button', { name: 'Advanced', exact: true }).click()
   await page.getByTestId('welcome-create-vault').click()
 
   await expect(page.getByText('Getting Started vault cloned and opened at /Users/mock/Documents/Getting Started')).toBeVisible()

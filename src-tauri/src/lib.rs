@@ -7,6 +7,7 @@ mod claude_invocation;
 mod cli_agent_runtime;
 pub mod codex_cli;
 mod commands;
+mod config_root;
 pub mod frontmatter;
 pub mod gemini_cli;
 mod gemini_config;
@@ -81,7 +82,13 @@ fn log_startup_result(label: &str, result: Result<usize, String>) {
 }
 
 #[cfg(desktop)]
-fn selected_mcp_bridge_vault_paths(vault_list: &vault_list::VaultList) -> Vec<PathBuf> {
+fn selected_mcp_bridge_vault_paths(
+    vault_list: &vault_list::VaultList,
+    enabled: bool,
+) -> Vec<PathBuf> {
+    if !enabled {
+        return Vec::new();
+    }
     let mut paths = Vec::new();
     if let Some(active_vault) = vault_list
         .active_vault
@@ -157,7 +164,10 @@ pub(crate) fn sync_ws_bridge_for_vault(
         .lock()
         .map_err(|_| "Failed to lock ws-bridge state".to_string())?;
 
-    let Some(vault_path) = vault_path else {
+    let enabled = settings::get_settings()
+        .map(|value| value.ai_features_enabled == Some(true))
+        .unwrap_or(false);
+    let Some(vault_path) = vault_path.filter(|_| enabled) else {
         stop_ws_bridge_child(&mut active_child);
         return Ok("stopped");
     };
@@ -233,7 +243,12 @@ fn spawn_startup_tasks() {
 #[cfg(desktop)]
 fn sync_ws_bridge_for_selected_vault(app_handle: &tauri::AppHandle) {
     let vault_paths = match vault_list::load_vault_list() {
-        Ok(vault_list) => selected_mcp_bridge_vault_paths(&vault_list),
+        Ok(vault_list) => selected_mcp_bridge_vault_paths(
+            &vault_list,
+            settings::get_settings()
+                .map(|value| value.ai_features_enabled == Some(true))
+                .unwrap_or(false),
+        ),
         Err(e) => {
             log::warn!("Failed to load active vault for ws-bridge startup: {}", e);
             Vec::new()
@@ -680,11 +695,25 @@ mod tests {
         };
 
         assert_eq!(
-            selected_mcp_bridge_vault_paths(&list),
+            selected_mcp_bridge_vault_paths(&list, true),
             vec![
                 PathBuf::from("/tmp/Selected Vault"),
                 PathBuf::from("/tmp/Secondary Vault"),
             ]
+        );
+    }
+
+    #[cfg(desktop)]
+    #[test]
+    fn local_only_mode_never_exposes_selected_library_to_ai_bridge() {
+        let list = VaultList {
+            active_vault: Some("/private/library".into()),
+            ..VaultList::default()
+        };
+        assert!(selected_mcp_bridge_vault_paths(&list, false).is_empty());
+        assert_eq!(
+            selected_mcp_bridge_vault_paths(&list, true),
+            vec![PathBuf::from("/private/library")]
         );
     }
 
@@ -698,7 +727,7 @@ mod tests {
             hidden_defaults: Vec::new(),
         };
 
-        assert!(selected_mcp_bridge_vault_paths(&list).is_empty());
+        assert!(selected_mcp_bridge_vault_paths(&list, true).is_empty());
     }
 
     #[cfg(desktop)]

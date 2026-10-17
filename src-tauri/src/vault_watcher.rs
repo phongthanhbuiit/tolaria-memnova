@@ -130,7 +130,7 @@ mod desktop {
                 vault_path.display()
             ));
         }
-        Ok(vault_path)
+        vault_path.canonicalize().map_err(|error| error.to_string())
     }
 
     fn should_emit_event(event: &Event) -> bool {
@@ -149,13 +149,30 @@ mod desktop {
             .collect()
     }
 
+    fn changed_paths_for_vault(
+        mut event: Event,
+        git_dir: Option<&Path>,
+        vault_path: &Path,
+    ) -> Vec<String> {
+        event.paths.retain(|path| {
+            path.strip_prefix(vault_path).is_ok_and(|relative| {
+                !relative.components().any(|part| {
+                    part.as_os_str()
+                        .to_string_lossy()
+                        .eq_ignore_ascii_case(".memnova")
+                })
+            })
+        });
+        changed_paths(event, git_dir)
+    }
+
     fn emit_vault_change(
         app: &tauri::AppHandle,
         vault_path: &Path,
         git_dir: Option<&Path>,
         event: Event,
     ) {
-        let paths = changed_paths(event, git_dir);
+        let paths = changed_paths_for_vault(event, git_dir, vault_path);
         if paths.is_empty() {
             return;
         }
@@ -236,7 +253,7 @@ mod desktop {
 
             assert_eq!(
                 validate_vault_path(dir.path().to_path_buf()).unwrap(),
-                dir.path()
+                dir.path().canonicalize().unwrap()
             );
             assert_eq!(
                 validate_vault_path(PathBuf::new()).unwrap_err(),
@@ -245,6 +262,40 @@ mod desktop {
             assert!(validate_vault_path(dir.path().join("missing"))
                 .unwrap_err()
                 .contains("Vault path is not a directory"));
+        }
+
+        #[test]
+        fn learning_writes_never_trigger_lesson_reload_loops() {
+            let paths = changed_paths_for_vault(
+                event(
+                    EventKind::Create(CreateKind::File),
+                    &[
+                        "/library/.memnova/learning.sqlite3-wal",
+                        "/library/.memnova/backups/id/files/lesson.md",
+                        "/library/lesson.md",
+                    ],
+                ),
+                None,
+                Path::new("/library"),
+            );
+            assert_eq!(paths, vec!["/library/lesson.md"]);
+        }
+
+        #[test]
+        fn restored_library_notes_remain_watchable_inside_parent_private_directory() {
+            let root = Path::new("/library/.memnova/restores/id");
+            let paths = changed_paths_for_vault(
+                event(
+                    EventKind::Create(CreateKind::File),
+                    &[
+                        "/library/.memnova/restores/id/lesson.md",
+                        "/library/.memnova/restores/id/.MEMNOVA/learning.sqlite3",
+                    ],
+                ),
+                None,
+                root,
+            );
+            assert_eq!(paths, vec!["/library/.memnova/restores/id/lesson.md"]);
         }
 
         #[test]

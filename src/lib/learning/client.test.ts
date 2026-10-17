@@ -2,6 +2,8 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { invoke } from '@tauri-apps/api/core'
 import { LearningClient } from './client'
 
+vi.mock('../../mock-tauri', () => ({ isTauri: () => true, mockInvoke: vi.fn() }))
+
 vi.mock('@tauri-apps/api/core', () => ({ invoke: vi.fn() }))
 
 describe('learning IPC client', () => {

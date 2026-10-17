@@ -50,6 +50,7 @@ test('Getting Started template shows inline retry on clone failure and opens aft
 
   await expect(page.getByTestId('welcome-screen')).toBeVisible()
 
+  await page.getByRole('button', { name: 'Advanced', exact: true }).click()
   await page.getByTestId('welcome-create-vault').click()
 
   await expect(page.getByTestId('welcome-error')).toContainText(

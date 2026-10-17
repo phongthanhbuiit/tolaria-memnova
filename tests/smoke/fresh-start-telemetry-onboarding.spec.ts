@@ -75,7 +75,7 @@ test('accepting telemetry consent on a fresh start opens the vault choice wizard
 
   await expect(page.getByTestId('welcome-screen')).toBeVisible()
   await expect(page.getByTestId('welcome-open-folder')).toBeVisible()
-  await expect(page.getByTestId('welcome-create-vault')).toBeFocused()
+  await expect(page.getByTestId('welcome-create-new')).toBeFocused()
 })
 
 test('telemetry consent still leaves the welcome wizard fully keyboard navigable @smoke', async ({ page }) => {
@@ -92,9 +92,6 @@ test('telemetry consent still leaves the welcome wizard fully keyboard navigable
   await page.keyboard.press('Enter')
 
   await expect(page.getByTestId('welcome-screen')).toBeVisible()
-  await expect(page.getByTestId('welcome-create-vault')).toBeFocused()
-
-  await page.keyboard.press('Tab')
   await expect(page.getByTestId('welcome-create-new')).toBeFocused()
 
   await page.keyboard.press('Tab')
@@ -114,7 +111,7 @@ test('telemetry consent still leaves the welcome wizard fully keyboard navigable
   await page.keyboard.press('Shift+Tab')
   await expect(page.getByTestId('welcome-create-new')).toBeFocused()
   await page.keyboard.press('Shift+Tab')
-  await expect(page.getByTestId('welcome-create-vault')).toBeFocused()
+  await expect(page.getByRole('button', { name: 'Advanced', exact: true })).toBeFocused()
 })
 
 for (const action of ['accept', 'decline'] as const) {

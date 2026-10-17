@@ -14,9 +14,11 @@ vi.mock('../lib/telemetry', () => ({
   trackEvent: trackEventMock,
 }))
 
+// Existing configured installation: new-install defaults are tested separately.
 const emptySettings: Settings = {
+  ai_features_enabled: true,
   auto_pull_interval_minutes: null,
-  git_enabled: null,
+  git_enabled: true,
   autogit_enabled: null,
   autogit_idle_threshold_seconds: null,
   autogit_inactive_threshold_seconds: null,

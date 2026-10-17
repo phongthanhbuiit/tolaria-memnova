@@ -10,17 +10,7 @@ struct CommitFailure {
 pub fn git_commit(vault_path: &str, message: &str) -> Result<String, String> {
     let vault = Path::new(vault_path);
 
-    // Stage all changes
-    let add = git_command()
-        .args(["add", "-A"])
-        .current_dir(vault)
-        .output()
-        .map_err(|e| format!("Failed to run git add: {}", e))?;
-
-    if !add.status.success() {
-        let stderr = String::from_utf8_lossy(&add.stderr);
-        return Err(format!("git add failed: {}", stderr));
-    }
+    super::learning_guard::stage_content(vault)?;
 
     ensure_author_config(vault)?;
 

@@ -19,7 +19,7 @@ CodeScene is optional for this fork (ADR-0137). Use it when authenticated access
 
 - Push directly to `main` — no PRs, no branches. Pre-push blocks non-`main` pushes.
 - Commit every 20–30 min: `feat:`, `fix:`, `refactor:`, `test:`, `docs:`
-- Pre-push hook runs full check suite (build + tests + core Playwright smoke + CodeScene)
+- Pre-push hook runs full check suite (build + tests + core Playwright smoke + CodeScene when configured)
 - **A task is NOT done until `git push origin main` succeeds.** If the hook blocks: read the error, fix it (clippy, tests, CodeScene, build), commit the fix, push again. **⛔ NEVER use --no-verify for AI agents.**
 
 ### TDD (mandatory)
@@ -66,7 +66,7 @@ Use Codacy as a security and static-analysis gate before a task is considered re
 
 ### Check suite (runs on every push)
 ```bash
-pnpm lint && npx tsc --noEmit && pnpm test && pnpm test:coverage  # frontend ≥70%
+pnpm lint && pnpm exec tsc -b && pnpm test && pnpm test:coverage  # frontend ≥70%
 cargo test && cargo llvm-cov --manifest-path src-tauri/Cargo.toml --no-clean --fail-under-lines 85
 ```
 
@@ -89,6 +89,8 @@ BASE_URL="http://localhost:5201" npx playwright test tests/smoke/<slug>.spec.ts
 ```
 
 **Phase 2 — Native app QA:**
+
+Use a disposable Library and isolated preferences. Debug builds accept an absolute `MEMNOVA_CONFIG_HOME` directory; release builds ignore this override. Settings and Library lists both use it. Launch a QA-specific Tauri identifier and an incognito webview using a temporary config override outside source (see ADR-0143 and `docs/GETTING-STARTED.md`). Never change HOME or overwrite the real user configuration to run QA.
 
 ```bash
 pnpm tauri dev &

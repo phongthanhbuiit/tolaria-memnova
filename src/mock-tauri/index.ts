@@ -6,6 +6,7 @@
 
 import { MOCK_CONTENT } from './mock-content'
 import { mockHandlers, addMockEntry, updateMockContent, trackMockChange } from './mock-handlers'
+import { mockLearningCommand } from './learning'
 import { tryVaultApi } from './vault-api'
 
 export { addMockEntry, updateMockContent, trackMockChange }
@@ -34,6 +35,10 @@ function resolveMockHandler(command: string) {
 }
 
 export async function mockInvoke<T>(cmd: string, args?: Record<string, unknown>): Promise<T> {
+  if (cmd === 'learning_command') return await mockLearningCommand(args ?? {}, {
+    read: path => mockInvoke<string>('get_note_content', { path }),
+    entries: () => mockInvoke('list_vault', { path: args?.vaultPath }),
+  }) as T
   const vaultResult = await tryVaultApi<T>(cmd, args)
   if (vaultResult !== undefined) return vaultResult
 

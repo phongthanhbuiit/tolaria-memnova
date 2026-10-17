@@ -177,16 +177,16 @@ describe('StatusBar', () => {
     expect(screen.getByText('Main Vault')).toBeInTheDocument()
   })
 
-  it('shows fallback "Vault" when vault path does not match', () => {
+  it('shows fallback "Library" when vault path does not match', () => {
     render(<StatusBar noteCount={100} vaultPath="/unknown/path" vaults={vaults} onSwitchVault={vi.fn()} />)
-    expect(screen.getByText('Vault')).toBeInTheDocument()
+    expect(screen.getByText('Library')).toBeInTheDocument()
   })
 
   it('opens vault menu on click and shows all vault options', () => {
     render(<StatusBar noteCount={100} vaultPath="/Users/luca/Laputa" vaults={vaults} onSwitchVault={vi.fn()} />)
 
     // Click the vault button to open menu
-    fireEvent.click(screen.getByRole('button', { name: 'Switch vault' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Open existing Library' }))
 
     expect(screen.getByText('Work Vault')).toBeInTheDocument()
   })
@@ -202,7 +202,7 @@ describe('StatusBar', () => {
       />,
     )
 
-    fireEvent.click(screen.getByRole('button', { name: 'Switch vault' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Open existing Library' }))
 
     expect(screen.queryByTestId('vault-menu-manage-vaults')).not.toBeInTheDocument()
     expect(screen.queryByRole('checkbox')).not.toBeInTheDocument()
@@ -222,7 +222,7 @@ describe('StatusBar', () => {
       />,
     )
 
-    fireEvent.click(screen.getByRole('button', { name: 'Switch vault' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Open existing Library' }))
     fireEvent.click(screen.getByRole('checkbox', { name: 'Include Work Vault in the unified graph' }))
 
     expect(onUpdateWorkspaceIdentity).toHaveBeenCalledWith('/Users/luca/Work', { mounted: true })
@@ -245,7 +245,7 @@ describe('StatusBar', () => {
       />,
     )
 
-    fireEvent.click(screen.getByRole('button', { name: 'Switch vault' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Open existing Library' }))
 
     const activeCheckbox = screen.getByRole('checkbox', { name: 'Include Main Vault in the unified graph' })
     expect(activeCheckbox).not.toBeChecked()
@@ -270,14 +270,14 @@ describe('StatusBar', () => {
       />,
     )
 
-    fireEvent.click(screen.getByRole('button', { name: 'Switch vault' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Open existing Library' }))
 
     expect(screen.getByTestId('vault-menu-popover')).toHaveStyle({ minWidth: '320px' })
-    expect(screen.getByText('Available vaults')).toBeInTheDocument()
-    fireEvent.click(screen.getByRole('button', { name: 'Manage vaults' }))
+    expect(screen.getByText('Available Libraries')).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Manage Libraries' }))
     expect(onOpenVaultSettings).toHaveBeenCalledOnce()
 
-    fireEvent.click(screen.getByRole('button', { name: 'Switch vault' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Open existing Library' }))
     const activeItem = screen.getByTestId('vault-menu-item-Main Vault')
     const defaultLabel = within(activeItem).getByTestId('vault-menu-default-label')
     const activeBadge = within(activeItem).getByTestId('vault-menu-workspace-badge-Main Vault')
@@ -300,7 +300,7 @@ describe('StatusBar', () => {
     const onSwitchVault = vi.fn()
     render(<StatusBar noteCount={100} vaultPath="/Users/luca/Laputa" vaults={vaults} onSwitchVault={onSwitchVault} />)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Switch vault' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Open existing Library' }))
     // Click "Work Vault"
     fireEvent.click(screen.getByText('Work Vault'))
 
@@ -323,7 +323,7 @@ describe('StatusBar', () => {
       />,
     )
 
-    fireEvent.click(screen.getByRole('button', { name: 'Switch vault' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Open existing Library' }))
     fireEvent.click(screen.getByText('Work Vault'))
 
     expect(onSetDefaultWorkspace).toHaveBeenCalledWith('/Users/luca/Work')
@@ -349,7 +349,7 @@ describe('StatusBar', () => {
       />,
     )
 
-    fireEvent.click(screen.getByRole('button', { name: 'Switch vault' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Open existing Library' }))
     fireEvent.click(screen.getByRole('checkbox', { name: 'Include Main Vault in the unified graph' }))
 
     expect(onSetDefaultWorkspace).toHaveBeenCalledWith('/Users/luca/Work')
@@ -359,7 +359,7 @@ describe('StatusBar', () => {
   it('closes vault menu when clicking outside', () => {
     render(<StatusBar noteCount={100} vaultPath="/Users/luca/Laputa" vaults={vaults} onSwitchVault={vi.fn()} />)
 
-    fireEvent.click(screen.getByRole('button', { name: 'Switch vault' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Open existing Library' }))
     expect(screen.getByText('Work Vault')).toBeInTheDocument()
 
     // Click outside the menu
@@ -371,7 +371,7 @@ describe('StatusBar', () => {
   it('toggles vault menu open and closed', () => {
     render(<StatusBar noteCount={100} vaultPath="/Users/luca/Laputa" vaults={vaults} onSwitchVault={vi.fn()} />)
 
-    const vaultButton = screen.getByRole('button', { name: 'Switch vault' })
+    const vaultButton = screen.getByRole('button', { name: 'Open existing Library' })
     fireEvent.click(vaultButton)
     expect(screen.getByText('Work Vault')).toBeInTheDocument()
 
@@ -384,7 +384,7 @@ describe('StatusBar', () => {
     render(
       <StatusBar noteCount={100} vaultPath="/Users/luca/Laputa" vaults={vaults} onSwitchVault={vi.fn()} onOpenLocalFolder={vi.fn()} />
     )
-    fireEvent.click(screen.getByRole('button', { name: 'Switch vault' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Open existing Library' }))
     expect(screen.getByText('Open local folder')).toBeInTheDocument()
   })
 
@@ -393,26 +393,26 @@ describe('StatusBar', () => {
     render(
       <StatusBar noteCount={100} vaultPath="/Users/luca/Laputa" vaults={vaults} onSwitchVault={vi.fn()} onOpenLocalFolder={onOpenLocalFolder} />
     )
-    fireEvent.click(screen.getByRole('button', { name: 'Switch vault' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Open existing Library' }))
     fireEvent.click(screen.getByText('Open local folder'))
     expect(onOpenLocalFolder).toHaveBeenCalledOnce()
   })
 
-  it('shows "Create empty vault" option in vault menu', () => {
+  it('shows "Create local Library" option in vault menu', () => {
     render(
       <StatusBar noteCount={100} vaultPath="/Users/luca/Laputa" vaults={vaults} onSwitchVault={vi.fn()} onCreateEmptyVault={vi.fn()} />
     )
-    fireEvent.click(screen.getByRole('button', { name: 'Switch vault' }))
-    expect(screen.getByText('Create empty vault')).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Open existing Library' }))
+    expect(screen.getByText('Create local Library')).toBeInTheDocument()
   })
 
-  it('calls onCreateEmptyVault when clicking "Create empty vault"', () => {
+  it('calls onCreateEmptyVault when clicking "Create local Library"', () => {
     const onCreateEmptyVault = vi.fn()
     render(
       <StatusBar noteCount={100} vaultPath="/Users/luca/Laputa" vaults={vaults} onSwitchVault={vi.fn()} onCreateEmptyVault={onCreateEmptyVault} />
     )
-    fireEvent.click(screen.getByRole('button', { name: 'Switch vault' }))
-    fireEvent.click(screen.getByText('Create empty vault'))
+    fireEvent.click(screen.getByRole('button', { name: 'Open existing Library' }))
+    fireEvent.click(screen.getByText('Create local Library'))
     expect(onCreateEmptyVault).toHaveBeenCalledOnce()
   })
 
@@ -428,8 +428,8 @@ describe('StatusBar', () => {
         onCloneVault={vi.fn()}
       />
     )
-    fireEvent.click(screen.getByRole('button', { name: 'Switch vault' }))
-    expect(screen.getByText('Create empty vault')).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Open existing Library' }))
+    expect(screen.getByText('Create local Library')).toBeInTheDocument()
     expect(screen.getByText('Open local folder')).toBeInTheDocument()
     expect(screen.getByText('Clone Git repo')).toBeInTheDocument()
   })
@@ -445,8 +445,8 @@ describe('StatusBar', () => {
       />
     )
 
-    fireEvent.click(screen.getByRole('button', { name: 'Switch vault' }))
-    expect(screen.getByText('Clone Getting Started Vault')).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Open existing Library' }))
+    expect(screen.getByText('Download sample Library')).toBeInTheDocument()
   })
 
   it('calls onCloneGettingStarted when clicking the vault menu action', () => {
@@ -461,8 +461,8 @@ describe('StatusBar', () => {
       />
     )
 
-    fireEvent.click(screen.getByRole('button', { name: 'Switch vault' }))
-    fireEvent.click(screen.getByText('Clone Getting Started Vault'))
+    fireEvent.click(screen.getByRole('button', { name: 'Open existing Library' }))
+    fireEvent.click(screen.getByText('Download sample Library'))
     expect(onCloneGettingStarted).toHaveBeenCalledOnce()
   })
 
@@ -477,7 +477,7 @@ describe('StatusBar', () => {
       />
     )
 
-    fireEvent.click(screen.getByRole('button', { name: 'Switch vault' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Open existing Library' }))
 
     const item = screen.getByTestId('vault-menu-item-Work Vault')
     const removeAction = screen.getByTestId('vault-menu-remove-Work Vault')
@@ -504,7 +504,7 @@ describe('StatusBar', () => {
       />
     )
 
-    fireEvent.click(screen.getByRole('button', { name: 'Switch vault' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Open existing Library' }))
     fireEvent.click(screen.getByRole('button', { name: 'Remove Work Vault from list' }))
 
     expect(onRemoveVault).not.toHaveBeenCalled()
@@ -601,7 +601,7 @@ describe('StatusBar', () => {
     render(
       <StatusBar noteCount={100} vaultPath="/Users/luca/Laputa" vaults={vaults} onSwitchVault={vi.fn()} onOpenLocalFolder={vi.fn()} />
     )
-    fireEvent.click(screen.getByRole('button', { name: 'Switch vault' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Open existing Library' }))
     fireEvent.click(screen.getByText('Open local folder'))
     // Menu should close after clicking an action
     expect(screen.queryByText('Open local folder')).not.toBeInTheDocument()
@@ -814,6 +814,7 @@ describe('StatusBar', () => {
         gitFeaturesEnabled={false}
         isGitVault={false}
         onInitializeGit={vi.fn()}
+        onCloneVault={vi.fn()}
         onClickPulse={vi.fn()}
         onCommitPush={vi.fn()}
       />
@@ -823,6 +824,8 @@ describe('StatusBar', () => {
     expect(screen.queryByTestId('status-pulse')).not.toBeInTheDocument()
     expect(screen.queryByTestId('status-commit-push')).not.toBeInTheDocument()
     expect(screen.queryByTestId('status-changes')).not.toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'Open existing Library' }))
+    expect(screen.queryByText('Clone Git repo')).not.toBeInTheDocument()
   })
 
   it('opens Git setup from the missing-Git warning with mouse and keyboard', () => {

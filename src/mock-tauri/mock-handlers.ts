@@ -119,7 +119,7 @@ const mockSavedSinceCommit = new Set<string>()
 
 let mockSettings: Settings = {
   auto_pull_interval_minutes: 5,
-  git_enabled: null,
+  git_enabled: true,
   autogit_enabled: false,
   autogit_idle_threshold_seconds: 90,
   autogit_inactive_threshold_seconds: 30,
@@ -135,7 +135,7 @@ let mockSettings: Settings = {
   note_width_mode: null,
   sidebar_type_pluralization_enabled: null,
   initial_h1_auto_rename_enabled: null,
-  ai_features_enabled: null,
+  ai_features_enabled: true,
   default_ai_agent: 'claude_code',
   default_ai_target: null,
   ai_model_providers: null,
@@ -147,7 +147,7 @@ let mockSettings: Settings = {
   multi_workspace_enabled: null,
 }
 
-const DEFAULT_MOCK_VAULT_PATH = '/Users/mock/demo-vault-v2'
+const DEFAULT_MOCK_VAULT_PATH = '/Users/luca/Laputa'
 const DEFAULT_MOCK_VAULT = {
   label: 'demo-vault-v2',
   path: DEFAULT_MOCK_VAULT_PATH,
@@ -603,7 +603,7 @@ export const mockHandlers: Record<string, (args: any) => any> = {
   get_default_vault_path: () => '/Users/mock/Documents/Getting Started',
   check_vault_exists: (args: { path: string }) => {
     // In mock mode, the demo-vault-v2 path always "exists"
-    return args.path.includes('demo-vault-v2')
+    return args.path === DEFAULT_MOCK_VAULT_PATH || args.path.includes('demo-vault-v2')
   },
   create_empty_vault: (args: { targetPath?: string; target_path?: string }) => {
     const targetPath = args.targetPath || args.target_path || '/Users/mock/Documents/My Vault'

@@ -139,6 +139,8 @@ const expectedDefaultVaultPath = DEFAULT_VAULTS[0].path || mockDefaultVaultPath
 function createSettings(overrides: Partial<Settings> = {}): Settings {
   return {
     auto_pull_interval_minutes: null,
+    git_enabled: true,
+    ai_features_enabled: true,
     telemetry_consent: true,
     crash_reporting_enabled: null,
     analytics_enabled: null,
@@ -839,8 +841,7 @@ describe('App', () => {
     await screen.findByText('All Notes')
     fireEvent.keyDown(window, { key: 'l', code: 'KeyL', metaKey: true, shiftKey: true })
 
-    const input = await screen.findByTestId('agent-input')
-    fireEvent.click(screen.getByTestId('agent-send'))
+    expect(screen.queryByTestId('agent-input')).not.toBeInTheDocument()
 
     await act(async () => {
       await Promise.resolve()
@@ -854,6 +855,8 @@ describe('App', () => {
       }))
     })
 
+    fireEvent.keyDown(window, { key: 'l', code: 'KeyL', metaKey: true, shiftKey: true })
+    const input = await screen.findByTestId('agent-input')
     await waitFor(() => {
       expect(input).toHaveAttribute('aria-placeholder', 'Ask Codex')
     })
@@ -885,7 +888,7 @@ describe('App', () => {
     await waitFor(() => {
       expect(screen.getByTestId('welcome-screen')).toBeInTheDocument()
     }, { timeout: SLOW_APP_READY_TIMEOUT_MS })
-    expect(screen.getByTestId('welcome-open-folder')).toHaveTextContent('Open existing vault')
+    expect(screen.getByTestId('welcome-open-folder')).toHaveTextContent('Open existing Library')
   })
 
   it.each([
@@ -914,7 +917,7 @@ describe('App', () => {
     await waitFor(() => {
       expect(screen.getByTestId('welcome-screen')).toBeInTheDocument()
     }, { timeout: SLOW_APP_READY_TIMEOUT_MS })
-    expect(screen.getByTestId('welcome-open-folder')).toHaveTextContent('Open existing vault')
+    expect(screen.getByTestId('welcome-open-folder')).toHaveTextContent('Open existing Library')
   })
 
   it('uses the app shell loading state while the last vault is still resolving', async () => {
@@ -942,7 +945,7 @@ describe('App', () => {
     expect(screen.getByTestId('breadcrumb-title-skeleton')).toBeInTheDocument()
     expect(screen.getByTestId('editor-content-skeleton')).toBeInTheDocument()
     expect(screen.getByTestId('status-vault-reloading')).toHaveAccessibleName('Reloading vault from disk')
-    expect(screen.queryByText('Vault not found')).not.toBeInTheDocument()
+    expect(screen.queryByText('Library not found')).not.toBeInTheDocument()
 
     await act(async () => {
       resolveVaultList?.({
@@ -956,7 +959,7 @@ describe('App', () => {
     await waitFor(() => {
       expect(screen.getByTestId('status-vault-trigger')).toHaveTextContent('Work Vault')
     })
-    expect(screen.queryByText('Vault not found')).not.toBeInTheDocument()
+    expect(screen.queryByText('Library not found')).not.toBeInTheDocument()
   })
 
   it('shows the missing-vault screen once the resolved active vault is confirmed missing', async () => {
@@ -971,9 +974,9 @@ describe('App', () => {
     render(<App />)
 
     await waitFor(() => {
-      expect(screen.getByText('Vault not found')).toBeInTheDocument()
+      expect(screen.getByText('Library not found')).toBeInTheDocument()
     })
-    expect(screen.getByTestId('welcome-open-folder')).toHaveTextContent('Choose a different folder')
+    expect(screen.getByTestId('welcome-open-folder')).toHaveTextContent('Open existing Library')
   })
 
   it('shows welcome instead of vault-missing when the missing path was not a persisted active vault', async () => {
@@ -988,10 +991,10 @@ describe('App', () => {
     render(<App />)
 
     await waitFor(() => {
-      expect(screen.getByText('Welcome to Tolaria')).toBeInTheDocument()
+      expect(screen.getByText('Welcome to Memnova')).toBeInTheDocument()
     })
-    expect(screen.queryByText('Vault not found')).not.toBeInTheDocument()
-    expect(screen.getByTestId('welcome-open-folder')).toHaveTextContent('Open existing vault')
+    expect(screen.queryByText('Library not found')).not.toBeInTheDocument()
+    expect(screen.getByTestId('welcome-open-folder')).toHaveTextContent('Open existing Library')
   })
 
   it('persists and opens an existing vault chosen from onboarding', async () => {
@@ -1073,6 +1076,7 @@ describe('App', () => {
       expect(screen.getByTestId('welcome-screen')).toBeInTheDocument()
     })
 
+    fireEvent.click(screen.getByRole('button', { name: 'Advanced', exact: true }))
     fireEvent.click(screen.getByTestId('welcome-create-vault'))
 
     await waitFor(() => {
@@ -1300,7 +1304,7 @@ describe('App', () => {
       expect(screen.getByTestId('status-vault-trigger')).toHaveTextContent('Test Vault')
     })
 
-    fireEvent.click(screen.getByRole('button', { name: 'Switch vault' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Open existing Library' }))
     fireEvent.click(screen.getByTestId('vault-menu-item-Work Vault'))
 
     await waitFor(() => {

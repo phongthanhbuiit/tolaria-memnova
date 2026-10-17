@@ -1,5 +1,5 @@
 import type React from 'react'
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { translate, type AppLocale } from '../../lib/i18n'
 import type { VaultEntry } from '../../types'
@@ -10,6 +10,9 @@ import { ArchivedNoteBanner } from '../ArchivedNoteBanner'
 import { ConflictNoteBanner } from '../ConflictNoteBanner'
 import { RawEditorView } from '../RawEditorView'
 import { SingleEditorView } from '../SingleEditorView'
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '../ui/tabs'
+import { PageFlashcards } from '../learning/PageFlashcards'
+import { useLearningWorkspace } from '../learning/LearningContext'
 import { FlashcardEditorTabs } from '../FlashcardEditorTabs'
 import type { useEditorContentModel } from './useEditorContentModel'
 
@@ -490,11 +493,19 @@ export function EditorContentLayout(model: EditorContentModel) {
     rawModeContent,
     noteWidth,
     findRequest,
-    locale,
+    locale = 'en',
     isVaultLoading,
     flashcard,
   } = model
 
+  const learningWorkspace = useLearningWorkspace()
+  const [learningPanel, setLearningPanel] = useState({ path: '', tab: 'content' })
+  const [tabError, setTabError] = useState<string | null>(null)
+  const tab = learningPanel.path === path ? learningPanel.tab : 'content'
+  const changeLearningTab = async (value: string) => {
+    try { await learningWorkspace?.flush(); setLearningPanel({ path, tab: value }); setTabError(null) }
+    catch (error) { setTabError(String(error)) }
+  }
   // We require the flashcard model from Editor.tsx to render the tabs
   if (!flashcard) return null
 
@@ -511,7 +522,7 @@ export function EditorContentLayout(model: EditorContentModel) {
   const breadcrumbActions = buildBreadcrumbActions(model)
 
   return (
-    <div className={rootClassName}>
+    <Tabs value={tab} onValueChange={value => { void changeLearningTab(value) }} className={rootClassName}>
       <EditorBreadcrumbArea
         actions={breadcrumbActions}
         barRef={breadcrumbBarRef}
@@ -521,6 +532,10 @@ export function EditorContentLayout(model: EditorContentModel) {
         isVaultLoading={isVaultLoading}
         locale={locale}
       />
+      {learningWorkspace && showActiveContent && <TabsList className="mx-3 mt-2" aria-label={translate(locale, 'learning.cards')}><TabsTrigger value="content">{translate(locale, 'learning.content')}</TabsTrigger><TabsTrigger value="cards">{translate(locale, 'learning.cards')}</TabsTrigger></TabsList>}
+      {tabError && <p role="alert" className="px-4 text-sm text-destructive">{tabError}</p>}
+      {learningWorkspace && showActiveContent && <TabsContent value="cards" className="min-h-0 flex-1"><PageFlashcards key={path} path={path} locale={locale} /></TabsContent>}
+      <TabsContent value="content" forceMount className="flex min-h-0 flex-1 flex-col data-[state=inactive]:hidden">
       {/* Flashcard tab bar — only shown when FSRS is enabled on the active note */}
       {showActiveContent && flashcard.isFSRS && !effectiveRawMode && !diffMode && (
         <FlashcardEditorTabs
@@ -572,6 +587,7 @@ export function EditorContentLayout(model: EditorContentModel) {
         </>
       )}
       {showLoadingContent && <EditorLoadingCanvas cssVars={cssVars} />}
-    </div>
+      </TabsContent>
+    </Tabs>
   )
 }

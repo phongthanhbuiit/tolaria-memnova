@@ -1,11 +1,13 @@
 import { CircleNotch as Loader2, FolderOpen, Plus, Rocket, Warning as AlertTriangle } from '@phosphor-icons/react'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { OnboardingShell } from './OnboardingShell'
 import { Button } from '@/components/ui/button'
 import tolariaIcon from '@/assets/tolaria-icon.svg'
+import { translate, type AppLocale } from '../lib/i18n'
 
 interface WelcomeScreenProps {
+  locale?: AppLocale
   mode: 'welcome' | 'vault-missing'
   missingPath?: string
   defaultVaultPath: string
@@ -267,38 +269,22 @@ function OptionButton({
   )
 }
 
-function getWelcomeScreenPresentation(
-  mode: WelcomeScreenProps['mode'],
-  defaultVaultPath: string,
-  isOffline: boolean,
-): WelcomeScreenPresentation {
-  if (mode === 'welcome') {
-    return {
-      heroBackground: 'transparent',
-      heroIcon: <img src={tolariaIcon} alt="Tolaria icon" style={BRAND_ICON_STYLE} />,
-      openFolderLabel: 'Open existing vault',
-      subtitle: 'Markdown knowledge management for the age of AI',
-      templateDescription: isOffline
-        ? `Requires internet — clone later. Suggested path: ${defaultVaultPath}`
-        : 'Download the getting started vault',
-      title: 'Welcome to Tolaria',
-    }
-  }
-
+function getWelcomeScreenPresentation(mode: WelcomeScreenProps['mode'], locale: AppLocale): WelcomeScreenPresentation {
+  const t = (key: Parameters<typeof translate>[1]) => translate(locale, key)
   return {
-    heroBackground: 'var(--accent-yellow-light)',
-    heroIcon: <AlertTriangle size={28} style={{ color: 'var(--accent-orange)' }} />,
-    openFolderLabel: 'Choose a different folder',
-    subtitle: 'The vault folder could not be found on disk.\nIt may have been moved or deleted.',
-    templateDescription: isOffline
-      ? `Requires internet — clone later. Suggested path: ${defaultVaultPath}`
-      : 'Download the getting started vault',
-    title: 'Vault not found',
+    heroBackground: mode === 'welcome' ? 'transparent' : 'var(--accent-yellow-light)',
+    heroIcon: mode === 'welcome' ? <img src={tolariaIcon} alt="" style={BRAND_ICON_STYLE} /> : <AlertTriangle size={28} style={{ color: 'var(--accent-orange)' }} />,
+    openFolderLabel: t('welcome.open'),
+    subtitle: t(mode === 'welcome' ? 'welcome.subtitle' : 'welcome.missingHelp'),
+    templateDescription: t('welcome.templateHelp'),
+    title: t(mode === 'welcome' ? 'welcome.title' : 'welcome.missing'),
   }
 }
 
 function useWelcomeActionButtons({
   mode,
+  advanced,
+  onToggleAdvanced,
   busy,
   isOffline,
   onCreateEmptyVault,
@@ -309,29 +295,33 @@ function useWelcomeActionButtons({
   'mode' | 'isOffline' | 'onCreateEmptyVault' | 'onOpenFolder' | 'onCreateVault'
 > & {
   busy: boolean
+  advanced: boolean
+  onToggleAdvanced: () => void
 }) {
+  const advancedActionRef = useRef<HTMLButtonElement>(null)
   const templateActionRef = useRef<HTMLButtonElement>(null)
   const createEmptyActionRef = useRef<HTMLButtonElement>(null)
   const openFolderActionRef = useRef<HTMLButtonElement>(null)
   const actionButtonRefs = useMemo(
-    () => [templateActionRef, createEmptyActionRef, openFolderActionRef],
-    [],
+    () => [createEmptyActionRef, openFolderActionRef, advancedActionRef, ...(advanced ? [templateActionRef] : [])],
+    [advanced],
   )
   const actions = useMemo<WelcomeAction[]>(
     () => ([
-      { disabled: isOffline, run: onCreateVault },
       { disabled: false, run: onCreateEmptyVault },
       { disabled: false, run: onOpenFolder },
+      { disabled: false, run: onToggleAdvanced },
+      ...(advanced ? [{ disabled: isOffline, run: onCreateVault }] : []),
     ]),
-    [isOffline, onCreateEmptyVault, onCreateVault, onOpenFolder],
+    [advanced, isOffline, onCreateEmptyVault, onCreateVault, onOpenFolder, onToggleAdvanced],
   )
 
   useEffect(() => {
     void mode
-    if (busy) return
+    if (busy || document.activeElement === advancedActionRef.current) return
 
     // WKWebView can ignore `autoFocus`; move focus explicitly so keyboard-only
-    // onboarding always starts on the guided template flow.
+    // onboarding always starts on the local Library flow.
     focusWelcomeAction(actionButtonRefs, 0)
   }, [actionButtonRefs, busy, mode])
 
@@ -363,6 +353,7 @@ function useWelcomeActionButtons({
   }, [actionButtonRefs, actions, busy])
 
   return {
+    advancedActionRef,
     templateActionRef,
     createEmptyActionRef,
     openFolderActionRef,
@@ -371,7 +362,7 @@ function useWelcomeActionButtons({
 
 export function WelcomeScreen({
   mode,
-  defaultVaultPath,
+  locale = 'en',
   onCreateVault,
   onRetryCreateVault,
   onCreateEmptyVault,
@@ -381,10 +372,15 @@ export function WelcomeScreen({
   error,
   canRetryTemplate,
 }: WelcomeScreenProps) {
+  const [advanced, setAdvanced] = useState(creatingAction === 'template')
+  const onToggleAdvanced = useCallback(() => setAdvanced(value => !value), [])
   const busy = creatingAction !== null
-  const presentation = getWelcomeScreenPresentation(mode, defaultVaultPath, isOffline)
-  const { templateActionRef, createEmptyActionRef, openFolderActionRef } = useWelcomeActionButtons({
+  const t = (key: Parameters<typeof translate>[1]) => translate(locale, key)
+  const presentation = getWelcomeScreenPresentation(mode, locale)
+  const { advancedActionRef, templateActionRef, createEmptyActionRef, openFolderActionRef } = useWelcomeActionButtons({
     mode,
+    advanced,
+    onToggleAdvanced,
     busy,
     isOffline,
     onCreateEmptyVault,
@@ -418,32 +414,20 @@ export function WelcomeScreen({
         <div style={DIVIDER_STYLE} />
 
         <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 10 }}>
-          <OptionButton
-            icon={<Rocket size={18} style={{ color: 'var(--accent-purple)' }} />}
-            iconBg="var(--accent-purple-light)"
-            label="Get started with a template"
-            description={presentation.templateDescription}
-            loadingLabel="Downloading template…"
-            loadingDescription="Cloning the Getting Started vault template"
-            onClick={onCreateVault}
-            disabled={busy || isOffline}
-            loading={creatingAction === 'template'}
-            testId="welcome-create-vault"
-            autoFocus
-            buttonRef={templateActionRef}
-          />
+
 
           <OptionButton
             icon={<Plus size={18} style={{ color: 'var(--accent-blue)' }} />}
             iconBg="var(--accent-blue-light)"
-            label="Create empty vault"
-            description="Start fresh in an empty folder with Tolaria defaults"
-            loadingLabel="Creating vault…"
-            loadingDescription="Preparing Tolaria defaults in the selected folder"
+            label={t('welcome.create')}
+            description={t('welcome.createHelp')}
+            loadingLabel={t('welcome.creating')}
+            loadingDescription={t('welcome.createHelp')}
             onClick={onCreateEmptyVault}
             disabled={busy}
             loading={creatingAction === 'empty'}
             testId="welcome-create-new"
+            autoFocus
             buttonRef={createEmptyActionRef}
           />
 
@@ -451,17 +435,32 @@ export function WelcomeScreen({
             icon={<FolderOpen size={18} style={{ color: 'var(--accent-green)' }} />}
             iconBg="var(--accent-green-light)"
             label={presentation.openFolderLabel}
-            description="Point to a folder you already have"
+            description={t('welcome.openHelp')}
             onClick={onOpenFolder}
             disabled={busy}
             testId="welcome-open-folder"
             buttonRef={openFolderActionRef}
           />
+          <Button ref={advancedActionRef} variant="ghost" disabled={busy} aria-expanded={advanced} onClick={onToggleAdvanced}>{t('learning.advanced')}</Button>
+          {advanced && <>          <OptionButton
+            icon={<Rocket size={18} style={{ color: 'var(--accent-purple)' }} />}
+            iconBg="var(--accent-purple-light)"
+            label={t('welcome.template')}
+            description={presentation.templateDescription}
+            loadingLabel={t('welcome.downloading')}
+            loadingDescription={t('welcome.templateHelp')}
+            onClick={onCreateVault}
+            disabled={busy || isOffline}
+            loading={creatingAction === 'template'}
+            testId="welcome-create-vault"
+            buttonRef={templateActionRef}
+          /></>}
+
         </div>
 
         {creatingAction === 'template' && (
           <p style={STATUS_STYLE} data-testid="welcome-status" role="status" aria-live="polite">
-            Downloading the Getting Started vault template…
+            {t('welcome.downloading')}
           </p>
         )}
 
@@ -479,7 +478,7 @@ export function WelcomeScreen({
                 data-testid="welcome-retry-template"
                 className="shadow-none"
               >
-                Retry download
+                {t('learning.retry')}
               </Button>
             )}
           </div>

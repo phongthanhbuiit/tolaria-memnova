@@ -23,6 +23,7 @@ import type { VaultEntry } from '../types'
 import { isFSRSEnabled } from '../lib/fsrsVaultEntry'
 
 interface UseFlashcardEditorFaceOptions {
+  disableLegacy?: boolean
   entry: VaultEntry | null
   /** Full raw markdown content of the active note */
   fullContent: string
@@ -50,6 +51,7 @@ interface FlashcardEditorFaceState {
 }
 
 export function useFlashcardEditorFace({
+  disableLegacy = false,
   entry,
   fullContent,
   onContentChange,
@@ -93,7 +95,7 @@ export function useFlashcardEditorFace({
     }
   }
 
-  const isFSRS = useMemo(() => (entry ? isFSRSEnabled(entry) : false), [entry])
+  const isFSRS = useMemo(() => (!disableLegacy && entry ? isFSRSEnabled(entry) : false), [entry, disableLegacy])
 
   // Split the latest merged content into front + back
   const { front, back, hasBack } = useMemo(

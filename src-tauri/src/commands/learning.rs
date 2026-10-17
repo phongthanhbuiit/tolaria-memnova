@@ -26,6 +26,7 @@ pub enum LearningRequest {
         include_trashed: bool,
     },
     CreateCard {
+        operation_id: Option<String>,
         page_id: String,
         draft: CardDraft,
     },
@@ -36,6 +37,15 @@ pub enum LearningRequest {
     },
     CloneCard {
         card_id: String,
+    },
+    ListPages,
+    SyncPages,
+    EnsurePage {
+        path: String,
+    },
+    StudyStats,
+    SetDailyGoal {
+        goal: u64,
     },
     StartSession {
         scope: SessionScope,
@@ -91,7 +101,7 @@ fn execute_with_log(
         )?)
         .map_err(|error| error.to_string());
     }
-    boundary.child_path(".memnova")?;
+    // The learning store owns and validates its reserved metadata paths.
     let mut store = Store::open(boundary.requested_root())?;
     if !matches!(request, LearningRequest::Describe)
         && library_id.as_deref() != Some(&store.library_id)
@@ -129,15 +139,25 @@ fn dispatch(
             page_id,
             include_trashed,
         } => encode(store.list_cards(page_id.as_deref(), include_trashed)?),
-        LearningRequest::CreateCard { page_id, draft } => {
-            encode(store.create_card(&page_id, draft)?)
-        }
+        LearningRequest::CreateCard {
+            page_id,
+            draft,
+            operation_id,
+        } => encode(match operation_id {
+            Some(id) => store.create_card_once(&id, &page_id, draft)?,
+            None => store.create_card(&page_id, draft)?,
+        }),
         LearningRequest::UpdateCard {
             card_id,
             revision,
             draft,
         } => encode(store.update_card(&card_id, revision, draft)?),
         LearningRequest::CloneCard { card_id } => encode(store.clone_card(&card_id)?),
+        LearningRequest::ListPages => encode(store.list_pages()?),
+        LearningRequest::SyncPages => encode(store.sync_pages()?),
+        LearningRequest::EnsurePage { path } => encode(store.ensure_page(&path)?),
+        LearningRequest::StudyStats => encode(store.study_stats()?),
+        LearningRequest::SetDailyGoal { goal } => encode(store.set_daily_goal(goal)?),
         LearningRequest::StartSession { scope } => encode(store.start_session(scope)?),
         LearningRequest::GetSession { session_id } => encode(store.get_session(&session_id)?),
         LearningRequest::ResumeSession { session_id } => encode(store.resume_session(&session_id)?),

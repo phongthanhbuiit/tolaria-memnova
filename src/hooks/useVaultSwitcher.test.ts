@@ -75,7 +75,7 @@ describe('useVaultSwitcher', () => {
   }
 
   const renderLoadedVaultSwitcher = async () => {
-    const hook = renderHook(() => useVaultSwitcher({ onSwitch, onToast }))
+    const hook = renderHook(() => useVaultSwitcher({ onSwitch, onToast, mcpBridgeEnabled: true }))
     await waitFor(() => {
       expect(hook.result.current.loaded).toBe(true)
     })
@@ -137,7 +137,7 @@ describe('useVaultSwitcher', () => {
       active_vault: '/Users/luca/Laputa',
     }
 
-    const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast }))
+    const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast, mcpBridgeEnabled: true }))
 
     await waitFor(() => {
       expect(result.current.loaded).toBe(true)
@@ -168,7 +168,7 @@ describe('useVaultSwitcher', () => {
   })
 
   it('persists vault list when adding a vault via handleVaultCloned', async () => {
-    const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast }))
+    const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast, mcpBridgeEnabled: true }))
 
     await waitFor(() => { expect(result.current.loaded).toBe(true) })
 
@@ -239,7 +239,7 @@ describe('useVaultSwitcher', () => {
       active_vault: null,
     }
 
-    const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast }))
+    const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast, mcpBridgeEnabled: true }))
 
     await waitFor(() => { expect(result.current.loaded).toBe(true) })
 
@@ -258,7 +258,7 @@ describe('useVaultSwitcher', () => {
   })
 
   it('does not persist the implicit default vault as an active selection', async () => {
-    const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast }))
+    const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast, mcpBridgeEnabled: true }))
 
     await waitFor(() => { expect(result.current.loaded).toBe(true) })
 
@@ -392,7 +392,7 @@ describe('useVaultSwitcher', () => {
       return Promise.resolve(null)
     })
 
-    const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast }))
+    const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast, mcpBridgeEnabled: true }))
 
     await waitFor(() => { expect(result.current.loaded).toBe(true) })
 
@@ -404,7 +404,7 @@ describe('useVaultSwitcher', () => {
   })
 
   it('does not duplicate vaults with same path', async () => {
-    const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast }))
+    const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast, mcpBridgeEnabled: true }))
     await waitFor(() => { expect(result.current.loaded).toBe(true) })
 
     act(() => {
@@ -422,7 +422,7 @@ describe('useVaultSwitcher', () => {
     const { pickFolder } = await import('../utils/vault-dialog')
     vi.mocked(pickFolder).mockResolvedValue('/Users/luca/MyVault')
 
-    const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast }))
+    const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast, mcpBridgeEnabled: true }))
     await waitFor(() => { expect(result.current.loaded).toBe(true) })
 
     await act(async () => {
@@ -492,7 +492,7 @@ describe('useVaultSwitcher', () => {
         hidden_defaults: [],
       }
 
-      const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast }))
+      const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast, mcpBridgeEnabled: true }))
       await waitFor(() => { expect(result.current.loaded).toBe(true) })
 
       expect(result.current.allVaults).toHaveLength(2) // default + Work
@@ -506,7 +506,7 @@ describe('useVaultSwitcher', () => {
     })
 
     it('hides a default vault instead of deleting it', async () => {
-      const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast }))
+      const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast, mcpBridgeEnabled: true }))
       await waitFor(() => { expect(result.current.loaded).toBe(true) })
 
       const defaultPath = DEFAULT_VAULTS[0].path
@@ -527,7 +527,7 @@ describe('useVaultSwitcher', () => {
         hidden_defaults: [],
       }
 
-      const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast }))
+      const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast, mcpBridgeEnabled: true }))
       await waitFor(() => { expect(result.current.loaded).toBe(true) })
 
       expect(result.current.vaultPath).toBe('/work/vault')
@@ -547,7 +547,7 @@ describe('useVaultSwitcher', () => {
         hidden_defaults: [],
       }
 
-      const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast }))
+      const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast, mcpBridgeEnabled: true }))
       await waitFor(() => { expect(result.current.loaded).toBe(true) })
 
       act(() => {
@@ -558,7 +558,7 @@ describe('useVaultSwitcher', () => {
     })
 
     it('persists hidden_defaults when removing a default vault', async () => {
-      const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast }))
+      const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast, mcpBridgeEnabled: true }))
       await waitFor(() => { expect(result.current.loaded).toBe(true) })
 
       // Add another vault first so we're not removing the last one
@@ -584,7 +584,7 @@ describe('useVaultSwitcher', () => {
     it('un-hides the Getting Started vault', async () => {
       setWorkVaultWithHiddenGettingStarted()
 
-      const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast }))
+      const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast, mcpBridgeEnabled: true }))
       await waitFor(() => { expect(result.current.loaded).toBe(true) })
 
       expect(result.current.isGettingStartedHidden).toBe(true)
@@ -600,7 +600,7 @@ describe('useVaultSwitcher', () => {
     it('switches to the Getting Started vault after restoring', async () => {
       setWorkVaultWithHiddenGettingStarted()
 
-      const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast }))
+      const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast, mcpBridgeEnabled: true }))
       await waitFor(() => { expect(result.current.loaded).toBe(true) })
 
       await act(async () => {
@@ -662,7 +662,7 @@ describe('useVaultSwitcher', () => {
         hidden_defaults: [],
       }
 
-      const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast }))
+      const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast, mcpBridgeEnabled: true }))
       await waitFor(() => { expect(result.current.loaded).toBe(true) })
 
       expect(result.current.vaultPath).toBe(persistedPath)
@@ -675,7 +675,7 @@ describe('useVaultSwitcher', () => {
         hidden_defaults: [],
       }
 
-      const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast }))
+      const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast, mcpBridgeEnabled: true }))
       await waitFor(() => { expect(result.current.loaded).toBe(true) })
 
       expect(result.current.vaultPath).toBe(expectedDefaultVaultPath)
@@ -685,7 +685,7 @@ describe('useVaultSwitcher', () => {
 
   describe('isGettingStartedHidden', () => {
     it('is false by default', async () => {
-      const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast }))
+      const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast, mcpBridgeEnabled: true }))
       await waitFor(() => { expect(result.current.loaded).toBe(true) })
       expect(result.current.isGettingStartedHidden).toBe(false)
     })
@@ -697,9 +697,19 @@ describe('useVaultSwitcher', () => {
         hidden_defaults: [expectedDefaultVaultPath],
       }
 
-      const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast }))
+      const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast, mcpBridgeEnabled: true }))
       await waitFor(() => { expect(result.current.loaded).toBe(true) })
       expect(result.current.isGettingStartedHidden).toBe(true)
     })
   })
+})
+
+it('stops the AI bridge in local-only mode and resynchronizes after explicit opt-in', async () => {
+  vi.clearAllMocks()
+  mockVaultListStore = { vaults: [{ label: 'Private', path: '/private/library' }], active_vault: '/private/library', hidden_defaults: [] }
+  const { result, rerender } = renderHook(({ enabled }) => useVaultSwitcher({ onSwitch: vi.fn(), onToast: vi.fn(), mcpBridgeEnabled: enabled }), { initialProps: { enabled: false } })
+  await waitFor(() => expect(result.current.loaded).toBe(true))
+  expect(mockInvokeFn).toHaveBeenCalledWith('sync_mcp_bridge_vault', { vaultPath: null })
+  rerender({ enabled: true })
+  await waitFor(() => expect(mockInvokeFn).toHaveBeenCalledWith('sync_mcp_bridge_vault', { vaultPath: '/private/library' }))
 })

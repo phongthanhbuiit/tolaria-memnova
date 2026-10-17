@@ -216,6 +216,7 @@ fn resolve_diff_stats(
 }
 
 fn ensure_path_within_vault(vault: &Path, relative_path: &Path, abs: &Path) -> Result<(), String> {
+    super::learning_guard::ensure_content_path(&relative_path.to_string_lossy())?;
     for component in relative_path.components() {
         if matches!(component, std::path::Component::ParentDir) {
             return Err("File path is outside the vault".into());
@@ -311,7 +312,9 @@ fn get_modified_files_impl(vault: &Path, include_stats: bool) -> Result<Vec<Modi
         .into_iter()
         .filter_map(|entry| {
             // Only include markdown files
-            if !entry.relative_path.ends_with(".md") {
+            if !entry.relative_path.ends_with(".md")
+                || super::learning_guard::is_private(&entry.relative_path)
+            {
                 return None;
             }
 

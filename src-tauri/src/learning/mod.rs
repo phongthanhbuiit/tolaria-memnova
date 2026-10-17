@@ -62,7 +62,15 @@ mod session_tests;
 pub use session_models::{
     RateRequest, RateResult, SessionScope, StudyItem, StudyPage, StudySession,
 };
+#[cfg(test)]
+mod page_lifecycle_tests;
 mod review_validation;
 mod reviews;
 mod sessions;
 mod study_source;
+
+mod pages;
+pub use pages::LearningPage;
+pub mod page_content;
+mod study_stats;
+pub use study_stats::StudyStats;

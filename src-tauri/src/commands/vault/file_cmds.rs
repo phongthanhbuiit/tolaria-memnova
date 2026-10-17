@@ -7,6 +7,13 @@ use super::boundary::{
     with_boundary, with_existing_paths, with_requested_root, with_validated_path, ValidatedPathMode,
 };
 
+fn content_library_root(vault_path: Option<&Path>) -> Result<PathBuf, String> {
+    let raw = vault_path.map(|path| path.to_string_lossy());
+    with_boundary(raw.as_deref(), |boundary| {
+        Ok(boundary.requested_root().to_path_buf())
+    })
+}
+
 fn with_note_path<T>(
     path: &Path,
     vault_path: Option<&Path>,
@@ -135,11 +142,17 @@ pub fn validate_note_content(
     content: String,
     vault_path: Option<PathBuf>,
 ) -> Result<bool, String> {
+    let root = content_library_root(vault_path.as_deref())?;
     with_note_path(
         path.as_path(),
         vault_path.as_deref(),
         ValidatedPathMode::Existing,
-        |validated_path| vault::note_content_matches(validated_path, &content),
+        |validated_path| {
+            vault::note_content_matches(
+                validated_path,
+                &crate::learning::page_content::prepare_save(&root, validated_path, &content)?,
+            )
+        },
     )
 }
 
@@ -150,8 +163,16 @@ pub async fn save_note_content(
     vault_path: Option<PathBuf>,
 ) -> Result<(), String> {
     tokio::task::spawn_blocking(move || {
-        with_writable_note_path(path, vault_path, |validated_path| {
-            vault::save_note_content(validated_path, &content)
+        let root = content_library_root(vault_path.as_deref())?;
+        crate::learning::page_content::with_source_write(|| {
+            with_writable_note_path(path, vault_path, |validated_path| {
+                let content = crate::learning::page_content::prepare_save(
+                    &root,
+                    Path::new(validated_path),
+                    &content,
+                )?;
+                vault::save_note_content(validated_path, &content)
+            })
         })
     })
     .await
@@ -164,8 +185,12 @@ pub fn create_note_content(
     content: String,
     vault_path: Option<PathBuf>,
 ) -> Result<(), String> {
-    with_writable_note_path(path, vault_path, |validated_path| {
-        vault::create_note_content(validated_path, &content)
+    let root = content_library_root(vault_path.as_deref())?;
+    crate::learning::page_content::with_source_write(|| {
+        with_writable_note_path(path, vault_path, |validated_path| {
+            let content = crate::learning::page_content::prepare_create(&root, &content)?;
+            vault::create_note_content(validated_path, &content)
+        })
     })
 }
 
@@ -468,5 +493,70 @@ mod tests {
                 .unwrap()
         );
         assert!(!validate_note_content(note, "# Stale\n".to_string(), Some(root)).unwrap());
+    }
+}
+
+#[cfg(test)]
+mod learning_identity_tests {
+    #[tokio::test]
+    async fn ordinary_note_commands_cannot_read_or_overwrite_private_learning_snapshots() {
+        let dir = tempfile::tempdir().unwrap();
+        let folder = dir.path().join(".memnova/notes");
+        std::fs::create_dir_all(&folder).unwrap();
+        let path = folder.join("snapshot.md");
+        std::fs::write(&path, "private recovery content").unwrap();
+        assert!(super::get_note_content(path.clone(), Some(dir.path().to_path_buf())).is_err());
+        assert!(super::save_note_content(
+            path.clone(),
+            "overwritten".into(),
+            Some(dir.path().to_path_buf())
+        )
+        .await
+        .is_err());
+        assert_eq!(
+            std::fs::read_to_string(path).unwrap(),
+            "private recovery content"
+        );
+    }
+
+    #[tokio::test]
+    async fn editor_save_retains_migrated_identity_and_new_notes_get_fresh_identities() {
+        let dir = tempfile::tempdir().unwrap();
+        let path = dir.path().join("lesson.md");
+        std::fs::write(&path, "# Lesson").unwrap();
+        let mut store = crate::learning::Store::open(dir.path()).unwrap();
+        let preview = crate::learning::preview_migration(dir.path(), None).unwrap();
+        store
+            .prepare_migration(&preview.fingerprint, None, None)
+            .unwrap();
+        store.resume_migration(20).unwrap();
+        let original = std::fs::read_to_string(&path).unwrap();
+        super::save_note_content(
+            path.clone(),
+            "# Changed lesson".into(),
+            Some(dir.path().to_path_buf()),
+        )
+        .await
+        .unwrap();
+        let saved = std::fs::read_to_string(&path).unwrap();
+        assert!(saved.contains("_memnova_page_id:"));
+        assert!(saved.ends_with("# Changed lesson"));
+        assert!(super::validate_note_content(
+            path,
+            "# Changed lesson".into(),
+            Some(dir.path().to_path_buf())
+        )
+        .unwrap());
+        let other = dir.path().join("copy.md");
+        super::create_note_content(
+            other.clone(),
+            original.clone(),
+            Some(dir.path().to_path_buf()),
+        )
+        .unwrap();
+        assert_ne!(std::fs::read_to_string(other).unwrap(), original);
+        let pages = store.sync_pages().unwrap();
+        assert_eq!(pages.len(), 2);
+        assert_ne!(pages[0].id, pages[1].id);
     }
 }

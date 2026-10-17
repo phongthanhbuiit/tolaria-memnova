@@ -135,15 +135,14 @@ import {
   shouldPreferOnboardingVaultPath,
 } from './utils/appOrchestration'
 import './App.css'
-import { useFlashcardSession } from './hooks/useFlashcardSession'
-import { FlashcardStudyView } from './components/FlashcardStudyView'
-import { getDueReviewCount, isFSRSEnabled, getFSRSCard, collectDeckMembers } from './lib/fsrsVaultEntry'
-import { persistLegacySchedule } from './lib/legacySchedule'
-import { contentToEntryPatch } from './hooks/frontmatterOps'
-import { cacheNoteContent } from './hooks/noteContentCache'
-import { useStats } from './hooks/useStats'
-import { HomePage } from './components/HomePage'
-import { DecksPage } from './components/DecksPage'
+import { useLearningLibrary } from './hooks/useLearningLibrary'
+import { useLearningStudy } from './hooks/useLearningStudy'
+import { LearningContext } from './components/learning/LearningContext'
+import { LearningDashboard } from './components/learning/LearningDashboard'
+import { LearningMigration } from './components/learning/LearningMigration'
+import { LearningStudyView } from './components/learning/LearningStudyView'
+import { withLearningPageDates } from './lib/learning/pageDates'
+import { learningPageScope } from './lib/learning/pageScope'
 
 // Type declarations for mock content storage and test overrides
 declare global {
@@ -215,6 +214,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
   // called on user interaction, never during render (refs inside the hook
   // guarantee the latest closure is always used).
   const vaultSwitcher = useVaultSwitcher({
+    mcpBridgeEnabled: aiFeaturesEnabled,
     onSwitch: () => {
       if (noteWindowParams || aiWorkspaceWindow) return
       handleSetSelection(DEFAULT_SELECTION)
@@ -1400,75 +1400,38 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
     void notes.handleRedo()
   }, [notes])
 
-  const statsManager = useStats()
-
-  // ── FSRS Flashcard Session ────────────────────────────────────────────────
-  // Must be declared BEFORE useAppCommands so flashcardSession is initialized
-  // when referenced in the onStartReview prop.
-  const flashcardSession = useFlashcardSession({
-    entries: visibleEntries,
-    onPersistSchedule: async (path, patch) => {
-      await flushEditorStateBeforeAction(path)
-      markRecentVaultWrite(path)
-      const content = await persistLegacySchedule(path, patch)
-      cacheNoteContent(path, content)
-      notes.updateTabContent(path, content)
-      vault.updateEntry(path, contentToEntryPatch(content))
-    },
-    onRecordReview: statsManager.recordReview,
-  })
-
-  const handleFlashcardNavigate = useCallback((target: string) => {
-    flashcardSession.endSession()
-    notes.handleNavigateWikilink(target)
-  }, [flashcardSession, notes])
-
-  const reviewCount = useMemo(
-    () => getDueReviewCount(visibleEntries, new Date()),
-    [visibleEntries],
-  )
-
-  const fsrsDueDate = useMemo(() => {
-    const activeEntry = activeTab?.entry
-    if (!activeEntry || !isFSRSEnabled(activeEntry)) return null
-    const card = getFSRSCard(activeEntry)
-    const dueTime = new Date(card.due).getTime()
-    const todayEnd = new Date()
-    todayEnd.setHours(23, 59, 59, 999)
-    if (dueTime <= todayEnd.getTime()) {
-      return 'today'
-    }
-    return card.due.split('T')[0]
-  }, [activeTab?.entry])
-
-  const hasDeckMembers = useMemo(() => {
-    const activeEntry = activeTab?.entry
-    if (!activeEntry) return false
-    return collectDeckMembers(activeEntry, visibleEntries).length > 0
-  }, [activeTab?.entry, visibleEntries])
-
-  const handleScheduleForReview = useCallback(async (scope: 'self' | 'deck' = 'self') => {
-    const activeEntry = activeTab?.entry
-    if (activeEntry) {
-      await flashcardSession.scheduleForReview(activeEntry, scope)
-    }
-  }, [activeTab?.entry, flashcardSession])
-
-  const handleStartDeckSession = useCallback(() => {
-    const activeEntry = activeTab?.entry
-    if (!activeEntry) return
-    flashcardSession.startSession(activeEntry)
-  }, [activeTab?.entry, flashcardSession])
-
-  // Update the ref after each render so handleSetSelection (empty-deps useCallback)
-  // always calls the latest startSession. Updating a ref inside useEffect is allowed.
+  const learning = useLearningLibrary(resolvedPath)
+  const learningStudy = useLearningStudy(learning.client, learning.refresh)
+  const { phase: learningPhase, openMigration, refresh: refreshLearning } = learning
+  const { start: startLearningStudy } = learningStudy
+  const { registerVaultSelection: registerLearningLibrary } = vaultSwitcher
+  const scopeForPage = (pageId: string) => learningPageScope(pageId, learning.root, learning.pages, visibleEntries)
+  const requestStudy = useCallback((pageIds?: string[]) => {
+    if (learningPhase !== 'ready') { void openMigration(); return }
+    void startLearningStudy({ pageIds: pageIds ?? null })
+  }, [learningPhase, openMigration, startLearningStudy])
+  const reviewCount = useMemo(() => {
+    const available = new Set(learning.pages.filter(page => page.available).map(page => page.id))
+    return learning.cards.filter(card => available.has(card.pageId) && card.status === 'active' && Date.parse(card.schedule.due) <= learning.clock).length
+  }, [learning.cards, learning.pages, learning.clock])
+  const activeLearningPath = activeTab?.entry.path
+  const flushLearning = useCallback(async () => {
+    if (activeLearningPath) await flushEditorStateBeforeAction(activeLearningPath)
+  }, [activeLearningPath, flushEditorStateBeforeAction])
+  const openLearningLibrary = useCallback((path: string) => registerLearningLibrary(path, translate(appLocale, 'learning.library')), [registerLearningLibrary, appLocale])
+  const learningEntries = useMemo(() => withLearningPageDates(visibleEntries, learning.pages, learning.root), [visibleEntries, learning.pages, learning.root])
+  const learningTabs = useMemo(() => {
+    const byPath = new Map(learningEntries.map(entry => [entry.path, entry]))
+    return notes.tabs.map(tab => byPath.has(tab.entry.path) ? { ...tab, entry: byPath.get(tab.entry.path) ?? tab.entry } : tab)
+  }, [notes.tabs, learningEntries])
+  const learningWorkspace = { ...learning, study: learningStudy, requestStudy, scopeForPage, flush: flushLearning, openLibrary: openLearningLibrary }
+  const learningSourceIndex = useMemo(() => visibleEntries.map(entry => `${entry.path}:${entry.title}`).join('\n'), [visibleEntries])
   useEffect(() => {
-    startReviewRef.current = () => {
-      if (flashcardSession.dueEntries.length > 0) {
-        flashcardSession.startSession()
-      }
-    }
-  })
+    if (learningPhase !== 'ready') return
+    const timer = setTimeout(() => { void refreshLearning().catch(error => setToastMessage(String(error))) }, 500)
+    return () => clearTimeout(timer)
+  }, [learningSourceIndex, learningPhase, refreshLearning])
+  useEffect(() => { startReviewRef.current = () => requestStudy() }, [requestStudy])
 
   const commands = useAppCommands({
     activeTabPath: notes.activeTabPath, activeTabPathRef: notes.activeTabPathRef,
@@ -1569,7 +1532,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
     noteListColumnsLabel,
     onRestoreDeletedNote: restoreDeletedNoteCommand,
     canRestoreDeletedNote: !!activeDeletedFile,
-    onStartReview: flashcardSession.dueEntries.length > 0 ? flashcardSession.startSession : undefined,
+    onStartReview: () => requestStudy(),
     reviewCount,
   })
 
@@ -1661,6 +1624,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
   const noteListModifiedFilesError = isChangesSelection ? gitSurfaces.changesModifiedFilesError : null
 
   return (
+    <LearningContext.Provider value={learningWorkspace}>
     <AppPreferencesProvider dateDisplayFormat={dateDisplayFormat}>
       <div className="app-shell">
         <div className="app">
@@ -1672,27 +1636,12 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
               <ResizeHandle onResize={layout.handleSidebarResize} />
             </>
           )}
-          {effectiveSelection.kind === 'filter' && (effectiveSelection.filter === 'home' || effectiveSelection.filter === 'decks') ? (
+          {effectiveSelection.kind === 'filter' && (effectiveSelection.filter === 'home' || effectiveSelection.filter === 'decks' || effectiveSelection.filter === 'review') ? (
             <div className="app__dashboard flex-1 overflow-y-auto bg-background">
-              {effectiveSelection.filter === 'home' ? (
-                <HomePage
-                  stats={statsManager.stats}
-                  level={statsManager.level}
-                  currentLevelXP={statsManager.currentLevelXP}
-                  nextLevelXP={statsManager.nextLevelXP}
-                  entries={visibleEntries}
-                  onStartReview={() => flashcardSession.startSession()}
-                  onNavigate={handleSetSelection}
-                  onUpdateDailyGoal={statsManager.updateDailyGoal}
-                  locale={appLocale}
-                />
-              ) : (
-                <DecksPage
-                  entries={visibleEntries}
-                  onStartStudyDeck={(deck) => flashcardSession.startSession(deck)}
-                  locale={appLocale}
-                />
-              )}
+              <LearningDashboard mode={effectiveSelection.filter === 'decks' ? 'decks' : 'home'} locale={appLocale} onOpenPage={page => {
+                const entry = visibleEntries.find(entry => entry.path === `${learning.root}/${page.path}`)
+                if (entry) { handleSetSelection({ kind: 'filter', filter: 'all' }); notes.handleSelectNote(entry) }
+              }} />
             </div>
           ) : (
             <>
@@ -1702,7 +1651,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
                     {effectiveSelection.kind === 'filter' && effectiveSelection.filter === 'pulse' ? (
                       <PulseView vaultPath={gitSurfaces.historyRepositoryPath} onOpenNote={handlePulseOpenNote} sidebarCollapsed={!sidebarVisible} onExpandSidebar={() => handleSetViewMode('all')} repositories={gitRepositories} selectedRepositoryPath={gitSurfaces.historyRepositoryPath} onRepositoryChange={gitSurfaces.setHistoryRepositoryPath} locale={appLocale} />
                     ) : (
-                      <NoteList entries={visibleEntries} selection={effectiveSelection} selectedNote={activeTab?.entry ?? null} loading={isVaultContentLoading} noteListFilter={noteListFilter} onNoteListFilterChange={setNoteListFilter} inboxPeriod={inboxPeriod} modifiedFiles={noteListModifiedFiles} modifiedFilesError={noteListModifiedFilesError} gitRepositories={gitRepositories} selectedGitRepositoryPath={gitSurfaces.changesRepositoryPath} onGitRepositoryChange={gitSurfaces.setChangesRepositoryPath} getNoteStatus={vault.getNoteStatus} sidebarCollapsed={!sidebarVisible} onSelectNote={notes.handleSelectNote} onReplaceActiveTab={handleReplaceActiveTabWithQueuedDiff} onEnterNeighborhood={handleEnterNeighborhood} onCreateNote={notes.handleCreateNoteImmediate} onBulkOrganize={explicitOrganizationEnabled ? bulkActions.handleBulkOrganize : undefined} onBulkArchive={bulkActions.handleBulkArchive} onBulkDeletePermanently={deleteActions.handleBulkDeletePermanently} onUpdateTypeSort={notes.handleUpdateFrontmatter} onUpdateViewDefinition={handleUpdateViewDefinition} updateEntry={vault.updateEntry} onOpenInNewWindow={handleOpenEntryInNewWindow} onExportPdf={handleExportNotePdfFromList} onToggleFavorite={entryActions.handleToggleFavorite} onToggleOrganized={explicitOrganizationEnabled ? entryActions.handleToggleOrganized : undefined} onRevealFile={fileActions.revealFile} onCopyFilePath={fileActions.copyFilePath} onDiscardFile={handleDiscardFile} onOpenDeletedNote={handleOpenDeletedNote} allNotesNoteListProperties={vaultConfig.allNotes?.noteListProperties ?? null} onUpdateAllNotesNoteListProperties={handleUpdateAllNotesNoteListProperties} inboxNoteListProperties={vaultConfig.inbox?.noteListProperties ?? null} onUpdateInboxNoteListProperties={handleUpdateInboxNoteListProperties} views={vault.views} visibleNotesRef={visibleNotesRef} allNotesFileVisibility={allNotesFileVisibility} multiSelectionCommandRef={multiSelectionCommandRef} locale={appLocale} />
+                      <NoteList entries={learningEntries} selection={effectiveSelection} selectedNote={activeTab?.entry ?? null} loading={isVaultContentLoading} noteListFilter={noteListFilter} onNoteListFilterChange={setNoteListFilter} inboxPeriod={inboxPeriod} modifiedFiles={noteListModifiedFiles} modifiedFilesError={noteListModifiedFilesError} gitRepositories={gitRepositories} selectedGitRepositoryPath={gitSurfaces.changesRepositoryPath} onGitRepositoryChange={gitSurfaces.setChangesRepositoryPath} getNoteStatus={vault.getNoteStatus} sidebarCollapsed={!sidebarVisible} onSelectNote={notes.handleSelectNote} onReplaceActiveTab={handleReplaceActiveTabWithQueuedDiff} onEnterNeighborhood={handleEnterNeighborhood} onCreateNote={notes.handleCreateNoteImmediate} onBulkOrganize={explicitOrganizationEnabled ? bulkActions.handleBulkOrganize : undefined} onBulkArchive={bulkActions.handleBulkArchive} onBulkDeletePermanently={deleteActions.handleBulkDeletePermanently} onUpdateTypeSort={notes.handleUpdateFrontmatter} onUpdateViewDefinition={handleUpdateViewDefinition} updateEntry={vault.updateEntry} onOpenInNewWindow={handleOpenEntryInNewWindow} onExportPdf={handleExportNotePdfFromList} onToggleFavorite={entryActions.handleToggleFavorite} onToggleOrganized={explicitOrganizationEnabled ? entryActions.handleToggleOrganized : undefined} onRevealFile={fileActions.revealFile} onCopyFilePath={fileActions.copyFilePath} onDiscardFile={handleDiscardFile} onOpenDeletedNote={handleOpenDeletedNote} allNotesNoteListProperties={vaultConfig.allNotes?.noteListProperties ?? null} onUpdateAllNotesNoteListProperties={handleUpdateAllNotesNoteListProperties} inboxNoteListProperties={vaultConfig.inbox?.noteListProperties ?? null} onUpdateInboxNoteListProperties={handleUpdateInboxNoteListProperties} views={vault.views} visibleNotesRef={visibleNotesRef} allNotesFileVisibility={allNotesFileVisibility} multiSelectionCommandRef={multiSelectionCommandRef} locale={appLocale} />
                     )}
                   </div>
                   <ResizeHandle onResize={layout.handleNoteListResize} />
@@ -1710,7 +1659,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
               )}
               <div className={`app__editor${aiActivity.highlightElement === 'editor' || aiActivity.highlightElement === 'tab' ? ' ai-highlight' : ''}`}>
                 <Editor
-                  tabs={notes.tabs}
+                  tabs={learningTabs}
                   activeTabPath={notes.activeTabPath}
                   isVaultLoading={isVaultContentLoading}
                   entries={visibleEntries}
@@ -1782,11 +1731,6 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
                   flushPendingEditorContentRef={flushPendingEditorContentRef}
                   flushPendingRawContentRef={flushPendingRawContentRef}
                   onToast={setToastMessage}
-                  onScheduleForReview={() => handleScheduleForReview('self')}
-                  onScheduleAsDeck={() => handleScheduleForReview('deck')}
-                  onStartDeckSession={handleStartDeckSession}
-                  hasDeckMembers={hasDeckMembers}
-                  fsrsDueDate={fsrsDueDate}
                   onUpdateNoteContent={notes.updateTabContent}
                   locale={appLocale}
                 />
@@ -1795,17 +1739,8 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
           )}
         </div>
         <UpdateBanner status={updateStatus} actions={updateActions} locale={appLocale} />
-        {/* FSRS Study Session overlay */}
-        {flashcardSession.isActive && (
-          <FlashcardStudyView
-            locale={appLocale}
-            entries={flashcardSession.dueEntries}
-            deckName={flashcardSession.deckRoot?.title ?? undefined}
-            onRate={flashcardSession.handleRate}
-            onClose={flashcardSession.endSession}
-            onNavigate={handleFlashcardNavigate}
-          />
-        )}
+        <LearningStudyView study={learningStudy} root={learning.root} locale={appLocale} />
+        <LearningMigration locale={appLocale} onRestore={openLearningLibrary} />
         <RenameDetectedBanner renames={detectedRenames} onUpdate={handleUpdateWikilinks} onDismiss={handleDismissRenames} />
         <StatusBar noteCount={visibleEntries.length} modifiedCount={gitModifiedCount} vaultPath={resolvedPath} defaultWorkspacePath={defaultWorkspacePath} vaults={vaultSwitcher.allVaults} multiWorkspaceEnabled={multiWorkspaceEnabled} onSwitchVault={vaultSwitcher.switchVault} onSetDefaultWorkspace={vaultSwitcher.setDefaultWorkspace} onOpenSettings={handleOpenSettings} onOpenVaultSettings={handleOpenVaultSettings} onOpenFeedback={openFeedback} onOpenDocs={openDocs} onOpenLocalFolder={vaultSwitcher.handleOpenLocalFolder} onCreateEmptyVault={vaultSwitcher.handleCreateEmptyVault} onCloneVault={dialogs.openCloneVault} onCloneGettingStarted={cloneGettingStartedVault} onClickPending={() => handleSetSelection({ kind: 'filter', filter: 'changes' })} onClickPulse={() => handleSetSelection({ kind: 'filter', filter: 'pulse' })} onCommitPush={handleCommitPush} commitActionPending={commitFlow.isOpeningCommitDialog} gitFeaturesEnabled={gitFeaturesEnabled} onInitializeGit={openGitSetupDialog} isOffline={networkStatus.isOffline} isGitVault={isGitVault} isVaultReloading={vault.isReloading || isVaultContentLoading} syncStatus={autoSync.syncStatus} lastSyncTime={autoSync.lastSyncTime} conflictCount={autoSync.conflictFiles.length} remoteStatus={autoSync.remoteStatus} repositories={gitRepositories} selectedRepositoryPath={gitSurfaces.syncRepositoryPath} onRepositoryChange={gitSurfaces.setSyncRepositoryPath} onTriggerSync={handlePullSelectedRepository} onPullAndPush={handlePullAndPushSelectedRepository} onOpenConflictResolver={conflictFlow.handleOpenConflictResolver} zoomLevel={zoom.zoomLevel} themeMode={documentThemeMode} onZoomReset={zoom.zoomReset} onToggleThemeMode={settingsLoaded ? handleToggleThemeMode : undefined} buildNumber={buildNumber} onCheckForUpdates={handleCheckForUpdates} onRemoveVault={vaultSwitcher.removeVault} onReorderVaults={vaultSwitcher.reorderVaults} onUpdateWorkspaceIdentity={vaultSwitcher.updateWorkspaceIdentity} aiFeaturesEnabled={aiFeaturesEnabled} mcpStatus={mcpSetupDialog.status} onInstallMcp={mcpSetupDialog.openDialog} locale={appLocale} />
         {aiFeaturesEnabled && !effectiveShowAIChat ? (
@@ -1894,6 +1829,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
         )}
       </div>
     </AppPreferencesProvider>
+    </LearningContext.Provider>
   )
 }
 

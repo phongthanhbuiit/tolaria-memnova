@@ -107,7 +107,7 @@ test('missing active vault reload shows recovery state and clears stale notes @s
   await openCommandPalette(page)
   await executeCommand(page, 'Reload Vault')
 
-  await expect(page.getByText('Vault not found')).toBeVisible({ timeout: 5_000 })
-  await expect(page.getByTestId('welcome-open-folder')).toContainText('Choose a different folder')
+  await expect(page.getByText('Library not found')).toBeVisible({ timeout: 5_000 })
+  await expect(page.getByTestId('welcome-open-folder')).toContainText('Open existing Library')
   await expect(page.getByText('Runtime Vault Note')).not.toBeVisible()
 })

@@ -6,6 +6,7 @@ mod connect;
 mod credentials;
 mod dates;
 mod history;
+mod learning_guard;
 mod pulse;
 mod remote;
 mod remote_config;
@@ -49,7 +50,7 @@ pub struct GitCommit {
     pub date: i64,
 }
 
-const DEFAULT_GITIGNORE: &str = "# Tolaria app files (machine-specific, never commit)\n\
+const DEFAULT_GITIGNORE: &str = ".memnova/\n# Tolaria app files (machine-specific, never commit)\n\
 .laputa/settings.json\n\
 \n\
 # macOS\n\
@@ -275,7 +276,7 @@ pub fn init_repo(path: impl AsRef<Path>) -> Result<(), String> {
     // macOS metadata files are never tracked and don't cause conflicts.
     ensure_gitignore(dir)?;
 
-    run_git(dir, &["add", "."])?;
+    learning_guard::stage_content(dir)?;
     commit_initial_vault_setup(dir)?;
 
     Ok(())
@@ -952,3 +953,6 @@ mod tests {
         assert_repo_path("owner/repo", None);
     }
 }
+
+#[cfg(test)]
+mod learning_guard_tests;

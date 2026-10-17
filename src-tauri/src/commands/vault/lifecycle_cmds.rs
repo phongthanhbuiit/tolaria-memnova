@@ -21,7 +21,7 @@ fn initialize_empty_vault(vault_dir: &Path, vault_path: &str) -> Result<(), Stri
     std::fs::create_dir_all(vault_dir)
         .map_err(|e| format!("Failed to create vault directory: {}", e))?;
 
-    git::init_repo(vault_path)?;
+    git::ensure_gitignore(vault_path)?;
     vault::seed_config_files(vault_path);
     Ok(())
 }
@@ -152,5 +152,17 @@ mod tests {
             resolve_getting_started_target(explicit.to_str()),
             Ok(explicit.to_string_lossy().to_string())
         );
+    }
+}
+
+#[cfg(test)]
+mod local_library_tests {
+    #[test]
+    fn creating_a_local_library_never_initializes_git() {
+        let dir = tempfile::tempdir().unwrap();
+        let target = dir.path().join("library");
+        super::create_empty_vault(target.to_string_lossy().into_owned()).unwrap();
+        assert!(!target.join(".git").exists());
+        assert!(target.is_dir());
     }
 }

@@ -66,6 +66,9 @@ pub(super) fn checked_page_path(root: &Path, relative: &str) -> Result<PathBuf, 
         .any(|part| !matches!(part, Component::Normal(_)))
         || relative.is_empty()
         || relative.contains('\\')
+        || path
+            .components()
+            .any(|part| matches!(part,Component::Normal(name) if name.to_string_lossy().eq_ignore_ascii_case(".memnova") || name.to_string_lossy().eq_ignore_ascii_case(".git")))
     {
         return Err("Page path must stay inside the library".into());
     }

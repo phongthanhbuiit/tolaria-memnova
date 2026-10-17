@@ -32,6 +32,7 @@ pub fn get_conflict_files(vault_path: &str) -> Result<Vec<String>, String> {
 pub fn git_resolve_conflict(vault_path: &str, file: &str, strategy: &str) -> Result<(), String> {
     let vault = Path::new(vault_path);
 
+    super::learning_guard::ensure_content_path(file)?;
     let checkout_flag = match strategy {
         "ours" => "--ours",
         "theirs" => "--theirs",
@@ -90,6 +91,7 @@ pub fn git_commit_conflict_resolution(vault_path: &str) -> Result<String, String
         ));
     }
 
+    super::learning_guard::ensure_content_index(vault)?;
     ensure_author_config(vault)?;
 
     let mode = get_conflict_mode(vault_path);

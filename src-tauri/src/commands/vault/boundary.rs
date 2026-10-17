@@ -111,10 +111,13 @@ impl VaultBoundary {
     }
 
     fn ensure_within_root(&self, candidate: &Path) -> Result<(), String> {
-        candidate
+        let relative = candidate
             .strip_prefix(&self.canonical_root)
-            .map(|_| ())
-            .map_err(|_| ACTIVE_VAULT_PATH_ERROR.to_string())
+            .map_err(|_| ACTIVE_VAULT_PATH_ERROR.to_string())?;
+        if relative.components().next().is_some_and(|part|matches!(part,Component::Normal(name) if name.to_string_lossy().eq_ignore_ascii_case(".memnova"))) {
+            return Err("Private learning data is only accessible through the learning commands".into());
+        }
+        Ok(())
     }
 }
 

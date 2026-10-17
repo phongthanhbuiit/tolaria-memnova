@@ -1,3 +1,4 @@
+import { resolveEffectiveLocale } from '../lib/i18n'
 import { AiAgentsOnboardingPrompt } from './AiAgentsOnboardingPrompt'
 import { TelemetryConsentDialog } from './TelemetryConsentDialog'
 import { Toast } from './Toast'
@@ -72,11 +73,12 @@ function shouldShowAiAgentsOnboarding(params: StartupScreenParams): boolean {
     && !params.showMcpSetupDialog
 }
 
-function WelcomeView({ onboarding, isOffline }: { onboarding: OnboardingState; isOffline: boolean }) {
+function WelcomeView({ onboarding, isOffline, language }: { onboarding: OnboardingState; isOffline: boolean; language?: string | null }) {
   const state = onboarding.state as { status: 'welcome' | 'vault-missing'; defaultPath: string; vaultPath?: string }
   return (
     <div className="app-shell">
       <WelcomeScreen
+        locale={resolveEffectiveLocale(language)}
         mode={state.status === 'welcome' ? 'welcome' : 'vault-missing'}
         missingPath={state.status === 'vault-missing' ? state.vaultPath : undefined}
         defaultVaultPath={state.defaultPath}
@@ -139,6 +141,7 @@ export function StartupScreen(params: StartupScreenParams) {
       <WelcomeView
         onboarding={welcomeOnboardingState(params)}
         isOffline={params.isOffline}
+        language={params.settings.ui_language}
       />
     )
   }

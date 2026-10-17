@@ -70,12 +70,41 @@ pub(super) fn insert_card(
 
 impl Store {
     pub fn create_card(&mut self, page_id: &str, draft: CardDraft) -> Result<Card, String> {
+        self.create_card_once(&uuid::Uuid::new_v4().to_string(), page_id, draft)
+    }
+
+    pub fn create_card_once(
+        &mut self,
+        id: &str,
+        page_id: &str,
+        draft: CardDraft,
+    ) -> Result<Card, String> {
         self.ensure_card_writes_allowed()?;
-        let id = uuid::Uuid::new_v4().to_string();
-        let transaction = self.conn.transaction().map_err(|e| e.to_string())?;
-        insert_card(&transaction, &id, page_id, &draft, &Schedule::fresh())?;
-        transaction.commit().map_err(|e| e.to_string())?;
-        self.get_card(&id)
+        uuid::Uuid::parse_str(id).map_err(|_| "Invalid card creation identity")?;
+        draft.validate()?;
+        let transaction = self
+            .conn
+            .transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)
+            .map_err(|error| error.to_string())?;
+        let exists: bool = transaction
+            .query_row(
+                "SELECT EXISTS(SELECT 1 FROM cards WHERE id=?1)",
+                [id],
+                |row| row.get(0),
+            )
+            .map_err(|error| error.to_string())?;
+        if exists {
+            let card = read_card(&transaction, id)?;
+            if card.page_id != page_id || card.draft != draft {
+                return Err(
+                    "Card creation identity is already in use; existing data was preserved".into(),
+                );
+            }
+        } else {
+            insert_card(&transaction, id, page_id, &draft, &Schedule::fresh())?;
+        }
+        transaction.commit().map_err(|error| error.to_string())?;
+        self.get_card(id)
     }
 
     pub fn get_card(&self, id: &str) -> Result<Card, String> {

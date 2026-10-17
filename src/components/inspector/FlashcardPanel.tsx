@@ -9,6 +9,7 @@
  *  - View current FSRS scheduling state
  */
 
+import { useLearningWorkspace } from '../learning/LearningContext'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Cards, CalendarBlank, FolderOpen, MusicNote, PlusCircle, Sparkle, TextAa, Image as ImageIcon, Tag, LinkSimple, X, GraduationCap } from '@phosphor-icons/react'
 import { invoke } from '@tauri-apps/api/core'
@@ -294,6 +295,7 @@ export function FlashcardPanel({
   typeEntryMap = {},
   onNavigate,
 }: FlashcardPanelProps) {
+  const learningWorkspace = useLearningWorkspace()
   const isEnabled = entry.fsrsEnabled === true
   const cardType = resolveCardType(entry.properties)
   const isVocabulary = cardType === 'vocabulary'
@@ -521,6 +523,8 @@ export function FlashcardPanel({
 
     await onUpdateFrontmatter(entry.path, 'audio', filename)
   }, [entry.path, entry.workspace, vaultPath, onUpdateFrontmatter])
+
+  if (learningWorkspace?.phase === 'ready') return null
 
   return (
     <div>

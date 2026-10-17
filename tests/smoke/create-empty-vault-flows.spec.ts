@@ -180,10 +180,7 @@ test('keyboard onboarding can create an empty vault and the first note', async (
   await page.goto('/', { waitUntil: 'domcontentloaded' })
 
   await expect(page.getByTestId('welcome-screen')).toBeVisible()
-  await expect(page.getByTestId('welcome-create-new')).toContainText('Create empty vault')
-  await expect(page.getByTestId('welcome-create-vault')).toBeFocused()
-
-  await page.keyboard.press('Tab')
+  await expect(page.getByTestId('welcome-create-new')).toContainText('Create local Library')
   await expect(page.getByTestId('welcome-create-new')).toBeFocused()
   await page.keyboard.press('Enter')
 

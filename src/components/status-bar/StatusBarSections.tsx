@@ -449,7 +449,7 @@ export function StatusBarPrimarySection({
         onOpenVaultSettings={onOpenVaultSettings}
         onOpenLocalFolder={onOpenLocalFolder}
         onCreateEmptyVault={onCreateEmptyVault}
-        onCloneVault={onCloneVault}
+        onCloneVault={gitFeaturesEnabled ? onCloneVault : undefined}
         onCloneGettingStarted={onCloneGettingStarted}
         {...{ onRemoveVault, onReorderVaults, onUpdateWorkspaceIdentity }}
         compact={compact}

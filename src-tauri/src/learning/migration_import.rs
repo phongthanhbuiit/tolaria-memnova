@@ -10,7 +10,11 @@ use std::{fs, io::Write, path::Path, sync::Mutex};
 
 pub(super) static MIGRATION_OPERATION: Mutex<()> = Mutex::new(());
 
-fn persist_identity(path: &Path, content: &str, modified_at: Option<u64>) -> Result<(), String> {
+pub(super) fn persist_identity(
+    path: &Path,
+    content: &str,
+    modified_at: Option<u64>,
+) -> Result<(), String> {
     let parent = path.parent().ok_or("Page has no parent directory")?;
     let permissions = fs::metadata(path)
         .map_err(|error| error.to_string())?

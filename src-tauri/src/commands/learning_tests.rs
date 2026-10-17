@@ -63,6 +63,7 @@ fn card_commands_round_trip_and_keep_stale_edits_out_of_the_database() {
         &path,
         library_id.clone(),
         LearningRequest::CreateCard {
+            operation_id: None,
             page_id: page.clone(),
             draft: draft.clone(),
         },
