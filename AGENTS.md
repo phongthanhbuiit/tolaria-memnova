@@ -1,10 +1,12 @@
-# AGENTS.md — Tolaria App
+# AGENTS.md — Memnova (Tolaria fork)
 
 ## 1. Development Process
 
 ### Start working on a task
 
-**Before writing a single line of code:** run `mcp__codescene__code_health_score` to check the current codebase health against `.codescene-thresholds`. If the score is already below the threshold, **stop and refactor first** — find the worst files with the MCP, improve them, commit, then start the task. Never start feature work on a codebase that is already below the gate.
+Before editing, inspect `git status`, read the relevant architecture/ADR documents, and review the latest baseline under `docs/baselines/`. Run focused tests for the behavior being changed, then the mandatory local release checks before pushing. Preserve existing user changes and distinguish pre-existing failures from regressions.
+
+CodeScene is optional for this fork (ADR-0137). Use it when authenticated access is already configured. Missing CodeScene tools, licensing, or tokens must not block implementation or cause repeated credential/approval requests. Record it as **not run**, never as passing. Local lint, types, tests, coverage, security analysis, data-preservation checks, and verified Git hooks remain mandatory.
 
 - Read task description and all comments fully
 - For To Rework: the ❌ QA failed comment tells you exactly what to fix
@@ -19,17 +21,6 @@
 - Commit every 20–30 min: `feat:`, `fix:`, `refactor:`, `test:`, `docs:`
 - Pre-push hook runs full check suite (build + tests + core Playwright smoke + CodeScene)
 - **A task is NOT done until `git push origin main` succeeds.** If the hook blocks: read the error, fix it (clippy, tests, CodeScene, build), commit the fix, push again. **⛔ NEVER use --no-verify for AI agents.**
-- 💡 **Mẹo tối ưu hóa Git Push dành cho Developer (User):**
-  Do bộ pre-push check chạy toàn bộ suite (build + 4400+ unit tests + Playwright E2E + Rust tests) tốn rất nhiều thời gian (từ 5 đến 8 phút), Developer có thể chọn quy trình đẩy nhanh như sau:
-  1. Chủ động chạy test thủ công trước trên local để kiểm tra lỗi:
-     ```bash
-     pnpm test             # Test frontend
-     cargo test --manifest-path src-tauri/Cargo.toml  # Test backend Rust
-     ```
-  2. Tiến hành push bỏ qua kiểm tra tự động của Git Hook:
-     ```bash
-     git push origin main --no-verify
-     ```
 
 ### TDD (mandatory)
 
@@ -45,6 +36,8 @@ All user-facing UI labels/copy must live in `src/lib/locales/en.json` and be tra
 pnpm l10n:translate
 ```
 
+If Lara credentials are available, run the translation command above. If they are unavailable, translate the affected keys into all `lara.yaml` targets directly and run `pnpm l10n:validate`; do not block coding on a translation-service account or insert English fallback values into every locale. Record which method was used.
+
 Use `pnpm l10n:translate:force` only when intentionally regenerating existing translations. Commit `src/lib/locales/*.json`, `lara.yaml`/`lara.lock` changes if produced, and verify placeholders/product names stayed intact.
 
 ### Product analytics (mandatory for meaningful features)
@@ -53,30 +46,20 @@ New features should almost always emit a PostHog event so we can see whether use
 
 When adding or changing a meaningful user-facing feature, include the event name(s) in the Todoist completion comment alongside QA, docs, and code health. If intentionally not instrumenting a feature, explain why in the completion comment.
 
-### Code health (mandatory)
+### Code health
 
-Pre-commit and pre-push hooks enforce **Hotspot Code Health** and **Average Code Health** ≥ thresholds in `.codescene-thresholds`. Both gates block commit/push. Thresholds are a **ratchet** — only go up. When pre-push sees improved remote scores, it updates `.codescene-thresholds`, stages it, and stops so you can commit the new floor with normal verified hooks before pushing again. Never add `// eslint-disable`, `#[allow(...)]`, or `as any`.
-
-**Release rule:** CodeScene is a before/after gate, not just a final score. Every task must record the starting CodeScene state before edits and the final state after edits. If touched code gets worse, refactor before committing.
-
-**⛔ NEVER edit `.codescene-thresholds` to lower the values.** If the gate blocks you, improve the code — do not lower the bar.
-
-**CodeScene access order:** use CodeScene MCP tools if available. If MCP is unavailable, use the installed `cs` CLI for file-level review/delta work, and use the CodeScene API (`CODESCENE_PAT` + `CODESCENE_PROJECT_ID`) for project-wide Hotspot/Average threshold checks from `.codescene-thresholds`.
-
-**Before editing any existing code file:** capture its current file-level CodeScene score. After your edits, re-run the same file-level review and verify the score is higher. If the file already starts at `10.0`, it must remain `10.0`.
-
-**New files:** every new **scorable code file** must reach CodeScene score `10.0` before commit. If CodeScene reports `null` / "no scorable code" for a new file, it must still have zero CodeScene findings/warnings.
-
-**Before every commit:** run CodeScene file-level review on every touched or newly created code file and verify the rule above. **Boy Scout Rule:** every file you touch must leave with a higher score, unless it was already `10.0`, in which case it must stay `10.0`.
-
-**If CodeScene gate blocks your push:** use `mcp__codescene__code_health_score` to find the worst file, refactor it, commit, push again. Do NOT stop or wait for laputa-refactor — that is a background loop, not a substitute for fixing your own regressions.
+- Keep responsibilities small, extract testable domain logic, and avoid duplicating editor/storage pipelines. Never add `as any`, `// eslint-disable`, or `#[allow(...)]` to bypass checks.
+- When CodeScene is configured, prefer its MCP; otherwise use `cs` and the project API. Capture before/after evidence for touched files and avoid regressions. New scorable files should target 10.0; files already at 10.0 must remain there.
+- `.codescene-thresholds` remains a ratchet for configured CodeScene analysis: never lower it or fabricate scores. A missing external score is not equivalent to a failed local quality check.
+- When CodeScene is unavailable, record that limitation and continue with the local gates below. Do not substitute Lizard complexity for a CodeScene score.
 
 ### Security scan with Codacy (mandatory)
 
 Use Codacy as a security and static-analysis gate before a task is considered releasable.
 
 - Prefer the Codacy MCP inside Codex to inspect repository/file issues for every touched code file.
-- If MCP is unavailable, use the local CLI wrapper, e.g. `.codacy/cli.sh analyze <path> --format sarif`; choose the relevant tool when useful (`eslint`, `opengrep`, `trivy`, `lizard`).
+- If MCP is unavailable, use the local Codacy Analysis CLI, currently verified as `pnpm dlx @codacy/analysis-cli@0.24.0`. Create its auto configuration and SARIF output outside tracked source. Local analysis does not require Codacy Cloud credentials; do not assume `.codacy/cli.sh` exists.
+- Select relevant analyzers (ESLint9, Semgrep/Opengrep, Trivy, Lizard), preserve project exclusions, report analyzer errors, and separate baseline findings from newly introduced issues. Do not upload source/results or connect an account unless requested.
 - **Always fix Critical and High severity findings introduced by your change.** Do not move the task to In Review with new Critical/High Codacy issues.
 - Review Medium findings. Fix them when they are real defects or security-sensitive; otherwise explain why they are acceptable in the completion comment.
 - Never silence a Codacy rule just to pass the scan. Prefer small code changes that remove the finding.
@@ -110,25 +93,25 @@ BASE_URL="http://localhost:5201" npx playwright test tests/smoke/<slug>.spec.ts
 ```bash
 pnpm tauri dev &
 sleep 10
-bash ~/.openclaw/skills/tolaria-qa/scripts/focus-app.sh laputa
+bash ~/.openclaw/skills/tolaria-qa/scripts/focus-app.sh tolaria-memnova
 bash ~/.openclaw/skills/tolaria-qa/scripts/screenshot.sh /tmp/qa-native.png
 ```
 
 Use computer-use/browser-control style interaction for native UI QA when available: click, hover, drag, select, scroll, and type the way a real user would with the mouse and trackpad. For every UI feature, test the primary mouse-driven path first, then verify any relevant keyboard shortcut or keyboard-first workflow still works. Tolaria is still a keyboard-first app, but QA must not assume users only interact by keyboard.
 
-Use `osascript` for app focus, keyboard shortcuts, and keyboard-specific checks. **⚠️ WKWebView:** `osascript keystroke` can be blocked inside editor content — use computer use for native editor interaction when possible, and rely on Playwright for deterministic text-input coverage. Write result as Todoist comment (✅ or ❌).
+Use `osascript` for app focus, keyboard shortcuts, and keyboard-specific checks. **⚠️ WKWebView:** `osascript keystroke` can be blocked inside editor content — use computer use for native editor interaction when possible, and rely on Playwright for deterministic text-input coverage. Record the result and screenshot path in the task report; use Todoist only when it is part of the supplied task. The optional `~/.openclaw` scripts may not be installed: use available native computer-use tools instead. The current Tauri product is `tolaria-memnova`, identifier `net.memnova.app`. Do not assume a running app named Laputa or Tolaria is this fork.
 
 ### Release-readiness checklist
 
-Before pushing or moving a task to In Review, verify the release gates and add a **completion comment** to the Todoist task. The comment must include:
+Before pushing or declaring completion, verify the release gates and record the results in the task report or final response. Add a Todoist comment only when the user supplied a Todoist task and authorized that workflow. The record must include:
 
 - What was implemented (a few lines covering logic and UX/UI).
 - QA: what was tested and how (Playwright / native screenshot / osascript).
 - Tests/coverage: commands run and final coverage result.
-- CodeScene: before/after touched-file checks plus final Hotspot and Average scores after push; final scores must pass `.codescene-thresholds`.
+- CodeScene: before/after and project scores when configured; otherwise explicitly say "CodeScene: not run (optional integration unavailable)". Never claim unmeasured thresholds passed.
 - Coverage commands passed (`pnpm test:coverage` and `cargo llvm-cov ... --fail-under-lines 85`) or the change is docs-only.
 - Codacy: MCP/CLI scan summary; confirm no new Critical/High findings.
-- Localization: any user-facing copy lives in `src/lib/locales/en.json`, `pnpm l10n:translate` was run, and `pnpm l10n:validate` passes. If no copy changed, say “Localization: no UI copy changes”.
+- Localization: user-facing copy lives in `src/lib/locales/en.json`, all targets are translated, the translation method is recorded, and `pnpm l10n:validate` passes. If no copy changed, say “Localization: no UI copy changes”.
 - PostHog: meaningful new user actions/events are instrumented with safe metadata; noisy/minor changes explicitly say “PostHog: no event needed because …”.
 - Refactoring: any files refactored to meet the CodeScene gate, or "none needed".
 - ADRs: any new/updated ADRs, or "none".
@@ -137,7 +120,7 @@ Before pushing or moving a task to In Review, verify the release gates and add a
 
 ### ADRs & docs
 
-ADRs live in `docs/adr/`. Create in the same commit as the code. Never edit existing — create a new one that supersedes. Use `/create-adr`. **When:** new dependency, storage strategy, platform target, core abstraction, cross-cutting pattern. **Not for:** bug fixes, styling, refactors.
+ADRs live in `docs/adr/`. Create in the same commit as the code. Never edit existing — create a new one that supersedes. Use the existing ADR template; use `/create-adr` only if that command is available. **When:** new dependency, storage strategy, platform target, core abstraction, cross-cutting pattern. **Not for:** bug fixes, styling, refactors.
 
 After any Tauri command, new component/hook, data model change, or new integration: update `docs/ARCHITECTURE.md`, `docs/ABSTRACTIONS.md`, and/or `docs/GETTING-STARTED.md` in the same commit.
 
@@ -159,7 +142,7 @@ Default to `demo-vault-v2/` for testing.
 
 Default to `demo-vault-v2/`. If you must use `~/Laputa/` for testing:
 - **Never commit or push** any test notes to the remote vault
-- **Delete all test notes from disk** when done — do not leave untitled or temporary notes on the filesystem. Run `cd ~/Laputa && git checkout -- . && git clean -fd` to restore the vault to its last committed state.
+- **Delete all test notes from disk** when done — do not leave untitled or temporary notes on the filesystem. Remove only files created by this task and restore only task-owned edits. Never run a blanket checkout/clean on a user vault containing unrelated changes.
 - **Rationale:** test notes pollute the local vault over time, making it a collection of nonsensical untitled files. The vault must stay clean on disk, not just on the remote.
 
 ### UI components — mandatory rules
@@ -195,7 +178,7 @@ Default to `demo-vault-v2/`. If you must use `~/Laputa/` for testing:
 ### QA scripts
 
 ```bash
-bash ~/.openclaw/skills/tolaria-qa/scripts/focus-app.sh Tolaria
+bash ~/.openclaw/skills/tolaria-qa/scripts/focus-app.sh tolaria-memnova
 bash ~/.openclaw/skills/tolaria-qa/scripts/screenshot.sh /tmp/out.png
 bash ~/.openclaw/skills/tolaria-qa/scripts/shortcut.sh "command" "s"
 ```
