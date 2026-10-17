@@ -55,6 +55,10 @@ describe('splitFlashcardContent', () => {
 // ---------------------------------------------------------------------------
 
 describe('joinFlashcardContent', () => {
+  it('preserves an explicitly added back face while its answer is empty', () => {
+    const result = joinFlashcardContent('# Front', '', true)
+    expect(splitFlashcardContent(result)).toEqual({ front: '# Front', back: '', hasBack: true })
+  })
   it('joins front and back with marker', () => {
     const result = joinFlashcardContent('# Front', 'Back content')
     expect(result).toContain(MARKER)

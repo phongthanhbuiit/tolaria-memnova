@@ -139,15 +139,15 @@ export function useFlashcardEditorFace({
 
       const merged =
         activeFace === 'front'
-          ? joinFlashcardContent(sliceContent, currentBack)
-          : joinFlashcardContent(currentFront, sliceContent)
+          ? joinFlashcardContent(sliceContent, currentBack, hasBack)
+          : joinFlashcardContent(currentFront, sliceContent, hasBack)
 
       setLatestMergedContent(merged)
       setPrevFullContent(merged)
       setIsPendingPropUpdate(true)
       onContentChange(path, merged)
     },
-    [isFSRS, activeFace, latestMergedContent, onContentChange],
+    [isFSRS, activeFace, latestMergedContent, onContentChange, hasBack],
   )
 
   // Add the back marker to the current note

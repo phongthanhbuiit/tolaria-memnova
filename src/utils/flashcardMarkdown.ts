@@ -58,11 +58,11 @@ export function splitFlashcardContent(markdown: string): FlashcardFaces {
  * Merge front and back faces back into a single markdown string.
  * Adds the marker between them.
  */
-export function joinFlashcardContent(front: string, back: string): string {
+export function joinFlashcardContent(front: string, back: string, preserveBack = false): string {
   const trimmedFront = front.trimEnd()
   const trimmedBack = back.trimStart()
 
-  if (!trimmedBack) {
+  if (!trimmedBack && !preserveBack) {
     return trimmedFront
   }
 
