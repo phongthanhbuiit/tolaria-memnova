@@ -196,11 +196,13 @@ test('page properties stay in Markdown and use the same calendar and draft contr
       name: 'Switch to dark mode',
       exact: true,
     })
-    if (await dark.isVisible()) await dark.click()
+    if (!(await page.locator('html').getAttribute('class'))?.split(' ').includes('dark')) await dark.click()
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
     await tools.click()
     await page.setViewportSize({ width: 480, height: 800 })
     await page.screenshot({
       path: testInfo.outputPath('page-properties-dark-compact.png'),
+      animations: 'disabled',
     })
     const bounds = await dialog
       .getByRole('button', { name: 'Save', exact: true })

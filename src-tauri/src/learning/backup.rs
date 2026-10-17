@@ -137,6 +137,11 @@ impl Store {
     }
 
     fn backup_description(&self, directory: &Path, id: &str) -> Result<BackupDescriptor, String> {
+        self.backup_manifest(directory, id)
+            .map(|manifest| manifest.description)
+    }
+
+    fn backup_manifest(&self, directory: &Path, id: &str) -> Result<Manifest, String> {
         reject_symlink(directory)?;
         let path = checked_source(directory, "backup.json")?;
         let manifest: Manifest =
@@ -149,7 +154,12 @@ impl Store {
         {
             return Err("Backup manifest does not match this Library".into());
         }
-        Ok(manifest.description)
+        if chrono::DateTime::<chrono::Utc>::from_timestamp_millis(manifest.description.created_at)
+            .is_none()
+        {
+            return Err("Backup creation timestamp is outside the supported range".into());
+        }
+        Ok(manifest)
     }
 
     pub fn verify_backup(&self, id: &str) -> Result<BackupDescriptor, String> {
@@ -228,18 +238,7 @@ impl Store {
     fn verified_backup(&self, id: &str) -> Result<(Manifest, PathBuf), String> {
         uuid::Uuid::parse_str(id).map_err(|_| "Invalid backup identity")?;
         let directory = self.backups_directory()?.join(id);
-        reject_symlink(&directory)?;
-        let path = checked_source(&directory, "backup.json")?;
-        let manifest: Manifest =
-            serde_json::from_slice(&fs::read(path).map_err(|e| e.to_string())?)
-                .map_err(|e| e.to_string())?;
-        if manifest.format_version != 1
-            || manifest.description.id != id
-            || manifest.description.library_id != self.library_id
-            || manifest.description.file_count != manifest.files.len()
-        {
-            return Err("Backup manifest does not match this Library".into());
-        }
+        let manifest = self.backup_manifest(&directory, id)?;
         let root = directory.join("files");
         reject_symlink(&root)?;
         verify_directories(&root, &manifest.directories)?;

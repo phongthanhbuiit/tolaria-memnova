@@ -314,3 +314,31 @@ fn backup_catalog_does_not_follow_symlink_entries() {
         .error
         .is_some());
 }
+
+#[test]
+fn backup_catalog_isolates_timestamps_that_cannot_be_rendered_without_losing_good_backups() {
+    let (dir, store) = fixture();
+    let good = store.create_backup().unwrap();
+    let bad = store.create_backup().unwrap();
+    let manifest = dir
+        .path()
+        .join(".memnova/backups")
+        .join(&bad.id)
+        .join("backup.json");
+    let mut value: serde_json::Value =
+        serde_json::from_slice(&std::fs::read(&manifest).unwrap()).unwrap();
+    value["createdAt"] = serde_json::json!(i64::MAX);
+    std::fs::write(manifest, serde_json::to_vec(&value).unwrap()).unwrap();
+    let catalog = store.list_backups().unwrap();
+    assert!(catalog
+        .iter()
+        .any(|entry| entry.id == good.id && entry.descriptor.is_some() && entry.error.is_none()));
+    assert!(catalog
+        .iter()
+        .any(|entry| entry.id == bad.id && entry.descriptor.is_none() && entry.error.is_some()));
+    assert!(store.verify_backup(&good.id).is_ok());
+    assert!(store.verify_backup(&bad.id).is_err());
+    let target = dir.path().join("invalid-restore");
+    assert!(store.restore_backup(&bad.id, &target).is_err());
+    assert!(!target.exists());
+}
