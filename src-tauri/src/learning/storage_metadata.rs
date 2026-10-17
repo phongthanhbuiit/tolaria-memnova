@@ -75,6 +75,11 @@ pub(super) fn initialize_schema(
     if version < 3 {
         transaction.execute_batch("ALTER TABLE cards ADD COLUMN answer_page_id TEXT REFERENCES pages(id); CREATE INDEX cards_answer_page ON cards(answer_page_id); PRAGMA user_version=3;").map_err(|error| error.to_string())?;
     }
+    if version < 4 {
+        transaction
+            .execute_batch(include_str!("property_schema.sql"))
+            .map_err(|error| error.to_string())?;
+    }
     validate_owner(&transaction, library_id)?;
     transaction.commit().map_err(|error| error.to_string())
 }

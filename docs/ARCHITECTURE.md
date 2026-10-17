@@ -1200,3 +1200,5 @@ Startup housekeeping resolves only the explicitly selected Library from persiste
 ### Linked-answer storage
 
 Schema v3 adds cards.answer_page_id as an optional same-Library page FK. cards.page_id remains the owner/deck locator. Null page source preserves the previous whole-owner-page behavior; inline answers have no source ID. Existing databases receive a verified Library backup before additive transactional upgrade. Card edits and clones retain source identity without altering memory. ADR-0145 defines the independent property/source contracts.
+
+Schema v4 adds page_property_definitions and card_property_definitions as editor hints, with owner foreign keys, unique keys and kind/item-kind checks. Values remain in Markdown and cards.properties_json. Existing fields receive no inferred records. Store's backup-first upgrade runs v1/v2/v3 through additive migrations in one transaction; a failed v4 migration rolls back both tables and the schema version. Existing v1–v3 backups remain readable and upgrade only when their fresh restored Library is opened.

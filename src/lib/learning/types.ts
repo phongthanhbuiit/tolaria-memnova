@@ -29,7 +29,7 @@ export interface LearningCard extends CardDraft {
 
 export interface LibraryDescriptor {
   libraryId: string
-  schemaVersion: 1 | 2 | 3
+  schemaVersion: 1 | 2 | 3 | 4
   migrationState?: 'legacy' | 'migrating' | 'ready'
 }
 

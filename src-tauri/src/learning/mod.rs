@@ -26,7 +26,7 @@ mod metadata_tests;
 
 mod storage_metadata;
 pub use storage_metadata::MigrationState;
-pub const SCHEMA_VERSION: u32 = 3;
+pub const SCHEMA_VERSION: u32 = 4;
 #[cfg(test)]
 mod migration_tests;
 mod page_identity;
@@ -80,3 +80,6 @@ mod source_contract_tests;
 
 #[cfg(test)]
 mod source_lifecycle_tests;
+
+#[cfg(test)]
+mod property_schema_tests;

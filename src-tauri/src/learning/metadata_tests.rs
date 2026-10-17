@@ -25,7 +25,7 @@ fn schema_v1_upgrade_preserves_existing_cards_schedules_and_library_identity() {
         .unwrap();
     store
         .conn
-        .execute_batch("DROP INDEX cards_answer_page; ALTER TABLE cards DROP COLUMN answer_page_id; DROP TABLE library_metadata; PRAGMA user_version=1;")
+        .execute_batch("DROP TABLE page_property_definitions; DROP TABLE card_property_definitions; DROP INDEX cards_answer_page; ALTER TABLE cards DROP COLUMN answer_page_id; DROP TABLE library_metadata; PRAGMA user_version=1;")
         .unwrap();
     drop(store);
     let upgraded = Store::open(dir.path()).unwrap();
