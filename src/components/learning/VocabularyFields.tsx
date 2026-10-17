@@ -23,18 +23,55 @@ import {
 import { useLearningWorkspace } from './LearningContext'
 
 type Properties = Record<string, LearningProperty>
+export function CardTypeField({
+  properties,
+  locale,
+  disabled,
+  onChange,
+}: {
+  properties: Properties
+  locale: AppLocale
+  disabled: boolean
+  onChange: (key: string, value: LearningProperty) => void
+}) {
+  const cardType =
+    properties.card_type === 'vocabulary' ? 'vocabulary' : 'basic'
+  return (
+    <div className="grid gap-2 text-sm font-medium">
+      <span>{translate(locale, 'learning.cardType')}</span>
+      <Select
+        disabled={disabled}
+        value={cardType}
+        onValueChange={(value) => onChange('card_type', value)}
+      >
+        <SelectTrigger aria-label={translate(locale, 'learning.cardType')}>
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent className={cardEditorStyles.portal}>
+          {(['basic', 'vocabulary'] as const).map((value) => (
+            <SelectItem key={value} value={value}>
+              {translate(locale, `learning.${value}`)}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
+  )
+}
 export function VocabularyFields({
   properties,
   locale,
   disabled,
   onChange,
   hiddenKeys = [],
+  showCardType = true,
 }: {
   properties: Properties
   locale: AppLocale
   disabled: boolean
   onChange: (key: string, value: LearningProperty) => void
   hiddenKeys?: readonly string[]
+  showCardType?: boolean
 }) {
   const workspace = useLearningWorkspace()
   const entries = (workspace?.entries ?? []).filter((entry) =>
@@ -51,26 +88,13 @@ export function VocabularyFields({
     properties.card_type === 'vocabulary' ? 'vocabulary' : 'basic'
   return (
     <div className="space-y-4">
-      {!hiddenKeys.includes('card_type') && (
-        <div className="grid gap-2 text-sm font-medium">
-          <span>{translate(locale, 'learning.cardType')}</span>
-          <Select
-            disabled={disabled}
-            value={cardType}
-            onValueChange={(value) => onChange('card_type', value)}
-          >
-            <SelectTrigger aria-label={translate(locale, 'learning.cardType')}>
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent className={cardEditorStyles.portal}>
-              {(['basic', 'vocabulary'] as const).map((value) => (
-                <SelectItem key={value} value={value}>
-                  {translate(locale, `learning.${value}`)}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+      {showCardType && !hiddenKeys.includes('card_type') && (
+        <CardTypeField
+          properties={properties}
+          locale={locale}
+          disabled={disabled}
+          onChange={onChange}
+        />
       )}
       {cardType === 'vocabulary' && (
         <div className="grid gap-4 sm:grid-cols-2">

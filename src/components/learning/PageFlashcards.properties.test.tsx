@@ -98,14 +98,22 @@ it('keeps custom fields in one draft and preserves memory and opaque metadata on
   fireEvent.click(
     dialog.getByRole('button', { name: 'Add property', exact: true }),
   )
-  expect(dialog.getByRole('textbox', { name: 'priority', exact: true })).toHaveValue('0')
-  fireEvent.change(dialog.getByRole('textbox', { name: 'priority', exact: true }), { target: { value: '' } })
+  expect(
+    dialog.getByRole('textbox', { name: 'priority', exact: true }),
+  ).toHaveValue('0')
+  fireEvent.change(
+    dialog.getByRole('textbox', { name: 'priority', exact: true }),
+    { target: { value: '' } },
+  )
   expect(
     dialog.getByRole('button', { name: 'Save', exact: true }),
   ).toBeDisabled()
-  fireEvent.change(dialog.getByRole('textbox', { name: 'priority', exact: true }), {
-    target: { value: '4' },
-  })
+  fireEvent.change(
+    dialog.getByRole('textbox', { name: 'priority', exact: true }),
+    {
+      target: { value: '4' },
+    },
+  )
   fireEvent.click(dialog.getByRole('button', { name: 'Save', exact: true }))
   await waitFor(() =>
     expect(workspace.client.updateCard).toHaveBeenCalledWith(
@@ -132,7 +140,9 @@ it('does not persist a custom-field draft when cancelling or switching preset', 
     dialog.getByRole('combobox', { name: 'Card type', exact: true }),
   )
   fireEvent.click(screen.getByRole('option', { name: 'Basic', exact: true }))
-  expect(dialog.getByRole('textbox', { name: 'Private draft', exact: true })).toHaveValue('')
+  expect(
+    dialog.getByRole('textbox', { name: 'Private draft', exact: true }),
+  ).toHaveValue('')
   fireEvent.click(dialog.getByRole('button', { name: 'Cancel', exact: true }))
   expect(workspace.client.updateCard).not.toHaveBeenCalled()
   expect(workspace.cards[0].properties).toEqual(properties)
@@ -142,6 +152,12 @@ it('does not crash the card editor when read-only schedule metadata contains an 
   workspace.cards[0].schedule.due = 'invalid date'
   const dialog = await edit()
   expect(dialog.getByText('Review schedule · read only')).toBeVisible()
+  fireEvent.click(
+    dialog.getByRole('button', {
+      name: 'Review schedule · read only',
+      exact: true,
+    }),
+  )
   expect(dialog.getByText('Something went wrong. Retry.')).toBeVisible()
   expect(dialog.getByLabelText('Question')).toHaveValue('Vocab question')
 })

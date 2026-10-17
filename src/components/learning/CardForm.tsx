@@ -1,3 +1,4 @@
+import { CardEditorSection } from './CardEditorSection'
 import { FloppyDisk, CircleNotch } from '@phosphor-icons/react'
 import { cardEditorStyles } from './cardEditorStyles'
 import { useId, useState } from 'react'
@@ -33,7 +34,7 @@ import type {
 } from '../../lib/learning/types'
 import { translate, type TranslationKey, type AppLocale } from '../../lib/i18n'
 import { trackEvent } from '../../lib/telemetry'
-import { VocabularyFields } from './VocabularyFields'
+import { VocabularyFields, CardTypeField } from './VocabularyFields'
 import { useLearningWorkspace } from './LearningContext'
 
 export function CardForm({
@@ -149,7 +150,7 @@ export function CardForm({
     >
       <DialogContent
         showCloseButton={false}
-        className={`${cardEditorStyles.root} flex max-h-[90dvh] flex-col gap-0 overflow-hidden p-0 sm:max-w-2xl`}
+        className={`${cardEditorStyles.root} flex max-h-[90dvh] flex-col gap-0 overflow-hidden p-0 w-[calc(100%-32px)] max-w-[720px] sm:max-w-[720px]`}
         onEscapeKeyDown={(event) => {
           if (busy || sourceBusy || propertyBusy) event.preventDefault()
         }}
@@ -164,6 +165,40 @@ export function CardForm({
           <DialogDescription>{t('learning.questionHelp')}</DialogDescription>
         </DialogHeader>
         <div className="grid min-h-0 gap-5 overflow-y-auto overscroll-contain p-5">
+          <div className="grid gap-3 sm:grid-cols-2">
+            {presetFields.includes('card_type') && (
+              <CardTypeField
+                properties={draft.properties}
+                locale={locale}
+                disabled={busy}
+                onChange={metadata}
+              />
+            )}
+            <div className="grid gap-2 text-sm">
+              <label htmlFor={statusId}>{t('learning.status')}</label>
+              <Select
+                value={draft.status}
+                disabled={busy}
+                onValueChange={(value) =>
+                  setDraft((previous) => ({
+                    ...previous,
+                    status: value as CardDraft['status'],
+                  }))
+                }
+              >
+                <SelectTrigger id={statusId}>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className={cardEditorStyles.portal}>
+                  {(['draft', 'active', 'suspended'] as const).map((status) => (
+                    <SelectItem key={status} value={status}>
+                      {t(`learning.${status}`)}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
           <label className="grid gap-2 text-sm font-medium">
             {t('learning.front')}
             <Textarea
@@ -233,58 +268,40 @@ export function CardForm({
               />
             </label>
           )}
-          <div className="grid gap-2 text-sm">
-            <label htmlFor={statusId}>{t('learning.status')}</label>
-            <Select
-              value={draft.status}
-              disabled={busy}
-              onValueChange={(value) =>
-                setDraft((previous) => ({
-                  ...previous,
-                  status: value as CardDraft['status'],
-                }))
-              }
-            >
-              <SelectTrigger id={statusId}>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent className={cardEditorStyles.portal}>
-                {(['draft', 'active', 'suspended'] as const).map((status) => (
-                  <SelectItem key={status} value={status}>
-                    {t(`learning.${status}`)}
-                  </SelectItem>
+          <CardEditorSection
+            title={t('learning.vocabulary')}
+            defaultOpen={draft.properties.card_type === 'vocabulary'}
+          >
+            <div className="grid gap-3 sm:grid-cols-3">
+              {(['IPA'] as const)
+                .filter((key) => presetFields.includes(key))
+                .map((key) => (
+                  <label key={key} className="grid gap-2 text-sm">
+                    IPA
+                    <Input
+                      name={key}
+                      autoComplete="off"
+                      spellCheck={false}
+                      disabled={busy}
+                      value={
+                        typeof draft.properties[key] === 'string'
+                          ? draft.properties[key]
+                          : ''
+                      }
+                      onChange={(event) => metadata(key, event.target.value)}
+                    />
+                  </label>
                 ))}
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-3">
-            {(['IPA'] as const)
-              .filter((key) => presetFields.includes(key))
-              .map((key) => (
-                <label key={key} className="grid gap-2 text-sm">
-                  IPA
-                  <Input
-                    name={key}
-                    autoComplete="off"
-                    spellCheck={false}
-                    disabled={busy}
-                    value={
-                      typeof draft.properties[key] === 'string'
-                        ? draft.properties[key]
-                        : ''
-                    }
-                    onChange={(event) => metadata(key, event.target.value)}
-                  />
-                </label>
-              ))}
-          </div>
-          <VocabularyFields
-            hiddenKeys={hiddenPresetFields}
-            properties={draft.properties}
-            locale={locale}
-            disabled={busy}
-            onChange={metadata}
-          />
+            </div>
+            <VocabularyFields
+              showCardType={false}
+              hiddenKeys={hiddenPresetFields}
+              properties={draft.properties}
+              locale={locale}
+              disabled={busy}
+              onChange={metadata}
+            />
+          </CardEditorSection>
           <section className="min-w-0 space-y-3">
             <h3 className="text-sm font-semibold">{t('properties.card')}</h3>
             <PropertyEditor
@@ -315,38 +332,37 @@ export function CardForm({
             onBusyChange={setPropertyBusy}
           />
           {persisted && (
-            <section className="space-y-2 rounded-lg border bg-muted/30 p-3">
-              <h3 className="text-sm font-semibold">
-                {t('properties.memory')}
-              </h3>
-              <dl className="grid grid-cols-3 gap-3 text-sm">
-                <div>
-                  <dt className="text-xs text-muted-foreground">
-                    {t('properties.due')}
-                  </dt>
-                  <dd className="mt-1 break-words">
-                    {Number.isFinite(Date.parse(persisted.schedule.due))
-                      ? new Intl.DateTimeFormat(locale, {
-                          dateStyle: 'medium',
-                          timeStyle: 'short',
-                        }).format(new Date(persisted.schedule.due))
-                      : t('learning.error')}
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-xs text-muted-foreground">
-                    {t('properties.reps')}
-                  </dt>
-                  <dd>{persisted.schedule.reps}</dd>
-                </div>
-                <div>
-                  <dt className="text-xs text-muted-foreground">
-                    {t('properties.lapses')}
-                  </dt>
-                  <dd>{persisted.schedule.lapses}</dd>
-                </div>
-              </dl>
-            </section>
+            <CardEditorSection title={t('properties.memory')}>
+              <div className="space-y-2">
+                <dl className="grid grid-cols-3 gap-3 text-sm">
+                  <div>
+                    <dt className="text-xs text-muted-foreground">
+                      {t('properties.due')}
+                    </dt>
+                    <dd className="mt-1 break-words">
+                      {Number.isFinite(Date.parse(persisted.schedule.due))
+                        ? new Intl.DateTimeFormat(locale, {
+                            dateStyle: 'medium',
+                            timeStyle: 'short',
+                          }).format(new Date(persisted.schedule.due))
+                        : t('learning.error')}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs text-muted-foreground">
+                      {t('properties.reps')}
+                    </dt>
+                    <dd>{persisted.schedule.reps}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs text-muted-foreground">
+                      {t('properties.lapses')}
+                    </dt>
+                    <dd>{persisted.schedule.lapses}</dd>
+                  </div>
+                </dl>
+              </div>
+            </CardEditorSection>
           )}
           {error && (
             <div
@@ -366,7 +382,9 @@ export function CardForm({
             </div>
           )}
         </div>
-        <div className={`${cardEditorStyles.footer} flex shrink-0 justify-end gap-2 border-t bg-background p-4`}>
+        <div
+          className={`${cardEditorStyles.footer} flex shrink-0 justify-end gap-2 border-t bg-background p-4`}
+        >
           <Button
             variant="ghost"
             disabled={busy || sourceBusy || propertyBusy}
@@ -386,7 +404,17 @@ export function CardForm({
               void save()
             }}
           >
-            {busy ? <CircleNotch className={`${cardEditorStyles.icon} animate-spin`} aria-hidden="true" /> : <FloppyDisk className={cardEditorStyles.icon} aria-hidden="true" />}
+            {busy ? (
+              <CircleNotch
+                className={`${cardEditorStyles.icon} animate-spin`}
+                aria-hidden="true"
+              />
+            ) : (
+              <FloppyDisk
+                className={cardEditorStyles.icon}
+                aria-hidden="true"
+              />
+            )}
             {t(
               busy
                 ? 'learning.saving'

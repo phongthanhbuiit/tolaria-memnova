@@ -1045,3 +1045,5 @@ PagePropertyEditor keeps its initial owner lookup stable across its own successf
 LearningStudyView keys each Markdown renderer by the complete displayed study snapshot. Reloading a changed source therefore acknowledges a newly rendered question even when its text is identical. Readiness callbacks are not assumed to rerun merely because their function identity changed; the regression renderer follows the real content/path lifecycle.
 
 Learning editor typography lives in cardEditorStyles/cardEditor.css and is scoped to learning-editor roots and explicitly marked portals. Explicit pixel font/control dimensions avoid breakpoint/rem drift with the app's 14px root; global shadcn primitives and app theme tokens remain unchanged.
+
+CardEditorSection composes the existing shadcn Button into an accessible disclosure. Its hidden panel stays mounted so numeric/rename/conversion drafts survive collapse; hidden descendants leave the accessible/tab path. CardTypeField is reused by the settings row and VocabularyFields, with only one rendered selector in CardForm. Review metadata remains a read-only disclosure.
