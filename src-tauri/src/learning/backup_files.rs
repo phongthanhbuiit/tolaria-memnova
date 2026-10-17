@@ -136,3 +136,17 @@ pub(super) fn directories(root: &Path) -> Result<Vec<String>, String> {
     result.sort();
     Ok(result)
 }
+
+pub(super) fn copy_snapshot_file(
+    source_root: &Path,
+    target_root: &Path,
+    expected: &SnapshotFile,
+) -> Result<(), String> {
+    let source = checked_source(source_root, &expected.path)?;
+    let target = target_root.join(relative_path(&expected.path)?);
+    copy_file(&source, &target)?;
+    if fingerprint(&target, &expected.path)? != *expected {
+        return Err("Copied file did not match the captured snapshot checksum".into());
+    }
+    Ok(())
+}

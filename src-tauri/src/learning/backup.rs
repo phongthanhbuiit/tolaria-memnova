@@ -1,6 +1,7 @@
 use super::{
     backup_files::{
-        checked_source, copy_file, directories, fingerprint, inventory, relative_path, SnapshotFile,
+        checked_source, copy_file, copy_snapshot_file, directories, fingerprint, inventory,
+        relative_path, SnapshotFile,
     },
     identity::{read_library_identity, reject_symlink},
     Store,
@@ -94,10 +95,7 @@ impl Store {
         }
         copy_learning_snapshot(&self.conn, &self.root, &files)?;
         for file in &original {
-            copy_file(
-                &checked_source(&self.root, &file.path)?,
-                &files.join(relative_path(&file.path)?),
-            )?;
+            copy_snapshot_file(&self.root, &files, file)?;
         }
         let final_version: i64 = self
             .conn
@@ -171,11 +169,7 @@ impl Store {
                 .map_err(|e| e.to_string())?;
         }
         for file in &manifest.files {
-            let destination = staged.path().join(relative_path(&file.path)?);
-            copy_file(&checked_source(&source, &file.path)?, &destination)?;
-            if fingerprint(&destination, &file.path)? != *file {
-                return Err("Restored file checksum verification failed".into());
-            }
+            copy_snapshot_file(&source, staged.path(), file)?;
         }
         verify_database(&staged.path().join(".memnova/learning.sqlite3"))?;
         fs::rename(staged.path(), target).map_err(|e| e.to_string())

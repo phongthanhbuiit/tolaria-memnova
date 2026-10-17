@@ -197,3 +197,18 @@ fn database_integrity_failure_removes_staging_without_erasing_source_rows() {
         2
     );
 }
+
+#[test]
+fn copying_rejects_bytes_that_differ_from_the_captured_snapshot() {
+    use super::backup_files::{copy_snapshot_file, fingerprint};
+    let (dir, _store) = fixture();
+    let source = dir.path().join("lesson.md");
+    let expected = fingerprint(&source, "lesson.md").unwrap();
+    std::fs::write(&source, "# Changed after snapshot capture").unwrap();
+    let target = tempfile::tempdir().unwrap();
+    assert!(copy_snapshot_file(dir.path(), target.path(), &expected).is_err());
+    assert_eq!(
+        std::fs::read_to_string(&source).unwrap(),
+        "# Changed after snapshot capture"
+    );
+}
