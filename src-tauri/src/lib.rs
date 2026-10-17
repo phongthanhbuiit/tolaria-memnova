@@ -205,7 +205,7 @@ where
     }
 }
 
-/// Run startup housekeeping on the legacy default vault (migrate legacy frontmatter, seed configs).
+/// Run startup housekeeping on the selected Library (migrate legacy frontmatter, seed configs).
 #[cfg(desktop)]
 fn run_startup_tasks_for_vault(vault_path: &Path) {
     let vp_str = vault_path.to_str().unwrap_or_default();
@@ -233,8 +233,19 @@ where
 }
 
 #[cfg(desktop)]
+fn startup_vault_path(list: &vault_list::VaultList) -> Option<PathBuf> {
+    list.active_vault
+        .as_deref()
+        .filter(|path| !path.trim().is_empty())
+        .map(PathBuf::from)
+}
+
+#[cfg(desktop)]
 fn spawn_startup_tasks() {
-    let Some(vault_path) = dirs::home_dir().map(|h| h.join("Laputa")) else {
+    let Ok(list) = vault_list::load_vault_list() else {
+        return;
+    };
+    let Some(vault_path) = startup_vault_path(&list) else {
         return;
     };
     spawn_startup_tasks_for_vault_with(vault_path, |path| run_startup_tasks_for_vault(&path));
@@ -728,6 +739,20 @@ mod tests {
         };
 
         assert!(selected_mcp_bridge_vault_paths(&list, true).is_empty());
+    }
+
+    #[cfg(desktop)]
+    #[test]
+    fn startup_housekeeping_only_targets_the_explicitly_selected_library() {
+        let mut list = VaultList::default();
+        assert_eq!(super::startup_vault_path(&list), None);
+        list.active_vault = Some("   ".into());
+        assert_eq!(super::startup_vault_path(&list), None);
+        list.active_vault = Some("/tmp/selected-library".into());
+        assert_eq!(
+            super::startup_vault_path(&list),
+            Some(PathBuf::from("/tmp/selected-library"))
+        );
     }
 
     #[cfg(desktop)]
