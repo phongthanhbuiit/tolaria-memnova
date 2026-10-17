@@ -34,11 +34,16 @@ export function useFlashcardSession({ entries, onPersistSchedule, onRecordReview
   const [deckRoot, setDeckRoot] = useState<VaultEntry | null>(null)
   const [overrides, setOverrides] = useState<Record<string, VaultEntry>>({})
   const [now, setNow] = useState(() => new Date())
-  useEffect(() => {
-    const timer = setInterval(() => setNow(new Date()), 1000)
-    return () => clearInterval(timer)
-  }, [])
   const merged = useMemo(() => entries.map(entry => overrides[entry.path] ?? entry), [entries, overrides])
+  useEffect(() => {
+    const nextDue = merged.reduce((next, entry) => {
+      if (!isFSRSEnabled(entry)) return next
+      const due = Date.parse(entry.fsrsDue ?? '')
+      return Number.isFinite(due) && due > now.getTime() ? Math.min(next, due) : next
+    }, Date.now() + 60_000)
+    const timer = setTimeout(() => setNow(new Date()), Math.max(1, nextDue - Date.now()))
+    return () => clearTimeout(timer)
+  }, [merged, now])
   const allDue = useMemo(() => getDueReviewEntries(merged, now), [merged, now])
   const dueEntries = useMemo(() => {
     if (!deckRoot) return allDue

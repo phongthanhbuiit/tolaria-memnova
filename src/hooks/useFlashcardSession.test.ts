@@ -54,4 +54,21 @@ describe('legacy flashcard session data safety', () => {
     act(() => vi.advanceTimersByTime(60_000))
     expect(result.current.reviewCount).toBe(1)
   })
+
+  it('does not rerender the whole app every second while waiting for the next due card', () => {
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date('2026-10-17T12:00:00Z'))
+    const entries = [makeEntry({ fsrsEnabled: true, fsrsState: 'learning', fsrsDue: '2026-10-17T12:01:00Z' })]
+    const observe = vi.fn()
+    renderHook(() => {
+      const session = useFlashcardSession({ entries, onPersistSchedule: vi.fn() })
+      observe(session.reviewCount)
+      return session
+    })
+    const initialRenders = observe.mock.calls.length
+    for (let second = 0; second < 30; second++) {
+      act(() => vi.advanceTimersByTime(1000))
+    }
+    expect(observe).toHaveBeenCalledTimes(initialRenders)
+  })
 })
