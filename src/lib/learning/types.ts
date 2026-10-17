@@ -120,6 +120,7 @@ export interface RateRequest {
   cardId: string
   cardRevision: number
   sourceFingerprint: string
+  answerFingerprint?: string
   rating: 1 | 2 | 3 | 4
   durationMs: number
   reviewedAt: number

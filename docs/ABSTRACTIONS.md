@@ -1023,3 +1023,5 @@ BackupPanel loads an ID-bound catalog per Library visit, requires explicit verif
 learning/propertyValues is the pure editor contract: explicit kinds, safe inference, lossless conversion, stable page-reference shapes and non-mutating rename/remove. Missing/opaque values are not coerced. Card/page adapters retain separate wire formats and storage ownership.
 
 StudyItem.page is always the owner; answerPage is optional and resolves only an explicit linked page UUID. Source errors retain the owner and card. Linked fingerprints bind the current source path and content, protecting relative-media context after moves; no recursive transclusion or deck membership is implied.
+
+Linked-answer ratings carry an optional answerFingerprint in addition to the unchanged owner fingerprint. Validation reads both current sources before a new write; committed receipt replay remains first and accepts historical requests without the new field. The frontend preserves this fingerprint inside the exact pending rating intent and does not rate a source-error item.

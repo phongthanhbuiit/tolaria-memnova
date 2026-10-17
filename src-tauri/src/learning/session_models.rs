@@ -84,6 +84,8 @@ pub struct RateRequest {
     pub card_id: String,
     pub card_revision: u32,
     pub source_fingerprint: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub answer_fingerprint: Option<String>,
     pub rating: u8,
     pub duration_ms: u32,
     pub reviewed_at: i64,

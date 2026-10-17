@@ -152,7 +152,7 @@ export async function mockLearningCommand(args: Record<string, unknown>, context
         const card = required(data.cards.find(card => card.id === review.cardId))
         if (row.revision !== review.sessionRevision || card.revision !== review.cardRevision || card.schedule.revision + 1 !== review.schedule.revision) throw new Error('Stale study state')
         const current = await snapshot(data, row, root, context)
-        if (current.current?.page?.fingerprint !== review.sourceFingerprint) throw new Error('Source changed')
+        if (current.current?.sourceError || current.current?.page?.fingerprint !== review.sourceFingerprint || current.current?.answerPage?.fingerprint !== review.answerFingerprint) throw new Error('Source changed')
         const before = structuredClone(card.schedule)
         const reinserted = ['learning', 'relearning'].includes(review.schedule.state)
         const combo = review.rating >= 3 ? stats(data).combo + 1 : 0

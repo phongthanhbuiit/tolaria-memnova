@@ -71,3 +71,20 @@ it('reconciles statistics after an undo response is lost', async () => {
  expect(result.current.session?.revision).toBe(2)
  expect(committed).toHaveBeenCalledTimes(1)
 })
+
+it('binds linked-answer ratings to the displayed source and retains that fingerprint for retry', async () => {
+ const linked=structuredClone(session)
+ if (!linked.current?.page) throw new Error('Missing fixture page')
+ linked.current.card.answerMode='page';linked.current.card.answerPageId='external'
+ linked.current.answerPage={...linked.current.page,id:'external',path:'source.md',fingerprint:'external-fingerprint'}
+ const complete={...linked,current:null,status:'completed' as const,reviewCount:1}
+ const rateCard=vi.fn().mockRejectedValueOnce(new Error('Response lost')).mockResolvedValueOnce({session:complete,replayed:true})
+ const client={vaultPath:'/qa',libraryId:'qa',startSession:vi.fn().mockResolvedValue(linked),rateCard} as unknown as LearningClient
+ const {result}=renderHook(()=>useLearningStudy(client,async()=>{}))
+ await act(()=>result.current.start())
+ await act(()=>result.current.rate(3))
+ expect(rateCard.mock.calls[0][0]).toMatchObject({sourceFingerprint:'original-source',answerFingerprint:'external-fingerprint'})
+ linked.current.answerPage.fingerprint='changed-after-request'
+ await act(()=>result.current.retry())
+ expect(rateCard.mock.calls[1][0]).toEqual(rateCard.mock.calls[0][0])
+})

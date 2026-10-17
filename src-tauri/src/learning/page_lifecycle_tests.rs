@@ -162,6 +162,10 @@ fn native_stats_preserve_the_profile_and_undo_excludes_the_new_review() {
         card_id: item.card.id.clone(),
         card_revision: item.card.revision,
         source_fingerprint: item.page.as_ref().unwrap().fingerprint.clone(),
+        answer_fingerprint: item
+            .answer_page
+            .as_ref()
+            .map(|page| page.fingerprint.clone()),
         rating: 3,
         duration_ms: 2000,
         reviewed_at: now.timestamp_millis(),

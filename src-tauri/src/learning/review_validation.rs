@@ -1,5 +1,8 @@
 use super::{
-    cards::read_card, session_models::SessionRow, study_source::study_page, Card, RateRequest,
+    cards::read_card,
+    session_models::SessionRow,
+    study_source::{answer_page, study_page},
+    Card, RateRequest,
 };
 use rusqlite::Connection;
 use std::path::Path;
@@ -29,6 +32,10 @@ pub(super) fn validate_review(
     }
     if study_page(connection, root, &card)?.fingerprint != request.source_fingerprint {
         return Err("Lesson content changed; reload the answer before rating".into());
+    }
+    let answer = answer_page(connection, root, &card)?;
+    if answer.as_ref().map(|page| &page.fingerprint) != request.answer_fingerprint.as_ref() {
+        return Err("Answer source changed; reload the answer before rating".into());
     }
     validate_outcome(&card, request)?;
     Ok(card)

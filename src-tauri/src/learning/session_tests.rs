@@ -54,6 +54,10 @@ fn request(session: &super::StudySession, rating: u8, learning: bool) -> RateReq
         card_id: item.card.id.clone(),
         card_revision: item.card.revision,
         source_fingerprint: item.page.as_ref().unwrap().fingerprint.clone(),
+        answer_fingerprint: item
+            .answer_page
+            .as_ref()
+            .map(|page| page.fingerprint.clone()),
         rating,
         duration_ms: 2000,
         reviewed_at: now.timestamp_millis(),
@@ -299,4 +303,58 @@ fn daily_combo_resets_without_regranting_xp_for_previous_days() {
     let third = store.rate_card(request(&second.session, 3, false)).unwrap();
     assert_eq!(third.earned_xp, 7);
     assert_eq!(third.session.review_count, 3);
+}
+
+#[test]
+fn linked_answer_changes_reject_unseen_content_but_committed_receipts_replay_once() {
+    let (dir, mut store, page) = fixture();
+    let original = card(&mut store, &page);
+    std::fs::write(dir.path().join("source.md"), "# Source\n\nLinked answer").unwrap();
+    let source = store.ensure_page("source.md").unwrap();
+    let mut draft = original.draft.clone();
+    draft.answer_mode = "page".into();
+    draft.answer_page_id = Some(source.id);
+    let linked = store
+        .update_card(&original.id, original.revision, draft)
+        .unwrap();
+    let session = store.start_session(SessionScope::default()).unwrap();
+    let stale = request(&session, 3, false);
+    assert!(stale.answer_fingerprint.is_some());
+    let content = std::fs::read_to_string(dir.path().join("source.md")).unwrap();
+    std::fs::write(
+        dir.path().join("source.md"),
+        content.replace("Linked answer", "Changed before rating"),
+    )
+    .unwrap();
+    assert!(store.rate_card(stale).is_err());
+    assert_eq!(store.get_card(&linked.id).unwrap().schedule.reps, 0);
+    let fresh = request(&store.get_session(&session.id).unwrap(), 3, false);
+    let committed = store.rate_card(fresh.clone()).unwrap();
+    assert_eq!(committed.session.review_count, 1);
+    std::fs::remove_file(dir.path().join("source.md")).unwrap();
+    drop(store);
+    let mut store = Store::open(dir.path()).unwrap();
+    assert!(store.rate_card(fresh.clone()).unwrap().replayed);
+    assert_eq!(store.study_stats().unwrap().today_reviews, 1);
+    let current = store.get_session(&session.id).unwrap();
+    store
+        .undo_review(&session.id, &fresh.review_id, current.revision)
+        .unwrap();
+    assert_eq!(store.get_card(&linked.id).unwrap().schedule.reps, 0);
+    assert_eq!(store.study_stats().unwrap().today_reviews, 0);
+}
+
+#[test]
+fn legacy_owner_only_receipts_remain_readable_and_replayable() {
+    let (_dir, mut store, page) = fixture();
+    card(&mut store, &page);
+    let session = store.start_session(SessionScope::default()).unwrap();
+    let grade = request(&session, 3, false);
+    let mut legacy = serde_json::to_value(&grade).unwrap();
+    legacy.as_object_mut().unwrap().remove("answerFingerprint");
+    let legacy: RateRequest = serde_json::from_value(legacy).unwrap();
+    assert!(legacy.answer_fingerprint.is_none());
+    store.rate_card(legacy.clone()).unwrap();
+    assert!(store.rate_card(legacy).unwrap().replayed);
+    assert_eq!(store.study_stats().unwrap().today_reviews, 1);
 }
