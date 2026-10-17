@@ -1,6 +1,6 @@
 # Card editor UI release — 2026-10-18
 
-Scope: U00–U08 in `docs/MEMNOVA-CARD-EDITOR-UI-PLAN.md`, starting at `9ac824b8`. Release gates and normal push are pending until recorded below. Implementation checkpoints are in `docs/MEMNOVA-CARD-EDITOR-UI-IMPLEMENTATION.md`.
+Scope: U00–U08 in `docs/MEMNOVA-CARD-EDITOR-UI-PLAN.md`, starting at `9ac824b8`. All implementation checkpoints passed the local release gates and normal main push recorded below. Implementation checkpoints are in `docs/MEMNOVA-CARD-EDITOR-UI-IMPLEMENTATION.md`.
 
 ## Implementation and regression evidence
 
@@ -36,7 +36,16 @@ Refactors extract CardEditorSection, EditorIconButton, CardTypeField, PropertyKi
 
 ## Release gates
 
-Pending final full checks and verified main push; do not interpret this draft as a completed release.
+Normal `git push origin main` succeeded, publishing `9ac824b8..2d46c7ae` without bypassing hooks. Pre-push took 7m29s. Final docs-only commit/push records this result; its SHA is available in Git history.
+
+- `pnpm lint`: PASS, zero warnings.
+- `pnpm build` (`tsc -b && vite build`): PASS. Existing mixed static/dynamic import and large-bundle warnings remain; no dependency/chunk redesign in this UI scope.
+- `pnpm test:coverage` via normal hook: PASS, **4,582 tests / 436 files**, 130.60s. **82.99% statements, 74.65% branches, 84.73% functions, 86.50% lines**; thresholds unchanged.
+- `pnpm playwright:smoke` via normal hook: PASS, **54/54 in 4.6m**, below five minutes. No new cosmetic test was tagged smoke.
+- Explicit unexcluded `cargo llvm-cov --manifest-path src-tauri/Cargo.toml --no-clean --fail-under-lines 85`: PASS, **85.82% lines** (30,105 total, 4,268 missed), 85.31% regions. **1,096 unit + one integration pass, three pre-existing ignored**. Hook correctly skipped Rust lint/coverage because no Rust paths changed; the explicit measurement above is separate evidence.
+- Learning/property/editor integrations: **10/10**, `--retries=0`, 1.5m; native verification described above.
+- Localization validation: PASS, 18 catalogs / 902 keys. Codacy: all 22 changed code/test files scanned and findings reviewed above. CodeScene before/after/project scores: NOT RUN, optional access unavailable.
+- Demo hygiene: `git status --short -- demo-vault demo-vault-v2` empty. No user Library used. No uncommitted app code at the successful push. Final remote/local SHA and clean working-tree checks are performed after the docs-only push.
 
 ## Evidence
 
