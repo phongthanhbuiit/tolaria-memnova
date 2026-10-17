@@ -1019,3 +1019,5 @@ LearningClient.listBackups/verifyBackup expose an ID-bound catalog and explicit 
 The pre-commit runner removes Git hook author/committer environment variables only from cargo child processes, so temporary Git fixture repositories use their own configured identities. The commit process and user Git configuration are unchanged.
 
 BackupPanel loads an ID-bound catalog per Library visit, requires explicit verification before enabling Restore, and discards late results after switching/unmounting. It tracks backup create/verify/restore using safe file counts only. Browser fixtures simulate note snapshots; native QA verifies actual SQLite/files/media.
+
+learning/propertyValues is the pure editor contract: explicit kinds, safe inference, lossless conversion, stable page-reference shapes and non-mutating rename/remove. Missing/opaque values are not coerced. Card/page adapters retain separate wire formats and storage ownership.
