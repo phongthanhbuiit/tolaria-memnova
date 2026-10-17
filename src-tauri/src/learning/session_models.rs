@@ -52,6 +52,7 @@ pub struct StudyPage {
 pub struct StudyItem {
     pub card: Card,
     pub page: Option<StudyPage>,
+    pub answer_page: Option<StudyPage>,
     pub source_error: Option<String>,
 }
 

@@ -94,6 +94,7 @@ export interface StudyPage {
 export interface StudyItem {
   card: LearningCard
   page: StudyPage | null
+  answerPage?: StudyPage | null
   sourceError: string | null
 }
 export interface StudySession {

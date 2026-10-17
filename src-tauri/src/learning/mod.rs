@@ -77,3 +77,6 @@ pub use study_stats::StudyStats;
 
 #[cfg(test)]
 mod source_contract_tests;
+
+#[cfg(test)]
+mod source_lifecycle_tests;

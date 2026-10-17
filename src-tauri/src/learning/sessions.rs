@@ -2,7 +2,7 @@ pub use super::session_models::SessionScope;
 use super::{
     cards::read_card,
     session_models::{SessionRow, StoredQueue},
-    study_source::study_page,
+    study_source::{answer_page as study_answer_page, study_page},
     MigrationState, Store, StudyItem, StudySession,
 };
 use rusqlite::{params, Connection, OptionalExtension, TransactionBehavior};
@@ -174,13 +174,25 @@ impl Store {
         let current = current_id
             .map(|id| {
                 let card = read_card(&transaction, &id)?;
-                let (page, source_error) = match study_page(&transaction, &self.root, &card) {
+                let (page, mut source_error) = match study_page(&transaction, &self.root, &card) {
                     Ok(page) => (Some(page), None),
                     Err(error) => (None, Some(error)),
+                };
+                let answer_page = if page.is_some() {
+                    match study_answer_page(&transaction, &self.root, &card) {
+                        Ok(answer) => answer,
+                        Err(error) => {
+                            source_error = Some(error);
+                            None
+                        }
+                    }
+                } else {
+                    None
                 };
                 Ok::<_, String>(StudyItem {
                     card,
                     page,
+                    answer_page,
                     source_error,
                 })
             })

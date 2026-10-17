@@ -18,10 +18,13 @@ function fixture(root: string): Fixture {
   fixtures.set(root, data)
   return data
 }
+async function hash(value: string): Promise<string> {
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value))
+  return Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('')
+}
 async function source(root: string, page: LearningPage, context: Context): Promise<StudyPage> {
   const content = fixture(root).restoredFiles?.[page.path] ?? await context.read(`${root}/${page.path}`)
-  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(content))
-  return { ...page, content: splitFrontmatter(content)[1], fingerprint: Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('') }
+  return { ...page, content: splitFrontmatter(content)[1], fingerprint: await hash(content) }
 }
 function stats(data: Fixture): StudyStats {
   const today = new Date().toLocaleDateString('en-CA')
@@ -40,7 +43,17 @@ async function snapshot(data: Fixture, row: FixtureSession, root: string, contex
   if (ready?.card) {
     if (ready.index !== row.index) { [row.ids[ready.index], row.ids[row.index]] = [row.ids[row.index], row.ids[ready.index]]; row.revision++ }
     const page = data.pages.find(page => page.id === ready.card?.pageId)
-    current = { card: ready.card, page: page ? await source(root, page, context) : null, sourceError: page ? null : 'Missing lesson' }
+    let owner: StudyPage | null = null
+    let answerPage: StudyPage | null = null
+    let sourceError: string | null = null
+    try {
+      owner = await source(root, required(page), context)
+      if (ready.card.answerMode === 'page' && ready.card.answerPageId) {
+        answerPage = await source(root, required(data.pages.find(page => page.id === ready.card?.answerPageId)), context)
+        answerPage.fingerprint = await hash(`${answerPage.path}\0${answerPage.fingerprint}`)
+      }
+    } catch (error) { sourceError = String(error) }
+    current = { card: ready.card, page: owner, answerPage, sourceError }
   }
   const reviews = data.reviews.filter(review => !review.undone && review.request.sessionId === row.id)
   const last = [...data.reviews].reverse().find(review => !review.undone)
