@@ -877,5 +877,6 @@
   "properties.kind.list-text": "Text list",
   "properties.kind.page": "Page link",
   "properties.kind.list-page": "Page links",
-  "properties.invalid": "Invalid or reserved property name."
+  "properties.invalid": "Invalid or reserved property name.",
+  "properties.card": "Card properties"
 }

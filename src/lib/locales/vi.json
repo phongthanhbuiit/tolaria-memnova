@@ -877,5 +877,6 @@
   "properties.kind.list-text": "Danh sách văn bản",
   "properties.kind.page": "Liên kết trang",
   "properties.kind.list-page": "Các liên kết trang",
-  "properties.invalid": "Tên thuộc tính không hợp lệ hoặc dành riêng."
+  "properties.invalid": "Tên thuộc tính không hợp lệ hoặc dành riêng.",
+  "properties.card": "Thuộc tính của thẻ"
 }

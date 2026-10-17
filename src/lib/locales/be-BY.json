@@ -877,5 +877,6 @@
   "properties.kind.list-text": "Спіс тэксту",
   "properties.kind.page": "Спасылка на старонку",
   "properties.kind.list-page": "Спасылкі на старонкі",
-  "properties.invalid": "Недапушчальная або зарэзерваваная назва ўласцівасці."
+  "properties.invalid": "Недапушчальная або зарэзерваваная назва ўласцівасці.",
+  "properties.card": "Уласцівасці карткі"
 }

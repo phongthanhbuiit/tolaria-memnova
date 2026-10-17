@@ -877,5 +877,6 @@
   "properties.kind.list-text": "テキストのリスト",
   "properties.kind.page": "ページへのリンク",
   "properties.kind.list-page": "ページへのリンク一覧",
-  "properties.invalid": "無効または予約済みのプロパティ名です。"
+  "properties.invalid": "無効または予約済みのプロパティ名です。",
+  "properties.card": "カードのプロパティ"
 }

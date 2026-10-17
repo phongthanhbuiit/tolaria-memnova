@@ -877,5 +877,6 @@
   "properties.kind.list-text": "Śpis tekstu",
   "properties.kind.page": "Spasyłka na staronku",
   "properties.kind.list-page": "Spasyłki na staronki",
-  "properties.invalid": "Niedapuščalnaja abo zareziervavanaja nazva ŭłaścivaści."
+  "properties.invalid": "Niedapuščalnaja abo zareziervavanaja nazva ŭłaścivaści.",
+  "properties.card": "Ułaścivaści kartki"
 }

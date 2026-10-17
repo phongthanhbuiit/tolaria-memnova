@@ -877,5 +877,6 @@
   "properties.kind.list-text": "Elenco di testo",
   "properties.kind.page": "Collegamento a pagina",
   "properties.kind.list-page": "Collegamenti a pagine",
-  "properties.invalid": "Nome della proprietà non valido o riservato."
+  "properties.invalid": "Nome della proprietà non valido o riservato.",
+  "properties.card": "Proprietà della scheda"
 }

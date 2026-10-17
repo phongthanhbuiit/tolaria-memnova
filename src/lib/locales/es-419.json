@@ -877,5 +877,6 @@
   "properties.kind.list-text": "Lista de texto",
   "properties.kind.page": "Enlace a página",
   "properties.kind.list-page": "Enlaces a páginas",
-  "properties.invalid": "Nombre de propiedad no válido o reservado."
+  "properties.invalid": "Nombre de propiedad no válido o reservado.",
+  "properties.card": "Propiedades de la tarjeta"
 }

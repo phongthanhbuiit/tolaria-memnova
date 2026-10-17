@@ -877,5 +877,6 @@
   "properties.kind.list-text": "텍스트 목록",
   "properties.kind.page": "페이지 링크",
   "properties.kind.list-page": "페이지 링크 목록",
-  "properties.invalid": "잘못되었거나 예약된 속성 이름입니다."
+  "properties.invalid": "잘못되었거나 예약된 속성 이름입니다.",
+  "properties.card": "카드 속성"
 }

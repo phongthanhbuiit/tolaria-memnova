@@ -877,5 +877,6 @@
   "properties.kind.list-text": "Liste de textes",
   "properties.kind.page": "Lien vers une page",
   "properties.kind.list-page": "Liens vers des pages",
-  "properties.invalid": "Nom de propriété invalide ou réservé."
+  "properties.invalid": "Nom de propriété invalide ou réservé.",
+  "properties.card": "Propriétés de la carte"
 }

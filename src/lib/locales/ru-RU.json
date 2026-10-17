@@ -877,5 +877,6 @@
   "properties.kind.list-text": "Список текста",
   "properties.kind.page": "Ссылка на страницу",
   "properties.kind.list-page": "Ссылки на страницы",
-  "properties.invalid": "Недопустимое или зарезервированное имя свойства."
+  "properties.invalid": "Недопустимое или зарезервированное имя свойства.",
+  "properties.card": "Свойства карточки"
 }

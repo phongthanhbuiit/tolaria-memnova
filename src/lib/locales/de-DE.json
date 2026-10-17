@@ -877,5 +877,6 @@
   "properties.kind.list-text": "Textliste",
   "properties.kind.page": "Seitenlink",
   "properties.kind.list-page": "Seitenlinks",
-  "properties.invalid": "Ungültiger oder reservierter Eigenschaftsname."
+  "properties.invalid": "Ungültiger oder reservierter Eigenschaftsname.",
+  "properties.card": "Karteneigenschaften"
 }

@@ -877,5 +877,6 @@
   "properties.kind.list-text": "Lista tekstów",
   "properties.kind.page": "Link do strony",
   "properties.kind.list-page": "Linki do stron",
-  "properties.invalid": "Nieprawidłowa lub zastrzeżona nazwa właściwości."
+  "properties.invalid": "Nieprawidłowa lub zastrzeżona nazwa właściwości.",
+  "properties.card": "Właściwości karty"
 }

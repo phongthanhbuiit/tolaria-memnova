@@ -877,5 +877,6 @@
   "properties.kind.list-text": "Daftar teks",
   "properties.kind.page": "Tautan halaman",
   "properties.kind.list-page": "Tautan halaman jamak",
-  "properties.invalid": "Nama properti tidak valid atau dicadangkan."
+  "properties.invalid": "Nama properti tidak valid atau dicadangkan.",
+  "properties.card": "Properti kartu"
 }

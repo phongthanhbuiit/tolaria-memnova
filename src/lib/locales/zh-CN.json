@@ -877,5 +877,6 @@
   "properties.kind.list-text": "文本列表",
   "properties.kind.page": "页面链接",
   "properties.kind.list-page": "页面链接列表",
-  "properties.invalid": "属性名称无效或为保留名称。"
+  "properties.invalid": "属性名称无效或为保留名称。",
+  "properties.card": "卡片属性"
 }
