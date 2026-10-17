@@ -1,7 +1,7 @@
 mod backup;
 mod backup_files;
 mod cards;
-pub use backup::BackupDescriptor;
+pub use backup::{BackupCatalogEntry, BackupDescriptor};
 mod models;
 pub use models::{Card, CardDraft, Schedule};
 mod identity;

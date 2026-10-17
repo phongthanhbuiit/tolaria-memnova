@@ -42,3 +42,19 @@ test('changed browser tests select their file and shared browser fixtures use sm
   assert(commands(['tests/integration/memnova-learning.spec.ts']).includes('exec playwright test --config playwright.integration.config.ts tests/integration/memnova-learning.spec.ts'))
   assert(commands(['tests/helpers/fixtureVault.ts']).includes('playwright:smoke'))
 })
+test('Rust checks do not inherit commit-hook author identity into temporary test repositories', () => {
+  const previous = process.env.GIT_AUTHOR_EMAIL
+  process.env.GIT_AUTHOR_EMAIL = 'hook-author@example.test'
+  try {
+    runChecks([{ label: 'Rust', command: 'cargo', args: ['test'] }], (_command, _args, options) => {
+      assert.ok(options.env)
+      assert.equal(options.env.GIT_AUTHOR_EMAIL, undefined)
+      assert.equal(options.env.PATH, process.env.PATH)
+      return { status: 0 }
+    })
+    assert.equal(process.env.GIT_AUTHOR_EMAIL, 'hook-author@example.test')
+  } finally {
+    if (previous === undefined) delete process.env.GIT_AUTHOR_EMAIL
+    else process.env.GIT_AUTHOR_EMAIL = previous
+  }
+})

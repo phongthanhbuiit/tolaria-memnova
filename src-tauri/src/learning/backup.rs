@@ -23,6 +23,14 @@ pub struct BackupDescriptor {
     pub bytes: u64,
 }
 
+#[derive(Clone, Debug, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct BackupCatalogEntry {
+    pub id: String,
+    pub descriptor: Option<BackupDescriptor>,
+    pub error: Option<String>,
+}
+
 #[derive(Default)]
 pub(super) struct RecoverySnapshot {
     pub profile: Option<Vec<u8>>,
@@ -89,6 +97,59 @@ impl Store {
             return Err("Library changed during backup; retry after saving".into());
         }
         Ok(())
+    }
+
+    pub fn list_backups(&self) -> Result<Vec<BackupCatalogEntry>, String> {
+        let directory = self.backups_directory()?;
+        if !directory.exists() {
+            return Ok(Vec::new());
+        }
+        let mut catalog = Vec::new();
+        for entry in fs::read_dir(directory).map_err(|error| error.to_string())? {
+            let entry = entry.map_err(|error| error.to_string())?;
+            let id = entry.file_name().to_string_lossy().into_owned();
+            if uuid::Uuid::parse_str(&id).is_err() {
+                continue;
+            }
+            let description = self.backup_description(&entry.path(), &id);
+            catalog.push(match description {
+                Ok(descriptor) => BackupCatalogEntry {
+                    id,
+                    descriptor: Some(descriptor),
+                    error: None,
+                },
+                Err(error) => BackupCatalogEntry {
+                    id,
+                    descriptor: None,
+                    error: Some(error),
+                },
+            });
+        }
+        catalog.sort_by(|left, right| {
+            right
+                .descriptor
+                .as_ref()
+                .map(|value| value.created_at)
+                .cmp(&left.descriptor.as_ref().map(|value| value.created_at))
+                .then(left.id.cmp(&right.id))
+        });
+        Ok(catalog)
+    }
+
+    fn backup_description(&self, directory: &Path, id: &str) -> Result<BackupDescriptor, String> {
+        reject_symlink(directory)?;
+        let path = checked_source(directory, "backup.json")?;
+        let manifest: Manifest =
+            serde_json::from_slice(&fs::read(path).map_err(|error| error.to_string())?)
+                .map_err(|error| error.to_string())?;
+        if manifest.format_version != 1
+            || manifest.description.id != id
+            || manifest.description.library_id != self.library_id
+            || manifest.description.file_count != manifest.files.len()
+        {
+            return Err("Backup manifest does not match this Library".into());
+        }
+        Ok(manifest.description)
     }
 
     pub fn verify_backup(&self, id: &str) -> Result<BackupDescriptor, String> {

@@ -1013,3 +1013,7 @@ Page-registration and source-synchronization transactions use `TransactionBehavi
 Vocabulary relation adapters preserve string-array storage and opaque values; add/remove affects only the chosen target. Unsupported metadata shapes disable destructive preset editors. CardForm metadata callbacks accept LearningProperty rather than forcing every value to a string.
 
 Trashed cards expose only Restore in PageFlashcards. Native and browser-fixture writers require an unchanged draft restored to Draft before edits or cloning; expected revisions remain mandatory.
+
+LearningClient.listBackups/verifyBackup expose an ID-bound catalog and explicit verification. Store.list_backups reads manifests, isolates invalid entries, skips incomplete names and rejects symlinks. A descriptor is unchecked until verify/restore; restore revalidates all files and writes a fresh directory.
+
+The pre-commit runner removes Git hook author/committer environment variables only from cargo child processes, so temporary Git fixture repositories use their own configured identities. The commit process and user Git configuration are unchanged.

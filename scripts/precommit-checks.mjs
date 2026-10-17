@@ -42,7 +42,14 @@ export function planChecks(files, { removed = false } = {}) {
 export function runChecks(plan, run = spawnSync) {
   for (const { label, command, args } of plan) {
     console.log(`  → ${label}`)
-    const result = run(command, args, { stdio: 'inherit', shell: false })
+    const env = { ...process.env }
+    // Git supplies these to commit hooks; Rust Git fixtures own their identities.
+    if (command === 'cargo') {
+      for (const role of ['AUTHOR', 'COMMITTER']) {
+        for (const field of ['NAME', 'EMAIL', 'DATE']) delete env[`GIT_${role}_${field}`]
+      }
+    }
+    const result = run(command, args, { stdio: 'inherit', shell: false, env })
     if (result.error) throw result.error
     if (result.status !== 0) throw new Error(`${label} failed${result.signal ? ` (${result.signal})` : ''}`)
   }

@@ -40,6 +40,8 @@ export interface BackupDescriptor {
   bytes: number
 }
 
+export interface BackupCatalogEntry { id: string; descriptor: BackupDescriptor | null; error: string | null }
+
 export interface MigrationIssue {
   path: string
   code: string

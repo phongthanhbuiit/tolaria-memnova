@@ -56,3 +56,12 @@ describe('learning IPC client', () => {
   })
 
 })
+
+it('lists and verifies backups using the bound identity and an ID-only request', async () => {
+ vi.mocked(invoke).mockResolvedValueOnce({libraryId:'library',schemaVersion:2}).mockResolvedValue([])
+ const client=await LearningClient.connect('/qa')
+ await client.listBackups()
+ expect(invoke).toHaveBeenLastCalledWith('learning_command',{vaultPath:'/qa',libraryId:'library',request:{kind:'listBackups'}})
+ await client.verifyBackup('backup-id')
+ expect(invoke).toHaveBeenLastCalledWith('learning_command',{vaultPath:'/qa',libraryId:'library',request:{kind:'verifyBackup',backupId:'backup-id'}})
+})

@@ -246,3 +246,69 @@ fn pre_migration_backup_keeps_raw_legacy_profile_and_review_log_for_recovery() {
         1
     );
 }
+
+#[test]
+fn backup_catalog_survives_reopen_and_isolates_bad_manifests() {
+    let (dir, store) = fixture();
+    assert!(store.list_backups().unwrap().is_empty());
+    let good = store.create_backup().unwrap();
+    let bad = uuid::Uuid::new_v4().to_string();
+    let directory = dir.path().join(".memnova/backups").join(&bad);
+    std::fs::create_dir_all(&directory).unwrap();
+    std::fs::write(directory.join("backup.json"), "broken").unwrap();
+    std::fs::create_dir_all(dir.path().join(".memnova/backups/.backup-incomplete")).unwrap();
+    drop(store);
+    let store = Store::open(dir.path()).unwrap();
+    let catalog = store.list_backups().unwrap();
+    assert_eq!(catalog.len(), 2);
+    assert!(catalog
+        .iter()
+        .find(|entry| entry.id == good.id)
+        .unwrap()
+        .descriptor
+        .is_some());
+    assert!(catalog
+        .iter()
+        .find(|entry| entry.id == bad)
+        .unwrap()
+        .error
+        .is_some());
+    assert_eq!(store.verify_backup(&good.id).unwrap().id, good.id);
+    assert!(store.verify_backup(&bad).is_err());
+    assert!(store.verify_backup("../lesson.md").is_err());
+    std::fs::write(
+        dir.path()
+            .join(".memnova/backups")
+            .join(&good.id)
+            .join("files/lesson.md"),
+        "corrupt",
+    )
+    .unwrap();
+    assert!(store
+        .list_backups()
+        .unwrap()
+        .iter()
+        .any(|entry| entry.id == good.id && entry.descriptor.is_some()));
+    assert!(store.verify_backup(&good.id).is_err());
+}
+
+#[cfg(unix)]
+#[test]
+fn backup_catalog_does_not_follow_symlink_entries() {
+    let (dir, store) = fixture();
+    let good = store.create_backup().unwrap();
+    let alias = uuid::Uuid::new_v4().to_string();
+    std::os::unix::fs::symlink(
+        dir.path().join(".memnova/backups").join(good.id),
+        dir.path().join(".memnova/backups").join(&alias),
+    )
+    .unwrap();
+    assert!(store
+        .list_backups()
+        .unwrap()
+        .iter()
+        .find(|entry| entry.id == alias)
+        .unwrap()
+        .error
+        .is_some());
+}

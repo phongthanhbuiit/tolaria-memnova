@@ -72,6 +72,10 @@ pub enum LearningRequest {
         review_id: String,
         revision: u32,
     },
+    ListBackups,
+    VerifyBackup {
+        backup_id: String,
+    },
     CreateBackup,
     RestoreBackup {
         backup_id: String,
@@ -175,6 +179,8 @@ fn dispatch(
             review_id,
             revision,
         } => encode(store.undo_review(&session_id, &review_id, revision)?),
+        LearningRequest::ListBackups => encode(store.list_backups()?),
+        LearningRequest::VerifyBackup { backup_id } => encode(store.verify_backup(&backup_id)?),
         LearningRequest::CreateBackup => encode(store.create_backup()?),
         LearningRequest::RestoreBackup { backup_id } => {
             Ok(json!({"path":store.restore_local_backup(&backup_id)?}))
