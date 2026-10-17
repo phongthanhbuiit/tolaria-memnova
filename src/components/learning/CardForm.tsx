@@ -54,6 +54,9 @@ export function CardForm({
   const statusId = useId()
   const [operationId] = useState(() => crypto.randomUUID())
   const [draft, setDraft] = useState(() => initialDraft)
+  const [vocabularyOpen, setVocabularyOpen] = useState(
+    initialDraft.properties.card_type === 'vocabulary',
+  )
   const [answerChoice, setAnswerChoice] = useState(
     initialDraft.answerMode === 'inline'
       ? 'inline'
@@ -136,11 +139,13 @@ export function CardForm({
   }
   const field = (key: 'front' | 'back', value: string) =>
     setDraft((previous) => ({ ...previous, [key]: value }))
-  const metadata = (key: string, value: LearningProperty) =>
+  const metadata = (key: string, value: LearningProperty) => {
+    if (key === 'card_type' && value === 'vocabulary') setVocabularyOpen(true)
     setDraft((previous) => ({
       ...previous,
       properties: { ...previous.properties, [key]: value },
     }))
+  }
   return (
     <Dialog
       open
@@ -270,7 +275,8 @@ export function CardForm({
           )}
           <CardEditorSection
             title={t('learning.vocabulary')}
-            defaultOpen={draft.properties.card_type === 'vocabulary'}
+            open={vocabularyOpen}
+            onOpenChange={setVocabularyOpen}
           >
             <div className="grid gap-3 sm:grid-cols-3">
               {(['IPA'] as const)
@@ -302,25 +308,23 @@ export function CardForm({
               onChange={metadata}
             />
           </CardEditorSection>
-          <section className="min-w-0 space-y-3">
-            <h3 className="text-sm font-semibold">{t('properties.card')}</h3>
-            <PropertyEditor
-              values={draft.properties}
-              definitions={definitions}
-              excludedKeys={presetFields}
-              reservedKeys={cardPresetKeys}
-              locale={locale}
-              disabled={busy || sourceBusy || propertyBusy}
-              onBusyChange={setPropertyBusy}
-              onChange={({ values, definitions }) =>
-                setDraft((previous) => ({
-                  ...previous,
-                  properties: values,
-                  propertyDefinitions: definitions,
-                }))
-              }
-            />
-          </section>
+          <PropertyEditor
+            title={t('properties.card')}
+            values={draft.properties}
+            definitions={definitions}
+            excludedKeys={presetFields}
+            reservedKeys={cardPresetKeys}
+            locale={locale}
+            disabled={busy || sourceBusy || propertyBusy}
+            onBusyChange={setPropertyBusy}
+            onChange={({ values, definitions }) =>
+              setDraft((previous) => ({
+                ...previous,
+                properties: values,
+                propertyDefinitions: definitions,
+              }))
+            }
+          />
           <CardMediaFields
             root={root}
             ownerPath={ownerPath ? `${root}/${ownerPath}` : undefined}

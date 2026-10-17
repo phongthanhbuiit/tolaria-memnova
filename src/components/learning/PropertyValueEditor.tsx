@@ -1,4 +1,5 @@
-import { CalendarBlank, Plus } from '@phosphor-icons/react'
+import { EditorIconButton } from './EditorIconButton'
+import { CalendarBlank, Plus, X } from '@phosphor-icons/react'
 import { cardEditorStyles } from './cardEditorStyles'
 import { useState } from 'react'
 import { Input } from '../ui/input'
@@ -59,7 +60,8 @@ function DateValue({ name, value, disabled, onChange, locale }: Props) {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant="outline" disabled={disabled} aria-label={name}>
-          <CalendarBlank className={cardEditorStyles.icon} aria-hidden="true" />{text || translate(locale, 'inspector.properties.pickDate')}
+          <CalendarBlank className={cardEditorStyles.icon} aria-hidden="true" />
+          {text || translate(locale, 'inspector.properties.pickDate')}
         </Button>
       </PopoverTrigger>
       <PopoverContent className={`${cardEditorStyles.portal} w-auto p-0`}>
@@ -134,15 +136,13 @@ function ListValue(props: Props) {
               />
             )}
           </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            aria-label={`${translate(locale, 'common.remove')} ${name} ${index + 1}`}
+          <EditorIconButton
+            label={`${translate(locale, 'common.remove')} ${name} ${index + 1}`}
             disabled={disabled}
             onClick={() => onChange(items.filter((_, i) => i !== index))}
           >
-            {translate(locale, 'common.remove')}
-          </Button>
+            <X className={cardEditorStyles.icon} aria-hidden="true" />
+          </EditorIconButton>
         </div>
       ))}
       {definition.itemKind === 'page' ? (
@@ -161,7 +161,8 @@ function ListValue(props: Props) {
           disabled={disabled}
           onClick={() => onChange([...items, ''])}
         >
-          <Plus className={cardEditorStyles.icon} aria-hidden="true" />{translate(locale, 'properties.addItem')}
+          <Plus className={cardEditorStyles.icon} aria-hidden="true" />
+          {translate(locale, 'properties.addItem')}
         </Button>
       )}
     </div>

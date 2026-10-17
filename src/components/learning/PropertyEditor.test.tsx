@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { fireEvent, render, screen, within } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { expect, it, vi } from 'vitest'
 import { PropertyEditor } from './PropertyEditor'
 import type {
@@ -32,23 +32,39 @@ function Harness() {
     </>
   )
 }
-it('edits falsy values, renames and removes only explicitly while preserving opaque data', () => {
+async function manage(name: string, action: string) {
+  fireEvent.keyDown(
+    screen.getByRole('button', { name: `Manage field ${name}`, exact: true }),
+    { key: 'ArrowDown' },
+  )
+  fireEvent.click(
+    await screen.findByRole('menuitem', { name: action, exact: true }),
+  )
+}
+it('edits falsy values, renames and removes only explicitly while preserving opaque data', async () => {
   render(<Harness />)
-  expect(screen.getByRole('textbox', { name: 'zero', exact: true })).toHaveValue('0')
+  expect(
+    screen.getByRole('textbox', { name: 'zero', exact: true }),
+  ).toHaveValue('0')
   expect(screen.getByRole('switch', { name: 'flag' })).not.toBeChecked()
   fireEvent.click(screen.getByRole('switch', { name: 'flag' }))
-  fireEvent.change(screen.getByRole('textbox', { name: 'zero', exact: true }), { target: { value: '' } })
-  expect(screen.getByRole('textbox', { name: 'zero', exact: true })).toHaveAttribute('aria-invalid', 'true')
-  fireEvent.change(screen.getByRole('textbox', { name: 'zero', exact: true }), { target: { value: '12' } })
+  fireEvent.change(screen.getByRole('textbox', { name: 'zero', exact: true }), {
+    target: { value: '' },
+  })
+  expect(
+    screen.getByRole('textbox', { name: 'zero', exact: true }),
+  ).toHaveAttribute('aria-invalid', 'true')
+  fireEvent.change(screen.getByRole('textbox', { name: 'zero', exact: true }), {
+    target: { value: '12' },
+  })
+  await manage('empty', 'Rename')
   fireEvent.change(screen.getByLabelText('Property name empty'), {
     target: { value: 'renamed' },
   })
-  const row = screen.getByLabelText('Property name empty').parentElement!
-    .parentElement!
-  fireEvent.click(within(row).getByRole('button', { name: 'Rename' }))
   fireEvent.click(
-    screen.getByRole('button', { name: 'Remove renamed', exact: true }),
+    screen.getByRole('button', { name: 'Apply name', exact: true }),
   )
+  await manage('renamed', 'Remove')
   const draft = JSON.parse(screen.getByTestId('draft').textContent!)
   expect(draft.values).toEqual({
     zero: 12,
@@ -64,8 +80,11 @@ it('edits falsy values, renames and removes only explicitly while preserving opa
       .some((element) => element.tagName === 'PRE'),
   ).toBe(true)
 })
-it('rejects duplicate and reserved names and previews a safe type conversion', () => {
+it('rejects duplicate and reserved names and previews a safe type conversion', async () => {
   render(<Harness />)
+  fireEvent.click(
+    screen.getByRole('button', { name: 'Add property', exact: true }),
+  )
   const name = screen.getByRole('textbox', {
     name: 'Property name',
     exact: true,
@@ -76,20 +95,24 @@ it('rejects duplicate and reserved names and previews a safe type conversion', (
   fireEvent.change(name, { target: { value: 'zero' } })
   fireEvent.click(screen.getByRole('button', { name: 'Add property' }))
   expect(screen.getByRole('alert')).toHaveTextContent('already exists')
+  await manage('zero', 'Change type')
   fireEvent.click(screen.getByRole('combobox', { name: 'Property type zero' }))
   fireEvent.click(screen.getByRole('option', { name: 'Text', exact: true }))
   expect(JSON.parse(screen.getByTestId('draft').textContent!).values.zero).toBe(
     0,
   )
-  fireEvent.click(screen.getByRole('button', { name: 'Apply type', exact: true }))
+  fireEvent.click(
+    screen.getByRole('button', { name: 'Apply type', exact: true }),
+  )
   expect(JSON.parse(screen.getByTestId('draft').textContent!).values.zero).toBe(
     '0',
   )
 })
 
-it('rejects lossy conversions and keeps mismatched legacy definitions read-only', () => {
+it('rejects lossy conversions and keeps mismatched legacy definitions read-only', async () => {
   const change = vi.fn()
   const { rerender } = render(<Harness />)
+  await manage('empty', 'Change type')
   fireEvent.click(screen.getByRole('combobox', { name: 'Property type empty' }))
   fireEvent.click(screen.getByRole('option', { name: 'Number', exact: true }))
   expect(screen.getByRole('alert')).toHaveTextContent('lose information')
@@ -111,7 +134,7 @@ it('rejects lossy conversions and keeps mismatched legacy definitions read-only'
   expect(change).not.toHaveBeenCalled()
 })
 
-it('does not rename opaque or unsafe numeric projections through JavaScript', () => {
+it('does not rename opaque or unsafe numeric projections through JavaScript', async () => {
   render(
     <PropertyEditor
       values={{ large: 9007199254740992, opaque: { large: 9007199254740992 } }}
@@ -120,6 +143,52 @@ it('does not rename opaque or unsafe numeric projections through JavaScript', ()
       onChange={vi.fn()}
     />,
   )
-  expect(screen.getByLabelText('Property name large')).toBeDisabled()
-  expect(screen.getByLabelText('Property name opaque')).toBeDisabled()
+  for (const name of ['large', 'opaque']) {
+    fireEvent.keyDown(
+      screen.getByRole('button', { name: `Manage field ${name}`, exact: true }),
+      { key: 'ArrowDown' },
+    )
+    expect(
+      await screen.findByRole('menuitem', { name: 'Rename', exact: true }),
+    ).toHaveAttribute('data-disabled')
+    fireEvent.keyDown(screen.getByRole('menu'), { key: 'Escape' })
+  }
+})
+
+it('keeps intermediate numbers, rename text and unapplied type previews across section collapse', async () => {
+  render(<Harness />)
+  fireEvent.change(screen.getByRole('textbox', { name: 'zero', exact: true }), {
+    target: { value: '-' },
+  })
+  fireEvent.click(screen.getByRole('button', { name: 'Page properties (6)' }))
+  expect(
+    screen.queryByRole('textbox', { name: 'zero', exact: true }),
+  ).not.toBeInTheDocument()
+  fireEvent.click(screen.getByRole('button', { name: 'Page properties (6)' }))
+  expect(
+    screen.getByRole('textbox', { name: 'zero', exact: true }),
+  ).toHaveValue('-')
+  fireEvent.change(screen.getByRole('textbox', { name: 'zero', exact: true }), {
+    target: { value: '12' },
+  })
+  await manage('empty', 'Rename')
+  fireEvent.change(screen.getByLabelText('Property name empty'), {
+    target: { value: 'pending name' },
+  })
+  fireEvent.click(screen.getByRole('button', { name: 'Page properties (6)' }))
+  fireEvent.click(screen.getByRole('button', { name: 'Page properties (6)' }))
+  expect(screen.getByLabelText('Property name empty')).toHaveValue(
+    'pending name',
+  )
+  await manage('zero', 'Change type')
+  fireEvent.click(screen.getByRole('combobox', { name: 'Property type zero' }))
+  fireEvent.click(screen.getByRole('option', { name: 'Text', exact: true }))
+  fireEvent.click(screen.getByRole('button', { name: 'Page properties (6)' }))
+  fireEvent.click(screen.getByRole('button', { name: 'Page properties (6)' }))
+  expect(
+    screen.getByRole('button', { name: 'Apply type', exact: true }),
+  ).toBeVisible()
+  expect(JSON.parse(screen.getByTestId('draft').textContent!).values.zero).toBe(
+    12,
+  )
 })

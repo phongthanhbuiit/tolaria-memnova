@@ -31,6 +31,7 @@ export function CardEditorSection({
           <Button
             variant="ghost"
             className="w-full justify-start whitespace-normal text-left"
+            aria-label={`${title}${count !== undefined ? ` (${count})` : ''}`}
             aria-expanded={visible}
             aria-controls={id}
             onClick={() => {

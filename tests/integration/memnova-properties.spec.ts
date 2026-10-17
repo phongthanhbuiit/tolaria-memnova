@@ -35,6 +35,9 @@ async function addProperty(
   kind: string,
 ) {
   await dialog
+    .getByRole('button', { name: 'Add property', exact: true })
+    .click()
+  await dialog
     .getByRole('textbox', { name: 'Property name', exact: true })
     .fill(name)
   await dialog
@@ -73,7 +76,9 @@ test('linked answers and typed card drafts survive preview, save, reload, study 
     form.getByRole('textbox', { name: 'Question', exact: true }),
   ).toHaveValue('Explain the newsletter source')
   await addProperty(page, form, 'priority', 'Number')
-  await expect(form.getByRole('textbox', { name: 'priority', exact: true })).toHaveValue('0')
+  await expect(
+    form.getByRole('textbox', { name: 'priority', exact: true }),
+  ).toHaveValue('0')
   await addProperty(page, form, 'remembered', 'Boolean')
   await expect(
     form.getByRole('switch', { name: 'remembered' }),
@@ -101,13 +106,15 @@ test('linked answers and typed card drafts survive preview, save, reload, study 
     .getByRole('button', { name: 'Explain the newsletter source', exact: true })
     .click()
   const saved = page.getByRole('dialog', { name: 'Edit card', exact: true })
-  await expect(saved.getByRole('textbox', { name: 'priority', exact: true })).toHaveValue('0')
+  await expect(
+    saved.getByRole('textbox', { name: 'priority', exact: true }),
+  ).toHaveValue('0')
   await expect(
     saved.getByRole('switch', { name: 'remembered' }),
   ).not.toBeChecked()
-  await expect(saved.getByRole('textbox', { name: 'secret', exact: true })).toHaveValue(
-    'Custom metadata stays private',
-  )
+  await expect(
+    saved.getByRole('textbox', { name: 'secret', exact: true }),
+  ).toHaveValue('Custom metadata stays private')
   await saved.getByRole('button', { name: 'Cancel', exact: true }).click()
   await page
     .getByRole('tabpanel', { name: 'Flashcards', exact: true })
@@ -196,7 +203,12 @@ test('page properties stay in Markdown and use the same calendar and draft contr
       name: 'Switch to dark mode',
       exact: true,
     })
-    if (!(await page.locator('html').getAttribute('class'))?.split(' ').includes('dark')) await dark.click()
+    if (
+      !(await page.locator('html').getAttribute('class'))
+        ?.split(' ')
+        .includes('dark')
+    )
+      await dark.click()
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark')
     await tools.click()
     await page.setViewportSize({ width: 480, height: 800 })

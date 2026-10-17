@@ -87,6 +87,9 @@ it('keeps custom fields in one draft and preserves memory and opaque metadata on
     revision: 3,
   }))
   const dialog = await edit()
+  fireEvent.click(
+    dialog.getByRole('button', { name: 'Add property', exact: true }),
+  )
   fireEvent.change(
     dialog.getByRole('textbox', { name: 'Property name', exact: true }),
     { target: { value: 'priority' } },
@@ -129,6 +132,9 @@ it('keeps custom fields in one draft and preserves memory and opaque metadata on
 })
 it('does not persist a custom-field draft when cancelling or switching preset', async () => {
   const dialog = await edit()
+  fireEvent.click(
+    dialog.getByRole('button', { name: 'Add property', exact: true }),
+  )
   fireEvent.change(
     dialog.getByRole('textbox', { name: 'Property name', exact: true }),
     { target: { value: 'Private draft' } },
@@ -160,4 +166,18 @@ it('does not crash the card editor when read-only schedule metadata contains an 
   )
   expect(dialog.getByText('Something went wrong. Retry.')).toBeVisible()
   expect(dialog.getByLabelText('Question')).toHaveValue('Vocab question')
+})
+
+it('discloses vocabulary fields when selecting the preset without persisting the draft', async () => {
+  workspace.cards[0].properties.card_type = 'basic'
+  const dialog = await edit()
+  expect(dialog.queryByLabelText('Part of speech')).not.toBeInTheDocument()
+  fireEvent.click(
+    dialog.getByRole('combobox', { name: 'Card type', exact: true }),
+  )
+  fireEvent.click(
+    screen.getByRole('option', { name: 'Vocabulary', exact: true }),
+  )
+  expect(dialog.getByLabelText('Part of speech')).toBeVisible()
+  expect(workspace.client.updateCard).not.toHaveBeenCalled()
 })
