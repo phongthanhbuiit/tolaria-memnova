@@ -10,16 +10,16 @@ This ledger tracks the plan from the conversation. A checked implementation is n
 |---|---|---|---|
 | A01 | — | Reproducible baseline, data inventory and quality evidence | Baseline recorded |
 | A02 | A01 | Upstream commit assessment without merging unrelated changes | Assessment recorded |
-| A03 | A02 | Selective editor lifecycle and stable-ref fixes with regression tests | Implemented; release checks pending |
-| B01 | A01 | Enabling never resets an existing schedule; deck scope stays scoped | Implemented; release checks pending |
-| B02 | B01 | One atomic schedule write, save failures propagate, stats follow save | Implemented; release checks pending |
-| B03 | B02 | Stable session queue, live due clock, deck root, load cancellation, empty answer marker | Implemented; release checks pending |
-| C01 | A01–B03 | ADR defines learning authority, identifiers, transactions, backup and compatibility | Backend implemented; migration wiring/release checks pending |
-| C02 | C01 | Persistent library UUID and page UUID survive moves/renames; duplicate detection | Backend implemented; migration wiring/release checks pending |
-| C03 | C02 | Rust SQLite ownership, versioned migration, WAL, foreign keys, boundaries | Backend implemented; migration wiring/release checks pending |
-| C04 | C03 | Pages/cards/schedules/reviews/sessions/decks with indexes and constraints | Backend implemented; migration wiring/release checks pending |
-| C05 | C04 | Typed IPC/client; frontend cannot supply SQL or arbitrary database paths | Backend implemented; migration wiring/release checks pending |
-| D01 | C05 | Consistent backup of SQLite, lessons and media; verified restore into fresh directory | Backend implemented; migration/UI wiring and release checks pending |
+| A03 | A02 | Selective editor lifecycle and stable-ref fixes with regression tests | Implemented and pushed through verified hooks |
+| B01 | A01 | Enabling never resets an existing schedule; deck scope stays scoped | Implemented and pushed through verified hooks |
+| B02 | B01 | One atomic schedule write, save failures propagate, stats follow save | Implemented and pushed through verified hooks |
+| B03 | B02 | Stable session queue, live due clock, deck root, load cancellation, empty answer marker | Implemented and pushed through verified hooks |
+| C01 | A01–B03 | ADR defines learning authority, identifiers, transactions, backup and compatibility | Recorded in ADR-0138 |
+| C02 | C01 | Persistent library UUID and page UUID survive moves/renames; duplicate detection | Backend verified/pushed; Markdown ID assignment pending D03 |
+| C03 | C02 | Rust SQLite ownership, versioned migration, WAL, foreign keys, boundaries | Base backend verified/pushed; remaining endpoints/profile integration pending |
+| C04 | C03 | Pages/cards/schedules/reviews/sessions/decks with indexes and constraints | Base backend verified/pushed; remaining endpoints/profile integration pending |
+| C05 | C04 | Typed IPC/client; frontend cannot supply SQL or arbitrary database paths | Base backend verified/pushed; remaining endpoints/profile integration pending |
+| D01 | C05 | Consistent backup of SQLite, lessons and media; verified restore into fresh directory | Backend verified/pushed; migration/UI wiring pending |
 | D02 | D01 | Read-only migration preview reports counts, invalid schedules and conflicts | Pending |
 | D03 | D02 | Backup-first, idempotent/resumable legacy migration preserves schedules/history/media | Pending |
 | D04 | D03 | Explicit verified cutover; no duplicate legacy writes; recoverable failure | Pending |
