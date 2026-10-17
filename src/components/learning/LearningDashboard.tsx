@@ -41,7 +41,7 @@ export function LearningDashboard({ mode, locale, onOpenPage }: { mode: 'home' |
   const restoreBackup = async () => {
     if (!workspace.client || backup?.root !== workspace.root) return
     setBusy(true)
-    try { const result = await workspace.client.restoreBackup(backup.id); await workspace.openLibrary(result.path) }
+    try { const result = await workspace.client.restoreBackup(backup.id); await workspace.openLibrary(result.path); trackEvent('memnova_backup_restored') }
     catch (error) { setError(String(error)) }
     finally { setBusy(false) }
   }

@@ -49,7 +49,10 @@ impl Store {
     pub fn register_page(&mut self, id: &str, path: &str, title: &str) -> Result<(), String> {
         uuid::Uuid::parse_str(id).map_err(|_| "Invalid page identity")?;
         self.page_path(path)?;
-        let transaction = self.conn.transaction().map_err(|e| e.to_string())?;
+        let transaction = self
+            .conn
+            .transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)
+            .map_err(|e| e.to_string())?;
         register_page_in(&transaction, &self.root, id, path, title)?;
         transaction.commit().map_err(|e| e.to_string())
     }

@@ -83,3 +83,24 @@ test('card lifecycle actions preserve the lesson and support clone, suspension a
   await page.getByRole('tab', { name: 'Content', exact: true }).click()
   await expect(page.getByRole('heading', { name: 'Build Laputa App', exact: true })).toBeVisible()
 })
+
+test('study controls remain visible and usable in a compact window', async ({ page }, testInfo) => {
+  await openLesson(page)
+  await addCard(page, 'Compact study question')
+  await page.getByRole('tabpanel', { name: 'Flashcards', exact: true }).getByRole('button', { name: 'Study', exact: true }).click()
+  await page.setViewportSize({ width: 480, height: 800 })
+  const dialog = page.getByRole('dialog')
+  await dialog.getByRole('button', { name: 'Show answer', exact: true }).click()
+  for (const name of [/^Again/, /^Hard/, /^Good/, /^Easy/]) {
+    const button = dialog.getByRole('button', { name })
+    await expect(button).toBeEnabled()
+    const bounds = await button.boundingBox()
+    expect(bounds).not.toBeNull()
+    expect(bounds!.x).toBeGreaterThanOrEqual(0)
+    expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(480)
+    expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(800)
+  }
+  await page.screenshot({ path: testInfo.outputPath('compact-window.png') })
+  await dialog.getByRole('button', { name: /^Good/ }).click()
+  await expect(dialog.getByText('Waiting for the next learning step')).toBeVisible()
+})

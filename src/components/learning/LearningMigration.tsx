@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { trackEvent } from '../../lib/telemetry'
 import { Button } from '../ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../ui/dialog'
 import { translate, type AppLocale } from '../../lib/i18n'
@@ -12,7 +13,7 @@ export function LearningMigration({ locale, onRestore }: { locale: AppLocale; on
   const restore = async () => {
     if (!workspace.client || !progress?.backupId) return
     setRestoring(true)
-    try { const backup = await workspace.client.restoreBackup(progress.backupId); await onRestore(backup.path); workspace.setMigrationOpen(false) }
+    try { const backup = await workspace.client.restoreBackup(progress.backupId); await onRestore(backup.path); trackEvent('memnova_backup_restored'); workspace.setMigrationOpen(false) }
     catch (error) { setRestoreError(String(error)) }
     finally { setRestoring(false) }
   }
@@ -21,6 +22,6 @@ export function LearningMigration({ locale, onRestore }: { locale: AppLocale; on
     {progress?.state === 'migrating' && <p role="status">{progress.importedPages}/{progress.totalPages}</p>}
     {preview?.issues.map((issue, index) => <div key={index} className="rounded border p-3 text-xs"><p className="font-semibold">{issue.path}</p><p>{issue.code}: {issue.detail}</p></div>)}
     {(workspace.error || restoreError) && <pre role="alert" className="whitespace-pre-wrap break-words rounded border border-destructive p-3 text-xs">{workspace.error || restoreError}</pre>}
-    <div className="flex flex-wrap justify-end gap-2"><Button variant="outline" disabled={busy || restoring} onClick={() => workspace.setMigrationOpen(false)}>{translate(locale, 'common.cancel')}</Button>{progress?.backupId && <Button variant="outline" disabled={busy || restoring} onClick={() => { void restore() }}>{translate(locale, 'learning.restoreBackup')}</Button>}<Button disabled={!workspace.client || busy || restoring || (!preview && workspace.phase !== 'migrating') || !!preview?.issues.some(issue => issue.severity === 'error')} onClick={() => { void workspace.migrate(workspace.flush) }}>{translate(locale, busy ? 'learning.saving' : workspace.phase === 'migrating' ? 'learning.resume' : 'learning.import')}</Button></div>
+    <div className="flex flex-wrap justify-end gap-2">{!workspace.client && <Button variant="outline" disabled={busy || restoring} onClick={() => { void workspace.reconnect() }}>{translate(locale, 'learning.retry')}</Button>}<Button variant="outline" disabled={busy || restoring} onClick={() => workspace.setMigrationOpen(false)}>{translate(locale, 'common.cancel')}</Button>{progress?.backupId && <Button variant="outline" disabled={busy || restoring} onClick={() => { void restore() }}>{translate(locale, 'learning.restoreBackup')}</Button>}<Button disabled={!workspace.client || busy || restoring || (!preview && workspace.phase !== 'migrating') || !!preview?.issues.some(issue => issue.severity === 'error')} onClick={() => { void workspace.migrate(workspace.flush) }}>{translate(locale, busy ? 'learning.saving' : workspace.phase === 'migrating' ? 'learning.resume' : 'learning.import')}</Button></div>
   </DialogContent></Dialog>
 }

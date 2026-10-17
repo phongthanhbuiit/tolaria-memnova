@@ -155,7 +155,10 @@ impl Store {
             .map(|(id, (path, _))| (path.as_str(), id.as_str()))
             .collect();
         let previous = self.list_pages()?;
-        let transaction = self.conn.transaction().map_err(|error| error.to_string())?;
+        let transaction = self
+            .conn
+            .transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)
+            .map_err(|error| error.to_string())?;
         for page in previous {
             if sources.contains_key(&page.id) || page.path.starts_with(".memnova/retired/") {
                 continue;
@@ -206,7 +209,10 @@ impl Store {
             self.create_backup()?;
         }
         let file = fs::metadata(&path).map_err(|error| error.to_string())?;
-        let transaction = self.conn.transaction().map_err(|error| error.to_string())?;
+        let transaction = self
+            .conn
+            .transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)
+            .map_err(|error| error.to_string())?;
         register_page_in(&transaction, &self.root, &id, relative, &title)?;
         let key = format!("sourceTimes:{id}");
         if read_metadata::<serde_json::Value>(&transaction, &key)?.is_none() {

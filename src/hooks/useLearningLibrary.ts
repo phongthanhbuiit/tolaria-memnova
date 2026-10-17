@@ -33,10 +33,14 @@ export function useLearningLibrary(root: string | null | undefined) {
       const client = await LearningClient.connect(path)
       const progress = await client.migrationStatus()
       if (generation.current !== epoch) return
+      setMigrationRoot(path); setMigrationOpen(false); setBusy(false); setPreview(null)
       setState({ ...initial(path), client, phase: progress.state === 'ready' ? 'loading' : progress.state, progress })
       if (progress.state === 'ready') await load(client, epoch)
     } catch (error) {
-      if (generation.current === epoch) setState({ ...initial(path), phase: 'error', error: String(error) })
+      if (generation.current === epoch) {
+        setMigrationRoot(path); setMigrationOpen(false); setBusy(false); setPreview(null)
+        setState({ ...initial(path), phase: 'error', error: String(error) })
+      }
     }
   }, [path, load])
   const invalidate = useCallback(() => { generation.current++ }, [])

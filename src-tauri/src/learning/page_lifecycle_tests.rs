@@ -257,3 +257,33 @@ fn known_legacy_history_is_visible_without_a_profile_and_is_not_counted_twice_wi
     assert_eq!(stats.heatmap.last().unwrap().count, 1);
     assert_eq!(stats.total_xp, 100);
 }
+
+#[test]
+fn page_registration_waits_for_another_writer_instead_of_failing_a_snapshot_upgrade() {
+    use std::sync::mpsc;
+    use std::time::Duration;
+    let (dir, mut writer) = fixture();
+    std::fs::write(dir.path().join("lesson.md"), "# Lesson").unwrap();
+    let page = writer.ensure_page("lesson.md").unwrap();
+    let mut reader = Store::open(dir.path()).unwrap();
+    writer.conn.execute_batch("BEGIN IMMEDIATE").unwrap();
+    let (started, ready) = mpsc::sync_channel(0);
+    let (finished, result) = mpsc::channel();
+    let worker = std::thread::spawn(move || {
+        started.send(()).unwrap();
+        finished
+            .send(reader.ensure_page("lesson.md").map(|page| page.id))
+            .unwrap();
+    });
+    ready.recv().unwrap();
+    let early = result.recv_timeout(Duration::from_millis(150));
+    writer.conn.execute_batch("COMMIT").unwrap();
+    let waited = early.is_err();
+    let outcome = early.unwrap_or_else(|_| result.recv_timeout(Duration::from_secs(5)).unwrap());
+    worker.join().unwrap();
+    assert!(
+        waited,
+        "Registration failed before the busy writer released its lock: {outcome:?}"
+    );
+    assert_eq!(outcome.unwrap(), page.id);
+}

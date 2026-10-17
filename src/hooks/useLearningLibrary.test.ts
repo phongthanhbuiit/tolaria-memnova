@@ -55,3 +55,21 @@ it('discards migration previews that finish after switching libraries', async ()
   expect(result.current.preview).toBeNull()
   expect(result.current.migrationOpen).toBe(false)
 })
+
+it('can reopen migration after returning to a library whose preview was interrupted', async () => {
+  let finish: (value: unknown) => void = () => {}
+  const delayed = new Promise<unknown>(resolve => { finish = resolve })
+  const client = { migrationStatus: vi.fn().mockResolvedValue({ state: 'legacy' }) }
+  vi.mocked(LearningClient.connect).mockResolvedValue(client as unknown as LearningClient)
+  vi.mocked(LearningClient.previewMigration).mockReturnValueOnce(delayed as ReturnType<typeof LearningClient.previewMigration>).mockResolvedValue({ fingerprint: 'fresh' } as Awaited<ReturnType<typeof LearningClient.previewMigration>>)
+  const { result, rerender } = renderHook(({ root }) => useLearningLibrary(root), { initialProps: { root: '/interrupted' } })
+  await waitFor(() => expect(result.current.phase).toBe('legacy'))
+  let pending: Promise<void> = Promise.resolve()
+  act(() => { pending = result.current.openMigration() })
+  rerender({ root: '/other' }); await waitFor(() => expect(result.current.phase).toBe('legacy'))
+  rerender({ root: '/interrupted' }); await waitFor(() => expect(result.current.phase).toBe('legacy'))
+  await act(async () => { finish({ fingerprint: 'stale' }); await pending })
+  expect(result.current.busy).toBe(false)
+  await act(() => result.current.openMigration())
+  expect(result.current.preview?.fingerprint).toBe('fresh')
+})
