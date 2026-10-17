@@ -80,6 +80,7 @@ type Props = {
   disabled?: boolean
   excludedKeys?: readonly string[]
   reservedKeys?: readonly string[]
+  validateKey?: (key: string, oldKey?: string) => void
   onChange: (change: Change) => void
   onBusyChange?: (busy: boolean) => void
 }
@@ -131,13 +132,13 @@ function PropertyRow(props: {
           aria-label={`${t('inspector.properties.propertyName')} ${name}`}
           className="min-w-0 flex-1"
           value={key}
-          disabled={disabled}
+          disabled={disabled || !editable}
           onChange={(event) => setKey(event.target.value)}
         />
         <Button
           variant="outline"
           size="sm"
-          disabled={disabled || key === name}
+          disabled={disabled || !editable || key === name}
           onClick={() => {
             try {
               onRename(key)
@@ -237,6 +238,7 @@ export function PropertyEditor(props: Props) {
     disabled = false,
     excludedKeys = [],
     reservedKeys = [],
+    validateKey,
     onChange,
     onBusyChange,
   } = props
@@ -256,6 +258,7 @@ export function PropertyEditor(props: Props) {
   const add = () => {
     try {
       const key = propertyKey(name)
+      validateKey?.(key)
       if (
         Object.hasOwn(values, key) ||
         excludedKeys.includes(key) ||
@@ -299,6 +302,7 @@ export function PropertyEditor(props: Props) {
               locale={locale}
               disabled={locked}
               onRename={(name) => {
+                validateKey?.(propertyKey(name), key)
                 if (reservedKeys.includes(name.trim()) && name.trim() !== key)
                   throw Error(t('properties.invalid'))
                 onChange(renameProperty(values, definitions, key, name))

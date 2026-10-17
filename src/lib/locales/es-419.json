@@ -878,5 +878,10 @@
   "properties.kind.page": "Enlace a página",
   "properties.kind.list-page": "Enlaces a páginas",
   "properties.invalid": "Nombre de propiedad no válido o reservado.",
-  "properties.card": "Propiedades de la tarjeta"
+  "properties.card": "Propiedades de la tarjeta",
+  "properties.page": "Propiedades de la página",
+  "properties.pageHelp": "Los valores permanecen en Markdown. Los tipos de visualización se guardan por separado.",
+  "properties.hintFailed": "Los valores se guardaron, pero los tipos no. Reintenta para guardar los tipos.",
+  "properties.readyHelp": "Los tipos personalizados están disponibles cuando la Library esté lista. Los controles existentes siguen funcionando.",
+  "properties.pageChanged": "La página cambió. Vuelve a abrir las propiedades antes de guardar."
 }

@@ -878,5 +878,10 @@
   "properties.kind.page": "Liên kết trang",
   "properties.kind.list-page": "Các liên kết trang",
   "properties.invalid": "Tên thuộc tính không hợp lệ hoặc dành riêng.",
-  "properties.card": "Thuộc tính của thẻ"
+  "properties.card": "Thuộc tính của thẻ",
+  "properties.page": "Thuộc tính của trang",
+  "properties.pageHelp": "Giá trị vẫn lưu trong Markdown. Kiểu hiển thị được lưu riêng.",
+  "properties.hintFailed": "Giá trị đã lưu nhưng kiểu hiển thị chưa lưu. Hãy thử lại để lưu kiểu.",
+  "properties.readyHelp": "Kiểu hiển thị tùy chỉnh dùng được sau khi Library sẵn sàng. Các ô thuộc tính hiện có vẫn hoạt động.",
+  "properties.pageChanged": "Trang đã thay đổi. Mở lại thuộc tính trước khi lưu."
 }

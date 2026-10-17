@@ -878,5 +878,10 @@
   "properties.kind.page": "Page link",
   "properties.kind.list-page": "Page links",
   "properties.invalid": "Invalid or reserved property name.",
-  "properties.card": "Card properties"
+  "properties.card": "Card properties",
+  "properties.page": "Page properties",
+  "properties.pageHelp": "Values stay in Markdown. Display types are saved separately.",
+  "properties.hintFailed": "Values were saved, but display types were not. Retry to save the types.",
+  "properties.readyHelp": "Custom display types are available after the Library is ready. Existing property controls still work.",
+  "properties.pageChanged": "The page changed. Reopen properties before saving."
 }

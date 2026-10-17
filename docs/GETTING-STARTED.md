@@ -540,3 +540,9 @@ The old `<!-- FLASHCARD:BACK -->` separator is still recognized during import: t
 For new lessons, write the lesson normally and create multiple cards in **Flashcards**. Prefer a short question and an inline answer for each idea, plus an optional whole-page card for recalling the entire lesson. Whole-page answers read the current lesson; inline answers are independent SQLite card content after migration and are not automatically overwritten by subsequent lesson edits. Switching the whole-page option off and on while editing keeps the inline draft. Every card retains its own schedule.
 
 In Home → Advanced → Backup history, select an existing backup, choose Verify backup, then Restore backup. Discovery works after restarting. Verification is repeated by restore, which opens a new Library directory. A damaged entry is reported without hiding healthy backups.
+
+### Page and card properties
+
+In the Properties Inspector, **Page properties** opens the typed editor once the Library is ready. The familiar Type, workspace and relationship controls stay available. Page values remain Markdown frontmatter; card properties are independent SQLite data edited inside the card form. Both editors support explicit field removal and lossless type changes with a preview. Unsupported data is shown read-only and survives edits to other fields. A failed page type save offers Retry without applying the acknowledged Markdown edits again.
+
+A card answer can use its own text, the current page or another page in the same Library. Select a source by its path when titles coincide. Open the source preview to read it without leaving the unsaved card form. Source changes are live; missing sources block grading until repaired/reloaded. Choosing a source never changes the card's owner, review scope or memory.

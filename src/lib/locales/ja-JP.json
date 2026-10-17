@@ -878,5 +878,10 @@
   "properties.kind.page": "ページへのリンク",
   "properties.kind.list-page": "ページへのリンク一覧",
   "properties.invalid": "無効または予約済みのプロパティ名です。",
-  "properties.card": "カードのプロパティ"
+  "properties.card": "カードのプロパティ",
+  "properties.page": "ページのプロパティ",
+  "properties.pageHelp": "値はMarkdownに保存されます。表示形式は別に保存されます。",
+  "properties.hintFailed": "値は保存されましたが表示形式は未保存です。再試行して形式を保存してください。",
+  "properties.readyHelp": "Libraryの準備が完了すると表示形式を指定できます。既存のプロパティ操作は引き続き使えます。",
+  "properties.pageChanged": "ページが変更されました。保存前にプロパティを開き直してください。"
 }

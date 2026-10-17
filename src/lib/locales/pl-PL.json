@@ -878,5 +878,10 @@
   "properties.kind.page": "Link do strony",
   "properties.kind.list-page": "Linki do stron",
   "properties.invalid": "Nieprawidłowa lub zastrzeżona nazwa właściwości.",
-  "properties.card": "Właściwości karty"
+  "properties.card": "Właściwości karty",
+  "properties.page": "Właściwości strony",
+  "properties.pageHelp": "Wartości pozostają w Markdown. Typy wyświetlania są zapisywane oddzielnie.",
+  "properties.hintFailed": "Wartości zapisano, ale typów nie. Ponów zapis typów.",
+  "properties.readyHelp": "Własne typy są dostępne po przygotowaniu Library. Dotychczasowe pola nadal działają.",
+  "properties.pageChanged": "Strona uległa zmianie. Przed zapisem otwórz ponownie właściwości."
 }

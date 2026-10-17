@@ -878,5 +878,10 @@
   "properties.kind.page": "頁面連結",
   "properties.kind.list-page": "頁面連結清單",
   "properties.invalid": "屬性名稱無效或為保留名稱。",
-  "properties.card": "卡片屬性"
+  "properties.card": "卡片屬性",
+  "properties.page": "頁面屬性",
+  "properties.pageHelp": "值仍儲存在 Markdown 中，顯示類型另行儲存。",
+  "properties.hintFailed": "值已儲存，但顯示類型尚未儲存。請重試以儲存類型。",
+  "properties.readyHelp": "Library 就緒後即可設定顯示類型，現有屬性控制項仍可使用。",
+  "properties.pageChanged": "頁面已變更，請重新開啟屬性後再儲存。"
 }

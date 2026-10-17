@@ -3,6 +3,7 @@ import type { VaultEntry, GitCommit, WorkspaceIdentity } from '../types'
 import { cn } from '@/lib/utils'
 import { Separator } from './ui/separator'
 import { parseFrontmatter, detectFrontmatterState, detectFrontmatterWarnings } from '../utils/frontmatter'
+import { PagePropertyTools } from './learning/PagePropertyTools'
 import { DynamicPropertiesPanel } from './DynamicPropertiesPanel'
 import type { FrontmatterOpOptions } from '../hooks/frontmatterOps'
 import {
@@ -300,6 +301,7 @@ function InspectorBody({
           locale={locale}
         />
       )}
+      {supportsFrontmatter(entry) && <PagePropertyTools path={entry.path} content={content} frontmatter={frontmatter} locale={locale} onUpdate={handleUpdateProperty} onRemove={handleDeleteProperty} />}
       {backlinks.length > 0 && <Separator />}
       <BacklinksPanel backlinks={backlinks} onNavigate={onNavigate} />
       <Separator />

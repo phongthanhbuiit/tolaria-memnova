@@ -878,5 +878,10 @@
   "properties.kind.page": "Collegamento a pagina",
   "properties.kind.list-page": "Collegamenti a pagine",
   "properties.invalid": "Nome della proprietà non valido o riservato.",
-  "properties.card": "Proprietà della scheda"
+  "properties.card": "Proprietà della scheda",
+  "properties.page": "Proprietà della pagina",
+  "properties.pageHelp": "I valori restano in Markdown. I tipi di visualizzazione vengono salvati separatamente.",
+  "properties.hintFailed": "Valori salvati, ma non i tipi. Riprova per salvare i tipi.",
+  "properties.readyHelp": "I tipi personalizzati sono disponibili quando la Library è pronta. I controlli esistenti restano utilizzabili.",
+  "properties.pageChanged": "La pagina è cambiata. Riapri le proprietà prima di salvare."
 }

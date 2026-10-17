@@ -878,5 +878,10 @@
   "properties.kind.page": "페이지 링크",
   "properties.kind.list-page": "페이지 링크 목록",
   "properties.invalid": "잘못되었거나 예약된 속성 이름입니다.",
-  "properties.card": "카드 속성"
+  "properties.card": "카드 속성",
+  "properties.page": "페이지 속성",
+  "properties.pageHelp": "값은 Markdown에 유지됩니다. 표시 유형은 별도로 저장됩니다.",
+  "properties.hintFailed": "값은 저장했지만 표시 유형은 저장하지 못했습니다. 다시 시도하여 유형을 저장하세요.",
+  "properties.readyHelp": "Library가 준비되면 사용자 지정 표시 유형을 사용할 수 있습니다. 기존 속성 기능은 계속 작동합니다.",
+  "properties.pageChanged": "페이지가 변경되었습니다. 저장하기 전에 속성을 다시 여세요."
 }

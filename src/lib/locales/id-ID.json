@@ -878,5 +878,10 @@
   "properties.kind.page": "Tautan halaman",
   "properties.kind.list-page": "Tautan halaman jamak",
   "properties.invalid": "Nama properti tidak valid atau dicadangkan.",
-  "properties.card": "Properti kartu"
+  "properties.card": "Properti kartu",
+  "properties.page": "Properti halaman",
+  "properties.pageHelp": "Nilai tetap disimpan di Markdown. Jenis tampilan disimpan terpisah.",
+  "properties.hintFailed": "Nilai tersimpan, tetapi jenis tampilan belum. Coba lagi untuk menyimpan jenis.",
+  "properties.readyHelp": "Jenis tampilan khusus tersedia setelah Library siap. Kontrol properti yang ada tetap berfungsi.",
+  "properties.pageChanged": "Halaman berubah. Buka kembali properti sebelum menyimpan."
 }

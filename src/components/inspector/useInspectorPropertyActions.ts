@@ -6,10 +6,28 @@ type FrontmatterValue = string | number | boolean | string[] | null
 
 interface InspectorPropertyActionsConfig {
   entry: VaultEntry | null
-  onUpdateFrontmatter?: (path: string, key: string, value: FrontmatterValue, options?: FrontmatterOpOptions) => Promise<void>
-  onDeleteProperty?: (path: string, key: string, options?: FrontmatterOpOptions) => Promise<void>
-  onAddProperty?: (path: string, key: string, value: FrontmatterValue, options?: FrontmatterOpOptions) => Promise<void>
-  onCreateMissingType?: (path: string, missingType: string, nextTypeName: string) => Promise<boolean | void>
+  onUpdateFrontmatter?: (
+    path: string,
+    key: string,
+    value: FrontmatterValue,
+    options?: FrontmatterOpOptions,
+  ) => Promise<void>
+  onDeleteProperty?: (
+    path: string,
+    key: string,
+    options?: FrontmatterOpOptions,
+  ) => Promise<void>
+  onAddProperty?: (
+    path: string,
+    key: string,
+    value: FrontmatterValue,
+    options?: FrontmatterOpOptions,
+  ) => Promise<void>
+  onCreateMissingType?: (
+    path: string,
+    missingType: string,
+    nextTypeName: string,
+  ) => Promise<boolean | void>
 }
 
 function activeEntryOptions(entry: VaultEntry): FrontmatterOpOptions {
@@ -21,7 +39,12 @@ function bindUpdateAction(
   action: InspectorPropertyActionsConfig['onUpdateFrontmatter'],
 ) {
   if (!entry || !action) return undefined
-  return (key: string, value: FrontmatterValue) => action(entry.path, key, value, activeEntryOptions(entry))
+  return (
+    key: string,
+    value: FrontmatterValue,
+    options?: FrontmatterOpOptions,
+  ) =>
+    action(entry.path, key, value, { ...options, ...activeEntryOptions(entry) })
 }
 
 function bindDeleteAction(
@@ -29,7 +52,8 @@ function bindDeleteAction(
   action: InspectorPropertyActionsConfig['onDeleteProperty'],
 ) {
   if (!entry || !action) return undefined
-  return (key: string) => action(entry.path, key, activeEntryOptions(entry))
+  return (key: string, options?: FrontmatterOpOptions) =>
+    action(entry.path, key, { ...options, ...activeEntryOptions(entry) })
 }
 
 function bindAddAction(
@@ -37,12 +61,23 @@ function bindAddAction(
   action: InspectorPropertyActionsConfig['onAddProperty'],
 ) {
   if (!entry || !action) return undefined
-  return (key: string, value: FrontmatterValue) => action(entry.path, key, value, activeEntryOptions(entry))
+  return (
+    key: string,
+    value: FrontmatterValue,
+    options?: FrontmatterOpOptions,
+  ) =>
+    action(entry.path, key, value, { ...options, ...activeEntryOptions(entry) })
 }
 
 function bindMissingTypeAction(
   entry: VaultEntry | null,
-  action: ((path: string, missingType: string, nextTypeName: string) => Promise<boolean | void>) | undefined,
+  action:
+    | ((
+        path: string,
+        missingType: string,
+        nextTypeName: string,
+      ) => Promise<boolean | void>)
+    | undefined,
 ) {
   const missingType = entry?.isA
   if (!entry || !missingType || !action) return undefined

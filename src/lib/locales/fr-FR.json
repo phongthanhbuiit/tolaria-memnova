@@ -878,5 +878,10 @@
   "properties.kind.page": "Lien vers une page",
   "properties.kind.list-page": "Liens vers des pages",
   "properties.invalid": "Nom de propriété invalide ou réservé.",
-  "properties.card": "Propriétés de la carte"
+  "properties.card": "Propriétés de la carte",
+  "properties.page": "Propriétés de la page",
+  "properties.pageHelp": "Les valeurs restent dans Markdown. Les types d’affichage sont enregistrés séparément.",
+  "properties.hintFailed": "Les valeurs sont enregistrées, mais pas les types. Réessayez pour enregistrer les types.",
+  "properties.readyHelp": "Les types personnalisés seront disponibles quand la Library sera prête. Les champs existants restent utilisables.",
+  "properties.pageChanged": "La page a changé. Rouvrez les propriétés avant d’enregistrer."
 }

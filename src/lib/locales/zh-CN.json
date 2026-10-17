@@ -878,5 +878,10 @@
   "properties.kind.page": "页面链接",
   "properties.kind.list-page": "页面链接列表",
   "properties.invalid": "属性名称无效或为保留名称。",
-  "properties.card": "卡片属性"
+  "properties.card": "卡片属性",
+  "properties.page": "页面属性",
+  "properties.pageHelp": "值仍保存在 Markdown 中，显示类型单独保存。",
+  "properties.hintFailed": "值已保存，但显示类型未保存。请重试以保存类型。",
+  "properties.readyHelp": "Library 就绪后即可设置显示类型，现有属性控件仍可使用。",
+  "properties.pageChanged": "页面已更改，请重新打开属性后再保存。"
 }

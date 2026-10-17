@@ -110,3 +110,16 @@ it('rejects lossy conversions and keeps mismatched legacy definitions read-only'
   ).not.toBeInTheDocument()
   expect(change).not.toHaveBeenCalled()
 })
+
+it('does not rename opaque or unsafe numeric projections through JavaScript', () => {
+  render(
+    <PropertyEditor
+      values={{ large: 9007199254740992, opaque: { large: 9007199254740992 } }}
+      definitions={{}}
+      locale="en"
+      onChange={vi.fn()}
+    />,
+  )
+  expect(screen.getByLabelText('Property name large')).toBeDisabled()
+  expect(screen.getByLabelText('Property name opaque')).toBeDisabled()
+})

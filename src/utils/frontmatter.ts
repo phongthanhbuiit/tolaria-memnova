@@ -39,13 +39,16 @@ function isInlineArrayLiteral(value: FrontmatterText): boolean {
 }
 
 function parseInlineArray(value: FrontmatterText): FrontmatterValue {
+  if (value.slice(1, -1).trim() === '') return []
   const items = value.slice(1, -1).split(',').map(s => unquote(s.trim()))
   return collapseList(items)
 }
 
 function parseScalar(value: FrontmatterText): FrontmatterValue {
   const clean = unquote(value)
+  if (clean !== value) return clean
   const lower = clean.toLowerCase()
+  if (lower === 'null' || clean === '~') return null
   if (lower === 'true' || lower === 'yes') return true
   if (lower === 'false' || lower === 'no') return false
   if (clean === value && isNumericScalar(clean)) return Number(clean)

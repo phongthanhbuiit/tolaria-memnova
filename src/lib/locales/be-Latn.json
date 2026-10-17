@@ -878,5 +878,10 @@
   "properties.kind.page": "Spasyłka na staronku",
   "properties.kind.list-page": "Spasyłki na staronki",
   "properties.invalid": "Niedapuščalnaja abo zareziervavanaja nazva ŭłaścivaści.",
-  "properties.card": "Ułaścivaści kartki"
+  "properties.card": "Ułaścivaści kartki",
+  "properties.page": "Ułaścivaści staronki",
+  "properties.pageHelp": "Značeńni zastajucca ŭ Markdown. Typy adlustrawańnia zachoŭvajucca asobna.",
+  "properties.hintFailed": "Značeńni zachavany, ale typy — nie. Paŭtarycie zachavańnie typaŭ.",
+  "properties.readyHelp": "Ułasnyja typy dastupny paśla padrychtoŭki Library. Zvyčajnyja pali praciahvajuć pracavać.",
+  "properties.pageChanged": "Staronka źmianiłasia. Pierad zachavańniem adkryjcie ŭłaścivaści nanova."
 }

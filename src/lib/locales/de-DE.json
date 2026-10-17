@@ -878,5 +878,10 @@
   "properties.kind.page": "Seitenlink",
   "properties.kind.list-page": "Seitenlinks",
   "properties.invalid": "Ungültiger oder reservierter Eigenschaftsname.",
-  "properties.card": "Karteneigenschaften"
+  "properties.card": "Karteneigenschaften",
+  "properties.page": "Seiteneigenschaften",
+  "properties.pageHelp": "Werte bleiben in Markdown. Anzeigetypen werden getrennt gespeichert.",
+  "properties.hintFailed": "Werte gespeichert, Anzeigetypen nicht. Erneut versuchen, um die Typen zu speichern.",
+  "properties.readyHelp": "Eigene Anzeigetypen sind verfügbar, sobald die Library bereit ist. Bestehende Felder funktionieren weiterhin.",
+  "properties.pageChanged": "Die Seite wurde geändert. Eigenschaften vor dem Speichern erneut öffnen."
 }
