@@ -857,5 +857,11 @@
   "learning.backupHistory": "Histórico de backups",
   "learning.verifyBackup": "Verificar backup",
   "learning.backupVerified": "Backup verificado",
-  "learning.noBackups": "Ainda não há backups."
+  "learning.noBackups": "Ainda não há backups.",
+  "learning.answerMode": "Tipo de resposta",
+  "learning.answerInline": "Escrever uma resposta",
+  "learning.answerCurrent": "Usar a página atual",
+  "learning.answerOther": "Escolher outra página",
+  "learning.sourcePage": "Página da resposta",
+  "learning.sourceUnavailable": "A página da resposta está indisponível. Escolha outra página ou restaure a origem."
 }

@@ -857,5 +857,11 @@
   "learning.backupHistory": "Backup history",
   "learning.verifyBackup": "Verify backup",
   "learning.backupVerified": "Backup verified",
-  "learning.noBackups": "No backups yet."
+  "learning.noBackups": "No backups yet.",
+  "learning.answerMode": "Answer type",
+  "learning.answerInline": "Write an answer",
+  "learning.answerCurrent": "Use current page",
+  "learning.answerOther": "Choose another page",
+  "learning.sourcePage": "Answer page",
+  "learning.sourceUnavailable": "The answer page is unavailable. Choose another page or restore the source."
 }

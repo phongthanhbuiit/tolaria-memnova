@@ -857,5 +857,11 @@
   "learning.backupHistory": "Riwayat cadangan",
   "learning.verifyBackup": "Verifikasi cadangan",
   "learning.backupVerified": "Cadangan terverifikasi",
-  "learning.noBackups": "Belum ada cadangan."
+  "learning.noBackups": "Belum ada cadangan.",
+  "learning.answerMode": "Jenis jawaban",
+  "learning.answerInline": "Tulis jawaban",
+  "learning.answerCurrent": "Gunakan halaman saat ini",
+  "learning.answerOther": "Pilih halaman lain",
+  "learning.sourcePage": "Halaman jawaban",
+  "learning.sourceUnavailable": "Halaman jawaban tidak tersedia. Pilih halaman lain atau pulihkan sumbernya."
 }

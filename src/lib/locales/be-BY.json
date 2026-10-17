@@ -857,5 +857,11 @@
   "learning.backupHistory": "Гісторыя рэзервовых копій",
   "learning.verifyBackup": "Праверыць копію",
   "learning.backupVerified": "Копія праверана",
-  "learning.noBackups": "Рэзервовых копій пакуль няма."
+  "learning.noBackups": "Рэзервовых копій пакуль няма.",
+  "learning.answerMode": "Тып адказу",
+  "learning.answerInline": "Увесці адказ",
+  "learning.answerCurrent": "Выкарыстаць бягучую старонку",
+  "learning.answerOther": "Выбраць іншую старонку",
+  "learning.sourcePage": "Старонка адказу",
+  "learning.sourceUnavailable": "Старонка адказу недаступная. Выберыце іншую або аднавіце крыніцу."
 }

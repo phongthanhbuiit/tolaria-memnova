@@ -1,7 +1,7 @@
 import { invoke } from '@tauri-apps/api/core'
 import { isTauri, mockInvoke } from '../../mock-tauri'
 import type { StudyStats } from '../../hooks/useStats'
-import type { BackupCatalogEntry, BackupDescriptor, CardDraft, LearningCard, LibraryDescriptor, MigrationPreview, MigrationProgress, SessionScope, StudySession, RateRequest, RateResult, LearningPage } from './types'
+import type { BackupCatalogEntry, BackupDescriptor, CardDraft, LearningCard, LibraryDescriptor, MigrationPreview, MigrationProgress, SessionScope, StudySession, StudyPage, RateRequest, RateResult, LearningPage } from './types'
 
 function learningInvoke<T>(command: string, args: Record<string, unknown>): Promise<T> {
   return isTauri() ? invoke<T>(command, args) : mockInvoke<T>(command, args)
@@ -75,6 +75,7 @@ export class LearningClient {
     return this.call({ kind: 'undoReview', sessionId, reviewId, revision })
   }
 
+  readStudyPage(pageId: string): Promise<StudyPage> { return this.call({ kind: 'readStudyPage', pageId }) }
   listPages(): Promise<LearningPage[]> { return this.call({ kind: 'listPages' }) }
   syncPages(): Promise<LearningPage[]> { return this.call({ kind: 'syncPages' }) }
   ensurePage(path: string): Promise<LearningPage> { return this.call({ kind: 'ensurePage', path }) }

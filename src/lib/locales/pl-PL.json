@@ -857,5 +857,11 @@
   "learning.backupHistory": "Historia kopii zapasowych",
   "learning.verifyBackup": "Sprawdź kopię",
   "learning.backupVerified": "Kopia sprawdzona",
-  "learning.noBackups": "Nie ma jeszcze kopii zapasowych."
+  "learning.noBackups": "Nie ma jeszcze kopii zapasowych.",
+  "learning.answerMode": "Typ odpowiedzi",
+  "learning.answerInline": "Wpisz odpowiedź",
+  "learning.answerCurrent": "Użyj bieżącej strony",
+  "learning.answerOther": "Wybierz inną stronę",
+  "learning.sourcePage": "Strona odpowiedzi",
+  "learning.sourceUnavailable": "Strona odpowiedzi jest niedostępna. Wybierz inną stronę lub przywróć źródło."
 }

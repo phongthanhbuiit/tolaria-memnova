@@ -857,5 +857,11 @@
   "learning.backupHistory": "Lịch sử sao lưu",
   "learning.verifyBackup": "Xác minh bản sao lưu",
   "learning.backupVerified": "Đã xác minh bản sao lưu",
-  "learning.noBackups": "Chưa có bản sao lưu."
+  "learning.noBackups": "Chưa có bản sao lưu.",
+  "learning.answerMode": "Kiểu đáp án",
+  "learning.answerInline": "Tự nhập đáp án",
+  "learning.answerCurrent": "Dùng trang hiện tại",
+  "learning.answerOther": "Chọn bài khác",
+  "learning.sourcePage": "Trang đáp án",
+  "learning.sourceUnavailable": "Trang đáp án không còn khả dụng. Hãy chọn bài khác hoặc khôi phục nguồn."
 }

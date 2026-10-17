@@ -857,5 +857,11 @@
   "learning.backupHistory": "История резервных копий",
   "learning.verifyBackup": "Проверить копию",
   "learning.backupVerified": "Копия проверена",
-  "learning.noBackups": "Резервных копий пока нет."
+  "learning.noBackups": "Резервных копий пока нет.",
+  "learning.answerMode": "Тип ответа",
+  "learning.answerInline": "Ввести ответ",
+  "learning.answerCurrent": "Использовать текущую страницу",
+  "learning.answerOther": "Выбрать другую страницу",
+  "learning.sourcePage": "Страница ответа",
+  "learning.sourceUnavailable": "Страница ответа недоступна. Выберите другую страницу или восстановите источник."
 }

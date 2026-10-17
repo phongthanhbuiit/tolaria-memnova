@@ -857,5 +857,11 @@
   "learning.backupHistory": "Histórico de cópias de segurança",
   "learning.verifyBackup": "Verificar cópia",
   "learning.backupVerified": "Cópia verificada",
-  "learning.noBackups": "Ainda não existem cópias."
+  "learning.noBackups": "Ainda não existem cópias.",
+  "learning.answerMode": "Tipo de resposta",
+  "learning.answerInline": "Escrever uma resposta",
+  "learning.answerCurrent": "Usar a página atual",
+  "learning.answerOther": "Escolher outra página",
+  "learning.sourcePage": "Página da resposta",
+  "learning.sourceUnavailable": "A página da resposta está indisponível. Escolha outra página ou restaure a origem."
 }

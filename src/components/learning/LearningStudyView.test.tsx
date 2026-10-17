@@ -4,7 +4,7 @@ import { expect, it, vi } from 'vitest'
 import { LearningStudyView } from './LearningStudyView'
 import type { useLearningStudy } from '../../hooks/useLearningStudy'
 const { renderer } = vi.hoisted(() => ({ renderer: { ready: true } }))
-vi.mock('../FlashcardStudyView', () => ({ BlockNoteReadOnly: ({ content, onReady }: { content: string; onReady?: () => void }) => { useEffect(() => { if (renderer.ready) onReady?.() }, [onReady]); return <div>{renderer.ready ? content : 'Loading test content'}</div> } }))
+vi.mock('../FlashcardStudyView', () => ({ BlockNoteReadOnly: ({ content, onReady, notePath }: { content: string; onReady?: () => void; notePath?: string }) => { useEffect(() => { if (renderer.ready) onReady?.() }, [onReady]); return <div data-note-path={notePath}>{renderer.ready ? content : 'Loading test content'}</div> } }))
 function fixture(rate = vi.fn(), close = vi.fn()) {
   return { open: true, busy: false, error: null, rate, close, undo: vi.fn(), retry: vi.fn(), reload: vi.fn(), skip: vi.fn(), hasPending: false, session: { id: 'session', revision: 0, currentIndex: 0, initialCount: 1, completedCount: 0, reviewCount: 0, status: 'active', canUndo: false, current: { card: { id: 'card', revision: 0, front: 'Question text', back: 'Answer text', properties: {}, answerMode: 'inline', schedule: { state: 'new', stability: 0, difficulty: 0, elapsedDays: 0, scheduledDays: 0, reps: 0, lapses: 0, learningSteps: 0, lastReview: null, due: '2020-01-01T00:00:00Z', engine: 'legacy-fsrs5', revision: 0 } }, page: { path: 'lesson.md', fingerprint: 'source', title: 'Lesson', content: 'Full lesson' }, sourceError: null } } } as unknown as ReturnType<typeof useLearningStudy>
 }
@@ -53,4 +53,21 @@ it('shows vocabulary context with the question and keeps related words behind th
   fireEvent.click(screen.getByRole('button', { name: 'Show answer' }))
   expect(screen.getByText('Synonyms')).toBeInTheDocument()
   expect(screen.getByText('Related term')).toBeInTheDocument()
+})
+
+it('renders the linked answer with its own media base and refuses a missing source', () => {
+ const study=fixture()
+ const item=study.session!.current!
+ item.card.answerMode='page'; item.card.answerPageId='source-id'
+ item.answerPage={id:'source-id',path:'nested/source.md',title:'Source',content:'External answer',fingerprint:'external'}
+ const {rerender}=render(<LearningStudyView study={study} root="/library" locale="en" />)
+ fireEvent.click(screen.getByRole('button',{name:'Show answer'}))
+ expect(screen.getByText('External answer')).toBeVisible()
+ expect(screen.queryByText('Full lesson')).not.toBeInTheDocument()
+ expect(screen.getByText('External answer')).toHaveAttribute('data-note-path','/library/nested/source.md')
+ item.sourceError='Missing source'; item.answerPage=null
+ rerender(<LearningStudyView study={{...study}} root="/library" locale="en" />)
+ expect(screen.getByRole('button',{name:'Show answer'})).toBeDisabled()
+ fireEvent.keyDown(screen.getByRole('dialog'),{key:'3'})
+ expect(study.rate).not.toHaveBeenCalled()
 })

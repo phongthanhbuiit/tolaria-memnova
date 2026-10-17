@@ -70,11 +70,12 @@ export async function mockLearningCommand(args: Record<string, unknown>, context
   const root = String(args.vaultPath).replace(/\/$/, '')
   const data = fixture(root)
   const request = args.request as Record<string, unknown>
-  let changed = !['describe', 'migrationStatus', 'listPages', 'listCards', 'studyStats', 'syncPages', 'listBackups', 'verifyBackup'].includes(String(request.kind))
+  let changed = !['describe', 'migrationStatus', 'listPages', 'listCards', 'studyStats', 'syncPages', 'listBackups', 'verifyBackup', 'readStudyPage'].includes(String(request.kind))
   const call = async (): Promise<unknown> => {
     switch (request.kind) {
       case 'describe': return { libraryId: data.id, schemaVersion: 3, migrationState: 'ready' }
       case 'migrationStatus': return { state: 'ready', libraryId: data.id, backupId: null, totalPages: data.pages.length, importedPages: data.pages.length, totalCards: 0, importedCards: 0, importedReviews: 0 }
+      case 'readStudyPage': return source(root, required(data.pages.find(page => page.id === request.pageId)), context)
       case 'listPages': return data.pages
       case 'syncPages': {
         const entries = await context.entries()

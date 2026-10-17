@@ -45,10 +45,12 @@ it('retries a failed refresh without repeating an already committed card update'
 })
 it('preserves a private card answer when toggling whole-page mode on and off', async () => {
  const dialog=await edit()
- const toggle=dialog.getByRole('switch',{name:'Use the whole page as the answer'})
+ const toggle=dialog.getByRole('combobox',{name:'Answer type'})
  fireEvent.click(toggle)
+ fireEvent.click(screen.getByRole('option',{name:'Use current page'}))
  expect(dialog.queryByRole('textbox',{name:'Answer',exact:true})).not.toBeInTheDocument()
  fireEvent.click(toggle)
+ fireEvent.click(screen.getByRole('option',{name:'Write an answer'}))
  expect(dialog.getByRole('textbox',{name:'Answer',exact:true})).toHaveValue('Vocab answer')
  expect(dialog.getByRole('combobox',{name:'Status',exact:true})).toHaveTextContent('Active')
 })

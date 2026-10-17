@@ -857,5 +857,11 @@
   "learning.backupHistory": "バックアップ履歴",
   "learning.verifyBackup": "バックアップを検証",
   "learning.backupVerified": "検証済みのバックアップ",
-  "learning.noBackups": "バックアップはまだありません。"
+  "learning.noBackups": "バックアップはまだありません。",
+  "learning.answerMode": "回答の種類",
+  "learning.answerInline": "回答を入力",
+  "learning.answerCurrent": "現在のページを使用",
+  "learning.answerOther": "別のページを選択",
+  "learning.sourcePage": "回答ページ",
+  "learning.sourceUnavailable": "回答ページを利用できません。別のページを選択するか、参照元を復元してください。"
 }

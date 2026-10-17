@@ -857,5 +857,11 @@
   "learning.backupHistory": "Historyja rezervovych kopij",
   "learning.verifyBackup": "Pravieryć kopiju",
   "learning.backupVerified": "Kopija pravierana",
-  "learning.noBackups": "Rezervovych kopij pakuĺ niama."
+  "learning.noBackups": "Rezervovych kopij pakuĺ niama.",
+  "learning.answerMode": "Typ adkazu",
+  "learning.answerInline": "Uvieści adkaz",
+  "learning.answerCurrent": "Vykarystać biahučuju staronku",
+  "learning.answerOther": "Vybrać inšuju staronku",
+  "learning.sourcePage": "Staronka adkazu",
+  "learning.sourceUnavailable": "Staronka adkazu niedastupnaja. Vybierycie inšuju abo adnavicie krynicu."
 }

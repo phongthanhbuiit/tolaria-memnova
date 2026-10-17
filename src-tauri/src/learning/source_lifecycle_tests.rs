@@ -116,3 +116,23 @@ fn original_source_identity_can_return_and_duplicates_are_reported_without_mergi
     assert_eq!(store.get_card(&card).unwrap().answer_page_id, Some(source));
     assert_eq!(store.get_card(&card).unwrap().schedule.reps, 0);
 }
+
+#[test]
+fn source_preview_reads_registered_identity_without_creating_a_session_or_review() {
+    let (_dir, store, _owner, source, _card) = fixture();
+    let page = store.read_study_page(&source).unwrap();
+    assert!(page.content.contains("Linked answer"));
+    assert!(!page.content.contains("_memnova_page_id"));
+    assert!(store.read_study_page("../source.md").is_err());
+    assert!(store
+        .read_study_page(&uuid::Uuid::new_v4().to_string())
+        .is_err());
+    assert_eq!(
+        store
+            .conn
+            .query_row("SELECT count(*) FROM sessions", [], |row| row
+                .get::<_, u32>(0))
+            .unwrap(),
+        0
+    );
+}

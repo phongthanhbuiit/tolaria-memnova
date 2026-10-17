@@ -43,6 +43,9 @@ pub enum LearningRequest {
     EnsurePage {
         path: String,
     },
+    ReadStudyPage {
+        page_id: String,
+    },
     StudyStats,
     SetDailyGoal {
         goal: u64,
@@ -160,6 +163,7 @@ fn dispatch(
         LearningRequest::ListPages => encode(store.list_pages()?),
         LearningRequest::SyncPages => encode(store.sync_pages()?),
         LearningRequest::EnsurePage { path } => encode(store.ensure_page(&path)?),
+        LearningRequest::ReadStudyPage { page_id } => encode(store.read_study_page(&page_id)?),
         LearningRequest::StudyStats => encode(store.study_stats()?),
         LearningRequest::SetDailyGoal { goal } => encode(store.set_daily_goal(goal)?),
         LearningRequest::StartSession { scope } => encode(store.start_session(scope)?),

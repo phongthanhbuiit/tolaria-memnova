@@ -857,5 +857,11 @@
   "learning.backupHistory": "备份历史",
   "learning.verifyBackup": "验证备份",
   "learning.backupVerified": "备份已验证",
-  "learning.noBackups": "暂无备份。"
+  "learning.noBackups": "暂无备份。",
+  "learning.answerMode": "答案类型",
+  "learning.answerInline": "手动输入答案",
+  "learning.answerCurrent": "使用当前页面",
+  "learning.answerOther": "选择其他页面",
+  "learning.sourcePage": "答案页面",
+  "learning.sourceUnavailable": "答案页面不可用。请选择其他页面或恢复来源。"
 }

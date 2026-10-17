@@ -857,5 +857,11 @@
   "learning.backupHistory": "備份歷程",
   "learning.verifyBackup": "驗證備份",
   "learning.backupVerified": "備份已驗證",
-  "learning.noBackups": "尚無備份。"
+  "learning.noBackups": "尚無備份。",
+  "learning.answerMode": "答案類型",
+  "learning.answerInline": "自行輸入答案",
+  "learning.answerCurrent": "使用目前頁面",
+  "learning.answerOther": "選擇其他頁面",
+  "learning.sourcePage": "答案頁面",
+  "learning.sourceUnavailable": "答案頁面無法使用。請選擇其他頁面或還原來源。"
 }

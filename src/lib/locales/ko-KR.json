@@ -857,5 +857,11 @@
   "learning.backupHistory": "백업 기록",
   "learning.verifyBackup": "백업 검증",
   "learning.backupVerified": "백업 검증 완료",
-  "learning.noBackups": "아직 백업이 없습니다."
+  "learning.noBackups": "아직 백업이 없습니다.",
+  "learning.answerMode": "답변 유형",
+  "learning.answerInline": "답변 직접 입력",
+  "learning.answerCurrent": "현재 페이지 사용",
+  "learning.answerOther": "다른 페이지 선택",
+  "learning.sourcePage": "답변 페이지",
+  "learning.sourceUnavailable": "답변 페이지를 사용할 수 없습니다. 다른 페이지를 선택하거나 원본을 복원하세요."
 }

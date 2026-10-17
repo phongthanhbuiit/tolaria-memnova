@@ -12,6 +12,7 @@ import {
   type SVGAttributes,
 } from 'react'
 import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 import type { VaultEntry, WorkspaceIdentity } from '../types'
 import { getTypeColor, getTypeLightColor } from '../utils/typeColors'
 import { scrollSelectedHTMLChildIntoView } from '../utils/domScroll'
@@ -37,9 +38,12 @@ interface NoteAutocompleteProps {
   testId?: string
   inputId?: string
   disabled?: boolean
+  selectByPath?: boolean
 }
 
 interface MatchedEntry {
+  selectionValue?: string
+  path?: string
   title: string
   noteIcon: string | null
   noteType?: string
@@ -69,11 +73,13 @@ function shouldShowWorkspaceBadge(entries: VaultEntry[]): boolean {
   return new Set(entries.map((entry) => entry.workspace?.alias).filter(Boolean)).size > 1
 }
 
-function buildMatchedEntry(entry: VaultEntry, typeEntryMap: Record<string, VaultEntry>, showWorkspace: boolean): MatchedEntry {
+function buildMatchedEntry(entry: VaultEntry, typeEntryMap: Record<string, VaultEntry>, showWorkspace: boolean, selectByPath: boolean): MatchedEntry {
   const isA = entry.isA
   const typeEntry = Reflect.get(typeEntryMap, isA ?? '') as VaultEntry | undefined
   const noteType = isA || undefined
   return {
+    selectionValue: selectByPath ? entry.path : entry.title,
+    path: selectByPath ? entry.path : undefined,
     title: entry.title,
     noteIcon: entry.icon,
     noteType,
@@ -84,14 +90,14 @@ function buildMatchedEntry(entry: VaultEntry, typeEntryMap: Record<string, Vault
   }
 }
 
-function matchEntries(entries: VaultEntry[], typeEntryMap: Record<string, VaultEntry>, query: string): MatchedEntry[] {
+function matchEntries(entries: VaultEntry[], typeEntryMap: Record<string, VaultEntry>, query: string, selectByPath: boolean): MatchedEntry[] {
   if (query.length < MIN_QUERY_LENGTH) return []
   const lowerQuery = query.toLowerCase()
   const showWorkspace = shouldShowWorkspaceBadge(entries)
   return entries
-    .filter(entry => entryMatchesQuery(entry, lowerQuery))
+    .filter(entry => entryMatchesQuery(entry, lowerQuery) || (selectByPath && entry.path.toLowerCase().includes(lowerQuery)))
     .slice(0, MAX_RESULTS)
-    .map(entry => buildMatchedEntry(entry, typeEntryMap, showWorkspace))
+    .map(entry => buildMatchedEntry(entry, typeEntryMap, showWorkspace, selectByPath))
 }
 
 function resolveOpenAutocompleteKeyAction(key: string): AutocompleteKeyAction | null {
@@ -159,7 +165,7 @@ function handleOpenAutocompleteKey({
   }
 
   const match = matches.at(selectedIndex)
-  onSelect(match?.title ?? value)
+  onSelect(match?.selectionValue ?? match?.title ?? value)
 }
 
 function handleAutocompleteKeyDown({
@@ -209,17 +215,17 @@ function NoteAutocompleteMenuItem({
   onHover,
 }: NoteAutocompleteMenuItemProps) {
   return (
-    <button
-      type="button"
+    <Button
+      type="button" variant="ghost"
       className={`wikilink-menu__item${selected ? ' wikilink-menu__item--selected' : ''}`}
       onMouseDown={preventAutocompleteMouseDown}
-      onClick={() => onSelect(item.title)}
+      onClick={() => onSelect(item.selectionValue ?? item.title)}
       onMouseEnter={onHover}
     >
       <span className="wikilink-menu__title" style={{ display: 'flex', alignItems: 'center', gap: 6, flex: 1, minWidth: 0 }}>
         {item.TypeIcon && <item.TypeIcon width={14} height={14} style={{ color: item.typeColor, flexShrink: 0 }} />}
         <NoteTitleIcon icon={item.noteIcon} size={14} />
-        {item.title}
+        <span className="min-w-0 flex-1 text-left"><span className="block truncate">{item.title}</span>{item.path && <span className="block truncate text-xs text-muted-foreground">{item.path}</span>}</span>
       </span>
       {item.noteType && (
         <span className="wikilink-menu__type" style={{ color: item.typeColor, backgroundColor: item.typeLightColor, borderRadius: 9999, padding: '1px 8px' }}>
@@ -227,7 +233,7 @@ function NoteAutocompleteMenuItem({
         </span>
       )}
       <WorkspaceInitialsBadge workspace={item.workspace} testId="note-autocomplete-workspace-badge" />
-    </button>
+    </Button>
   )
 }
 
@@ -250,7 +256,7 @@ function NoteAutocompleteMenu({
     <div className="wikilink-menu" ref={menuRef} style={{ position: 'absolute', top: '100%', left: 0, right: 0, marginTop: 2, minWidth: 'auto' }}>
       {matches.map((item, index) => (
         <NoteAutocompleteMenuItem
-          key={item.title}
+          key={item.selectionValue ?? item.title}
           item={item}
           selected={index === selectedIndex}
           onSelect={onSelect}
@@ -261,15 +267,15 @@ function NoteAutocompleteMenu({
   )
 }
 
-export function NoteAutocomplete({ entries, typeEntryMap, value, onChange, onSelect, onEscape, placeholder, autoFocus, testId, inputId, disabled }: NoteAutocompleteProps) {
+export function NoteAutocomplete({ entries, typeEntryMap, value, onChange, onSelect, onEscape, placeholder, autoFocus, testId, inputId, disabled, selectByPath = false }: NoteAutocompleteProps) {
   const [selectedIndex, setSelectedIndex] = useState(-1)
   const [open, setOpen] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
 
   const matches = useMemo(
-    () => open ? matchEntries(entries, typeEntryMap, value) : [],
-    [entries, typeEntryMap, value, open],
+    () => open ? matchEntries(entries, typeEntryMap, value, selectByPath) : [],
+    [entries, typeEntryMap, value, open, selectByPath],
   )
 
   // Scroll selected item into view

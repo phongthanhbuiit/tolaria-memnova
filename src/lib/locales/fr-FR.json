@@ -857,5 +857,11 @@
   "learning.backupHistory": "Historique des sauvegardes",
   "learning.verifyBackup": "Vérifier la sauvegarde",
   "learning.backupVerified": "Sauvegarde vérifiée",
-  "learning.noBackups": "Aucune sauvegarde pour le moment."
+  "learning.noBackups": "Aucune sauvegarde pour le moment.",
+  "learning.answerMode": "Type de réponse",
+  "learning.answerInline": "Saisir une réponse",
+  "learning.answerCurrent": "Utiliser la page actuelle",
+  "learning.answerOther": "Choisir une autre page",
+  "learning.sourcePage": "Page de réponse",
+  "learning.sourceUnavailable": "La page de réponse est indisponible. Choisissez une autre page ou restaurez la source."
 }

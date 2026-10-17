@@ -29,7 +29,11 @@ pub(super) fn answer_page(
     Ok(Some(page))
 }
 
-fn page_by_id(connection: &Connection, root: &Path, id: &str) -> Result<StudyPage, String> {
+pub(super) fn page_by_id(
+    connection: &Connection,
+    root: &Path,
+    id: &str,
+) -> Result<StudyPage, String> {
     let (path, title): (String, String) = connection
         .query_row(
             "SELECT path,title FROM pages WHERE id=?1 AND deleted_at IS NULL",
@@ -50,4 +54,11 @@ fn page_by_id(connection: &Connection, root: &Path, id: &str) -> Result<StudyPag
         content: body.into(),
         fingerprint: content_hash(&source),
     })
+}
+
+impl super::Store {
+    pub fn read_study_page(&self, id: &str) -> Result<StudyPage, String> {
+        uuid::Uuid::parse_str(id).map_err(|_| "Invalid page identity")?;
+        page_by_id(&self.conn, &self.root, id)
+    }
 }

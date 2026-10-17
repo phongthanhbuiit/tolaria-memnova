@@ -857,5 +857,11 @@
   "learning.backupHistory": "Sicherungsverlauf",
   "learning.verifyBackup": "Sicherung prüfen",
   "learning.backupVerified": "Sicherung geprüft",
-  "learning.noBackups": "Noch keine Sicherungen."
+  "learning.noBackups": "Noch keine Sicherungen.",
+  "learning.answerMode": "Antworttyp",
+  "learning.answerInline": "Antwort eingeben",
+  "learning.answerCurrent": "Aktuelle Seite verwenden",
+  "learning.answerOther": "Andere Seite wählen",
+  "learning.sourcePage": "Antwortseite",
+  "learning.sourceUnavailable": "Die Antwortseite ist nicht verfügbar. Wähle eine andere Seite oder stelle die Quelle wieder her."
 }

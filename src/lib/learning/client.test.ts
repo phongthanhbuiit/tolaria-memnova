@@ -65,3 +65,10 @@ it('lists and verifies backups using the bound identity and an ID-only request',
  await client.verifyBackup('backup-id')
  expect(invoke).toHaveBeenLastCalledWith('learning_command',{vaultPath:'/qa',libraryId:'library',request:{kind:'verifyBackup',backupId:'backup-id'}})
 })
+
+it('reads a source preview by UUID with the bound library and no session request',async()=>{
+ vi.mocked(invoke).mockResolvedValueOnce({libraryId:'library',schemaVersion:3}).mockResolvedValue({id:'page'})
+ const client=await LearningClient.connect('/qa')
+ await client.readStudyPage('source-id')
+ expect(invoke).toHaveBeenLastCalledWith('learning_command',{vaultPath:'/qa',libraryId:'library',request:{kind:'readStudyPage',pageId:'source-id'}})
+})

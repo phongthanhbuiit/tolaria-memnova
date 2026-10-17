@@ -857,5 +857,11 @@
   "learning.backupHistory": "Historial de respaldos",
   "learning.verifyBackup": "Verificar respaldo",
   "learning.backupVerified": "Respaldo verificado",
-  "learning.noBackups": "Aún no hay respaldos."
+  "learning.noBackups": "Aún no hay respaldos.",
+  "learning.answerMode": "Tipo de respuesta",
+  "learning.answerInline": "Escribir una respuesta",
+  "learning.answerCurrent": "Usar la página actual",
+  "learning.answerOther": "Elegir otra página",
+  "learning.sourcePage": "Página de respuesta",
+  "learning.sourceUnavailable": "La página de respuesta no está disponible. Elige otra página o restaura la fuente."
 }
