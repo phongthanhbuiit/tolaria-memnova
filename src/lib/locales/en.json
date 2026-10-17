@@ -849,5 +849,9 @@
   "learning.antonyms": "Antonyms",
   "learning.prefixes": "Prefixes",
   "learning.suffixes": "Suffixes",
-  "learning.addRelated": "Add related lesson…"
+  "learning.addRelated": "Add related lesson…",
+  "learning.editCard": "Edit card",
+  "learning.status": "Status",
+  "learning.wholePage": "Whole page answer",
+  "learning.savedRefreshFailed": "Saved, but the list could not refresh. Retry to refresh it."
 }

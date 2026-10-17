@@ -849,5 +849,9 @@
   "learning.antonyms": "反义词",
   "learning.prefixes": "前缀",
   "learning.suffixes": "后缀",
-  "learning.addRelated": "添加相关课程…"
+  "learning.addRelated": "添加相关课程…",
+  "learning.editCard": "编辑卡片",
+  "learning.status": "状态",
+  "learning.wholePage": "整页作为答案",
+  "learning.savedRefreshFailed": "已保存，但无法刷新列表。请重试以刷新列表。"
 }

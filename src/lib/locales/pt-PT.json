@@ -849,5 +849,9 @@
   "learning.antonyms": "Antónimos",
   "learning.prefixes": "Prefixos",
   "learning.suffixes": "Sufixos",
-  "learning.addRelated": "Adicionar lição relacionada…"
+  "learning.addRelated": "Adicionar lição relacionada…",
+  "learning.editCard": "Editar cartão",
+  "learning.status": "Estado",
+  "learning.wholePage": "Página inteira como resposta",
+  "learning.savedRefreshFailed": "Guardado, mas não foi possível atualizar a lista. Tente novamente para a atualizar."
 }

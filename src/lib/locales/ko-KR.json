@@ -849,5 +849,9 @@
   "learning.antonyms": "반의어",
   "learning.prefixes": "접두사",
   "learning.suffixes": "접미사",
-  "learning.addRelated": "관련 학습 자료 추가…"
+  "learning.addRelated": "관련 학습 자료 추가…",
+  "learning.editCard": "카드 수정",
+  "learning.status": "상태",
+  "learning.wholePage": "전체 페이지 답변",
+  "learning.savedRefreshFailed": "저장했지만 목록을 새로 고치지 못했습니다. 다시 시도해 주세요."
 }

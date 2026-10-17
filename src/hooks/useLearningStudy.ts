@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { LearningClient } from '../lib/learning/client'
 import type { RateRequest, SessionScope, StudySession } from '../lib/learning/types'
 import { scheduleReview } from '../lib/learning/scheduler'
@@ -6,72 +6,108 @@ import type { FSRSRating } from '../lib/fsrs'
 import { trackEvent } from '../lib/telemetry'
 
 type State = { libraryKey: string; open: boolean; busy: boolean; session: StudySession | null; error: string | null }
+const initial = (libraryKey: string): State => ({ libraryKey, open: false, busy: false, session: null, error: null })
+
 export function useLearningStudy(client: LearningClient | null, onCommitted: () => Promise<void>) {
   const libraryKey = client ? `${client.vaultPath}:${client.libraryId}` : ''
-  const [state, setState] = useState<State>({ libraryKey: '', open: false, busy: false, session: null, error: null })
-  const saving = useRef(false)
-  const pending = useRef<RateRequest | null>(null)
-  const started = useRef(Date.now())
-  const scope = useRef<SessionScope>({ pageIds: null })
-  const current = state.libraryKey === libraryKey ? state : { libraryKey, open: false, busy: false, session: null, error: null }
-  const start = useCallback(async (value: SessionScope = { pageIds: null }) => {
-    if (!client || saving.current) return
-    scope.current = value; pending.current = null; saving.current = true
-    setState({ libraryKey, open: true, busy: true, session: null, error: null })
-    try {
-      const session = await client.startSession(value); started.current = Date.now()
-      setState({ libraryKey, open: true, busy: false, session, error: null })
-      trackEvent('memnova_study_started', { scoped: value.pageIds === null ? 0 : 1, cards: session.initialCount })
-    } catch (error) { setState({ libraryKey, open: true, busy: false, session: null, error: String(error) }) }
-    finally { saving.current = false }
-  }, [client, libraryKey])
+  const [state, setState] = useState<State & { owner?: object }>(() => initial(''))
+  // A new visit gets its own operation state, including A -> B -> A transitions.
+  const visit = useMemo(() => ({ libraryKey, saving: false, pending: null as RateRequest | null, started: Date.now(), scope: { pageIds: null } as SessionScope, needsRefresh: false }), [libraryKey])
+  const active = useRef<typeof visit | null>(visit)
+  useEffect(() => {
+    active.current = visit
+    return () => { if (active.current === visit) active.current = null }
+  }, [visit])
+  const current: State = state.owner === visit ? state : initial(libraryKey)
+  const isCurrent = useCallback(() => active.current === visit, [visit])
+  const update = useCallback((patch: Partial<State>) => {
+    setState(previous => isCurrent() ? { ...(previous.owner === visit ? previous : initial(libraryKey)), ...patch, owner: visit } : previous)
+  }, [isCurrent, libraryKey, visit])
+  const run = useCallback(async (operation: () => Promise<void>) => {
+    if (!isCurrent() || visit.saving) return
+    visit.saving = true
+    update({ busy: true, error: null })
+    try { await operation() }
+    catch (error) { update({ error: String(error) }) }
+    finally { visit.saving = false; update({ busy: false }) }
+  }, [isCurrent, visit, update])
+  const accept = useCallback((session: StudySession) => {
+    if (!isCurrent()) return false
+    visit.started = Date.now()
+    update({ session, open: true })
+    return true
+  }, [isCurrent, visit, update])
+  const refreshCommitted = useCallback(async () => {
+    if (!isCurrent()) return
+    visit.needsRefresh = true
+    await onCommitted()
+    visit.needsRefresh = false
+  }, [isCurrent, visit, onCommitted])
+  const start = useCallback(async (scope: SessionScope = { pageIds: null }) => {
+    if (!client || visit.pending) return
+    await run(async () => {
+      visit.scope = scope
+      update({ open: true, session: null })
+      const session = await client.startSession(scope)
+      if (!accept(session)) return
+      trackEvent('memnova_study_started', { scoped: scope.pageIds === null ? 0 : 1, cards: session.initialCount })
+      if (visit.needsRefresh) await refreshCommitted()
+    })
+  }, [client, visit, run, update, accept, refreshCommitted])
   const reload = useCallback(async () => {
-    if (!client || saving.current) return
-    if (!current.session) { await start(scope.current); return }
-    saving.current = true; setState(previous => ({ ...previous, busy: true }))
-    try { const session = await client.getSession(current.session.id); pending.current = null; started.current = Date.now(); setState({ libraryKey, open: true, busy: false, session, error: null }) }
-    catch (error) { setState(previous => ({ ...previous, busy: false, error: String(error) })) }
-    finally { saving.current = false }
-  }, [client, libraryKey, current.session, start])
+    if (!client) return
+    if (!current.session) { await start(visit.scope); return }
+    const id = current.session.id
+    await run(async () => {
+      const session = await client.getSession(id)
+      if (!accept(session)) return
+      // Explicit reload reconciles an uncertain write against durable state.
+      const uncertain = visit.pending !== null
+      visit.pending = null
+      if (uncertain || visit.needsRefresh) await refreshCommitted()
+    })
+  }, [client, current.session, start, visit, run, accept, refreshCommitted])
   const rate = useCallback(async (rating: FSRSRating) => {
     const session = current.session
     const item = session?.current
-    if (!client || !session || !item?.page || saving.current) return
-    saving.current = true
-    try {
-      if (!pending.current) {
+    const page = item?.page
+    if (!client || !session || !item || !page) return
+    await run(async () => {
+      if (!visit.pending) {
         const now = new Date()
-        pending.current = { reviewId: crypto.randomUUID(), sessionId: session.id, sessionRevision: session.revision, cardId: item.card.id, cardRevision: item.card.revision, sourceFingerprint: item.page.fingerprint, rating, durationMs: Math.min(86_400_000, Math.max(0, now.getTime() - started.current)), reviewedAt: now.getTime(), schedule: scheduleReview(item.card.schedule, rating, now) }
+        visit.pending = { reviewId: crypto.randomUUID(), sessionId: session.id, sessionRevision: session.revision, cardId: item.card.id, cardRevision: item.card.revision, sourceFingerprint: page.fingerprint, rating, durationMs: Math.min(86_400_000, Math.max(0, now.getTime() - visit.started)), reviewedAt: now.getTime(), schedule: scheduleReview(item.card.schedule, rating, now) }
       }
-      setState(previous => ({ ...previous, busy: true, error: null }))
-      const appliedRating = pending.current.rating
-      const result = await client.rateCard(pending.current)
-      pending.current = null; started.current = Date.now()
-      setState({ libraryKey, open: true, busy: true, session: result.session, error: null })
-      if (!result.replayed) trackEvent('memnova_review_saved', { rating: appliedRating, engine: 'ts-fsrs@5.4.2' })
-      await onCommitted()
-    } catch (error) { setState(previous => ({ ...previous, busy: false, error: String(error) })) }
-    finally { saving.current = false; setState(previous => previous.libraryKey === libraryKey ? { ...previous, busy: false } : previous) }
-  }, [client, libraryKey, current.session, onCommitted])
+      const request = visit.pending
+      const result = await client.rateCard(request)
+      if (!accept(result.session)) return
+      visit.pending = null
+      if (!result.replayed) trackEvent('memnova_review_saved', { rating: request.rating, engine: 'ts-fsrs@5.4.2' })
+      await refreshCommitted()
+    })
+  }, [client, current.session, visit, run, accept, refreshCommitted])
   const undo = useCallback(async () => {
     const session = current.session
-    if (!client || !session?.lastReviewId || saving.current) return
-    saving.current = true; setState(previous => ({ ...previous, busy: true }))
-    try { const value = await client.undoReview(session.id, session.lastReviewId, session.revision); pending.current = null; started.current = Date.now(); setState({ libraryKey, open: true, busy: true, session: value, error: null }); trackEvent('memnova_review_undone'); await onCommitted() }
-    catch (error) { setState(previous => ({ ...previous, busy: false, error: String(error) })) }
-    finally { saving.current = false; setState(previous => previous.libraryKey === libraryKey ? { ...previous, busy: false } : previous) }
-  }, [client, libraryKey, current.session, onCommitted])
+    if (!client || !session?.lastReviewId || visit.pending) return
+    const reviewId = session.lastReviewId
+    await run(async () => {
+      visit.needsRefresh = true
+      const result = await client.undoReview(session.id, reviewId, session.revision)
+      if (!accept(result)) return
+      trackEvent('memnova_review_undone')
+      await refreshCommitted()
+    })
+  }, [client, current.session, visit, run, accept, refreshCommitted])
   const close = useCallback(async () => {
-    if (saving.current || pending.current) return
-    try { if (client && current.session?.status === 'active') await client.pauseSession(current.session.id, current.session.revision); setState(previous => ({ ...previous, open: false })) }
-    catch (error) { setState(previous => ({ ...previous, error: String(error) })) }
-  }, [client, current.session])
+    if (!client || visit.pending) return
+    await run(async () => {
+      if (current.session?.status === 'active') await client.pauseSession(current.session.id, current.session.revision)
+      update({ open: false })
+    })
+  }, [client, current.session, visit, run, update])
   const skip = useCallback(async () => {
-    if (!client || !current.session || saving.current || pending.current) return
-    saving.current = true
-    try { const session = await client.skipSessionCard(current.session.id, current.session.revision); started.current = Date.now(); setState({ libraryKey, open: true, busy: false, session, error: null }) }
-    catch (error) { setState(previous => ({ ...previous, busy: false, error: String(error) })) }
-    finally { saving.current = false }
-  }, [client, libraryKey, current.session])
-  return { ...current, start, reload, rate, undo, close, skip, retry: () => pending.current ? rate(pending.current.rating) : reload(), hasPending: !!pending.current }
+    if (!client || !current.session || visit.pending) return
+    const session = current.session
+    await run(async () => { accept(await client.skipSessionCard(session.id, session.revision)) })
+  }, [client, current.session, visit, run, accept])
+  return { libraryKey, open: current.open, busy: current.busy, session: current.session, error: current.error, start, reload, rate, undo, close, skip, retry: () => visit.pending ? rate(visit.pending.rating) : reload(), hasPending: visit.pending !== null }
 }

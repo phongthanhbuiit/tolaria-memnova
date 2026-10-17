@@ -25,7 +25,11 @@
     "playwright:regression": "playwright test tests/smoke/",
     "playwright:integration": "playwright test --config playwright.integration.config.ts",
     "test:coverage": "node scripts/run-vitest-coverage.mjs",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test:related": "vitest related --run",
+    "test:changed": "vitest run --changed --passWithNoTests",
+    "test:learning": "vitest run src/lib/learning src/hooks/useLearning src/components/learning",
+    "test:workflow": "node --test scripts/precommit-checks.test.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.78.0",

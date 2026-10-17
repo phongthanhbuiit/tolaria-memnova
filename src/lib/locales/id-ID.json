@@ -849,5 +849,9 @@
   "learning.antonyms": "Antonim",
   "learning.prefixes": "Awalan",
   "learning.suffixes": "Akhiran",
-  "learning.addRelated": "Tambahkan pelajaran terkait…"
+  "learning.addRelated": "Tambahkan pelajaran terkait…",
+  "learning.editCard": "Edit kartu",
+  "learning.status": "Status",
+  "learning.wholePage": "Seluruh halaman sebagai jawaban",
+  "learning.savedRefreshFailed": "Tersimpan, tetapi daftar tidak dapat dimuat ulang. Coba lagi untuk memuatnya ulang."
 }

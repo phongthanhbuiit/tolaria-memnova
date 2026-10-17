@@ -1001,3 +1001,11 @@ A `CardDraft` holds question Markdown, answer Markdown or a whole-page answer re
 Page-registration and source-synchronization transactions use `TransactionBehavior::Immediate`; a regression holds another write reservation and verifies registration waits and retains the same UUID. `PageFlashcards` has a cancellable registration retry generation. Migration connection state resets stale preview/busy state on reconnect; failed connections can be retried from the migration surface.
 
 `WikilinkPropertyField` is shared by the compatibility inspector and SQLite card forms, using the established `NoteAutocomplete` picker. Optional input IDs/disabled state make its labels and saving state accessible. `learning/vocabulary` supplies property text and relation helpers; adding/removing another relation preserves existing aliases and comma-containing titles. `VocabularyFields` edits metadata in the existing properties JSON, and `VocabularyStudyDetails` separates question context from answer-only relations. No learning schema or scheduling behavior changes.
+
+
+### Learning form and lifecycle recovery
+
+- `components/learning/CardForm.tsx`: draft editing, persisted revision tracking, refresh-only retry and accessible responsive form layout. `PageFlashcards` remains responsible for card-list actions.
+- `hooks/useLearningStudy.ts`: per-visit async ownership, shared mutation lock, exact rating replay and pending committed-data refresh. Errors must not leak from an earlier Library visit.
+- `hooks/useLearningLibrary.ts`: generation-guarded loading, including rejection of delayed background refresh errors after a Library switch.
+- `scripts/precommit-checks.mjs`: pure staged-path check planning plus fail-fast execution with argv arrays. Tested separately with Node's test runner; the full pre-push release gate remains authoritative.

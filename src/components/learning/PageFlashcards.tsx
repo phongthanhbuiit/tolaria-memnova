@@ -1,54 +1,14 @@
 import { useEffect, useState } from 'react'
 import { Button } from '../ui/button'
-import { Input } from '../ui/input'
-import { Textarea } from '../ui/textarea'
-import { Switch } from '../ui/switch'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../ui/dialog'
 import type { CardDraft, LearningCard, LearningPage } from '../../lib/learning/types'
 import { translate, type TranslationKey, type AppLocale } from '../../lib/i18n'
 import { trackEvent } from '../../lib/telemetry'
-import { VocabularyFields } from './VocabularyFields'
+import { CardForm } from './CardForm'
 import { useLearningWorkspace } from './LearningContext'
 
 function cardDraft(card?: LearningCard, position = 0): CardDraft {
   return card ? { front: card.front, back: card.back, answerMode: card.answerMode, status: card.status, position: card.position, properties: structuredClone(card.properties) } : { front: '', back: '', answerMode: 'inline', status: 'draft', position, properties: {} }
-}
-function CardForm({ card, position, pageId, locale, onClose }: { card?: LearningCard; position: number; pageId: string; locale: AppLocale; onClose: () => void }) {
-  const workspace = useLearningWorkspace()
-  const [operationId] = useState(() => crypto.randomUUID())
-  const [draft, setDraft] = useState(() => cardDraft(card, position))
-  const [busy, setBusy] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const t = (key: TranslationKey) => translate(locale, key)
-  const save = async () => {
-    if (!workspace?.client || busy) return
-    setBusy(true); setError(null)
-    try {
-      if (card) await workspace.client.updateCard(card.id, card.revision, draft)
-      else await workspace.client.createCard(pageId, draft, operationId)
-      trackEvent(card ? 'memnova_card_updated' : 'memnova_card_created', { mode: draft.answerMode, status: draft.status, card_type: draft.properties.card_type === 'vocabulary' ? 'vocabulary' : 'basic' })
-      await workspace.refresh(); onClose()
-    } catch (error) { setError(String(error)) }
-    finally { setBusy(false) }
-  }
-  const field = (key: 'front' | 'back', value: string) => setDraft(previous => ({ ...previous, [key]: value }))
-  const metadata = (key: string, value: string) => setDraft(previous => ({ ...previous, properties: { ...previous.properties, [key]: value } }))
-  return <Dialog open onOpenChange={open => { if (!open && !busy) onClose() }}>
-    <DialogContent showCloseButton={false} className="max-h-[90vh] overflow-y-auto sm:max-w-2xl" onEscapeKeyDown={event => { if (busy) event.preventDefault() }} onInteractOutside={event => { if (busy) event.preventDefault() }}>
-      <DialogHeader><DialogTitle>{t('learning.cards')}</DialogTitle><DialogDescription>{t('learning.questionHelp')}</DialogDescription></DialogHeader>
-      <div className="grid gap-4">
-        <label className="grid gap-2 text-sm font-medium">{t('learning.front')}<Textarea autoFocus value={draft.front} disabled={busy} rows={3} onChange={event => field('front', event.target.value)} /></label>
-        <label className="flex items-center justify-between gap-3 text-sm"><span>{t('learning.pageAnswer')}</span><Switch checked={draft.answerMode === 'page'} disabled={busy} onCheckedChange={checked => setDraft(previous => ({ ...previous, answerMode: checked ? 'page' : 'inline' }))} /></label>
-        {draft.answerMode === 'inline' && <label className="grid gap-2 text-sm font-medium">{t('learning.back')}<Textarea value={draft.back} disabled={busy} rows={5} onChange={event => field('back', event.target.value)} /></label>}
-        <Select value={draft.status} disabled={busy} onValueChange={value => setDraft(previous => ({ ...previous, status: value as CardDraft['status'] }))}><SelectTrigger aria-label={t('learning.active')}><SelectValue /></SelectTrigger><SelectContent>{(['draft', 'active', 'suspended'] as const).map(status => <SelectItem key={status} value={status}>{t(`learning.${status}`)}</SelectItem>)}</SelectContent></Select>
-        <div className="grid gap-3 sm:grid-cols-3">{(['IPA', 'audio', 'image'] as const).map(key => <label key={key} className="grid gap-2 text-sm">{key === 'IPA' ? 'IPA' : t(`learning.${key}`)}<Input disabled={busy} value={typeof draft.properties[key] === 'string' ? draft.properties[key] : ''} onChange={event => metadata(key, event.target.value)} /></label>)}</div>
-        <VocabularyFields properties={draft.properties} locale={locale} disabled={busy} onChange={metadata} />
-        {error && <div role="alert" className="rounded-md border border-destructive p-3 text-sm"><p>{t('learning.error')}</p><pre className="mt-2 whitespace-pre-wrap break-words text-xs">{error}</pre></div>}
-        <div className="flex justify-end gap-2"><Button variant="outline" disabled={busy} onClick={onClose}>{t('common.cancel')}</Button><Button disabled={busy} onClick={() => { void save() }}>{t(busy ? 'learning.saving' : 'common.save')}</Button></div>
-      </div>
-    </DialogContent>
-  </Dialog>
 }
 
 export function PageFlashcards({ path, locale }: { path: string; locale: AppLocale }) {
@@ -93,8 +53,8 @@ export function PageFlashcards({ path, locale }: { path: string; locale: AppLoca
       {outsideLibrary && <div role="alert" className="rounded-lg border border-destructive p-3"><p>{t('learning.error')}</p><p className="mt-2 break-all text-xs">{path}</p></div>}
       {!current && !error && !outsideLibrary && <p role="status">{t('learning.loading')}</p>}
       {current && !visible.length && <div className="rounded-xl border border-dashed p-10 text-center text-muted-foreground">{t('learning.empty')}</div>}
-      {visible.map(card => <article key={card.id} className="rounded-xl border bg-card p-5 shadow-sm"><div className="flex items-start justify-between gap-4"><Button variant="ghost" className="h-auto min-w-0 justify-start whitespace-pre-wrap p-0 text-left text-base font-semibold" onClick={() => setEditing(card)}>{card.front || t('learning.draft')}</Button><span className="shrink-0 rounded-full bg-muted px-2 py-1 text-xs">{t(`learning.${card.status === 'trashed' ? 'trash' : card.status}`)}</span></div><p className="mt-3 line-clamp-3 whitespace-pre-wrap text-sm text-muted-foreground">{card.answerMode === 'page' ? t('learning.pageAnswer') : card.back}</p><div className="mt-4 flex flex-wrap gap-2"><Button variant="outline" size="sm" disabled={busy} onClick={() => { void action(card, 'clone') }}>{t('learning.clone')}</Button><Button variant="ghost" size="sm" disabled={busy} onClick={() => { void action(card, card.status === 'suspended' ? 'active' : 'suspended') }}>{t(card.status === 'suspended' ? 'learning.active' : 'learning.suspended')}</Button><Button variant="ghost" size="sm" disabled={busy} onClick={() => { void action(card, card.status === 'trashed' ? 'draft' : 'trashed') }}>{t(card.status === 'trashed' ? 'learning.restore' : 'learning.trash')}</Button></div></article>)}
-      {current && editing && <CardForm key={typeof editing === 'string' ? 'new' : editing.id} card={editing === 'new' ? undefined : editing} position={Math.max(0, ...cards.map(card => card.position + 1))} pageId={current.id} locale={locale} onClose={() => setEditing(null)} />}
+      {visible.map(card => <article key={card.id} className="rounded-xl border bg-card p-5 shadow-sm"><div className="flex items-start justify-between gap-4"><Button variant="ghost" className="h-auto min-w-0 justify-start whitespace-pre-wrap break-words [overflow-wrap:anywhere] p-0 text-left text-base font-semibold" onClick={() => setEditing(card)}>{card.front || t('learning.draft')}</Button><span className="shrink-0 rounded-full bg-muted px-2 py-1 text-xs">{t(`learning.${card.status === 'trashed' ? 'trash' : card.status}`)}</span></div><p className="mt-3 line-clamp-3 whitespace-pre-wrap break-words [overflow-wrap:anywhere] text-sm text-muted-foreground">{card.answerMode === 'page' ? t('learning.wholePage') : card.back}</p><div className="mt-4 flex flex-wrap gap-2"><Button variant="outline" size="sm" disabled={busy} onClick={() => { void action(card, 'clone') }}>{t('learning.clone')}</Button><Button variant="ghost" size="sm" disabled={busy} onClick={() => { void action(card, card.status === 'suspended' ? 'active' : 'suspended') }}>{t(card.status === 'suspended' ? 'learning.active' : 'learning.suspended')}</Button><Button variant="ghost" size="sm" disabled={busy} onClick={() => { void action(card, card.status === 'trashed' ? 'draft' : 'trashed') }}>{t(card.status === 'trashed' ? 'learning.restore' : 'learning.trash')}</Button></div></article>)}
+      {current && editing && <CardForm key={typeof editing === 'string' ? 'new' : editing.id} card={editing === 'new' ? undefined : editing} initialDraft={cardDraft(editing === 'new' ? undefined : editing, Math.max(0, ...cards.map(card => card.position + 1)))} pageId={current.id} locale={locale} onClose={() => setEditing(null)} />}
     </div>
   </section>
 }

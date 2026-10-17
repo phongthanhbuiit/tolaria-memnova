@@ -50,9 +50,10 @@ export function useLearningLibrary(root: string | null | undefined) {
   }, [current.client, current.phase, load])
   useEffect(() => {
     if (current.phase !== 'ready') return
-    const timer = setInterval(() => { void refresh().catch(error => setState(previous => ({ ...previous, error: String(error) }))) }, 60_000)
+    const epoch = generation.current
+    const timer = setInterval(() => { void refresh().catch(error => setState(previous => generation.current === epoch && previous.root === path ? { ...previous, error: String(error) } : previous)) }, 60_000)
     return () => clearInterval(timer)
-  }, [current.phase, refresh])
+  }, [current.phase, refresh, path])
   const openMigration = useCallback(async () => {
     const epoch = generation.current
     setMigrationRoot(path); setPreview(null); setMigrationOpen(true); setBusy(true)

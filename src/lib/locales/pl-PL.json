@@ -849,5 +849,9 @@
   "learning.antonyms": "Antonimy",
   "learning.prefixes": "Przedrostki",
   "learning.suffixes": "Przyrostki",
-  "learning.addRelated": "Dodaj powiązaną lekcję…"
+  "learning.addRelated": "Dodaj powiązaną lekcję…",
+  "learning.editCard": "Edytuj fiszkę",
+  "learning.status": "Status",
+  "learning.wholePage": "Cała strona jako odpowiedź",
+  "learning.savedRefreshFailed": "Zapisano, ale nie udało się odświeżyć listy. Spróbuj ponownie ją odświeżyć."
 }

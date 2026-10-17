@@ -849,5 +849,9 @@
   "learning.antonyms": "反義詞",
   "learning.prefixes": "前綴",
   "learning.suffixes": "後綴",
-  "learning.addRelated": "新增相關課程…"
+  "learning.addRelated": "新增相關課程…",
+  "learning.editCard": "編輯卡片",
+  "learning.status": "狀態",
+  "learning.wholePage": "整頁作為答案",
+  "learning.savedRefreshFailed": "已儲存，但無法重新整理清單。請重試以重新整理清單。"
 }

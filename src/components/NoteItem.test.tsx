@@ -19,6 +19,14 @@ describe('NoteItem', () => {
     openExternalUrl.mockClear()
   })
 
+  it('hides the legacy flashcard separator without changing the note data', () => {
+    const entry = makeEntry({ snippet: 'Question <!-- FLASHCARD:BACK --> Answer' })
+    render(<NoteItem entry={entry} isSelected={false} typeEntryMap={{}} onClickNote={vi.fn()} />)
+    expect(screen.getByTestId('note-snippet')).toHaveTextContent('Question Answer')
+    expect(screen.getByTestId('note-snippet')).not.toHaveTextContent('FLASHCARD:BACK')
+    expect(entry.snippet).toBe('Question <!-- FLASHCARD:BACK --> Answer')
+  })
+
   it('renders unsupported binary files as non-clickable muted rows', () => {
     const binaryEntry = makeEntry({
       path: '/vault/archive.zip',

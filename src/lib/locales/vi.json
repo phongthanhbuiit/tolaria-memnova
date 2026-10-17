@@ -849,5 +849,9 @@
   "learning.antonyms": "Từ trái nghĩa",
   "learning.prefixes": "Tiền tố",
   "learning.suffixes": "Hậu tố",
-  "learning.addRelated": "Thêm bài học liên quan…"
+  "learning.addRelated": "Thêm bài học liên quan…",
+  "learning.editCard": "Sửa thẻ",
+  "learning.status": "Trạng thái",
+  "learning.wholePage": "Câu trả lời là toàn bộ trang",
+  "learning.savedRefreshFailed": "Đã lưu nhưng chưa tải lại được danh sách. Thử lại để cập nhật."
 }

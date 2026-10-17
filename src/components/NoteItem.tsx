@@ -141,7 +141,8 @@ function NoteTypeIndicator({
 }
 
 function NoteSnippet({ snippet }: { snippet?: string | null }) {
-  if (!snippet) return null
+  const preview = snippet?.replaceAll('<!-- FLASHCARD:BACK -->', '').trim()
+  if (!preview) return null
 
   return (
     <div
@@ -149,7 +150,7 @@ function NoteSnippet({ snippet }: { snippet?: string | null }) {
       data-testid="note-snippet"
       style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}
     >
-      {snippet}
+      {preview}
     </div>
   )
 }

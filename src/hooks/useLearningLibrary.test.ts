@@ -73,3 +73,24 @@ it('can reopen migration after returning to a library whose preview was interrup
   await act(() => result.current.openMigration())
   expect(result.current.preview?.fingerprint).toBe('fresh')
 })
+
+it('does not publish a failed background read into a different library', async () => {
+  let fail: (reason: Error) => void = () => {}
+  const delayed = new Promise<never>((_resolve, reject) => { fail = reject })
+  const client = (id: string) => ({ libraryId: id, migrationStatus: vi.fn().mockResolvedValue({state:'ready'}), syncPages: vi.fn().mockResolvedValue([]), listCards: vi.fn().mockResolvedValue([]), studyStats: vi.fn().mockResolvedValue({totalXp:0}) })
+  const a=client('a'), b=client('b')
+  vi.mocked(LearningClient.connect).mockResolvedValueOnce(a as unknown as LearningClient).mockResolvedValueOnce(b as unknown as LearningClient)
+  const interval=vi.spyOn(globalThis,'setInterval')
+  try {
+    const {result,rerender}=renderHook(({root})=>useLearningLibrary(root),{initialProps:{root:'/a'}})
+    await waitFor(()=>expect(result.current.phase).toBe('ready'))
+    const callback=interval.mock.calls.find(call=>call[1]===60_000)?.[0] as (()=>void)
+    a.listCards.mockReturnValueOnce(delayed)
+    act(()=>callback())
+    await waitFor(()=>expect(a.listCards).toHaveBeenCalledTimes(2))
+    rerender({root:'/b'})
+    await waitFor(()=>expect(result.current.client?.libraryId).toBe('b'))
+    await act(async()=>{fail(new Error('old library unavailable'));await Promise.resolve()})
+    expect(result.current.error).toBeNull()
+  } finally { interval.mockRestore() }
+})

@@ -498,7 +498,7 @@ BASE_URL="http://localhost:5173" npx playwright test tests/smoke/<slug>.spec.ts
 
 The October 2026 baseline was verified on macOS arm64 with Node.js 22.21.1, pnpm 10.11.0 and Rust/Cargo 1.96.0. Use `pnpm install --frozen-lockfile`; a different pnpm major can change lockfile interpretation. The inherited Node 18 / Rust 1.77.2 minimums above have not been verified against this fork's current dependencies. `pnpm build` runs the actual referenced TypeScript projects; root `tsc --noEmit` alone is not a complete type check.
 
-The staged learning store uses bundled native SQLite through Rust, so no system SQLite service or separate server is required. `.memnova/learning.sqlite3` is authoritative learning data, while lessons remain Markdown files. Keep the database, WAL and manifest together until using the verified backup/export path. Do not delete this directory as if it were a cache or add an open database/WAL to Git. Production study remains on the legacy path until migration and cutover are verified; see [the implementation ledger](./MEMNOVA-IMPLEMENTATION.md).
+The staged learning store uses bundled native SQLite through Rust, so no system SQLite service or separate server is required. `.memnova/learning.sqlite3` is authoritative learning data, while lessons remain Markdown files. Keep the database, WAL and manifest together until using the verified backup/export path. Do not delete this directory as if it were a cache or add an open database/WAL to Git. Production study uses SQLite after the Library migration reaches Ready; see [the implementation ledger](./MEMNOVA-IMPLEMENTATION.md).
 
 ## Memnova: learn a page with multiple cards
 
@@ -517,3 +517,24 @@ For development only, set `MEMNOVA_CONFIG_HOME` to an absolute temporary directo
 Run `pnpm tauri dev --config /absolute/path/to/qa-config.json --no-watch` with that environment and the development server available. Use native mouse actions first, then Space/1–4 and editor shortcuts. Verify SQLite integrity, preserved legacy memory, rating/undo rows, session persistence and backup/restore separately from browser mocks. A browser fixture pass is not native persistence evidence.
 
 Choose **Card type → Vocabulary** to edit part of speech, vocabulary level, synonyms, antonyms, prefixes and suffixes using the existing lesson picker. IPA, audio and image fields remain available. Changing back to Basic preserves these details. Related words appear after revealing the answer; part of speech and level can appear with the question. Editing vocabulary never resets the card's review schedule.
+
+
+### Focused tests while editing
+
+```bash
+pnpm exec vitest run src/hooks/useLearningStudy.recovery.test.ts
+pnpm exec vitest run src/hooks/useLearningStudy.recovery.test.ts -t 'refresh'
+pnpm test:related src/hooks/useLearningStudy.ts
+pnpm test:learning
+pnpm test:watch src/hooks/useLearningStudy.recovery.test.ts
+cargo test --manifest-path src-tauri/Cargo.toml learning:: -- --test-threads=1
+pnpm test:workflow
+```
+
+Use behavior-oriented tests per function, hook, service or component; inject clients and control promises for races instead of sleeping. Module tests cover their boundaries, while integration tests cover the full user journey. `pnpm test:changed` selects uncommitted changes; after a commit, use `pnpm exec vitest run --changed HEAD~1`. A clean checkout can legitimately select no tests. Pre-commit automatically selects checks from staged paths; shared configuration and IPC changes have conservative full-suite fallbacks. Full coverage/build/smoke remain pre-push gates (ADR-0144).
+
+### Legacy front/back and current cards
+
+The old `<!-- FLASHCARD:BACK -->` separator is still recognized during import: text before it becomes one card's question and text after it becomes that card's inline answer. Original Markdown is preserved. The separator is hidden only in the note-list preview, without rewriting the source.
+
+For new lessons, write the lesson normally and create multiple cards in **Flashcards**. Prefer a short question and an inline answer for each idea, plus an optional whole-page card for recalling the entire lesson. Whole-page answers read the current lesson; inline answers are independent SQLite card content after migration and are not automatically overwritten by subsequent lesson edits. Switching the whole-page option off and on while editing keeps the inline draft. Every card retains its own schedule.

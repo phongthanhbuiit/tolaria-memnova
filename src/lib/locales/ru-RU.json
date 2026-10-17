@@ -849,5 +849,9 @@
   "learning.antonyms": "Антонимы",
   "learning.prefixes": "Приставки",
   "learning.suffixes": "Суффиксы",
-  "learning.addRelated": "Добавить связанный урок…"
+  "learning.addRelated": "Добавить связанный урок…",
+  "learning.editCard": "Изменить карточку",
+  "learning.status": "Статус",
+  "learning.wholePage": "Вся страница в ответе",
+  "learning.savedRefreshFailed": "Сохранено, но список не удалось обновить. Повторите попытку обновления."
 }

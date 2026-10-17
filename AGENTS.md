@@ -22,6 +22,12 @@ CodeScene is optional for this fork (ADR-0137). Use it when authenticated access
 - Pre-push hook runs full check suite (build + tests + core Playwright smoke + CodeScene when configured)
 - **A task is NOT done until `git push origin main` succeeds.** If the hook blocks: read the error, fix it (clippy, tests, CodeScene, build), commit the fix, push again. **⛔ NEVER use --no-verify for AI agents.**
 
+### Fast local feedback
+
+Pre-commit runs `scripts/precommit-checks.mjs` against staged paths (ADR-0144). Leaf frontend edits run related Vitest tests, changed-file lint and incremental types; shared configuration, deleted frontend modules and Rust IPC changes fall back to all frontend tests. Learning-only Rust changes use the learning module filter; other Rust edits run Rust unit tests. Changed browser specs and localization are checked separately. Inspect selection with `node scripts/precommit-checks.mjs --plan` after staging.
+
+During development, run a test file/function or `pnpm test:related <source-file>`; `pnpm test:learning` checks the learning module. `pnpm test:changed` is a convenience for uncommitted changes, and can select zero tests on a clean checkout. These are feedback commands, not release evidence. Normal pre-push still runs full frontend coverage, build, core smoke and applicable Rust checks. Never bypass hooks or lower coverage thresholds to speed up a small change.
+
 ### TDD (mandatory)
 
 Red → Green → Refactor → Commit. One cycle per commit. For bugs: write failing regression test first, then fix. Exception: pure CSS/layout changes.

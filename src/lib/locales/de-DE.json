@@ -849,5 +849,9 @@
   "learning.antonyms": "Antonyme",
   "learning.prefixes": "Präfixe",
   "learning.suffixes": "Suffixe",
-  "learning.addRelated": "Verknüpfte Lektion hinzufügen…"
+  "learning.addRelated": "Verknüpfte Lektion hinzufügen…",
+  "learning.editCard": "Karte bearbeiten",
+  "learning.status": "Status",
+  "learning.wholePage": "Ganze Seite als Antwort",
+  "learning.savedRefreshFailed": "Gespeichert, aber die Liste konnte nicht aktualisiert werden. Versuche es erneut."
 }

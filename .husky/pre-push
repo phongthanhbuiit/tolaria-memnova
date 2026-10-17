@@ -105,6 +105,7 @@ ensure_node_tooling
 ensure_cargo_tooling
 
 START_TIME=$(date +%s)
+node --test scripts/precommit-checks.test.mjs
 
 echo ""
 echo "🚀 Pre-push checks (replaces CI — do not skip)"
