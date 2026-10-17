@@ -211,7 +211,10 @@ export function CardForm({
             <Textarea
               name="front"
               autoComplete="off"
-              autoFocus
+              autoFocus={
+                typeof window !== 'undefined' &&
+                (window.matchMedia?.('(pointer: fine)').matches ?? true)
+              }
               value={draft.front}
               disabled={busy}
               rows={3}
@@ -219,9 +222,12 @@ export function CardForm({
             />
           </label>
           <div className="grid gap-2 text-sm">
-            <span id={`${statusId}-answer-label`}>
+            <label
+              id={`${statusId}-answer-label`}
+              htmlFor={`${statusId}-answer`}
+            >
               {t('learning.answerMode')}
-            </span>
+            </label>
             <Select
               value={answerChoice}
               disabled={busy || sourceBusy || propertyBusy}
@@ -234,7 +240,10 @@ export function CardForm({
                 }))
               }}
             >
-              <SelectTrigger aria-labelledby={`${statusId}-answer-label`}>
+              <SelectTrigger
+                id={`${statusId}-answer`}
+                aria-labelledby={`${statusId}-answer-label`}
+              >
                 <SelectValue />
               </SelectTrigger>
               <SelectContent className={cardEditorStyles.portal}>
@@ -404,7 +413,7 @@ export function CardForm({
           )}
         </div>
         <div
-          className={`${cardEditorStyles.footer} flex shrink-0 justify-end gap-2 border-t bg-background p-4`}
+          className={`${cardEditorStyles.footer} flex shrink-0 flex-wrap justify-end gap-2 border-t bg-background p-4`}
         >
           <Button
             variant="ghost"
@@ -414,6 +423,8 @@ export function CardForm({
             {t('common.cancel')}
           </Button>
           <Button
+            className="card-editor-save grid max-w-full whitespace-normal"
+            aria-busy={busy}
             disabled={
               busy ||
               sourceBusy ||
@@ -425,24 +436,41 @@ export function CardForm({
               void save()
             }}
           >
-            {busy ? (
-              <CircleNotch
-                className={`${cardEditorStyles.icon} animate-spin`}
-                aria-hidden="true"
-              />
-            ) : (
-              <FloppyDisk
-                className={cardEditorStyles.icon}
-                aria-hidden="true"
-              />
-            )}
-            {t(
-              busy
-                ? 'learning.saving'
-                : error && savedDraft === draft
-                  ? 'learning.retry'
-                  : 'common.save',
-            )}
+            <span
+              aria-hidden="true"
+              data-card-editor-save-sizer
+              className="invisible col-start-1 row-start-1 flex items-center justify-center gap-2"
+            >
+              <CircleNotch className={cardEditorStyles.icon} />
+              {t('learning.saving')}
+            </span>
+            <span
+              aria-hidden="true"
+              className="invisible col-start-1 row-start-1 flex items-center justify-center gap-2"
+            >
+              <FloppyDisk className={cardEditorStyles.icon} />
+              {t('learning.retry')}
+            </span>
+            <span className="col-start-1 row-start-1 flex items-center justify-center gap-2">
+              {busy ? (
+                <CircleNotch
+                  className={`${cardEditorStyles.icon} animate-spin`}
+                  aria-hidden="true"
+                />
+              ) : (
+                <FloppyDisk
+                  className={cardEditorStyles.icon}
+                  aria-hidden="true"
+                />
+              )}
+              {t(
+                busy
+                  ? 'learning.saving'
+                  : error && savedDraft === draft
+                    ? 'learning.retry'
+                    : 'common.save',
+              )}
+            </span>
           </Button>
         </div>
       </DialogContent>

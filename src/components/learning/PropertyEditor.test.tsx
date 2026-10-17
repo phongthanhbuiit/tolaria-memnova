@@ -160,11 +160,11 @@ it('keeps intermediate numbers, rename text and unapplied type previews across s
   fireEvent.change(screen.getByRole('textbox', { name: 'zero', exact: true }), {
     target: { value: '-' },
   })
-  fireEvent.click(screen.getByRole('button', { name: 'Page properties (6)' }))
+  fireEvent.click(screen.getByRole('button', { name: 'Properties (6)' }))
   expect(
     screen.queryByRole('textbox', { name: 'zero', exact: true }),
   ).not.toBeInTheDocument()
-  fireEvent.click(screen.getByRole('button', { name: 'Page properties (6)' }))
+  fireEvent.click(screen.getByRole('button', { name: 'Properties (6)' }))
   expect(
     screen.getByRole('textbox', { name: 'zero', exact: true }),
   ).toHaveValue('-')
@@ -175,16 +175,16 @@ it('keeps intermediate numbers, rename text and unapplied type previews across s
   fireEvent.change(screen.getByLabelText('Property name empty'), {
     target: { value: 'pending name' },
   })
-  fireEvent.click(screen.getByRole('button', { name: 'Page properties (6)' }))
-  fireEvent.click(screen.getByRole('button', { name: 'Page properties (6)' }))
+  fireEvent.click(screen.getByRole('button', { name: 'Properties (6)' }))
+  fireEvent.click(screen.getByRole('button', { name: 'Properties (6)' }))
   expect(screen.getByLabelText('Property name empty')).toHaveValue(
     'pending name',
   )
   await manage('zero', 'Change type')
   fireEvent.click(screen.getByRole('combobox', { name: 'Property type zero' }))
   fireEvent.click(screen.getByRole('option', { name: 'Text', exact: true }))
-  fireEvent.click(screen.getByRole('button', { name: 'Page properties (6)' }))
-  fireEvent.click(screen.getByRole('button', { name: 'Page properties (6)' }))
+  fireEvent.click(screen.getByRole('button', { name: 'Properties (6)' }))
+  fireEvent.click(screen.getByRole('button', { name: 'Properties (6)' }))
   expect(
     screen.getByRole('button', { name: 'Apply type', exact: true }),
   ).toBeVisible()

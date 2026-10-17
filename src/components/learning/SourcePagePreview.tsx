@@ -84,7 +84,7 @@ export function SourcePagePreview({
           }}
           showCloseButton={false}
           aria-describedby={undefined}
-          className="flex max-h-[85dvh] flex-col overflow-hidden p-0 sm:max-w-3xl"
+          className="learning-editor-preview flex max-h-[85dvh] flex-col overflow-hidden p-0 sm:max-w-3xl"
         >
           <DialogHeader
             className={`${cardEditorStyles.root} shrink-0 border-b p-5`}

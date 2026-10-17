@@ -67,3 +67,48 @@
   .learning-editor *,
   .learning-editor-portal * { transition-duration: 0s; animation-duration: 0s; }
 }
+/* Viewport units do not shrink with the app's CSS zoom. Keep these dialogs
+   inside the physical viewport without changing the global Dialog primitive. */
+.learning-editor[data-slot='dialog-content'] {
+  max-height: calc(90dvh / var(--tolaria-overlay-zoom-factor, 1));
+  width: min(720px, calc((100dvw - 32px) / var(--tolaria-overlay-zoom-factor, 1)));
+}
+.learning-editor-preview {
+  max-height: calc(85dvh / var(--tolaria-overlay-zoom-factor, 1));
+  width: min(896px, calc((100dvw - 32px) / var(--tolaria-overlay-zoom-factor, 1)));
+}
+.learning-editor [data-slot='dialog-header'] { padding: 20px; }
+.learning-editor [data-slot='dialog-header'] + div { gap: 20px; padding: 20px; }
+.learning-editor label { gap: 6px; }
+.learning-editor [data-slot='input'],
+.learning-editor [data-slot='select-trigger'] { padding: 5px 10px; }
+.learning-editor h3 [data-slot='button'] { font-weight: 600; }
+.learning-editor dl { font-size: 12px; line-height: 18px; }
+.learning-editor input,
+.learning-editor textarea,
+.learning-editor button { scroll-margin-block: 6px; }
+.learning-editor-portal[data-slot='tooltip-visual-scale'] { font-size: 12px; line-height: 18px; }
+[data-theme='light'] .learning-editor .text-muted-foreground,
+[data-theme='light'] .learning-editor [data-slot='dialog-description'] {
+  color: var(--foreground);
+  color: color-mix(in srgb, var(--foreground) 80%, var(--background));
+}
+@media (pointer: coarse) {
+  .learning-editor .learning-editor-footer [data-slot='button'],
+  .learning-editor-portal [data-slot='select-item'],
+  .learning-editor-portal [data-slot='dropdown-menu-item'] { min-height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .learning-editor,
+  .learning-editor *,
+  .learning-editor-preview,
+  .learning-editor-portal,
+  .learning-editor-portal * { animation: none; transition: none; }
+}
+.learning-editor[data-slot='dialog-content'],
+.learning-editor-preview {
+  top: calc(50dvh / var(--tolaria-overlay-zoom-factor, 1));
+  left: calc(50dvw / var(--tolaria-overlay-zoom-factor, 1));
+}
+.learning-editor .learning-editor-footer { padding: 16px; gap: 8px; }
+.learning-editor [data-card-editor-panel] { padding: 12px; }

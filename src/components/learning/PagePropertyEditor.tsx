@@ -1,3 +1,4 @@
+import { cardEditorStyles } from './cardEditorStyles'
 import { useEffect, useRef, useState } from 'react'
 import { Button } from '../ui/button'
 import {
@@ -202,7 +203,7 @@ export function PagePropertyEditor({
     >
       <DialogContent
         showCloseButton={false}
-        className="flex max-h-[90dvh] flex-col overflow-hidden p-0 sm:max-w-2xl"
+        className={`${cardEditorStyles.root} flex max-h-[90dvh] flex-col overflow-hidden p-0 sm:max-w-2xl`}
         onEscapeKeyDown={(event) => {
           if (busy || pickerBusy) event.preventDefault()
         }}
@@ -253,7 +254,9 @@ export function PagePropertyEditor({
             </div>
           )}
         </div>
-        <footer className="flex shrink-0 justify-end gap-2 border-t p-4">
+        <footer
+          className={`${cardEditorStyles.footer} flex shrink-0 flex-wrap justify-end gap-2 border-t p-4`}
+        >
           <Button
             variant="outline"
             disabled={busy || pickerBusy}

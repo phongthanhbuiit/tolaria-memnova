@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useId } from 'react'
 import {
   Check,
   DotsThreeVertical,
@@ -66,6 +66,10 @@ export function PropertyRow({
         (hint.valueKind === 'page' && value === '')),
   )
   const rename = useRef<HTMLInputElement>(null)
+  const typeTrigger = useRef<HTMLButtonElement>(null)
+  const menuTrigger = useRef<HTMLButtonElement>(null)
+  const pendingFocus = useRef<'rename' | 'type' | 'mutation' | null>(null)
+  const errorId = useId()
   const t = (key: TranslationKey) => translate(locale, key)
   const valid =
     !!hint &&
@@ -89,6 +93,8 @@ export function PropertyRow({
           <DropdownMenuTrigger asChild>
             <EditorIconButton
               label={`${t('cardEditor.manageField')} ${name}`}
+              ref={menuTrigger}
+              data-field-menu={name}
               disabled={disabled}
             >
               <DotsThreeVertical
@@ -101,7 +107,13 @@ export function PropertyRow({
             className={cardEditorStyles.portal}
             align="end"
             onCloseAutoFocus={(event) => {
-              if (editing) event.preventDefault()
+              const requested = pendingFocus.current
+              pendingFocus.current = null
+              if (requested) {
+                event.preventDefault()
+                if (requested === 'rename') rename.current?.focus()
+                if (requested === 'type') typeTrigger.current?.focus()
+              }
             }}
           >
             <DropdownMenuItem
@@ -109,6 +121,7 @@ export function PropertyRow({
               onSelect={() => {
                 setKey(name)
                 setError(null)
+                pendingFocus.current = 'rename'
                 setEditing('rename')
               }}
             >
@@ -122,13 +135,20 @@ export function PropertyRow({
               disabled={!editable}
               onSelect={() => {
                 setError(null)
+                pendingFocus.current = 'type'
                 setEditing('type')
               }}
             >
               <Swap className={cardEditorStyles.icon} aria-hidden="true" />
               {t('cardEditor.changeType')}
             </DropdownMenuItem>
-            <DropdownMenuItem variant="destructive" onSelect={onRemove}>
+            <DropdownMenuItem
+              variant="destructive"
+              onSelect={() => {
+                pendingFocus.current = 'mutation'
+                onRemove()
+              }}
+            >
               <Trash className={cardEditorStyles.icon} aria-hidden="true" />
               {t('common.remove')}
             </DropdownMenuItem>
@@ -142,11 +162,18 @@ export function PropertyRow({
           className="space-y-2"
         >
           <Input
+            name="propertyName"
+            autoComplete="off"
             ref={rename}
+            aria-invalid={!!error}
+            aria-describedby={error ? errorId : undefined}
             aria-label={`${t('inspector.properties.propertyName')} ${name}`}
             value={key}
             disabled={disabled}
-            onChange={(event) => setKey(event.target.value)}
+            onChange={(event) => {
+              setKey(event.target.value)
+              setError(null)
+            }}
           />
           <div className="flex flex-wrap gap-2">
             <Button
@@ -159,6 +186,7 @@ export function PropertyRow({
                   setEditing(null)
                 } catch {
                   setError(t('properties.invalid'))
+                  rename.current?.focus()
                 }
               }}
             >
@@ -172,6 +200,7 @@ export function PropertyRow({
                 setKey(name)
                 setError(null)
                 setEditing(null)
+                menuTrigger.current?.focus()
               }}
             >
               {t('common.cancel')}
@@ -184,6 +213,7 @@ export function PropertyRow({
           name={name}
           value={value}
           definition={hint}
+          descriptionId={`${errorId}-value`}
           locale={locale}
           disabled={disabled}
           onChange={onValue}
@@ -198,7 +228,7 @@ export function PropertyRow({
         </div>
       )}
       {editable && hint && !matchesProperty(value, hint) && (
-        <p role="alert" className="text-destructive">
+        <p id={`${errorId}-value`} role="alert" className="text-destructive">
           {t('properties.invalidValue')}
         </p>
       )}
@@ -245,6 +275,7 @@ export function PropertyRow({
                 onDefinition(conversion.definition, conversion.value)
                 setConversion(null)
                 setEditing(null)
+                menuTrigger.current?.focus()
               }}
             >
               <Check className={cardEditorStyles.icon} aria-hidden="true" />
@@ -277,7 +308,7 @@ export function PropertyRow({
         </Button>
       )}
       {error && (
-        <p role="alert" className="text-destructive">
+        <p id={errorId} role="alert" className="text-destructive">
           {error}
         </p>
       )}

@@ -24,18 +24,23 @@ type Props = {
   disabled: boolean
   onChange: (value: LearningProperty) => void
   onBusyChange?: (busy: boolean) => void
+  descriptionId?: string
 }
 function NumberValue({
   name,
   value,
   disabled,
   onChange,
-}: Pick<Props, 'name' | 'value' | 'disabled' | 'onChange'>) {
+  descriptionId,
+}: Pick<Props, 'name' | 'value' | 'disabled' | 'onChange' | 'descriptionId'>) {
   const [text, setText] = useState(String(value))
   const valid = text.trim() !== '' && isEditableNumber(Number(text))
   return (
     <Input
       aria-label={name}
+      name={name}
+      autoComplete="off"
+      aria-describedby={!valid ? descriptionId : undefined}
       inputMode="decimal"
       value={text}
       aria-invalid={!valid}
@@ -179,6 +184,7 @@ export function PropertyValueEditor(props: Props) {
           value={value}
           disabled={disabled}
           onChange={onChange}
+          descriptionId={props.descriptionId}
         />
       )
     case 'boolean':

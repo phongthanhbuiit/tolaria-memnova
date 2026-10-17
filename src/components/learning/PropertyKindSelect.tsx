@@ -1,3 +1,4 @@
+import type { Ref } from 'react'
 import {
   CalendarBlank,
   FileText,
@@ -53,12 +54,14 @@ export function PropertyKindSelect({
   disabled,
   onChange,
   label,
+  triggerRef,
 }: {
   definition: PropertyDefinition | null
   locale: AppLocale
   disabled: boolean
   onChange: (definition: PropertyDefinition) => void
   label: string
+  triggerRef?: Ref<HTMLButtonElement>
 }) {
   const value =
     definition?.valueKind === 'list'
@@ -70,7 +73,7 @@ export function PropertyKindSelect({
       disabled={disabled}
       onValueChange={(value) => onChange(definitionFor(value))}
     >
-      <SelectTrigger aria-label={label}>
+      <SelectTrigger ref={triggerRef} aria-label={label}>
         <PropertyKindIcon definition={definition} />
         <SelectValue placeholder={translate(locale, 'properties.opaque')} />
       </SelectTrigger>

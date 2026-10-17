@@ -10,7 +10,7 @@ type Props = {
   open?: boolean
   onOpenChange?: (open: boolean) => void
   action?: ReactNode
-  count?: number
+  count?: number | string
   disabled?: boolean
 }
 export function CardEditorSection({
@@ -28,7 +28,7 @@ export function CardEditorSection({
   const visible = open ?? expanded
   return (
     <section className="min-w-0 rounded-lg border">
-      <div className="flex min-w-0 items-center gap-2 px-2">
+      <div className="flex min-w-0 items-center gap-2 px-[2px]">
         <h3 className="min-w-0 flex-1">
           <Button
             variant="ghost"
@@ -54,7 +54,12 @@ export function CardEditorSection({
         </h3>
         {action}
       </div>
-      <div id={id} hidden={!visible} className="min-w-0 border-t p-3">
+      <div
+        data-card-editor-panel
+        id={id}
+        hidden={!visible}
+        className="min-w-0 border-t p-3"
+      >
         {children}
       </div>
     </section>

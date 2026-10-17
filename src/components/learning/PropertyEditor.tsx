@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { usePropertyEditorFocus } from './usePropertyEditorFocus'
+import { useState, useId } from 'react'
 import { Plus } from '@phosphor-icons/react'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
@@ -50,11 +51,13 @@ export function PropertyEditor({
     [error, setError] = useState<string | null>(null),
     [adding, setAdding] = useState(false),
     [expanded, setExpanded] = useState(rows.length > 0)
-  const input = useRef<HTMLInputElement>(null)
+  const { root, input, addButton, requestFocus } = usePropertyEditorFocus(
+    values,
+    adding,
+    expanded,
+  )
+  const errorId = useId()
   const t = (key: TranslationKey) => translate(locale, key)
-  useEffect(() => {
-    if (adding && expanded) input.current?.focus()
-  }, [adding, expanded])
   const add = () => {
     try {
       const key = propertyKey(name)
@@ -65,10 +68,12 @@ export function PropertyEditor({
         reservedKeys.includes(key)
       ) {
         setError(t('properties.duplicate'))
+        input.current?.focus()
         return
       }
       const date = new Date(),
         today = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
+      requestFocus({ kind: 'menu', key })
       onChange({
         values: { ...values, [key]: defaultProperty(kind, today) },
         definitions: { ...definitions, [key]: kind },
@@ -78,18 +83,20 @@ export function PropertyEditor({
       setAdding(false)
     } catch {
       setError(t('properties.invalid'))
+      input.current?.focus()
     }
   }
   return (
-    <div className={cardEditorStyles.root}>
+    <div ref={root} className={cardEditorStyles.root}>
       <CardEditorSection
-        title={title ?? t('properties.page')}
-        count={rows.length}
+        title={title ?? t('inspector.title.properties')}
+        count={new Intl.NumberFormat(locale).format(rows.length)}
         open={expanded}
         onOpenChange={setExpanded}
         action={
           <Button
             variant="ghost"
+            ref={addButton}
             hidden={adding}
             disabled={disabled}
             onClick={() => {
@@ -125,11 +132,14 @@ export function PropertyEditor({
                   validateKey?.(propertyKey(name), key)
                   if (reservedKeys.includes(name.trim()) && name.trim() !== key)
                     throw Error(t('properties.invalid'))
-                  onChange(renameProperty(values, definitions, key, name))
+                  const next = renameProperty(values, definitions, key, name)
+                  requestFocus({ kind: 'menu', key: propertyKey(name) })
+                  onChange(next)
                 }}
-                onRemove={() =>
+                onRemove={() => {
+                  requestFocus({ kind: 'add' })
                   onChange(removeProperty(values, definitions, key))
-                }
+                }}
                 onValue={(next) => {
                   const hint = Object.hasOwn(definitions, key)
                     ? definitions[key]
@@ -141,12 +151,13 @@ export function PropertyEditor({
                       : definitions,
                   })
                 }}
-                onDefinition={(definition, next) =>
+                onDefinition={(definition, next) => {
+                  requestFocus({ kind: 'menu', key })
                   onChange({
                     values: { ...values, [key]: next },
                     definitions: { ...definitions, [key]: definition },
                   })
-                }
+                }}
                 onBusyChange={onBusyChange}
               />
             )
@@ -158,12 +169,19 @@ export function PropertyEditor({
             className="space-y-3 rounded-md border bg-muted/20 p-3"
           >
             <Input
+              name="propertyName"
+              autoComplete="off"
               ref={input}
+              aria-invalid={!!error}
+              aria-describedby={error ? errorId : undefined}
               aria-label={t('inspector.properties.propertyName')}
               placeholder={t('inspector.properties.propertyName')}
               value={name}
               disabled={disabled}
-              onChange={(event) => setName(event.target.value)}
+              onChange={(event) => {
+                setName(event.target.value)
+                setError(null)
+              }}
             />
             <PropertyKindSelect
               definition={kind}
@@ -188,13 +206,14 @@ export function PropertyEditor({
                   setName('')
                   setError(null)
                   setAdding(false)
+                  requestFocus({ kind: 'add' })
                 }}
               >
                 {t('common.cancel')}
               </Button>
             </div>
             {error && (
-              <p role="alert" className="text-destructive">
+              <p id={errorId} role="alert" className="text-destructive">
                 {error}
               </p>
             )}

@@ -1,3 +1,4 @@
+import { useId } from 'react'
 import { cardEditorStyles } from './cardEditorStyles'
 import { LinkSimple } from '@phosphor-icons/react'
 import { Input } from '../ui/input'
@@ -34,17 +35,21 @@ export function CardTypeField({
   disabled: boolean
   onChange: (key: string, value: LearningProperty) => void
 }) {
+  const id = useId()
   const cardType =
     properties.card_type === 'vocabulary' ? 'vocabulary' : 'basic'
   return (
     <div className="grid gap-2 text-sm font-medium">
-      <span>{translate(locale, 'learning.cardType')}</span>
+      <label htmlFor={id}>{translate(locale, 'learning.cardType')}</label>
       <Select
         disabled={disabled}
         value={cardType}
         onValueChange={(value) => onChange('card_type', value)}
       >
-        <SelectTrigger aria-label={translate(locale, 'learning.cardType')}>
+        <SelectTrigger
+          id={id}
+          aria-label={translate(locale, 'learning.cardType')}
+        >
           <SelectValue />
         </SelectTrigger>
         <SelectContent className={cardEditorStyles.portal}>
