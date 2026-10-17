@@ -134,6 +134,14 @@ impl Store {
     ) -> Result<Card, String> {
         self.ensure_card_writes_allowed()?;
         draft.validate()?;
+        let current = self.get_card(id)?;
+        if current.status == "trashed" {
+            let mut restored = current.draft.clone();
+            restored.status = "draft".into();
+            if draft != restored {
+                return Err("Restore a trashed card to Draft before editing".into());
+            }
+        }
         let changed = self.conn.execute("UPDATE cards SET front=?1,back=?2,answer_mode=?3,status=?4,position=?5,properties_json=?6,updated_at=?7,revision=revision+1 WHERE id=?8 AND revision=?9", params![draft.front,draft.back,draft.answer_mode,draft.status,draft.position,draft.properties.to_string(),chrono::Utc::now().timestamp_millis(),id,revision]).map_err(|e| e.to_string())?;
         if changed != 1 {
             return Err("Card changed in another window; reload before saving".into());
@@ -143,6 +151,9 @@ impl Store {
 
     pub fn clone_card(&mut self, id: &str) -> Result<Card, String> {
         let card = self.get_card(id)?;
+        if card.status == "trashed" {
+            return Err("Restore a trashed card before cloning".into());
+        }
         let mut draft = card.draft;
         draft.status = "draft".into();
         self.create_card(&card.page_id, draft)

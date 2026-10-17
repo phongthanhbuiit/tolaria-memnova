@@ -1011,3 +1011,5 @@ Page-registration and source-synchronization transactions use `TransactionBehavi
 - `scripts/precommit-checks.mjs`: pure staged-path check planning plus fail-fast execution with argv arrays. Tested separately with Node's test runner; the full pre-push release gate remains authoritative.
 
 Vocabulary relation adapters preserve string-array storage and opaque values; add/remove affects only the chosen target. Unsupported metadata shapes disable destructive preset editors. CardForm metadata callbacks accept LearningProperty rather than forcing every value to a string.
+
+Trashed cards expose only Restore in PageFlashcards. Native and browser-fixture writers require an unchanged draft restored to Draft before edits or cloning; expected revisions remain mandatory.

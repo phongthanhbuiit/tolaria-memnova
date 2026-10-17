@@ -93,8 +93,10 @@ fn clone_starts_fresh_and_trash_is_recoverable() {
     let deleted = store.update_card(&card.id, card.revision, trashed).unwrap();
     assert_eq!(store.list_cards(Some(&page), false).unwrap().len(), 1);
     assert_eq!(store.list_cards(Some(&page), true).unwrap().len(), 2);
+    let mut restored = deleted.draft.clone();
+    restored.status = "draft".into();
     assert!(store
-        .update_card(&card.id, deleted.revision, draft("Restored"))
+        .update_card(&card.id, deleted.revision, restored)
         .is_ok());
     assert_eq!(store.list_cards(Some(&page), false).unwrap().len(), 2);
 }
@@ -126,4 +128,31 @@ fn invalid_metadata_and_corrupt_stored_json_are_reported_instead_of_erased() {
             .unwrap(),
         "broken"
     );
+}
+
+#[test]
+fn trash_must_restore_unchanged_to_draft_before_any_edit_or_clone() {
+    let (_dir, mut store, page) = fixture();
+    let card = store.create_card(&page, draft("Original")).unwrap();
+    let mut data = card.draft.clone();
+    data.status = "trashed".into();
+    let trashed = store
+        .update_card(&card.id, card.revision, data.clone())
+        .unwrap();
+    for status in ["active", "suspended"] {
+        data.status = status.into();
+        assert!(store
+            .update_card(&card.id, trashed.revision, data.clone())
+            .is_err());
+    }
+    assert!(store.clone_card(&card.id).is_err());
+    data.status = "draft".into();
+    data.front = "Changed".into();
+    assert!(store
+        .update_card(&card.id, trashed.revision, data.clone())
+        .is_err());
+    data.front = card.front.clone();
+    let restored = store.update_card(&card.id, trashed.revision, data).unwrap();
+    assert_eq!(restored.schedule, card.schedule);
+    assert_eq!(restored.status, "draft");
 }

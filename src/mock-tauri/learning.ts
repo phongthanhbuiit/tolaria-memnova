@@ -83,6 +83,7 @@ export async function mockLearningCommand(args: Record<string, unknown>, context
       case 'listCards': return data.cards.filter(card => (!request.pageId || card.pageId === request.pageId) && (request.includeTrashed || card.status !== 'trashed'))
       case 'createCard': case 'cloneCard': {
         const original = request.kind === 'cloneCard' ? required(data.cards.find(card => card.id === request.cardId)) : null
+        if (original?.status === 'trashed') throw new Error('Restore a trashed card before cloning')
         const input = original ? { ...original, status: 'draft' as const } : draft(request.draft)
         const card: LearningCard = { ...input, pageId: original?.pageId ?? String(request.pageId), id: original ? crypto.randomUUID() : typeof request.operationId === 'string' ? request.operationId : crypto.randomUUID(), revision: 0, createdAt: Date.now(), updatedAt: Date.now(), schedule: fresh() }
         const existing = data.cards.find(value => value.id === card.id)
@@ -92,7 +93,9 @@ export async function mockLearningCommand(args: Record<string, unknown>, context
       case 'updateCard': {
         const card = required(data.cards.find(card => card.id === request.cardId))
         if (card.revision !== request.revision) throw new Error('Card changed; reload')
-        Object.assign(card, draft(request.draft), { revision: card.revision + 1, updatedAt: Date.now() }); return card
+        const input = draft(request.draft)
+        if (card.status === 'trashed' && (input.status !== 'draft' || ['front', 'back', 'answerMode', 'position', 'properties'].some(key => JSON.stringify(Reflect.get(input, key)) !== JSON.stringify(Reflect.get(card, key))))) throw new Error('Restore a trashed card to Draft before editing')
+        Object.assign(card, input, { revision: card.revision + 1, updatedAt: Date.now() }); return card
       }
       case 'studyStats': return stats(data)
       case 'setDailyGoal': data.goal = Number(request.goal); return stats(data)

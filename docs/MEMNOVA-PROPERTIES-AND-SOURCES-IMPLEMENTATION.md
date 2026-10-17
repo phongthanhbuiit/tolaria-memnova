@@ -7,7 +7,7 @@ Plan: [N00–N17](./MEMNOVA-PROPERTIES-AND-SOURCES-PLAN.md). Starting checkout: 
 | N00 | DONE | Frontend baseline 35/35; four expected failing review probes. Rust baseline rerun passed after cleaning regenerable build artifacts. Schema v2. /tmp/memnova-n00-{frontend,rust,probes}.log |
 | N01 | DONE | 6c0e5fb4 pushed. ADR-0145 defines wire/storage/editor boundaries; docs-only, contract follows the plan. |
 | N02 | Verified, push pending | Three RED regressions, then 38/38 learning tests; metadata arrays/aliases preserved. /tmp/memnova-n02-{red,green,types,codacy}.log. No UI copy, schema, schedule or analytics change. |
-| N03 | TODO | |
+| N03 | Verified, push pending | RED UI/backend probes then 39 learning UI tests and card backend tests passed. Trash restores unchanged content to Draft; clone/edit bypass rejected. Browser fixture matches native. No new copy/schema/events. |
 | N04 | TODO | |
 | N05 | TODO | |
 | N06 | TODO | |
