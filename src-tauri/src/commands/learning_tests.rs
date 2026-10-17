@@ -52,6 +52,7 @@ fn card_commands_round_trip_and_keep_stale_edits_out_of_the_database() {
     store.register_page(&page, "lesson.md", "Lesson").unwrap();
     drop(store);
     let draft = CardDraft {
+        answer_page_id: None,
         front: "Question".into(),
         back: "Answer".into(),
         answer_mode: "inline".into(),

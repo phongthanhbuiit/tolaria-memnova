@@ -6,15 +6,15 @@ Plan: [N00–N17](./MEMNOVA-PROPERTIES-AND-SOURCES-PLAN.md). Starting checkout: 
 |---|---|---|
 | N00 | DONE | Frontend baseline 35/35; four expected failing review probes. Rust baseline rerun passed after cleaning regenerable build artifacts. Schema v2. /tmp/memnova-n00-{frontend,rust,probes}.log |
 | N01 | DONE | 6c0e5fb4 pushed. ADR-0145 defines wire/storage/editor boundaries; docs-only, contract follows the plan. |
-| N02 | Verified, push pending | 23ee018e. Three RED regressions, then 38/38 learning tests; metadata arrays/aliases preserved. /tmp/memnova-n02-{red,green,types,codacy}.log. No UI copy, schema, schedule or analytics change. |
-| N03 | Verified, push pending | a3d052a9. RED UI/backend probes then 39 learning UI tests and card backend tests passed. Trash restores unchanged content to Draft; clone/edit bypass rejected. Browser fixture matches native. No new copy/schema/events. |
-| N04 | Verified, push pending | e84c4422. Catalog reopen/corrupt/symlink/traversal tests and backup suite passed; the full commit hook exposed inherited GIT_AUTHOR/COMMITTER environment in Rust fixtures. A RED workflow regression now protects child-process identity isolation; ID-bound list/verify client tests. Catalog does not claim full verification. /tmp/memnova-n04-* |
-| N05 | Verified, push pending | 72e50383. 3 component tests, 43 learning tests, browser catalog reload test 15.6s; four other learning flows passed separately. Native create/remount/discover/verify/fresh-directory restore passed; integrity ok, 4 cards/5 review rows/2 sessions preserved. 18 locales validated, Lara unavailable/manual translations. |
-| N06 | TODO | |
+| N02 | DONE | 23ee018e. Three RED regressions, then 38/38 learning tests; metadata arrays/aliases preserved. /tmp/memnova-n02-{red,green,types,codacy}.log. No UI copy, schema, schedule or analytics change. |
+| N03 | DONE | a3d052a9. RED UI/backend probes then 39 learning UI tests and card backend tests passed. Trash restores unchanged content to Draft; clone/edit bypass rejected. Browser fixture matches native. No new copy/schema/events. |
+| N04 | DONE | e84c4422. Catalog reopen/corrupt/symlink/traversal tests and backup suite passed; the full commit hook exposed inherited GIT_AUTHOR/COMMITTER environment in Rust fixtures. A RED workflow regression now protects child-process identity isolation; ID-bound list/verify client tests. Catalog does not claim full verification. /tmp/memnova-n04-* |
+| N05 | DONE | 72e50383. 3 component tests, 43 learning tests, browser catalog reload test 15.6s; four other learning flows passed separately. Native create/remount/discover/verify/fresh-directory restore passed; integrity ok, 4 cards/5 review rows/2 sessions preserved. 18 locales validated, Lara unavailable/manual translations. |
+| N06 | Verified, push pending | Schema v3 adds nullable source FK/index; old values/memory preserved. Backup-first v2 upgrade, reopen idempotence, failure rollback, same-Library reference and clone tests passed with the full learning backend module. Frontend/client types pass. /tmp/memnova-n06-* |
 | N07 | TODO | |
 | N08 | TODO | |
 | N09 | TODO | |
-| N10 | Verified, push pending | Six pure value tests cover unknown/falsy metadata, Gregorian dates, lossless conversion, stable references and prototype-key safety. RED/green/type/Codacy logs under /tmp/memnova-n10-*. No runtime/UI/schema change yet. |
+| N10 | DONE | Six pure value tests cover unknown/falsy metadata, Gregorian dates, lossless conversion, stable references and prototype-key safety. RED/green/type/Codacy logs under /tmp/memnova-n10-*. No runtime/UI/schema change yet. |
 | N11 | TODO | |
 | N12 | TODO | |
 | N13 | TODO | |
@@ -24,3 +24,5 @@ Plan: [N00–N17](./MEMNOVA-PROPERTIES-AND-SOURCES-PLAN.md). Starting checkout: 
 | N17 | TODO | |
 
 Evidence logs are outside source under /tmp/memnova-n*. No user Library is a fixture. CodeScene: not run (optional integration unavailable); thresholds unchanged. Initial probe file was removed from the checkout after the red run; the original is retained in the review evidence directory referenced by the plan.
+
+Checkpoint 1 pushed a457ec16 through normal hooks: 4,537 frontend tests, 86.45% frontend lines; configured Rust coverage 86.87%, 1,077 passing unit tests and one integration (3 ignored); 54 smoke cases in 4.8m, total 8m56s. CodeScene unavailable/not run. This is release evidence for N02–N05/N10, not for the upcoming schema/source/property interfaces.

@@ -12,6 +12,7 @@ export interface CardDraft {
   front: string
   back: string
   answerMode: 'inline' | 'page'
+  answerPageId?: string | null
   status: 'draft' | 'active' | 'suspended' | 'trashed'
   position: number
   properties: Record<string, LearningProperty>
@@ -28,7 +29,7 @@ export interface LearningCard extends CardDraft {
 
 export interface LibraryDescriptor {
   libraryId: string
-  schemaVersion: 1 | 2
+  schemaVersion: 1 | 2 | 3
   migrationState?: 'legacy' | 'migrating' | 'ready'
 }
 

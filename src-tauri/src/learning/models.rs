@@ -6,6 +6,8 @@ use serde_json::Value;
 pub struct CardDraft {
     pub front: String,
     pub back: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub answer_page_id: Option<String>,
     pub answer_mode: String,
     pub status: String,
     pub position: u32,
@@ -14,7 +16,8 @@ pub struct CardDraft {
 
 impl CardDraft {
     pub(super) fn validate(&self) -> Result<(), String> {
-        if !["inline", "page"].contains(&self.answer_mode.as_str())
+        if (self.answer_mode == "inline" && self.answer_page_id.is_some())
+            || !["inline", "page"].contains(&self.answer_mode.as_str())
             || !["draft", "active", "suspended", "trashed"].contains(&self.status.as_str())
             || !self.properties.is_object()
         {

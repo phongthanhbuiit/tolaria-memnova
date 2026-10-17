@@ -12,6 +12,7 @@ fn row_card(row: &Row<'_>) -> rusqlite::Result<Card> {
         id: row.get("id")?,
         page_id: row.get("page_id")?,
         draft: CardDraft {
+            answer_page_id: row.get("answer_page_id")?,
             front: row.get("front")?,
             back: row.get("back")?,
             answer_mode: row.get("answer_mode")?,
@@ -63,9 +64,30 @@ pub(super) fn insert_card(
     schedule: &Schedule,
 ) -> Result<(), String> {
     draft.validate()?;
+    validate_answer_source(transaction, draft)?;
     let now = chrono::Utc::now().timestamp_millis();
-    transaction.execute("INSERT INTO cards(id,page_id,front,back,answer_mode,status,position,properties_json,created_at,updated_at) VALUES(?1,?2,?3,?4,?5,?6,?7,?8,?9,?9)", params![id,page_id,draft.front,draft.back,draft.answer_mode,draft.status,draft.position,draft.properties.to_string(),now]).map_err(|e| e.to_string())?;
+    transaction.execute("INSERT INTO cards(id,page_id,front,back,answer_mode,status,position,properties_json,created_at,updated_at,answer_page_id) VALUES(?1,?2,?3,?4,?5,?6,?7,?8,?9,?9,?10)", params![id,page_id,draft.front,draft.back,draft.answer_mode,draft.status,draft.position,draft.properties.to_string(),now,draft.answer_page_id]).map_err(|e| e.to_string())?;
     write_schedule(transaction, id, schedule)
+}
+
+fn validate_answer_source(
+    connection: &rusqlite::Connection,
+    draft: &CardDraft,
+) -> Result<(), String> {
+    if let Some(id) = &draft.answer_page_id {
+        uuid::Uuid::parse_str(id).map_err(|_| "Invalid answer page identity")?;
+        let exists: bool = connection
+            .query_row(
+                "SELECT EXISTS(SELECT 1 FROM pages WHERE id=?1)",
+                [id],
+                |row| row.get(0),
+            )
+            .map_err(|error| error.to_string())?;
+        if !exists {
+            return Err("Answer source is not registered in this Library".into());
+        }
+    }
+    Ok(())
 }
 
 impl Store {
@@ -134,6 +156,7 @@ impl Store {
     ) -> Result<Card, String> {
         self.ensure_card_writes_allowed()?;
         draft.validate()?;
+        validate_answer_source(&self.conn, &draft)?;
         let current = self.get_card(id)?;
         if current.status == "trashed" {
             let mut restored = current.draft.clone();
@@ -142,7 +165,7 @@ impl Store {
                 return Err("Restore a trashed card to Draft before editing".into());
             }
         }
-        let changed = self.conn.execute("UPDATE cards SET front=?1,back=?2,answer_mode=?3,status=?4,position=?5,properties_json=?6,updated_at=?7,revision=revision+1 WHERE id=?8 AND revision=?9", params![draft.front,draft.back,draft.answer_mode,draft.status,draft.position,draft.properties.to_string(),chrono::Utc::now().timestamp_millis(),id,revision]).map_err(|e| e.to_string())?;
+        let changed = self.conn.execute("UPDATE cards SET front=?1,back=?2,answer_mode=?3,status=?4,position=?5,properties_json=?6,updated_at=?7,answer_page_id=?10,revision=revision+1 WHERE id=?8 AND revision=?9", params![draft.front,draft.back,draft.answer_mode,draft.status,draft.position,draft.properties.to_string(),chrono::Utc::now().timestamp_millis(),id,revision,draft.answer_page_id]).map_err(|e| e.to_string())?;
         if changed != 1 {
             return Err("Card changed in another window; reload before saving".into());
         }

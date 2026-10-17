@@ -22,8 +22,8 @@ describe('learning IPC client', () => {
     await expect(LearningClient.connect('/library')).rejects.toThrow('Unsupported learning database')
   })
 
-  it('connects to the additive schema-v2 upgrade', async () => {
-    vi.mocked(invoke).mockResolvedValue({ libraryId: 'library-1', schemaVersion: 2, migrationState: 'legacy' })
+  it.each([2, 3])('connects to additive schema version %s', async schemaVersion => {
+    vi.mocked(invoke).mockResolvedValue({ libraryId: 'library-1', schemaVersion, migrationState: 'legacy' })
     await expect(LearningClient.connect('/library')).resolves.toMatchObject({ libraryId: 'library-1' })
   })
   it('propagates persistence failures to the editing UI', async () => {

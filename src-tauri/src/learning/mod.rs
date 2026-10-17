@@ -26,7 +26,7 @@ mod metadata_tests;
 
 mod storage_metadata;
 pub use storage_metadata::MigrationState;
-pub const SCHEMA_VERSION: u32 = 2;
+pub const SCHEMA_VERSION: u32 = 3;
 #[cfg(test)]
 mod migration_tests;
 mod page_identity;
@@ -74,3 +74,6 @@ pub use pages::LearningPage;
 pub mod page_content;
 mod study_stats;
 pub use study_stats::StudyStats;
+
+#[cfg(test)]
+mod source_contract_tests;

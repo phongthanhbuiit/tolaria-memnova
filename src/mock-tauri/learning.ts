@@ -60,7 +60,7 @@ export async function mockLearningCommand(args: Record<string, unknown>, context
   let changed = !['describe', 'migrationStatus', 'listPages', 'listCards', 'studyStats', 'syncPages', 'listBackups', 'verifyBackup'].includes(String(request.kind))
   const call = async (): Promise<unknown> => {
     switch (request.kind) {
-      case 'describe': return { libraryId: data.id, schemaVersion: 2, migrationState: 'ready' }
+      case 'describe': return { libraryId: data.id, schemaVersion: 3, migrationState: 'ready' }
       case 'migrationStatus': return { state: 'ready', libraryId: data.id, backupId: null, totalPages: data.pages.length, importedPages: data.pages.length, totalCards: 0, importedCards: 0, importedReviews: 0 }
       case 'listPages': return data.pages
       case 'syncPages': {
@@ -94,7 +94,7 @@ export async function mockLearningCommand(args: Record<string, unknown>, context
         const card = required(data.cards.find(card => card.id === request.cardId))
         if (card.revision !== request.revision) throw new Error('Card changed; reload')
         const input = draft(request.draft)
-        if (card.status === 'trashed' && (input.status !== 'draft' || ['front', 'back', 'answerMode', 'position', 'properties'].some(key => JSON.stringify(Reflect.get(input, key)) !== JSON.stringify(Reflect.get(card, key))))) throw new Error('Restore a trashed card to Draft before editing')
+        if (card.status === 'trashed' && (input.status !== 'draft' || ['front', 'back', 'answerMode', 'answerPageId', 'position', 'properties'].some(key => JSON.stringify(Reflect.get(input, key) ?? null) !== JSON.stringify(Reflect.get(card, key) ?? null)))) throw new Error('Restore a trashed card to Draft before editing')
         Object.assign(card, input, { revision: card.revision + 1, updatedAt: Date.now() }); return card
       }
       case 'listBackups': return (data.backups ?? []).map(backup => ({ id: backup.descriptor.id, descriptor: backup.descriptor, error: null }))

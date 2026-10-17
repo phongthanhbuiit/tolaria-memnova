@@ -36,6 +36,15 @@ impl Store {
             "PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL;",
         )
         .map_err(|e| e.to_string())?;
+        if version > 0 && version < super::SCHEMA_VERSION {
+            let previous = Self {
+                conn,
+                library_id: library_id.clone(),
+                root: root.clone(),
+            };
+            previous.create_backup()?;
+            conn = previous.conn;
+        }
         if version < super::SCHEMA_VERSION {
             super::storage_metadata::initialize_schema(&mut conn, &library_id)?;
         }

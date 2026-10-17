@@ -1196,3 +1196,7 @@ Startup housekeeping resolves only the explicitly selected Library from persiste
 `useLearningStudy` owns a distinct runtime for each Library visit, including A → B → A. Async completions only update their owning visit. Pause/skip share the mutation lock with grading; uncertain rating requests retain their exact replay payload. Successful writes and uncertain Undo outcomes retain a pending refresh requirement until the Library statistics refresh succeeds. A session reload reconciles both durable session state and committed totals.
 
 `CardForm` owns the last persisted card revision and draft identity separately from the visible form. A failed list refresh after a successful save retries only the refresh unless the user edits again, in which case the next update uses the returned revision. This prevents duplicate creates and stale-revision retries without changing storage or scheduling. Its scrolling body and fixed actions reuse the app's Dialog, Input, Select, Switch and Button components.
+
+### Linked-answer storage
+
+Schema v3 adds cards.answer_page_id as an optional same-Library page FK. cards.page_id remains the owner/deck locator. Null page source preserves the previous whole-owner-page behavior; inline answers have no source ID. Existing databases receive a verified Library backup before additive transactional upgrade. Card edits and clones retain source identity without altering memory. ADR-0145 defines the independent property/source contracts.

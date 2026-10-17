@@ -13,6 +13,7 @@ fn schema_v1_upgrade_preserves_existing_cards_schedules_and_library_identity() {
         .create_card(
             &page,
             CardDraft {
+                answer_page_id: None,
                 front: "Q".into(),
                 back: "A".into(),
                 answer_mode: "inline".into(),
@@ -24,7 +25,7 @@ fn schema_v1_upgrade_preserves_existing_cards_schedules_and_library_identity() {
         .unwrap();
     store
         .conn
-        .execute_batch("DROP TABLE library_metadata; PRAGMA user_version=1;")
+        .execute_batch("DROP INDEX cards_answer_page; ALTER TABLE cards DROP COLUMN answer_page_id; DROP TABLE library_metadata; PRAGMA user_version=1;")
         .unwrap();
     drop(store);
     let upgraded = Store::open(dir.path()).unwrap();
@@ -39,7 +40,7 @@ fn schema_v1_upgrade_preserves_existing_cards_schedules_and_library_identity() {
             .conn
             .query_row("PRAGMA user_version", [], |row| row.get::<_, u32>(0))
             .unwrap(),
-        2
+        super::SCHEMA_VERSION
     );
     assert_eq!(
         upgraded.migration_state().unwrap(),
