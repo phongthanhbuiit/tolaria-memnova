@@ -16,15 +16,15 @@ pub(super) fn preserve_legacy_numbers(incoming: &mut Value, original: &Value) {
                 preserve_legacy_numbers(value, old);
             }
         }
-        (next, Value::Number(old)) if old.is_i64() || old.is_u64() => {
-            if old
-                .as_f64()
-                .is_some_and(|number| number.abs() > 9_007_199_254_740_991.0)
+        (next, Value::Number(old))
+            if (old.is_i64() || old.is_u64())
+                && old
+                    .as_f64()
+                    .is_some_and(|number| number.abs() > 9_007_199_254_740_991.0)
                 && next.is_number()
-                && next.as_f64() == old.as_f64()
-            {
-                *next = Value::Number(old.clone());
-            }
+                && next.as_f64() == old.as_f64() =>
+        {
+            *next = Value::Number(old.clone());
         }
         _ => {}
     }
