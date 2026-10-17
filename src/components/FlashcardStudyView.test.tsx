@@ -1,5 +1,5 @@
 import React from 'react'
-import { act, fireEvent, render, screen } from '@testing-library/react'
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { FlashcardStudyView } from './FlashcardStudyView'
 import type { VaultEntry } from '../types'
@@ -119,6 +119,35 @@ describe('FlashcardStudyView', () => {
         src: '',
       }
     }) as unknown as typeof Audio
+  })
+
+  it('keeps the answer available for retry when saving a rating fails', async () => {
+    const onRate = vi.fn().mockRejectedValue(new Error('Disk full'))
+    await act(async () => { render(<FlashcardStudyView entries={mockEntries} onRate={onRate} onClose={vi.fn()} />) })
+    fireEvent.click(screen.getByTestId('flashcard-show-answer'))
+    fireEvent.click(screen.getByTestId('flashcard-rate-3'))
+    expect(await screen.findByRole('alert')).toHaveTextContent('Disk full')
+    expect(screen.getByTestId('flashcard-rate-3')).toBeEnabled()
+    expect(onRate).toHaveBeenCalledTimes(1)
+  })
+
+  it('waits for saving and does not skip the next card when the due index refreshes', async () => {
+    let resolveSave!: () => void
+    const onRate = vi.fn<(entry: VaultEntry, rating: number, durationMs?: number) => Promise<void>>(() => new Promise<void>(resolve => { resolveSave = resolve }))
+    const next = { ...mockEntries[0]!, path: '/vault/next.md', title: 'Next card' }
+    const view = await act(async () => render(<FlashcardStudyView entries={[...mockEntries, next]} onRate={onRate} onClose={vi.fn()} />))
+    const { rerender } = view
+    fireEvent.click(screen.getByTestId('flashcard-show-answer'))
+    fireEvent.click(screen.getByTestId('flashcard-rate-3'))
+    fireEvent.keyDown(window, { key: '3' })
+    expect(onRate).toHaveBeenCalledTimes(1)
+    expect(screen.getByTestId('flashcard-rate-3')).toBeDisabled()
+    rerender(<FlashcardStudyView entries={[next]} onRate={onRate} onClose={vi.fn()} />)
+    await act(async () => resolveSave())
+    await waitFor(() => expect(screen.getByTestId('flashcard-show-answer')).toBeInTheDocument())
+    fireEvent.click(screen.getByTestId('flashcard-show-answer'))
+    fireEvent.click(screen.getByTestId('flashcard-rate-3'))
+    expect(onRate.mock.calls[1]?.[0]).toMatchObject({ path: next.path })
   })
 
   it('renders front face with vocabulary badges (part_of_speech & level)', async () => {

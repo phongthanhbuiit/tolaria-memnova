@@ -137,7 +137,10 @@ import {
 import './App.css'
 import { useFlashcardSession } from './hooks/useFlashcardSession'
 import { FlashcardStudyView } from './components/FlashcardStudyView'
-import { getDueReviewCount, isFSRSEnabled, getFSRSCard, collectDeckMembers, isFSRSEntryDue } from './lib/fsrsVaultEntry'
+import { getDueReviewCount, isFSRSEnabled, getFSRSCard, collectDeckMembers } from './lib/fsrsVaultEntry'
+import { persistLegacySchedule } from './lib/legacySchedule'
+import { contentToEntryPatch } from './hooks/frontmatterOps'
+import { cacheNoteContent } from './hooks/noteContentCache'
 import { useStats } from './hooks/useStats'
 import { HomePage } from './components/HomePage'
 import { DecksPage } from './components/DecksPage'
@@ -1404,7 +1407,14 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
   // when referenced in the onStartReview prop.
   const flashcardSession = useFlashcardSession({
     entries: visibleEntries,
-    onUpdateFrontmatter: notes.handleUpdateFrontmatter,
+    onPersistSchedule: async (path, patch) => {
+      await flushEditorStateBeforeAction(path)
+      markRecentVaultWrite(path)
+      const content = await persistLegacySchedule(path, patch)
+      cacheNoteContent(path, content)
+      notes.updateTabContent(path, content)
+      vault.updateEntry(path, contentToEntryPatch(content))
+    },
     onRecordReview: statsManager.recordReview,
   })
 
@@ -1447,14 +1457,8 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
   const handleStartDeckSession = useCallback(() => {
     const activeEntry = activeTab?.entry
     if (!activeEntry) return
-    const members = collectDeckMembers(activeEntry, visibleEntries)
-    const hasDue = members.some((m) => isFSRSEntryDue(m))
-    if (hasDue) {
-      flashcardSession.startSession(activeEntry)
-    } else {
-      flashcardSession.startSession()
-    }
-  }, [activeTab?.entry, visibleEntries, flashcardSession])
+    flashcardSession.startSession(activeEntry)
+  }, [activeTab?.entry, flashcardSession])
 
   // Update the ref after each render so handleSetSelection (empty-deps useCallback)
   // always calls the latest startSession. Updating a ref inside useEffect is allowed.
@@ -1794,6 +1798,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
         {/* FSRS Study Session overlay */}
         {flashcardSession.isActive && (
           <FlashcardStudyView
+            locale={appLocale}
             entries={flashcardSession.dueEntries}
             deckName={flashcardSession.deckRoot?.title ?? undefined}
             onRate={flashcardSession.handleRate}

@@ -129,6 +129,15 @@ function knownFrontmatterUpdates(value: FrontmatterValue | undefined): Record<Fr
     _list_properties_display: { listPropertiesDisplay: arr },
     // FSRS: optimistic toggle — mirrors the Rust struct field mapping
     _fsrs_enabled: { fsrsEnabled: Boolean(value) },
+    _fsrs_state: { fsrsState: str ?? undefined },
+    _fsrs_due: { fsrsDue: str ?? undefined },
+    _fsrs_stability: { fsrsStability: frontmatterNumber(value) ?? undefined },
+    _fsrs_difficulty: { fsrsDifficulty: frontmatterNumber(value) ?? undefined },
+    _fsrs_elapsed_days: { fsrsElapsedDays: frontmatterNumber(value) ?? undefined },
+    _fsrs_scheduled_days: { fsrsScheduledDays: frontmatterNumber(value) ?? undefined },
+    _fsrs_reps: { fsrsReps: frontmatterNumber(value) ?? undefined },
+    _fsrs_lapses: { fsrsLapses: frontmatterNumber(value) ?? undefined },
+    _fsrs_last_review: { fsrsLastReview: str ?? undefined },
   }
 }
 

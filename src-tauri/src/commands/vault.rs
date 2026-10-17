@@ -1,6 +1,9 @@
 mod boundary;
 mod file_cmds;
 mod frontmatter_cmds;
+mod fsrs_patch;
+#[cfg(test)]
+mod fsrs_patch_tests;
 mod lifecycle_cmds;
 mod rename_cmds;
 mod scan_cmds;
@@ -9,6 +12,7 @@ mod view_cmds;
 pub(super) use boundary::VaultBoundary;
 pub use file_cmds::*;
 pub use frontmatter_cmds::*;
+pub use fsrs_patch::*;
 pub use lifecycle_cmds::*;
 pub use rename_cmds::*;
 pub use scan_cmds::*;

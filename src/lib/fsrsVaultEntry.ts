@@ -94,6 +94,7 @@ export function getFSRSCard(entry: VaultEntry): FSRSCard {
  */
 export function isFSRSEntryDue(entry: VaultEntry, now: Date = new Date()): boolean {
   if (!isFSRSEnabled(entry)) return false
+  if (!entry.fsrsDue) return true
   return isFSRSCardDue(getFSRSCard(entry), now)
 }
 
@@ -136,9 +137,8 @@ export function getDueReviewCount(
  * Build a frontmatter patch object from an FSRSScheduleResult.
  * Pass this to the `update_frontmatter` Tauri command.
  *
- * Note: Each field must be patched individually via Tolaria's
- * `update_frontmatter` command (one key-value pair per call).
- * This helper returns all the fields to update as a map.
+ * Persist this map with one `update_fsrs_schedule` command, never parallel
+ * single-property writes to the same Markdown file.
  */
 export function getFSRSFrontmatterPatch(
   result: FSRSScheduleResult,

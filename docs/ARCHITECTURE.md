@@ -1,5 +1,11 @@
 # Architecture
 
+## Memnova implementation status
+
+The staged Memnova learning-storage transition is tracked in [MEMNOVA-IMPLEMENTATION.md](./MEMNOVA-IMPLEMENTATION.md). Until verified SQLite cutover, legacy FSRS fields remain in Markdown. `update_fsrs_schedule` validates the active library boundary and allowed scheduling keys, serializes schedule writes, and persists a complete patch with one synced temporary-file replacement. The frontend flushes pending lesson edits before calling it and updates the cache, tab and vault entry only after persistence succeeds. Study progress advances and gamification records only after the promise resolves; a failed write leaves the answer open for retry.
+
+Legacy study queues take a session snapshot so an index refresh cannot shift the next card under a numeric cursor. Enabling an already enabled note preserves its schedule. A scoped deck includes its root and descendants and never falls back to unrelated cards. The due clock refreshes while the app remains open. These are compatibility fixes, not a scheduler algorithm change.
+
 Tolaria is a personal knowledge and life management desktop app. It reads a vault of markdown files with YAML frontmatter and presents them in a four-panel UI inspired by Bear Notes.
 
 ## Design Principles

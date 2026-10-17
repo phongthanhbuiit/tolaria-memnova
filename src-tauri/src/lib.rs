@@ -481,6 +481,7 @@ macro_rules! app_invoke_handler {
             commands::create_note_content,
             commands::save_note_content,
             commands::update_frontmatter,
+            commands::update_fsrs_schedule,
             commands::delete_frontmatter_property,
             commands::rename_note,
             commands::rename_note_filename,

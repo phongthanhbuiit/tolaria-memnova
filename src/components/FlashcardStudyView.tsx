@@ -42,6 +42,7 @@ import { resolveImageUrls } from '../utils/vaultImages'
 import { preProcessWikilinks, injectWikilinks } from '../utils/wikilinks'
 import { preProcessMathMarkdown, injectMathInBlocks } from '../utils/mathMarkdown'
 import { vaultAttachmentAssetUrl } from '../utils/vaultAttachments'
+import { translate, type AppLocale } from '../lib/i18n'
 
 // ---------------------------------------------------------------------------
 // Types
@@ -51,13 +52,14 @@ export interface FlashcardStudyViewProps {
   /** Ordered queue of entries to study */
   entries: VaultEntry[]
   /** Called when user rates the current card */
-  onRate: (entry: VaultEntry, rating: FSRSRating, durationMs?: number) => void
+  onRate: (entry: VaultEntry, rating: FSRSRating, durationMs?: number) => void | Promise<void>
   /** Called when session ends (X button, Escape, or queue exhausted) */
   onClose: () => void
   /** Optional deck name to display in the session header */
   deckName?: string
   /** Called when user navigates to a related note */
   onNavigate?: (target: string) => void
+  locale?: AppLocale
 }
 
 type RatingLabel = { label: string; color: string; key: string; xp: number }
@@ -256,10 +258,16 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
   onClose,
   deckName,
   onNavigate,
+  locale = 'en',
 }: FlashcardStudyViewProps) {
+  // Vault re-indexing can remove a just-rated entry. This session owns a stable
+  // snapshot so advancing cannot skip the card that moved into its old slot.
+  const [queue] = useState(() => [...entries])
   const [queueIndex, setQueueIndex] = useState(0)
   const [flipped, setFlipped] = useState(false)
   const [isRating, setIsRating] = useState(false)
+  const ratingLock = useRef(false)
+  const [saveError, setSaveError] = useState<string | null>(null)
   const cardStartTimeRef = useRef(Date.now())
   const [xpFloats, setXpFloats] = useState<{ id: number; x: number; y: number; xp: number }[]>([])
   const xpFloatIdRef = useRef(0)
@@ -284,8 +292,8 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
 
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const isComplete = queueIndex >= entries.length
-  const entry = !isComplete ? entries[queueIndex] : null
+  const isComplete = queueIndex >= queue.length
+  const entry = !isComplete ? queue[queueIndex] : null
   const card = entry ? getFSRSCard(entry) : null
 
   // Load full note content from vault whenever the card changes
@@ -296,11 +304,12 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
     const cached = getCachedNoteContentEntry(entry.path)
     if (cached?.value) { setCardContent(cached.value); return }
 
+    let active = true
     invoke<string>('get_note_content', { path: entry.path })
-      .then((c) => setCardContent(c))
-      .catch(() => setCardContent(entry.snippet || ''))
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [entry?.path])
+      .then((c) => { if (active) setCardContent(c) })
+      .catch(() => { if (active) setCardContent(entry.snippet || '') })
+    return () => { active = false }
+  }, [entry])
 
   // Split the loaded content into front / back faces
   const { front, back, hasBack } = useMemo(() => {
@@ -369,6 +378,7 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
     if (flipped && audioUrl) {
       handlePlayAudio()
     }
+    return () => { audioRef.current?.pause() }
   }, [flipped, audioUrl, handlePlayAudio])
 
   // Next-interval previews for the rating buttons
@@ -380,30 +390,39 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
   const handleFlip = useCallback(() => setFlipped(true), [])
 
   const handleRate = useCallback(async (rating: FSRSRating, event?: React.MouseEvent) => {
-    if (!entry || isRating) return
+    if (!entry || ratingLock.current) return
+    ratingLock.current = true
     setIsRating(true)
+    setSaveError(null)
     const duration = Date.now() - cardStartTimeRef.current
-    onRate(entry, rating, duration)
+    try {
+      await onRate(entry, rating, duration)
 
-    // XP float animation
-    const xp = RATING_CONFIG[rating].xp
-    if (xp > 0 && event) {
-      const id = xpFloatIdRef.current++
-      const { clientX, clientY } = event
-      setXpFloats((prev) => [...prev, { id, x: clientX, y: clientY, xp }])
-      setTimeout(() => setXpFloats((prev) => prev.filter((f) => f.id !== id)), 900)
-    }
+      // XP float animation
+      const xp = RATING_CONFIG[rating].xp
+      if (xp > 0 && event) {
+        const id = xpFloatIdRef.current++
+        const { clientX, clientY } = event
+        setXpFloats((prev) => [...prev, { id, x: clientX, y: clientY, xp }])
+        setTimeout(() => setXpFloats((prev) => prev.filter((f) => f.id !== id)), 900)
+      }
 
-    setTimeout(() => {
       setQueueIndex((i) => i + 1)
       setFlipped(false)
+    } catch (error) {
+      setSaveError(translate(locale, 'save.error.failed', { error: String(error instanceof Error ? error.message : error) }))
+    } finally {
+      ratingLock.current = false
       setIsRating(false)
-    }, 150)
-  }, [entry, isRating, onRate])
+    }
+  }, [entry, onRate, locale])
 
   // Keyboard shortcuts: Space/Enter = flip; 1-4 = rate after flip; Esc = close
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
+      if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey) return
+      if (e.target instanceof Element && e.target.closest('input, textarea, select, button, [contenteditable="true"], [role="combobox"]')) return
+      if (lightboxImg) return
       if (isComplete) { if (e.key === 'Escape') onClose(); return }
       switch (e.key) {
         case ' ':
@@ -421,7 +440,7 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [flipped, isComplete, handleFlip, handleRate, onClose])
+  }, [flipped, isComplete, handleFlip, handleRate, onClose, lightboxImg])
 
   const formatInterval = (days: number) => {
     if (days === 0) return '<1d'
@@ -453,7 +472,7 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
           <X size={18} />
         </Button>
         <div className="flex-1 min-w-0">
-          <ProgressBar current={queueIndex} total={entries.length} />
+          <ProgressBar current={queueIndex} total={queue.length} />
           {deckName && (
             <p className="mt-0.5 text-[10px] text-muted-foreground truncate flex items-center gap-1">
               <Books size={10} />
@@ -462,7 +481,7 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
           )}
         </div>
         <span className="text-xs text-muted-foreground shrink-0">
-          {entries.length - queueIndex} remaining
+          {queue.length - queueIndex} remaining
         </span>
       </div>
 
@@ -716,6 +735,7 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
                   </div>
                 )}
 
+                {saveError && <p role="alert" className="text-sm text-destructive">{saveError}</p>}
                 {/* Rating buttons */}
                 <div className="grid grid-cols-4 gap-3" role="group" aria-label="Rate your recall">
                   {([1, 2, 3, 4] as FSRSRating[]).map((r) => {
