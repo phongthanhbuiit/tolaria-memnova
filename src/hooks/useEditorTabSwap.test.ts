@@ -144,6 +144,27 @@ describe('useEditorTabSwap raw mode sync', () => {
     vi.restoreAllMocks()
   })
 
+  it('drops a deferred tab swap after the editor unmounts', async () => {
+    const tabA = makeTab('a.md', 'Note A')
+    const tabB = makeTab('b.md', 'Note B')
+    const { mockEditor, rerender, unmount } = await createSwapHarness({
+      initialProps: { tabs: [tabA], activeTabPath: 'a.md', rawMode: false },
+    })
+    mockEditor.replaceBlocks.mockClear()
+    const listener = vi.fn()
+    window.addEventListener('laputa:editor-tab-swapped', listener)
+    try {
+      rerender({ tabs: [tabA, tabB], activeTabPath: 'b.md', rawMode: false })
+      unmount()
+      await flushEditorTick()
+      await flushEditorTick()
+      expect(mockEditor.replaceBlocks).not.toHaveBeenCalled()
+      expect(listener).not.toHaveBeenCalled()
+    } finally {
+      window.removeEventListener('laputa:editor-tab-swapped', listener)
+    }
+  })
+
   it('swaps in the new note when the path updates before tabs catch up', async () => {
     const tabA = makeTab('a.md', 'Note A')
     const tabB = makeTab('b.md', 'March 2024')
