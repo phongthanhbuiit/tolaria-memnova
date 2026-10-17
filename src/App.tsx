@@ -1424,7 +1424,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
     const byPath = new Map(learningEntries.map(entry => [entry.path, entry]))
     return notes.tabs.map(tab => byPath.has(tab.entry.path) ? { ...tab, entry: byPath.get(tab.entry.path) ?? tab.entry } : tab)
   }, [notes.tabs, learningEntries])
-  const learningWorkspace = { ...learning, study: learningStudy, requestStudy, scopeForPage, flush: flushLearning, openLibrary: openLearningLibrary }
+  const learningWorkspace = { ...learning, entries: learningEntries, study: learningStudy, requestStudy, scopeForPage, flush: flushLearning, openLibrary: openLearningLibrary }
   const learningSourceIndex = useMemo(() => visibleEntries.map(entry => `${entry.path}:${entry.title}`).join('\n'), [visibleEntries])
   useEffect(() => {
     if (learningPhase !== 'ready') return

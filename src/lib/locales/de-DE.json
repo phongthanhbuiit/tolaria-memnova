@@ -839,5 +839,15 @@
   "welcome.template": "Beispielbibliothek herunterladen",
   "welcome.templateHelp": "Optionale Tolaria-Vorlage. Internet erforderlich.",
   "welcome.downloading": "Vorlage wird heruntergeladen…",
-  "welcome.creating": "Bibliothek wird erstellt…"
+  "welcome.creating": "Bibliothek wird erstellt…",
+  "learning.cardType": "Kartentyp",
+  "learning.basic": "Einfach",
+  "learning.vocabulary": "Vokabeln",
+  "learning.partOfSpeech": "Wortart",
+  "learning.level": "Wortschatzniveau",
+  "learning.synonyms": "Synonyme",
+  "learning.antonyms": "Antonyme",
+  "learning.prefixes": "Präfixe",
+  "learning.suffixes": "Suffixe",
+  "learning.addRelated": "Verknüpfte Lektion hinzufügen…"
 }

@@ -839,5 +839,15 @@
   "welcome.template": "Télécharger une bibliothèque exemple",
   "welcome.templateHelp": "Modèle Tolaria facultatif. Connexion Internet requise.",
   "welcome.downloading": "Téléchargement du modèle…",
-  "welcome.creating": "Création de la bibliothèque…"
+  "welcome.creating": "Création de la bibliothèque…",
+  "learning.cardType": "Type de carte",
+  "learning.basic": "Simple",
+  "learning.vocabulary": "Vocabulaire",
+  "learning.partOfSpeech": "Classe grammaticale",
+  "learning.level": "Niveau de vocabulaire",
+  "learning.synonyms": "Synonymes",
+  "learning.antonyms": "Antonymes",
+  "learning.prefixes": "Préfixes",
+  "learning.suffixes": "Suffixes",
+  "learning.addRelated": "Ajouter une leçon associée…"
 }

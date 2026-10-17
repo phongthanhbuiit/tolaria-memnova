@@ -839,5 +839,15 @@
   "welcome.template": "Spampavac pryklad biblijateki",
   "welcome.templateHelp": "Njeabavjazkovy šablon Tolaria. Patrebny internet.",
   "welcome.downloading": "Spampoŭvannje šablonu…",
-  "welcome.creating": "Stvarennje biblijateki…"
+  "welcome.creating": "Stvarennje biblijateki…",
+  "learning.cardType": "Typ kartki",
+  "learning.basic": "Zvyčajnaja",
+  "learning.vocabulary": "Sloŭnik",
+  "learning.partOfSpeech": "Čascina movy",
+  "learning.level": "Uzrovień leksiki",
+  "learning.synonyms": "Sinonimy",
+  "learning.antonyms": "Antonimy",
+  "learning.prefixes": "Prystaŭki",
+  "learning.suffixes": "Sufiksy",
+  "learning.addRelated": "Dadać zviazany ŭrok…"
 }

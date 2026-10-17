@@ -839,5 +839,15 @@
   "welcome.template": "下載範例資料庫",
   "welcome.templateHelp": "可選的 Tolaria 範本，需要網路連線。",
   "welcome.downloading": "正在下載範本…",
-  "welcome.creating": "正在建立資料庫…"
+  "welcome.creating": "正在建立資料庫…",
+  "learning.cardType": "卡片類型",
+  "learning.basic": "基礎",
+  "learning.vocabulary": "詞彙",
+  "learning.partOfSpeech": "詞性",
+  "learning.level": "詞彙等級",
+  "learning.synonyms": "同義詞",
+  "learning.antonyms": "反義詞",
+  "learning.prefixes": "前綴",
+  "learning.suffixes": "後綴",
+  "learning.addRelated": "新增相關課程…"
 }

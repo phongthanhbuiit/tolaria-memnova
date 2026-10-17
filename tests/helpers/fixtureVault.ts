@@ -293,7 +293,10 @@ async function installFixtureVaultInitScript({ page, vaultPath, isGitRepo, folde
       }, null, 2),
       reinit_telemetry: () => null,
       update_menu_state: () => null,
+      // This harness represents an existing installation with optional integrations enabled.
       get_settings: () => ({
+        git_enabled: true,
+        ai_features_enabled: true,
         auto_pull_interval_minutes: 5,
         telemetry_consent: false,
         crash_reporting_enabled: null,

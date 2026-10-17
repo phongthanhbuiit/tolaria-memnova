@@ -839,5 +839,15 @@
   "welcome.template": "下载示例资料库",
   "welcome.templateHelp": "可选的 Tolaria 模板，需要联网。",
   "welcome.downloading": "正在下载模板…",
-  "welcome.creating": "正在创建资料库…"
+  "welcome.creating": "正在创建资料库…",
+  "learning.cardType": "卡片类型",
+  "learning.basic": "基础",
+  "learning.vocabulary": "词汇",
+  "learning.partOfSpeech": "词性",
+  "learning.level": "词汇等级",
+  "learning.synonyms": "近义词",
+  "learning.antonyms": "反义词",
+  "learning.prefixes": "前缀",
+  "learning.suffixes": "后缀",
+  "learning.addRelated": "添加相关课程…"
 }

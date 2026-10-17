@@ -839,5 +839,15 @@
   "welcome.template": "Unduh pustaka contoh",
   "welcome.templateHelp": "Templat Tolaria opsional. Memerlukan internet.",
   "welcome.downloading": "Mengunduh templat…",
-  "welcome.creating": "Membuat pustaka…"
+  "welcome.creating": "Membuat pustaka…",
+  "learning.cardType": "Jenis kartu",
+  "learning.basic": "Dasar",
+  "learning.vocabulary": "Kosakata",
+  "learning.partOfSpeech": "Kelas kata",
+  "learning.level": "Tingkat kosakata",
+  "learning.synonyms": "Sinonim",
+  "learning.antonyms": "Antonim",
+  "learning.prefixes": "Awalan",
+  "learning.suffixes": "Akhiran",
+  "learning.addRelated": "Tambahkan pelajaran terkait…"
 }

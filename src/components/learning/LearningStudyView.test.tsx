@@ -42,3 +42,15 @@ it('uses one clock for preview outcomes and interval labels, without rounding a 
     expect(screen.getByRole('button', { name: /^Again/ })).toHaveTextContent('in 1 min.')
   } finally { vi.unstubAllGlobals() }
 })
+
+it('shows vocabulary context with the question and keeps related words behind the answer', () => {
+  const study = fixture()
+  study.session!.current!.card.properties = { card_type: 'vocabulary', part_of_speech: 'noun', level: 'B2', synonyms: '[[Related term]]' }
+  render(<LearningStudyView study={study} root="/library" locale="en" />)
+  expect(screen.getByText('noun')).toBeInTheDocument()
+  expect(screen.getByText('B2')).toBeInTheDocument()
+  expect(screen.queryByText('Related term')).not.toBeInTheDocument()
+  fireEvent.click(screen.getByRole('button', { name: 'Show answer' }))
+  expect(screen.getByText('Synonyms')).toBeInTheDocument()
+  expect(screen.getByText('Related term')).toBeInTheDocument()
+})

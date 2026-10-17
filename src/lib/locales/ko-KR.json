@@ -839,5 +839,15 @@
   "welcome.template": "예제 라이브러리 다운로드",
   "welcome.templateHelp": "선택 사항인 Tolaria 템플릿입니다. 인터넷이 필요합니다.",
   "welcome.downloading": "템플릿 다운로드 중…",
-  "welcome.creating": "라이브러리 만드는 중…"
+  "welcome.creating": "라이브러리 만드는 중…",
+  "learning.cardType": "카드 유형",
+  "learning.basic": "기본",
+  "learning.vocabulary": "어휘",
+  "learning.partOfSpeech": "품사",
+  "learning.level": "어휘 수준",
+  "learning.synonyms": "동의어",
+  "learning.antonyms": "반의어",
+  "learning.prefixes": "접두사",
+  "learning.suffixes": "접미사",
+  "learning.addRelated": "관련 학습 자료 추가…"
 }

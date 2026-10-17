@@ -839,5 +839,15 @@
   "welcome.template": "Transferir biblioteca de exemplo",
   "welcome.templateHelp": "Modelo opcional do Tolaria. Requer Internet.",
   "welcome.downloading": "A transferir modelo…",
-  "welcome.creating": "A criar biblioteca…"
+  "welcome.creating": "A criar biblioteca…",
+  "learning.cardType": "Tipo de cartão",
+  "learning.basic": "Básico",
+  "learning.vocabulary": "Vocabulário",
+  "learning.partOfSpeech": "Classe gramatical",
+  "learning.level": "Nível de vocabulário",
+  "learning.synonyms": "Sinónimos",
+  "learning.antonyms": "Antónimos",
+  "learning.prefixes": "Prefixos",
+  "learning.suffixes": "Sufixos",
+  "learning.addRelated": "Adicionar lição relacionada…"
 }

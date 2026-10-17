@@ -839,5 +839,15 @@
   "welcome.template": "Скачать пример библиотеки",
   "welcome.templateHelp": "Необязательный шаблон Tolaria. Нужен интернет.",
   "welcome.downloading": "Загрузка шаблона…",
-  "welcome.creating": "Создание библиотеки…"
+  "welcome.creating": "Создание библиотеки…",
+  "learning.cardType": "Тип карточки",
+  "learning.basic": "Обычная",
+  "learning.vocabulary": "Словарь",
+  "learning.partOfSpeech": "Часть речи",
+  "learning.level": "Уровень лексики",
+  "learning.synonyms": "Синонимы",
+  "learning.antonyms": "Антонимы",
+  "learning.prefixes": "Приставки",
+  "learning.suffixes": "Суффиксы",
+  "learning.addRelated": "Добавить связанный урок…"
 }

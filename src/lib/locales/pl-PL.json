@@ -839,5 +839,15 @@
   "welcome.template": "Pobierz przykładową bibliotekę",
   "welcome.templateHelp": "Opcjonalny szablon Tolaria. Wymaga internetu.",
   "welcome.downloading": "Pobieranie szablonu…",
-  "welcome.creating": "Tworzenie biblioteki…"
+  "welcome.creating": "Tworzenie biblioteki…",
+  "learning.cardType": "Typ fiszki",
+  "learning.basic": "Podstawowa",
+  "learning.vocabulary": "Słownictwo",
+  "learning.partOfSpeech": "Część mowy",
+  "learning.level": "Poziom słownictwa",
+  "learning.synonyms": "Synonimy",
+  "learning.antonyms": "Antonimy",
+  "learning.prefixes": "Przedrostki",
+  "learning.suffixes": "Przyrostki",
+  "learning.addRelated": "Dodaj powiązaną lekcję…"
 }

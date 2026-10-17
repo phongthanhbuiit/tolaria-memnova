@@ -57,6 +57,7 @@ export async function mockLearningCommand(args: Record<string, unknown>, context
   const root = String(args.vaultPath).replace(/\/$/, '')
   const data = fixture(root)
   const request = args.request as Record<string, unknown>
+  let changed = !['describe', 'migrationStatus', 'listPages', 'listCards', 'studyStats', 'syncPages'].includes(String(request.kind))
   const call = async (): Promise<unknown> => {
     switch (request.kind) {
       case 'describe': return { libraryId: data.id, schemaVersion: 2, migrationState: 'ready' }
@@ -68,8 +69,8 @@ export async function mockLearningCommand(args: Record<string, unknown>, context
         for (const entry of entries.filter(entry => entry.path.startsWith(`${root}/`) && /\.md$/i.test(entry.path))) {
           const path = entry.path.slice(root.length + 1)
           const existing = byPath.get(path)
-          if (existing) existing.title = entry.title
-          else data.pages.push({ id: crypto.randomUUID(), path, title: entry.title, available: true, createdAt: entry.createdAt, modifiedAt: entry.modifiedAt })
+          if (existing) { if (existing.title !== entry.title) { existing.title = entry.title; changed = true } }
+          else { changed = true; data.pages.push({ id: crypto.randomUUID(), path, title: entry.title, available: true, createdAt: entry.createdAt, modifiedAt: entry.modifiedAt }) }
         }
         return data.pages
       }
@@ -142,6 +143,6 @@ export async function mockLearningCommand(args: Record<string, unknown>, context
   }
   if (request.kind !== 'describe' && args.libraryId !== data.id) throw new Error('Library identity changed')
   const result = await call()
-  localStorage.setItem(`memnova:qa-learning:${root}`, JSON.stringify(data))
+  if (changed) localStorage.setItem(`memnova:qa-learning:${root}`, JSON.stringify(data))
   return structuredClone(result)
 }

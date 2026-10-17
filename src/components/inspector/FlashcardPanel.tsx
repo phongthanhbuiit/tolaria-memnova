@@ -10,8 +10,8 @@
  */
 
 import { useLearningWorkspace } from '../learning/LearningContext'
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Cards, CalendarBlank, FolderOpen, MusicNote, PlusCircle, Sparkle, TextAa, Image as ImageIcon, Tag, LinkSimple, X, GraduationCap } from '@phosphor-icons/react'
+import { useCallback, useEffect, useState } from 'react'
+import { Cards, CalendarBlank, FolderOpen, MusicNote, PlusCircle, Sparkle, TextAa, Image as ImageIcon, Tag, LinkSimple, GraduationCap } from '@phosphor-icons/react'
 import { invoke } from '@tauri-apps/api/core'
 import { Switch } from '@/components/ui/switch'
 import { Input } from '@/components/ui/input'
@@ -27,7 +27,8 @@ import { cn } from '@/lib/utils'
 import { isTauri } from '../../mock-tauri'
 import { FLASHCARD_BACK_MARKER } from '../../utils/flashcardMarkdown'
 import type { VaultEntry, VaultPropertyValue } from '../../types'
-import { NoteAutocomplete } from '../NoteAutocomplete'
+import { WikilinkPropertyField } from '../WikilinkPropertyField'
+import { parseVocabularyLinks as parseWikilinks, stringifyVocabularyLinks as stringifyWikilinks } from '../../lib/learning/vocabulary'
 
 // ---------------------------------------------------------------------------
 // Prop types
@@ -192,97 +193,6 @@ type CardType = 'basic' | 'vocabulary'
 
 function resolveCardType(props: Record<string, VaultPropertyValue> | undefined): CardType {
   return readStringProp(props, 'card_type') === 'vocabulary' ? 'vocabulary' : 'basic'
-}
-
-function parseWikilinks(value: string): string[] {
-  if (!value) return []
-  const matches = value.match(/\[\[(.*?)\]\]/g)
-  if (!matches) return []
-  return matches.map(m => m.slice(2, -2).split('|')[0]!.trim()).filter(Boolean)
-}
-
-function stringifyWikilinks(targets: string[]): string {
-  return targets.map(t => `[[${t}]]`).join(', ')
-}
-
-function WikilinkPropertyField({
-  id,
-  label,
-  icon: Icon,
-  value,
-  placeholder,
-  entries = [],
-  typeEntryMap = {},
-  onAdd,
-  onRemove,
-  onNavigate,
-}: {
-  id: string
-  label: string
-  icon: React.ElementType
-  value: string
-  placeholder: string
-  entries?: VaultEntry[]
-  typeEntryMap?: Record<string, VaultEntry>
-  onAdd: (target: string) => void
-  onRemove: (target: string) => void
-  onNavigate?: (target: string) => void
-}) {
-  const [query, setQuery] = useState('')
-  const targets = useMemo(() => parseWikilinks(value), [value])
-
-  const handleSelect = useCallback((title: string) => {
-    onAdd(title)
-    setQuery('')
-  }, [onAdd])
-
-  return (
-    <div className="flex flex-col gap-0.5">
-      <span className="flex items-center gap-1 text-[10px] uppercase tracking-wide text-muted-foreground">
-        <Icon size={9} />
-        {label}
-      </span>
-
-      {/* Chips list */}
-      {targets.length > 0 && (
-        <div className="flex flex-wrap gap-1 mb-1 mt-0.5">
-          {targets.map(target => (
-            <span
-              key={target}
-              className={cn(
-                "inline-flex items-center gap-1 text-[11px] px-1.5 py-0.5 rounded border border-border bg-muted/60 text-foreground",
-                onNavigate && "cursor-pointer hover:bg-muted hover:border-primary/30"
-              )}
-              onClick={() => onNavigate?.(target)}
-            >
-              <span className="truncate max-w-[100px]">{target}</span>
-              <button
-                type="button"
-                className="text-muted-foreground hover:text-foreground shrink-0"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  onRemove(target)
-                }}
-              >
-                <X size={8} weight="bold" />
-              </button>
-            </span>
-          ))}
-        </div>
-      )}
-
-      {/* Autocomplete selector */}
-      <NoteAutocomplete
-        entries={entries}
-        typeEntryMap={typeEntryMap}
-        value={query}
-        onChange={setQuery}
-        onSelect={handleSelect}
-        placeholder={placeholder}
-        testId={id}
-      />
-    </div>
-  )
 }
 
 export function FlashcardPanel({

@@ -35,6 +35,8 @@ interface NoteAutocompleteProps {
   placeholder?: string
   autoFocus?: boolean
   testId?: string
+  inputId?: string
+  disabled?: boolean
 }
 
 interface MatchedEntry {
@@ -259,7 +261,7 @@ function NoteAutocompleteMenu({
   )
 }
 
-export function NoteAutocomplete({ entries, typeEntryMap, value, onChange, onSelect, onEscape, placeholder, autoFocus, testId }: NoteAutocompleteProps) {
+export function NoteAutocomplete({ entries, typeEntryMap, value, onChange, onSelect, onEscape, placeholder, autoFocus, testId, inputId, disabled }: NoteAutocompleteProps) {
   const [selectedIndex, setSelectedIndex] = useState(-1)
   const [open, setOpen] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -318,6 +320,8 @@ export function NoteAutocomplete({ entries, typeEntryMap, value, onChange, onSel
     <div style={{ position: 'relative' }}>
       <Input
         ref={inputRef}
+        id={inputId}
+        disabled={disabled}
         autoFocus={autoFocus}
         className="h-7 flex-1 rounded border border-border bg-transparent px-2 py-0.5 text-xs text-foreground shadow-none focus-visible:ring-1"
         style={{ borderRadius: 4, outline: 'none', minWidth: 0, width: '100%', boxSizing: 'border-box' }}

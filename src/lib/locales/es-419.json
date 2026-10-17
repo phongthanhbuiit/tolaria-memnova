@@ -839,5 +839,15 @@
   "welcome.template": "Descargar biblioteca de ejemplo",
   "welcome.templateHelp": "Plantilla opcional de Tolaria. Requiere Internet.",
   "welcome.downloading": "Descargando plantilla…",
-  "welcome.creating": "Creando biblioteca…"
+  "welcome.creating": "Creando biblioteca…",
+  "learning.cardType": "Tipo de tarjeta",
+  "learning.basic": "Básica",
+  "learning.vocabulary": "Vocabulario",
+  "learning.partOfSpeech": "Categoría gramatical",
+  "learning.level": "Nivel de vocabulario",
+  "learning.synonyms": "Sinónimos",
+  "learning.antonyms": "Antónimos",
+  "learning.prefixes": "Prefijos",
+  "learning.suffixes": "Sufijos",
+  "learning.addRelated": "Añadir lección relacionada…"
 }

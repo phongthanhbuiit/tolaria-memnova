@@ -839,5 +839,15 @@
   "welcome.template": "サンプルライブラリをダウンロード",
   "welcome.templateHelp": "任意のTolariaテンプレートです。インターネット接続が必要です。",
   "welcome.downloading": "テンプレートをダウンロード中…",
-  "welcome.creating": "ライブラリを作成中…"
+  "welcome.creating": "ライブラリを作成中…",
+  "learning.cardType": "カードの種類",
+  "learning.basic": "基本",
+  "learning.vocabulary": "語彙",
+  "learning.partOfSpeech": "品詞",
+  "learning.level": "語彙レベル",
+  "learning.synonyms": "類義語",
+  "learning.antonyms": "対義語",
+  "learning.prefixes": "接頭辞",
+  "learning.suffixes": "接尾辞",
+  "learning.addRelated": "関連する教材を追加…"
 }

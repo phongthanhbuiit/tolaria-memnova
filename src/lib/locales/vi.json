@@ -839,5 +839,15 @@
   "welcome.template": "Tải thư viện mẫu",
   "welcome.templateHelp": "Mẫu Tolaria tuỳ chọn. Cần kết nối mạng.",
   "welcome.downloading": "Đang tải mẫu…",
-  "welcome.creating": "Đang tạo thư viện…"
+  "welcome.creating": "Đang tạo thư viện…",
+  "learning.cardType": "Loại thẻ",
+  "learning.basic": "Cơ bản",
+  "learning.vocabulary": "Từ vựng",
+  "learning.partOfSpeech": "Từ loại",
+  "learning.level": "Trình độ từ vựng",
+  "learning.synonyms": "Từ đồng nghĩa",
+  "learning.antonyms": "Từ trái nghĩa",
+  "learning.prefixes": "Tiền tố",
+  "learning.suffixes": "Hậu tố",
+  "learning.addRelated": "Thêm bài học liên quan…"
 }

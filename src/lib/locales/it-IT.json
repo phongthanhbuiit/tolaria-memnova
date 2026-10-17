@@ -839,5 +839,15 @@
   "welcome.template": "Scarica libreria di esempio",
   "welcome.templateHelp": "Modello Tolaria facoltativo. Richiede Internet.",
   "welcome.downloading": "Download del modello…",
-  "welcome.creating": "Creazione della libreria…"
+  "welcome.creating": "Creazione della libreria…",
+  "learning.cardType": "Tipo di scheda",
+  "learning.basic": "Base",
+  "learning.vocabulary": "Vocabolario",
+  "learning.partOfSpeech": "Parte del discorso",
+  "learning.level": "Livello del vocabolario",
+  "learning.synonyms": "Sinonimi",
+  "learning.antonyms": "Contrari",
+  "learning.prefixes": "Prefissi",
+  "learning.suffixes": "Suffissi",
+  "learning.addRelated": "Aggiungi lezione correlata…"
 }

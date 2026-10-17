@@ -839,5 +839,15 @@
   "welcome.template": "Спампаваць прыклад бібліятэкі",
   "welcome.templateHelp": "Неабавязковы шаблон Tolaria. Патрэбны інтэрнэт.",
   "welcome.downloading": "Спампоўванне шаблону…",
-  "welcome.creating": "Стварэнне бібліятэкі…"
+  "welcome.creating": "Стварэнне бібліятэкі…",
+  "learning.cardType": "Тып карткі",
+  "learning.basic": "Звычайная",
+  "learning.vocabulary": "Слоўнік",
+  "learning.partOfSpeech": "Часціна мовы",
+  "learning.level": "Узровень лексікі",
+  "learning.synonyms": "Сінонімы",
+  "learning.antonyms": "Антонімы",
+  "learning.prefixes": "Прыстаўкі",
+  "learning.suffixes": "Суфіксы",
+  "learning.addRelated": "Дадаць звязаны ўрок…"
 }

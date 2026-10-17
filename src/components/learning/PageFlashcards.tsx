@@ -8,6 +8,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import type { CardDraft, LearningCard, LearningPage } from '../../lib/learning/types'
 import { translate, type TranslationKey, type AppLocale } from '../../lib/i18n'
 import { trackEvent } from '../../lib/telemetry'
+import { VocabularyFields } from './VocabularyFields'
 import { useLearningWorkspace } from './LearningContext'
 
 function cardDraft(card?: LearningCard, position = 0): CardDraft {
@@ -26,7 +27,7 @@ function CardForm({ card, position, pageId, locale, onClose }: { card?: Learning
     try {
       if (card) await workspace.client.updateCard(card.id, card.revision, draft)
       else await workspace.client.createCard(pageId, draft, operationId)
-      trackEvent(card ? 'memnova_card_updated' : 'memnova_card_created', { mode: draft.answerMode, status: draft.status })
+      trackEvent(card ? 'memnova_card_updated' : 'memnova_card_created', { mode: draft.answerMode, status: draft.status, card_type: draft.properties.card_type === 'vocabulary' ? 'vocabulary' : 'basic' })
       await workspace.refresh(); onClose()
     } catch (error) { setError(String(error)) }
     finally { setBusy(false) }
@@ -42,6 +43,7 @@ function CardForm({ card, position, pageId, locale, onClose }: { card?: Learning
         {draft.answerMode === 'inline' && <label className="grid gap-2 text-sm font-medium">{t('learning.back')}<Textarea value={draft.back} disabled={busy} rows={5} onChange={event => field('back', event.target.value)} /></label>}
         <Select value={draft.status} disabled={busy} onValueChange={value => setDraft(previous => ({ ...previous, status: value as CardDraft['status'] }))}><SelectTrigger aria-label={t('learning.active')}><SelectValue /></SelectTrigger><SelectContent>{(['draft', 'active', 'suspended'] as const).map(status => <SelectItem key={status} value={status}>{t(`learning.${status}`)}</SelectItem>)}</SelectContent></Select>
         <div className="grid gap-3 sm:grid-cols-3">{(['IPA', 'audio', 'image'] as const).map(key => <label key={key} className="grid gap-2 text-sm">{key === 'IPA' ? 'IPA' : t(`learning.${key}`)}<Input disabled={busy} value={typeof draft.properties[key] === 'string' ? draft.properties[key] : ''} onChange={event => metadata(key, event.target.value)} /></label>)}</div>
+        <VocabularyFields properties={draft.properties} locale={locale} disabled={busy} onChange={metadata} />
         {error && <div role="alert" className="rounded-md border border-destructive p-3 text-sm"><p>{t('learning.error')}</p><pre className="mt-2 whitespace-pre-wrap break-words text-xs">{error}</pre></div>}
         <div className="flex justify-end gap-2"><Button variant="outline" disabled={busy} onClick={onClose}>{t('common.cancel')}</Button><Button disabled={busy} onClick={() => { void save() }}>{t(busy ? 'learning.saving' : 'common.save')}</Button></div>
       </div>

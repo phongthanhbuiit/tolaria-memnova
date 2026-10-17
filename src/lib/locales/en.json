@@ -839,5 +839,15 @@
   "welcome.template": "Download sample Library",
   "welcome.templateHelp": "Optional Tolaria template. Requires internet.",
   "welcome.downloading": "Downloading template…",
-  "welcome.creating": "Creating Library…"
+  "welcome.creating": "Creating Library…",
+  "learning.cardType": "Card type",
+  "learning.basic": "Basic",
+  "learning.vocabulary": "Vocabulary",
+  "learning.partOfSpeech": "Part of speech",
+  "learning.level": "Vocabulary level",
+  "learning.synonyms": "Synonyms",
+  "learning.antonyms": "Antonyms",
+  "learning.prefixes": "Prefixes",
+  "learning.suffixes": "Suffixes",
+  "learning.addRelated": "Add related lesson…"
 }
