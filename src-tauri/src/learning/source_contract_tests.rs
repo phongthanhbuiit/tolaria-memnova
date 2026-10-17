@@ -18,6 +18,7 @@ fn fixture() -> (tempfile::TempDir, Store, String, String) {
 }
 fn draft(source: Option<String>) -> CardDraft {
     CardDraft {
+        property_definitions: None,
         front: "Recall the source".into(),
         back: "Retained private answer".into(),
         answer_mode: "page".into(),

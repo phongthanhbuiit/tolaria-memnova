@@ -186,6 +186,7 @@ pub(super) fn card(
         None => (page_title.to_string(), String::new(), "page"),
     };
     let mut draft = CardDraft {
+        property_definitions: None,
         answer_page_id: None,
         front,
         back,

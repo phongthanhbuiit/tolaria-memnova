@@ -19,6 +19,7 @@ fn schema_v3_upgrade_preserves_values_sources_and_memory_without_inferred_defini
         .create_card(
             &owner,
             CardDraft {
+                property_definitions: None,
                 front: "Recall".into(),
                 back: "Keep".into(),
                 answer_mode: "page".into(),

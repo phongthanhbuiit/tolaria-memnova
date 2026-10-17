@@ -23,6 +23,7 @@ fn card(store: &mut Store, page: &str) -> super::Card {
         .create_card(
             page,
             CardDraft {
+                property_definitions: None,
                 answer_page_id: None,
                 front: "Question".into(),
                 back: "Answer".into(),

@@ -1,3 +1,4 @@
+import type { PropertyDefinitions } from './propertyValues'
 import { invoke } from '@tauri-apps/api/core'
 import { isTauri, mockInvoke } from '../../mock-tauri'
 import type { StudyStats } from '../../hooks/useStats'
@@ -34,6 +35,9 @@ export class LearningClient {
   private call<T>(request: Record<string, unknown>): Promise<T> {
     return learningInvoke<T>('learning_command', { vaultPath: this.vaultPath, libraryId: this.libraryId, request })
   }
+
+  pagePropertyDefinitions(pageId: string): Promise<PropertyDefinitions> { return this.call({ kind: 'pagePropertyDefinitions', pageId }) }
+  setPagePropertyDefinitions(pageId: string, expected: PropertyDefinitions, definitions: PropertyDefinitions): Promise<PropertyDefinitions> { return this.call({ kind: 'setPagePropertyDefinitions', pageId, expected, definitions }) }
 
   migrationStatus(): Promise<MigrationProgress> {
     return this.call({ kind: 'migrationStatus' })

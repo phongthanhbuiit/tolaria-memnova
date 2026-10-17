@@ -13,6 +13,7 @@ fn schema_v1_upgrade_preserves_existing_cards_schedules_and_library_identity() {
         .create_card(
             &page,
             CardDraft {
+                property_definitions: None,
                 answer_page_id: None,
                 front: "Q".into(),
                 back: "A".into(),

@@ -41,3 +41,8 @@ it('does not mistake inherited object members for stored property definitions',(
  expect(result.values).toEqual({custom:'user value'})
  expect(result.definitions).toEqual({})
 })
+it('keeps unsafe legacy integers read-only instead of offering a lossy numeric edit',()=>{
+ expect(inferProperty(9007199254740992)).toBeNull()
+ expect(matchesProperty(9007199254740992,{valueKind:'number'})).toBe(false)
+ expect(()=>convertProperty('9007199254740992',{valueKind:'number'})).toThrow()
+})

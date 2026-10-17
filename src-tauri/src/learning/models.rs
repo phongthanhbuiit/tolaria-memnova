@@ -12,6 +12,8 @@ pub struct CardDraft {
     pub status: String,
     pub position: u32,
     pub properties: Value,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub property_definitions: Option<super::PropertyDefinitions>,
 }
 
 impl CardDraft {
@@ -28,6 +30,9 @@ impl CardDraft {
                 || (self.answer_mode == "inline" && self.back.trim().is_empty()))
         {
             return Err("An active card needs a question and an answer".into());
+        }
+        if let Some(definitions) = &self.property_definitions {
+            super::property_definitions::validate_values(&self.properties, definitions)?;
         }
         Ok(())
     }

@@ -17,6 +17,7 @@ fn fixture() -> (tempfile::TempDir, Store) {
         .create_card(
             &id,
             CardDraft {
+                property_definitions: None,
                 answer_page_id: None,
                 front: "Question".into(),
                 back: "Answer".into(),

@@ -1,3 +1,4 @@
+import type { PropertyDefinitions } from './propertyValues'
 import type { FSRSCard } from '../fsrs'
 
 export type LearningProperty = string | number | boolean | null | LearningProperty[] | { [key: string]: LearningProperty }
@@ -15,6 +16,7 @@ export interface CardDraft {
   answerPageId?: string | null
   status: 'draft' | 'active' | 'suspended' | 'trashed'
   position: number
+  propertyDefinitions?: PropertyDefinitions
   properties: Record<string, LearningProperty>
 }
 

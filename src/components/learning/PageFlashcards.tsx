@@ -8,7 +8,7 @@ import { CardForm } from './CardForm'
 import { useLearningWorkspace } from './LearningContext'
 
 function cardDraft(card?: LearningCard, position = 0): CardDraft {
-  return card ? { front: card.front, back: card.back, answerMode: card.answerMode, answerPageId: card.answerPageId ?? null, status: card.status, position: card.position, properties: structuredClone(card.properties) } : { front: '', back: '', answerMode: 'inline', status: 'draft', position, properties: {} }
+  return card ? { front: card.front, back: card.back, answerMode: card.answerMode, answerPageId: card.answerPageId ?? null, status: card.status, position: card.position, propertyDefinitions: structuredClone(card.propertyDefinitions ?? {}), properties: structuredClone(card.properties) } : { front: '', back: '', answerMode: 'inline', status: 'draft', position, properties: {} }
 }
 
 export function PageFlashcards({ path, locale }: { path: string; locale: AppLocale }) {

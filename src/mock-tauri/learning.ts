@@ -1,3 +1,4 @@
+import { matchesProperty, propertyKey, type PropertyDefinitions } from '../lib/learning/propertyValues'
 /** Browser-only QA fixture. Native learning data always uses Rust/SQLite. */
 import type { BackupDescriptor, CardDraft, LearningCard, LearningPage, LearningSchedule, RateRequest, SessionScope, StudyPage, StudySession } from '../lib/learning/types'
 import { splitFrontmatter } from '../utils/wikilinks'
@@ -6,7 +7,7 @@ import type { VaultEntry } from '../types'
 
 type FixtureSession = { id: string; scope: SessionScope; ids: string[]; initial: number; index: number; revision: number; status: StudySession['status'] }
 type Receipt = { request: RateRequest; before: LearningSchedule; index: number; reinserted: boolean; xp: number; undone: boolean }
-type Fixture = { id: string; pages: LearningPage[]; cards: LearningCard[]; sessions: FixtureSession[]; reviews: Receipt[]; goal: number; backups?: { descriptor: BackupDescriptor; snapshot: string; files: Record<string, string> }[]; restoredFiles?: Record<string,string> }
+type Fixture = { pageDefinitions?: Record<string, PropertyDefinitions>; id: string; pages: LearningPage[]; cards: LearningCard[]; sessions: FixtureSession[]; reviews: Receipt[]; goal: number; backups?: { descriptor: BackupDescriptor; snapshot: string; files: Record<string, string> }[]; restoredFiles?: Record<string,string> }
 type Context = { read: (path: string) => Promise<string>; entries: () => Promise<VaultEntry[]> }
 const fixtures = new Map<string, Fixture>()
 const fresh = (): LearningSchedule => ({ state: 'new', due: new Date().toISOString(), stability: 0, difficulty: 0, reps: 0, lapses: 0, elapsedDays: 0, scheduledDays: 0, lastReview: null, learningSteps: 0, engine: 'legacy-fsrs5', revision: 0 })
@@ -63,6 +64,10 @@ function required<T>(value: T | undefined): T { if (value === undefined) throw n
 function draft(value: unknown): CardDraft {
   const result = value as CardDraft
   if (result.status === 'active' && (!result.front.trim() || (result.answerMode === 'inline' && !result.back.trim()))) throw new Error('An active card needs a question and an answer')
+  for(const [key,definition] of Object.entries(result.propertyDefinitions??{})) {
+    propertyKey(key)
+    if(!Object.hasOwn(result.properties,key)||!matchesProperty(result.properties[key],definition))throw Error('Property value does not match its declared type')
+  }
   return result
 }
 
@@ -70,12 +75,25 @@ export async function mockLearningCommand(args: Record<string, unknown>, context
   const root = String(args.vaultPath).replace(/\/$/, '')
   const data = fixture(root)
   const request = args.request as Record<string, unknown>
-  let changed = !['describe', 'migrationStatus', 'listPages', 'listCards', 'studyStats', 'syncPages', 'listBackups', 'verifyBackup', 'readStudyPage'].includes(String(request.kind))
+  let changed = !['describe', 'migrationStatus', 'listPages', 'listCards', 'studyStats', 'syncPages', 'listBackups', 'verifyBackup', 'readStudyPage', 'pagePropertyDefinitions'].includes(String(request.kind))
   const call = async (): Promise<unknown> => {
     switch (request.kind) {
       case 'describe': return { libraryId: data.id, schemaVersion: 4, migrationState: 'ready' }
       case 'migrationStatus': return { state: 'ready', libraryId: data.id, backupId: null, totalPages: data.pages.length, importedPages: data.pages.length, totalCards: 0, importedCards: 0, importedReviews: 0 }
       case 'readStudyPage': return source(root, required(data.pages.find(page => page.id === request.pageId)), context)
+      case 'pagePropertyDefinitions': {
+        required(data.pages.find(page=>page.id===request.pageId))
+        return data.pageDefinitions?.[String(request.pageId)] ?? {}
+      }
+      case 'setPagePropertyDefinitions': {
+        required(data.pages.find(page=>page.id===request.pageId))
+        const current=data.pageDefinitions?.[String(request.pageId)] ?? {}
+        const next=request.definitions as PropertyDefinitions
+        if(JSON.stringify(current)!==JSON.stringify(request.expected) && JSON.stringify(current)!==JSON.stringify(next))throw Error('Property types changed; reload before saving')
+        for(const key of Object.keys(next))propertyKey(key)
+        ;(data.pageDefinitions??={})[String(request.pageId)]=next
+        return next
+      }
       case 'listPages': return data.pages
       case 'syncPages': {
         const entries = await context.entries()
@@ -99,16 +117,18 @@ export async function mockLearningCommand(args: Record<string, unknown>, context
         const original = request.kind === 'cloneCard' ? required(data.cards.find(card => card.id === request.cardId)) : null
         if (original?.status === 'trashed') throw new Error('Restore a trashed card before cloning')
         const input = original ? { ...original, status: 'draft' as const } : draft(request.draft)
-        const card: LearningCard = { ...input, pageId: original?.pageId ?? String(request.pageId), id: original ? crypto.randomUUID() : typeof request.operationId === 'string' ? request.operationId : crypto.randomUUID(), revision: 0, createdAt: Date.now(), updatedAt: Date.now(), schedule: fresh() }
+        const card: LearningCard = { ...input, propertyDefinitions: input.propertyDefinitions ?? {}, pageId: original?.pageId ?? String(request.pageId), id: original ? crypto.randomUUID() : typeof request.operationId === 'string' ? request.operationId : crypto.randomUUID(), revision: 0, createdAt: Date.now(), updatedAt: Date.now(), schedule: fresh() }
         const existing = data.cards.find(value => value.id === card.id)
         if (existing) return existing
         data.cards.push(card); return card
       }
       case 'updateCard': {
         const card = required(data.cards.find(card => card.id === request.cardId))
+        const input = draft({...request.draft as CardDraft, propertyDefinitions:(request.draft as CardDraft).propertyDefinitions??card.propertyDefinitions??{}})
+        const keys=['front','back','answerMode','answerPageId','status','position','properties','propertyDefinitions']
+        if(card.revision===Number(request.revision)+1 && keys.every(key=>JSON.stringify(Reflect.get(input,key)??null)===JSON.stringify(Reflect.get(card,key)??null)))return card
         if (card.revision !== request.revision) throw new Error('Card changed; reload')
-        const input = draft(request.draft)
-        if (card.status === 'trashed' && (input.status !== 'draft' || ['front', 'back', 'answerMode', 'answerPageId', 'position', 'properties'].some(key => JSON.stringify(Reflect.get(input, key) ?? null) !== JSON.stringify(Reflect.get(card, key) ?? null)))) throw new Error('Restore a trashed card to Draft before editing')
+        if (card.status === 'trashed' && (input.status !== 'draft' || ['front', 'back', 'answerMode', 'answerPageId', 'position', 'properties', 'propertyDefinitions'].some(key => JSON.stringify(Reflect.get(input, key) ?? null) !== JSON.stringify(Reflect.get(card, key) ?? null)))) throw new Error('Restore a trashed card to Draft before editing')
         Object.assign(card, input, { revision: card.revision + 1, updatedAt: Date.now() }); return card
       }
       case 'listBackups': return (data.backups ?? []).map(backup => ({ id: backup.descriptor.id, descriptor: backup.descriptor, error: null }))

@@ -83,3 +83,11 @@ mod source_lifecycle_tests;
 
 #[cfg(test)]
 mod property_schema_tests;
+
+#[cfg(test)]
+mod property_api_tests;
+
+mod property_definitions;
+pub use property_definitions::{PropertyDefinition, PropertyDefinitions};
+
+mod property_precision;

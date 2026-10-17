@@ -20,9 +20,12 @@ export function isDateValue(value: unknown): value is string {
 export function isPageReference(value: LearningProperty): value is { pageId: string; label?: string } {
   return !!value && !Array.isArray(value) && typeof value === 'object' && typeof value.pageId === 'string' && uuid.test(value.pageId) && (value.label === undefined || typeof value.label === 'string') && Object.keys(value).every(key => key === 'pageId' || key === 'label')
 }
+export function isEditableNumber(value: unknown): value is number {
+  return typeof value === 'number' && Number.isFinite(value) && (!Number.isInteger(value) || Number.isSafeInteger(value))
+}
 export function inferProperty(value: LearningProperty): PropertyDefinition | null {
   if (typeof value === 'string') return { valueKind: 'text' }
-  if (typeof value === 'number' && Number.isFinite(value)) return { valueKind: 'number' }
+  if (isEditableNumber(value)) return { valueKind: 'number' }
   if (typeof value === 'boolean') return { valueKind: 'boolean' }
   if (Array.isArray(value) && value.every(item => typeof item === 'string')) return { valueKind: 'list', itemKind: 'text' }
   return null
@@ -30,7 +33,7 @@ export function inferProperty(value: LearningProperty): PropertyDefinition | nul
 export function matchesProperty(value: LearningProperty, definition: PropertyDefinition): boolean {
   switch (definition.valueKind) {
     case 'text': return typeof value === 'string'
-    case 'number': return typeof value === 'number' && Number.isFinite(value)
+    case 'number': return isEditableNumber(value)
     case 'boolean': return typeof value === 'boolean'
     case 'date': return isDateValue(value)
     case 'page': return isPageReference(value)
@@ -41,7 +44,7 @@ export function convertProperty(value: LearningProperty, definition: PropertyDef
   if (matchesProperty(value, definition)) return value
   if (definition.valueKind === 'text' && (typeof value === 'number' || typeof value === 'boolean')) return String(value)
   if (typeof value === 'string') {
-    if (definition.valueKind === 'number' && value !== '' && Number.isFinite(Number(value)) && String(Number(value)) === value) return Number(value)
+    if (definition.valueKind === 'number' && value !== '' && isEditableNumber(Number(value)) && String(Number(value)) === value) return Number(value)
     if (definition.valueKind === 'boolean' && (value === 'true' || value === 'false')) return value === 'true'
     if (definition.valueKind === 'list' && definition.itemKind === 'text') return [value]
   }

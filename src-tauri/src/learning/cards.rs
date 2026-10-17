@@ -1,3 +1,6 @@
+use super::property_definitions::{
+    read_definitions, write_definitions, Owner, PropertyDefinitions,
+};
 use super::{Card, CardDraft, Schedule, Store};
 use rusqlite::{params, Row, Transaction};
 
@@ -12,6 +15,7 @@ fn row_card(row: &Row<'_>) -> rusqlite::Result<Card> {
         id: row.get("id")?,
         page_id: row.get("page_id")?,
         draft: CardDraft {
+            property_definitions: None,
             answer_page_id: row.get("answer_page_id")?,
             front: row.get("front")?,
             back: row.get("back")?,
@@ -41,9 +45,11 @@ fn row_card(row: &Row<'_>) -> rusqlite::Result<Card> {
 }
 
 pub(super) fn read_card(connection: &rusqlite::Connection, id: &str) -> Result<Card, String> {
-    connection
+    let mut card = connection
         .query_row(&format!("{CARD_SELECT} WHERE c.id=?1"), [id], row_card)
-        .map_err(|e| e.to_string())
+        .map_err(|e| e.to_string())?;
+    card.draft.property_definitions = Some(read_definitions(connection, Owner::Card, id)?);
+    Ok(card)
 }
 
 pub(super) fn write_schedule(
@@ -65,8 +71,19 @@ pub(super) fn insert_card(
 ) -> Result<(), String> {
     draft.validate()?;
     validate_answer_source(transaction, draft)?;
+    super::property_definitions::validate_reference_owners(
+        transaction,
+        &draft.properties,
+        &draft.property_definitions.clone().unwrap_or_default(),
+    )?;
     let now = chrono::Utc::now().timestamp_millis();
     transaction.execute("INSERT INTO cards(id,page_id,front,back,answer_mode,status,position,properties_json,created_at,updated_at,answer_page_id) VALUES(?1,?2,?3,?4,?5,?6,?7,?8,?9,?9,?10)", params![id,page_id,draft.front,draft.back,draft.answer_mode,draft.status,draft.position,draft.properties.to_string(),now,draft.answer_page_id]).map_err(|e| e.to_string())?;
+    write_definitions(
+        transaction,
+        Owner::Card,
+        id,
+        &draft.property_definitions.clone().unwrap_or_default(),
+    )?;
     write_schedule(transaction, id, schedule)
 }
 
@@ -101,6 +118,10 @@ impl Store {
         page_id: &str,
         draft: CardDraft,
     ) -> Result<Card, String> {
+        let mut draft = draft;
+        draft
+            .property_definitions
+            .get_or_insert_with(PropertyDefinitions::new);
         self.ensure_card_writes_allowed()?;
         uuid::Uuid::parse_str(id).map_err(|_| "Invalid card creation identity")?;
         draft.validate()?;
@@ -145,7 +166,14 @@ impl Store {
             .map_err(|e| e.to_string())?
             .collect::<Result<Vec<_>, _>>()
             .map_err(|e| e.to_string());
-        cards
+        cards?
+            .into_iter()
+            .map(|mut card| {
+                card.draft.property_definitions =
+                    Some(read_definitions(&self.conn, Owner::Card, &card.id)?);
+                Ok(card)
+            })
+            .collect()
     }
 
     pub fn update_card(
@@ -155,9 +183,29 @@ impl Store {
         draft: CardDraft,
     ) -> Result<Card, String> {
         self.ensure_card_writes_allowed()?;
+        let transaction = self
+            .conn
+            .transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)
+            .map_err(|error| error.to_string())?;
+        let current = read_card(&transaction, id)?;
+        let mut draft = draft;
+        if draft.property_definitions.is_none() {
+            draft.property_definitions = current.property_definitions.clone();
+        }
+        super::property_precision::preserve_legacy_numbers(
+            &mut draft.properties,
+            &current.properties,
+        );
         draft.validate()?;
-        validate_answer_source(&self.conn, &draft)?;
-        let current = self.get_card(id)?;
+        validate_answer_source(&transaction, &draft)?;
+        super::property_definitions::validate_reference_owners(
+            &transaction,
+            &draft.properties,
+            &draft.property_definitions.clone().unwrap_or_default(),
+        )?;
+        if current.revision == revision.saturating_add(1) && current.draft == draft {
+            return Ok(current);
+        }
         if current.status == "trashed" {
             let mut restored = current.draft.clone();
             restored.status = "draft".into();
@@ -165,10 +213,17 @@ impl Store {
                 return Err("Restore a trashed card to Draft before editing".into());
             }
         }
-        let changed = self.conn.execute("UPDATE cards SET front=?1,back=?2,answer_mode=?3,status=?4,position=?5,properties_json=?6,updated_at=?7,answer_page_id=?10,revision=revision+1 WHERE id=?8 AND revision=?9", params![draft.front,draft.back,draft.answer_mode,draft.status,draft.position,draft.properties.to_string(),chrono::Utc::now().timestamp_millis(),id,revision,draft.answer_page_id]).map_err(|e| e.to_string())?;
+        let changed = transaction.execute("UPDATE cards SET front=?1,back=?2,answer_mode=?3,status=?4,position=?5,properties_json=?6,updated_at=?7,answer_page_id=?10,revision=revision+1 WHERE id=?8 AND revision=?9", params![draft.front,draft.back,draft.answer_mode,draft.status,draft.position,draft.properties.to_string(),chrono::Utc::now().timestamp_millis(),id,revision,draft.answer_page_id]).map_err(|e| e.to_string())?;
         if changed != 1 {
             return Err("Card changed in another window; reload before saving".into());
         }
+        write_definitions(
+            &transaction,
+            Owner::Card,
+            id,
+            &draft.property_definitions.unwrap_or_default(),
+        )?;
+        transaction.commit().map_err(|error| error.to_string())?;
         self.get_card(id)
     }
 

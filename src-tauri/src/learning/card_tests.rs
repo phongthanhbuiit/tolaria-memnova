@@ -16,6 +16,7 @@ fn fixture() -> (tempfile::TempDir, Store, String) {
 
 fn draft(front: &str) -> CardDraft {
     CardDraft {
+        property_definitions: None,
         answer_page_id: None,
         front: front.into(),
         back: "Answer".into(),

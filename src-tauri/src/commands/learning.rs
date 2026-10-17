@@ -46,6 +46,14 @@ pub enum LearningRequest {
     ReadStudyPage {
         page_id: String,
     },
+    PagePropertyDefinitions {
+        page_id: String,
+    },
+    SetPagePropertyDefinitions {
+        page_id: String,
+        expected: crate::learning::PropertyDefinitions,
+        definitions: crate::learning::PropertyDefinitions,
+    },
     StudyStats,
     SetDailyGoal {
         goal: u64,
@@ -164,6 +172,14 @@ fn dispatch(
         LearningRequest::SyncPages => encode(store.sync_pages()?),
         LearningRequest::EnsurePage { path } => encode(store.ensure_page(&path)?),
         LearningRequest::ReadStudyPage { page_id } => encode(store.read_study_page(&page_id)?),
+        LearningRequest::PagePropertyDefinitions { page_id } => {
+            encode(store.page_property_definitions(&page_id)?)
+        }
+        LearningRequest::SetPagePropertyDefinitions {
+            page_id,
+            expected,
+            definitions,
+        } => encode(store.set_page_property_definitions(&page_id, &expected, &definitions)?),
         LearningRequest::StudyStats => encode(store.study_stats()?),
         LearningRequest::SetDailyGoal { goal } => encode(store.set_daily_goal(goal)?),
         LearningRequest::StartSession { scope } => encode(store.start_session(scope)?),

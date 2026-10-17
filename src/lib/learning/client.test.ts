@@ -72,3 +72,12 @@ it('reads a source preview by UUID with the bound library and no session request
  await client.readStudyPage('source-id')
  expect(invoke).toHaveBeenLastCalledWith('learning_command',{vaultPath:'/qa',libraryId:'library',request:{kind:'readStudyPage',pageId:'source-id'}})
 })
+it('binds page definition compare-and-swap to the connected library',async()=>{
+ vi.mocked(invoke).mockResolvedValueOnce({libraryId:'library',schemaVersion:4}).mockResolvedValue({})
+ const client=await LearningClient.connect('/qa')
+ await client.pagePropertyDefinitions('page')
+ expect(invoke).toHaveBeenLastCalledWith('learning_command',{vaultPath:'/qa',libraryId:'library',request:{kind:'pagePropertyDefinitions',pageId:'page'}})
+ const next={flag:{valueKind:'boolean' as const}}
+ await client.setPagePropertyDefinitions('page',{},next)
+ expect(invoke).toHaveBeenLastCalledWith('learning_command',{vaultPath:'/qa',libraryId:'library',request:{kind:'setPagePropertyDefinitions',pageId:'page',expected:{},definitions:next}})
+})

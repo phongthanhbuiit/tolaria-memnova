@@ -33,6 +33,7 @@ fn page_registration_backs_up_source_once_and_rename_keeps_the_same_cards() {
         .create_card(
             &page.id,
             CardDraft {
+                property_definitions: None,
                 answer_page_id: None,
                 front: "First".into(),
                 back: "Answer".into(),
@@ -86,6 +87,7 @@ fn replacing_a_deleted_page_does_not_attach_its_old_cards_to_a_new_lesson() {
         .create_card(
             &old.id,
             CardDraft {
+                property_definitions: None,
                 answer_page_id: None,
                 front: "Old".into(),
                 back: "Answer".into(),
@@ -130,6 +132,7 @@ fn native_stats_preserve_the_profile_and_undo_excludes_the_new_review() {
         .create_card(
             &page.id,
             CardDraft {
+                property_definitions: None,
                 answer_page_id: None,
                 front: "Question".into(),
                 back: "Answer".into(),
@@ -209,6 +212,7 @@ fn retrying_card_creation_uses_one_identity_and_never_overwrites_a_different_car
     let page = store.ensure_page("lesson.md").unwrap();
     let operation = uuid::Uuid::new_v4().to_string();
     let draft = CardDraft {
+        property_definitions: None,
         answer_page_id: None,
         front: "Question".into(),
         back: "Answer".into(),
@@ -242,6 +246,7 @@ fn known_legacy_history_is_visible_without_a_profile_and_is_not_counted_twice_wi
         .create_card(
             &page.id,
             CardDraft {
+                property_definitions: None,
                 answer_page_id: None,
                 front: "Question".into(),
                 back: "Answer".into(),

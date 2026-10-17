@@ -16,6 +16,7 @@ fn fixture() -> (tempfile::TempDir, Store, String, String, String) {
         .create_card(
             &owner.id,
             CardDraft {
+                property_definitions: None,
                 front: "Recall source".into(),
                 back: "Private inline answer".into(),
                 answer_mode: "page".into(),
