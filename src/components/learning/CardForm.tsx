@@ -1,3 +1,4 @@
+import { SourcePagePreview } from './SourcePagePreview'
 import { CardEditorSection } from './CardEditorSection'
 import { FloppyDisk, CircleNotch } from '@phosphor-icons/react'
 import { cardEditorStyles } from './cardEditorStyles'
@@ -74,7 +75,8 @@ export function CardForm({
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const root = workspace?.root ?? workspace?.client?.vaultPath ?? ''
-  const ownerPath = workspace?.pages?.find((page) => page.id === pageId)?.path
+  const ownerPage = workspace?.pages?.find((page) => page.id === pageId)
+  const ownerPath = ownerPage?.path
   const definitions = draft.propertyDefinitions ?? {}
   const presetFields = cardPresetFields(draft.properties, definitions)
   const hiddenPresetFields = cardPresetKeys.filter(
@@ -259,6 +261,21 @@ export function CardForm({
                 setDraft((previous) => ({ ...previous, answerPageId: page.id }))
               }}
             />
+          )}
+          {answerChoice === 'current' && (
+            <div className="rounded-md border bg-muted/30 p-3">
+              <SourcePagePreview
+                pageId={pageId}
+                title={ownerPage?.title ?? t('learning.answerCurrent')}
+                locale={locale}
+                disabled={busy || sourceBusy || propertyBusy}
+              />
+              {ownerPath && (
+                <p className="mt-1 break-all text-xs text-muted-foreground">
+                  {ownerPath}
+                </p>
+              )}
+            </div>
           )}
           {draft.answerMode === 'inline' && (
             <label className="grid gap-2 text-sm font-medium">

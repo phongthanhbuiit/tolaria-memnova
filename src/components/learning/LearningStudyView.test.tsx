@@ -232,7 +232,7 @@ it('keeps preview keyboard events from rating the underlying study card', async 
   })
   render(<LearningStudyView study={study} root="/library" locale="en" />)
   fireEvent.click(screen.getByRole('button', { name: 'Show answer' }))
-  fireEvent.click(screen.getByRole('button', { name: 'Source', exact: true }))
+  fireEvent.click(screen.getByRole('button', { name: 'Preview source: Source', exact: true }))
   const preview = await screen.findByRole('dialog', {
     name: 'Source',
     exact: true,

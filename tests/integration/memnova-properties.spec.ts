@@ -64,7 +64,10 @@ test('linked answers and typed card drafts survive preview, save, reload, study 
     .getByRole('button', { name: /Grow Newsletter.*grow-newsletter.md/ })
     .click()
   await form
-    .getByRole('button', { name: 'Grow Newsletter', exact: true })
+    .getByRole('button', {
+      name: 'Preview source: Grow Newsletter',
+      exact: true,
+    })
     .click()
   const preview = page.getByRole('dialog', {
     name: 'Grow Newsletter',
@@ -125,11 +128,17 @@ test('linked answers and typed card drafts survive preview, save, reload, study 
     study.getByText('Custom metadata stays private', { exact: true }),
   ).toHaveCount(0)
   await expect(
-    study.getByRole('button', { name: 'Grow Newsletter', exact: true }),
+    study.getByRole('button', {
+      name: 'Preview source: Grow Newsletter',
+      exact: true,
+    }),
   ).toHaveCount(0)
   await study.getByRole('button', { name: 'Show answer', exact: true }).click()
   await expect(
-    study.getByRole('button', { name: 'Grow Newsletter', exact: true }),
+    study.getByRole('button', {
+      name: 'Preview source: Grow Newsletter',
+      exact: true,
+    }),
   ).toBeVisible()
   await study.getByRole('button', { name: /^Good/ }).click()
   await study.getByRole('button', { name: 'Undo', exact: true }).click()

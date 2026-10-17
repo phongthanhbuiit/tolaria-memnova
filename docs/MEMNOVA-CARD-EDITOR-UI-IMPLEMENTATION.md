@@ -9,7 +9,7 @@ Plan: MEMNOVA-CARD-EDITOR-UI-PLAN.md. Starting commit: 9ac824b8, main clean. Use
 | U02 | Verified, push pending | RED Apply type regression then 85 learning tests pass; distinct draft action, Save icon/spinner, neutral Cancel, semantic media/date/add icons. Types/localization pass, 902 keys in 18 catalogs manually translated. Codacy ESLint/Opengrep zero; existing presentation complexity advisories reviewed, no new Critical/High. /tmp/memnova-u02-* |
 | U03 | Verified, push pending | Stateful disclosure RED→GREEN; 86 learning tests and types pass. Settings row, 720px shell, vocabulary/read-only review sections preserve mounted drafts. Compact Properties disclosure is completed with its owning composer in U04. /tmp/memnova-u03-* |
 | U04 | Verified, push pending | Compact PropertyRow menus/composer and mounted state; five RED UI probes then 88 learning tests pass. Additional RED regression caught preset switching leaving Vocabulary folded; fixed with presentation-only open state. Page no-op/hint retry tests remain green. Types pass; Codacy forwarding-props advisory reviewed as required Radix event/ref composition, not a security defect. Both property integrations passed (27.5s); no native persistence claim from mocks. /tmp/memnova-u04-* |
-| U05 | TODO | |
+| U05 | Verified, push pending | Source preview explicit name/focus return and existing-path media disclosure RED→GREEN; 91 learning tests pass. Another RED test reproduced a stale picker busy lock after Library switch; presentation state now resets while old results stay ignored. File picker cancel does no copy/write. Native calendar/picker verification pending U07. Types pass, Codacy reviewed below. /tmp/memnova-u05-* |
 | U06 | TODO | |
 | U07 | TODO | |
 | U08 | TODO | |

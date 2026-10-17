@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react'
+import { Eye } from '@phosphor-icons/react'
+import { cardEditorStyles } from './cardEditorStyles'
+import { useEffect, useState, useRef } from 'react'
 import { Button } from '../ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '../ui/dialog'
 import { BlockNoteReadOnly } from '../FlashcardStudyView'
@@ -25,6 +27,7 @@ export function SourcePagePreview({
   locale: AppLocale
   disabled?: boolean
 }) {
+  const trigger = useRef<HTMLButtonElement>(null)
   const workspace = useLearningWorkspace()
   const client = workspace?.client
   const [open, setOpen] = useState(false)
@@ -50,26 +53,42 @@ export function SourcePagePreview({
   }, [client, pageId, open, attempt])
   return (
     <>
-      <Button
-        variant="link"
-        className="h-auto max-w-full whitespace-normal break-words p-0 text-left"
-        disabled={disabled || !client}
-        onClick={() => {
-          setRead(null)
-          setOpen(true)
-          trackEvent('memnova_source_preview_opened')
-        }}
+      <div
+        className={`${cardEditorStyles.root} flex min-w-0 flex-wrap items-center justify-between gap-2`}
       >
-        {title}
-      </Button>
+        <span className="min-w-0 flex-1 break-words font-medium">{title}</span>
+        <Button
+          ref={trigger}
+          variant="ghost"
+          aria-label={`${translate(locale, 'cardEditor.previewSource')}: ${title}`}
+          className="max-w-full whitespace-normal text-left"
+          disabled={disabled || !client}
+          onClick={() => {
+            setRead(null)
+            setOpen(true)
+            trackEvent('memnova_source_preview_opened')
+          }}
+        >
+          <Eye className={cardEditorStyles.icon} aria-hidden="true" />
+          {translate(locale, 'cardEditor.previewSource')}
+        </Button>
+      </div>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent
           onKeyDown={(event) => event.stopPropagation()}
+          onCloseAutoFocus={(event) => {
+            if (trigger.current?.isConnected) {
+              event.preventDefault()
+              trigger.current.focus()
+            }
+          }}
           showCloseButton={false}
           aria-describedby={undefined}
           className="flex max-h-[85dvh] flex-col overflow-hidden p-0 sm:max-w-3xl"
         >
-          <DialogHeader className="shrink-0 border-b p-5">
+          <DialogHeader
+            className={`${cardEditorStyles.root} shrink-0 border-b p-5`}
+          >
             <div className="flex items-center justify-between gap-3">
               <DialogTitle>{current?.page?.title ?? title}</DialogTitle>
               <Button variant="ghost" onClick={() => setOpen(false)}>

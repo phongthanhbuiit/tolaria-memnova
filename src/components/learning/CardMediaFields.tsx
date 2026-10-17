@@ -1,6 +1,7 @@
-import { CaretDown, ImageSquare, MusicNotes } from '@phosphor-icons/react'
+import { CardEditorSection } from './CardEditorSection'
+import { CircleNotch, ImageSquare, MusicNotes } from '@phosphor-icons/react'
 import { cardEditorStyles } from './cardEditorStyles'
-import { useEffect, useId, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { invoke } from '@tauri-apps/api/core'
 import { trackEvent } from '../../lib/telemetry'
 import { isTauri } from '../../mock-tauri'
@@ -31,8 +32,13 @@ export function CardMediaFields(props: Props) {
     onChange,
     onBusyChange,
   } = props
-  const id = useId(),
-    [expanded, setExpanded] = useState(false),
+  const [expanded, setExpanded] = useState(() =>
+      visibleKeys.some(
+        (key) =>
+          typeof properties[key] === 'string' &&
+          properties[key].trim().length > 0,
+      ),
+    ),
     [busy, setBusy] = useState(false),
     [error, setError] = useState<string | null>(null)
   const active = useRef<object | null>(null),
@@ -45,6 +51,8 @@ export function CardMediaFields(props: Props) {
     const visit = {}
     active.current = visit
     locked.current = false
+    setBusy(false)
+    setError(null)
     return () => {
       if (active.current === visit) {
         active.current = null
@@ -99,74 +107,83 @@ export function CardMediaFields(props: Props) {
     }
   }
   return (
-    <section className="min-w-0 rounded-lg border">
-      <Button
-        variant="ghost"
-        className="w-full justify-between"
-        aria-expanded={expanded}
-        aria-controls={id}
-        disabled={busy}
-        onClick={() => setExpanded((value) => !value)}
-      >
-        {translate(locale, 'properties.media')}
-        <CaretDown className={`${cardEditorStyles.icon} ${expanded ? 'rotate-180' : ''}`} aria-hidden="true" />
-      </Button>
-      {expanded && (
-        <div id={id} className="space-y-4 border-t p-3">
-          {(['image', 'audio'] as const)
-            .filter((kind) => visibleKeys.includes(kind))
-            .map((kind) => (
-              <div key={kind} className="space-y-2">
-                <label className="grid gap-2 text-sm">
-                  {translate(locale, `learning.${kind}`)}
-                  <Input
-                    value={
-                      typeof properties[kind] === 'string'
-                        ? properties[kind]
-                        : ''
-                    }
-                    autoComplete="off"
-                    spellCheck={false}
-                    disabled={disabled || busy}
-                    onChange={(event) => onChange(kind, event.target.value)}
-                  />
-                </label>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  disabled={disabled || busy || !isTauri()}
-                  title={
-                    !isTauri()
-                      ? translate(locale, 'properties.nativePicker')
-                      : undefined
+    <CardEditorSection
+      title={translate(locale, 'properties.media')}
+      open={expanded}
+      onOpenChange={setExpanded}
+      disabled={busy}
+    >
+      <div aria-busy={busy} className="space-y-4">
+        {busy && (
+          <p role="status" className="flex items-center gap-2">
+            <CircleNotch
+              className={`${cardEditorStyles.icon} animate-spin`}
+              aria-hidden="true"
+            />
+            {translate(locale, 'learning.loading')}
+          </p>
+        )}
+        {(['image', 'audio'] as const)
+          .filter((kind) => visibleKeys.includes(kind))
+          .map((kind) => (
+            <div key={kind} className="space-y-2">
+              <label className="grid gap-2 text-sm">
+                {translate(locale, `learning.${kind}`)}
+                <Input
+                  value={
+                    typeof properties[kind] === 'string' ? properties[kind] : ''
                   }
-                  onClick={() => void choose(kind)}
-                >
-                  {kind === 'image' ? <ImageSquare className={cardEditorStyles.icon} aria-hidden="true" /> : <MusicNotes className={cardEditorStyles.icon} aria-hidden="true" />}
-                  {translate(
-                    locale,
-                    kind === 'image'
-                      ? 'properties.chooseImage'
-                      : 'properties.chooseAudio',
-                  )}
-                </Button>
-                <MediaPreview
-                  src={learningMediaUrl(properties[kind], root, ownerPath)}
-                  kind={kind}
-                  locale={locale}
+                  autoComplete="off"
+                  spellCheck={false}
+                  disabled={disabled || busy}
+                  onChange={(event) => onChange(kind, event.target.value)}
                 />
-              </div>
-            ))}
-          {error && (
-            <pre
-              role="alert"
-              className="whitespace-pre-wrap break-words text-xs text-destructive"
-            >
-              {error}
-            </pre>
-          )}
-        </div>
-      )}
-    </section>
+              </label>
+              <Button
+                variant="outline"
+                size="sm"
+                disabled={disabled || busy || !isTauri()}
+                title={
+                  !isTauri()
+                    ? translate(locale, 'properties.nativePicker')
+                    : undefined
+                }
+                onClick={() => void choose(kind)}
+              >
+                {kind === 'image' ? (
+                  <ImageSquare
+                    className={cardEditorStyles.icon}
+                    aria-hidden="true"
+                  />
+                ) : (
+                  <MusicNotes
+                    className={cardEditorStyles.icon}
+                    aria-hidden="true"
+                  />
+                )}
+                {translate(
+                  locale,
+                  kind === 'image'
+                    ? 'properties.chooseImage'
+                    : 'properties.chooseAudio',
+                )}
+              </Button>
+              <MediaPreview
+                src={learningMediaUrl(properties[kind], root, ownerPath)}
+                kind={kind}
+                locale={locale}
+              />
+            </div>
+          ))}
+        {error && (
+          <pre
+            role="alert"
+            className="whitespace-pre-wrap break-words text-xs text-destructive"
+          >
+            {error}
+          </pre>
+        )}
+      </div>
+    </CardEditorSection>
   )
 }

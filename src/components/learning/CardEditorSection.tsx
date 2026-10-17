@@ -11,6 +11,7 @@ type Props = {
   onOpenChange?: (open: boolean) => void
   action?: ReactNode
   count?: number
+  disabled?: boolean
 }
 export function CardEditorSection({
   title,
@@ -20,6 +21,7 @@ export function CardEditorSection({
   onOpenChange,
   action,
   count,
+  disabled = false,
 }: Props) {
   const id = useId()
   const [expanded, setExpanded] = useState(defaultOpen)
@@ -30,6 +32,7 @@ export function CardEditorSection({
         <h3 className="min-w-0 flex-1">
           <Button
             variant="ghost"
+            disabled={disabled}
             className="w-full justify-start whitespace-normal text-left"
             aria-label={`${title}${count !== undefined ? ` (${count})` : ''}`}
             aria-expanded={visible}
