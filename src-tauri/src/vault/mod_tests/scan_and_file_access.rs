@@ -88,6 +88,7 @@ fn test_scan_vault_skips_hidden_folders() {
     create_test_file(dir.path(), "root.md", "# Root\n");
     create_test_file(dir.path(), ".laputa/cache.md", "# Cache\n");
     create_test_file(dir.path(), ".git/objects.md", "# Git\n");
+    create_test_file(dir.path(), ".memnova/backups/lesson.md", "# Backup\n");
 
     let entries = scan_vault(dir.path(), &HashMap::new()).unwrap();
     assert_eq!(entries.len(), 1);

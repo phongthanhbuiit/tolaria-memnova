@@ -14,11 +14,11 @@ This ledger tracks the plan from the conversation. A checked implementation is n
 | B01 | A01 | Enabling never resets an existing schedule; deck scope stays scoped | Implemented; release checks pending |
 | B02 | B01 | One atomic schedule write, save failures propagate, stats follow save | Implemented; release checks pending |
 | B03 | B02 | Stable session queue, live due clock, deck root, load cancellation, empty answer marker | Implemented; release checks pending |
-| C01 | A01–B03 | ADR defines learning authority, identifiers, transactions, backup and compatibility | Pending |
-| C02 | C01 | Persistent library UUID and page UUID survive moves/renames; duplicate detection | Pending |
-| C03 | C02 | Rust SQLite ownership, versioned migration, WAL, foreign keys, boundaries | Pending |
-| C04 | C03 | Pages/cards/schedules/reviews/sessions/decks with indexes and constraints | Pending |
-| C05 | C04 | Typed IPC/client; frontend cannot supply SQL or arbitrary database paths | Pending |
+| C01 | A01–B03 | ADR defines learning authority, identifiers, transactions, backup and compatibility | Backend implemented; migration wiring/release checks pending |
+| C02 | C01 | Persistent library UUID and page UUID survive moves/renames; duplicate detection | Backend implemented; migration wiring/release checks pending |
+| C03 | C02 | Rust SQLite ownership, versioned migration, WAL, foreign keys, boundaries | Backend implemented; migration wiring/release checks pending |
+| C04 | C03 | Pages/cards/schedules/reviews/sessions/decks with indexes and constraints | Backend implemented; migration wiring/release checks pending |
+| C05 | C04 | Typed IPC/client; frontend cannot supply SQL or arbitrary database paths | Backend implemented; migration wiring/release checks pending |
 | D01 | C05 | Consistent backup of SQLite, lessons and media; verified restore into fresh directory | Pending |
 | D02 | D01 | Read-only migration preview reports counts, invalid schedules and conflicts | Pending |
 | D03 | D02 | Backup-first, idempotent/resumable legacy migration preserves schedules/history/media | Pending |

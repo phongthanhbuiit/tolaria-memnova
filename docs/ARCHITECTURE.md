@@ -1134,3 +1134,9 @@ Features that work on both platforms without changes:
 **Capabilities:** `src-tauri/capabilities/default.json` targets desktop; `mobile.json` targets iOS/Android with a minimal permission set.
 
 **Detailed feasibility report:** `docs/IPAD-PROTOTYPE.md`
+
+### Staged SQLite learning authority
+
+ADR-0138 defines the upcoming learning-data cutover. The Rust `learning` module now initializes schema version 1 in one transaction with foreign keys, WAL, full synchronization and a busy timeout. Future versions fail without resetting user data. Pages, cards, schedules, reviews, sessions, decks and import checkpoints are separate tables with due/history/membership indexes. Card edits use optimistic revisions and never reset schedules. Foreign keys prevent orphan cards; card/schedule creation is transactional. This backend is not yet the production study path: legacy import, backup/restore and cutover must be verified first.
+
+The native command boundary accepts typed operations, validates the existing registered Library boundary and checks the Library UUID. Filesystem page paths must resolve to Markdown inside that Library. Frontend code uses `src/lib/learning/client.ts`; no SQL or database filename crosses IPC. `.memnova` is hidden from existing vault scans, and its app-owned ignore file protects SQLite/WAL from automatic Git staging.

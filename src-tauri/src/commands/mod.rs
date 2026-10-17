@@ -7,6 +7,7 @@ mod fsrs_log;
 mod git;
 pub mod git_clone;
 mod git_connect;
+mod learning;
 mod memory;
 mod pdf_export;
 mod runtime;
@@ -24,6 +25,7 @@ pub use folders::*;
 pub use fsrs_log::*;
 pub use git::*;
 pub use git_connect::*;
+pub use learning::*;
 pub use memory::*;
 pub use pdf_export::*;
 pub use runtime::*;
@@ -100,3 +102,6 @@ mod tests {
         assert_eq!(result, "/home/~user/path");
     }
 }
+
+#[cfg(test)]
+mod learning_tests;

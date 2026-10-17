@@ -1,0 +1,27 @@
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { invoke } from '@tauri-apps/api/core'
+import { LearningClient } from './client'
+
+vi.mock('@tauri-apps/api/core', () => ({ invoke: vi.fn() }))
+
+describe('learning IPC client', () => {
+  beforeEach(() => vi.resetAllMocks())
+  it('binds every operation to the connected library identity', async () => {
+    vi.mocked(invoke).mockResolvedValueOnce({ libraryId: 'library-1', schemaVersion: 1 }).mockResolvedValueOnce([])
+    const client = await LearningClient.connect('/library')
+    expect(client.libraryId).toBe('library-1')
+    await expect(client.listCards('page-1')).resolves.toEqual([])
+    expect(invoke).toHaveBeenLastCalledWith('learning_command', {
+      vaultPath: '/library', libraryId: 'library-1', request: { kind: 'listCards', pageId: 'page-1', includeTrashed: false },
+    })
+  })
+  it('rejects an incompatible backend instead of treating missing data as an empty library', async () => {
+    vi.mocked(invoke).mockResolvedValue({ libraryId: 'library-1', schemaVersion: 99 })
+    await expect(LearningClient.connect('/library')).rejects.toThrow('Unsupported learning database')
+  })
+  it('propagates persistence failures to the editing UI', async () => {
+    vi.mocked(invoke).mockResolvedValueOnce({ libraryId: 'library-1', schemaVersion: 1 }).mockRejectedValueOnce(new Error('Disk full'))
+    const client = await LearningClient.connect('/library')
+    await expect(client.cloneCard('card-1')).rejects.toThrow('Disk full')
+  })
+})

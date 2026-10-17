@@ -14,6 +14,7 @@ mod gemini_discovery;
 pub mod git;
 pub mod kiro_cli;
 mod kiro_discovery;
+pub mod learning;
 #[cfg(any(test, all(desktop, target_os = "linux")))]
 mod linux_appimage;
 pub mod mcp;
@@ -482,6 +483,7 @@ macro_rules! app_invoke_handler {
             commands::save_note_content,
             commands::update_frontmatter,
             commands::update_fsrs_schedule,
+            commands::learning_command,
             commands::delete_frontmatter_property,
             commands::rename_note,
             commands::rename_note_filename,
