@@ -863,5 +863,19 @@
   "learning.answerCurrent": "Dùng trang hiện tại",
   "learning.answerOther": "Chọn bài khác",
   "learning.sourcePage": "Trang đáp án",
-  "learning.sourceUnavailable": "Trang đáp án không còn khả dụng. Hãy chọn bài khác hoặc khôi phục nguồn."
+  "learning.sourceUnavailable": "Trang đáp án không còn khả dụng. Hãy chọn bài khác hoặc khôi phục nguồn.",
+  "properties.type": "Kiểu thuộc tính",
+  "properties.rename": "Đổi tên",
+  "properties.opaque": "Chỉ đọc: giá trị không hỗ trợ hoặc không khớp kiểu",
+  "properties.conversionRejected": "Chuyển kiểu này sẽ mất thông tin. Đã giữ nguyên giá trị gốc.",
+  "properties.duplicate": "Thuộc tính này đã tồn tại.",
+  "properties.addItem": "Thêm phần tử",
+  "properties.kind.text": "Văn bản",
+  "properties.kind.number": "Số",
+  "properties.kind.boolean": "Đúng/sai",
+  "properties.kind.date": "Ngày",
+  "properties.kind.list-text": "Danh sách văn bản",
+  "properties.kind.page": "Liên kết trang",
+  "properties.kind.list-page": "Các liên kết trang",
+  "properties.invalid": "Tên thuộc tính không hợp lệ hoặc dành riêng."
 }

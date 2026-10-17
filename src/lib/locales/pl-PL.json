@@ -863,5 +863,19 @@
   "learning.answerCurrent": "Użyj bieżącej strony",
   "learning.answerOther": "Wybierz inną stronę",
   "learning.sourcePage": "Strona odpowiedzi",
-  "learning.sourceUnavailable": "Strona odpowiedzi jest niedostępna. Wybierz inną stronę lub przywróć źródło."
+  "learning.sourceUnavailable": "Strona odpowiedzi jest niedostępna. Wybierz inną stronę lub przywróć źródło.",
+  "properties.type": "Typ właściwości",
+  "properties.rename": "Zmień nazwę",
+  "properties.opaque": "Tylko do odczytu: nieobsługiwana wartość lub inny typ",
+  "properties.conversionRejected": "Ta konwersja utraciłaby informacje. Zachowano pierwotną wartość.",
+  "properties.duplicate": "Ta właściwość już istnieje.",
+  "properties.addItem": "Dodaj element",
+  "properties.kind.text": "Tekst",
+  "properties.kind.number": "Liczba",
+  "properties.kind.boolean": "Wartość logiczna",
+  "properties.kind.date": "Data",
+  "properties.kind.list-text": "Lista tekstów",
+  "properties.kind.page": "Link do strony",
+  "properties.kind.list-page": "Linki do stron",
+  "properties.invalid": "Nieprawidłowa lub zastrzeżona nazwa właściwości."
 }

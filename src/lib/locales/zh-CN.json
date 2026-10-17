@@ -863,5 +863,19 @@
   "learning.answerCurrent": "使用当前页面",
   "learning.answerOther": "选择其他页面",
   "learning.sourcePage": "答案页面",
-  "learning.sourceUnavailable": "答案页面不可用。请选择其他页面或恢复来源。"
+  "learning.sourceUnavailable": "答案页面不可用。请选择其他页面或恢复来源。",
+  "properties.type": "属性类型",
+  "properties.rename": "重命名",
+  "properties.opaque": "只读：不支持的值或类型不匹配",
+  "properties.conversionRejected": "此转换会丢失信息，已保留原值。",
+  "properties.duplicate": "此属性已存在。",
+  "properties.addItem": "添加项目",
+  "properties.kind.text": "文本",
+  "properties.kind.number": "数字",
+  "properties.kind.boolean": "布尔值",
+  "properties.kind.date": "日期",
+  "properties.kind.list-text": "文本列表",
+  "properties.kind.page": "页面链接",
+  "properties.kind.list-page": "页面链接列表",
+  "properties.invalid": "属性名称无效或为保留名称。"
 }

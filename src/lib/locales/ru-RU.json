@@ -863,5 +863,19 @@
   "learning.answerCurrent": "Использовать текущую страницу",
   "learning.answerOther": "Выбрать другую страницу",
   "learning.sourcePage": "Страница ответа",
-  "learning.sourceUnavailable": "Страница ответа недоступна. Выберите другую страницу или восстановите источник."
+  "learning.sourceUnavailable": "Страница ответа недоступна. Выберите другую страницу или восстановите источник.",
+  "properties.type": "Тип свойства",
+  "properties.rename": "Переименовать",
+  "properties.opaque": "Только чтение: неподдерживаемое значение или другой тип",
+  "properties.conversionRejected": "Преобразование приведёт к потере информации. Исходное значение сохранено.",
+  "properties.duplicate": "Это свойство уже существует.",
+  "properties.addItem": "Добавить элемент",
+  "properties.kind.text": "Текст",
+  "properties.kind.number": "Число",
+  "properties.kind.boolean": "Логическое значение",
+  "properties.kind.date": "Дата",
+  "properties.kind.list-text": "Список текста",
+  "properties.kind.page": "Ссылка на страницу",
+  "properties.kind.list-page": "Ссылки на страницы",
+  "properties.invalid": "Недопустимое или зарезервированное имя свойства."
 }

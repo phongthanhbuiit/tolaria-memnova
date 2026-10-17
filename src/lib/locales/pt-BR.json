@@ -863,5 +863,19 @@
   "learning.answerCurrent": "Usar a página atual",
   "learning.answerOther": "Escolher outra página",
   "learning.sourcePage": "Página da resposta",
-  "learning.sourceUnavailable": "A página da resposta está indisponível. Escolha outra página ou restaure a origem."
+  "learning.sourceUnavailable": "A página da resposta está indisponível. Escolha outra página ou restaure a origem.",
+  "properties.type": "Tipo de propriedade",
+  "properties.rename": "Renomear",
+  "properties.opaque": "Somente leitura: valor não suportado ou de tipo diferente",
+  "properties.conversionRejected": "Esta conversão perderia informações. O valor original foi mantido.",
+  "properties.duplicate": "Esta propriedade já existe.",
+  "properties.addItem": "Adicionar item",
+  "properties.kind.text": "Texto",
+  "properties.kind.number": "Número",
+  "properties.kind.boolean": "Booleano",
+  "properties.kind.date": "Data",
+  "properties.kind.list-text": "Lista de texto",
+  "properties.kind.page": "Link de página",
+  "properties.kind.list-page": "Links de páginas",
+  "properties.invalid": "Nome de propriedade inválido ou reservado."
 }

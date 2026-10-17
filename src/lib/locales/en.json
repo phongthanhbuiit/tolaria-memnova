@@ -863,5 +863,19 @@
   "learning.answerCurrent": "Use current page",
   "learning.answerOther": "Choose another page",
   "learning.sourcePage": "Answer page",
-  "learning.sourceUnavailable": "The answer page is unavailable. Choose another page or restore the source."
+  "learning.sourceUnavailable": "The answer page is unavailable. Choose another page or restore the source.",
+  "properties.type": "Property type",
+  "properties.rename": "Rename",
+  "properties.opaque": "Read only: unsupported or mismatched value",
+  "properties.conversionRejected": "This conversion would lose information. The original value was kept.",
+  "properties.duplicate": "This property already exists.",
+  "properties.addItem": "Add item",
+  "properties.kind.text": "Text",
+  "properties.kind.number": "Number",
+  "properties.kind.boolean": "Boolean",
+  "properties.kind.date": "Date",
+  "properties.kind.list-text": "Text list",
+  "properties.kind.page": "Page link",
+  "properties.kind.list-page": "Page links",
+  "properties.invalid": "Invalid or reserved property name."
 }

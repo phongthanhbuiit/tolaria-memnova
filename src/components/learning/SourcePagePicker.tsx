@@ -5,7 +5,7 @@ import { translate, type AppLocale } from '../../lib/i18n'
 import type { LearningPage } from '../../lib/learning/types'
 import { useLearningWorkspace } from './LearningContext'
 
-export function SourcePagePicker({ value, locale, disabled, onChange, onBusyChange }: { value: string | null; locale: AppLocale; disabled: boolean; onChange: (page: LearningPage) => void; onBusyChange?: (busy: boolean) => void }) {
+export function SourcePagePicker({ value, locale, disabled, onChange, onBusyChange, label }: { value: string | null; locale: AppLocale; disabled: boolean; onChange: (page: LearningPage) => void; onBusyChange?: (busy: boolean) => void; label?: string }) {
   const workspace = useLearningWorkspace()
   const client = workspace?.client
   const root = workspace?.root ?? client?.vaultPath ?? ''
@@ -40,7 +40,7 @@ export function SourcePagePicker({ value, locale, disabled, onChange, onBusyChan
     finally { if (active.current === visit) { locked.current = false; setBusy(false); busyCallback.current?.(false) } }
   }
   return <div className="space-y-2 text-sm">
-    <label htmlFor={id} className="font-medium">{translate(locale, 'learning.sourcePage')}</label>
+    <label htmlFor={id} className="font-medium">{label ?? translate(locale, 'learning.sourcePage')}</label>
     <NoteAutocomplete inputId={id} selectByPath entries={entries} typeEntryMap={{}} value={query} onChange={setQuery} onSelect={path => { void choose(path) }} disabled={disabled || busy} placeholder={translate(locale, 'learning.addRelated')} />
     {selected && <div className="rounded-md border bg-muted/30 p-3"><SourcePagePreview pageId={selected.id} title={selected.title} locale={locale} disabled={disabled || !selected.available} /><p className="mt-1 break-all text-xs text-muted-foreground">{selected.path}</p></div>}
     {value && !selected?.available && <p role="alert" className="text-destructive">{translate(locale, 'learning.sourceUnavailable')}</p>}

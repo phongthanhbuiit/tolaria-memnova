@@ -863,5 +863,19 @@
   "learning.answerCurrent": "Aktuelle Seite verwenden",
   "learning.answerOther": "Andere Seite wählen",
   "learning.sourcePage": "Antwortseite",
-  "learning.sourceUnavailable": "Die Antwortseite ist nicht verfügbar. Wähle eine andere Seite oder stelle die Quelle wieder her."
+  "learning.sourceUnavailable": "Die Antwortseite ist nicht verfügbar. Wähle eine andere Seite oder stelle die Quelle wieder her.",
+  "properties.type": "Eigenschaftstyp",
+  "properties.rename": "Umbenennen",
+  "properties.opaque": "Schreibgeschützt: nicht unterstützter oder unpassender Wert",
+  "properties.conversionRejected": "Diese Umwandlung würde Informationen verlieren. Der ursprüngliche Wert bleibt erhalten.",
+  "properties.duplicate": "Diese Eigenschaft existiert bereits.",
+  "properties.addItem": "Eintrag hinzufügen",
+  "properties.kind.text": "Text",
+  "properties.kind.number": "Zahl",
+  "properties.kind.boolean": "Boolescher Wert",
+  "properties.kind.date": "Datum",
+  "properties.kind.list-text": "Textliste",
+  "properties.kind.page": "Seitenlink",
+  "properties.kind.list-page": "Seitenlinks",
+  "properties.invalid": "Ungültiger oder reservierter Eigenschaftsname."
 }

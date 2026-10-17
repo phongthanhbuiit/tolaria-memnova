@@ -863,5 +863,19 @@
   "learning.answerCurrent": "現在のページを使用",
   "learning.answerOther": "別のページを選択",
   "learning.sourcePage": "回答ページ",
-  "learning.sourceUnavailable": "回答ページを利用できません。別のページを選択するか、参照元を復元してください。"
+  "learning.sourceUnavailable": "回答ページを利用できません。別のページを選択するか、参照元を復元してください。",
+  "properties.type": "プロパティの種類",
+  "properties.rename": "名前を変更",
+  "properties.opaque": "読み取り専用：未対応または型が一致しない値",
+  "properties.conversionRejected": "この変換では情報が失われます。元の値を保持しました。",
+  "properties.duplicate": "このプロパティは既に存在します。",
+  "properties.addItem": "項目を追加",
+  "properties.kind.text": "テキスト",
+  "properties.kind.number": "数値",
+  "properties.kind.boolean": "真偽値",
+  "properties.kind.date": "日付",
+  "properties.kind.list-text": "テキストのリスト",
+  "properties.kind.page": "ページへのリンク",
+  "properties.kind.list-page": "ページへのリンク一覧",
+  "properties.invalid": "無効または予約済みのプロパティ名です。"
 }

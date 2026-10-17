@@ -863,5 +863,19 @@
   "learning.answerCurrent": "Vykarystać biahučuju staronku",
   "learning.answerOther": "Vybrać inšuju staronku",
   "learning.sourcePage": "Staronka adkazu",
-  "learning.sourceUnavailable": "Staronka adkazu niedastupnaja. Vybierycie inšuju abo adnavicie krynicu."
+  "learning.sourceUnavailable": "Staronka adkazu niedastupnaja. Vybierycie inšuju abo adnavicie krynicu.",
+  "properties.type": "Typ ułaścivaści",
+  "properties.rename": "Pierajmienavać",
+  "properties.opaque": "Tolki čytańnie: značennie nie padtrymlivajecca abo maje inšy typ",
+  "properties.conversionRejected": "Pieraŭtvareńnie pryviadzie da straty źviestak. Zychodnaje značennie zachavana.",
+  "properties.duplicate": "Takaja ŭłaścivaść užo isnuje.",
+  "properties.addItem": "Dadać element",
+  "properties.kind.text": "Tekst",
+  "properties.kind.number": "Lik",
+  "properties.kind.boolean": "Łahičnaje značennie",
+  "properties.kind.date": "Data",
+  "properties.kind.list-text": "Śpis tekstu",
+  "properties.kind.page": "Spasyłka na staronku",
+  "properties.kind.list-page": "Spasyłki na staronki",
+  "properties.invalid": "Niedapuščalnaja abo zareziervavanaja nazva ŭłaścivaści."
 }

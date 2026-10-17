@@ -863,5 +863,19 @@
   "learning.answerCurrent": "Gunakan halaman saat ini",
   "learning.answerOther": "Pilih halaman lain",
   "learning.sourcePage": "Halaman jawaban",
-  "learning.sourceUnavailable": "Halaman jawaban tidak tersedia. Pilih halaman lain atau pulihkan sumbernya."
+  "learning.sourceUnavailable": "Halaman jawaban tidak tersedia. Pilih halaman lain atau pulihkan sumbernya.",
+  "properties.type": "Jenis properti",
+  "properties.rename": "Ganti nama",
+  "properties.opaque": "Hanya baca: nilai tidak didukung atau jenis tidak cocok",
+  "properties.conversionRejected": "Konversi ini akan menghilangkan informasi. Nilai asli dipertahankan.",
+  "properties.duplicate": "Properti ini sudah ada.",
+  "properties.addItem": "Tambah item",
+  "properties.kind.text": "Teks",
+  "properties.kind.number": "Angka",
+  "properties.kind.boolean": "Boolean",
+  "properties.kind.date": "Tanggal",
+  "properties.kind.list-text": "Daftar teks",
+  "properties.kind.page": "Tautan halaman",
+  "properties.kind.list-page": "Tautan halaman jamak",
+  "properties.invalid": "Nama properti tidak valid atau dicadangkan."
 }

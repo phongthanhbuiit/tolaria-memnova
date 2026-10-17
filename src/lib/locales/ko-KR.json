@@ -863,5 +863,19 @@
   "learning.answerCurrent": "현재 페이지 사용",
   "learning.answerOther": "다른 페이지 선택",
   "learning.sourcePage": "답변 페이지",
-  "learning.sourceUnavailable": "답변 페이지를 사용할 수 없습니다. 다른 페이지를 선택하거나 원본을 복원하세요."
+  "learning.sourceUnavailable": "답변 페이지를 사용할 수 없습니다. 다른 페이지를 선택하거나 원본을 복원하세요.",
+  "properties.type": "속성 유형",
+  "properties.rename": "이름 변경",
+  "properties.opaque": "읽기 전용: 지원하지 않거나 유형이 일치하지 않는 값",
+  "properties.conversionRejected": "변환하면 정보가 손실됩니다. 원래 값을 유지했습니다.",
+  "properties.duplicate": "이미 있는 속성입니다.",
+  "properties.addItem": "항목 추가",
+  "properties.kind.text": "텍스트",
+  "properties.kind.number": "숫자",
+  "properties.kind.boolean": "불리언",
+  "properties.kind.date": "날짜",
+  "properties.kind.list-text": "텍스트 목록",
+  "properties.kind.page": "페이지 링크",
+  "properties.kind.list-page": "페이지 링크 목록",
+  "properties.invalid": "잘못되었거나 예약된 속성 이름입니다."
 }

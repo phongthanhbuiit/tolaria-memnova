@@ -863,5 +863,19 @@
   "learning.answerCurrent": "Выкарыстаць бягучую старонку",
   "learning.answerOther": "Выбраць іншую старонку",
   "learning.sourcePage": "Старонка адказу",
-  "learning.sourceUnavailable": "Старонка адказу недаступная. Выберыце іншую або аднавіце крыніцу."
+  "learning.sourceUnavailable": "Старонка адказу недаступная. Выберыце іншую або аднавіце крыніцу.",
+  "properties.type": "Тып уласцівасці",
+  "properties.rename": "Перайменаваць",
+  "properties.opaque": "Толькі чытанне: значэнне не падтрымліваецца або мае іншы тып",
+  "properties.conversionRejected": "Пераўтварэнне прывядзе да страты звестак. Зыходнае значэнне захавана.",
+  "properties.duplicate": "Такая ўласцівасць ужо існуе.",
+  "properties.addItem": "Дадаць элемент",
+  "properties.kind.text": "Тэкст",
+  "properties.kind.number": "Лік",
+  "properties.kind.boolean": "Лагічнае значэнне",
+  "properties.kind.date": "Дата",
+  "properties.kind.list-text": "Спіс тэксту",
+  "properties.kind.page": "Спасылка на старонку",
+  "properties.kind.list-page": "Спасылкі на старонкі",
+  "properties.invalid": "Недапушчальная або зарэзерваваная назва ўласцівасці."
 }
