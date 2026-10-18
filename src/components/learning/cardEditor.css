@@ -59,6 +59,7 @@
 .learning-editor-portal [data-slot='dropdown-menu-item'] { font-size: 13px; line-height: 20px; min-height: 32px; }
 .learning-editor-portal [data-slot='button'] { font-size: 13px; }
 @media (pointer: coarse) {
+  .learning-editor [data-slot='button'][data-size^='icon'] { min-width: 44px; }
   .learning-editor [data-slot='button'],
   .learning-editor [data-slot='input'],
   .learning-editor [data-slot='select-trigger'] { min-height: 44px; }

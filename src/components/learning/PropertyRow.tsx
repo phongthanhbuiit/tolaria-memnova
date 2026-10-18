@@ -40,6 +40,17 @@ type Props = {
   ) => void
   onBusyChange?: (busy: boolean) => void
 }
+function previewConversion(
+  value: LearningProperty,
+  definition: PropertyDefinition | null,
+) {
+  if (!definition) return null
+  try {
+    return { definition, value: convertProperty(value, definition) }
+  } catch {
+    return null
+  }
+}
 export function PropertyRow({
   name,
   value,
@@ -55,10 +66,9 @@ export function PropertyRow({
   const [key, setKey] = useState(name),
     [error, setError] = useState<string | null>(null),
     [editing, setEditing] = useState<'rename' | 'type' | null>(null)
-  const [conversion, setConversion] = useState<{
-    definition: PropertyDefinition
-    value: LearningProperty
-  } | null>(null)
+  const [pendingDefinition, setPendingDefinition] =
+    useState<PropertyDefinition | null>(null)
+  const conversion = previewConversion(value, pendingDefinition)
   const [editable] = useState(
     () =>
       !!hint &&
@@ -71,6 +81,17 @@ export function PropertyRow({
   const pendingFocus = useRef<'rename' | 'type' | 'mutation' | null>(null)
   const errorId = useId()
   const t = (key: TranslationKey) => translate(locale, key)
+  const visibleError =
+    error ??
+    (pendingDefinition && !conversion
+      ? t('properties.conversionRejected')
+      : null)
+  const cancelType = () => {
+    setPendingDefinition(null)
+    setEditing(null)
+    setError(null)
+    menuTrigger.current?.focus()
+  }
   const valid =
     !!hint &&
     (matchesProperty(value, hint) ||
@@ -120,6 +141,7 @@ export function PropertyRow({
               disabled={!editable || !valid}
               onSelect={() => {
                 setKey(name)
+                setPendingDefinition(null)
                 setError(null)
                 pendingFocus.current = 'rename'
                 setEditing('rename')
@@ -234,20 +256,14 @@ export function PropertyRow({
       )}
       {editing === 'type' && (
         <PropertyKindSelect
-          definition={hint}
+          definition={pendingDefinition ?? hint}
+          triggerRef={typeTrigger}
           label={`${t('properties.type')} ${name}`}
           locale={locale}
           disabled={disabled || !editable}
           onChange={(definition) => {
-            try {
-              setConversion({
-                definition,
-                value: convertProperty(value, definition),
-              })
-              setError(null)
-            } catch {
-              setError(t('properties.conversionRejected'))
-            }
+            setPendingDefinition(definition)
+            setError(null)
           }}
         />
       )}
@@ -273,7 +289,7 @@ export function PropertyRow({
               disabled={disabled}
               onClick={() => {
                 onDefinition(conversion.definition, conversion.value)
-                setConversion(null)
+                setPendingDefinition(null)
                 setEditing(null)
                 menuTrigger.current?.focus()
               }}
@@ -281,35 +297,20 @@ export function PropertyRow({
               <Check className={cardEditorStyles.icon} aria-hidden="true" />
               {t('cardEditor.applyType')}
             </Button>
-            <Button
-              variant="ghost"
-              disabled={disabled}
-              onClick={() => {
-                setConversion(null)
-                setEditing(null)
-                setError(null)
-              }}
-            >
+            <Button variant="ghost" disabled={disabled} onClick={cancelType}>
               {t('common.cancel')}
             </Button>
           </div>
         </div>
       )}
       {editing === 'type' && !conversion && (
-        <Button
-          variant="ghost"
-          disabled={disabled}
-          onClick={() => {
-            setEditing(null)
-            setError(null)
-          }}
-        >
+        <Button variant="ghost" disabled={disabled} onClick={cancelType}>
           {t('common.cancel')}
         </Button>
       )}
-      {error && (
+      {visibleError && (
         <p id={errorId} role="alert" className="text-destructive">
-          {error}
+          {visibleError}
         </p>
       )}
     </div>

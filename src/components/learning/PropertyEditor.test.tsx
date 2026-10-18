@@ -192,3 +192,74 @@ it('keeps intermediate numbers, rename text and unapplied type previews across s
     12,
   )
 })
+
+async function chooseType(name: string, kind: string) {
+  fireEvent.click(
+    screen.getByRole('combobox', { name: `Property type ${name}` }),
+  )
+  fireEvent.click(screen.getByRole('option', { name: kind, exact: true }))
+}
+
+it('converts the latest value rather than a stale preview snapshot', async () => {
+  render(<Harness />)
+  await manage('zero', 'Change type')
+  await chooseType('zero', 'Text')
+  fireEvent.change(screen.getByRole('textbox', { name: 'zero', exact: true }), {
+    target: { value: '42' },
+  })
+  expect(
+    screen.getByRole('group', { name: 'Apply type zero' }),
+  ).toHaveTextContent('"42"')
+  fireEvent.click(
+    screen.getByRole('button', { name: 'Apply type', exact: true }),
+  )
+  expect(JSON.parse(screen.getByTestId('draft').textContent!).values.zero).toBe(
+    '42',
+  )
+})
+
+it('removes a valid preview when the next selected conversion is rejected', async () => {
+  render(<Harness />)
+  await manage('zero', 'Change type')
+  await chooseType('zero', 'Text')
+  await chooseType('zero', 'Date')
+  expect(screen.getByRole('alert')).toHaveTextContent('lose information')
+  expect(
+    screen.queryByRole('button', { name: 'Apply type', exact: true }),
+  ).not.toBeInTheDocument()
+  expect(
+    screen.getByRole('combobox', { name: 'Property type zero' }),
+  ).toHaveTextContent('Date')
+  expect(JSON.parse(screen.getByTestId('draft').textContent!).values.zero).toBe(
+    0,
+  )
+  await chooseType('zero', 'Text')
+  expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+  fireEvent.click(
+    screen.getByRole('button', { name: 'Apply type', exact: true }),
+  )
+  expect(JSON.parse(screen.getByTestId('draft').textContent!).values.zero).toBe(
+    '0',
+  )
+})
+
+it('revalidates a preview while the source value changes and recovers without a new selection', async () => {
+  render(<Harness />)
+  const field = screen.getByRole('textbox', { name: 'empty', exact: true })
+  fireEvent.change(field, { target: { value: '12' } })
+  await manage('empty', 'Change type')
+  await chooseType('empty', 'Number')
+  fireEvent.change(field, { target: { value: 'invalid' } })
+  expect(screen.getByRole('alert')).toHaveTextContent('lose information')
+  expect(
+    screen.queryByRole('button', { name: 'Apply type', exact: true }),
+  ).not.toBeInTheDocument()
+  fireEvent.change(field, { target: { value: '17' } })
+  expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+  fireEvent.click(
+    screen.getByRole('button', { name: 'Apply type', exact: true }),
+  )
+  const draft = JSON.parse(screen.getByTestId('draft').textContent!)
+  expect(draft.values.empty).toBe(17)
+  expect(draft.definitions.empty).toEqual({ valueKind: 'number' })
+})

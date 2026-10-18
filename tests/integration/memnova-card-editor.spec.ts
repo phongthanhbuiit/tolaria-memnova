@@ -459,8 +459,137 @@ test('app zoom keeps footer reachable and focused controls outside fixed header 
         .getByRole('textbox', { name: 'Question', exact: true })
         .evaluate((el) => el === document.activeElement),
     ).toBe(false)
+    await addField(touch, form, 'touch_score')
+    const iconBox = await form
+      .getByRole('button', { name: 'Manage field touch_score', exact: true })
+      .boundingBox()
+    expect(iconBox!.width).toBeGreaterThanOrEqual(44)
+    expect(iconBox!.height).toBeGreaterThanOrEqual(44)
   } finally {
     await touchContext.close()
     removeFixtureVaultCopy(touchRoot)
+  }
+})
+
+test('type management focuses the selector and returns to the menu on either Cancel path', async ({
+  page,
+}) => {
+  const root = createFixtureVaultCopy()
+  try {
+    const dialog = await openCard(page, root, catalog())
+    await addField(page, dialog, 'score')
+    const menu = dialog.getByRole('button', {
+      name: 'Manage field score',
+      exact: true,
+    })
+    await menu.press('ArrowDown')
+    await page
+      .getByRole('menuitem', { name: 'Change type', exact: true })
+      .press('Enter')
+    const kind = dialog.getByRole('combobox', {
+      name: 'Property type score',
+      exact: true,
+    })
+    await expect(kind).toBeFocused()
+    await kind.click()
+    await page.getByRole('option', { name: 'Text', exact: true }).click()
+    await expect(kind).toHaveText('Text')
+    await dialog
+      .getByRole('group', { name: 'Apply type score' })
+      .getByRole('button', { name: 'Cancel', exact: true })
+      .click()
+    await expect(menu).toBeFocused()
+    await manage(page, dialog, 'score', 'Change type')
+    await expect(kind).toBeFocused()
+    await expect(kind).toHaveText('Number')
+    await dialog
+      .getByRole('group', { name: 'score', exact: true })
+      .getByRole('button', { name: 'Cancel', exact: true })
+      .click()
+    await expect(menu).toBeFocused()
+  } finally {
+    removeFixtureVaultCopy(root)
+  }
+})
+
+test('conversion tracks current edits and rejection before the explicit card Save', async ({
+  page,
+}) => {
+  const root = createFixtureVaultCopy()
+  try {
+    let dialog = await openCard(page, root, catalog())
+    await dialog
+      .getByRole('textbox', { name: 'Question', exact: true })
+      .fill('Current conversion regression')
+    await addField(page, dialog, 'score')
+    await manage(page, dialog, 'score', 'Change type')
+    let kind = dialog.getByRole('combobox', {
+      name: 'Property type score',
+      exact: true,
+    })
+    await kind.click()
+    await page.getByRole('option', { name: 'Text', exact: true }).click()
+    await dialog.getByRole('textbox', { name: 'score', exact: true }).fill('42')
+    await expect(
+      dialog.getByRole('group', { name: 'Apply type score' }),
+    ).toContainText('"42"')
+    await dialog
+      .getByRole('button', { name: 'Apply type', exact: true })
+      .click()
+    await expect(
+      dialog.getByRole('textbox', { name: 'score', exact: true }),
+    ).toHaveValue('42')
+    await manage(page, dialog, 'score', 'Change type')
+    kind = dialog.getByRole('combobox', {
+      name: 'Property type score',
+      exact: true,
+    })
+    await kind.click()
+    await page.getByRole('option', { name: 'Number', exact: true }).click()
+    await dialog
+      .getByRole('textbox', { name: 'score', exact: true })
+      .fill('invalid')
+    await expect(dialog.getByRole('alert')).toContainText('lose information')
+    await expect(
+      dialog.getByRole('button', { name: 'Apply type', exact: true }),
+    ).toBeHidden()
+    await dialog.getByRole('textbox', { name: 'score', exact: true }).fill('17')
+    await expect(dialog.getByRole('alert')).toBeHidden()
+    await kind.click()
+    await page.getByRole('option', { name: 'Date', exact: true }).click()
+    await expect(kind).toHaveText('Date')
+    await expect(dialog.getByRole('alert')).toContainText('lose information')
+    await expect(
+      dialog.getByRole('button', { name: 'Apply type', exact: true }),
+    ).toBeHidden()
+    await kind.click()
+    await page.getByRole('option', { name: 'Number', exact: true }).click()
+    await dialog
+      .getByRole('button', { name: 'Apply type', exact: true })
+      .click()
+    await dialog.getByRole('button', { name: 'Save', exact: true }).click()
+    await expect(dialog).toBeHidden()
+    await page.reload()
+    await openFixtureVault(page, root, { preserveLearningState: true })
+    await page
+      .getByTestId('note-list-container')
+      .getByText('Alpha Project', { exact: true })
+      .click()
+    await page.getByRole('tab', { name: 'Flashcards', exact: true }).click()
+    await page
+      .getByRole('button', {
+        name: 'Current conversion regression',
+        exact: true,
+      })
+      .click()
+    dialog = page.getByRole('dialog', { name: 'Edit card', exact: true })
+    await expect(
+      dialog.getByRole('textbox', { name: 'score', exact: true }),
+    ).toHaveValue('17')
+    await expect(
+      dialog.getByRole('textbox', { name: 'score', exact: true }),
+    ).toHaveAttribute('inputmode', 'decimal')
+  } finally {
+    removeFixtureVaultCopy(root)
   }
 })
