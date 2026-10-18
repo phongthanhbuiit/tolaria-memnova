@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, type MutableRefObject } from 'react'
 import type { useCreateBlockNote } from '@blocknote/react'
 import type { VaultEntry } from '../types'
+import { flushEditorDocuments } from '../utils/editorDocumentFlush'
 import { compactMarkdown } from '../utils/compact-markdown'
 import { failNoteOpenTrace, finishNoteOpenTrace } from '../utils/noteOpenPerformance'
 import {
@@ -202,12 +203,9 @@ function serializedEditorChange(options: {
   vaultPath?: string
 }): { blocks: CachedTabState['blocks'], content: string } | null {
   const { editor, path, previousContent, vaultPath } = options
-  const blocks = editor.document
   try {
-    return {
-      blocks,
-      content: serializeRichEditorDocumentToMarkdown(editor, previousContent, vaultPath, path),
-    }
+    const content = serializeRichEditorDocumentToMarkdown(editor, previousContent, vaultPath, path)
+    return { blocks: editor.document, content }
   } catch (error) {
     console.warn('[editor] Skipped editor change because BlockNote document could not be serialized:', error)
     return null
@@ -265,7 +263,13 @@ function useEditorChangeHandler(options: {
     onContentChangeRef.current?.(path, next.content)
   }, [editor, editorContentPathRef, onContentChangeRef, pendingLocalContentRef, prevActivePathRef, tabCacheRef, tabsRef, vaultPathRef])
 
-  return useDebouncedEditorChange({ onFlush: propagateEditorChange, suppressChangeRef })
+  const { handleEditorChange, flushPendingEditorChange: flushScheduledChange } = useDebouncedEditorChange({ onFlush: propagateEditorChange, suppressChangeRef })
+  const flushPendingEditorChange = useCallback(() => {
+    const changed = flushEditorDocuments(editor)
+    if (changed && !suppressChangeRef.current) handleEditorChange()
+    return flushScheduledChange()
+  }, [editor, suppressChangeRef, handleEditorChange, flushScheduledChange])
+  return { handleEditorChange, flushPendingEditorChange }
 }
 
 function cachePreviousTabOnPathChange(options: {

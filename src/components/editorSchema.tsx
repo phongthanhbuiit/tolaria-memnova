@@ -357,6 +357,8 @@ const TldrawBlock = createReactBlockSpec(
     render: (props) => (
       <Suspense fallback={<div className="tldraw-whiteboard tldraw-whiteboard--loading" />}>
         <TldrawWhiteboard
+          documentScope={props.editor}
+          blockId={props.block.id}
           boardId={props.block.props.boardId}
           height={props.block.props.height}
           snapshot={props.block.props.snapshot}

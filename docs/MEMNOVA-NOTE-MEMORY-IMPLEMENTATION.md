@@ -15,10 +15,10 @@ Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. **Đây là
 | M06 | DONE | cb4160ca | Typed note IPC/client/browser QA; six real command cases, all1139 Rust unit tests/3ignored pass; types/lint/clippy; reviewed Codacy2Medium/21Minor, no lint/security/CriticalHigh. Config exact replay, bound/pending/rename/missing-DB guards; see M06 baseline. Pre-commit passed; pushed98e31147. |
 | M07 | DONE | 95aed8a0 | Live faces/source/media fingerprints;1153 native and90 focused frontend pass; see M07 baseline. Normal pre-commit4662 frontend/1153 Rust passed; batch push pending. |
 | M08 | DONE | 98e31147 | Seven real-file backup tests/150 learning pass; typed binding/journal validation, old1–4 restore and root-move preservation. See M08 baseline; committed/pushed98e31147. |
-| M09 | VERIFIED_LOCAL | 7f223d38 | Read-only DB/WAL/source preview;9 native domain+1 command cases,159 learning/7 IPC/14 focused frontend pass. See M09 baseline. Normal commit/batch push pending. |
-| M10 | VERIFIED_LOCAL | 1e055d09,b6584766 | Explicit backup-first apply/resume/compatibility;13 native domain cases,1184 unit/22 focused frontend pass; normal pre-commit passed; batch push pending. See M10 baseline. |
-| M11 | VERIFIED_LOCAL | 0082af91 + UI checkpoint | Core recovery178 module/9 IPC; UI10 tests, browser mouse/text-model QA; baseline m11. Normal batch push pending. |
-| M12 | NOT_STARTED | — | — |
+| M09 | DONE | 7f223d38 | Read-only DB/WAL/source preview;9 native domain+1 command cases,159 learning/7 IPC/14 focused frontend pass. See M09 baseline. Normal commit/batch push pending. |
+| M10 | DONE | 1e055d09,b6584766 | Explicit backup-first apply/resume/compatibility;13 native domain cases,1184 unit/22 focused frontend pass; normal pre-commit passed; batch push pending. See M10 baseline. |
+| M11 | DONE | 0082af91 + UI checkpoint | Core recovery178 module/9 IPC; UI10 tests, browser mouse/text-model QA; baseline m11. Normal batch push pending. |
+| M12 | VERIFIED_LOCAL | canvas flush checkpoint | RED3 regressions; GREEN243 tests/10files, lint/types; baseline m12. Batch push/native proof pending M14. |
 | M13 | NOT_STARTED | — | — |
 | M14 | NOT_STARTED | — | — |
 | M15 | NOT_STARTED | — | — |
@@ -81,3 +81,7 @@ Normal push98e31147 passed9m5s: lint/build/types,4662 frontend tests/441files, f
 M09 normal pre-commit:4664 frontend tests/442files pass137.52s;1170 Rust unit tests pass/3ignored42.48s. Commit7f223d38; batch push follows M11.
 
 M10 API normal pre-commit: full frontend passed (see archived log);1184 Rust unit tests pass/3ignored51.76s. Commitb6584766; native core1e055d09. Codacy reviewed one63-line behavioral command test plus existing dispatcher/false browser span; no new security/CriticalHigh. Batch push follows M11.
+
+## M09–M11 batch release evidence
+
+Normal push90256f36 succeeded10m42s: build/lint/types,4682 frontend tests/445files, frontend86.85% lines/83.09% statements;1191 native unit tests+1integration pass/3ignored; hook Rust87.61% lines with existing lib/main/menu exclusions. Core smoke54 pass4.9m, under5m. CodeScene NOT RUN optional unavailable. Remote/local90256f367cf711ff50b8c43036152fd24b3f5923 match, tree/demo dirt clean. Conversion/recovery UI stays staged until M20. M11 UI pre-commit4682 tests passed194.16s. Evidence:/tmp/memnova-note-memory-evidence/m11/. Final unexcluded coverage and native GUI are still required later.

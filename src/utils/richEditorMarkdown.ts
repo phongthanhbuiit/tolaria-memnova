@@ -1,4 +1,5 @@
 import type { useCreateBlockNote } from '@blocknote/react'
+import { flushEditorDocuments } from './editorDocumentFlush'
 import { compactMarkdown } from './compact-markdown'
 import { serializeDurableEditorBlocks } from './editorDurableMarkdown'
 import { portableFileAttachmentUrls } from './fileAttachmentMarkdown'
@@ -9,6 +10,7 @@ export function serializeRichEditorBodyToMarkdown(
   editor: ReturnType<typeof useCreateBlockNote>,
   vaultPath?: string,
 ): string {
+  flushEditorDocuments(editor)
   const restored = restoreWikilinksInBlocks(editor.document)
   return compactMarkdown(serializeDurableEditorBlocks(editor, restored, vaultPath))
 }

@@ -30,6 +30,7 @@ import { ActionTooltip } from './ui/action-tooltip'
 import { installTldrawTextMeasurementGuard } from './tldrawTextMeasurementGuard'
 import { vaultAttachmentAssetUrl } from '../utils/vaultAttachments'
 import { _wikilinkEntriesRef, _activeVaultPathRef } from './editorSchema'
+import { registerEditorDocumentFlush } from '../utils/editorDocumentFlush'
 import type { VaultEntry } from '../types'
 
 const EMPTY_TLDRAW_TRANSLATION_URL = 'data:application/json;base64,e30K'
@@ -43,6 +44,8 @@ function resolveTldrawAssetUrl(assetUrl: string | undefined): string {
 const tldrawAssetUrls = getAssetUrlsByImport(resolveTldrawAssetUrl)
 
 interface TldrawWhiteboardProps {
+  documentScope?: object
+  blockId?: string
   boardId: string
   height: string
   snapshot: string
@@ -189,8 +192,9 @@ function parseSnapshot(source: string): TLStoreSnapshot | null {
   }
 }
 
-function createBoardStore(boardId: string) {
-  void boardId
+function createBoardStore(identity: Pick<TldrawWhiteboardProps, 'boardId' | 'documentScope' | 'blockId'>) {
+  // Identity scopes the memoized mutable store even when two notes reuse a board ID.
+  void identity
   return createTLStore()
 }
 
@@ -518,6 +522,8 @@ function getEmptySnapshot(): {
 }
 
 export function TldrawWhiteboard({
+  documentScope,
+  blockId,
   boardId,
   height,
   snapshot,
@@ -526,7 +532,7 @@ export function TldrawWhiteboard({
   onSnapshotChange,
   onSizeChange,
 }: TldrawWhiteboardProps) {
-  const store = useMemo(() => createBoardStore(boardId), [boardId])
+  const store = useMemo(() => createBoardStore({ boardId, documentScope, blockId }), [boardId, documentScope, blockId])
   const boardRef = useRef<HTMLDivElement | null>(null)
   const tldrawEditorRef = useRef<Editor | null>(null)
   const savedSnapshotRef = useRef<string | null>(null)
@@ -670,35 +676,47 @@ export function TldrawWhiteboard({
   useEffect(() => {
     if (readOnly) return
     let timeoutId: number | null = null
+    let pending = false
 
     const flushSnapshot = () => {
+      if (!pending) return false
+      if (timeoutId !== null) window.clearTimeout(timeoutId)
       timeoutId = null
       const nextSnapshot = serializeSnapshot(getSnapshot(store).document)
       const currentSaved = savedSnapshotRef.current ?? ''
 
-      if (nextSnapshot.trim() === currentSaved.trim()) return
+      if (nextSnapshot.trim() === currentSaved.trim()) { pending = false; return false }
 
       const { json: emptyJson } = getEmptySnapshot()
       const isNextEmpty = nextSnapshot.trim() === emptyJson.trim()
       const isSavedEmpty = !currentSaved.trim() || currentSaved.trim() === '{}'
-      if (isNextEmpty && isSavedEmpty) return
+      if (isNextEmpty && isSavedEmpty) { pending = false; return false }
 
+      onSnapshotChangeRef.current(nextSnapshot)
       savedBoardIdRef.current = boardId
       savedSnapshotRef.current = nextSnapshot
-      onSnapshotChangeRef.current(nextSnapshot)
+      pending = false
+      return true
     }
 
     const scheduleSnapshotFlush = () => {
+      pending = true
       if (timeoutId !== null) window.clearTimeout(timeoutId)
       timeoutId = window.setTimeout(flushSnapshot, 350)
     }
 
+    const unregister = documentScope && blockId
+      ? registerEditorDocumentFlush(documentScope, blockId, flushSnapshot)
+      : () => {}
     const cleanup = store.listen(scheduleSnapshotFlush, { source: 'user', scope: 'document' })
     return () => {
       cleanup()
-      if (timeoutId !== null) window.clearTimeout(timeoutId)
+      try { flushSnapshot() } finally {
+        unregister()
+        if (timeoutId !== null) window.clearTimeout(timeoutId)
+      }
     }
-  }, [boardId, store, readOnly])
+  }, [boardId, store, readOnly, documentScope, blockId])
 
   const startResize = (mode: ResizeMode) => (event: ReactPointerEvent<HTMLButtonElement>) => {
     event.preventDefault()
@@ -756,7 +774,7 @@ export function TldrawWhiteboard({
       <Tldraw
         assetUrls={tldrawAssetUrls}
         components={tldrawUiComponents}
-        key={boardId}
+        key={`${blockId ?? ''}:${boardId}`}
         onMount={handleMount}
         store={store}
         user={tldrawUser}

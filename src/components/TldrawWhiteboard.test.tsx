@@ -2,6 +2,7 @@ import { act, cleanup, render, screen, waitFor } from '@testing-library/react'
 import type { ComponentProps } from 'react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { Editor } from 'tldraw'
+import { flushEditorDocuments } from '../utils/editorDocumentFlush'
 import { TldrawWhiteboard } from './TldrawWhiteboard'
 import { TooltipProvider } from './ui/tooltip'
 
@@ -31,7 +32,7 @@ const tldrawMock = vi.hoisted(() => ({
 const tldrawStoreMock = vi.hoisted(() => ({
   createTLStore: vi.fn(() => ({
     document: { records: {} },
-    listen: vi.fn(() => vi.fn()),
+    listen: vi.fn((listener: () => void) => { void listener; return vi.fn() }),
   })),
   getSnapshot: vi.fn((store: { document?: unknown }) => ({ document: store.document ?? { records: {} } })),
   loadSnapshot: vi.fn((store: { document?: unknown }, snapshot: unknown) => {
@@ -268,4 +269,42 @@ describe('TldrawWhiteboard', () => {
 
     expect(tldrawStoreMock.loadSnapshot).toHaveBeenLastCalledWith(expect.any(Object), { records: {} })
   })
+})
+
+it('retains the last document stroke when unmounted before the snapshot debounce', () => {
+  vi.useFakeTimers()
+  try {
+    const onSnapshotChange = vi.fn()
+    const view = renderWhiteboard({ onSnapshotChange })
+    const store = tldrawStoreMock.loadSnapshot.mock.lastCall![0] as ReturnType<typeof tldrawStoreMock.createTLStore>
+    const listener = store.listen.mock.lastCall![0]
+    act(() => { store.document = { records: { 'shape:last': { typeName: 'shape', text: 'last stroke' } } }; listener() })
+    act(() => { vi.advanceTimersByTime(349) })
+    expect(onSnapshotChange).not.toHaveBeenCalled()
+    view.unmount()
+    expect(onSnapshotChange).toHaveBeenCalledTimes(1)
+    expect(JSON.parse(onSnapshotChange.mock.calls[0][0]).records['shape:last'].text).toBe('last stroke')
+    act(() => { vi.runOnlyPendingTimers() })
+    expect(onSnapshotChange).toHaveBeenCalledTimes(1)
+  } finally { vi.useRealTimers() }
+})
+
+it('flushes the scoped board synchronously without a delayed duplicate callback', () => {
+  vi.useFakeTimers()
+  try {
+    const owner = {}, onSnapshotChange = vi.fn()
+    const view = renderWhiteboard({ documentScope: owner,blockId: 'block-a',onSnapshotChange })
+    const store = tldrawStoreMock.loadSnapshot.mock.lastCall![0] as ReturnType<typeof tldrawStoreMock.createTLStore>
+    act(() => { store.document = { records: { 'shape:last': { text: 'saved now' } } }; store.listen.mock.lastCall![0]() })
+    act(() => { expect(flushEditorDocuments(owner)).toBe(true) })
+    expect(JSON.parse(onSnapshotChange.mock.calls[0][0]).records['shape:last'].text).toBe('saved now')
+    act(() => { vi.advanceTimersByTime(500) })
+    expect(onSnapshotChange).toHaveBeenCalledTimes(1)
+    view.unmount(); expect(flushEditorDocuments(owner)).toBe(false)
+  } finally { vi.useRealTimers() }
+})
+it('never registers a write producer or emits a snapshot for a read-only board', () => {
+  const owner = {}, onSnapshotChange = vi.fn(), view = renderWhiteboard({ documentScope: owner,blockId: 'read-only',readOnly: true,onSnapshotChange })
+  expect(flushEditorDocuments(owner)).toBe(false)
+  view.unmount(); expect(onSnapshotChange).not.toHaveBeenCalled()
 })

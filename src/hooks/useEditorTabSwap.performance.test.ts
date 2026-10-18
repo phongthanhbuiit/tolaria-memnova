@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { act, renderHook } from '@testing-library/react'
 import { useEditorTabSwap } from './useEditorTabSwap'
+import { registerEditorDocumentFlush } from '../utils/editorDocumentFlush'
 import type { VaultEntry } from '../types'
 
 const initialBlocks = [{ type: 'paragraph', content: [{ type: 'text', text: 'A' }] }]
@@ -82,4 +83,23 @@ describe('useEditorTabSwap rich-editor serialization performance', () => {
 
     expect(editor.blocksToMarkdownLossy).toHaveBeenCalledTimes(1)
   })
+})
+
+it('flushes a pending canvas document even before BlockNote emits its change event', async () => {
+  installEditorDomSpies()
+  const tab = makeTab('a.md','Note A'), docRef = { current: initialBlocks as unknown[] }
+  const editor = makeMockEditor(docRef), onContentChange = vi.fn()
+  const { result,unmount } = renderHook(() => useEditorTabSwap({ tabs: [tab],activeTabPath: 'a.md',rawMode: false,editor: editor as never,onContentChange }))
+  await flushEditorTick()
+  let dirty = true
+  const dispose = registerEditorDocumentFlush(editor,'canvas',() => {
+    if (!dirty) return false
+    dirty = false
+    docRef.current = [{ type: 'tldrawBlock',props: { boardId: 'canvas',height: '520',width: '',snapshot: '{"records":{"shape:last":{"text":"last stroke"}}}' },children: [] }]
+    return true
+  })
+  act(() => { result.current.flushPendingEditorChange() })
+  expect(onContentChange).toHaveBeenCalledTimes(1)
+  expect(onContentChange.mock.calls[0][1]).toContain('last stroke')
+  dispose(); unmount()
 })

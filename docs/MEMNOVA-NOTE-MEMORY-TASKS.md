@@ -1,6 +1,6 @@
 # Memnova các task triển khai học thuộc trang ghi chú
 
-Trạng thái: **chưa task nào được triển khai**. Hợp đồng bắt buộc: [plan nghiệp vụ và dữ liệu](MEMNOVA-NOTE-MEMORY-PLAN.md). Kết quả thực tế ghi vào [ledger](MEMNOVA-NOTE-MEMORY-IMPLEMENTATION.md). Đường dẫn file mới bên dưới là đề xuất vị trí, không phải khẳng định file đã tồn tại.
+Trạng thái: **đang triển khai; xem trạng thái và bằng chứng theo từng task trong ledger**. Hợp đồng bắt buộc: [plan nghiệp vụ và dữ liệu](MEMNOVA-NOTE-MEMORY-PLAN.md). Kết quả thực tế ghi vào [ledger](MEMNOVA-NOTE-MEMORY-IMPLEMENTATION.md). Đường dẫn file mới bên dưới là đề xuất vị trí, không phải khẳng định file đã tồn tại.
 
 ## 1. Cách thực thi
 
