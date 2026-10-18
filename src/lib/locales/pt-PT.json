@@ -960,5 +960,14 @@
   "editor.noteMemory.sourceReadOnly": "Pré-visualização da fonte · só de leitura",
   "editor.noteMemory.deleteConfirmation": "Eliminar permanentemente as notas selecionadas e as suas mnemónicas incorporadas? As notas de origem ligadas e os anexos externos aos ficheiros selecionados são mantidos. Esta ação não pode ser anulada.",
   "editor.noteMemory.deleteFolderConfirmation": "Eliminar permanentemente esta pasta, as subpastas, notas, mnemónicas incorporadas e outros ficheiros? As origens ligadas externas à pasta são mantidas. Esta ação não pode ser anulada.",
-  "properties.noNoteMemory": "Esta nota ainda não tem um calendário de revisão."
+  "properties.noNoteMemory": "Esta nota ainda não tem um calendário de revisão.",
+  "learning.noteMemory.notes": "Memorizar notas",
+  "learning.noteMemory.legacyCards": "Cartões antigos",
+  "learning.noteMemory.enable": "Ativar memorização",
+  "learning.noteMemory.disable": "Pausar memorização",
+  "learning.noteMemory.ordinaryHelp": "Esta continua a ser uma nota normal até ativares a memorização.",
+  "learning.noteMemory.enabledHelp": "O artigo é a frente. Adiciona imagens, texto ou um quadro à ajuda de memória.",
+  "learning.noteMemory.folder": "Pasta",
+  "learning.noteMemory.includeSubfolders": "Incluir subpastas",
+  "learning.noteMemory.prepareNote": "Preparar esta nota"
 }

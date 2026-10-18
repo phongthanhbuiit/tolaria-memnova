@@ -960,5 +960,14 @@
   "editor.noteMemory.sourceReadOnly": "소스 미리보기 · 읽기 전용",
   "editor.noteMemory.deleteConfirmation": "선택한 노트와 내부 기억 보조 자료를 영구 삭제할까요? 연결된 원본 노트와 선택한 파일 외부의 첨부 파일은 유지됩니다. 이 작업은 취소할 수 없습니다.",
   "editor.noteMemory.deleteFolderConfirmation": "이 폴더와 하위 폴더, 노트, 내부 기억 보조 자료 및 다른 파일을 영구 삭제할까요? 폴더 외부의 연결된 원본은 유지됩니다. 이 작업은 취소할 수 없습니다.",
-  "properties.noNoteMemory": "이 노트에는 아직 복습 일정이 없습니다."
+  "properties.noNoteMemory": "이 노트에는 아직 복습 일정이 없습니다.",
+  "learning.noteMemory.notes": "노트 암기",
+  "learning.noteMemory.legacyCards": "이전 카드",
+  "learning.noteMemory.enable": "암기 활성화",
+  "learning.noteMemory.disable": "암기 일시 중지",
+  "learning.noteMemory.ordinaryHelp": "암기를 활성화하기 전까지는 일반 노트로 유지됩니다.",
+  "learning.noteMemory.enabledHelp": "글이 앞면입니다. 기억을 돕는 뒷면에 이미지, 텍스트 또는 캔버스를 추가하세요.",
+  "learning.noteMemory.folder": "폴더",
+  "learning.noteMemory.includeSubfolders": "하위 폴더 포함",
+  "learning.noteMemory.prepareNote": "이 노트 준비"
 }

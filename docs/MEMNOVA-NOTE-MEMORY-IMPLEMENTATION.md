@@ -26,7 +26,7 @@ Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. DONE bên d
 | M17 | DONE | b27e1144 | 11 native lifecycle cases,44 focused frontend; normal pre-commit4797 frontend/464files,1210Rust/3ignored, browser9.8s; normal batch push c8c71603 passed. |
 | M18 | DONE | 678c5826,c8c71603 | Canonical property writes, readonly schedule/raw metadata;4816frontend/1216Rust verified hook; actual native property/width/two-face/source Cancel/link/inline/restart proof,419 vault tests. Normal batch push c8c71603 passed. |
 | M19 | VERIFIED_LOCAL | fa3934f4 (local) | 65module tests8.05s; normal hook305tests/39files,3browser7.1s,18locales/962keys; M22 baseline integration issue explicitly retained. Batch push follows M22. |
-| M20 | IN_PROGRESS | — (working tree, chưa commit) | Backend workspace/lanes/capabilities có205native learning tests pass; public IPC1test pass; browser/client19tests pass. UI vẫn gọi syncPages và mở PageFlashcards cũ; enable/disable, counts, folder scope, conversion/recovery entry và inactive writes chưa nối xong. Chưa scan/release/native QA M20. |
+| M20 | IN_PROGRESS | d76f7d99 backend (local); UI checkpoint đang làm | Backend hook4832frontend/1225Rust pass. Đã nối hook/context/dashboard, opt-in enable/pause, notes/legacy scopes/counts, conversion/recovery entry và inactive writer. Browser full-app/file flow1pass9.8s zero retry. Startup recovery trước Store-open còn thiếu; chưa normal push/native QA/final acceptance M20. |
 | M21 | NOT_STARTED | — | — |
 | M22 | NOT_STARTED | — | — |
 | M23 | NOT_STARTED | — | — |

@@ -960,5 +960,14 @@
   "editor.noteMemory.sourceReadOnly": "Podgląd źródła · tylko do odczytu",
   "editor.noteMemory.deleteConfirmation": "Trwale usunąć wybrane notatki i osadzone pomoce pamięciowe? Powiązane notatki źródłowe i załączniki poza wybranymi plikami zostaną zachowane. Tej operacji nie można cofnąć.",
   "editor.noteMemory.deleteFolderConfirmation": "Trwale usunąć ten folder, podfoldery, notatki, osadzone pomoce pamięciowe i inne pliki? Powiązane źródła poza folderem zostaną zachowane. Tej operacji nie można cofnąć.",
-  "properties.noNoteMemory": "Ta notatka nie ma jeszcze harmonogramu powtórek."
+  "properties.noNoteMemory": "Ta notatka nie ma jeszcze harmonogramu powtórek.",
+  "learning.noteMemory.notes": "Zapamiętywanie notatek",
+  "learning.noteMemory.legacyCards": "Stare fiszki",
+  "learning.noteMemory.enable": "Włącz zapamiętywanie",
+  "learning.noteMemory.disable": "Wstrzymaj zapamiętywanie",
+  "learning.noteMemory.ordinaryHelp": "To pozostaje zwykłą notatką, dopóki nie włączysz zapamiętywania.",
+  "learning.noteMemory.enabledHelp": "Artykuł to przód. Dodaj obrazy, tekst lub tablicę do pomocy pamięciowej.",
+  "learning.noteMemory.folder": "Folder",
+  "learning.noteMemory.includeSubfolders": "Uwzględnij podfoldery",
+  "learning.noteMemory.prepareNote": "Przygotuj tę notatkę"
 }

@@ -960,5 +960,14 @@
   "editor.noteMemory.sourceReadOnly": "来源预览 · 只读",
   "editor.noteMemory.deleteConfirmation": "永久删除所选笔记及其内嵌记忆提示？链接的来源笔记和所选文件以外的附件将保留。此操作无法撤销。",
   "editor.noteMemory.deleteFolderConfirmation": "永久删除此文件夹及其子文件夹、笔记、内嵌记忆提示和其他文件？文件夹外链接的来源将保留。此操作无法撤销。",
-  "properties.noNoteMemory": "此笔记尚无复习计划。"
+  "properties.noNoteMemory": "此笔记尚无复习计划。",
+  "learning.noteMemory.notes": "笔记记忆",
+  "learning.noteMemory.legacyCards": "旧卡片",
+  "learning.noteMemory.enable": "启用记忆学习",
+  "learning.noteMemory.disable": "暂停记忆学习",
+  "learning.noteMemory.ordinaryHelp": "启用记忆学习前，这仍是一篇普通笔记。",
+  "learning.noteMemory.enabledHelp": "文章是正面。可以在记忆提示面添加图片、文字或画布。",
+  "learning.noteMemory.folder": "文件夹",
+  "learning.noteMemory.includeSubfolders": "包含子文件夹",
+  "learning.noteMemory.prepareNote": "准备此笔记"
 }

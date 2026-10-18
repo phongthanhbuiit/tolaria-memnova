@@ -34,6 +34,15 @@ const back: MemoryBack = {
   face: 'front',
 }
 
+it.each([['/library', '/library'], ['/tmp/library', '/private/tmp/library']])('keeps canonical ownership after raw config removal for entry root %s and Library %s', async (entryRoot, libraryRoot) => {
+  const raw = `---\n_memnova_page_id: ${pageId}\n---\nArticle\n`
+  const workspace = { root: libraryRoot, phase: 'ready', client: { vaultPath: libraryRoot }, notes: [{ view: { pageId, path: 'a.md', binding: { cardId: 'bound' } } }] } as unknown as LearningWorkspace
+  const wrapper = ({ children }: { children: ReactNode }) => <LearningContext.Provider value={workspace}>{children}</LearningContext.Provider>
+  const { result } = renderHook(() => useFlashcardEditorFace({ entry: { path: `${entryRoot}/a.md` } as VaultEntry, fullContent: raw, onContentChange: vi.fn() }), { wrapper })
+  expect(result.current.isNoteMemory).toBe(true)
+  expect(await saveThroughNoteEditor(`${entryRoot}/a.md`, raw)).toBe(true)
+})
+
 it('keeps a newer article stroke while its own configuration commits through the shared writer', async () => {
   let currentSource = source,
     revision = 4,

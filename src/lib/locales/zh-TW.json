@@ -960,5 +960,14 @@
   "editor.noteMemory.sourceReadOnly": "來源預覽 · 唯讀",
   "editor.noteMemory.deleteConfirmation": "永久刪除所選筆記及其內嵌記憶提示？連結的來源筆記及所選檔案以外的附件將保留。此操作無法復原。",
   "editor.noteMemory.deleteFolderConfirmation": "永久刪除此資料夾及其子資料夾、筆記、內嵌記憶提示和其他檔案？資料夾外連結的來源將保留。此操作無法復原。",
-  "properties.noNoteMemory": "此筆記尚無複習排程。"
+  "properties.noNoteMemory": "此筆記尚無複習排程。",
+  "learning.noteMemory.notes": "筆記記憶",
+  "learning.noteMemory.legacyCards": "舊卡片",
+  "learning.noteMemory.enable": "啟用記憶學習",
+  "learning.noteMemory.disable": "暫停記憶學習",
+  "learning.noteMemory.ordinaryHelp": "啟用記憶學習前，這仍是一篇一般筆記。",
+  "learning.noteMemory.enabledHelp": "文章是正面。可以在記憶提示面加入圖片、文字或畫布。",
+  "learning.noteMemory.folder": "資料夾",
+  "learning.noteMemory.includeSubfolders": "包含子資料夾",
+  "learning.noteMemory.prepareNote": "準備此筆記"
 }

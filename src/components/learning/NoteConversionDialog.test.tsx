@@ -35,3 +35,22 @@ it('skipping a note does not claim all notes were converted or write anything', 
   expect(screen.getByText('Skipped: 1')).toBeInTheDocument()
   expect(client.applyNoteConversion).not.toHaveBeenCalled()
 })
+
+it('registers a missing note identity only after an explicit preparation click, then requires fresh conversion choices', async () => {
+  const f = noteMemoryFlowFixture()
+  const unregistered = { ...f.page, pageId: null, classification: 'legacyMarkdown' as const, candidates: [] }
+  const registered = { ...unregistered, pageId: f.page.pageId, fingerprint: '1'.repeat(64) }
+  f.client.previewNoteConversion.mockResolvedValueOnce({ ...f.preview, pages: [unregistered] }).mockResolvedValueOnce({ ...f.preview, pages: [unregistered] }).mockResolvedValue({ ...f.preview, pages: [registered] })
+  const selected = { path: f.page.path, face: 'front' as const, pageId: null as string | null, fingerprint: '2'.repeat(64), sourceHash: f.page.sourceHash, content: f.page.front, media: [], hasBack: true, backLinked: false }
+  const client = { ...f.client, previewNoteSource: vi.fn().mockResolvedValueOnce(selected).mockResolvedValueOnce(selected).mockResolvedValue({ ...selected, pageId: f.page.pageId }), ensurePage: vi.fn().mockResolvedValue({ id: f.page.pageId, path: f.page.path }) }
+  const flush = vi.fn().mockResolvedValue(undefined), updated = vi.fn().mockResolvedValue(undefined)
+  render(<NoteConversionDialog client={client} open locale="en" onOpenChange={vi.fn()} flush={flush} onUpdated={updated} />)
+  await screen.findByText('Biology')
+  expect(client.ensurePage).not.toHaveBeenCalled()
+  fireEvent.click(screen.getByRole('button', { name: 'Prepare this note' }))
+  await waitFor(() => expect(client.ensurePage).toHaveBeenCalledWith(f.page.path, f.page.sourceHash))
+  await waitFor(() => expect(updated).toHaveBeenCalledOnce())
+  expect(flush).toHaveBeenCalledOnce()
+  expect(client.applyNoteConversion).not.toHaveBeenCalled()
+  expect(screen.getByRole('button', { name: 'Convert note', exact: true })).toBeDisabled()
+})

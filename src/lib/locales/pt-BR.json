@@ -960,5 +960,14 @@
   "editor.noteMemory.sourceReadOnly": "Prévia da fonte · somente leitura",
   "editor.noteMemory.deleteConfirmation": "Excluir permanentemente as notas selecionadas e seus recursos mnemônicos integrados? As notas de origem vinculadas e os anexos externos aos arquivos selecionados são mantidos. Esta ação não pode ser desfeita.",
   "editor.noteMemory.deleteFolderConfirmation": "Excluir permanentemente esta pasta, suas subpastas, notas, recursos mnemônicos integrados e outros arquivos? As origens vinculadas externas à pasta são mantidas. Esta ação não pode ser desfeita.",
-  "properties.noNoteMemory": "Esta nota ainda não tem um cronograma de revisão."
+  "properties.noNoteMemory": "Esta nota ainda não tem um cronograma de revisão.",
+  "learning.noteMemory.notes": "Memorizar notas",
+  "learning.noteMemory.legacyCards": "Cartões antigos",
+  "learning.noteMemory.enable": "Ativar memorização",
+  "learning.noteMemory.disable": "Pausar memorização",
+  "learning.noteMemory.ordinaryHelp": "Esta continua sendo uma nota comum até você ativar a memorização.",
+  "learning.noteMemory.enabledHelp": "O artigo é a frente. Adicione imagens, texto ou um quadro à ajuda de memória.",
+  "learning.noteMemory.folder": "Pasta",
+  "learning.noteMemory.includeSubfolders": "Incluir subpastas",
+  "learning.noteMemory.prepareNote": "Preparar esta nota"
 }

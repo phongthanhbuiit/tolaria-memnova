@@ -960,5 +960,14 @@
   "editor.noteMemory.sourceReadOnly": "Pratinjau sumber · hanya baca",
   "editor.noteMemory.deleteConfirmation": "Hapus permanen catatan terpilih dan pengingat yang tertanam di dalamnya? Catatan sumber tertaut dan lampiran di luar berkas terpilih tetap disimpan. Tindakan ini tidak dapat dibatalkan.",
   "editor.noteMemory.deleteFolderConfirmation": "Hapus permanen folder ini beserta subfolder, catatan, pengingat tertanam, dan berkas lainnya? Sumber tertaut di luar folder tetap disimpan. Tindakan ini tidak dapat dibatalkan.",
-  "properties.noNoteMemory": "Catatan ini belum memiliki jadwal tinjauan."
+  "properties.noNoteMemory": "Catatan ini belum memiliki jadwal tinjauan.",
+  "learning.noteMemory.notes": "Hafalan catatan",
+  "learning.noteMemory.legacyCards": "Kartu lama",
+  "learning.noteMemory.enable": "Aktifkan hafalan",
+  "learning.noteMemory.disable": "Jeda hafalan",
+  "learning.noteMemory.ordinaryHelp": "Ini tetap menjadi catatan biasa sampai Anda mengaktifkan hafalan.",
+  "learning.noteMemory.enabledHelp": "Artikel adalah sisi depan. Tambahkan gambar, teks, atau papan gambar pada sisi pengingat.",
+  "learning.noteMemory.folder": "Folder",
+  "learning.noteMemory.includeSubfolders": "Sertakan subfolder",
+  "learning.noteMemory.prepareNote": "Siapkan catatan ini"
 }

@@ -7,8 +7,17 @@ import type { LearningPage } from '../../lib/learning/types'
 import { useLearningWorkspace } from './LearningContext'
 import { calcLevel } from '../../hooks/useStats'
 import { BackupPanel } from './BackupPanel'
+import { NoteLearningDashboard } from './NoteLearningDashboard'
 
 export function LearningDashboard({ mode, locale, onOpenPage }: { mode: 'home' | 'decks'; locale: AppLocale; onOpenPage: (page: LearningPage) => void }) {
+  const workspace = useLearningWorkspace()
+  const legacy = <LegacyLearningDashboard mode={mode} locale={locale} onOpenPage={onOpenPage} />
+  return workspace?.client?.supportsNoteMemory && workspace.phase === 'ready'
+    ? <NoteLearningDashboard key={`${workspace.root}:${workspace.client.libraryId}`} mode={mode} locale={locale} onOpenPage={onOpenPage} legacy={legacy} />
+    : legacy
+}
+
+function LegacyLearningDashboard({ mode, locale, onOpenPage }: { mode: 'home' | 'decks'; locale: AppLocale; onOpenPage: (page: LearningPage) => void }) {
   const workspace = useLearningWorkspace()
   const [search, setSearch] = useState('')
   const [goal, setGoal] = useState<string | null>(null)
@@ -31,7 +40,7 @@ export function LearningDashboard({ mode, locale, onOpenPage }: { mode: 'home' |
     finally { setBusy(false) }
   }
   return <main className="mx-auto max-w-5xl space-y-8 p-5 sm:p-10">
-    <header className="flex flex-wrap items-center justify-between gap-4"><div><p className="mb-2 text-xs font-medium uppercase tracking-widest text-muted-foreground">Memnova</p><h1 className="text-3xl font-semibold tracking-tight">{translate(locale, mode === 'home' ? 'learning.library' : 'decks.title')}</h1><p className="mt-2 text-muted-foreground">{translate(locale, 'learning.questionHelp')}</p></div><Button disabled={workspace.phase === 'loading' || (workspace.phase === 'ready' && !due.length)} onClick={() => workspace.requestStudy()}>{translate(locale, workspace.phase === 'ready' ? 'home.start_review' : 'learning.prepare')}</Button></header>
+    <header className="flex flex-wrap items-center justify-between gap-4"><div><p className="mb-2 text-xs font-medium uppercase tracking-widest text-muted-foreground">Memnova</p><h1 className="text-3xl font-semibold tracking-tight">{translate(locale, mode === 'home' ? 'learning.library' : 'decks.title')}</h1><p className="mt-2 text-muted-foreground">{translate(locale, 'learning.questionHelp')}</p></div><Button disabled={workspace.phase === 'loading' || (workspace.phase === 'ready' && !due.length)} onClick={() => workspace.requestStudy(undefined, 'legacy')}>{translate(locale, workspace.phase === 'ready' ? 'home.start_review' : 'learning.prepare')}</Button></header>
     {(workspace.error || error) && <div role="alert" className="rounded-lg border border-destructive p-4"><p>{translate(locale, 'learning.error')}</p><pre className="my-3 whitespace-pre-wrap break-words text-xs">{error || workspace.error}</pre><Button variant="outline" onClick={() => { void workspace.reconnect() }}>{translate(locale, 'learning.retry')}</Button></div>}
     {workspace.phase === 'loading' && <p role="status">{translate(locale, 'learning.loading')}</p>}
     {workspace.phase !== 'ready' && workspace.phase !== 'loading' && <Card><CardHeader><CardTitle>{translate(locale, 'learning.prepare')}</CardTitle></CardHeader><CardContent><p className="mb-4 text-sm text-muted-foreground">{translate(locale, 'learning.prepareHelp')}</p><Button onClick={() => { void workspace.openMigration() }}>{translate(locale, workspace.phase === 'migrating' ? 'learning.resume' : 'learning.prepare')}</Button></CardContent></Card>}

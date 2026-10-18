@@ -960,5 +960,14 @@
   "editor.noteMemory.sourceReadOnly": "Прагляд крыніцы · толькі чытанне",
   "editor.noteMemory.deleteConfirmation": "Назаўсёды выдаліць выбраныя нататкі і ўбудаваныя мнеманічныя падказкі? Звязаныя зыходныя нататкі і ўкладанні па-за выбранымі файламі застануцца. Гэта дзеянне нельга адмяніць.",
   "editor.noteMemory.deleteFolderConfirmation": "Назаўсёды выдаліць гэту папку, падпапкі, нататкі, убудаваныя мнеманічныя падказкі і іншыя файлы? Звязаныя крыніцы па-за папкай застануцца. Гэта дзеянне нельга адмяніць.",
-  "properties.noNoteMemory": "У гэтай нататкі пакуль няма раскладу паўтарэнняў."
+  "properties.noNoteMemory": "У гэтай нататкі пакуль няма раскладу паўтарэнняў.",
+  "learning.noteMemory.notes": "Запамінанне нататак",
+  "learning.noteMemory.legacyCards": "Старыя карткі",
+  "learning.noteMemory.enable": "Уключыць запамінанне",
+  "learning.noteMemory.disable": "Прыпыніць запамінанне",
+  "learning.noteMemory.ordinaryHelp": "Гэта застаецца звычайнай нататкай, пакуль вы не ўключыце запамінанне.",
+  "learning.noteMemory.enabledHelp": "Артыкул — пярэдні бок. Дадайце выявы, тэкст або дошку на бок з падказкамі.",
+  "learning.noteMemory.folder": "Папка",
+  "learning.noteMemory.includeSubfolders": "Уключаць укладзеныя папкі",
+  "learning.noteMemory.prepareNote": "Падрыхтаваць гэтую нататку"
 }

@@ -960,5 +960,14 @@
   "editor.noteMemory.sourceReadOnly": "Просмотр источника · только чтение",
   "editor.noteMemory.deleteConfirmation": "Удалить выбранные заметки и встроенные мнемонические подсказки навсегда? Связанные исходные заметки и вложения вне выбранных файлов сохранятся. Это действие нельзя отменить.",
   "editor.noteMemory.deleteFolderConfirmation": "Удалить эту папку, вложенные папки, заметки, встроенные мнемонические подсказки и другие файлы навсегда? Связанные источники вне папки сохранятся. Это действие нельзя отменить.",
-  "properties.noNoteMemory": "У этой заметки пока нет расписания повторений."
+  "properties.noNoteMemory": "У этой заметки пока нет расписания повторений.",
+  "learning.noteMemory.notes": "Запоминание заметок",
+  "learning.noteMemory.legacyCards": "Старые карточки",
+  "learning.noteMemory.enable": "Включить запоминание",
+  "learning.noteMemory.disable": "Приостановить запоминание",
+  "learning.noteMemory.ordinaryHelp": "Заметка останется обычной, пока вы не включите запоминание.",
+  "learning.noteMemory.enabledHelp": "Статья — лицевая сторона. Добавьте изображения, текст или доску на сторону с подсказками.",
+  "learning.noteMemory.folder": "Папка",
+  "learning.noteMemory.includeSubfolders": "Включать вложенные папки",
+  "learning.noteMemory.prepareNote": "Подготовить эту заметку"
 }

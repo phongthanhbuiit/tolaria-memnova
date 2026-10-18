@@ -2,7 +2,7 @@
 
 Kết luận: kế hoạch chưa hoàn thành. Có code đã triển khai và kiểm tra thật; đồng thời còn thiếu tích hợp sản phẩm. Không dùng số task hoặc tổng số test để suy ra phần trăm hoàn thiện nghiệp vụ. Lần rà soát này không sửa production code, không chạy lại cả release suite và không tạo một kế hoạch tính năng mới.
 
-## Trạng thái Git và kiểm chứng
+## Trạng thái tại thời điểm audit (HEAD fa3934f4) và kiểm chứng
 
 - Local HEAD: `fa3934f410309f81cf1bbacaca61a0970d244237` (M19).
 - Remote main: `c8c71603095dbd0d322ff48a1347bd9c6cbaf655`, xác minh mới bằng `git ls-remote origin refs/heads/main`; một commit local chưa push.
@@ -59,3 +59,7 @@ Full push trước mất9m51s, trong đó54smoke mất4.7m; native QA cũng tìm
 3. Chạy M22 đầy đủ; sửa lỗi có RED trước, giữ dữ liệu và kiểm lại các task bị ảnh hưởng. Giải quyết lỗi Add card đã biết trong bối cảnh routing mới, không xóa test để giấu lỗi.
 4. Native M23 sau source cuối; performance M24 theo baseline. Nếu tối ưu làm đổi production code, chạy lại các kiểm chứng bị ảnh hưởng.
 5. M25 mới có thể kết luận hoàn thành: đầy đủ gates, normal push main thành công, remote đúng SHA, tree/demo sạch. Không có ước lượng phần trăm hoặc ETA giả từ số task.
+
+## Diễn biến triển khai sau audit
+
+Backend M20 đã commit d76f7d99 với normal hook4832frontend/1225Rust pass. UI follow-through sau audit đã nối hook/context/default dashboard và panel, enable/pause, lanes/counts/folder scope, conversion/recovery entries, inactive canonical properties và guarded source reload. New full-app file-backed browser flow cùng3M19 renderer cases pass13.6s zero retries;268learning module tests pass24.92s. Một lỗi thật Study còn disabled sau khi lưu mnemonic đã được regression rồi sửa bằng entry refresh. Audit table bên trên giữ snapshot trước các thay đổi này; ledger M20 và baseline M20 ghi trạng thái hiện tại. Startup recovery trước Store-open vẫn thiếu, M21–M25 chưa hoàn thành; không lấy kết quả này để nói toàn bộ kế hoạch xong.

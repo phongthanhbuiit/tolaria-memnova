@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { LearningClient } from '../lib/learning/client'
-import type { LearningCard, LearningPage, MigrationPreview, MigrationProgress } from '../lib/learning/types'
+import type { LearningCard, LearningPage, MigrationPreview, MigrationProgress, NoteLearningSummary } from '../lib/learning/types'
 import type { StudyStats } from './useStats'
 import { trackEvent } from '../lib/telemetry'
 
-type LibraryState = { clock: number; root: string; client: LearningClient | null; phase: 'loading' | 'legacy' | 'migrating' | 'ready' | 'error'; pages: LearningPage[]; cards: LearningCard[]; stats: StudyStats | null; error: string | null; progress: MigrationProgress | null }
-const initial = (root: string): LibraryState => ({ clock: 0, root, client: null, phase: 'loading', pages: [], cards: [], stats: null, error: null, progress: null })
+type LibraryState = { clock: number; root: string; client: LearningClient | null; phase: 'loading' | 'legacy' | 'migrating' | 'ready' | 'error'; pages: LearningPage[]; cards: LearningCard[]; notes: NoteLearningSummary[]; stats: StudyStats | null; error: string | null; progress: MigrationProgress | null }
+const initial = (root: string): LibraryState => ({ clock: 0, root, client: null, phase: 'loading', pages: [], cards: [], notes: [], stats: null, error: null, progress: null })
 export function useLearningLibrary(root: string | null | undefined) {
   const path = root?.replace(/\/$/, '') ?? ''
   const [state, setState] = useState(() => initial(path))
@@ -22,9 +22,9 @@ export function useLearningLibrary(root: string | null | undefined) {
   const load = useCallback(async (client: LearningClient, epoch: number) => {
     const read = (reads.current.get(path) ?? 0) + 1
     reads.current.set(path, read)
-    const pages = await client.syncPages()
+    const snapshot = client.supportsNoteMemory ? await client.syncNoteWorkspace() : { pages: await client.syncPages(), notes: [] }
     const [cards, stats] = await Promise.all([client.listCards(null, true), client.studyStats()])
-    if (generation.current === epoch && reads.current.get(path) === read) setState(previous => previous.root !== path ? previous : ({ ...previous, root: path, client, phase: 'ready', pages, cards, stats, clock: Date.now(), error: null }))
+    if (generation.current === epoch && reads.current.get(path) === read) setState(previous => previous.root !== path ? previous : ({ ...previous, root: path, client, phase: 'ready', ...snapshot, cards, stats, clock: Date.now(), error: null }))
   }, [path])
   const connect = useCallback(async () => {
     const epoch = ++generation.current

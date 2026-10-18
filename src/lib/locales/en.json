@@ -960,5 +960,14 @@
   "editor.noteMemory.sourceReadOnly": "Source preview · read only",
   "editor.noteMemory.deleteConfirmation": "Permanently delete the selected notes and their inline mnemonics? Linked source notes and attachments outside the selected files are kept. This cannot be undone.",
   "editor.noteMemory.deleteFolderConfirmation": "Permanently delete this folder, its nested folders, notes, inline mnemonics and other files? Linked sources outside this folder are kept. This cannot be undone.",
-  "properties.noNoteMemory": "This note has no review schedule yet."
+  "properties.noNoteMemory": "This note has no review schedule yet.",
+  "learning.noteMemory.notes": "Note memory",
+  "learning.noteMemory.legacyCards": "Old cards",
+  "learning.noteMemory.enable": "Enable memorization",
+  "learning.noteMemory.disable": "Pause memorization",
+  "learning.noteMemory.ordinaryHelp": "This stays a normal note until you enable memorization.",
+  "learning.noteMemory.enabledHelp": "The article is the front. Add images, text or a canvas to the mnemonic.",
+  "learning.noteMemory.folder": "Folder",
+  "learning.noteMemory.includeSubfolders": "Include subfolders",
+  "learning.noteMemory.prepareNote": "Prepare this note"
 }

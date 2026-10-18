@@ -16,6 +16,7 @@ import { parseNoteMemoryDocument } from '../lib/learning/noteMemoryDocument'
 import type { UseFlashcardEditorFaceOptions } from './useFlashcardEditorFace'
 import type { MemoryBack, MemoryFace } from '../lib/learning/noteMemoryConfig'
 import { trackEvent } from '../lib/telemetry'
+import { joinVaultPath, notePathsMatch, normalizeNotePathForIdentity } from '../utils/notePathIdentity'
 
 export function useNoteMemoryEditorFace(
   options: UseFlashcardEditorFaceOptions
@@ -42,6 +43,7 @@ export function useNoteMemoryEditorFace(
   const managed =
     state.enabled ||
     Boolean(baseline.config) ||
+    Boolean(workspace?.notes?.some(row => row.view.binding && notePathsMatch(joinVaultPath(workspace.root, row.view.path), path))) ||
     /(?:^|\n)_memnova_learning_/.test(document.getBaseline())
   const pageId = baseline.pageId ?? parseNoteMemoryDocument(state.source).pageId
   const parsed = parseNoteMemoryDocument(state.source)
@@ -63,7 +65,7 @@ export function useNoteMemoryEditorFace(
       !managed ||
       !client ||
       !pageId ||
-      !path.startsWith(`${client.vaultPath}/`)
+      !normalizeNotePathForIdentity(path).startsWith(`${normalizeNotePathForIdentity(client.vaultPath)}/`)
     )
       return
     const writer = new NoteEditorPersistence({

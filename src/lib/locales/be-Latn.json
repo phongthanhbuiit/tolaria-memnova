@@ -960,5 +960,14 @@
   "editor.noteMemory.sourceReadOnly": "Prahlad krynicy · tolki čytannie",
   "editor.noteMemory.deleteConfirmation": "Nazaŭsiody vydalić vybranyja natatki i ŭbudavanyja mnemaničnyja padkazki? Zviazanyja zychodnyja natatki i ŭkładańni pa-za vybranymi fajłami zastanucca. Heta dziejańnie nielha admianić.",
   "editor.noteMemory.deleteFolderConfirmation": "Nazaŭsiody vydalić hetu papku, padpapki, natatki, ŭbudavanyja mnemaničnyja padkazki i inšyja fajły? Zviazanyja krynicy pa-za papkaj zastanucca. Heta dziejańnie nielha admianić.",
-  "properties.noNoteMemory": "U hetaj natatki pakul niama raskładu paŭtareńniaŭ."
+  "properties.noNoteMemory": "U hetaj natatki pakul niama raskładu paŭtareńniaŭ.",
+  "learning.noteMemory.notes": "Zapaminannie natatak",
+  "learning.noteMemory.legacyCards": "Staryja kartki",
+  "learning.noteMemory.enable": "Ukliučyć zapaminannie",
+  "learning.noteMemory.disable": "Prypynić zapaminannie",
+  "learning.noteMemory.ordinaryHelp": "Heta zastajecca zvyčajnaj natatkaj, pakuĺ vy nie ŭkliučycie zapaminannie.",
+  "learning.noteMemory.enabledHelp": "Artykul — piaredni bok. Dadajcie vyjavy, tekst abo došku na bok z padkazkami.",
+  "learning.noteMemory.folder": "Papka",
+  "learning.noteMemory.includeSubfolders": "Ukliučać ukladzienyja papki",
+  "learning.noteMemory.prepareNote": "Padrychtavać hetuju natatku"
 }

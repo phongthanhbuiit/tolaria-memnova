@@ -1,4 +1,4 @@
-import { joinVaultPath, notePathsMatch } from '../../utils/notePathIdentity'
+import { joinVaultPath, notePathsMatch, normalizeNotePathForIdentity } from '../../utils/notePathIdentity'
 import type { LearningClient } from './client'
 import type {
   NoteWriteRequest,
@@ -64,6 +64,7 @@ export class NoteEditorPersistence {
     this.active = false
     this.generation++
   }
+  hasPendingIntent(): boolean { return this.intent !== null }
   private current(generation: number): void {
     if (!this.active || generation !== this.generation)
       throw Error('stale-editor-visit')
@@ -222,6 +223,16 @@ export class NoteEditorPersistence {
 }
 
 const writers = new Map<string, NoteEditorPersistence>()
+type WorkspacePropertyWriter = (path: string, key: string, value: NotePropertyValue | undefined) => Promise<string | null>
+const workspacePropertyWriters = new Map<string, WorkspacePropertyWriter>()
+export function registerNoteWorkspacePropertyWriter(root: string, writer: WorkspacePropertyWriter): () => void {
+  const key = `${normalizeNotePathForIdentity(root)}/`
+  workspacePropertyWriters.set(key, writer)
+  return () => { if (workspacePropertyWriters.get(key) === writer) workspacePropertyWriters.delete(key) }
+}
+export function getNoteEditorPersistence(path: string): NoteEditorPersistence | null {
+  return writers.get(path) ?? null
+}
 export function registerNoteEditorPersistence(
   path: string,
   writer: NoteEditorPersistence
@@ -254,5 +265,8 @@ export async function configureThroughNoteEditor(
 
 export async function propertyThroughNoteEditor(path: string, key: string, value: NotePropertyValue | undefined): Promise<string | null> {
   const writer = writers.get(path)
-  return writer ? writer.property(key, value) : null
+  if (writer) return writer.property(key, value)
+  const normalized = normalizeNotePathForIdentity(path)
+  const owner = [...workspacePropertyWriters].filter(([prefix]) => normalized.startsWith(prefix)).sort(([left], [right]) => right.length - left.length)[0]?.[1]
+  return owner ? owner(path, key, value) : null
 }

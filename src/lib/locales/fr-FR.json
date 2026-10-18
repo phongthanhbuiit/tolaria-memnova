@@ -960,5 +960,14 @@
   "editor.noteMemory.sourceReadOnly": "Aperçu de la source · lecture seule",
   "editor.noteMemory.deleteConfirmation": "Supprimer définitivement les notes sélectionnées et leurs moyens mnémotechniques intégrés ? Les notes sources liées et les pièces jointes extérieures aux fichiers sélectionnés sont conservées. Cette action est irréversible.",
   "editor.noteMemory.deleteFolderConfirmation": "Supprimer définitivement ce dossier, ses sous-dossiers, notes, moyens mnémotechniques intégrés et autres fichiers ? Les sources liées hors du dossier sont conservées. Cette action est irréversible.",
-  "properties.noNoteMemory": "Cette note n’a pas encore de calendrier de révision."
+  "properties.noNoteMemory": "Cette note n’a pas encore de calendrier de révision.",
+  "learning.noteMemory.notes": "Mémoriser les notes",
+  "learning.noteMemory.legacyCards": "Anciennes cartes",
+  "learning.noteMemory.enable": "Activer la mémorisation",
+  "learning.noteMemory.disable": "Suspendre la mémorisation",
+  "learning.noteMemory.ordinaryHelp": "Cette note reste ordinaire tant que vous n’activez pas la mémorisation.",
+  "learning.noteMemory.enabledHelp": "L’article est au recto. Ajoutez des images, du texte ou un tableau à l’aide-mémoire.",
+  "learning.noteMemory.folder": "Dossier",
+  "learning.noteMemory.includeSubfolders": "Inclure les sous-dossiers",
+  "learning.noteMemory.prepareNote": "Préparer cette note"
 }

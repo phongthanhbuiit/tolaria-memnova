@@ -960,5 +960,14 @@
   "editor.noteMemory.sourceReadOnly": "Xem trước nguồn · chỉ đọc",
   "editor.noteMemory.deleteConfirmation": "Xóa vĩnh viễn các ghi chú đã chọn và mặt gợi nhớ bên trong? Ghi chú nguồn liên kết và tệp đính kèm ngoài các tệp đã chọn được giữ lại. Không thể hoàn tác.",
   "editor.noteMemory.deleteFolderConfirmation": "Xóa vĩnh viễn thư mục này, các thư mục con, ghi chú, mặt gợi nhớ bên trong và tệp khác? Nguồn liên kết ngoài thư mục được giữ lại. Không thể hoàn tác.",
-  "properties.noNoteMemory": "Ghi chú này chưa có lịch ôn tập."
+  "properties.noNoteMemory": "Ghi chú này chưa có lịch ôn tập.",
+  "learning.noteMemory.notes": "Ghi nhớ trang",
+  "learning.noteMemory.legacyCards": "Thẻ cũ",
+  "learning.noteMemory.enable": "Bật học thuộc",
+  "learning.noteMemory.disable": "Tạm dừng học thuộc",
+  "learning.noteMemory.ordinaryHelp": "Đây vẫn là ghi chú thông thường cho đến khi bạn bật học thuộc.",
+  "learning.noteMemory.enabledHelp": "Bài viết là mặt trước. Thêm ảnh, văn bản hoặc bảng vẽ vào mặt gợi nhớ.",
+  "learning.noteMemory.folder": "Thư mục",
+  "learning.noteMemory.includeSubfolders": "Gồm thư mục con",
+  "learning.noteMemory.prepareNote": "Chuẩn bị ghi chú này"
 }

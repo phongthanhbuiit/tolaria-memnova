@@ -960,5 +960,14 @@
   "editor.noteMemory.sourceReadOnly": "参照元のプレビュー · 読み取り専用",
   "editor.noteMemory.deleteConfirmation": "選択したノートと内部の記憶用ヒントを完全に削除しますか？リンクされた参照元ノートと、選択ファイル外の添付ファイルは保持されます。この操作は取り消せません。",
   "editor.noteMemory.deleteFolderConfirmation": "このフォルダーとサブフォルダー、ノート、内部の記憶用ヒント、その他のファイルを完全に削除しますか？フォルダー外のリンクされた参照元は保持されます。この操作は取り消せません。",
-  "properties.noNoteMemory": "このノートにはまだ復習予定がありません。"
+  "properties.noNoteMemory": "このノートにはまだ復習予定がありません。",
+  "learning.noteMemory.notes": "ノートの暗記",
+  "learning.noteMemory.legacyCards": "以前のカード",
+  "learning.noteMemory.enable": "暗記を有効にする",
+  "learning.noteMemory.disable": "暗記を一時停止",
+  "learning.noteMemory.ordinaryHelp": "暗記を有効にするまでは通常のノートのままです。",
+  "learning.noteMemory.enabledHelp": "記事が表面です。記憶の手がかりに画像、テキスト、キャンバスを追加できます。",
+  "learning.noteMemory.folder": "フォルダー",
+  "learning.noteMemory.includeSubfolders": "サブフォルダーを含める",
+  "learning.noteMemory.prepareNote": "このノートを準備"
 }

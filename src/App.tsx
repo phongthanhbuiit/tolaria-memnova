@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { Sidebar } from './components/Sidebar'
 import { NoteList } from './components/NoteList'
 import { Editor } from './components/Editor'
@@ -143,6 +143,12 @@ import { LearningMigration } from './components/learning/LearningMigration'
 import { LearningStudyView } from './components/learning/LearningStudyView'
 import { withLearningPageDates } from './lib/learning/pageDates'
 import { learningPageScope } from './lib/learning/pageScope'
+import { studyScopeForWorkspace, workspaceDue } from './lib/learning/noteWorkspace'
+import type { StudyLane } from './lib/learning/types'
+import { useNoteWorkspaceMutations } from './hooks/useNoteWorkspaceMutations'
+import { notePathsMatch, normalizeNotePathForIdentity } from './utils/notePathIdentity'
+import { applyNoteSourceRefresh, readNoteSourceRefresh } from './lib/learning/noteSourceRefresh'
+import { loadNoteContent } from './hooks/useNoteRename'
 
 // Type declarations for mock content storage and test overrides
 declare global {
@@ -176,6 +182,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
   // Stable ref so handleSetSelection (no deps) can call startSession without
   // capturing a stale closure.
   const startReviewRef = useRef<() => void>(() => {})
+  const [learningSourceVersion, setLearningSourceVersion] = useState(0)
   const handleSetSelection = useCallback((sel: SidebarSelection, options?: { preserveNeighborhoodHistory?: boolean }) => {
     if (!options?.preserveNeighborhoodHistory && sel.kind !== 'entity') {
       neighborhoodHistoryRef.current = []
@@ -572,6 +579,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
       vaultPath: updateVaultPath,
     })
     await refreshGitModifiedFiles()
+    setLearningSourceVersion(version => version + 1)
   }, [
       closeAllTabs,
       handleReplaceActiveTab,
@@ -1413,36 +1421,56 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
   }, [notes])
 
   const learning = useLearningLibrary(resolvedPath)
+  const { setTabs: setLearningNoteTabs } = notes
   const learningStudy = useLearningStudy(learning.client, learning.refresh)
   const { phase: learningPhase, openMigration, refresh: refreshLearning } = learning
   const { start: startLearningStudy } = learningStudy
   const { registerVaultSelection: registerLearningLibrary } = vaultSwitcher
   const scopeForPage = (pageId: string) => learningPageScope(pageId, learning.root, learning.pages, visibleEntries)
-  const requestStudy = useCallback((pageIds?: string[]) => {
+  const noteMemorySupported = Boolean(learning.client?.supportsNoteMemory)
+  const activeStudyPath = activeTab?.entry.path
+  const requestStudy = useCallback((pageIds?: string[], lane?: StudyLane) => {
     if (learningPhase !== 'ready') { void openMigration(); return }
-    void startLearningStudy({ pageIds: pageIds ?? null })
-  }, [learningPhase, openMigration, startLearningStudy])
+    void (async () => {
+      if (activeStudyPath) await flushEditorStateBeforeAction(activeStudyPath)
+      await refreshLearning()
+      await startLearningStudy(studyScopeForWorkspace(noteMemorySupported, pageIds, lane))
+    })().catch(error => setToastMessage(String(error)))
+  }, [learningPhase, openMigration, startLearningStudy, noteMemorySupported, activeStudyPath, flushEditorStateBeforeAction, refreshLearning])
   const reviewCount = useMemo(() => {
-    const available = new Set(learning.pages.filter(page => page.available).map(page => page.id))
-    return learning.cards.filter(card => available.has(card.pageId) && card.status === 'active' && Date.parse(card.schedule.due) <= learning.clock).length
-  }, [learning.cards, learning.pages, learning.clock])
-  const activeLearningPath = activeTab?.entry.path
+    const due = workspaceDue(learning.pages, learning.notes, learning.cards, learning.clock)
+    return noteMemorySupported ? due.notes.length : due.legacy.length
+  }, [learning.cards, learning.pages, learning.notes, learning.clock, noteMemorySupported])
   const flushLearning = useCallback(async () => {
-    if (activeLearningPath) await flushEditorStateBeforeAction(activeLearningPath)
-  }, [activeLearningPath, flushEditorStateBeforeAction])
+    for (const tab of notes.tabs) {
+      if (normalizeNotePathForIdentity(tab.entry.path).startsWith(`${normalizeNotePathForIdentity(learning.root)}/`)) await flushEditorStateBeforeAction(tab.entry.path)
+    }
+  }, [notes.tabs, learning.root, flushEditorStateBeforeAction])
+  const sourceRefreshState = useRef({ tabs: notes.tabs, dirty: vault.unsavedPaths })
+  useLayoutEffect(() => { sourceRefreshState.current = { tabs: notes.tabs, dirty: vault.unsavedPaths } }, [notes.tabs, vault.unsavedPaths])
+  const refreshLearningSources = useCallback(async () => {
+    const current = sourceRefreshState.current
+    const updates = await readNoteSourceRefresh(current.tabs, learning.root, path => current.dirty.has(path), path => loadNoteContent({ path }))
+    setLearningNoteTabs(previous => applyNoteSourceRefresh(previous, updates))
+    await refreshLearning()
+  }, [learning.root, setLearningNoteTabs, refreshLearning])
   const openLearningLibrary = useCallback((path: string) => registerLearningLibrary(path, translate(appLocale, 'learning.library')), [registerLearningLibrary, appLocale])
+  const updateMemorySource = useCallback((path: string, before: string, after: string) => {
+    setLearningNoteTabs(previous => previous.map(tab => notePathsMatch(tab.entry.path, path) && tab.content === before ? { ...tab, content: after } : tab))
+  }, [setLearningNoteTabs])
+  const setNoteEnabled = useNoteWorkspaceMutations({ client: learningPhase === 'ready' ? learning.client : null, notes: learning.notes, flush: flushEditorStateBeforeAction, onSaved: updateMemorySource, refresh: refreshLearning })
   const learningEntries = useMemo(() => withLearningPageDates(visibleEntries, learning.pages, learning.root), [visibleEntries, learning.pages, learning.root])
   const learningTabs = useMemo(() => {
     const byPath = new Map(learningEntries.map(entry => [entry.path, entry]))
     return notes.tabs.map(tab => byPath.has(tab.entry.path) ? { ...tab, entry: byPath.get(tab.entry.path) ?? tab.entry } : tab)
   }, [notes.tabs, learningEntries])
-  const learningWorkspace = { ...learning, entries: learningEntries, study: learningStudy, requestStudy, scopeForPage, flush: flushLearning, openLibrary: openLearningLibrary }
+  const learningWorkspace = { ...learning, entries: learningEntries, study: learningStudy, requestStudy, setNoteEnabled, scopeForPage, flush: flushLearning, refreshSources: refreshLearningSources, openLibrary: openLearningLibrary }
   const learningSourceIndex = useMemo(() => visibleEntries.map(entry => `${entry.path}:${entry.title}`).join('\n'), [visibleEntries])
   useEffect(() => {
     if (learningPhase !== 'ready') return
     const timer = setTimeout(() => { void refreshLearning().catch(error => setToastMessage(String(error))) }, 500)
     return () => clearTimeout(timer)
-  }, [learningSourceIndex, learningPhase, refreshLearning])
+  }, [learningSourceIndex, learningSourceVersion, learningPhase, refreshLearning])
   useEffect(() => { startReviewRef.current = () => requestStudy() }, [requestStudy])
 
   const commands = useAppCommands({
