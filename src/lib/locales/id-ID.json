@@ -905,6 +905,8 @@
   "learning.noteMemory.help": "Pilih artikel, petunjuk ingatan, dan riwayat belajar. Kartu lama lainnya tetap disimpan.",
   "learning.noteMemory.article": "Artikel",
   "learning.noteMemory.mnemonic": "Petunjuk ingatan",
+  "learning.noteMemory.showMnemonic": "Tampilkan pengingat",
+  "learning.noteMemory.returnArticle": "Kembali ke artikel",
   "learning.noteMemory.articleSource": "Sumber artikel",
   "learning.noteMemory.mnemonicSource": "Sumber petunjuk",
   "learning.noteMemory.history": "Riwayat belajar",

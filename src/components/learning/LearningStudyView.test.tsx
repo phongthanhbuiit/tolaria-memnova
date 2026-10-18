@@ -1,10 +1,16 @@
-import { fireEvent, render, screen, within } from '@testing-library/react'
+import { act, fireEvent, render, screen, within } from '@testing-library/react'
 import { useEffect, useRef } from 'react'
 import { expect, it, vi } from 'vitest'
 import { LearningStudyView } from './LearningStudyView'
 import type { useLearningStudy } from '../../hooks/useLearningStudy'
 const { renderer, previewClient } = vi.hoisted(() => ({
-  renderer: { ready: true },
+  renderer: {
+    ready: true,
+    statuses: new Map<
+      string,
+      (status: 'loading' | 'ready' | 'error') => void
+    >(),
+  },
   previewClient: { readStudyPage: vi.fn() },
 }))
 vi.mock('./LearningContext', () => ({
@@ -15,18 +21,22 @@ vi.mock('../FlashcardStudyView', () => ({
     content,
     onReady,
     notePath,
+    onRenderStatus,
   }: {
     content: string
     onReady?: () => void
     notePath?: string
+    onRenderStatus?: (status: 'loading' | 'ready' | 'error') => void
   }) => {
     const callback = useRef(onReady)
     useEffect(() => {
       callback.current = onReady
     }, [onReady])
     useEffect(() => {
+      if (onRenderStatus) renderer.statuses.set(content, onRenderStatus)
+      onRenderStatus?.(renderer.ready ? 'ready' : 'loading')
       if (renderer.ready) callback.current?.()
-    }, [content, notePath])
+    }, [content, notePath, onRenderStatus])
     return (
       <div data-note-path={notePath}>
         {renderer.ready ? content : 'Loading test content'}
@@ -94,7 +104,7 @@ it('requires revealing the answer and ignores rating shortcuts while saving', ()
     close = vi.fn()
   const study = fixture(rate, close)
   const { rerender } = render(
-    <LearningStudyView study={study} root="/library" locale="en" />,
+    <LearningStudyView study={study} root="/library" locale="en" />
   )
   expect(screen.getByRole('button', { name: 'Show answer' })).toHaveFocus()
   const panel = screen.getByRole('dialog')
@@ -109,7 +119,7 @@ it('requires revealing the answer and ignores rating shortcuts while saving', ()
       study={{ ...study, busy: true }}
       root="/library"
       locale="en"
-    />,
+    />
   )
   fireEvent.keyDown(panel, { key: '3' })
   expect(rate).toHaveBeenCalledTimes(1)
@@ -122,7 +132,7 @@ it('does not reveal or grade a card until its Markdown content is rendered', () 
   expect(screen.getByRole('button', { name: 'Show answer' })).toBeDisabled()
   fireEvent.keyDown(screen.getByRole('dialog'), { key: ' ' })
   expect(
-    screen.queryByRole('button', { name: /Good 3/ }),
+    screen.queryByRole('button', { name: /Good 3/ })
   ).not.toBeInTheDocument()
   renderer.ready = true
 })
@@ -139,7 +149,7 @@ it('uses one clock for preview outcomes and interval labels, without rounding a 
     render(<LearningStudyView study={fixture()} root="/library" locale="en" />)
     fireEvent.click(screen.getByRole('button', { name: 'Show answer' }))
     expect(screen.getByRole('button', { name: /^Again/ })).toHaveTextContent(
-      'in 1 min.',
+      'in 1 min.'
     )
   } finally {
     vi.unstubAllGlobals()
@@ -176,19 +186,19 @@ it('renders the linked answer with its own media base and refuses a missing sour
     fingerprint: 'external',
   }
   const { rerender } = render(
-    <LearningStudyView study={study} root="/library" locale="en" />,
+    <LearningStudyView study={study} root="/library" locale="en" />
   )
   fireEvent.click(screen.getByRole('button', { name: 'Show answer' }))
   expect(screen.getByText('External answer')).toBeVisible()
   expect(screen.queryByText('Full lesson')).not.toBeInTheDocument()
   expect(screen.getByText('External answer')).toHaveAttribute(
     'data-note-path',
-    '/library/nested/source.md',
+    '/library/nested/source.md'
   )
   item.sourceError = 'Missing source'
   item.answerPage = null
   rerender(
-    <LearningStudyView study={{ ...study }} root="/library" locale="en" />,
+    <LearningStudyView study={{ ...study }} root="/library" locale="en" />
   )
   expect(screen.getByRole('button', { name: 'Show answer' })).toBeDisabled()
   fireEvent.keyDown(screen.getByRole('dialog'), { key: '3' })
@@ -208,7 +218,7 @@ it('does not leak audio from the hidden linked answer onto the question face', (
     fingerprint: 'external',
   }
   const { container } = render(
-    <LearningStudyView study={study} root="/library" locale="en" />,
+    <LearningStudyView study={study} root="/library" locale="en" />
   )
   expect(container.querySelector('audio')).not.toBeInTheDocument()
   expect(document.querySelector('audio')).not.toBeInTheDocument()
@@ -232,7 +242,9 @@ it('keeps preview keyboard events from rating the underlying study card', async 
   })
   render(<LearningStudyView study={study} root="/library" locale="en" />)
   fireEvent.click(screen.getByRole('button', { name: 'Show answer' }))
-  fireEvent.click(screen.getByRole('button', { name: 'Preview source: Source', exact: true }))
+  fireEvent.click(
+    screen.getByRole('button', { name: 'Preview source: Source', exact: true })
+  )
   const preview = await screen.findByRole('dialog', {
     name: 'Source',
     exact: true,
@@ -241,7 +253,7 @@ it('keeps preview keyboard events from rating the underlying study card', async 
   fireEvent.keyDown(preview, { key: '3' })
   expect(study.rate).not.toHaveBeenCalled()
   fireEvent.click(
-    within(preview).getByRole('button', { name: 'Close', exact: true }),
+    within(preview).getByRole('button', { name: 'Close', exact: true })
   )
   fireEvent.keyDown(screen.getByRole('dialog'), { key: '3' })
   expect(study.rate).toHaveBeenCalledWith(3)
@@ -260,7 +272,7 @@ it('renders a new snapshot after source reload even when the question text is un
     fingerprint: 'first',
   }
   const { rerender } = render(
-    <LearningStudyView study={study} root="/library" locale="en" />,
+    <LearningStudyView study={study} root="/library" locale="en" />
   )
   fireEvent.click(screen.getByRole('button', { name: 'Show answer' }))
   expect(screen.getByRole('button', { name: /^Good/ })).toBeEnabled()
@@ -270,10 +282,117 @@ it('renders a new snapshot after source reload even when the question text is un
     fingerprint: 'changed',
   }
   rerender(
-    <LearningStudyView study={{ ...study }} root="/library" locale="en" />,
+    <LearningStudyView study={{ ...study }} root="/library" locale="en" />
   )
   expect(screen.getByRole('button', { name: 'Show answer' })).toBeEnabled()
   fireEvent.click(screen.getByRole('button', { name: 'Show answer' }))
   expect(screen.getByText('Changed answer')).toBeVisible()
   expect(screen.getByRole('button', { name: /^Good/ })).toBeEnabled()
+})
+
+function noteFixture() {
+  const study = fixture()
+  const item = study.session!.current!
+  item.content = {
+    kind: 'note',
+    details: {
+      backSource: {
+        pageId: 'source-id',
+        path: 'nested/mnemonic.md',
+        face: 'back',
+      },
+      propertiesRaw: 'image: secret-property.png',
+      frontMedia: [],
+      backMedia: [],
+      fingerprint: 'complete-snapshot-one',
+    },
+  }
+  item.page = { ...item.page!, content: 'Live A4 article' }
+  item.answerPage = {
+    id: 'source-id',
+    path: 'nested/mnemonic.md',
+    title: 'Mnemonic source',
+    content: 'Live mnemonic canvas',
+    fingerprint: 'back-one',
+  }
+  item.card.properties = {
+    image: 'secret-property.png',
+    audio: 'secret-property.mp3',
+    IPA: 'stale pronunciation',
+    card_type: 'vocabulary',
+    synonyms: '[[Hidden vocabulary]]',
+  }
+  return study
+}
+it('studies the live Markdown article and mnemonic, hiding the opposite face and all legacy property media', () => {
+  const study = noteFixture()
+  render(<LearningStudyView study={study} root="/library" locale="en" />)
+  expect(screen.getByText('Live A4 article')).toBeVisible()
+  expect(screen.queryByText('Question text')).not.toBeInTheDocument()
+  expect(screen.queryByText('stale pronunciation')).not.toBeInTheDocument()
+  expect(document.querySelector('audio,img')).toBeNull()
+  fireEvent.click(screen.getByRole('button', { name: 'Show mnemonic' }))
+  expect(screen.getByText('Live mnemonic canvas')).toBeVisible()
+  expect(screen.queryByText('Answer text')).not.toBeInTheDocument()
+  expect(screen.queryByText('Live A4 article')).not.toBeVisible()
+  expect(screen.getByText('Live mnemonic canvas')).toHaveAttribute(
+    'data-note-path',
+    '/library/nested/mnemonic.md'
+  )
+  fireEvent.click(screen.getByRole('button', { name: 'Return to article' }))
+  expect(screen.getByText('Live A4 article')).toBeVisible()
+  expect(
+    screen.queryByRole('button', { name: /^Good/ })
+  ).not.toBeInTheDocument()
+  expect(study.rate).not.toHaveBeenCalled()
+})
+it('revokes grading on loading or errors and acknowledges a new complete snapshot with unchanged text', () => {
+  const study = noteFixture()
+  const { rerender } = render(
+    <LearningStudyView study={study} root="/library" locale="en" />
+  )
+  fireEvent.click(screen.getByRole('button', { name: 'Show mnemonic' }))
+  expect(screen.getByRole('button', { name: /^Good/ })).toBeEnabled()
+  act(() => renderer.statuses.get('Live mnemonic canvas')?.('error'))
+  expect(screen.getByRole('button', { name: /^Good/ })).toBeDisabled()
+  expect(screen.getByRole('alert')).toBeVisible()
+  fireEvent.click(
+    within(screen.getByRole('alert')).getByRole('button', { name: 'Reload' })
+  )
+  expect(study.reload).toHaveBeenCalledTimes(1)
+  act(() => renderer.statuses.get('Live mnemonic canvas')?.('ready'))
+  expect(screen.getByRole('button', { name: /^Good/ })).toBeEnabled()
+  renderer.ready = false
+  if (study.session!.current!.content?.kind !== 'note')
+    throw Error('note fixture')
+  study.session!.current!.content.details!.fingerprint = 'complete-snapshot-two'
+  rerender(
+    <LearningStudyView study={{ ...study }} root="/library" locale="en" />
+  )
+  expect(screen.getByRole('button', { name: 'Show mnemonic' })).toBeDisabled()
+  expect(
+    screen.queryByRole('button', { name: /^Good/ })
+  ).not.toBeInTheDocument()
+  renderer.ready = true
+})
+it('does not grade through a focused utility button or a repeated shortcut', () => {
+  const study = fixture()
+  render(<LearningStudyView study={study} root="/library" locale="en" />)
+  fireEvent.click(screen.getByRole('button', { name: 'Show answer' }))
+  fireEvent.keyDown(
+    screen.getByRole('button', { name: 'Close', exact: true }),
+    { key: '3' }
+  )
+  fireEvent.keyDown(screen.getByRole('dialog'), { key: '3', repeat: true })
+  expect(study.rate).not.toHaveBeenCalled()
+})
+
+it('blocks pointer grading too if an already-read article later reports a decode failure', () => {
+  const study = noteFixture()
+  render(<LearningStudyView study={study} root="/library" locale="en" />)
+  fireEvent.click(screen.getByRole('button', { name: 'Show mnemonic' }))
+  act(() => renderer.statuses.get('Live A4 article')?.('error'))
+  expect(screen.getByRole('button', { name: /^Good/ })).toBeDisabled()
+  fireEvent.click(screen.getByRole('button', { name: /^Good/ }))
+  expect(study.rate).not.toHaveBeenCalled()
 })

@@ -905,6 +905,8 @@
   "learning.noteMemory.help": "Vybierycie artykuł, padkazku i historyju navučańnia. Inšyja staryja kartki zastanucca.",
   "learning.noteMemory.article": "Artykuł",
   "learning.noteMemory.mnemonic": "Padkazka dla pamiaci",
+  "learning.noteMemory.showMnemonic": "Pakazać padkazku",
+  "learning.noteMemory.returnArticle": "Viarnucca da artykula",
   "learning.noteMemory.articleSource": "Krynica artykuła",
   "learning.noteMemory.mnemonicSource": "Krynica padkazki",
   "learning.noteMemory.history": "Historyja navučańnia",

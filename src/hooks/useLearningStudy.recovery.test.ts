@@ -88,3 +88,19 @@ it('binds linked-answer ratings to the displayed source and retains that fingerp
  await act(()=>result.current.retry())
  expect(rateCard.mock.calls[1][0]).toEqual(rateCard.mock.calls[0][0])
 })
+
+it('replays an uncertain receipt even when the displayed source later disappears', async () => {
+ const shown=structuredClone(session)
+ const completed={...shown,current:null,status:'completed' as const,revision:1,reviewCount:1}
+ const rateCard=vi.fn().mockRejectedValueOnce(Error('Lost committed response')).mockResolvedValueOnce({session:completed,replayed:true})
+ const client={vaultPath:'/qa',libraryId:'qa',startSession:vi.fn().mockResolvedValue(shown),rateCard} as unknown as LearningClient
+ const {result}=renderHook(()=>useLearningStudy(client,async()=>{}))
+ await act(()=>result.current.start())
+ await act(()=>result.current.rate(3))
+ const original=structuredClone(rateCard.mock.calls[0][0])
+ shown.current!.page=null;shown.current!.sourceError='missing source'
+ await act(()=>result.current.retry())
+ expect(rateCard).toHaveBeenCalledTimes(2)
+ expect(rateCard.mock.calls[1][0]).toEqual(original)
+ expect(result.current.session?.reviewCount).toBe(1)
+})

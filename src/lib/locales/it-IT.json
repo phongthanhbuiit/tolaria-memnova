@@ -905,6 +905,8 @@
   "learning.noteMemory.help": "Scegli l'articolo, l'aiuto mnemonico e la cronologia di apprendimento. Le altre vecchie schede vengono conservate.",
   "learning.noteMemory.article": "Articolo",
   "learning.noteMemory.mnemonic": "Aiuto mnemonico",
+  "learning.noteMemory.showMnemonic": "Mostra il promemoria",
+  "learning.noteMemory.returnArticle": "Torna al testo",
   "learning.noteMemory.articleSource": "Origine dell'articolo",
   "learning.noteMemory.mnemonicSource": "Origine dell'aiuto mnemonico",
   "learning.noteMemory.history": "Cronologia di apprendimento",

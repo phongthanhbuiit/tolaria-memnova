@@ -905,6 +905,8 @@
   "learning.noteMemory.help": "Chọn bài viết, gợi nhớ và lịch sử học. Các thẻ cũ khác vẫn được giữ.",
   "learning.noteMemory.article": "Bài viết",
   "learning.noteMemory.mnemonic": "Gợi nhớ",
+  "learning.noteMemory.showMnemonic": "Xem gợi nhớ",
+  "learning.noteMemory.returnArticle": "Quay lại bài viết",
   "learning.noteMemory.articleSource": "Nguồn bài viết",
   "learning.noteMemory.mnemonicSource": "Nguồn gợi nhớ",
   "learning.noteMemory.history": "Lịch sử học",

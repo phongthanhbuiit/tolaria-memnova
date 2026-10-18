@@ -33,3 +33,13 @@ it('never uploads in readonly mode and reports legacy media once without rewriti
   await adapter.resolve!(legacy,{} as TLAssetContext)
   expect(issue.mock.calls).toEqual([['legacy']]); expect(legacy.props.src).toContain('asset://localhost')
 })
+
+it('uses verified note-study URLs for canvas assets and never falls back to a foreign basename', async () => {
+  const issue=vi.fn()
+  const adapter=createWhiteboardAssets({scope:{vaultPath:'/new-library',resolveMedia:source=>source==='asset://memnova/attachments/ảnh.svg'?'asset://localhost/new-library/attachments/ảnh.svg?memnova-sha256=current':null},active:()=>true,readOnly:true,issue})
+  const verified={...asset,props:{...asset.props,src:'asset://memnova/attachments/ảnh.svg'}} as TLAsset
+  expect(await adapter.resolve!(verified,{} as TLAssetContext)).toContain('memnova-sha256=current')
+  const foreign={...asset,props:{...asset.props,src:'asset://foreign/attachments/ảnh.svg'}} as TLAsset
+  expect(await adapter.resolve!(foreign,{} as TLAssetContext)).toBeNull()
+  expect(issue).toHaveBeenCalledWith('unavailable')
+})

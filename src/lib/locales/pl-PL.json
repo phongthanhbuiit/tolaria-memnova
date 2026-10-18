@@ -905,6 +905,8 @@
   "learning.noteMemory.help": "Wybierz artykuł, wskazówkę pamięciową i historię nauki. Pozostałe stare karty zostaną zachowane.",
   "learning.noteMemory.article": "Artykuł",
   "learning.noteMemory.mnemonic": "Wskazówka pamięciowa",
+  "learning.noteMemory.showMnemonic": "Pokaż wskazówkę",
+  "learning.noteMemory.returnArticle": "Wróć do artykułu",
   "learning.noteMemory.articleSource": "Źródło artykułu",
   "learning.noteMemory.mnemonicSource": "Źródło wskazówki",
   "learning.noteMemory.history": "Historia nauki",

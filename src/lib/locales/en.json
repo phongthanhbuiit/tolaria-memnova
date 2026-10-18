@@ -905,6 +905,8 @@
   "learning.noteMemory.help": "Choose the article, mnemonic and learning history. Other old cards are kept.",
   "learning.noteMemory.article": "Article",
   "learning.noteMemory.mnemonic": "Mnemonic",
+  "learning.noteMemory.showMnemonic": "Show mnemonic",
+  "learning.noteMemory.returnArticle": "Return to article",
   "learning.noteMemory.articleSource": "Article source",
   "learning.noteMemory.mnemonicSource": "Mnemonic source",
   "learning.noteMemory.history": "Learning history",

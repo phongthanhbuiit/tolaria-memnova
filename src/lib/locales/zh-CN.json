@@ -905,6 +905,8 @@
   "learning.noteMemory.help": "选择正文、记忆提示和学习历史。其他旧卡片将保留。",
   "learning.noteMemory.article": "正文",
   "learning.noteMemory.mnemonic": "记忆提示",
+  "learning.noteMemory.showMnemonic": "显示记忆提示",
+  "learning.noteMemory.returnArticle": "返回正文",
   "learning.noteMemory.articleSource": "正文来源",
   "learning.noteMemory.mnemonicSource": "提示来源",
   "learning.noteMemory.history": "学习历史",

@@ -905,6 +905,8 @@
   "learning.noteMemory.help": "Elige el artículo, la ayuda para recordar y el historial de aprendizaje. Se conservan las demás tarjetas antiguas.",
   "learning.noteMemory.article": "Artículo",
   "learning.noteMemory.mnemonic": "Ayuda para recordar",
+  "learning.noteMemory.showMnemonic": "Mostrar ayuda para recordar",
+  "learning.noteMemory.returnArticle": "Volver al artículo",
   "learning.noteMemory.articleSource": "Origen del artículo",
   "learning.noteMemory.mnemonicSource": "Origen de la ayuda",
   "learning.noteMemory.history": "Historial de aprendizaje",

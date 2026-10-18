@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { BlockNoteViewRaw, ComponentsContext, useCreateBlockNote } from '@blocknote/react'
 import { components } from '@blocknote/mantine'
 import { MantineProvider } from '@mantine/core'
@@ -16,9 +16,13 @@ import { translate, type AppLocale } from '../lib/i18n'
 import { useRegisterEditorResources } from './useEditorResources'
 import { DocumentRenderBoundary } from './DocumentRenderBoundary'
 import { documentCanvasIds, type DocumentRenderStatus } from './documentRenderGate'
+import type { NoteMediaDependency } from '../lib/learning/types'
+import { createVerifiedNoteMedia, prepareNoteRenderBlocks, noteRenderMedia } from '../lib/learning/verifiedNoteMedia'
+import { watchNoteMedia } from '../lib/learning/noteMediaReadiness'
 import './EditorTheme.css'
 interface BlockNoteReadOnlyProps {
   content: string
+  verifiedMedia?: readonly NoteMediaDependency[]
   vaultPath?: string | null
   notePath?: string
   onImageClick?: (src: string) => void
@@ -28,7 +32,7 @@ interface BlockNoteReadOnlyProps {
   locale?: AppLocale
 }
 export function BlockNoteReadOnly(props: BlockNoteReadOnlyProps) {
-  const { content,vaultPath,notePath,onImageClick,preserveBody = false,locale = 'en',onReady,onRenderStatus } = props
+  const { verifiedMedia,content,vaultPath,notePath,onImageClick,preserveBody = false,locale = 'en',onReady,onRenderStatus } = props
   const theme = useDocumentThemeMode()
   const { cssVars } = useEditorTheme()
   const editor = useCreateBlockNote({
@@ -36,7 +40,13 @@ export function BlockNoteReadOnly(props: BlockNoteReadOnlyProps) {
     _tiptapOptions: { injectNonce: getRuntimeStyleNonce() },
     extensions: [createArrowLigaturesExtension(), createMathInputExtension()],
   })
-  useRegisterEditorResources(editor,vaultPath ?? undefined,notePath)
+  const verified = useMemo(() => {
+    if (!verifiedMedia) return null
+    try { return { resolve: createVerifiedNoteMedia(vaultPath ?? '', verifiedMedia), error: false } }
+    catch { return { resolve: () => null, error: true } }
+  }, [verifiedMedia,vaultPath])
+  const resolveVerified = verified?.resolve
+  useRegisterEditorResources(editor,vaultPath ?? undefined,notePath,undefined,resolveVerified)
   const [prevContent, setPrevContent] = useState(content)
   const [ready, setReady] = useState(false)
   const [renderError, setRenderError] = useState(false)
@@ -53,7 +63,19 @@ export function BlockNoteReadOnly(props: BlockNoteReadOnlyProps) {
 
   useEffect(() => {
     let cancelled = false
-    statusRef.current?.('loading')
+    let stopMedia = () => {}
+    let mediaStatus: DocumentRenderStatus = resolveVerified ? 'loading' : 'ready'
+    let documentStatus: DocumentRenderStatus = 'loading'
+    let previousStatus: DocumentRenderStatus | null = null
+    const report = () => {
+      if (cancelled) return
+      const status = mediaStatus === 'error' || documentStatus === 'error' ? 'error' : mediaStatus === 'ready' && documentStatus === 'ready' ? 'ready' : 'loading'
+      if (status === previousStatus) return
+      previousStatus = status
+      statusRef.current?.(status)
+      if (status === 'ready') onReadyRef.current?.()
+    }
+    report()
 
     // Strip frontmatter before parsing
     const body = preserveBody ? content : content.replace(/^---[\s\S]*?---\n?/m, '').trim()
@@ -61,9 +83,10 @@ export function BlockNoteReadOnly(props: BlockNoteReadOnlyProps) {
     const parseAndSetBlocks = async () => {
       try {
         setRenderError(false)
+        if (verified?.error) throw Error('invalid-verified-note-media')
         // Preprocess markdown
         const withDurableBlocks = preProcessDurableEditorMarkdown({ markdown: body })
-        const withImages = vaultPath ? resolveImageUrls(withDurableBlocks, vaultPath, notePath) : withDurableBlocks
+        const withImages = vaultPath && !resolveVerified ? resolveImageUrls(withDurableBlocks, vaultPath, notePath) : withDurableBlocks
         const withWikilinks = preProcessWikilinks(withImages)
         const preprocessed = preProcessMathMarkdown({ markdown: withWikilinks })
 
@@ -80,12 +103,15 @@ export function BlockNoteReadOnly(props: BlockNoteReadOnlyProps) {
         const withMathInBlocks = injectMathInBlocks(withWikilinksInBlocks)
         safeBlocks = injectDurableEditorMarkdownBlocks(withMathInBlocks) as typeof safeBlocks
 
+        if (resolveVerified) {
+          safeBlocks = prepareNoteRenderBlocks(safeBlocks, resolveVerified) as typeof safeBlocks
+          stopMedia = watchNoteMedia(noteRenderMedia(safeBlocks, resolveVerified), status => { mediaStatus = status; report() })
+        }
         editor.replaceBlocks(editor.document, safeBlocks)
         if (!cancelled) {
           setRenderDocument({ ids: documentCanvasIds(safeBlocks), notify: status => {
             if (cancelled) return
-            statusRef.current?.(status)
-            if (status === 'ready') onReadyRef.current?.()
+            documentStatus = status; report()
           } })
           setReady(true)
         }
@@ -99,8 +125,9 @@ export function BlockNoteReadOnly(props: BlockNoteReadOnlyProps) {
 
     return () => {
       cancelled = true
+      stopMedia()
     }
-  }, [content, editor, vaultPath, notePath, preserveBody])
+  }, [content, editor, vaultPath, notePath, preserveBody,resolveVerified,verified])
 
   if (!ready) {
     return (
@@ -144,6 +171,9 @@ export function BlockNoteReadOnly(props: BlockNoteReadOnlyProps) {
       className="editor__blocknote-container [&_.bn-editor]:px-0 [&_.bn-editor]:py-0 [&_.bn-block-outer:first-child_.bn-block-content]:pt-0 cursor-pointer"
       style={cssVars as React.CSSProperties}
       onClick={handleEditorClick}
+      onErrorCapture={event => {
+        if (resolveVerified && (event.target instanceof HTMLImageElement || event.target instanceof HTMLMediaElement)) renderDocument?.notify('error')
+      }}
     >
       <MantineProvider
         withCssVariables={false}

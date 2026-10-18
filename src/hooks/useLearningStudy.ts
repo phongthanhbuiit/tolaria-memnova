@@ -71,9 +71,10 @@ export function useLearningStudy(client: LearningClient | null, onCommitted: () 
     const session = current.session
     const item = session?.current
     const page = item?.page
-    if (!client || !session || !item || !page || item.sourceError) return
+    if (!client || !session || (!visit.pending && (!item || !page || item.sourceError))) return
     await run(async () => {
       if (!visit.pending) {
+        if (!item || !page) return
         const now = new Date()
         visit.pending = { reviewId: crypto.randomUUID(), sessionId: session.id, sessionRevision: session.revision, cardId: item.card.id, cardRevision: item.card.revision, sourceFingerprint: page.fingerprint, ...(item.answerPage ? { answerFingerprint: item.answerPage.fingerprint } : {}), rating, durationMs: Math.min(86_400_000, Math.max(0, now.getTime() - visit.started)), reviewedAt: now.getTime(), schedule: scheduleReview(item.card.schedule, rating, now) }
       }

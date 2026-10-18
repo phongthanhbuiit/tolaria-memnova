@@ -905,6 +905,8 @@
   "learning.noteMemory.help": "本文、記憶のヒント、学習履歴を選びます。他の古いカードは保持されます。",
   "learning.noteMemory.article": "本文",
   "learning.noteMemory.mnemonic": "記憶のヒント",
+  "learning.noteMemory.showMnemonic": "記憶のヒントを表示",
+  "learning.noteMemory.returnArticle": "本文に戻る",
   "learning.noteMemory.articleSource": "本文の参照元",
   "learning.noteMemory.mnemonicSource": "ヒントの参照元",
   "learning.noteMemory.history": "学習履歴",

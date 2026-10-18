@@ -1,6 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { SourcePagePreview } from './SourcePagePreview'
-import { VocabularyStudyDetails } from './VocabularyFields'
+import { useEffect, useMemo } from 'react'
 import { Button } from '../ui/button'
 import {
   Dialog,
@@ -9,13 +7,14 @@ import {
   DialogHeader,
   DialogTitle,
 } from '../ui/dialog'
-import { BlockNoteReadOnly } from '../FlashcardStudyView'
 import type { useLearningStudy } from '../../hooks/useLearningStudy'
 import { translate, type AppLocale, type TranslationKey } from '../../lib/i18n'
 import { previewSchedule } from '../../lib/learning/scheduler'
 import type { FSRSRating } from '../../lib/fsrs'
-import { MediaPreview } from './MediaPreview'
-import { learningMediaUrl } from '../../lib/learning/media'
+import { ArrowUUpLeft, Eye } from '@phosphor-icons/react'
+
+import { LearningStudyFaces } from './LearningStudyFaces'
+import { useStudyFaces } from './useStudyFaces'
 
 const ratings = [1, 2, 3, 4] as const
 const labels: Record<FSRSRating, TranslationKey> = {
@@ -42,53 +41,39 @@ export function LearningStudyView({
   const { open, busy, error, reload } = study
   const session = study.session
   const item = session?.current
-  const answerPage =
-    item?.card.answerMode === 'page' && item.card.answerPageId
+  const isNote = item?.content?.kind === 'note'
+  const noteDetails =
+    item?.content?.kind === 'note' ? item.content.details : null
+  const answerPage = isNote
+    ? item?.answerPage
+    : item?.card.answerMode === 'page' && item.card.answerPageId
       ? item.answerPage
       : item?.page
   const sourceReady =
     !!item?.page &&
     !item.sourceError &&
-    (item.card.answerMode === 'inline' || !!answerPage)
+    (isNote
+      ? !!noteDetails && !!answerPage
+      : item.card.answerMode === 'inline' || !!answerPage)
   const key = item
-    ? `${session?.id}:${session?.currentIndex}:${item.card.id}:${item.card.revision}:${item.card.schedule.revision}:${item.page?.fingerprint}:${item.answerPage?.fingerprint}`
+    ? `${root}:${study.libraryKey}:${noteDetails?.fingerprint}:${session?.id}:${session?.currentIndex}:${item.card.id}:${item.card.revision}:${item.card.schedule.revision}:${item.page?.fingerprint}:${item.answerPage?.fingerprint}`
     : ''
-  const [face, setFace] = useState({ key: '', revealed: false })
-  const revealed = face.key === key && face.revealed
-  const [rendered, setRendered] = useState({
-    key: '',
-    question: false,
-    answer: false,
-  })
-  const questionReady = rendered.key === key && rendered.question
-  const answerReady = rendered.key === key && rendered.answer
-  const questionRendered = useCallback(
-    () =>
-      setRendered((previous) =>
-        previous.key === key && previous.question
-          ? previous
-          : {
-              key,
-              question: true,
-              answer: previous.key === key && previous.answer,
-            },
-      ),
-    [key],
-  )
-  const answerRendered = useCallback(
-    () =>
-      setRendered((previous) =>
-        previous.key === key && previous.answer
-          ? previous
-          : {
-              key,
-              question: previous.key === key && previous.question,
-              answer: true,
-            },
-      ),
-    [key],
-  )
-  const revealButton = useRef<HTMLButtonElement>(null)
+  const faces = useStudyFaces(key, isNote, open)
+  const {
+    revealed,
+    questionReady,
+    answerReady,
+    renderFailed,
+    scrollContainer,
+    mnemonicRegion,
+    questionRendered,
+    answerRendered,
+    questionStatus,
+    answerStatus,
+    reveal,
+    revealButton,
+    returnToArticle,
+  } = faces
   const t = (key: TranslationKey) => translate(locale, key)
   const preview = useMemo(() => {
     try {
@@ -105,35 +90,24 @@ export function LearningStudyView({
   }, [item])
   useEffect(() => {
     if (open && questionReady && !revealed) revealButton.current?.focus()
-  }, [key, open, questionReady, revealed])
+  }, [key, open, questionReady, revealed, revealButton])
   useEffect(() => {
     if (!open || !session?.waitingUntil || busy || error) return
     const timer = setTimeout(
       () => {
         void reload()
       },
-      Math.max(0, session.waitingUntil - Date.now()) + 50,
+      Math.max(0, session.waitingUntil - Date.now()) + 50
     )
     return () => clearTimeout(timer)
   }, [open, reload, busy, error, session?.waitingUntil])
-  const answer =
-    item?.card.answerMode === 'page'
-      ? (answerPage?.content ?? '')
-      : (item?.card.back ?? '')
-  const ownerPath = item?.page ? `${root}/${item.page.path}` : undefined
-  const audio = learningMediaUrl(item?.card.properties.audio, root, ownerPath)
-  const imageUrl = learningMediaUrl(
-    item?.card.properties.image,
-    root,
-    ownerPath,
-  )
   const interval = (rating: FSRSRating) => {
     if (!preview) return ''
     const minutes = Math.max(
       1,
       Math.ceil(
-        (Date.parse(preview.outcomes[rating].due) - preview.at) / 60_000,
-      ),
+        (Date.parse(preview.outcomes[rating].due) - preview.at) / 60_000
+      )
     )
     return new Intl.RelativeTimeFormat(locale, {
       numeric: 'always',
@@ -144,7 +118,7 @@ export function LearningStudyView({
         : minutes < 1440
           ? Math.ceil(minutes / 60)
           : Math.ceil(minutes / 1440),
-      minutes < 60 ? 'minute' : minutes < 1440 ? 'hour' : 'day',
+      minutes < 60 ? 'minute' : minutes < 1440 ? 'hour' : 'day'
     )
   }
   return (
@@ -163,6 +137,7 @@ export function LearningStudyView({
         }}
         onKeyDown={(event) => {
           if (
+            event.repeat ||
             event.metaKey ||
             event.ctrlKey ||
             event.altKey ||
@@ -175,13 +150,13 @@ export function LearningStudyView({
             return
           if (
             (event.target as HTMLElement).closest(
-              'input,textarea,select,[contenteditable="true"]',
+              'input,textarea,select,button,a,[role="button"],[role="combobox"],[role="textbox"],[contenteditable="true"],.tl-container,.tldraw-whiteboard'
             )
           )
             return
           if (event.key === ' ' && !revealed) {
             event.preventDefault()
-            setFace({ key, revealed: true })
+            reveal()
           }
           if (revealed && answerReady && /^[1-4]$/.test(event.key)) {
             event.preventDefault()
@@ -227,7 +202,10 @@ export function LearningStudyView({
             </div>
           )}
         </DialogHeader>
-        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-5 sm:p-8">
+        <div
+          ref={scrollContainer}
+          className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-5 sm:p-8"
+        >
           {study.error && (
             <div
               role="alert"
@@ -254,6 +232,22 @@ export function LearningStudyView({
                   {t('learning.reload')}
                 </Button>
               </div>
+            </div>
+          )}
+          {renderFailed && (
+            <div
+              role="alert"
+              className="mb-5 rounded-lg border border-destructive p-4"
+            >
+              <p>{t('learning.error')}</p>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  void study.reload()
+                }}
+              >
+                {t('learning.reload')}
+              </Button>
             </div>
           )}
           {!session && (
@@ -283,99 +277,22 @@ export function LearningStudyView({
               </p>
             </div>
           )}
-          {item && (
-            <div className="mx-auto max-w-2xl space-y-6">
-              <div className="rounded-xl border bg-card p-6 shadow-sm">
-                <p className="mb-4 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                  {t('learning.front')}
-                </p>
-                <BlockNoteReadOnly
-                  key={`${key}:question`}
-                  content={item.card.front}
-                  onReady={questionRendered}
-                  preserveBody
-                  locale={locale}
-                  vaultPath={root}
-                  notePath={item.page ? `${root}/${item.page.path}` : undefined}
-                />
-                {typeof item.card.properties.IPA === 'string' && (
-                  <p className="mt-4 text-muted-foreground">
-                    {item.card.properties.IPA}
-                  </p>
-                )}
-                <VocabularyStudyDetails
-                  properties={item.card.properties}
-                  locale={locale}
-                />
-                <div className="mt-5 space-y-3">
-                  <MediaPreview src={imageUrl} kind="image" locale={locale} />
-                  <MediaPreview src={audio} kind="audio" locale={locale} />
-                </div>
-              </div>
-              {item.sourceError && (
-                <div
-                  role="alert"
-                  className="rounded-lg border border-destructive p-4"
-                >
-                  <p>{t('learning.error')}</p>
-                  <pre className="whitespace-pre-wrap break-words text-xs">
-                    {item.sourceError}
-                  </pre>
-                  <Button
-                    variant="outline"
-                    onClick={() => {
-                      void study.reload()
-                    }}
-                  >
-                    {t('learning.reload')}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    onClick={() => {
-                      void study.skip()
-                    }}
-                  >
-                    {t('learning.skip')}
-                  </Button>
-                </div>
-              )}
-              {revealed && sourceReady && (
-                <div className="rounded-xl border border-primary/30 bg-muted/30 p-6">
-                  <p className="mb-4 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                    {t('learning.back')}
-                  </p>
-                  <BlockNoteReadOnly
-                    key={`${key}:answer`}
-                    content={answer}
-                    onReady={answerRendered}
-                    preserveBody
-                    locale={locale}
-                    vaultPath={root}
-                    notePath={
-                      answerPage ? `${root}/${answerPage.path}` : undefined
-                    }
-                  />
-                  <VocabularyStudyDetails
-                    properties={item.card.properties}
-                    locale={locale}
-                    answer
-                  />
-                  {item.card.answerPageId && answerPage && (
-                    <div className="mt-4 border-t pt-3">
-                      <SourcePagePreview
-                        pageId={answerPage.id}
-                        title={answerPage.title}
-                        locale={locale}
-                      />
-                      <p className="break-all text-xs text-muted-foreground">
-                        {answerPage.path}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          )}
+          <LearningStudyFaces
+            study={study}
+            root={root}
+            locale={locale}
+            faces={{
+              snapshotKey: key,
+              revealed,
+              backVisited: faces.backVisited,
+              sourceReady,
+              mnemonicRegion,
+              questionRendered,
+              answerRendered,
+              questionStatus,
+              answerStatus,
+            }}
+          />
         </div>
         <footer className="shrink-0 border-t bg-background p-4 sm:px-8">
           <div className="mx-auto max-w-2xl space-y-3">
@@ -386,9 +303,25 @@ export function LearningStudyView({
                 disabled={
                   study.busy || !!study.error || !sourceReady || !questionReady
                 }
-                onClick={() => setFace({ key, revealed: true })}
+                onClick={reveal}
               >
-                {t('learning.showAnswer')}
+                {isNote && <Eye aria-hidden />}
+                {t(
+                  isNote
+                    ? 'learning.noteMemory.showMnemonic'
+                    : 'learning.showAnswer'
+                )}
+              </Button>
+            )}
+            {isNote && revealed && (
+              <Button
+                variant="outline"
+                className="w-full"
+                disabled={study.busy || study.hasPending}
+                onClick={returnToArticle}
+              >
+                <ArrowUUpLeft aria-hidden />
+                {t('learning.noteMemory.returnArticle')}
               </Button>
             )}
             {item?.page && revealed && (
@@ -404,6 +337,7 @@ export function LearningStudyView({
                       !!study.error ||
                       !preview ||
                       !sourceReady ||
+                      !questionReady ||
                       !answerReady
                     }
                     onClick={() => {

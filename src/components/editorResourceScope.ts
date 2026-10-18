@@ -1,6 +1,7 @@
 export interface EditorResourceVisit {
   vaultPath?: string
   notePath?: string
+  resolveMedia?: (source: string) => string | null
   isCurrent: () => boolean
   dispose: () => void
 }
@@ -8,9 +9,9 @@ const visits = new WeakMap<object,EditorResourceVisit>()
 const listeners = new WeakMap<object,Set<() => void>>()
 export function editorResourceVisit(editor?: object): EditorResourceVisit | null { return editor ? visits.get(editor) ?? null : null }
 function notify(editor: object) { listeners.get(editor)?.forEach(listener => listener()) }
-export function registerEditorResources(editor: object,vaultPath?: string,notePath?: string): EditorResourceVisit {
+export function registerEditorResources(editor: object,vaultPath?: string,notePath?: string,resolveMedia?: (source: string) => string | null): EditorResourceVisit {
   const visit: EditorResourceVisit = {
-    vaultPath,notePath,isCurrent: () => visits.get(editor) === visit,
+    vaultPath,notePath,resolveMedia,isCurrent: () => visits.get(editor) === visit,
     dispose: () => { if (visits.get(editor) === visit) { visits.delete(editor); notify(editor) } },
   }
   visits.set(editor,visit); notify(editor)

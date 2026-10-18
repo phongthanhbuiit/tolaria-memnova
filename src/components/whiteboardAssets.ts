@@ -9,7 +9,9 @@ function requireActive(options: Options,signal?: AbortSignal) {
 export function createWhiteboardAssets(options: Options): TLAssetStore {
   const reported = new Set<CanvasMediaIssue>()
   const resolve = (src: string) => {
-    const result = resolveCanvasMedia(src,options.scope)
+    const verified = options.scope.resolveMedia
+    const url = verified?.(src)
+    const result = verified ? { url: url ?? null, ...(!url ? { issue: 'unavailable' as const } : {}) } : resolveCanvasMedia(src,options.scope)
     if (result.issue && !reported.has(result.issue)) { reported.add(result.issue); options.issue(result.issue) }
     return result
   }

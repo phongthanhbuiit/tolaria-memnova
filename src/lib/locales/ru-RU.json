@@ -905,6 +905,8 @@
   "learning.noteMemory.help": "Выберите статью, подсказку и историю обучения. Остальные старые карточки сохранятся.",
   "learning.noteMemory.article": "Статья",
   "learning.noteMemory.mnemonic": "Подсказка для запоминания",
+  "learning.noteMemory.showMnemonic": "Показать подсказку",
+  "learning.noteMemory.returnArticle": "Вернуться к статье",
   "learning.noteMemory.articleSource": "Источник статьи",
   "learning.noteMemory.mnemonicSource": "Источник подсказки",
   "learning.noteMemory.history": "История обучения",

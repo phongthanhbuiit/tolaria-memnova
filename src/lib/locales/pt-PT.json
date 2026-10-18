@@ -905,6 +905,8 @@
   "learning.noteMemory.help": "Escolha o artigo, a ajuda de memorização e o histórico de aprendizagem. Os outros cartões antigos são mantidos.",
   "learning.noteMemory.article": "Artigo",
   "learning.noteMemory.mnemonic": "Ajuda de memorização",
+  "learning.noteMemory.showMnemonic": "Mostrar lembrete",
+  "learning.noteMemory.returnArticle": "Voltar ao artigo",
   "learning.noteMemory.articleSource": "Origem do artigo",
   "learning.noteMemory.mnemonicSource": "Origem da ajuda",
   "learning.noteMemory.history": "Histórico de aprendizagem",

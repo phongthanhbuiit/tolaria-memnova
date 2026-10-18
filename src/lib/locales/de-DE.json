@@ -905,6 +905,8 @@
   "learning.noteMemory.help": "Wähle Artikel, Merkhilfe und Lernverlauf. Andere alte Karten bleiben erhalten.",
   "learning.noteMemory.article": "Artikel",
   "learning.noteMemory.mnemonic": "Merkhilfe",
+  "learning.noteMemory.showMnemonic": "Merkhilfe anzeigen",
+  "learning.noteMemory.returnArticle": "Zurück zum Artikel",
   "learning.noteMemory.articleSource": "Artikelquelle",
   "learning.noteMemory.mnemonicSource": "Quelle der Merkhilfe",
   "learning.noteMemory.history": "Lernverlauf",

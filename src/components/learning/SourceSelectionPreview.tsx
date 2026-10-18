@@ -61,6 +61,7 @@ export function SourceSelectionPreview(props: {
           <BlockNoteReadOnly
             key={`${root}:${preview.path}:${preview.face}:${preview.fingerprint}`}
             content={preview.content}
+            verifiedMedia={preview.media}
             preserveBody
             vaultPath={root}
             notePath={`${root}/${preview.path}`}

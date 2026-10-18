@@ -302,3 +302,26 @@ it('keeps the answer pending until an expected canvas actually mounts and loads'
   await screen.findByTestId('blocknote-view-raw')
   expect(onReady).not.toHaveBeenCalled()
 })
+
+it('waits for verified note images before readiness and revokes the rendered acknowledgement on failure', async () => {
+  const images: HTMLImageElement[] = []
+  const OriginalImage = globalThis.Image
+  class DecodedImage extends OriginalImage {
+    constructor() { super(); images.push(this) }
+  }
+  vi.stubGlobal('Image', DecodedImage)
+  try {
+    parseMarkdown.mockResolvedValueOnce([{ id: 'verified-image', type: 'image', props: { url: 'attachments/ảnh.svg' } }])
+    const onReady = vi.fn(), onRenderStatus = vi.fn()
+    render(<BlockNoteReadOnly content="Image mnemonic" preserveBody vaultPath="/library" notePath="/library/note.md" verifiedMedia={[{url:'attachments/ảnh.svg',path:'attachments/ảnh.svg',sha256:'a'.repeat(64),bytes:235}]} onReady={onReady} onRenderStatus={onRenderStatus} />)
+    await screen.findByTestId('blocknote-view-raw')
+    expect(onReady).not.toHaveBeenCalled()
+    expect(images).toHaveLength(1)
+    expect(images[0].src).toContain('memnova-sha256=')
+    Object.defineProperty(images[0], 'naturalWidth', { value: 32 })
+    act(() => { fireEvent.load(images[0]) })
+    await waitFor(() => expect(onReady).toHaveBeenCalledTimes(1))
+    act(() => { fireEvent.error(images[0]) })
+    expect(onRenderStatus).toHaveBeenLastCalledWith('error')
+  } finally { vi.unstubAllGlobals() }
+})

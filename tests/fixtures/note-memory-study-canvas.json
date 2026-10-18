@@ -1,0 +1,220 @@
+{
+  "store": {
+    "asset:2055487151": {
+      "meta": {},
+      "id": "asset:2055487151",
+      "type": "image",
+      "typeName": "asset",
+      "props": {
+        "name": "ảnh-nhớ.svg",
+        "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTYwIDEwMCI+PHJlY3Qgd2lkdGg9IjE2MCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiMxNTVkZmYiLz48Y2lyY2xlIGN4PSI0NSIgY3k9IjUwIiByPSIyNSIgZmlsbD0iI2ZmZiIvPjxwYXRoIGQ9Ik05MCA3NSBMMTE1IDI1IEwxNDAgNzUgWiIgZmlsbD0iI2ZmZTA4YSIvPjwvc3ZnPg==",
+        "w": 160,
+        "h": 100,
+        "fileSize": 235,
+        "mimeType": "image/svg+xml",
+        "isAnimated": false
+      }
+    },
+    "shape:a2TMHp_HRqahEf6fBFwed": {
+      "x": 65,
+      "y": 322.5,
+      "rotation": 0,
+      "isLocked": false,
+      "opacity": 1,
+      "meta": {},
+      "id": "shape:a2TMHp_HRqahEf6fBFwed",
+      "type": "draw",
+      "props": {
+        "segments": [
+          {
+            "type": "free",
+            "path": "AAAAAAAAAAAAAAA/AAAAAAAAgFdATgAA"
+          }
+        ],
+        "color": "black",
+        "fill": "none",
+        "dash": "draw",
+        "size": "m",
+        "isComplete": true,
+        "isClosed": false,
+        "isPen": false,
+        "scale": 1,
+        "scaleX": 1,
+        "scaleY": 1
+      },
+      "parentId": "page:page",
+      "index": "a5czjH1G",
+      "typeName": "shape"
+    },
+    "shape:iyY-AUe3C-raqHJjdufUZ": {
+      "x": 86,
+      "y": 179.609375,
+      "rotation": 0,
+      "isLocked": false,
+      "opacity": 1,
+      "meta": {},
+      "id": "shape:iyY-AUe3C-raqHJjdufUZ",
+      "type": "draw",
+      "props": {
+        "segments": [
+          {
+            "type": "free",
+            "path": "AAAAAAAAAAAAAAA/QFYAAAAA"
+          }
+        ],
+        "color": "black",
+        "fill": "none",
+        "dash": "draw",
+        "size": "m",
+        "isComplete": true,
+        "isClosed": false,
+        "isPen": false,
+        "scale": 1,
+        "scaleX": 1,
+        "scaleY": 1
+      },
+      "parentId": "page:page",
+      "index": "a4iI7sLV",
+      "typeName": "shape"
+    },
+    "shape:LhzNF-C9AV2Tal6bpc_qe": {
+      "x": 239,
+      "y": 209,
+      "rotation": 0,
+      "isLocked": false,
+      "opacity": 1,
+      "meta": {},
+      "id": "shape:LhzNF-C9AV2Tal6bpc_qe",
+      "type": "image",
+      "props": {
+        "w": 160,
+        "h": 100,
+        "assetId": "asset:hMJ8oL2K9zv5wXcx6WuLR",
+        "playing": true,
+        "url": "",
+        "crop": null,
+        "flipX": false,
+        "flipY": false,
+        "altText": ""
+      },
+      "parentId": "page:page",
+      "index": "a2WRl0CV",
+      "typeName": "shape"
+    },
+    "asset:hMJ8oL2K9zv5wXcx6WuLR": {
+      "id": "asset:hMJ8oL2K9zv5wXcx6WuLR",
+      "type": "image",
+      "typeName": "asset",
+      "props": {
+        "name": "Vocabulary image QA",
+        "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTYwIDEwMCI+PHJlY3Qgd2lkdGg9IjE2MCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiMxNTVkZmYiLz48Y2lyY2xlIGN4PSI0NSIgY3k9IjUwIiByPSIyNSIgZmlsbD0iI2ZmZiIvPjxwYXRoIGQ9Ik05MCA3NSBMMTE1IDI1IEwxNDAgNzUgWiIgZmlsbD0iI2ZmZTA4YSIvPjwvc3ZnPg==",
+        "w": 160,
+        "h": 100,
+        "mimeType": "image/svg+xml",
+        "isAnimated": false
+      },
+      "meta": {}
+    },
+    "shape:dBXud0D-72vLuw6Wc3AgG": {
+      "x": 424,
+      "y": 209,
+      "rotation": 0,
+      "isLocked": false,
+      "opacity": 1,
+      "meta": {},
+      "id": "shape:dBXud0D-72vLuw6Wc3AgG",
+      "type": "image",
+      "props": {
+        "w": 160,
+        "h": 100,
+        "assetId": "asset:2055487151",
+        "playing": true,
+        "url": "",
+        "crop": null,
+        "flipX": false,
+        "flipY": false,
+        "altText": ""
+      },
+      "parentId": "page:page",
+      "index": "a3zoWpBG",
+      "typeName": "shape"
+    },
+    "shape:TLLwkq-hCe8G6a_zJjs3J": {
+      "x": 136,
+      "y": 104.609375,
+      "rotation": 0,
+      "isLocked": false,
+      "opacity": 1,
+      "meta": {},
+      "id": "shape:TLLwkq-hCe8G6a_zJjs3J",
+      "type": "draw",
+      "props": {
+        "segments": [
+          {
+            "type": "free",
+            "path": "AAAAAAAAAAAAAAA/AAAAAAAAsFRATgAAsFRATgAA"
+          }
+        ],
+        "color": "black",
+        "fill": "none",
+        "dash": "draw",
+        "size": "m",
+        "isComplete": true,
+        "isClosed": false,
+        "isPen": false,
+        "scale": 1,
+        "scaleX": 1,
+        "scaleY": 1
+      },
+      "parentId": "page:page",
+      "index": "a10EXhkV",
+      "typeName": "shape"
+    },
+    "page:page": {
+      "meta": {},
+      "id": "page:page",
+      "name": "Page 1",
+      "index": "a1",
+      "typeName": "page"
+    },
+    "document:document": {
+      "gridSize": 10,
+      "name": "",
+      "meta": {},
+      "id": "document:document",
+      "typeName": "document"
+    }
+  },
+  "schema": {
+    "schemaVersion": 2,
+    "sequences": {
+      "com.tldraw.store": 5,
+      "com.tldraw.asset": 1,
+      "com.tldraw.camera": 1,
+      "com.tldraw.document": 2,
+      "com.tldraw.instance": 26,
+      "com.tldraw.instance_page_state": 5,
+      "com.tldraw.page": 1,
+      "com.tldraw.instance_presence": 6,
+      "com.tldraw.pointer": 1,
+      "com.tldraw.shape": 4,
+      "com.tldraw.asset.bookmark": 2,
+      "com.tldraw.asset.image": 6,
+      "com.tldraw.asset.video": 5,
+      "com.tldraw.shape.arrow": 8,
+      "com.tldraw.shape.bookmark": 2,
+      "com.tldraw.shape.draw": 4,
+      "com.tldraw.shape.embed": 4,
+      "com.tldraw.shape.frame": 1,
+      "com.tldraw.shape.geo": 11,
+      "com.tldraw.shape.group": 0,
+      "com.tldraw.shape.highlight": 3,
+      "com.tldraw.shape.image": 5,
+      "com.tldraw.shape.line": 5,
+      "com.tldraw.shape.note": 10,
+      "com.tldraw.shape.text": 4,
+      "com.tldraw.shape.video": 4,
+      "com.tldraw.binding.arrow": 1
+    }
+  }
+}

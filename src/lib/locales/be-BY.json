@@ -905,6 +905,8 @@
   "learning.noteMemory.help": "Выберыце артыкул, падказку і гісторыю навучання. Іншыя старыя карткі застануцца.",
   "learning.noteMemory.article": "Артыкул",
   "learning.noteMemory.mnemonic": "Падказка для памяці",
+  "learning.noteMemory.showMnemonic": "Паказаць падказку",
+  "learning.noteMemory.returnArticle": "Вярнуцца да артыкула",
   "learning.noteMemory.articleSource": "Крыніца артыкула",
   "learning.noteMemory.mnemonicSource": "Крыніца падказкі",
   "learning.noteMemory.history": "Гісторыя навучання",

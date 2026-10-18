@@ -1,7 +1,7 @@
 import { attachmentAssetUrlFromPath } from './vaultAttachments'
 import { canWritePathToVault } from './vaultPathContainment'
 export type CanvasMediaIssue = 'online' | 'legacy' | 'unavailable'
-export interface CanvasMediaScope { vaultPath?: string; notePath?: string }
+export interface CanvasMediaScope { vaultPath?: string; notePath?: string; resolveMedia?: (source: string) => string | null }
 export interface CanvasMediaResolution { url: string | null; relativePath?: string; path?: string; issue?: CanvasMediaIssue }
 const unavailable = (): CanvasMediaResolution => ({ url: null,issue: 'unavailable' })
 function fileUrl(path: string): URL {
