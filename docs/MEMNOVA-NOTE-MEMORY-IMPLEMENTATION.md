@@ -29,8 +29,8 @@ Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. DONE bên d
 | M20 | DONE | d76f7d99,679f3c05,1e3514e1; pushed35dfa19f | Default note/legacy workspace, opt-in controls, scoped properties, conversion/recovery and startup backup reader implemented. Normal final hook4861frontend/481files,1228Rust/3ignored pass;274module frontend,206learning Rust,3real startup recovery,4browser12.9s pass. Normal batch pushed35dfa19f; native end-to-end M23–M25 remain. |
 | M21 | DONE | 9baccd37; pushed35dfa19f | Normal hook4864frontend/481files133.99s;4browser59.0s including378layout cases and canvas keyboard/fullscreen;978keys/18catalogs. CodeScene NOT RUN. Normal batch pushed35dfa19f. |
 | M22 | DONE | 98ea525d,6ea806a8; pushed35dfa19f | Final normal hook368frontend/49files26.50s,213native15.31s,12browser1.8m passed;244native learning/IPC,15integration zero retries +4file-backed browser cases,lint/types/clippy/Codacy pass. Normal batch pushed35dfa19f; M23–M25 not yet accepted. |
-| M23 | IN_PROGRESS | M22 pushed35dfa19f | Fresh isolated native build and ordinary/A4/canvas/quit/conversion/recovery/restore walkthrough pending. |
-| M24 | NOT_STARTED | — | — |
+| M23 | VERIFIED_LOCAL | 1c27b64b,d3445c3f,f626ba63 | Native A4/both faces/media/last-stroke quit, failed-save retry/window close, linked move/missing, grade/undo, conversion conflict/reuse/fresh, retained journal and independent-root/missing/corrupt-DB restore passed with closed SQLite/hash proofs. Final recovery hook129tests/17files; baseline m23. Normal batch push remains M25. |
+| M24 | IN_PROGRESS | M23 verified f626ba63 | Production baseline comparison and100/1000-shape resource measurements pending. |
 | M25 | NOT_STARTED | — | — |
 
 Trạng thái dùng: NOT_STARTED, IN_PROGRESS, VERIFIED_LOCAL, BLOCKED_WITH_EVIDENCE, DONE. VERIFIED_LOCAL là code đã commit và test tại local, chưa phải hoàn tất hoặc releasable. Khi user giao toàn bộ đợt, dependency có thể dùng checkpoint VERIFIED_LOCAL có commit và evidence thật; chỉ đổi DONE sau normal push thành công. Khi giao một task riêng, dependency phải DONE. Không có trạng thái “DONE nhưng chưa test/push”.
