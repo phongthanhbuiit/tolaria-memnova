@@ -54,6 +54,7 @@ pub struct StudyItem {
     pub page: Option<StudyPage>,
     pub answer_page: Option<StudyPage>,
     pub source_error: Option<String>,
+    pub content: super::StudyContent,
 }
 
 #[derive(Debug, Serialize)]

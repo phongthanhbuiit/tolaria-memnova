@@ -12,8 +12,8 @@ Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. **Đây là
 | M03 | DONE | fef27504 | Additive schema5, four new native tests;100 learning+64 focused frontend pass, types/clippy/fmt pass. Codacy reviewed advisories/no CriticalHigh; ADR0148/docs; normal batch push pending. See M03 baseline. |
 | M04 | VERIFIED_LOCAL | 7a2209af | Native coordinator;11 focused and111 learning tests pass; clippy/fmt pass; Codacy no Medium+/6 reviewed Minor. Hash/revision/replay/crash/compaction preservation; see M04 baseline. Normal batch push pending. |
 | M05 | VERIFIED_LOCAL | 086d56bd | Native note lifecycle;15 new cases/126 learning pass, clippy/fmt pass. No new Medium+/security findings; existing pages advisory reviewed. Source/history/identity and missing-database guards; see M05 baseline. UI/watcher dispatch staged M06–M20. |
-| M06 | VERIFIED_LOCAL | commit recorded next checkpoint | Typed note IPC/client/browser QA; six real command cases, all1139 Rust unit tests/3ignored pass; types/lint/clippy; reviewed Codacy2Medium/21Minor, no lint/security/CriticalHigh. Config exact replay, bound/pending/rename/missing-DB guards; see M06 baseline. Normal pre-commit/push pending. |
-| M07 | NOT_STARTED | — | — |
+| M06 | VERIFIED_LOCAL | cb4160ca | Typed note IPC/client/browser QA; six real command cases, all1139 Rust unit tests/3ignored pass; types/lint/clippy; reviewed Codacy2Medium/21Minor, no lint/security/CriticalHigh. Config exact replay, bound/pending/rename/missing-DB guards; see M06 baseline. Normal pre-commit/push pending. |
+| M07 | VERIFIED_LOCAL | pending commit | Live faces/source/media fingerprints;1153 native and90 focused frontend pass; see M07 baseline. Normal commit/push verification pending. |
 | M08 | NOT_STARTED | — | — |
 | M09 | NOT_STARTED | — | — |
 | M10 | NOT_STARTED | — | — |
@@ -71,3 +71,5 @@ Task kế tiếp đủ dependency:
 ## M01–M03 batch release evidence
 
 Normal `git push origin main` succeeded at fef27504 (9m3s gate). 4638 frontend tests/437 files, lines86.58% (statements83.08%); build/lint/types pass. Rust1104 unit tests plus1 integration pass,3 ignored; hook coverage87.09% lines with its existing lib/main/menu exclusions. Unexcluded final coverage remains M25, not claimed here. Core smoke54 pass (4.6m); CodeScene NOT RUN optional unavailable. M03 pre-commit2751 related frontend tests and100 Rust learning tests pass. Codacy SQL attempt: analyzer selected0 files, SQL scan NOT APPLICABLE (not a claimed security pass); SQLite constraints are verified through real database tests. Final new binding reader scan has one reviewed Minor, no Medium+. Demo dirt empty, remote/local SHA matched after push. Logs archived under /tmp/memnova-note-memory-evidence/m03/.
+
+M06 normal pre-commit: full frontend4659 tests/440files pass121.62s; Rust1139 pass/3ignored36.92s. Commitcb4160ca; batch push still pending M08.

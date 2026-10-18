@@ -128,3 +128,13 @@ mod note_reconcile;
 pub use note_configuration::NoteConfigureRequest;
 
 mod note_guard;
+
+mod note_media;
+#[cfg(test)]
+mod note_study_tests;
+pub use note_media::NoteMediaDependency;
+
+mod note_snapshot;
+pub use note_snapshot::{NoteBackSource, NoteFacePreview, NoteStudyDetails, StudyContent};
+#[cfg(test)]
+mod note_media_tests;

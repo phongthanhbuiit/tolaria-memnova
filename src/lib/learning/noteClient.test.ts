@@ -7,6 +7,8 @@ beforeEach(() => vi.resetAllMocks())
 it('keeps note source/configuration and recovery operations bound to the Library UUID', async () => {
   vi.mocked(invoke).mockResolvedValueOnce({ libraryId: 'library', schemaVersion: 5 }).mockResolvedValue({ status: 'committed' })
   const client = await LearningClient.connect('/qa')
+  await client.readNoteFace('source', 'back')
+  expect(invoke).toHaveBeenLastCalledWith('learning_command', { vaultPath: '/qa', libraryId: 'library', request: { kind: 'readNoteFace', pageId: 'source', face: 'back' } })
   await client.readNoteMemory('page')
   expect(invoke).toHaveBeenLastCalledWith('learning_command', { vaultPath: '/qa', libraryId: 'library', request: { kind: 'readNoteMemory', pageId: 'page' } })
   const request = { operationId: 'operation', pageId: 'page', expectedHash: 'before', expectedRevision: null, source: 'document' }

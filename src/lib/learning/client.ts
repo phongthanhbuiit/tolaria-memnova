@@ -1,4 +1,4 @@
-import type { NoteMemoryView, NoteWriteRequest, NoteConfigureRequest, NoteWriteOutcome } from './types'
+import type { NoteFacePreview, NoteMemoryView, NoteWriteRequest, NoteConfigureRequest, NoteWriteOutcome } from './types'
 import type { PropertyDefinitions } from './propertyValues'
 import { invoke } from '@tauri-apps/api/core'
 import { isTauri, mockInvoke } from '../../mock-tauri'
@@ -37,6 +37,7 @@ export class LearningClient {
     return learningInvoke<T>('learning_command', { vaultPath: this.vaultPath, libraryId: this.libraryId, request })
   }
 
+  readNoteFace(pageId: string, face: import('./noteMemoryConfig').MemoryFace): Promise<NoteFacePreview> { return this.call({ kind: 'readNoteFace', pageId, face }) }
   readNoteMemory(pageId: string): Promise<NoteMemoryView> { return this.call({ kind: 'readNoteMemory', pageId }) }
   saveNoteMemory(request: NoteWriteRequest): Promise<NoteWriteOutcome> { return this.call({ kind: 'saveNoteMemory', request }) }
   configureNoteMemory(request: NoteConfigureRequest): Promise<NoteWriteOutcome> { return this.call({ kind: 'configureNoteMemory', request }) }

@@ -25,9 +25,9 @@ pub(super) struct Fence<'a> {
 }
 
 #[derive(Default)]
-struct InlineContext {
-    comment: bool,
-    ticks: usize,
+pub(super) struct InlineContext {
+    pub(super) comment: bool,
+    pub(super) ticks: usize,
 }
 
 pub(super) fn lines(source: &str) -> Vec<Line<'_>> {
@@ -84,7 +84,7 @@ pub(super) fn fence_at(text: &str) -> Option<Fence<'_>> {
     })
 }
 
-fn escaped(source: &str, offset: usize) -> bool {
+pub(super) fn escaped(source: &str, offset: usize) -> bool {
     source.as_bytes()[..offset]
         .iter()
         .rev()
@@ -94,7 +94,7 @@ fn escaped(source: &str, offset: usize) -> bool {
         == 1
 }
 
-fn advance_inline(source: &str, context: &mut InlineContext) {
+pub(super) fn advance_inline(source: &str, context: &mut InlineContext) {
     static TOKENS: OnceLock<Regex> = OnceLock::new();
     let tokens = TOKENS.get_or_init(|| Regex::new(r"<!--|-->|`+").expect("static token regex"));
     for token in tokens.find_iter(source) {

@@ -12,6 +12,10 @@ use serde_json::{json, Value};
 )]
 pub enum LearningRequest {
     Describe,
+    ReadNoteFace {
+        page_id: String,
+        face: crate::learning::note_memory::MemoryFace,
+    },
     ReadNoteMemory {
         page_id: String,
     },
@@ -154,7 +158,8 @@ fn dispatch(
         LearningRequest::PreviewMigration => {
             Err("Migration preview must run before storage initialization".into())
         }
-        note @ (LearningRequest::ReadNoteMemory { .. }
+        note @ (LearningRequest::ReadNoteFace { .. }
+        | LearningRequest::ReadNoteMemory { .. }
         | LearningRequest::SaveNoteMemory { .. }
         | LearningRequest::ConfigureNoteMemory { .. }
         | LearningRequest::ResumeNoteMemory { .. }
@@ -214,6 +219,9 @@ fn dispatch(
 
 fn dispatch_note_memory(store: &mut Store, request: LearningRequest) -> Result<Value, String> {
     match request {
+        LearningRequest::ReadNoteFace { page_id, face } => {
+            encode(store.read_note_face(&page_id, face)?)
+        }
         LearningRequest::ReadNoteMemory { page_id } => encode(store.read_note_memory(&page_id)?),
         LearningRequest::SaveNoteMemory { request } => encode(store.save_note_memory(request)?),
         LearningRequest::ConfigureNoteMemory { request } => {

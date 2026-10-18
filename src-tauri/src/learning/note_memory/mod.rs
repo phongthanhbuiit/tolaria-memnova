@@ -130,3 +130,5 @@ fn editable(source: &str) -> Result<MemoryDocument, String> {
 }
 mod readiness;
 pub use readiness::useful_content;
+mod media;
+pub use media::media_sources;

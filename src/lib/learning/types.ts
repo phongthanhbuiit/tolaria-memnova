@@ -98,6 +98,7 @@ export interface StudyItem {
   page: StudyPage | null
   answerPage?: StudyPage | null
   sourceError: string | null
+  content?: { kind: 'legacy' } | { kind: 'note'; details: NoteStudyDetails | null }
 }
 export interface StudySession {
   id: string
@@ -172,3 +173,13 @@ export interface NoteWriteOutcome {
   revision: number | null
   problem: string | null
 }
+
+export interface NoteMediaDependency { url: string; path: string; sha256: string; bytes: number }
+export interface NoteStudyDetails {
+  backSource: { pageId: string; path: string; face: import('./noteMemoryConfig').MemoryFace }
+  propertiesRaw: string
+  frontMedia: NoteMediaDependency[]
+  backMedia: NoteMediaDependency[]
+  fingerprint: string
+}
+export interface NoteFacePreview { pageId: string; path: string; face: import('./noteMemoryConfig').MemoryFace; content: string; fingerprint: string; media: NoteMediaDependency[] }

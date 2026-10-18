@@ -36,7 +36,7 @@ fn card(store: &mut Store, page: &str) -> super::Card {
         .unwrap()
 }
 
-fn request(session: &super::StudySession, rating: u8, learning: bool) -> RateRequest {
+pub(super) fn request(session: &super::StudySession, rating: u8, learning: bool) -> RateRequest {
     let item = session.current.as_ref().unwrap();
     let mut next = item.card.schedule.clone();
     let now = chrono::Utc::now();

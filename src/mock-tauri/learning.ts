@@ -1,4 +1,4 @@
-import { isNoteMemoryRequest, mockNoteMemoryCommand, isMockBoundCard, hasMockPendingNote, mockNotePath, withMockNoteIdentity, type FixtureNoteMemory } from './note-memory'
+import { isNoteMemoryRequest, mockNoteMemoryCommand, mockNoteStudyContent, isMockBoundCard, hasMockPendingNote, mockNotePath, withMockNoteIdentity, type FixtureNoteMemory } from './note-memory'
 import { parseNoteMemoryDocument } from '../lib/learning/noteMemoryDocument'
 import { matchesProperty, propertyKey, type PropertyDefinitions } from '../lib/learning/propertyValues'
 /** Browser-only QA fixture. Native learning data always uses Rust/SQLite. */
@@ -56,7 +56,11 @@ async function snapshot(data: Fixture, row: FixtureSession, root: string, contex
         answerPage.fingerprint = await hash(`${answerPage.path}\0${answerPage.fingerprint}`)
       }
     } catch (error) { sourceError = String(error) }
-    current = { card: ready.card, page: owner, answerPage, sourceError }
+    current = { card: ready.card, page: owner, answerPage, sourceError, content: { kind: 'legacy' } }
+    if (isMockBoundCard(data, ready.card.id)) {
+      try { current = { card: ready.card, ...await mockNoteStudyContent({ data, root, context, hash }, ready.card) } }
+      catch (error) { current = { card: ready.card, page: null, answerPage: null, sourceError: String(error), content: { kind: 'note', details: null } } }
+    } else if (hasMockPendingNote(data, ready.card.pageId)) current.sourceError = 'pending-note-operation'
   }
   const reviews = data.reviews.filter(review => !review.undone && review.request.sessionId === row.id)
   const last = [...data.reviews].reverse().find(review => !review.undone)

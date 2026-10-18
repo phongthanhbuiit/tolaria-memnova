@@ -1,6 +1,6 @@
 /** Browser QA model of the note IPC contract. This is not native persistence evidence. */
 import type { Context, Fixture } from './learning'
-import type { LearningCard, LearningSchedule, NoteBinding, NoteConfigureRequest, NoteMemoryView, NoteWriteOutcome, NoteWriteRequest } from '../lib/learning/types'
+import type { LearningCard, LearningSchedule, NoteBinding, NoteConfigureRequest, NoteMemoryView, NoteWriteOutcome, NoteWriteRequest, NoteFacePreview, StudyItem } from '../lib/learning/types'
 import type { NoteMemoryConfig } from '../lib/learning/noteMemoryConfig'
 import { parseNoteMemoryDocument } from '../lib/learning/noteMemoryDocument'
 import { patchNoteMemoryConfig } from '../lib/learning/noteMemoryPatch'
@@ -14,7 +14,8 @@ type Operation = {
 }
 export interface FixtureNoteMemory { bindings: Record<string, NoteBinding>; operations: Record<string, Operation> }
 type Environment = { data: Fixture; root: string; context: Context; fresh: () => LearningSchedule; hash: (value: string) => Promise<string>; persist: () => void }
-const noteKinds = new Set(['readNoteMemory', 'saveNoteMemory', 'configureNoteMemory', 'reconcileNoteMemory', 'resumeNoteMemory'])
+type ReadEnvironment = Pick<Environment, 'data' | 'root' | 'context' | 'hash'>
+const noteKinds = new Set(['readNoteFace', 'readNoteMemory', 'saveNoteMemory', 'configureNoteMemory', 'reconcileNoteMemory', 'resumeNoteMemory'])
 export const isNoteMemoryRequest = (kind: unknown): boolean => typeof kind === 'string' && noteKinds.has(kind)
 export const hasMockPendingNote = (data: Fixture, pageId: string): boolean => Object.values(data.noteMemory?.operations ?? {}).some(op => op.pageId === pageId && op.phase !== 'applied')
 export const isMockBoundCard = (data: Fixture, id: string): boolean => Object.values(data.noteMemory?.bindings ?? {}).some(binding => binding.cardId === id)
@@ -34,15 +35,15 @@ export function withMockNoteIdentity(source: string, id: string): string {
   const bom = source.startsWith('\ufeff') ? '\ufeff' : ''
   return `${bom}---${newline}${line}---${newline}${source.slice(bom.length)}`
 }
-function notes(env: Environment): FixtureNoteMemory { return env.data.noteMemory ?? { bindings: {}, operations: {} } }
+function notes(env: Pick<Environment, 'data'>): FixtureNoteMemory { return env.data.noteMemory ?? { bindings: {}, operations: {} } }
 function writable(env: Environment): FixtureNoteMemory { return env.data.noteMemory ??= { bindings: {}, operations: {} } }
-function page(env: Environment, id: string) { const value = env.data.pages.find(page => page.id === id); if (!value) throw Error('Missing note'); return value }
-async function read(env: Environment, id: string): Promise<string> {
+function page(env: Pick<Environment, 'data'>, id: string) { const value = env.data.pages.find(page => page.id === id); if (!value) throw Error('Missing note'); return value }
+async function read(env: ReadEnvironment, id: string): Promise<string> {
   const target = page(env, id)
   if (!target.available) throw Error('Missing note source')
   return env.data.restoredFiles?.[target.path] ?? env.context.read(mockNotePath(env.root, target.path))
 }
-async function linkedBack(env: Environment, owner: string, config: NoteMemoryConfig, fallback: string): Promise<string> {
+async function linkedBack(env: ReadEnvironment, owner: string, config: NoteMemoryConfig, fallback: string): Promise<string> {
   if (config.back.kind === 'inline') return fallback
   if (config.back.pageId === owner) throw Error('self-source')
   const target = parseNoteMemoryDocument(await read(env, config.back.pageId))
@@ -52,7 +53,7 @@ async function linkedBack(env: Environment, owner: string, config: NoteMemoryCon
   if (!target.ranges.back) throw Error('missing-source-back')
   return target.back
 }
-async function view(env: Environment, id: string, ignore?: string): Promise<{ value: NoteMemoryView; identityValid: boolean }> {
+async function view(env: ReadEnvironment, id: string, ignore?: string): Promise<{ value: NoteMemoryView; identityValid: boolean }> {
   const target = page(env, id)
   const binding = notes(env).bindings[id] ?? null
   const card = binding ? env.data.cards.find(card => card.id === binding.cardId) : undefined
@@ -64,19 +65,24 @@ async function view(env: Environment, id: string, ignore?: string): Promise<{ va
     const document = parseNoteMemoryDocument(source)
     value.sourceHash = await env.hash(source); value.config = document.config; value.hasBack = Boolean(document.ranges.back)
     identityValid = document.pageId === id
-    if (!identityValid || document.issues.length) value.diagnostics.push('invalid-document')
-    else if (!document.config) value.state = binding ? 'invalid' : value.hasBack ? 'retained' : 'ordinary'
-    else if (!document.config.enabled) value.state = 'disabled'
-    else if (!binding && value.legacyCardCount) value.state = 'conversionRequired'
-    else {
-      const front = usefulMemoryContent(document.front)
-      const back = usefulMemoryContent(await linkedBack(env, id, document.config, document.back))
-      value.state = front && back ? 'ready' : 'draft'
-    }
+    await projectNoteState(env, value, document, identityValid)
   } catch (error) { value.diagnostics.push(error instanceof Error ? error.message : 'unreadable-page'); value.state = 'invalid' }
   value.pendingOperations = Object.values(notes(env).operations).filter(op => op.pageId === id && op.phase !== 'applied' && op.operationId !== ignore).map(({ operationId, kind, phase, createdAt }) => ({ operationId, kind, phase, createdAt }))
   if (value.pendingOperations.length) value.state = 'pending'
   return { value, identityValid }
+}
+async function projectNoteState(env: ReadEnvironment, value: NoteMemoryView, document: ReturnType<typeof parseNoteMemoryDocument>, identityValid: boolean): Promise<void> {
+  const binding = value.binding
+  const id = value.pageId
+  if (!identityValid || document.issues.length) value.diagnostics.push('invalid-document')
+  else if (!document.config) value.state = binding ? 'invalid' : value.hasBack ? 'retained' : 'ordinary'
+  else if (!document.config.enabled) value.state = 'disabled'
+  else if (!binding && value.legacyCardCount) value.state = 'conversionRequired'
+  else {
+    const front = usefulMemoryContent(document.front)
+    const back = usefulMemoryContent(await linkedBack(env, id, document.config, document.back))
+    value.state = front && back ? 'ready' : 'draft'
+  }
 }
 function reconcile(env: Environment, current: NoteMemoryView, identityValid: boolean, plannedCard: string = crypto.randomUUID()): number | null {
   if (current.state === 'pending') throw Error('pending-operation')
@@ -167,8 +173,10 @@ async function prepare(env: Environment, raw: unknown, kind: 'save' | 'configure
 }
 export async function mockNoteMemoryCommand(env: Environment, input: Record<string, unknown>): Promise<unknown> {
   if (['saveNoteMemory','configureNoteMemory'].includes(String(input.kind))) validateFields(input, ['kind','request'])
+  else if (input.kind === 'readNoteFace') validateFields(input, ['kind', 'pageId', 'face'])
   else validateFields(input, ['kind',input.kind === 'resumeNoteMemory' ? 'operationId' : 'pageId'])
   switch (input.kind) {
+    case 'readNoteFace': return mockNoteFace(env, String(input.pageId), input.face)
     case 'readNoteMemory': return (await view(env, String(input.pageId))).value
     case 'saveNoteMemory': return prepare(env, input.request, 'save')
     case 'configureNoteMemory': return prepare(env, input.request, 'configure')
@@ -181,5 +189,32 @@ export async function mockNoteMemoryCommand(env: Environment, input: Record<stri
       return (await view(env, current.value.pageId)).value
     }
     default: throw Error('Unsupported QA note operation')
+  }
+}
+
+async function mockNoteFace(env: ReadEnvironment, id: string, face: unknown): Promise<NoteFacePreview> {
+  if (face !== 'front' && face !== 'back') throw Error('Invalid note face')
+  const source = await read(env, id)
+  const document = parseNoteMemoryDocument(source)
+  if (document.pageId !== id || document.issues.length) throw Error('Invalid note source')
+  if (face === 'back' && (!document.ranges.back || document.config?.back.kind === 'page')) throw Error('Missing or recursive source back')
+  const target = page(env, id)
+  return { pageId: id, path: target.path, face, content: document[face], fingerprint: await env.hash(JSON.stringify({ source: await env.hash(source), path: target.path, face })), media: [] }
+}
+
+/** Text/identity QA model; binary media verification is exercised by native tests. */
+export async function mockNoteStudyContent(env: ReadEnvironment, card: LearningCard): Promise<Omit<StudyItem, 'card'>> {
+  if (hasMockPendingNote(env.data, card.pageId)) throw Error('pending-note-operation')
+  const current = await view(env, card.pageId)
+  if (current.value.state !== 'ready' || current.value.binding?.cardId !== card.id || !current.value.config) throw Error('Note source is not ready')
+  const owner = await mockNoteFace(env, card.pageId, 'front')
+  const back = current.value.config.back
+  const reverse = await mockNoteFace(env, back.kind === 'inline' ? card.pageId : back.pageId, back.kind === 'inline' ? 'back' : back.face)
+  const original = parseNoteMemoryDocument(await read(env, card.pageId))
+  return {
+    page: { id: card.pageId, path: owner.path, title: page(env, card.pageId).title, content: owner.content, fingerprint: owner.fingerprint },
+    answerPage: { id: reverse.pageId, path: reverse.path, title: page(env, reverse.pageId).title, content: reverse.content, fingerprint: reverse.fingerprint },
+    sourceError: null,
+    content: { kind: 'note', details: { backSource: { pageId: reverse.pageId, path: reverse.path, face: reverse.face }, propertiesRaw: (await read(env, card.pageId)).slice(0, original.offsets.front.start), frontMedia: [], backMedia: [], fingerprint: await env.hash(`${owner.fingerprint}\0${reverse.fingerprint}`) } },
   }
 }
