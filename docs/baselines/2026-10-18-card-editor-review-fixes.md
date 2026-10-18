@@ -1,6 +1,6 @@
 # Card editor final-review fixes — 2026-10-18
 
-Starting revision: `2f3490dc`, clean main. Scope: the four findings from the final review of U00–U08. This addendum corrects the earlier release's incomplete coverage of conversion/focus; its historical passing results are not proof that these edge cases were covered. Final full checks and normal main push remain pending until recorded below.
+Starting revision: `2f3490dc`, clean main. Scope: the four findings from the final review of U00–U08. This addendum corrects the earlier release's incomplete coverage of conversion/focus; its historical passing results are not proof that these edge cases were covered. The patch passed the full release gates and normal main push recorded below.
 
 ## Fixes
 
@@ -30,7 +30,19 @@ Codacy Analysis CLI0.24.0 scans all three touched TS/TSX code/test files with pr
 
 Explicit unexcluded `cargo llvm-cov --manifest-path src-tauri/Cargo.toml --no-clean --fail-under-lines 85` passes, **85.82% lines**, 85.31% regions, 1,096 unit and one integration pass; three pre-existing ignored. Rust sources unchanged; this is an independent measurement, not a claim that the frontend-only hook ran Rust lint.
 
-Existing learning/property integrations: **7/7 pass without retries (1.2m)**, alongside the five editor scenarios above: 12 integration tests total. Pending: full frontend release gates, normal commit/push and final clean-tree/remote verification.
+Existing learning/property integrations: **7/7 pass without retries (1.2m)**, alongside the five editor scenarios above: 12 integration tests total. Final pre-commit reran all five editor scenarios on the final test version in **39.8s**, including the no-autofocus assertion before any composer interaction.
+
+Normal code commit **9991efc2** passed verified pre-commit lint/types, **4,585 frontend tests / 436 files (138.14s)** and the five editor scenarios. Normal `git push origin main` then succeeded, publishing `2f3490dc..9991efc2` without hook bypass. Pre-push took **8m04s**:
+
+- Full `pnpm lint`: PASS, zero warnings.
+- `pnpm build` (`tsc -b && vite build`): PASS. Existing mixed static/dynamic import and large-bundle warnings remain outside this patch.
+- `pnpm test:coverage`: PASS, **4,585 tests / 436 files**; **83.00% statements, 74.66% branches, 84.75% functions, 86.51% lines**. Thresholds unchanged.
+- `pnpm playwright:smoke`: PASS, **54/54 in 4.7m**, below five minutes. No cosmetic tests added to smoke.
+- Rust hook steps correctly skipped because Rust sources did not change; the explicit unexcluded **85.82%** measurement above was run separately for this patch.
+- CodeScene before/after/project scores: NOT RUN, optional access unavailable. Final Codacy scan explicitly lists all three changed TS/TSX paths, including staged content, and completed all three analyzers. CSS target sizing was verified by browser geometry assertions; no CSS analyzer result is claimed.
+- `git status --short -- demo-vault demo-vault-v2`: empty. Owned native/Vite processes confirmed stopped. Final docs-only commit/push records these results, followed by local/remote SHA and clean-tree verification.
+
+The four review findings are addressed. No new Critical/High source-analysis findings or failing in-scope regression remains in the checks above. Unverified QA dimensions and inherited dependency advisories are stated explicitly rather than treated as passing.
 
 ## Evidence
 
