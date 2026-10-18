@@ -1,0 +1,69 @@
+[
+  {
+    "name": "front no-op",
+    "source": "﻿---\r\n_memnova_page_id: c7c37125-1711-4dd3-b04e-5a8e271a80aa\r\n_memnova_learning_version: 1\r\n_memnova_learning_enabled: true\r\n_memnova_back_kind: inline\r\n---\r\n# Tế bào 🧠\r\n\r\n<!-- FLASHCARD:BACK -->  \r\n\r\n    Hình ảnh\r\n",
+    "face": "front",
+    "content": "# Tế bào 🧠\r\n\r\n",
+    "expected": "﻿---\r\n_memnova_page_id: c7c37125-1711-4dd3-b04e-5a8e271a80aa\r\n_memnova_learning_version: 1\r\n_memnova_learning_enabled: true\r\n_memnova_back_kind: inline\r\n---\r\n# Tế bào 🧠\r\n\r\n<!-- FLASHCARD:BACK -->  \r\n\r\n    Hình ảnh\r\n"
+  },
+  {
+    "name": "front edit preserves CRLF back",
+    "source": "﻿---\r\n_memnova_page_id: c7c37125-1711-4dd3-b04e-5a8e271a80aa\r\n_memnova_learning_version: 1\r\n_memnova_learning_enabled: true\r\n_memnova_back_kind: inline\r\n---\r\n# Tế bào 🧠\r\n\r\n<!-- FLASHCARD:BACK -->  \r\n\r\n    Hình ảnh\r\n",
+    "face": "front",
+    "content": "# Edited",
+    "expected": "﻿---\r\n_memnova_page_id: c7c37125-1711-4dd3-b04e-5a8e271a80aa\r\n_memnova_learning_version: 1\r\n_memnova_learning_enabled: true\r\n_memnova_back_kind: inline\r\n---\r\n# Edited\r\n<!-- FLASHCARD:BACK -->  \r\n\r\n    Hình ảnh\r\n"
+  },
+  {
+    "name": "back edit preserves full prefix",
+    "source": "﻿---\r\n_memnova_page_id: c7c37125-1711-4dd3-b04e-5a8e271a80aa\r\n_memnova_learning_version: 1\r\n_memnova_learning_enabled: true\r\n_memnova_back_kind: inline\r\n---\r\n# Tế bào 🧠\r\n\r\n<!-- FLASHCARD:BACK -->  \r\n\r\n    Hình ảnh\r\n",
+    "face": "back",
+    "content": "    New diagram\r\n",
+    "expected": "﻿---\r\n_memnova_page_id: c7c37125-1711-4dd3-b04e-5a8e271a80aa\r\n_memnova_learning_version: 1\r\n_memnova_learning_enabled: true\r\n_memnova_back_kind: inline\r\n---\r\n# Tế bào 🧠\r\n\r\n<!-- FLASHCARD:BACK -->  \r\n    New diagram\r\n"
+  },
+  {
+    "name": "explicit empty back",
+    "source": "# Ordinary",
+    "face": "back",
+    "content": "",
+    "createBack": true,
+    "expected": "# Ordinary\n\n<!-- FLASHCARD:BACK -->\n"
+  },
+  {
+    "name": "disable keeps body",
+    "source": "---\n_memnova_page_id: c7c37125-1711-4dd3-b04e-5a8e271a80aa\n_memnova_learning_version: 1\n_memnova_learning_enabled: true\n_memnova_back_kind: inline\n---\n# Article\n\n<!-- FLASHCARD:BACK -->\n\n    Indented mnemonic\n",
+    "config": {
+      "version": 1,
+      "enabled": false,
+      "back": {
+        "kind": "inline"
+      }
+    },
+    "expected": "---\n_memnova_page_id: c7c37125-1711-4dd3-b04e-5a8e271a80aa\n_memnova_learning_version: 1\n_memnova_learning_enabled: false\n_memnova_back_kind: inline\n---\n# Article\n\n<!-- FLASHCARD:BACK -->\n\n    Indented mnemonic\n"
+  },
+  {
+    "name": "link to inline retains local back",
+    "source": "---\n_memnova_learning_version: 1\n_memnova_learning_enabled: true\n_memnova_back_kind: page\n_memnova_back_page_id: 1c54f4da-80c6-4761-98e7-02d4e137b73c\n_memnova_back_face: front\n---\n# Article\n<!-- FLASHCARD:BACK -->\nRetained inline back\n",
+    "config": {
+      "version": 1,
+      "enabled": true,
+      "back": {
+        "kind": "inline"
+      }
+    },
+    "expected": "---\n_memnova_learning_version: 1\n_memnova_learning_enabled: true\n_memnova_back_kind: inline\n---\n# Article\n<!-- FLASHCARD:BACK -->\nRetained inline back\n"
+  },
+  {
+    "name": "disable preserves existing UUID spelling",
+    "source": "---\n_memnova_learning_version: 1\n_memnova_learning_enabled: true\n_memnova_back_kind: page\n_memnova_back_page_id: 1C54F4DA-80C6-4761-98E7-02D4E137B73C\n_memnova_back_face: front\n---\n# Article\n<!-- FLASHCARD:BACK -->\nRetained inline back\n",
+    "config": {
+      "version": 1,
+      "enabled": false,
+      "back": {
+        "kind": "page",
+        "pageId": "1c54f4da-80c6-4761-98e7-02d4e137b73c",
+        "face": "front"
+      }
+    },
+    "expected": "---\n_memnova_learning_version: 1\n_memnova_learning_enabled: false\n_memnova_back_kind: page\n_memnova_back_page_id: 1C54F4DA-80C6-4761-98E7-02D4E137B73C\n_memnova_back_face: front\n---\n# Article\n<!-- FLASHCARD:BACK -->\nRetained inline back\n"
+  }
+]

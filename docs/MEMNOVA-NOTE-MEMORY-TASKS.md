@@ -5,6 +5,7 @@ Trạng thái: **chưa task nào được triển khai**. Hợp đồng bắt bu
 ## 1. Cách thực thi
 
 - Mỗi task là một đơn vị nghiệm thu; có thể nhiều commit TDD nhỏ nếu cần. Không gom toàn bộ thay đổi vào một commit lớn.
+- Khi user giao toàn bộ đợt, các bước liên tiếp có thể dùng dependency ở trạng thái VERIFIED_LOCAL với commit và test thực; normal push theo cụm, rồi mới đổi các task đó thành DONE. Đây là tối ưu feedback, không miễn gate hoặc cho phép edit source trong lúc hook/test đang chạy. Giao một task riêng vẫn cần dependency DONE. Các cụm dự kiến: M01–M03, M04–M08, M09–M11, M12–M14, M15–M18, M19–M22, M23–M25; nếu phát hiện rủi ro có thể push sớm hơn.
 - Trước task: đọc dependency/evidence, kiểm tra working tree, baseline focused và CodeScene nếu đã cấu hình. Không đụng thay đổi không thuộc task.
 - Các task đầu tạo nền tảng nhưng chưa expose UI chuyển đổi/binding mới cho người dùng. Chỉ mở luồng note memory mặc định ở M20 sau khi các phụ thuộc đã xong. Legacy path phải chạy được trong mọi checkpoint.
 - Sau từng bug cycle chạy file test cụ thể, sau một module chạy related/module tests. Full release gate ở mỗi normal push theo hook, không mỗi lần gõ code. Xem mục 4 để chọn test.

@@ -6,8 +6,8 @@ Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. **Đây là
 
 | Task | Trạng thái | Commit đã push | Bằng chứng và giới hạn |
 |---|---|---|---|
-| M00 | IN_PROGRESS | — | Baseline122 frontend/92 Rust pass; synthetic DB fixture test pass; production renderer20 samples, p95 open176.83ms/save2072.35ms; see baselines/2026-10-18-note-memory-m00.md. Awaiting verified commit/push. |
-| M01 | NOT_STARTED | — | — |
+| M00 | DONE | 855ea883 | Baseline122 frontend/92 Rust; fixture test, final93 learning Rust; production20 samples; Codacy0; pre-commit54 smoke/4.6m; pre-push4585 tests, frontend86.51% lines, Rust hook86.97% lines (excludes lib/main/menu),54 smoke/4.7m. Push8m40s passed, remote SHA verified. Native NOT RUN. See baseline report. |
+| M01 | IN_PROGRESS | — | Document codec TDD; M00 pushed and verified. |
 | M02 | NOT_STARTED | — | — |
 | M03 | NOT_STARTED | — | — |
 | M04 | NOT_STARTED | — | — |
@@ -33,7 +33,7 @@ Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. **Đây là
 | M24 | NOT_STARTED | — | — |
 | M25 | NOT_STARTED | — | — |
 
-Trạng thái dùng: NOT_STARTED, IN_PROGRESS, BLOCKED_WITH_EVIDENCE, DONE. Không có trạng thái “DONE nhưng chưa test/push”. Ghi dependency bằng commit/evidence thực, không chỉ dựa số thứ tự hoặc câu trả lời trước.
+Trạng thái dùng: NOT_STARTED, IN_PROGRESS, VERIFIED_LOCAL, BLOCKED_WITH_EVIDENCE, DONE. VERIFIED_LOCAL là code đã commit và test tại local, chưa phải hoàn tất hoặc releasable. Khi user giao toàn bộ đợt, dependency có thể dùng checkpoint VERIFIED_LOCAL có commit và evidence thật; chỉ đổi DONE sau normal push thành công. Khi giao một task riêng, dependency phải DONE. Không có trạng thái “DONE nhưng chưa test/push”.
 
 ## Mẫu ghi kết quả mỗi task
 

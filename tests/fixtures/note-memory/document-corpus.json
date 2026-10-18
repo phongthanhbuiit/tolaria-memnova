@@ -1,0 +1,652 @@
+[
+  {
+    "name": "ordinary note",
+    "source": "# Article\n\nNormal note.\n",
+    "expected": {
+      "front": "# Article\n\nNormal note.\n",
+      "back": "",
+      "config": null,
+      "pageId": null,
+      "issues": [],
+      "ranges": {
+        "front": {
+          "start": 0,
+          "end": 24
+        },
+        "back": null,
+        "marker": null
+      }
+    }
+  },
+  {
+    "name": "inline note memory",
+    "source": "---\n_memnova_page_id: c7c37125-1711-4dd3-b04e-5a8e271a80aa\n_memnova_learning_version: 1\n_memnova_learning_enabled: true\n_memnova_back_kind: inline\n---\n# Article\n\n<!-- FLASHCARD:BACK -->\n\n    Indented mnemonic\n",
+    "expected": {
+      "front": "# Article\n\n",
+      "back": "\n    Indented mnemonic\n",
+      "config": {
+        "version": 1,
+        "enabled": true,
+        "back": {
+          "kind": "inline"
+        }
+      },
+      "pageId": "c7c37125-1711-4dd3-b04e-5a8e271a80aa",
+      "issues": [],
+      "ranges": {
+        "front": {
+          "start": 151,
+          "end": 162
+        },
+        "back": {
+          "start": 186,
+          "end": 209
+        },
+        "marker": {
+          "start": 162,
+          "end": 186
+        }
+      }
+    }
+  },
+  {
+    "name": "legacy flag does not enable note mode",
+    "source": "---\n_fsrs_enabled: true\n---\n# Legacy\n\n<!-- FLASHCARD:BACK -->\n\nLegacy back\n",
+    "expected": {
+      "front": "# Legacy\n\n",
+      "back": "\nLegacy back\n",
+      "config": null,
+      "pageId": null,
+      "issues": [],
+      "ranges": {
+        "front": {
+          "start": 28,
+          "end": 38
+        },
+        "back": {
+          "start": 62,
+          "end": 75
+        },
+        "marker": {
+          "start": 38,
+          "end": 62
+        }
+      }
+    }
+  },
+  {
+    "name": "disabled retains back",
+    "source": "---\n_memnova_page_id: c7c37125-1711-4dd3-b04e-5a8e271a80aa\n_memnova_learning_version: 1\n_memnova_learning_enabled: false\n_memnova_back_kind: inline\n---\n# Article\n<!-- FLASHCARD:BACK -->\nImage mnemonic\n",
+    "expected": {
+      "front": "# Article\n",
+      "back": "Image mnemonic\n",
+      "config": {
+        "version": 1,
+        "enabled": false,
+        "back": {
+          "kind": "inline"
+        }
+      },
+      "pageId": "c7c37125-1711-4dd3-b04e-5a8e271a80aa",
+      "issues": [],
+      "ranges": {
+        "front": {
+          "start": 152,
+          "end": 162
+        },
+        "back": {
+          "start": 186,
+          "end": 201
+        },
+        "marker": {
+          "start": 162,
+          "end": 186
+        }
+      }
+    }
+  },
+  {
+    "name": "linked front keeps local back",
+    "source": "---\n_memnova_learning_version: 1\n_memnova_learning_enabled: true\n_memnova_back_kind: page\n_memnova_back_page_id: 1c54f4da-80c6-4761-98e7-02d4e137b73c\n_memnova_back_face: front\n---\n# Article\n<!-- FLASHCARD:BACK -->\nRetained inline back\n",
+    "expected": {
+      "front": "# Article\n",
+      "back": "Retained inline back\n",
+      "config": {
+        "version": 1,
+        "enabled": true,
+        "back": {
+          "kind": "page",
+          "pageId": "1c54f4da-80c6-4761-98e7-02d4e137b73c",
+          "face": "front"
+        }
+      },
+      "pageId": null,
+      "issues": [],
+      "ranges": {
+        "front": {
+          "start": 180,
+          "end": 190
+        },
+        "back": {
+          "start": 214,
+          "end": 235
+        },
+        "marker": {
+          "start": 190,
+          "end": 214
+        }
+      }
+    }
+  },
+  {
+    "name": "linked back selection",
+    "source": "---\n_memnova_learning_version: 1\n_memnova_learning_enabled: true\n_memnova_back_kind: page\n_memnova_back_page_id: 1c54f4da-80c6-4761-98e7-02d4e137b73c\n_memnova_back_face: back\n---\n# Article\n",
+    "expected": {
+      "front": "# Article\n",
+      "back": "",
+      "config": {
+        "version": 1,
+        "enabled": true,
+        "back": {
+          "kind": "page",
+          "pageId": "1c54f4da-80c6-4761-98e7-02d4e137b73c",
+          "face": "back"
+        }
+      },
+      "pageId": null,
+      "issues": [],
+      "ranges": {
+        "front": {
+          "start": 179,
+          "end": 189
+        },
+        "back": null,
+        "marker": null
+      }
+    }
+  },
+  {
+    "name": "future version",
+    "source": "---\n_memnova_page_id: c7c37125-1711-4dd3-b04e-5a8e271a80aa\n_memnova_learning_version: 2\n_memnova_learning_enabled: true\n_memnova_back_kind: inline\n---\n# Article\n<!-- FLASHCARD:BACK -->\nBack\n",
+    "expected": {
+      "front": "# Article\n",
+      "back": "Back\n",
+      "config": null,
+      "pageId": "c7c37125-1711-4dd3-b04e-5a8e271a80aa",
+      "issues": [
+        "unsupported-version"
+      ],
+      "ranges": {
+        "front": {
+          "start": 151,
+          "end": 161
+        },
+        "back": {
+          "start": 185,
+          "end": 190
+        },
+        "marker": {
+          "start": 161,
+          "end": 185
+        }
+      }
+    }
+  },
+  {
+    "name": "quoted boolean is invalid",
+    "source": "---\n_memnova_page_id: c7c37125-1711-4dd3-b04e-5a8e271a80aa\n_memnova_learning_version: 1\n_memnova_learning_enabled: \"true\"\n_memnova_back_kind: inline\n---\n# Article\n",
+    "expected": {
+      "front": "# Article\n",
+      "back": "",
+      "config": null,
+      "pageId": "c7c37125-1711-4dd3-b04e-5a8e271a80aa",
+      "issues": [
+        "invalid-config"
+      ],
+      "ranges": {
+        "front": {
+          "start": 153,
+          "end": 163
+        },
+        "back": null,
+        "marker": null
+      }
+    }
+  },
+  {
+    "name": "partial config is invalid",
+    "source": "---\n_memnova_learning_enabled: true\n---\n# Article\n",
+    "expected": {
+      "front": "# Article\n",
+      "back": "",
+      "config": null,
+      "pageId": null,
+      "issues": [
+        "invalid-config"
+      ],
+      "ranges": {
+        "front": {
+          "start": 40,
+          "end": 50
+        },
+        "back": null,
+        "marker": null
+      }
+    }
+  },
+  {
+    "name": "inline rejects leftover target",
+    "source": "---\n_memnova_page_id: c7c37125-1711-4dd3-b04e-5a8e271a80aa\n_memnova_learning_version: 1\n_memnova_learning_enabled: true\n_memnova_back_kind: inline\n_memnova_back_page_id: 1c54f4da-80c6-4761-98e7-02d4e137b73c\n---\n# Article\n",
+    "expected": {
+      "front": "# Article\n",
+      "back": "",
+      "config": null,
+      "pageId": "c7c37125-1711-4dd3-b04e-5a8e271a80aa",
+      "issues": [
+        "invalid-config"
+      ],
+      "ranges": {
+        "front": {
+          "start": 211,
+          "end": 221
+        },
+        "back": null,
+        "marker": null
+      }
+    }
+  },
+  {
+    "name": "page source requires uuid",
+    "source": "---\n_memnova_learning_version: 1\n_memnova_learning_enabled: true\n_memnova_back_kind: page\n_memnova_back_page_id: not-a-uuid\n_memnova_back_face: front\n---\n# Article\n",
+    "expected": {
+      "front": "# Article\n",
+      "back": "",
+      "config": null,
+      "pageId": null,
+      "issues": [
+        "invalid-config"
+      ],
+      "ranges": {
+        "front": {
+          "start": 154,
+          "end": 164
+        },
+        "back": null,
+        "marker": null
+      }
+    }
+  },
+  {
+    "name": "backtick fence ignores marker",
+    "source": "# Code\n\n```html\n<!-- FLASHCARD:BACK -->\n```\n\n<!-- FLASHCARD:BACK -->\nReal back\n",
+    "expected": {
+      "front": "# Code\n\n```html\n<!-- FLASHCARD:BACK -->\n```\n\n",
+      "back": "Real back\n",
+      "config": null,
+      "pageId": null,
+      "issues": [],
+      "ranges": {
+        "front": {
+          "start": 0,
+          "end": 45
+        },
+        "back": {
+          "start": 69,
+          "end": 79
+        },
+        "marker": {
+          "start": 45,
+          "end": 69
+        }
+      }
+    }
+  },
+  {
+    "name": "tilde fence ignores marker",
+    "source": "# Code\n\n~~~~\n<!-- FLASHCARD:BACK -->\n~~~\n~~~~\n\n<!-- FLASHCARD:BACK -->\nReal back\n",
+    "expected": {
+      "front": "# Code\n\n~~~~\n<!-- FLASHCARD:BACK -->\n~~~\n~~~~\n\n",
+      "back": "Real back\n",
+      "config": null,
+      "pageId": null,
+      "issues": [],
+      "ranges": {
+        "front": {
+          "start": 0,
+          "end": 47
+        },
+        "back": {
+          "start": 71,
+          "end": 81
+        },
+        "marker": {
+          "start": 47,
+          "end": 71
+        }
+      }
+    }
+  },
+  {
+    "name": "tldraw json ignores marker",
+    "source": "# Board\n\n````tldraw id=\"board\"\n{\"text\":\"``` <!-- FLASHCARD:BACK -->\"}\n````\n\n<!-- FLASHCARD:BACK -->\nReal back\n",
+    "expected": {
+      "front": "# Board\n\n````tldraw id=\"board\"\n{\"text\":\"``` <!-- FLASHCARD:BACK -->\"}\n````\n\n",
+      "back": "Real back\n",
+      "config": null,
+      "pageId": null,
+      "issues": [],
+      "ranges": {
+        "front": {
+          "start": 0,
+          "end": 76
+        },
+        "back": {
+          "start": 100,
+          "end": 110
+        },
+        "marker": {
+          "start": 76,
+          "end": 100
+        }
+      }
+    }
+  },
+  {
+    "name": "html comment ignores marker",
+    "source": "# Article\n<!-- outer\n<!-- FLASHCARD:BACK -->\n-->\n",
+    "expected": {
+      "front": "# Article\n<!-- outer\n<!-- FLASHCARD:BACK -->\n-->\n",
+      "back": "",
+      "config": null,
+      "pageId": null,
+      "issues": [],
+      "ranges": {
+        "front": {
+          "start": 0,
+          "end": 49
+        },
+        "back": null,
+        "marker": null
+      }
+    }
+  },
+  {
+    "name": "multiline inline code ignores marker",
+    "source": "# Article\n`example\n<!-- FLASHCARD:BACK -->\nend`\n",
+    "expected": {
+      "front": "# Article\n`example\n<!-- FLASHCARD:BACK -->\nend`\n",
+      "back": "",
+      "config": null,
+      "pageId": null,
+      "issues": [],
+      "ranges": {
+        "front": {
+          "start": 0,
+          "end": 48
+        },
+        "back": null,
+        "marker": null
+      }
+    }
+  },
+  {
+    "name": "comment text in code does not poison next boundary",
+    "source": "# Article\n`<!--`\n\n<!-- FLASHCARD:BACK -->\nBack\n",
+    "expected": {
+      "front": "# Article\n`<!--`\n\n",
+      "back": "Back\n",
+      "config": null,
+      "pageId": null,
+      "issues": [],
+      "ranges": {
+        "front": {
+          "start": 0,
+          "end": 18
+        },
+        "back": {
+          "start": 42,
+          "end": 47
+        },
+        "marker": {
+          "start": 18,
+          "end": 42
+        }
+      }
+    }
+  },
+  {
+    "name": "indented marker is ordinary text",
+    "source": "# Article\n    <!-- FLASHCARD:BACK -->\n",
+    "expected": {
+      "front": "# Article\n    <!-- FLASHCARD:BACK -->\n",
+      "back": "",
+      "config": null,
+      "pageId": null,
+      "issues": [],
+      "ranges": {
+        "front": {
+          "start": 0,
+          "end": 38
+        },
+        "back": null,
+        "marker": null
+      }
+    }
+  },
+  {
+    "name": "unclosed fence keeps marker",
+    "source": "# Article\n```html\n<!-- FLASHCARD:BACK -->\n",
+    "expected": {
+      "front": "# Article\n```html\n<!-- FLASHCARD:BACK -->\n",
+      "back": "",
+      "config": null,
+      "pageId": null,
+      "issues": [],
+      "ranges": {
+        "front": {
+          "start": 0,
+          "end": 42
+        },
+        "back": null,
+        "marker": null
+      }
+    }
+  },
+  {
+    "name": "multiple markers fail closed",
+    "source": "# Article\n<!-- FLASHCARD:BACK -->\nBack\n<!-- FLASHCARD:BACK -->\nKeep all\n",
+    "expected": {
+      "front": "# Article\n<!-- FLASHCARD:BACK -->\nBack\n<!-- FLASHCARD:BACK -->\nKeep all\n",
+      "back": "",
+      "config": null,
+      "pageId": null,
+      "issues": [
+        "ambiguous-back-marker"
+      ],
+      "ranges": {
+        "front": {
+          "start": 0,
+          "end": 72
+        },
+        "back": null,
+        "marker": null
+      }
+    }
+  },
+  {
+    "name": "CRLF BOM and Unicode",
+    "source": "﻿---\r\n_memnova_page_id: c7c37125-1711-4dd3-b04e-5a8e271a80aa\r\n_memnova_learning_version: 1\r\n_memnova_learning_enabled: true\r\n_memnova_back_kind: inline\r\n---\r\n# Tế bào 🧠\r\n\r\n<!-- FLASHCARD:BACK -->  \r\n\r\n    Hình ảnh\r\n",
+    "expected": {
+      "front": "# Tế bào 🧠\r\n\r\n",
+      "back": "\r\n    Hình ảnh\r\n",
+      "config": {
+        "version": 1,
+        "enabled": true,
+        "back": {
+          "kind": "inline"
+        }
+      },
+      "pageId": "c7c37125-1711-4dd3-b04e-5a8e271a80aa",
+      "issues": [],
+      "ranges": {
+        "front": {
+          "start": 160,
+          "end": 180
+        },
+        "back": {
+          "start": 207,
+          "end": 226
+        },
+        "marker": {
+          "start": 180,
+          "end": 207
+        }
+      }
+    }
+  },
+  {
+    "name": "BOM without metadata",
+    "source": "﻿# Tế bào\n",
+    "expected": {
+      "front": "# Tế bào\n",
+      "back": "",
+      "config": null,
+      "pageId": null,
+      "issues": [],
+      "ranges": {
+        "front": {
+          "start": 3,
+          "end": 15
+        },
+        "back": null,
+        "marker": null
+      }
+    }
+  },
+  {
+    "name": "quoted marker in metadata",
+    "source": "---\nexample: \"<!-- FLASHCARD:BACK -->\"\n---\n# Article\n",
+    "expected": {
+      "front": "# Article\n",
+      "back": "",
+      "config": null,
+      "pageId": null,
+      "issues": [],
+      "ranges": {
+        "front": {
+          "start": 43,
+          "end": 53
+        },
+        "back": null,
+        "marker": null
+      }
+    }
+  },
+  {
+    "name": "duplicate owned key",
+    "source": "---\n_memnova_page_id: c7c37125-1711-4dd3-b04e-5a8e271a80aa\n_memnova_learning_version: 1\n_memnova_learning_enabled: true\n_memnova_back_kind: inline\n_memnova_back_kind: inline\n---\n# Article\n",
+    "expected": {
+      "front": "# Article\n",
+      "back": "",
+      "config": null,
+      "pageId": "c7c37125-1711-4dd3-b04e-5a8e271a80aa",
+      "issues": [
+        "duplicate-system-field"
+      ],
+      "ranges": {
+        "front": {
+          "start": 178,
+          "end": 188
+        },
+        "back": null,
+        "marker": null
+      }
+    }
+  },
+  {
+    "name": "nested owned field cannot be promoted",
+    "source": "---\nmetadata:\n  _memnova_learning_version: 1\n---\n# Article\n",
+    "expected": {
+      "front": "# Article\n",
+      "back": "",
+      "config": null,
+      "pageId": null,
+      "issues": [
+        "invalid-system-field"
+      ],
+      "ranges": {
+        "front": {
+          "start": 49,
+          "end": 59
+        },
+        "back": null,
+        "marker": null
+      }
+    }
+  },
+  {
+    "name": "unclosed frontmatter",
+    "source": "---\n_memnova_learning_version: 1\n# Keep raw\n",
+    "expected": {
+      "front": "---\n_memnova_learning_version: 1\n# Keep raw\n",
+      "back": "",
+      "config": null,
+      "pageId": null,
+      "issues": [
+        "unclosed-frontmatter"
+      ],
+      "ranges": {
+        "front": {
+          "start": 0,
+          "end": 44
+        },
+        "back": null,
+        "marker": null
+      }
+    }
+  },
+  {
+    "name": "BOM preserves initial HTML context",
+    "source": "﻿<!-- outer\n<!-- FLASHCARD:BACK -->\n-->\n",
+    "expected": {
+      "front": "<!-- outer\n<!-- FLASHCARD:BACK -->\n-->\n",
+      "back": "",
+      "config": null,
+      "pageId": null,
+      "issues": [],
+      "ranges": {
+        "front": {
+          "start": 3,
+          "end": 42
+        },
+        "back": null,
+        "marker": null
+      }
+    }
+  },
+  {
+    "name": "BOM before immediate boundary",
+    "source": "﻿<!-- FLASHCARD:BACK -->\nMnemonic\n",
+    "expected": {
+      "front": "",
+      "back": "Mnemonic\n",
+      "config": null,
+      "pageId": null,
+      "issues": [],
+      "ranges": {
+        "front": {
+          "start": 3,
+          "end": 3
+        },
+        "back": {
+          "start": 27,
+          "end": 36
+        },
+        "marker": {
+          "start": 3,
+          "end": 27
+        }
+      }
+    }
+  }
+]
