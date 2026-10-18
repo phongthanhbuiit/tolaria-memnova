@@ -188,3 +188,5 @@ proposed → active → superseded
 | [0134](0134-direct-shiki-language-registrations.md) | Direct Shiki language registrations for code blocks | active |
 | [0135](0135-clean-active-note-refresh-after-external-edit.md) | Clean active notes refresh immediately after external edits | active |
 | [0147](0147-note-memory-markdown-ownership.md) | Markdown ownership of note memory faces | active, staged rollout |
+
+| [0148](0148-note-memory-binding-journal.md) | Additive note memory binding and recovery journal | active, staged rollout |

@@ -109,3 +109,8 @@ fn synthetic_fixture_contains_independent_memory_and_conflicting_content() {
     assert_eq!(errors, 0);
     capture_fixture(directory.path(), &store);
 }
+
+/// Remove only the current note-memory additions before constructing an old schema fixture.
+pub(super) fn remove_note_schema(store: &Store) {
+    store.conn.execute_batch("DROP TABLE IF EXISTS note_learning_operations; DROP TABLE IF EXISTS note_card_bindings; DROP INDEX IF EXISTS cards_identity_owner;").unwrap();
+}

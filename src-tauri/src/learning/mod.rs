@@ -20,6 +20,8 @@ mod note_memory_codec_tests;
 #[cfg(test)]
 mod note_memory_fixture;
 #[cfg(test)]
+mod note_memory_schema_tests;
+#[cfg(test)]
 mod store_tests;
 
 mod legacy_markdown;
@@ -31,7 +33,7 @@ mod metadata_tests;
 
 mod storage_metadata;
 pub use storage_metadata::MigrationState;
-pub const SCHEMA_VERSION: u32 = 4;
+pub const SCHEMA_VERSION: u32 = 5;
 #[cfg(test)]
 mod migration_tests;
 mod page_identity;
@@ -95,4 +97,6 @@ mod property_api_tests;
 mod property_definitions;
 pub use property_definitions::{PropertyDefinition, PropertyDefinitions};
 
+mod note_storage;
 mod property_precision;
+pub use note_storage::{NoteBinding, NoteOperationKind, NoteOperationPhase};

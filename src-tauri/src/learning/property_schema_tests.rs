@@ -30,6 +30,7 @@ fn schema_v3_upgrade_preserves_values_sources_and_memory_without_inferred_defini
             },
         )
         .unwrap();
+    super::note_memory_fixture::remove_note_schema(&store);
     store.conn.execute_batch("DROP TABLE page_property_definitions; DROP TABLE card_property_definitions; PRAGMA user_version=3;").unwrap();
     drop(store);
     let upgraded = Store::open(dir.path()).unwrap();
@@ -65,7 +66,7 @@ fn schema_v3_upgrade_preserves_values_sources_and_memory_without_inferred_defini
             .conn
             .query_row("PRAGMA user_version", [], |row| row.get::<_, u32>(0))
             .unwrap(),
-        4
+        super::SCHEMA_VERSION
     );
 }
 #[test]
@@ -93,6 +94,7 @@ fn property_definition_constraints_reject_unknown_owners_kinds_and_invalid_item_
 fn failed_property_migration_rolls_back_both_tables_and_version() {
     let dir = tempfile::tempdir().unwrap();
     let store = Store::open(dir.path()).unwrap();
+    super::note_memory_fixture::remove_note_schema(&store);
     store.conn.execute_batch("DROP TABLE page_property_definitions; DROP TABLE card_property_definitions; CREATE TABLE card_property_definitions(keep TEXT); INSERT INTO card_property_definitions VALUES('original'); PRAGMA user_version=3;").unwrap();
     drop(store);
     assert!(Store::open(dir.path()).is_err());

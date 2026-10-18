@@ -57,6 +57,7 @@ fn linked_answer_keeps_owner_and_clone_has_fresh_identity_and_memory() {
 fn schema_v2_upgrade_is_backup_first_and_preserves_existing_card_data() {
     let (dir, mut store, owner, _) = fixture();
     let card = store.create_card(&owner, draft(None)).unwrap();
+    super::note_memory_fixture::remove_note_schema(&store);
     store.conn.execute_batch("DROP TABLE page_property_definitions; DROP TABLE card_property_definitions; DROP INDEX cards_answer_page; ALTER TABLE cards DROP COLUMN answer_page_id; PRAGMA user_version=2;").unwrap();
     drop(store);
     let upgraded = Store::open(dir.path()).unwrap();
@@ -78,6 +79,7 @@ fn schema_v2_upgrade_is_backup_first_and_preserves_existing_card_data() {
 #[test]
 fn failed_additive_upgrade_rolls_back_without_replacing_database() {
     let (dir, store, _, _) = fixture();
+    super::note_memory_fixture::remove_note_schema(&store);
     store.conn.execute_batch("DROP TABLE page_property_definitions; DROP TABLE card_property_definitions; DROP INDEX cards_answer_page; ALTER TABLE cards DROP COLUMN answer_page_id; CREATE TABLE cards_answer_page(value TEXT); INSERT INTO cards_answer_page VALUES('keep'); PRAGMA user_version=2;").unwrap();
     drop(store);
     assert!(Store::open(dir.path()).is_err());

@@ -80,6 +80,11 @@ pub(super) fn initialize_schema(
             .execute_batch(include_str!("property_schema.sql"))
             .map_err(|error| error.to_string())?;
     }
+    if version < 5 {
+        transaction
+            .execute_batch(include_str!("note_memory_schema.sql"))
+            .map_err(|error| error.to_string())?;
+    }
     validate_owner(&transaction, library_id)?;
     transaction.commit().map_err(|error| error.to_string())
 }

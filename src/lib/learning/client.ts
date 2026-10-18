@@ -26,7 +26,7 @@ export class LearningClient {
     const descriptor = await learningInvoke<LibraryDescriptor>('learning_command', {
       vaultPath, libraryId: null, request: { kind: 'describe' },
     })
-    if (!descriptor || ![1, 2, 3, 4].includes(descriptor.schemaVersion) || !descriptor.libraryId) {
+    if (!descriptor || ![1, 2, 3, 4, 5].includes(descriptor.schemaVersion) || !descriptor.libraryId) {
       throw new Error('Unsupported learning database')
     }
     return new LearningClient(vaultPath, descriptor.libraryId)
