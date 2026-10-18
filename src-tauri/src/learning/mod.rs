@@ -15,6 +15,8 @@ mod card_tests;
 #[cfg(test)]
 mod migration_preview_tests;
 #[cfg(test)]
+mod note_memory_fixture;
+#[cfg(test)]
 mod store_tests;
 
 mod legacy_markdown;

@@ -6,7 +6,7 @@ Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. **Đây là
 
 | Task | Trạng thái | Commit đã push | Bằng chứng và giới hạn |
 |---|---|---|---|
-| M00 | NOT_STARTED | — | — |
+| M00 | IN_PROGRESS | — | Baseline122 frontend/92 Rust pass; synthetic DB fixture test pass; production renderer20 samples, p95 open176.83ms/save2072.35ms; see baselines/2026-10-18-note-memory-m00.md. Awaiting verified commit/push. |
 | M01 | NOT_STARTED | — | — |
 | M02 | NOT_STARTED | — | — |
 | M03 | NOT_STARTED | — | — |
