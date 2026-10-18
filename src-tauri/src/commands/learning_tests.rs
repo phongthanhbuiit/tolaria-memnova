@@ -249,3 +249,66 @@ fn study_commands_require_cutover_and_resume_a_durable_session() {
         started["id"]
     );
 }
+
+#[test]
+fn describe_reports_packaged_note_workspace_capabilities_without_marking_import_ready() {
+    let directory = tempfile::tempdir().unwrap();
+    let descriptor = execute(
+        &directory.path().to_string_lossy(),
+        None,
+        LearningRequest::Describe,
+    )
+    .unwrap();
+    assert_eq!(descriptor["capabilities"]["noteMemory"], 1);
+    assert_eq!(descriptor["capabilities"]["noteStudy"], 1);
+    assert_eq!(descriptor["capabilities"]["noteWorkspace"], 1);
+    assert_eq!(descriptor["migrationState"], "legacy");
+}
+
+#[test]
+fn note_workspace_ipc_requires_prepared_library_and_does_not_register_plain_files_on_read() {
+    let directory = tempfile::tempdir().unwrap();
+    let path = directory.path().to_string_lossy().into_owned();
+    let descriptor = execute(&path, None, LearningRequest::Describe).unwrap();
+    let library = Some(descriptor["libraryId"].as_str().unwrap().to_string());
+    let request = || {
+        serde_json::from_value::<LearningRequest>(serde_json::json!({"kind":"syncNoteWorkspace"}))
+            .unwrap()
+    };
+    assert!(execute(&path, library.clone(), request()).is_err());
+    let preview = execute(&path, None, LearningRequest::PreviewMigration).unwrap();
+    execute(
+        &path,
+        library.clone(),
+        LearningRequest::BeginMigration {
+            fingerprint: preview["fingerprint"].as_str().unwrap().into(),
+            profile_raw: None,
+        },
+    )
+    .unwrap();
+    execute(
+        &path,
+        library.clone(),
+        LearningRequest::ResumeMigration { batch_size: 100 },
+    )
+    .unwrap();
+    let owner = uuid::Uuid::new_v4().to_string();
+    let source = format!("---\n_memnova_page_id: {owner}\n_memnova_learning_version: 1\n_memnova_learning_enabled: true\n_memnova_back_kind: inline\n---\nArticle\n<!-- FLASHCARD:BACK -->\nMnemonic\n");
+    std::fs::write(directory.path().join("owner.md"), &source).unwrap();
+    std::fs::write(directory.path().join("plain.md"), "# Ordinary note\n").unwrap();
+    let result = execute(&path, library, request()).unwrap();
+    assert_eq!(result["notes"][0]["view"]["state"], "ready");
+    assert_eq!(result["pages"].as_array().unwrap().len(), 1);
+    assert_eq!(
+        std::fs::read_to_string(directory.path().join("owner.md")).unwrap(),
+        source
+    );
+    assert_eq!(
+        std::fs::read_to_string(directory.path().join("plain.md")).unwrap(),
+        "# Ordinary note\n"
+    );
+    assert!(serde_json::from_value::<LearningRequest>(
+        serde_json::json!({"kind":"syncNoteWorkspace","enableAll":true})
+    )
+    .is_err());
+}

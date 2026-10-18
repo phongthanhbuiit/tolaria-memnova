@@ -90,3 +90,16 @@ it('previews an unregistered source without ensuring its identity and guards exp
  await client.ensurePage('source.md','a'.repeat(64))
  expect(invoke).toHaveBeenLastCalledWith('learning_command',{vaultPath:'/qa',libraryId:'library',request:{kind:'ensurePage',path:'source.md',expectedHash:'a'.repeat(64)}})
 })
+
+it('opens the note workspace only for a matching packaged capability set while retaining old Library access', async () => {
+ for (const [schemaVersion,capabilities,supported] of [
+  [5,{noteMemory:1,noteStudy:1,noteWorkspace:1},true],
+  [5,undefined,false],
+  [4,{noteMemory:1,noteStudy:1,noteWorkspace:1},false],
+  [5,{noteMemory:1,noteStudy:2,noteWorkspace:1},false],
+ ] as const) {
+  vi.mocked(invoke).mockResolvedValueOnce({libraryId:'library',schemaVersion,capabilities})
+  const client=await LearningClient.connect('/library')
+  expect(client.supportsNoteMemory).toBe(supported)
+ }
+})

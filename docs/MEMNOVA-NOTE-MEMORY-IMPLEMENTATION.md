@@ -2,13 +2,13 @@
 
 Plan: [nghiệp vụ và dữ liệu](MEMNOVA-NOTE-MEMORY-PLAN.md). Task: [M00 đến M25](MEMNOVA-NOTE-MEMORY-TASKS.md).
 
-Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. DONE là hoàn thành phạm vi task và push, không có nghĩa toàn bộ nghiệp vụ đã mở cho người dùng. M19–M25 vẫn chưa hoàn tất. Bảng dưới ghi trạng thái triển khai thực tế; VERIFIED_LOCAL chưa phải hoàn tất hoặc đã phát hành. Các giới hạn kiểm chứng được ghi trong từng baseline.
+Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. DONE bên dưới ghi checkpoint phạm vi task đã push, không có nghĩa toàn bộ nghiệp vụ đã mở cho người dùng. M19–M25 vẫn chưa hoàn tất. Các điều kiện nghiệm thu cần tích hợp lại (đặc biệt watcher M05 và inactive properties M18) được ghi trong [kiểm toán hiện tại](baselines/2026-10-19-note-memory-task-audit.md); không tính chúng là đã qua nghiệm thu toàn luồng. VERIFIED_LOCAL chưa phải hoàn tất hoặc đã phát hành.
 
 | Task | Trạng thái | Commit đã push | Bằng chứng và giới hạn |
 |---|---|---|---|
 | M00 | DONE | 855ea883 | Baseline122 frontend/92 Rust; fixture test, final93 learning Rust; production20 samples; Codacy0; pre-commit54 smoke/4.6m; pre-push4585 tests, frontend86.51% lines, Rust hook86.97% lines (excludes lib/main/menu),54 smoke/4.7m. Push8m40s passed, remote SHA verified. Native NOT RUN. See baseline report. |
 | M01 | DONE | 4072540b; pushed fef27504 | 50 codec tests;72 focused including legacy;144 learning tests; final types/lint/related pre-commit pass. Shared28 parse+7 patch vectors. Codacy reviewed one false Medium/one Minor, no Critical/High; ADR0147/docs. See M01 baseline. Batch push after M03. |
-| M02 | DONE | ca6d912a,b71dbad8; pushed fef27504 | Native3 tests cover37 shared vectors; frontend52;96 Rust learning pass; clippy/rustfmt pass. Main Codacy one Minor/no Medium+, CRLF fix scan0. Pre-commit passed, batch push pending. |
+| M02 | DONE | ca6d912a,b71dbad8; pushed fef27504 | Native3 tests cover37 shared vectors; frontend52;96 Rust learning pass; clippy/rustfmt pass. Main Codacy one Minor/no Medium+, CRLF fix scan0. Pre-commit passed; batch push fef27504 succeeded. |
 | M03 | DONE | fef27504 | Additive schema5, four new native tests;100 learning+64 focused frontend pass, types/clippy/fmt pass. Codacy reviewed advisories/no CriticalHigh; ADR0148/docs; pushed fef27504. See M03 baseline. |
 | M04 | DONE | 7a2209af | Native coordinator;11 focused and111 learning tests pass; clippy/fmt pass; Codacy no Medium+/6 reviewed Minor. Hash/revision/replay/crash/compaction preservation; see M04 baseline. Pushed98e31147; batch gates below. |
 | M05 | DONE | 086d56bd | Native note lifecycle;15 new cases/126 learning pass, clippy/fmt pass. No new Medium+/security findings; existing pages advisory reviewed. Source/history/identity and missing-database guards; see M05 baseline. UI/watcher dispatch staged M06–M20. |
@@ -25,8 +25,8 @@ Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. DONE là ho
 | M16 | DONE | 81bce958,a1cededc | Read-only native source preview; explicit guarded registration/config queue. 5 real IPC cases; UI pre-commit305 tests/32files and browser9.7s; 18locales/957keys. Native checkpoint completed; normal batch push c8c71603 passed. |
 | M17 | DONE | b27e1144 | 11 native lifecycle cases,44 focused frontend; normal pre-commit4797 frontend/464files,1210Rust/3ignored, browser9.8s; normal batch push c8c71603 passed. |
 | M18 | DONE | 678c5826,c8c71603 | Canonical property writes, readonly schedule/raw metadata;4816frontend/1216Rust verified hook; actual native property/width/two-face/source Cancel/link/inline/restart proof,419 vault tests. Normal batch push c8c71603 passed. |
-| M19 | IN_PROGRESS | Not committed | M07/M15/M16 dependencies DONE. Initial audit3REDs fixed;65module tests/3real-renderer browser cases pass; uncommitted pending normal hook. Existing whole-app integration baseline failure carried to M22. |
-| M20 | NOT_STARTED | — | — |
+| M19 | VERIFIED_LOCAL | fa3934f4 (local) | 65module tests8.05s; normal hook305tests/39files,3browser7.1s,18locales/962keys; M22 baseline integration issue explicitly retained. Batch push follows M22. |
+| M20 | IN_PROGRESS | — (working tree, chưa commit) | Backend workspace/lanes/capabilities có205native learning tests pass; public IPC1test pass; browser/client19tests pass. UI vẫn gọi syncPages và mở PageFlashcards cũ; enable/disable, counts, folder scope, conversion/recovery entry và inactive writes chưa nối xong. Chưa scan/release/native QA M20. |
 | M21 | NOT_STARTED | — | — |
 | M22 | NOT_STARTED | — | — |
 | M23 | NOT_STARTED | — | — |
@@ -34,6 +34,12 @@ Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. DONE là ho
 | M25 | NOT_STARTED | — | — |
 
 Trạng thái dùng: NOT_STARTED, IN_PROGRESS, VERIFIED_LOCAL, BLOCKED_WITH_EVIDENCE, DONE. VERIFIED_LOCAL là code đã commit và test tại local, chưa phải hoàn tất hoặc releasable. Khi user giao toàn bộ đợt, dependency có thể dùng checkpoint VERIFIED_LOCAL có commit và evidence thật; chỉ đổi DONE sau normal push thành công. Khi giao một task riêng, dependency phải DONE. Không có trạng thái “DONE nhưng chưa test/push”.
+
+## Snapshot kiểm toán hiện tại — 2026-10-19
+
+Local HEAD `fa3934f410309f81cf1bbacaca61a0970d244237`; remote `refs/heads/main` xác minh qua `git ls-remote` là `c8c71603095dbd0d322ff48a1347bd9c6cbaf655`. Có một commit M19 chưa push và code M20 chưa commit. Không lấy coverage/hook c8c71603 làm bằng chứng cho working tree này.
+
+Lần rà soát này chạy lại48frontend tests/8files (4.01s),205native learning tests (5.43s), `pnpm exec tsc -b` và `git diff --check`: pass. Không chạy full release suite, native UI, Codacy mới hoặc CodeScene; không tuyên bố chúng pass. Xem [báo cáo với code references, phần thiếu và thứ tự đóng task](baselines/2026-10-19-note-memory-task-audit.md). Các bảng audit/hook bên dưới là lịch sử theo checkpoint được nêu, không phải trạng thái hiện tại.
 
 ## Mẫu ghi kết quả mỗi task
 
@@ -128,3 +134,6 @@ Nguyên nhân kéo dài: một số commit đổi IPC/shared CSS kích hoạt fu
 
 
 M19 follow-through after audit: live note faces/readiness/shortcut regressions fixed,65module tests8.05s and3actual-renderer browser cases7.7s pass. A legacy whole-app integration failure at Add card reproduced on clean pushed HEAD as well; it remains explicitly unresolved for M22/M25. Current M19 changes still need normal commit and batch push before DONE. The initial audit's17pass/3fail is historical, not the latest module result.
+
+
+M19 normal verified commit fa3934f410309f81cf1bbacaca61a0970d244237:305related frontend/39files,3browser7.1s,lint/types/localization962keys passed. No hook bypass. Additional editor-resource case1pass645ms. Tree clean after commit; remote stillc8c71603 because the planned M19–M22 batch is not pushed yet. This is VERIFIED_LOCAL, not DONE or final release.

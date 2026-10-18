@@ -33,6 +33,7 @@ export interface LibraryDescriptor {
   libraryId: string
   schemaVersion: 1 | 2 | 3 | 4 | 5
   migrationState?: 'legacy' | 'migrating' | 'ready'
+  capabilities?: { noteMemory?: number; noteStudy?: number; noteWorkspace?: number }
 }
 
 export interface BackupDescriptor {
@@ -85,7 +86,8 @@ export interface MigrationProgress {
   importedReviews: number
 }
 
-export interface SessionScope { pageIds: string[] | null }
+export type StudyLane = 'notes' | 'legacy'
+export interface SessionScope { pageIds: string[] | null; lane?: StudyLane }
 export interface StudyPage {
   id: string
   path: string
@@ -184,3 +186,6 @@ export interface NoteStudyDetails {
 }
 export interface NoteFacePreview { pageId: string; path: string; face: import('./noteMemoryConfig').MemoryFace; content: string; fingerprint: string; media: NoteMediaDependency[] }
 export interface NoteSourcePreview extends Omit<NoteFacePreview, 'pageId'> { pageId: string | null; sourceHash: string; hasBack: boolean; backLinked: boolean }
+
+export interface NoteLearningSummary { view: NoteMemoryView; card: LearningCard | null }
+export interface NoteWorkspaceSnapshot { pages: LearningPage[]; notes: NoteLearningSummary[] }

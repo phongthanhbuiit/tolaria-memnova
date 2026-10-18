@@ -1,5 +1,6 @@
+import { normalizeSessionScope } from './sessionScope'
 import type { NoteConversionPreview, NoteConversionRequest, NoteConversionResult, NoteConversionDetails, NoteRecoveryRequest, NoteRecoverySummary, NoteRecoveryView } from './noteConversionTypes'
-import type { NoteFacePreview, NoteMemoryView, NoteWriteRequest, NoteConfigureRequest, NoteWriteOutcome, NoteSourcePreview } from './types'
+import type { NoteWorkspaceSnapshot, NoteFacePreview, NoteMemoryView, NoteWriteRequest, NoteConfigureRequest, NoteWriteOutcome, NoteSourcePreview } from './types'
 import type { PropertyDefinitions } from './propertyValues'
 import { invoke } from '@tauri-apps/api/core'
 import { isTauri, mockInvoke } from '../../mock-tauri'
@@ -14,10 +15,12 @@ function learningInvoke<T>(command: string, args: Record<string, unknown>): Prom
 export class LearningClient {
   readonly vaultPath: string
   readonly libraryId: string
+  readonly supportsNoteMemory: boolean
 
-  private constructor(vaultPath: string, libraryId: string) {
+  private constructor(vaultPath: string, libraryId: string, supportsNoteMemory: boolean) {
     this.vaultPath = vaultPath
     this.libraryId = libraryId
+    this.supportsNoteMemory = supportsNoteMemory
   }
 
   static previewNoteConversion(vaultPath: string): Promise<NoteConversionPreview> {
@@ -36,7 +39,9 @@ export class LearningClient {
     if (!descriptor || ![1, 2, 3, 4, 5].includes(descriptor.schemaVersion) || !descriptor.libraryId) {
       throw new Error('Unsupported learning database')
     }
-    return new LearningClient(vaultPath, descriptor.libraryId)
+    const capability = descriptor.capabilities
+    const supported = descriptor.schemaVersion === 5 && capability?.noteMemory === 1 && capability.noteStudy === 1 && capability.noteWorkspace === 1
+    return new LearningClient(vaultPath, descriptor.libraryId, supported)
   }
 
   private call<T>(request: Record<string, unknown>): Promise<T> {
@@ -76,7 +81,7 @@ export class LearningClient {
   }
 
   startSession(scope: SessionScope = { pageIds: null }): Promise<StudySession> {
-    return this.call({ kind: 'startSession', scope })
+    return this.call({ kind: 'startSession', scope: normalizeSessionScope(scope) })
   }
 
   getSession(sessionId: string): Promise<StudySession> {
@@ -105,6 +110,7 @@ export class LearningClient {
 
   readStudyPage(pageId: string): Promise<StudyPage> { return this.call({ kind: 'readStudyPage', pageId }) }
   listPages(): Promise<LearningPage[]> { return this.call({ kind: 'listPages' }) }
+  syncNoteWorkspace(): Promise<NoteWorkspaceSnapshot> { return this.call({ kind: 'syncNoteWorkspace' }) }
   syncPages(): Promise<LearningPage[]> { return this.call({ kind: 'syncPages' }) }
   ensurePage(path: string, expectedHash?: string): Promise<LearningPage> { return this.call({ kind: 'ensurePage', path, ...(expectedHash === undefined ? {} : { expectedHash }) }) }
   studyStats(): Promise<StudyStats> { return this.call({ kind: 'studyStats' }) }

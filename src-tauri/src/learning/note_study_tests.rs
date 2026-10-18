@@ -41,6 +41,7 @@ fn fixture() -> (tempfile::TempDir, Store) {
 fn session(store: &mut Store) -> StudySession {
     store
         .start_session(SessionScope {
+            lane: Some(super::StudyLane::Notes),
             page_ids: Some(vec![id(1)]),
         })
         .unwrap()
@@ -274,6 +275,7 @@ fn previewing_a_face_and_following_static_front_cycles_never_creates_reviews_or_
     assert_eq!(
         store
             .start_session(SessionScope {
+                lane: Some(super::StudyLane::Notes),
                 page_ids: Some(vec![])
             })
             .unwrap()
@@ -317,6 +319,7 @@ fn legacy_missing_answer_keeps_owner_context_and_pending_legacy_review_is_reject
     fs::remove_file(dir.path().join("source.md")).unwrap();
     let result = store
         .start_session(SessionScope {
+            lane: None,
             page_ids: Some(vec![id(3)]),
         })
         .unwrap();
@@ -476,4 +479,114 @@ fn break_source(issue: &str, root: &std::path::Path) {
 fn write_config(path: &std::path::Path, config: MemoryConfig) {
     let source = fs::read_to_string(path).unwrap();
     fs::write(path, patch_config(&source, &config).unwrap()).unwrap();
+}
+
+fn legacy_lane_card(store: &mut Store) -> super::Card {
+    store
+        .create_card(
+            &id(3),
+            super::CardDraft {
+                property_definitions: None,
+                answer_page_id: None,
+                front: "Old question".into(),
+                back: "Old answer".into(),
+                answer_mode: "inline".into(),
+                status: "active".into(),
+                position: 0,
+                properties: serde_json::json!({}),
+            },
+        )
+        .unwrap()
+}
+
+#[test]
+fn note_and_legacy_lanes_have_independent_scopes_without_bound_card_duplicates() {
+    let (_directory, mut store) = fixture();
+    let old = legacy_lane_card(&mut store);
+    let note_card = store.note_binding(&id(1)).unwrap().unwrap().card_id;
+    let mut session_ids = Vec::new();
+    for (lane, expected) in [("notes", note_card), ("legacy", old.id)] {
+        let scope: SessionScope =
+            serde_json::from_value(serde_json::json!({"pageIds":null,"lane":lane})).unwrap();
+        let session = store.start_session(scope).unwrap();
+        assert_eq!(session.initial_count, 1);
+        assert_eq!(session.current.unwrap().card.id, expected);
+        session_ids.push(session.id);
+    }
+    assert_ne!(session_ids[0], session_ids[1]);
+    assert!(store.note_binding(&id(2)).unwrap().is_none());
+    assert_eq!(
+        store
+            .conn
+            .query_row("SELECT count(*) FROM reviews", [], |row| row
+                .get::<_, u32>(0))
+            .unwrap(),
+        0
+    );
+}
+
+#[test]
+fn saved_scope_without_a_lane_remains_legacy_and_keeps_its_serialized_shape() {
+    let (_directory, mut store) = fixture();
+    let old = legacy_lane_card(&mut store);
+    let scope: SessionScope = serde_json::from_str("{\"pageIds\":null}").unwrap();
+    let session = store.start_session(scope).unwrap();
+    assert_eq!(session.initial_count, 1);
+    assert_eq!(session.current.unwrap().card.id, old.id);
+    let explicit: SessionScope =
+        serde_json::from_value(serde_json::json!({"pageIds":null,"lane":"legacy"})).unwrap();
+    assert_eq!(store.start_session(explicit).unwrap().id, session.id);
+    let encoded: String = store
+        .conn
+        .query_row(
+            "SELECT scope_json FROM sessions WHERE id=?1",
+            [&session.id],
+            |row| row.get(0),
+        )
+        .unwrap();
+    assert_eq!(
+        serde_json::from_str::<serde_json::Value>(&encoded).unwrap(),
+        serde_json::json!({"pageIds":null})
+    );
+}
+
+#[test]
+fn unrelated_duplicate_ids_do_not_disable_an_independent_note_but_ambiguous_back_sources_do() {
+    for linked in [false, true] {
+        let (directory, mut store) = fixture();
+        if linked {
+            link(
+                &mut store,
+                MemoryBack::Page {
+                    page_id: id(2),
+                    face: MemoryFace::Front,
+                },
+            );
+        }
+        let original = fs::read(directory.path().join("source.md")).unwrap();
+        fs::write(directory.path().join("source-copy.md"), &original).unwrap();
+        let before = store.read_note_memory(&id(1)).unwrap().schedule.unwrap();
+        let view = store.read_note_memory(&id(1)).unwrap();
+        assert_eq!(
+            view.state,
+            if linked {
+                super::note_lifecycle::NoteLearningState::Invalid
+            } else {
+                super::note_lifecycle::NoteLearningState::Ready
+            }
+        );
+        assert_eq!(
+            store.read_note_memory(&id(2)).unwrap().state,
+            super::note_lifecycle::NoteLearningState::Invalid
+        );
+        assert_eq!(view.schedule.unwrap(), before);
+        assert_eq!(
+            fs::read(directory.path().join("source.md")).unwrap(),
+            original
+        );
+        assert_eq!(
+            fs::read(directory.path().join("source-copy.md")).unwrap(),
+            original
+        );
+    }
 }

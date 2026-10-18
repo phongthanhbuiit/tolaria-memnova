@@ -18,8 +18,8 @@ export type FixtureNoteOperation = {
 }
 type Operation = FixtureNoteOperation
 export interface FixtureNoteMemory { bindings: Record<string, NoteBinding>; operations: Record<string, Operation> }
-type Environment = { data: Fixture; root: string; context: Context; fresh: () => LearningSchedule; hash: (value: string) => Promise<string>; persist: () => void }
-type ReadEnvironment = Pick<Environment, 'data' | 'root' | 'context' | 'hash'>
+type Environment = { identityMatches?: (id: string, path: string) => boolean; data: Fixture; root: string; context: Context; fresh: () => LearningSchedule; hash: (value: string) => Promise<string>; persist: () => void }
+type ReadEnvironment = Pick<Environment, 'data' | 'root' | 'context' | 'hash' | 'identityMatches'>
 const noteKinds = new Set(['readNoteFace', 'readNoteMemory', 'saveNoteMemory', 'configureNoteMemory', 'reconcileNoteMemory', 'resumeNoteMemory'])
 export const isNoteMemoryRequest = (kind: unknown): boolean => typeof kind === 'string' && noteKinds.has(kind)
 export const hasMockPendingNote = (data: Fixture, pageId: string): boolean => Object.values(data.noteMemory?.operations ?? {}).some(op => op.pageId === pageId && op.phase !== 'applied')
@@ -51,6 +51,8 @@ async function read(env: ReadEnvironment, id: string): Promise<string> {
 async function linkedBack(env: ReadEnvironment, owner: string, config: NoteMemoryConfig, fallback: string): Promise<string> {
   if (config.back.kind === 'inline') return fallback
   if (config.back.pageId === owner) throw Error('self-source')
+  const linked = page(env, config.back.pageId)
+  if (env.identityMatches && !env.identityMatches(config.back.pageId, linked.path)) throw Error('source-identity-conflict')
   const target = parseNoteMemoryDocument(await read(env, config.back.pageId))
   if (target.issues.length || target.pageId !== config.back.pageId) throw Error('invalid-source')
   if (config.back.face === 'front') return target.front
@@ -69,7 +71,7 @@ async function view(env: ReadEnvironment, id: string, ignore?: string): Promise<
     const source = await read(env, id)
     const document = parseNoteMemoryDocument(source)
     value.sourceHash = await env.hash(source); value.config = document.config; value.hasBack = Boolean(document.ranges.back)
-    identityValid = document.pageId === id
+    identityValid = document.pageId === id && (env.identityMatches?.(id, target.path) ?? true)
     await projectNoteState(env, value, document, identityValid)
   } catch (error) { value.diagnostics.push(error instanceof Error ? error.message : 'unreadable-page'); value.state = 'invalid' }
   value.pendingOperations = Object.values(notes(env).operations).filter(op => op.pageId === id && op.phase !== 'applied' && op.operationId !== ignore).map(({ operationId, kind, phase, createdAt }) => ({ operationId, kind, phase, createdAt }))

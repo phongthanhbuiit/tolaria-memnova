@@ -1,14 +1,30 @@
 use super::{Card, Schedule};
 use serde::{Deserialize, Serialize};
 
+#[derive(Clone, Copy, Debug, Deserialize, Serialize, PartialEq, Eq)]
+#[serde(rename_all = "camelCase")]
+pub enum StudyLane {
+    Notes,
+    Legacy,
+}
+
 #[derive(Clone, Debug, Default, Deserialize, Serialize, PartialEq)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct SessionScope {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub lane: Option<StudyLane>,
     pub page_ids: Option<Vec<String>>,
 }
 
 impl SessionScope {
+    pub(super) fn is_note_lane(&self) -> bool {
+        self.lane == Some(StudyLane::Notes)
+    }
+
     pub(super) fn normalize(&mut self) -> Result<(), String> {
+        if self.lane == Some(StudyLane::Legacy) {
+            self.lane = None;
+        }
         if let Some(ids) = &mut self.page_ids {
             for id in ids.iter() {
                 uuid::Uuid::parse_str(id).map_err(|_| "Invalid study scope page identity")?;

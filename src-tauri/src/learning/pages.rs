@@ -30,47 +30,7 @@ fn seconds(time: std::io::Result<std::time::SystemTime>) -> Option<u64> {
 }
 
 pub(super) fn source_ids(root: &Path) -> Result<HashMap<String, (String, String)>, String> {
-    let mut result = HashMap::new();
-    let walker = walkdir::WalkDir::new(root)
-        .follow_links(false)
-        .into_iter()
-        .filter_entry(|entry| {
-            entry.depth() == 0 || !entry.file_name().to_string_lossy().starts_with('.')
-        });
-    for entry in walker {
-        let entry = entry.map_err(|error| error.to_string())?;
-        if !entry.file_type().is_file()
-            || !entry
-                .path()
-                .extension()
-                .and_then(|ext| ext.to_str())
-                .is_some_and(|ext| {
-                    ext.eq_ignore_ascii_case("md") || ext.eq_ignore_ascii_case("markdown")
-                })
-        {
-            continue;
-        }
-        let source = fs::read_to_string(entry.path()).map_err(|error| error.to_string())?;
-        let Ok((metadata, _)) = legacy_markdown::frontmatter(&source) else {
-            continue;
-        };
-        let Some(id) = legacy_markdown::page_id(&metadata)? else {
-            continue;
-        };
-        let relative = entry
-            .path()
-            .strip_prefix(root)
-            .map_err(|error| error.to_string())?
-            .to_string_lossy()
-            .replace(std::path::MAIN_SEPARATOR, "/");
-        let title = legacy_markdown::title(&metadata, &source, &relative);
-        if result.insert(id, (relative, title)).is_some() {
-            return Err(
-                "Duplicate lesson identities; resolve the copied page before continuing".into(),
-            );
-        }
-    }
-    Ok(result)
+    super::page_sources::SourceCatalog::scan(root)?.strict()
 }
 
 pub(super) fn page_identity_at(
@@ -150,6 +110,13 @@ impl Store {
     pub fn sync_pages(&mut self) -> Result<Vec<LearningPage>, String> {
         self.require_learning_ready()?;
         let sources = source_ids(&self.root)?;
+        self.sync_pages_from_sources(&sources)
+    }
+
+    pub(super) fn sync_pages_from_sources(
+        &mut self,
+        sources: &HashMap<String, (String, String)>,
+    ) -> Result<Vec<LearningPage>, String> {
         let by_path: HashMap<_, _> = sources
             .iter()
             .map(|(id, (path, _))| (path.as_str(), id.as_str()))
@@ -185,7 +152,7 @@ impl Store {
             }
         }
         for (id, (path, title)) in sources {
-            register_page_in(&transaction, &self.root, &id, &path, &title)?;
+            register_page_in(&transaction, &self.root, id, path, title)?;
         }
         transaction.commit().map_err(|error| error.to_string())?;
         self.list_pages()

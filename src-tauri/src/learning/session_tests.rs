@@ -73,6 +73,7 @@ fn ratings_are_atomic_idempotent_and_resume_after_reopening() {
     card(&mut store, &page);
     let session = store
         .start_session(SessionScope {
+            lane: None,
             page_ids: Some(vec![page]),
         })
         .unwrap();
@@ -112,7 +113,10 @@ fn failed_review_write_rolls_back_schedule_and_cursor_and_can_retry() {
     let (_dir, mut store, page) = fixture();
     card(&mut store, &page);
     let session = store
-        .start_session(SessionScope { page_ids: None })
+        .start_session(SessionScope {
+            lane: None,
+            page_ids: None,
+        })
         .unwrap();
     let grade = request(&session, 3, false);
     store.conn.execute_batch("CREATE TRIGGER fail_review BEFORE INSERT ON reviews BEGIN SELECT RAISE(ABORT,'disk simulation'); END;").unwrap();
@@ -131,7 +135,10 @@ fn again_reinserts_and_waits_without_claiming_completion() {
     let (_dir, mut store, page) = fixture();
     card(&mut store, &page);
     let session = store
-        .start_session(SessionScope { page_ids: None })
+        .start_session(SessionScope {
+            lane: None,
+            page_ids: None,
+        })
         .unwrap();
     let grade = request(&session, 1, true);
     let result = store.rate_card(grade).unwrap();
@@ -147,7 +154,10 @@ fn undo_restores_memory_with_a_new_revision_and_removes_reinserted_work() {
     let (_dir, mut store, page) = fixture();
     let original = card(&mut store, &page);
     let session = store
-        .start_session(SessionScope { page_ids: None })
+        .start_session(SessionScope {
+            lane: None,
+            page_ids: None,
+        })
         .unwrap();
     let grade = request(&session, 1, true);
     let result = store.rate_card(grade.clone()).unwrap();
@@ -170,6 +180,7 @@ fn scoped_empty_sessions_never_fall_back_to_unrelated_cards() {
     card(&mut store, &page);
     let session = store
         .start_session(SessionScope {
+            lane: None,
             page_ids: Some(vec![]),
         })
         .unwrap();
@@ -182,7 +193,10 @@ fn stale_card_source_or_session_revisions_cannot_advance_learning() {
     let (dir, mut store, page) = fixture();
     let original = card(&mut store, &page);
     let session = store
-        .start_session(SessionScope { page_ids: None })
+        .start_session(SessionScope {
+            lane: None,
+            page_ids: None,
+        })
         .unwrap();
     let grade = request(&session, 3, false);
     let mut draft = original.draft.clone();
@@ -203,10 +217,14 @@ fn overlapping_windows_reject_stale_ratings_and_skip_work_completed_elsewhere() 
     let (_dir, mut store, page) = fixture();
     card(&mut store, &page);
     let all = store
-        .start_session(SessionScope { page_ids: None })
+        .start_session(SessionScope {
+            lane: None,
+            page_ids: None,
+        })
         .unwrap();
     let scoped = store
         .start_session(SessionScope {
+            lane: None,
             page_ids: Some(vec![page]),
         })
         .unwrap();
@@ -231,7 +249,10 @@ fn source_errors_are_recoverable_without_awarding_credit_for_a_skip() {
     let (dir, mut store, page) = fixture();
     let card = card(&mut store, &page);
     let session = store
-        .start_session(SessionScope { page_ids: None })
+        .start_session(SessionScope {
+            lane: None,
+            page_ids: None,
+        })
         .unwrap();
     std::fs::remove_file(dir.path().join("lesson.md")).unwrap();
     let broken = store.get_session(&session.id).unwrap();
@@ -249,7 +270,10 @@ fn undo_does_not_offer_or_overwrite_a_schedule_changed_since_the_review() {
     let (_dir, mut store, page) = fixture();
     let card = card(&mut store, &page);
     let session = store
-        .start_session(SessionScope { page_ids: None })
+        .start_session(SessionScope {
+            lane: None,
+            page_ids: None,
+        })
         .unwrap();
     let grade = request(&session, 3, false);
     let rated = store.rate_card(grade.clone()).unwrap();
@@ -271,7 +295,10 @@ fn learning_deadline_becomes_ready_without_rebuilding_or_completing_the_queue() 
     let (_dir, mut store, page) = fixture();
     let card = card(&mut store, &page);
     let session = store
-        .start_session(SessionScope { page_ids: None })
+        .start_session(SessionScope {
+            lane: None,
+            page_ids: None,
+        })
         .unwrap();
     let result = store.rate_card(request(&session, 1, true)).unwrap();
     let due = result.session.waiting_until.unwrap();
@@ -291,7 +318,10 @@ fn daily_combo_resets_without_regranting_xp_for_previous_days() {
         card(&mut store, &page);
     }
     let first = store
-        .start_session(SessionScope { page_ids: None })
+        .start_session(SessionScope {
+            lane: None,
+            page_ids: None,
+        })
         .unwrap();
     let first = store.rate_card(request(&first, 3, false)).unwrap();
     assert_eq!(first.earned_xp, 7);

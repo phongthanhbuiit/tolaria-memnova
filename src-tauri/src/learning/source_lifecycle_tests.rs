@@ -34,6 +34,7 @@ fn live_source_follows_uuid_rename_but_never_replacement_by_same_filename() {
     let (dir, mut store, owner, source, card) = fixture();
     let session = store
         .start_session(SessionScope {
+            lane: None,
             page_ids: Some(vec![owner]),
         })
         .unwrap();
@@ -69,6 +70,7 @@ fn linked_source_is_not_a_deck_membership_edge_and_bad_source_does_not_erase_own
     let (dir, mut store, _owner, source, _card) = fixture();
     let other = store
         .start_session(SessionScope {
+            lane: None,
             page_ids: Some(vec![source.clone()]),
         })
         .unwrap();
@@ -87,6 +89,7 @@ fn original_source_identity_can_return_and_duplicates_are_reported_without_mergi
     let original = std::fs::read_to_string(dir.path().join("source.md")).unwrap();
     let session = store
         .start_session(SessionScope {
+            lane: None,
             page_ids: Some(vec![owner]),
         })
         .unwrap();

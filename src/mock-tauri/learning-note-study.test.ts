@@ -13,7 +13,7 @@ async function fixture(linked = false) {
   for (const path of ['owner.md', 'target.md']) await call({ kind: 'ensurePage', path })
   const state = await call({ kind: 'readNoteMemory', pageId: owner }) as NoteMemoryView
   await call({ kind: 'configureNoteMemory', request: { operationId: crypto.randomUUID(), pageId: owner, expectedHash: state.sourceHash, expectedRevision: null, config: { version: 1, enabled: true, back: linked ? { kind: 'page', pageId: target, face: 'front' } : { kind: 'inline' } } } })
-  const session = await call({ kind: 'startSession', scope: { pageIds: [owner] } }) as StudySession
+  const session = await call({ kind: 'startSession', scope: { pageIds: [owner], lane: 'notes' } }) as StudySession
   return { root, files, call, session }
 }
 function review(session: StudySession): RateRequest {
@@ -43,4 +43,16 @@ it('replays committed review receipts after source removal without another revie
   const saved = await call({ kind: 'rateCard', review: request }) as { earnedXp: number }
   files.delete(`${root}/owner.md`)
   expect(await call({ kind: 'rateCard', review: request })).toMatchObject({ replayed: true, earnedXp: saved.earnedXp })
+})
+
+it('separates global note and old-card lanes, with old saved scopes retaining legacy semantics', async () => {
+ const {call}=await fixture()
+ await call({kind:'createCard',pageId:target,draft:{front:'Old question',back:'Old answer',answerMode:'inline',status:'active',position:0,properties:{}}})
+ for(const lane of ['notes','legacy',undefined]) {
+  const scope={pageIds:null,...(lane?{lane}:{})}
+  const session=await call({kind:'startSession',scope}) as StudySession
+  expect(session.initialCount).toBe(1)
+  expect(session.current?.card.pageId).toBe(lane==='notes'?owner:target)
+ }
+ expect(await call({kind:'readNoteMemory',pageId:target})).toMatchObject({binding:null,schedule:null})
 })

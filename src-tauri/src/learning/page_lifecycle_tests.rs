@@ -144,7 +144,10 @@ fn native_stats_preserve_the_profile_and_undo_excludes_the_new_review() {
         )
         .unwrap();
     let session = store
-        .start_session(super::SessionScope { page_ids: None })
+        .start_session(super::SessionScope {
+            lane: None,
+            page_ids: None,
+        })
         .unwrap();
     let item = session.current.as_ref().unwrap();
     let now = chrono::Utc::now();

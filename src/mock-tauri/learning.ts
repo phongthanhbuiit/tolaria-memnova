@@ -1,3 +1,5 @@
+import { mockNoteWorkspace } from './note-workspace'
+import { normalizeSessionScope } from '../lib/learning/sessionScope'
 import { isMockRecoveryRequest, mockRecoveryCommand } from './note-recovery'
 import { createMockLearningBackup } from './learning-backup'
 import { isMockConversionRequest, mockConversionCommand } from './note-conversion-runner'
@@ -44,7 +46,7 @@ function stats(data: Fixture): StudyStats {
   return { totalXp: reviews.reduce((sum, review) => sum + review.xp, 0), dailyGoal: data.goal, todayReviews: current.length, todayCorrect: current.filter(review => review.request.rating >= 3).length, todayXp: current.reduce((sum, review) => sum + review.xp, 0), todayDurationMs: current.reduce((sum, review) => sum + review.request.durationMs, 0), heatmap: [...heatmap].map(([date, count]) => ({ date, count })), combo: combo < 0 ? current.length : combo, streak: current.length ? 1 : 0, lastStudyDate: current.length ? today : null }
 }
 async function snapshot(data: Fixture, row: FixtureSession, root: string, context: Context): Promise<StudySession> {
-  const pending = row.ids.slice(row.index).map((id, offset) => ({ card: data.cards.find(card => card.id === id), index: row.index + offset })).filter(item => item.card?.status === 'active' && (Date.parse(item.card.schedule.due) <= Date.now() || ['learning', 'relearning'].includes(item.card.schedule.state)))
+  const pending = row.ids.slice(row.index).map((id, offset) => ({ card: data.cards.find(card => card.id === id), index: row.index + offset })).filter(item => item.card?.status === 'active' && isMockBoundCard(data, item.card.id) === (row.scope.lane === 'notes') && (Date.parse(item.card.schedule.due) <= Date.now() || ['learning', 'relearning'].includes(item.card.schedule.state)))
   const ready = pending.find(item => item.card && Date.parse(item.card.schedule.due) <= Date.now())
   if (!pending.length) { row.status = 'completed'; row.index = row.ids.length }
   let current: StudySession['current'] = null
@@ -125,7 +127,7 @@ async function executeMockLearningCommand(args: Record<string, unknown>, context
   let changed = !['describe', 'migrationStatus', 'listPages', 'listCards', 'studyStats', 'syncPages', 'listBackups', 'verifyBackup', 'readStudyPage', 'pagePropertyDefinitions'].includes(String(request.kind))
   const call = async (): Promise<unknown> => {
     switch (request.kind) {
-      case 'describe': return { libraryId: data.id, schemaVersion: 5, migrationState: 'ready' }
+      case 'describe': return { libraryId: data.id, schemaVersion: 5, migrationState: 'ready', capabilities: { noteMemory: 1, noteStudy: 1, noteWorkspace: 1 } }
       case 'migrationStatus': return { state: 'ready', libraryId: data.id, backupId: null, totalPages: data.pages.length, importedPages: data.pages.length, totalCards: 0, importedCards: 0, importedReviews: 0 }
       case 'readStudyPage': return source(root, required(data.pages.find(page => page.id === request.pageId)), context)
       case 'pagePropertyDefinitions': {
@@ -140,6 +142,10 @@ async function executeMockLearningCommand(args: Record<string, unknown>, context
         for(const key of Object.keys(next))propertyKey(key)
         ;(data.pageDefinitions??={})[String(request.pageId)]=next
         return next
+      }
+      case 'syncNoteWorkspace': {
+        if (Object.keys(request).some(key=>key!=='kind')) throw Error('Invalid workspace request')
+        return mockNoteWorkspace({data,root,context,fresh,hash,persist:()=>localStorage.setItem(`memnova:qa-learning:${root}`,JSON.stringify(data))})
       }
       case 'listPages': return data.pages
       case 'syncPages': {
@@ -211,10 +217,10 @@ async function executeMockLearningCommand(args: Record<string, unknown>, context
       case 'studyStats': return stats(data)
       case 'setDailyGoal': data.goal = Number(request.goal); return stats(data)
       case 'startSession': {
-        const scope = request.scope as SessionScope
-        const existing = data.sessions.find(row => row.status !== 'completed' && JSON.stringify(row.scope) === JSON.stringify(scope))
+        const scope = normalizeSessionScope(request.scope)
+        const existing = data.sessions.find(row => row.status !== 'completed' && JSON.stringify(normalizeSessionScope(row.scope)) === JSON.stringify(scope))
         if (existing) { existing.status = 'active'; return snapshot(data, existing, root, context) }
-        const ids = data.cards.filter(card => card.status === 'active' && Date.parse(card.schedule.due) <= Date.now() && (scope.pageIds === null || scope.pageIds.includes(card.pageId))).map(card => card.id)
+        const ids = data.cards.filter(card => card.status === 'active' && !hasMockPendingNote(data, card.pageId) && isMockBoundCard(data, card.id) === (scope.lane === 'notes') && Date.parse(card.schedule.due) <= Date.now() && (scope.pageIds === null || scope.pageIds.includes(card.pageId))).map(card => card.id)
         const row: FixtureSession = { id: crypto.randomUUID(), scope, ids, initial: ids.length, index: 0, revision: 0, status: ids.length ? 'active' : 'completed' }
         data.sessions.push(row); return snapshot(data, row, root, context)
       }

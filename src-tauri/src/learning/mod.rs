@@ -75,7 +75,7 @@ mod session_models;
 #[cfg(test)]
 mod session_tests;
 pub use session_models::{
-    RateRequest, RateResult, SessionScope, StudyItem, StudyPage, StudySession,
+    RateRequest, RateResult, SessionScope, StudyItem, StudyLane, StudyPage, StudySession,
 };
 #[cfg(test)]
 mod page_lifecycle_tests;
@@ -84,6 +84,7 @@ mod reviews;
 mod sessions;
 mod study_source;
 
+mod page_sources;
 mod pages;
 pub use pages::LearningPage;
 pub mod page_content;
@@ -185,3 +186,9 @@ mod note_file_lifecycle_tests;
 
 #[cfg(test)]
 mod note_property_write_tests;
+
+#[cfg(test)]
+mod note_workspace_tests;
+
+mod note_workspace;
+pub use note_workspace::{NoteLearningSummary, NoteWorkspaceSnapshot};

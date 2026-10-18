@@ -46,13 +46,14 @@ fn candidates(
     now: i64,
 ) -> Result<Vec<Candidate>, String> {
     let ids = serde_json::to_string(&row.queue.ids).map_err(|error| error.to_string())?;
-    let mut query = connection.prepare("SELECT CAST(q.key AS INTEGER),c.id,s.due_ms FROM json_each(?1) q JOIN cards c ON c.id=q.value JOIN schedules s ON s.card_id=c.id JOIN pages p ON p.id=c.page_id WHERE CAST(q.key AS INTEGER)>=?2 AND c.status='active' AND p.deleted_at IS NULL AND (s.due_ms<=?3 OR s.state IN ('learning','relearning')) ORDER BY CAST(q.key AS INTEGER)").map_err(|error|error.to_string())?;
+    let mut query = connection.prepare("SELECT CAST(q.key AS INTEGER),c.id,s.due_ms FROM json_each(?1) q JOIN cards c ON c.id=q.value JOIN schedules s ON s.card_id=c.id JOIN pages p ON p.id=c.page_id WHERE CAST(q.key AS INTEGER)>=?2 AND c.status='active' AND p.deleted_at IS NULL AND (s.due_ms<=?3 OR s.state IN ('learning','relearning')) AND (?4=EXISTS(SELECT 1 FROM note_card_bindings b WHERE b.card_id=c.id)) ORDER BY CAST(q.key AS INTEGER)").map_err(|error|error.to_string())?;
     let result = query
         .query_map(
             params![
                 ids,
                 u32::try_from(row.current_index).map_err(|error| error.to_string())?,
-                now
+                now,
+                row.scope.is_note_lane()
             ],
             |row| Ok((row.get::<_, u32>(0)? as usize, row.get(1)?, row.get(2)?)),
         )
@@ -92,7 +93,7 @@ fn review_summary(connection: &Connection, id: &str) -> Result<(usize, usize), S
 }
 
 fn last_review(connection: &Connection, row: &SessionRow) -> Result<Option<String>, String> {
-    let latest: Option<(String,String,String)> = connection.query_row(
+    let latest: Option<(String,String,Option<String>)> = connection.query_row(
         "SELECT id,session_id,after_json FROM reviews WHERE session_id IS NOT NULL AND undone_at IS NULL ORDER BY rowid DESC LIMIT 1",[],
         |row|Ok((row.get(0)?,row.get(1)?,row.get(2)?)),
     ).optional().map_err(|error|error.to_string())?;
@@ -102,6 +103,9 @@ fn last_review(connection: &Connection, row: &SessionRow) -> Result<Option<Strin
     if session != row.id {
         return Ok(None);
     }
+    let Some(after) = after else {
+        return Ok(None);
+    };
     let after: super::session_models::ReviewAfter =
         serde_json::from_str(&after).map_err(|error| error.to_string())?;
     let current = read_card(connection, &after.request.card_id)?;
@@ -130,9 +134,9 @@ impl Store {
             return self.resume_session(&id);
         }
         let now = chrono::Utc::now().timestamp_millis();
-        let mut query=transaction.prepare("SELECT c.id,c.page_id FROM cards c JOIN schedules s ON s.card_id=c.id JOIN pages p ON p.id=c.page_id WHERE c.status='active' AND p.deleted_at IS NULL AND s.due_ms<=?1 ORDER BY s.due_ms,c.created_at,c.id").map_err(|error|error.to_string())?;
+        let mut query=transaction.prepare("SELECT c.id,c.page_id FROM cards c JOIN schedules s ON s.card_id=c.id JOIN pages p ON p.id=c.page_id WHERE c.status='active' AND p.deleted_at IS NULL AND s.due_ms<=?1 AND (?2=EXISTS(SELECT 1 FROM note_card_bindings b WHERE b.card_id=c.id)) AND NOT EXISTS(SELECT 1 FROM note_learning_operations o WHERE o.page_id=c.page_id AND o.phase!='applied') ORDER BY s.due_ms,c.created_at,c.id").map_err(|error|error.to_string())?;
         let rows = query
-            .query_map([now], |row| {
+            .query_map(params![now, scope.is_note_lane()], |row| {
                 Ok((row.get::<_, String>(0)?, row.get::<_, String>(1)?))
             })
             .map_err(|error| error.to_string())?;

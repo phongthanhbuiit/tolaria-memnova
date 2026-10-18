@@ -4,6 +4,7 @@ use super::{
     note_lifecycle::{NoteLearningState, NoteMemoryView},
     note_memory::{parse_document, useful_content, MemoryBack, MemoryFace},
     note_storage::read_note_binding,
+    page_sources::SourceCatalog,
     store::checked_page_path,
 };
 use rusqlite::Connection;
@@ -65,7 +66,13 @@ pub(super) fn mnemonic_source(
     Ok(Some((path, content)))
 }
 
-fn source_state(connection: &Connection, root: &Path, view: &mut NoteMemoryView, source: &str) {
+fn source_state(
+    connection: &Connection,
+    root: &Path,
+    view: &mut NoteMemoryView,
+    source: &str,
+    sources: Option<&SourceCatalog>,
+) {
     let document = parse_document(source);
     view.source_hash = Some(content_hash(source));
     view.has_back = document.ranges.back.is_some();
@@ -95,6 +102,11 @@ fn source_state(connection: &Connection, root: &Path, view: &mut NoteMemoryView,
     }
     let front = useful_content(&document.front);
     let back = mnemonic_source(connection, root, &view.page_id, &config.back).and_then(|linked| {
+        if let (MemoryBack::Page { page_id, .. }, Some((path, _))) = (&config.back, &linked) {
+            if !sources.is_some_and(|catalog| catalog.matches(page_id, path)) {
+                return Err("source-identity-conflict".into());
+            }
+        }
         useful_content(
             linked
                 .as_ref()
@@ -118,25 +130,37 @@ pub(super) fn memory_view(
     page_id: &str,
     ignore_operation: Option<&str>,
 ) -> Result<NoteMemoryView, String> {
+    uuid::Uuid::parse_str(page_id).map_err(|_| "invalid-page-id")?;
+    let sources = SourceCatalog::scan(root);
+    memory_view_with_sources(
+        connection,
+        root,
+        page_id,
+        ignore_operation,
+        sources.as_ref().ok(),
+    )
+}
+
+pub(super) fn memory_view_with_sources(
+    connection: &Connection,
+    root: &Path,
+    page_id: &str,
+    ignore_operation: Option<&str>,
+    sources: Option<&SourceCatalog>,
+) -> Result<NoteMemoryView, String> {
     let (mut view, deleted) = initial_view(connection, page_id)?;
     if deleted.is_none() {
         let source = checked_page_path(root, &view.path)
             .and_then(|path| fs::read_to_string(path).map_err(|error| error.to_string()));
         match source {
-            Ok(source) => source_state(connection, root, &mut view, &source),
+            Ok(source) => source_state(connection, root, &mut view, &source, sources),
             Err(_) => {
                 view.state = NoteLearningState::Invalid;
                 view.diagnostics.push("unreadable-page".into());
             }
         }
     }
-    if deleted.is_none()
-        && !super::pages::source_ids(root).is_ok_and(|sources| {
-            sources
-                .get(page_id)
-                .is_some_and(|(path, _)| path == &view.path)
-        })
-    {
+    if deleted.is_none() && !sources.is_some_and(|catalog| catalog.matches(page_id, &view.path)) {
         view.identity_valid = false;
         view.state = NoteLearningState::Invalid;
         view.diagnostics.push("identity-conflict".into());

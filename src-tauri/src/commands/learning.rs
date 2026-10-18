@@ -85,6 +85,7 @@ pub enum LearningRequest {
     },
     ListPages,
     SyncPages,
+    SyncNoteWorkspace {},
     EnsurePage {
         path: String,
         expected_hash: Option<String>,
@@ -219,7 +220,7 @@ fn dispatch(
         | LearningRequest::NoteConversionDetails { .. }
         | LearningRequest::NoteCompatibility { .. }) => dispatch_note_memory(store, note),
         LearningRequest::Describe => Ok(
-            json!({"libraryId":store.library_id,"schemaVersion":crate::learning::SCHEMA_VERSION,"migrationState":store.migration_state()?}),
+            json!({"libraryId":store.library_id,"schemaVersion":crate::learning::SCHEMA_VERSION,"migrationState":store.migration_state()?,"capabilities":{"noteMemory":1,"noteStudy":1,"noteWorkspace":1}}),
         ),
         LearningRequest::BeginMigration {
             fingerprint,
@@ -239,6 +240,7 @@ fn dispatch(
         | LearningRequest::ReadStudyPage { .. }
         | LearningRequest::PagePropertyDefinitions { .. }
         | LearningRequest::SetPagePropertyDefinitions { .. }) => dispatch_pages(store, page),
+        LearningRequest::SyncNoteWorkspace {} => encode(store.sync_note_workspace()?),
         LearningRequest::StudyStats => encode(store.study_stats()?),
         LearningRequest::SetDailyGoal { goal } => encode(store.set_daily_goal(goal)?),
         study @ (LearningRequest::StartSession { .. }
