@@ -286,3 +286,19 @@ it('shows the original answer if rich Markdown rendering fails', async () => {
   render(<BlockNoteReadOnly content="Important answer text" preserveBody locale="en" />)
   await waitFor(() => expect(screen.getByText('Important answer text')).toBeInTheDocument())
 })
+
+it('does not acknowledge a successfully rendered answer when Markdown parsing failed', async () => {
+  parseMarkdown.mockRejectedValueOnce(Error('Parser failed'))
+  const onReady = vi.fn()
+  render(<BlockNoteReadOnly content="Keep this unreadable answer" preserveBody onReady={onReady} />)
+  await screen.findByText('Keep this unreadable answer')
+  expect(onReady).not.toHaveBeenCalled()
+})
+
+it('keeps the answer pending until an expected canvas actually mounts and loads', async () => {
+  parseMarkdown.mockResolvedValueOnce([{ id: 'canvas-a',type: 'tldrawBlock',props: { snapshot: '{}' } }])
+  const onReady = vi.fn()
+  render(<BlockNoteReadOnly content="Canvas answer" preserveBody onReady={onReady} />)
+  await screen.findByTestId('blocknote-view-raw')
+  expect(onReady).not.toHaveBeenCalled()
+})

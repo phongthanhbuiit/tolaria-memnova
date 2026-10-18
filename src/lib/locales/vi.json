@@ -940,5 +940,7 @@
   "learning.noteMemory.copy": "Sao chép",
   "learning.noteMemory.sourceUnavailable": "Không đọc được nguồn hiện tại. Hãy phục hồi bản sao lưu đã xác minh hoặc sửa quyền truy cập trước.",
   "learning.noteMemory.keptDisk": "Đã giữ file hiện tại và bản nháp.",
-  "learning.noteMemory.noDrafts": "Không có bản nháp cần phục hồi."
+  "learning.noteMemory.noDrafts": "Không có bản nháp cần phục hồi.",
+  "editor.whiteboard.loadError": "Không thể tải bảng vẽ này. Snapshot gốc vẫn được giữ nguyên.",
+  "editor.whiteboard.copySnapshot": "Sao chép snapshot gốc"
 }

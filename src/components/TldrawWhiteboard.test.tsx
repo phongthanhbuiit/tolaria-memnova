@@ -1,7 +1,8 @@
-import { act, cleanup, render, screen, waitFor } from '@testing-library/react'
+import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import type { ComponentProps } from 'react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { Editor } from 'tldraw'
+import { DocumentRenderBoundary } from './DocumentRenderBoundary'
 import { flushEditorDocuments } from '../utils/editorDocumentFlush'
 import { TldrawWhiteboard } from './TldrawWhiteboard'
 import { TooltipProvider } from './ui/tooltip'
@@ -118,6 +119,7 @@ function mockEditor(): Editor {
 
   return {
     dispatch: vi.fn(),
+    updateInstanceState: vi.fn(),
     getContainer: vi.fn(() => container),
     textMeasure: {
       measureElementTextNodeSpans: vi.fn(() => {
@@ -174,11 +176,13 @@ function whiteboardProps(
   }
 }
 
-function renderWhiteboard(overrides: Partial<ComponentProps<typeof TldrawWhiteboard>> = {}) {
-  return render(
+async function renderWhiteboard(overrides: Partial<ComponentProps<typeof TldrawWhiteboard>> = {}) {
+  const result = render(
     <TldrawWhiteboard {...whiteboardProps(overrides)} />,
     { wrapper: TooltipProvider },
   )
+  await act(async () => { await Promise.resolve() })
+  return result
 }
 
 describe('TldrawWhiteboard', () => {
@@ -189,19 +193,19 @@ describe('TldrawWhiteboard', () => {
     vi.clearAllMocks()
   })
 
-  it('uses bundled tldraw assets instead of CDN URLs', () => {
-    renderWhiteboard()
+  it('uses bundled tldraw assets instead of CDN URLs', async () => {
+    await renderWhiteboard()
 
     expect(screen.getByTestId('mock-tldraw')).toHaveAttribute('data-draw-font-url')
     expect(assetImportMock.getAssetUrlsByImport).toHaveBeenCalledWith(expect.any(Function))
     expectBundledTldrawAssetUrls(renderedTldrawAssetUrls())
   })
 
-  it('passes Tolaria dark mode to tldraw', () => {
+  it('passes Tolaria dark mode to tldraw', async () => {
     document.documentElement.setAttribute('data-theme', 'dark')
     document.documentElement.classList.add('dark')
 
-    renderWhiteboard()
+    await renderWhiteboard()
 
     expect(renderedTldrawProps().user?.userPreferences.get().colorScheme).toBe('dark')
   })
@@ -209,7 +213,7 @@ describe('TldrawWhiteboard', () => {
   it('updates the tldraw color scheme when Tolaria theme changes', async () => {
     document.documentElement.setAttribute('data-theme', 'light')
 
-    renderWhiteboard()
+    await renderWhiteboard()
 
     expect(renderedTldrawProps().user?.userPreferences.get().colorScheme).toBe('light')
 
@@ -223,8 +227,8 @@ describe('TldrawWhiteboard', () => {
     })
   })
 
-  it('installs the text measurement guard when the canvas mounts', () => {
-    renderWhiteboard()
+  it('installs the text measurement guard when the canvas mounts', async () => {
+    await renderWhiteboard()
 
     const editor = mockEditor()
     const cleanup = renderedTldrawProps().onMount(editor)
@@ -241,8 +245,8 @@ describe('TldrawWhiteboard', () => {
     expect(() => editor.textMeasure.measureElementTextNodeSpans(measuredTextElement())).toThrow('top')
   })
 
-  it('suppresses whiteboard platform permission rejections while mounted', () => {
-    renderWhiteboard()
+  it('suppresses whiteboard platform permission rejections while mounted', async () => {
+    await renderWhiteboard()
 
     const cleanup = renderedTldrawProps().onMount(mockEditor())
     const denied = {
@@ -257,9 +261,9 @@ describe('TldrawWhiteboard', () => {
     expect(dispatchUnhandledRejection(denied).defaultPrevented).toBe(false)
   })
 
-  it('resets the drawing store when switching to a blank board snapshot', () => {
+  it('resets the drawing store when switching to a blank board snapshot', async () => {
     const boardASnapshot = { records: { shape: 'from-board-a' } }
-    const { rerender } = renderWhiteboard({ snapshot: JSON.stringify(boardASnapshot) })
+    const { rerender } = await renderWhiteboard({ snapshot: JSON.stringify(boardASnapshot) })
 
     expect(tldrawStoreMock.loadSnapshot).toHaveBeenLastCalledWith(expect.any(Object), boardASnapshot)
 
@@ -267,15 +271,15 @@ describe('TldrawWhiteboard', () => {
       <TldrawWhiteboard {...whiteboardProps({ boardId: 'board-2' })} />
     )
 
-    expect(tldrawStoreMock.loadSnapshot).toHaveBeenLastCalledWith(expect.any(Object), { records: {} })
+    await waitFor(() => expect(tldrawStoreMock.loadSnapshot).toHaveBeenLastCalledWith(expect.any(Object), { records: {} }))
   })
 })
 
-it('retains the last document stroke when unmounted before the snapshot debounce', () => {
+it('retains the last document stroke when unmounted before the snapshot debounce', async () => {
   vi.useFakeTimers()
   try {
     const onSnapshotChange = vi.fn()
-    const view = renderWhiteboard({ onSnapshotChange })
+    const view = await renderWhiteboard({ onSnapshotChange })
     const store = tldrawStoreMock.loadSnapshot.mock.lastCall![0] as ReturnType<typeof tldrawStoreMock.createTLStore>
     const listener = store.listen.mock.lastCall![0]
     act(() => { store.document = { records: { 'shape:last': { typeName: 'shape', text: 'last stroke' } } }; listener() })
@@ -289,11 +293,11 @@ it('retains the last document stroke when unmounted before the snapshot debounce
   } finally { vi.useRealTimers() }
 })
 
-it('flushes the scoped board synchronously without a delayed duplicate callback', () => {
+it('flushes the scoped board synchronously without a delayed duplicate callback', async () => {
   vi.useFakeTimers()
   try {
     const owner = {}, onSnapshotChange = vi.fn()
-    const view = renderWhiteboard({ documentScope: owner,blockId: 'block-a',onSnapshotChange })
+    const view = await renderWhiteboard({ documentScope: owner,blockId: 'block-a',onSnapshotChange })
     const store = tldrawStoreMock.loadSnapshot.mock.lastCall![0] as ReturnType<typeof tldrawStoreMock.createTLStore>
     act(() => { store.document = { records: { 'shape:last': { text: 'saved now' } } }; store.listen.mock.lastCall![0]() })
     act(() => { expect(flushEditorDocuments(owner)).toBe(true) })
@@ -303,8 +307,56 @@ it('flushes the scoped board synchronously without a delayed duplicate callback'
     view.unmount(); expect(flushEditorDocuments(owner)).toBe(false)
   } finally { vi.useRealTimers() }
 })
-it('never registers a write producer or emits a snapshot for a read-only board', () => {
-  const owner = {}, onSnapshotChange = vi.fn(), view = renderWhiteboard({ documentScope: owner,blockId: 'read-only',readOnly: true,onSnapshotChange })
+it('never registers a write producer or emits a snapshot for a read-only board', async () => {
+  const owner = {}, onSnapshotChange = vi.fn(), view = await renderWhiteboard({ documentScope: owner,blockId: 'read-only',readOnly: true,onSnapshotChange })
   expect(flushEditorDocuments(owner)).toBe(false)
   view.unmount(); expect(onSnapshotChange).not.toHaveBeenCalled()
+})
+
+it.each(['{broken', 'null', '[1,2]'])('keeps invalid snapshot bytes visible without replacing them with a blank canvas: %s', async snapshot => {
+  const onSnapshotChange = vi.fn(), view = await renderWhiteboard({ snapshot,onSnapshotChange })
+  expect(screen.getByRole('alert')).toBeInTheDocument()
+  expect(screen.getByText(snapshot,{selector: 'pre'}).textContent).toBe(snapshot)
+  expect(screen.queryByTestId('mock-tldraw')).not.toBeInTheDocument()
+  view.unmount(); expect(onSnapshotChange).not.toHaveBeenCalled()
+})
+it('retains unsupported snapshots when tldraw rejects loading them', async () => {
+  const snapshot = '{"schema":{"schemaVersion":999},"store":{"shape:kept":{"text":"keep me"}}}'
+  tldrawStoreMock.loadSnapshot.mockImplementationOnce(() => { throw Error('unsupported snapshot') })
+  const onSnapshotChange = vi.fn(), view = await renderWhiteboard({ snapshot,onSnapshotChange })
+  expect(screen.getByRole('alert')).toBeInTheDocument()
+  expect(screen.getByText(snapshot,{selector: 'pre'}).textContent).toBe(snapshot)
+  view.unmount(); expect(onSnapshotChange).not.toHaveBeenCalled()
+})
+
+it('does not signal a readable canvas until tldraw has mounted after a successful load', async () => {
+  const status = vi.fn()
+  const view = render(<TooltipProvider><DocumentRenderBoundary ids={['canvas']} onStatus={status}><TldrawWhiteboard {...whiteboardProps({ blockId: 'canvas',readOnly: true })} /></DocumentRenderBoundary></TooltipProvider>)
+  await act(async () => { await Promise.resolve() })
+  expect(status).toHaveBeenLastCalledWith('loading')
+  let dispose: () => void = () => {}
+  act(() => { dispose = renderedTldrawProps().onMount(mockEditor()) })
+  expect(status).toHaveBeenLastCalledWith('ready')
+  act(() => { dispose() }); view.unmount()
+})
+it('can retry a rejected snapshot without publishing an empty replacement', async () => {
+  const snapshot = '{"records":{"shape:retained":{"text":"recover"}}}', onSnapshotChange = vi.fn()
+  tldrawStoreMock.loadSnapshot.mockImplementationOnce(() => { throw Error('unsupported snapshot') })
+  const view = await renderWhiteboard({ snapshot,onSnapshotChange })
+  expect(screen.getByText(snapshot,{selector:'pre'}).textContent).toBe(snapshot)
+  await act(async () => { screen.getByRole('button',{name:'Retry'}).click(); await Promise.resolve() })
+  expect(screen.getByTestId('mock-tldraw')).toBeInTheDocument()
+  expect(tldrawStoreMock.loadSnapshot).toHaveBeenLastCalledWith(expect.any(Object),JSON.parse(snapshot))
+  view.unmount(); expect(onSnapshotChange).not.toHaveBeenCalled()
+})
+
+it('keeps an explicit way to exit fullscreen when a replacement snapshot fails', async () => {
+  const view = await renderWhiteboard()
+  fireEvent.click(screen.getByRole('button',{name:'Expand whiteboard'}))
+  view.rerender(<TldrawWhiteboard {...whiteboardProps({snapshot:'{corrupt'})} />)
+  const error = await screen.findByRole('alert')
+  expect(error).toHaveClass('tldraw-whiteboard--fullscreen')
+  fireEvent.click(screen.getByRole('button',{name:'Exit fullscreen whiteboard'}))
+  expect(document.body).not.toHaveClass('tldraw-whiteboard-fullscreen-open')
+  view.unmount()
 })

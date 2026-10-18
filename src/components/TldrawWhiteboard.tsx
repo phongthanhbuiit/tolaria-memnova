@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type MouseEvent as ReactMouseEvent, type MutableRefObject, type PointerEvent as ReactPointerEvent } from 'react'
+import { memo, useCallback, useContext, useEffect, useMemo, useRef, useState, type CSSProperties, type MouseEvent as ReactMouseEvent, type MutableRefObject, type PointerEvent as ReactPointerEvent } from 'react'
 import { getAssetUrlsByImport } from '@tldraw/assets/imports.vite'
 import { ArrowsIn, ArrowsOut, Plus } from '@phosphor-icons/react'
 import { Dialog as DialogPrimitive } from 'radix-ui'
@@ -7,15 +7,12 @@ import {
   Tldraw,
   createTLStore,
   defaultUserPreferences,
-  getSnapshot,
-  loadSnapshot,
   useDialogs,
   useTldrawUser,
   useValue,
   type Editor,
   type TLEventInfo,
   type TLUiDialog,
-  type TLStoreSnapshot,
   type TLUserPreferences,
   AssetRecordType,
   createShapeId,
@@ -30,7 +27,9 @@ import { ActionTooltip } from './ui/action-tooltip'
 import { installTldrawTextMeasurementGuard } from './tldrawTextMeasurementGuard'
 import { vaultAttachmentAssetUrl } from '../utils/vaultAttachments'
 import { _wikilinkEntriesRef, _activeVaultPathRef } from './editorSchema'
-import { registerEditorDocumentFlush } from '../utils/editorDocumentFlush'
+import { DocumentRenderContext } from './documentRenderContext'
+import { useWhiteboardDocument } from './useWhiteboardDocument'
+import { writeClipboardText } from '../utils/clipboardText'
 import type { VaultEntry } from '../types'
 
 const EMPTY_TLDRAW_TRANSLATION_URL = 'data:application/json;base64,e30K'
@@ -182,24 +181,10 @@ function installTldrawPlatformPermissionGuard(): () => void {
   }
 }
 
-function parseSnapshot(source: string): TLStoreSnapshot | null {
-  if (!source.trim()) return null
-
-  try {
-    return JSON.parse(source) as TLStoreSnapshot
-  } catch {
-    return null
-  }
-}
-
 function createBoardStore(identity: Pick<TldrawWhiteboardProps, 'boardId' | 'documentScope' | 'blockId'>) {
   // Identity scopes the memoized mutable store even when two notes reuse a board ID.
   void identity
   return createTLStore()
-}
-
-function serializeSnapshot(snapshot: TLStoreSnapshot): string {
-  return `${JSON.stringify(snapshot, null, 2)}\n`
 }
 
 function documentZoom(): number {
@@ -497,30 +482,6 @@ function useFullscreenWhiteboard() {
   return { fullscreen, toggleFullscreen }
 }
 
-let cachedEmptySnapshotStruct: ReturnType<typeof getSnapshot>['document'] | null = null
-let cachedEmptySnapshotJson: string = ''
-
-function getEmptySnapshot(): {
-  struct: ReturnType<typeof getSnapshot>['document']
-  json: string
-} {
-  if (!cachedEmptySnapshotStruct) {
-    let struct: ReturnType<typeof getSnapshot>['document']
-    try {
-      const emptyStore = createTLStore()
-      struct = getSnapshot(emptyStore).document
-    } catch {
-      struct = { records: {} } as unknown as ReturnType<typeof getSnapshot>['document']
-    }
-    cachedEmptySnapshotStruct = struct
-    cachedEmptySnapshotJson = serializeSnapshot(struct as unknown as TLStoreSnapshot)
-  }
-  return {
-    struct: cachedEmptySnapshotStruct,
-    json: cachedEmptySnapshotJson,
-  }
-}
-
 export function TldrawWhiteboard({
   documentScope,
   blockId,
@@ -535,9 +496,10 @@ export function TldrawWhiteboard({
   const store = useMemo(() => createBoardStore({ boardId, documentScope, blockId }), [boardId, documentScope, blockId])
   const boardRef = useRef<HTMLDivElement | null>(null)
   const tldrawEditorRef = useRef<Editor | null>(null)
-  const savedSnapshotRef = useRef<string | null>(null)
-  const savedBoardIdRef = useRef<string | null>(null)
-  const onSnapshotChangeRef = useRef(onSnapshotChange)
+  const [mountedStore,setMountedStore] = useState<typeof store | null>(null)
+  const reportDocument = useContext(DocumentRenderContext)
+  const documentState = useWhiteboardDocument({ store,snapshot,readOnly,documentScope,blockId,onSnapshotChange })
+  const [copyFailed,setCopyFailed] = useState(false)
   const persistedSize = useMemo(() => normalizeSize({ height, width }), [height, width])
   const [resizingSize, setResizingSize] = useState<PixelSize | null>(null)
   const visibleSize = resizingSize ?? persistedSize
@@ -643,81 +605,6 @@ export function TldrawWhiteboard({
     }
   }, [])
 
-  const normalizedSnapshot = useMemo(() => {
-    const trimmed = snapshot.trim()
-    return trimmed === '{}' ? '' : trimmed
-  }, [snapshot])
-
-  useEffect(() => {
-    onSnapshotChangeRef.current = onSnapshotChange
-  }, [onSnapshotChange])
-
-  useEffect(() => {
-    if (boardId === savedBoardIdRef.current && normalizedSnapshot === (savedSnapshotRef.current ?? '')) return
-
-    const parsed = parseSnapshot(normalizedSnapshot)
-    if (parsed) {
-      try {
-        loadSnapshot(store, parsed)
-        savedBoardIdRef.current = boardId
-        savedSnapshotRef.current = normalizedSnapshot
-        return
-      } catch {
-        // Fall through to an empty board when legacy or hand-edited JSON is invalid.
-      }
-    }
-
-    const { struct } = getEmptySnapshot()
-    loadSnapshot(store, struct)
-    savedBoardIdRef.current = boardId
-    savedSnapshotRef.current = normalizedSnapshot
-  }, [boardId, normalizedSnapshot, store])
-
-  useEffect(() => {
-    if (readOnly) return
-    let timeoutId: number | null = null
-    let pending = false
-
-    const flushSnapshot = () => {
-      if (!pending) return false
-      if (timeoutId !== null) window.clearTimeout(timeoutId)
-      timeoutId = null
-      const nextSnapshot = serializeSnapshot(getSnapshot(store).document)
-      const currentSaved = savedSnapshotRef.current ?? ''
-
-      if (nextSnapshot.trim() === currentSaved.trim()) { pending = false; return false }
-
-      const { json: emptyJson } = getEmptySnapshot()
-      const isNextEmpty = nextSnapshot.trim() === emptyJson.trim()
-      const isSavedEmpty = !currentSaved.trim() || currentSaved.trim() === '{}'
-      if (isNextEmpty && isSavedEmpty) { pending = false; return false }
-
-      onSnapshotChangeRef.current(nextSnapshot)
-      savedBoardIdRef.current = boardId
-      savedSnapshotRef.current = nextSnapshot
-      pending = false
-      return true
-    }
-
-    const scheduleSnapshotFlush = () => {
-      pending = true
-      if (timeoutId !== null) window.clearTimeout(timeoutId)
-      timeoutId = window.setTimeout(flushSnapshot, 350)
-    }
-
-    const unregister = documentScope && blockId
-      ? registerEditorDocumentFlush(documentScope, blockId, flushSnapshot)
-      : () => {}
-    const cleanup = store.listen(scheduleSnapshotFlush, { source: 'user', scope: 'document' })
-    return () => {
-      cleanup()
-      try { flushSnapshot() } finally {
-        unregister()
-        if (timeoutId !== null) window.clearTimeout(timeoutId)
-      }
-    }
-  }, [boardId, store, readOnly, documentScope, blockId])
-
   const startResize = (mode: ResizeMode) => (event: ReactPointerEvent<HTMLButtonElement>) => {
     event.preventDefault()
     event.stopPropagation()
@@ -757,11 +644,26 @@ export function TldrawWhiteboard({
 
   const handleMount = useCallback((editor: Editor) => {
     tldrawEditorRef.current = editor
+    setMountedStore(store)
     if (readOnly) {
       editor.updateInstanceState({ isReadonly: true })
     }
     return installWhiteboardRuntimeGuards(editor)
-  }, [readOnly])
+  }, [readOnly,store])
+  useEffect(() => {
+    if (!blockId || !reportDocument) return
+    const status = documentState.status === 'error' ? 'error' : documentState.sourceReady && mountedStore === store ? 'ready' : 'loading'
+    reportDocument(blockId,status)
+    return () => reportDocument(blockId,'loading')
+  },[blockId,reportDocument,documentState.status,documentState.sourceReady,mountedStore,store])
+
+  if (documentState.status === 'error') return <div className={`tldraw-whiteboard p-4 space-y-3 ${fullscreen ? 'tldraw-whiteboard--fullscreen' : ''}`} contentEditable={false} role="alert">
+    <p>{translate(locale,'editor.whiteboard.loadError')}</p>
+    <pre className="max-h-60 overflow-auto whitespace-pre-wrap break-all text-xs">{snapshot}</pre>
+    {copyFailed && <p>{translate(locale,'learning.error')}</p>}
+    <div className="flex flex-wrap gap-2"><Button variant="outline" onClick={() => { void writeClipboardText(snapshot).catch(() => setCopyFailed(true)) }}>{translate(locale,'editor.whiteboard.copySnapshot')}</Button><Button variant="outline" onClick={documentState.retry}>{translate(locale,'learning.retry')}</Button>{fullscreen && <Button variant="outline" onClick={toggleFullscreen}>{fullscreenLabel}</Button>}</div>
+  </div>
+  if (documentState.status === 'loading') return <div className="tldraw-whiteboard tldraw-whiteboard--loading" role="status">{translate(locale,'learning.loading')}</div>
 
   return (
     <div

@@ -940,5 +940,7 @@
   "learning.noteMemory.copy": "コピー",
   "learning.noteMemory.sourceUnavailable": "現在の参照元を読み取れません。検証済みのバックアップを復元するか、先にアクセス権を修正してください。",
   "learning.noteMemory.keptDisk": "現在のファイルと下書きを保持しました。",
-  "learning.noteMemory.noDrafts": "復旧が必要な保存済みの下書きはありません。"
+  "learning.noteMemory.noDrafts": "復旧が必要な保存済みの下書きはありません。",
+  "editor.whiteboard.loadError": "このホワイトボードを読み込めませんでした。元のスナップショットは保持されています。",
+  "editor.whiteboard.copySnapshot": "元のスナップショットをコピー"
 }

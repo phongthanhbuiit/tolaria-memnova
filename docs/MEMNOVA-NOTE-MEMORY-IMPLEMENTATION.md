@@ -19,7 +19,7 @@ Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. **Đây là
 | M10 | DONE | 1e055d09,b6584766 | Explicit backup-first apply/resume/compatibility;13 native domain cases,1184 unit/22 focused frontend pass; normal pre-commit passed; batch push pending. See M10 baseline. |
 | M11 | DONE | 0082af91 + UI checkpoint | Core recovery178 module/9 IPC; UI10 tests, browser mouse/text-model QA; baseline m11. Normal batch push pending. |
 | M12 | VERIFIED_LOCAL | canvas flush checkpoint | RED3 regressions; GREEN243 tests/10files, lint/types; baseline m12. Batch push/native proof pending M14. |
-| M13 | NOT_STARTED | — | — |
+| M13 | VERIFIED_LOCAL | snapshot/readiness checkpoint | RED6 regressions; GREEN42 focused tests, types/lint,18 locales, Codacy reviewed; baseline m13. Push/native pending M14. |
 | M14 | NOT_STARTED | — | — |
 | M15 | NOT_STARTED | — | — |
 | M16 | NOT_STARTED | — | — |
@@ -85,3 +85,5 @@ M10 API normal pre-commit: full frontend passed (see archived log);1184 Rust uni
 ## M09–M11 batch release evidence
 
 Normal push90256f36 succeeded10m42s: build/lint/types,4682 frontend tests/445files, frontend86.85% lines/83.09% statements;1191 native unit tests+1integration pass/3ignored; hook Rust87.61% lines with existing lib/main/menu exclusions. Core smoke54 pass4.9m, under5m. CodeScene NOT RUN optional unavailable. Remote/local90256f367cf711ff50b8c43036152fd24b3f5923 match, tree/demo dirt clean. Conversion/recovery UI stays staged until M20. M11 UI pre-commit4682 tests passed194.16s. Evidence:/tmp/memnova-note-memory-evidence/m11/. Final unexcluded coverage and native GUI are still required later.
+
+M12 commit31baa8cf normal pre-commit308 tests/39files pass32.35s. M13 uses this committed local dependency; normal batch push follows M14.

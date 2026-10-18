@@ -940,5 +940,7 @@
   "learning.noteMemory.copy": "Copia",
   "learning.noteMemory.sourceUnavailable": "Impossibile leggere l'origine attuale. Ripristina un backup verificato o correggi prima l'accesso.",
   "learning.noteMemory.keptDisk": "File attuale e bozza conservati.",
-  "learning.noteMemory.noDrafts": "Nessuna bozza salvata da recuperare."
+  "learning.noteMemory.noDrafts": "Nessuna bozza salvata da recuperare.",
+  "editor.whiteboard.loadError": "Impossibile caricare questa lavagna. L’istantanea originale è conservata.",
+  "editor.whiteboard.copySnapshot": "Copia istantanea originale"
 }

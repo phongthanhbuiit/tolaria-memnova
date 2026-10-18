@@ -940,5 +940,7 @@
   "learning.noteMemory.copy": "Копировать",
   "learning.noteMemory.sourceUnavailable": "Не удалось прочитать текущий источник. Восстановите проверенную резервную копию или сначала исправьте доступ.",
   "learning.noteMemory.keptDisk": "Текущий файл и черновик сохранены.",
-  "learning.noteMemory.noDrafts": "Нет черновиков для восстановления."
+  "learning.noteMemory.noDrafts": "Нет черновиков для восстановления.",
+  "editor.whiteboard.loadError": "Не удалось загрузить эту доску. Исходный снимок сохранён.",
+  "editor.whiteboard.copySnapshot": "Копировать исходный снимок"
 }

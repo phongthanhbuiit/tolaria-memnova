@@ -940,5 +940,7 @@
   "learning.noteMemory.copy": "Kopieren",
   "learning.noteMemory.sourceUnavailable": "Die aktuelle Quelle kann nicht gelesen werden. Stelle eine geprüfte Sicherung wieder her oder korrigiere zuerst den Zugriff.",
   "learning.noteMemory.keptDisk": "Aktuelle Datei und Entwurf beibehalten.",
-  "learning.noteMemory.noDrafts": "Keine gespeicherten Entwürfe zur Wiederherstellung."
+  "learning.noteMemory.noDrafts": "Keine gespeicherten Entwürfe zur Wiederherstellung.",
+  "editor.whiteboard.loadError": "Dieses Whiteboard konnte nicht geladen werden. Der ursprüngliche Snapshot bleibt erhalten.",
+  "editor.whiteboard.copySnapshot": "Ursprünglichen Snapshot kopieren"
 }

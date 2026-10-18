@@ -940,5 +940,7 @@
   "learning.noteMemory.copy": "Copier",
   "learning.noteMemory.sourceUnavailable": "La source actuelle ne peut pas être lue. Restaurez une sauvegarde vérifiée ou corrigez d'abord son accès.",
   "learning.noteMemory.keptDisk": "Fichier actuel et brouillon conservés.",
-  "learning.noteMemory.noDrafts": "Aucun brouillon enregistré à récupérer."
+  "learning.noteMemory.noDrafts": "Aucun brouillon enregistré à récupérer.",
+  "editor.whiteboard.loadError": "Impossible de charger ce tableau blanc. La capture d’origine est conservée.",
+  "editor.whiteboard.copySnapshot": "Copier la capture d’origine"
 }

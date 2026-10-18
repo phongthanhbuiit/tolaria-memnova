@@ -940,5 +940,7 @@
   "learning.noteMemory.copy": "Copiar",
   "learning.noteMemory.sourceUnavailable": "No se puede leer el origen actual. Restaura una copia verificada o corrige primero el acceso.",
   "learning.noteMemory.keptDisk": "Archivo actual y borrador conservados.",
-  "learning.noteMemory.noDrafts": "No hay borradores guardados que recuperar."
+  "learning.noteMemory.noDrafts": "No hay borradores guardados que recuperar.",
+  "editor.whiteboard.loadError": "No se pudo cargar esta pizarra. Se conserva la instantánea original.",
+  "editor.whiteboard.copySnapshot": "Copiar instantánea original"
 }

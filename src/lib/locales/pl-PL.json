@@ -940,5 +940,7 @@
   "learning.noteMemory.copy": "Kopiuj",
   "learning.noteMemory.sourceUnavailable": "Nie można odczytać bieżącego źródła. Przywróć zweryfikowaną kopię lub najpierw napraw dostęp.",
   "learning.noteMemory.keptDisk": "Bieżący plik i wersja robocza zachowane.",
-  "learning.noteMemory.noDrafts": "Brak zapisanych wersji roboczych do odzyskania."
+  "learning.noteMemory.noDrafts": "Brak zapisanych wersji roboczych do odzyskania.",
+  "editor.whiteboard.loadError": "Nie można wczytać tej tablicy. Oryginalny zapis został zachowany.",
+  "editor.whiteboard.copySnapshot": "Kopiuj oryginalny zapis"
 }

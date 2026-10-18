@@ -940,5 +940,7 @@
   "learning.noteMemory.copy": "Copy",
   "learning.noteMemory.sourceUnavailable": "The current source cannot be read. Restore a verified backup or fix its access first.",
   "learning.noteMemory.keptDisk": "Current file kept; draft retained.",
-  "learning.noteMemory.noDrafts": "No saved drafts need recovery."
+  "learning.noteMemory.noDrafts": "No saved drafts need recovery.",
+  "editor.whiteboard.loadError": "This whiteboard could not be loaded. The original snapshot is preserved.",
+  "editor.whiteboard.copySnapshot": "Copy original snapshot"
 }

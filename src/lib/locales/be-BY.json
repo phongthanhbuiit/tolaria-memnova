@@ -940,5 +940,7 @@
   "learning.noteMemory.copy": "Скапіяваць",
   "learning.noteMemory.sourceUnavailable": "Немагчыма прачытаць бягучую крыніцу. Аднавіце правераную рэзервовую копію або спачатку выпраўце доступ.",
   "learning.noteMemory.keptDisk": "Бягучы файл і чарнавік захаваны.",
-  "learning.noteMemory.noDrafts": "Няма захаваных чарнавікоў для аднаўлення."
+  "learning.noteMemory.noDrafts": "Няма захаваных чарнавікоў для аднаўлення.",
+  "editor.whiteboard.loadError": "Не ўдалося загрузіць гэтую дошку. Зыходны здымак захаваны.",
+  "editor.whiteboard.copySnapshot": "Скапіяваць зыходны здымак"
 }

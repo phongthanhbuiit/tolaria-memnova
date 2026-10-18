@@ -940,5 +940,7 @@
   "learning.noteMemory.copy": "Salin",
   "learning.noteMemory.sourceUnavailable": "Sumber saat ini tidak dapat dibaca. Pulihkan cadangan terverifikasi atau perbaiki aksesnya terlebih dahulu.",
   "learning.noteMemory.keptDisk": "Berkas saat ini dan draf dipertahankan.",
-  "learning.noteMemory.noDrafts": "Tidak ada draf tersimpan yang perlu dipulihkan."
+  "learning.noteMemory.noDrafts": "Tidak ada draf tersimpan yang perlu dipulihkan.",
+  "editor.whiteboard.loadError": "Papan tulis ini tidak dapat dimuat. Snapshot asli tetap disimpan.",
+  "editor.whiteboard.copySnapshot": "Salin snapshot asli"
 }

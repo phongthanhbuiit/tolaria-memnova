@@ -1248,3 +1248,7 @@ M10's Library-bound IPC now exposes applyNoteConversion, resumeNoteConversion, n
 ### Explicit pending note resolution (M11 core)
 
 List/read/resolve recovery APIs are Library-bound. Pending save/configure/convert operations expose the saved draft and current source without writing. KeepDisk requires an explicit expected current hash (nullable only for a missing source), rechecks bytes/path inside an immediate transaction under the source operation lock, and writes a distinct discarded receipt. It never writes/recreates Markdown or transfers a legacy memory. Existing binding status/hash may reconcile while schedule/history remain intact. Draft/current source snapshots remain in the typed journal and resolved history; discarded operations are never compacted or resumed as a successful save. Already committed receipts and malformed journals cannot be discarded. ADR0151 describes the outcome extension in the existing schema5/version1 payload. UI entry remains staged until M20.
+
+### Canvas snapshot and visual readiness
+
+Canvas source remains in its Markdown fence. Invalid/unsupported snapshots are preserved with copy/retry, never replaced by an empty editable document. Only successful editable loads register synchronous document producers. Read-only Markdown rendering uses a per-document boundary over expected canvas block IDs; successful parsing is insufficient until each canvas has loaded and mounted. This visual gate complements native source/media fingerprints and will be consumed by note study at M19 (ADR0152).

@@ -940,5 +940,7 @@
   "learning.noteMemory.copy": "複製",
   "learning.noteMemory.sourceUnavailable": "無法讀取目前來源。請還原已驗證的備份，或先修復存取權限。",
   "learning.noteMemory.keptDisk": "已保留目前檔案和草稿。",
-  "learning.noteMemory.noDrafts": "沒有需要復原的已儲存草稿。"
+  "learning.noteMemory.noDrafts": "沒有需要復原的已儲存草稿。",
+  "editor.whiteboard.loadError": "無法載入此白板。原始快照已保留。",
+  "editor.whiteboard.copySnapshot": "複製原始快照"
 }
