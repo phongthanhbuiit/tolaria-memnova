@@ -13,8 +13,8 @@ Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. **Đây là
 | M04 | VERIFIED_LOCAL | 7a2209af | Native coordinator;11 focused and111 learning tests pass; clippy/fmt pass; Codacy no Medium+/6 reviewed Minor. Hash/revision/replay/crash/compaction preservation; see M04 baseline. Normal batch push pending. |
 | M05 | VERIFIED_LOCAL | 086d56bd | Native note lifecycle;15 new cases/126 learning pass, clippy/fmt pass. No new Medium+/security findings; existing pages advisory reviewed. Source/history/identity and missing-database guards; see M05 baseline. UI/watcher dispatch staged M06–M20. |
 | M06 | VERIFIED_LOCAL | cb4160ca | Typed note IPC/client/browser QA; six real command cases, all1139 Rust unit tests/3ignored pass; types/lint/clippy; reviewed Codacy2Medium/21Minor, no lint/security/CriticalHigh. Config exact replay, bound/pending/rename/missing-DB guards; see M06 baseline. Normal pre-commit/push pending. |
-| M07 | VERIFIED_LOCAL | pending commit | Live faces/source/media fingerprints;1153 native and90 focused frontend pass; see M07 baseline. Normal commit/push verification pending. |
-| M08 | NOT_STARTED | — | — |
+| M07 | VERIFIED_LOCAL | 95aed8a0 | Live faces/source/media fingerprints;1153 native and90 focused frontend pass; see M07 baseline. Normal pre-commit4662 frontend/1153 Rust passed; batch push pending. |
+| M08 | VERIFIED_LOCAL | pending commit | Seven real-file backup tests/150 learning pass; typed binding/journal validation, old1–4 restore and root-move preservation. See M08 baseline; normal commit/push pending. |
 | M09 | NOT_STARTED | — | — |
 | M10 | NOT_STARTED | — | — |
 | M11 | NOT_STARTED | — | — |

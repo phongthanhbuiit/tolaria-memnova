@@ -138,3 +138,8 @@ mod note_snapshot;
 pub use note_snapshot::{NoteBackSource, NoteFacePreview, NoteStudyDetails, StudyContent};
 #[cfg(test)]
 mod note_media_tests;
+
+#[cfg(test)]
+mod note_backup_tests;
+
+mod note_backup;

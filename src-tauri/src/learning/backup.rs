@@ -76,6 +76,7 @@ fn verify_database(path: &Path, library_id: &str) -> Result<(), String> {
     if check != "ok" || (version == 0 || version > super::SCHEMA_VERSION) || invalid {
         return Err("Backup database failed integrity or version checks".into());
     }
+    super::note_backup::verify(&conn, version)?;
     Ok(())
 }
 
@@ -192,6 +193,7 @@ impl Store {
         &self,
         recovery: &RecoverySnapshot,
     ) -> Result<BackupDescriptor, String> {
+        super::note_backup::verify_current(&self.conn)?;
         let original = inventory(&self.root, true)?;
         let original_directories = directories(&self.root)?;
         let version: i64 = self

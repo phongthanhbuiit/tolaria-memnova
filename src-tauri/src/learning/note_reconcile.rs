@@ -168,3 +168,26 @@ pub(super) fn record_reconcile(
     transaction.execute("INSERT INTO note_learning_operations(id,page_id,kind,payload_json,phase,created_at) VALUES(?1,?2,'reconcile',?3,'applied',?4)", rusqlite::params![uuid::Uuid::new_v4().to_string(),before.page_id,payload,chrono::Utc::now().timestamp_millis()]).map_err(|error| error.to_string())?;
     Ok(())
 }
+
+impl ReconcileReceipt {
+    pub(super) fn validate(&self, owner: &str) -> Result<(), String> {
+        uuid::Uuid::parse_str(owner).map_err(|_| "Invalid reconciliation owner")?;
+        let next = match self.before_revision {
+            Some(before) => before.checked_add(1),
+            None => Some(0),
+        };
+        if self.version != 1
+            || self.page_id != owner
+            || self.revision.is_none()
+            || self.revision != next
+            || self
+                .source_hash
+                .as_ref()
+                .is_some_and(|hash| !super::note_write_disk::valid_hash(hash))
+            || (self.before_revision.is_none() && self.source_hash.is_none())
+        {
+            return Err("Invalid reconciliation receipt".into());
+        }
+        Ok(())
+    }
+}

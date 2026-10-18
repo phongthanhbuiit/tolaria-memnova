@@ -25,45 +25,17 @@ pub(super) fn write_payload(
 
 impl Store {
     pub(super) fn load_note_write(&self, id: &str) -> Result<Option<PreparedWrite>, String> {
-        let row: Option<(String, String, Option<String>)> = self
+        let row: Option<(String, String, Option<String>, String)> = self
             .conn
             .query_row(
-                "SELECT payload_json,kind,page_id FROM note_learning_operations WHERE id=?1",
+                "SELECT payload_json,kind,page_id,phase FROM note_learning_operations WHERE id=?1",
                 [id],
-                |row| Ok((row.get(0)?, row.get(1)?, row.get(2)?)),
+                |row| Ok((row.get(0)?, row.get(1)?, row.get(2)?, row.get(3)?)),
             )
             .optional()
             .map_err(|error| error.to_string())?;
-        row.map(|(payload, kind, owner)| {
-            if !["save", "configure"].contains(&kind.as_str()) {
-                return Err("Operation identity belongs to another kind".into());
-            }
-            let prepared: PreparedWrite =
-                serde_json::from_str(&payload).map_err(|error| error.to_string())?;
-            prepared.validate()?;
-            if (kind == "configure") != prepared.configuration.is_some() {
-                return Err("Note operation kind mismatch".into());
-            }
-            if prepared.operation_id != id || owner.as_deref() != Some(&prepared.page_id) {
-                return Err("Note operation owner mismatch".into());
-            }
-            let phase: String = self
-                .conn
-                .query_row(
-                    "SELECT phase FROM note_learning_operations WHERE id=?1",
-                    [id],
-                    |row| row.get(0),
-                )
-                .map_err(|error| error.to_string())?;
-            let phase: NoteOperationPhase =
-                serde_json::from_value(serde_json::Value::String(phase))
-                    .map_err(|error| error.to_string())?;
-            if (phase == NoteOperationPhase::Applied) != prepared.outcome.is_some()
-                || (phase != NoteOperationPhase::Applied && prepared.after_source.is_none())
-            {
-                return Err("Incomplete note operation checkpoint".into());
-            }
-            Ok(prepared)
+        row.map(|(payload, kind, owner, phase)| {
+            decode_note_write(id, owner.as_deref(), &kind, &phase, &payload)
         })
         .transpose()
     }
@@ -124,4 +96,33 @@ fn validate_write_request(request: &NoteWriteRequest) -> Result<(), String> {
         return Err("Invalid expected source fingerprint".into());
     }
     Ok(())
+}
+
+pub(super) fn decode_note_write(
+    id: &str,
+    owner: Option<&str>,
+    kind: &str,
+    phase: &str,
+    payload: &str,
+) -> Result<PreparedWrite, String> {
+    if !["save", "configure"].contains(&kind) {
+        return Err("Operation identity belongs to another kind".into());
+    }
+    let prepared: PreparedWrite =
+        serde_json::from_str(payload).map_err(|error| error.to_string())?;
+    prepared.validate()?;
+    if (kind == "configure") != prepared.configuration.is_some() {
+        return Err("Note operation kind mismatch".into());
+    }
+    if prepared.operation_id != id || owner != Some(prepared.page_id.as_str()) {
+        return Err("Note operation owner mismatch".into());
+    }
+    let phase: NoteOperationPhase = serde_json::from_value(serde_json::Value::String(phase.into()))
+        .map_err(|error| error.to_string())?;
+    if (phase == NoteOperationPhase::Applied) != prepared.outcome.is_some()
+        || (phase != NoteOperationPhase::Applied && prepared.after_source.is_none())
+    {
+        return Err("Incomplete note operation checkpoint".into());
+    }
+    Ok(prepared)
 }

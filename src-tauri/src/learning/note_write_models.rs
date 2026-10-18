@@ -73,6 +73,7 @@ impl PreparedWrite {
         {
             return Err("Invalid note operation checkpoint; existing data was preserved".into());
         }
+        validate_historical_path(&self.path)?;
         for id in [&self.operation_id, &self.page_id] {
             uuid::Uuid::parse_str(id).map_err(|_| "Invalid note operation identity")?;
         }
@@ -119,4 +120,26 @@ pub(super) fn required_revision<'de, D: serde::Deserializer<'de>>(
     deserializer: D,
 ) -> Result<Option<u32>, D::Error> {
     Option::deserialize(deserializer)
+}
+
+fn validate_historical_path(path: &str) -> Result<(), String> {
+    let path = super::backup_files::relative_path(path)?;
+    if path.components().any(|part| {
+        part.as_os_str()
+            .to_string_lossy()
+            .eq_ignore_ascii_case(".memnova")
+            || part
+                .as_os_str()
+                .to_string_lossy()
+                .eq_ignore_ascii_case(".git")
+    }) || !path
+        .extension()
+        .and_then(|value| value.to_str())
+        .is_some_and(|value| {
+            value.eq_ignore_ascii_case("md") || value.eq_ignore_ascii_case("markdown")
+        })
+    {
+        return Err("Invalid note checkpoint path".into());
+    }
+    Ok(())
 }
