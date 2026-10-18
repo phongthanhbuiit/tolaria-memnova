@@ -82,7 +82,9 @@ function splitMarkdownLines(markdown: string): string[] {
 }
 
 function encodePayload(payload: unknown): string {
-  return encodeURIComponent(JSON.stringify(payload))
+  // URI encoding leaves Markdown delimiters intact; they must stay opaque to the inline parser.
+  return encodeURIComponent(JSON.stringify(payload)).replace(/[!'()*_~]/gu, character =>
+    `%${character.charCodeAt(0).toString(16).toUpperCase()}`)
 }
 
 function decodePayload(codec: DurableBlockCodec, encoded: string): unknown | null {
