@@ -14,6 +14,9 @@ mod backup_tests;
 mod card_tests;
 #[cfg(test)]
 mod migration_preview_tests;
+pub mod note_memory;
+#[cfg(test)]
+mod note_memory_codec_tests;
 #[cfg(test)]
 mod note_memory_fixture;
 #[cfg(test)]

@@ -1206,3 +1206,5 @@ Schema v4 adds page_property_definitions and card_property_definitions as editor
 ### Note memory document codec staged rollout
 
 ADR-0147 introduces a Markdown-owned article/mnemonic document contract for explicitly enabled or converted notes. `learning/noteMemoryDocument` is a pure frontend codec with UTF-8 face ranges, strict owned metadata and diagnostics; `noteMemoryPatch` preserves unrelated bytes and rejects invalid structural edits. Canvas remains an embedded durable tldraw block. Golden parse/patch data in `tests/fixtures/note-memory/` is shared with the planned native codec. At M01 only codecs/tests are installed: schema remains v4, current card/study/editor routes still use their existing contracts, and no user Library is converted implicitly.
+
+M02 adds the pure native `learning::note_memory` codec. Its line scanner, owned-field reader and byte patches match the same28 parse and seven patch vectors, including Unicode ranges. Regex initialization uses OnceLock to respect the declared Rust1.77.2 MSRV. No runtime command or store mutation uses the new codec yet; legacy import and study source paths retain their prior contracts.

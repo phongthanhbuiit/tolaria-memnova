@@ -7,8 +7,8 @@ Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. **Đây là
 | Task | Trạng thái | Commit đã push | Bằng chứng và giới hạn |
 |---|---|---|---|
 | M00 | DONE | 855ea883 | Baseline122 frontend/92 Rust; fixture test, final93 learning Rust; production20 samples; Codacy0; pre-commit54 smoke/4.6m; pre-push4585 tests, frontend86.51% lines, Rust hook86.97% lines (excludes lib/main/menu),54 smoke/4.7m. Push8m40s passed, remote SHA verified. Native NOT RUN. See baseline report. |
-| M01 | IN_PROGRESS | — | Document codec TDD; M00 pushed and verified. |
-| M02 | NOT_STARTED | — | — |
+| M01 | VERIFIED_LOCAL | local4072540b | 50 codec tests;72 focused including legacy;144 learning tests; final types/lint/related pre-commit pass. Shared28 parse+7 patch vectors. Codacy reviewed one false Medium/one Minor, no Critical/High; ADR0147/docs. See M01 baseline. Batch push after M03. |
+| M02 | IN_PROGRESS | — | Native codec parity; dependency4072540b committed and locally verified. |
 | M03 | NOT_STARTED | — | — |
 | M04 | NOT_STARTED | — | — |
 | M05 | NOT_STARTED | — | — |
