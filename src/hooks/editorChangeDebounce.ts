@@ -10,6 +10,7 @@ export function useDebouncedEditorChange({
   suppressChangeRef: MutableRefObject<boolean>
 }) {
   const pendingRef = useRef(false)
+  const generationRef = useRef(0)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const clearTimer = useCallback(() => {
@@ -21,14 +22,16 @@ export function useDebouncedEditorChange({
   const flushPendingEditorChange = useCallback(() => {
     if (!pendingRef.current) return false
     clearTimer()
-    pendingRef.current = false
+    const generation = generationRef.current
     onFlush()
+    pendingRef.current = generationRef.current !== generation
     return true
   }, [clearTimer, onFlush])
 
   const handleEditorChange = useCallback(() => {
     if (suppressChangeRef.current) return
 
+    generationRef.current++
     pendingRef.current = true
     clearTimer()
     timerRef.current = setTimeout(() => {

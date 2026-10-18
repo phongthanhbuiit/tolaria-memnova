@@ -1,4 +1,5 @@
 mod config;
+mod indent;
 mod lines;
 mod patch;
 pub use config::{MemoryBack, MemoryConfig, MemoryFace, MemoryIssue};

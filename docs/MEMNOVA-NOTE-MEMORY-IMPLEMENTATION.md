@@ -28,14 +28,14 @@ Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. DONE bên d
 | M19 | VERIFIED_LOCAL | fa3934f4 (local) | 65module tests8.05s; normal hook305tests/39files,3browser7.1s,18locales/962keys; M22 baseline integration issue explicitly retained. Batch push follows M22. |
 | M20 | VERIFIED_LOCAL | d76f7d99,679f3c05,1e3514e1 (local) | Default note/legacy workspace, opt-in controls, scoped properties, conversion/recovery and startup backup reader implemented. Normal final hook4861frontend/481files,1228Rust/3ignored pass;274module frontend,206learning Rust,3real startup recovery,4browser12.9s pass. No normal push/native end-to-end yet; M21–M25 remain. |
 | M21 | VERIFIED_LOCAL | 9baccd37 (local) | Normal hook4864frontend/481files133.99s;4browser59.0s including378layout cases and canvas keyboard/fullscreen;978keys/18catalogs. CodeScene NOT RUN. Batch push pending M22. |
-| M22 | IN_PROGRESS | M21 VERIFIED_LOCAL9baccd37 | Native baseline206learning tests13.18s; real-file fault regressions and I01–I12 verification underway. |
+| M22 | IN_PROGRESS | 98ea525d + final WIP | Fault/integration fixes:244native learning/IPC,15integration zero retries +4file-backed browser cases,30focused frontend,lint/types/clippy/Codacy pass. Final verified commit and normal batch push pending; M23–M25 not run. |
 | M23 | NOT_STARTED | — | — |
 | M24 | NOT_STARTED | — | — |
 | M25 | NOT_STARTED | — | — |
 
 Trạng thái dùng: NOT_STARTED, IN_PROGRESS, VERIFIED_LOCAL, BLOCKED_WITH_EVIDENCE, DONE. VERIFIED_LOCAL là code đã commit và test tại local, chưa phải hoàn tất hoặc releasable. Khi user giao toàn bộ đợt, dependency có thể dùng checkpoint VERIFIED_LOCAL có commit và evidence thật; chỉ đổi DONE sau normal push thành công. Khi giao một task riêng, dependency phải DONE. Không có trạng thái “DONE nhưng chưa test/push”.
 
-## Snapshot kiểm toán hiện tại — 2026-10-19 (lượt kiểm tra lại)
+## Checkpoint kiểm toán trước M22 — 2026-10-19 (lượt kiểm tra lại)
 
 Local HEAD `9baccd37`; remote `refs/heads/main` xác minh lại qua `git ls-remote` là `c8c71603095dbd0d322ff48a1347bd9c6cbaf655`. Năm commit M19–M21 chưa push (`fa3934f4`, `d76f7d99`, `679f3c05`, `1e3514e1`, `9baccd37`); M22 đang triển khai. Không lấy coverage/hook c8c71603 làm bằng chứng release của working tree.
 

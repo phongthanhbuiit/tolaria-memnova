@@ -1,4 +1,5 @@
 import { createShapesForAssets, type Editor, type TLAsset } from 'tldraw'
+import { replaceCanvasFile } from './canvasFileReplacement'
 import type { CanvasMediaIssue } from '../utils/canvasMedia'
 /** Picker, paste and drop share an upload-first handler: no ephemeral document placeholders. */
 export function installCanvasFileImports(editor: Editor,active: () => boolean,issue: (value: CanvasMediaIssue) => void,busy?: (value: boolean) => void): () => void {
@@ -20,5 +21,12 @@ export function installCanvasFileImports(editor: Editor,active: () => boolean,is
     } catch { if (active()) issue('unavailable') }
     finally { inFlight--; if (active()) busy?.(inFlight > 0) }
   })
-  return () => { editor.registerExternalContentHandler('files',null) }
+  editor.registerExternalContentHandler('file-replace', async content => {
+    if (!active()) return
+    inFlight++; busy?.(true)
+    try { await replaceCanvasFile(editor, content, active) }
+    catch { if (active()) issue('unavailable') }
+    finally { inFlight--; if (active()) busy?.(inFlight > 0) }
+  })
+  return () => { editor.registerExternalContentHandler('files',null); editor.registerExternalContentHandler('file-replace',null) }
 }

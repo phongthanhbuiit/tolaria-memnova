@@ -84,6 +84,7 @@ fn visible_source(source: &str) -> Result<(String, Vec<String>), String> {
     let mut board = None;
     let mut visible = String::new();
     let mut urls = Vec::new();
+    let mut indentation = super::indent::CodeIndent::default();
     for line in lines::lines(source) {
         let candidate = lines::fence_at(line.text);
         if let Some(current) = fence {
@@ -92,11 +93,16 @@ fn visible_source(source: &str) -> Result<(String, Vec<String>), String> {
                     urls.extend(board_sources(&source[start..line.start])?);
                 }
                 fence = None;
+                indentation.boundary();
             }
             visible.push('\n');
             continue;
         }
         if !context.comment && context.ticks == 0 {
+            if indentation.masks(line.text) {
+                visible.push('\n');
+                continue;
+            }
             if let Some(opening) = lines::opens(candidate) {
                 if opening
                     .info
@@ -107,6 +113,7 @@ fn visible_source(source: &str) -> Result<(String, Vec<String>), String> {
                     board = Some(line.end);
                 }
                 fence = Some(opening);
+                indentation.boundary();
                 visible.push('\n');
                 continue;
             }

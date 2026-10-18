@@ -43,3 +43,15 @@ describe('editor durable markdown blocks', () => {
     expect(serializeDurableEditorBlocks(editor, blocks)).toBe(markdown)
   })
 })
+
+it('keeps an unconfigured standalone back marker as a durable comment while leaving fenced examples literal', () => {
+  const marker = '<!-- FLASHCARD:BACK -->'
+  const processed = preProcessDurableEditorMarkdown({ markdown: `Before\n\n${marker}\n\nAfter` })
+  expect(processed).not.toContain(marker)
+  const paragraphs = processed.split('\n\n').map(text => ({ type: 'paragraph', content: [{ type: 'text', text, styles: {} }], children: [] }))
+  const blocks = injectDurableEditorMarkdownBlocks(paragraphs)
+  const serializer = { blocksToMarkdownLossy: (values: unknown[]) => (values as typeof paragraphs).map(value => value.content.map(text => text.text).join('')).join('\n\n') }
+  expect(serializeDurableEditorBlocks(serializer, blocks)).toBe(`Before\n\n${marker}\n\nAfter`)
+  const fenced = `\`\`\`html\n${marker}\n\`\`\``
+  expect(preProcessDurableEditorMarkdown({ markdown: fenced })).toBe(fenced)
+})

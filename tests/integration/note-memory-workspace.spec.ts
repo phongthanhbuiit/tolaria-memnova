@@ -5,6 +5,7 @@ import {
   openFixtureVault,
   removeFixtureVaultCopy,
 } from '../helpers/fixtureVault'
+import { executeCommand, openCommandPalette } from '../smoke/helpers'
 import { createNoteMemoryFixture } from '../helpers/noteMemoryFixture'
 
 test('explicit note enable, mnemonic editing, study and pause use the default workspace', async ({
@@ -94,4 +95,40 @@ test('explicit note enable, mnemonic editing, study and pause use the default wo
   } finally {
     removeFixtureVaultCopy(root)
   }
+})
+
+test('ordinary note editing retains a literal two-face marker without enabling learning', async ({ page }) => {
+  const root = createNoteMemoryFixture()
+  const owner = path.join(root, 'project/alpha-project.md')
+  const source = '# Alpha Project\n\nOrdinary article.\n\n<!-- FLASHCARD:BACK -->\n\nThis marker is an ordinary note example.\n'
+  fs.writeFileSync(owner, source)
+  try {
+    await openFixtureVault(page, root, { preserveLearningState: true })
+    await page.getByRole('button', { name: /^All Notes/ }).click()
+    await page.getByTestId('note-list-container').getByText('Alpha Project', { exact: true }).click()
+    await expect(page.getByRole('tab', { name: 'Mnemonic', exact: true })).toHaveCount(0)
+    const paragraph = page.locator('.bn-editor [data-content-type="paragraph"]').last()
+    await paragraph.click(); await page.keyboard.press('End'); await page.keyboard.insertText(' Added ordinary text.'); await page.keyboard.press('Meta+s')
+    await expect.poll(() => fs.readFileSync(owner, 'utf8')).toContain('Added ordinary text.')
+    const saved = fs.readFileSync(owner, 'utf8')
+    expect(saved).toContain('<!-- FLASHCARD:BACK -->')
+    expect(saved).toContain('Ordinary article.')
+    expect(saved).not.toContain('_memnova_learning_')
+    expect(saved).not.toContain('_memnova_page_id')
+    await page.getByRole('tab', { name: 'Flashcards', exact: true }).click()
+    await expect(page.getByRole('button', { name: 'Enable memorization', exact: true })).toBeEnabled()
+    expect(fs.readFileSync(owner, 'utf8')).toBe(saved)
+    await page.getByRole('tab', { name: 'Content', exact: true }).click()
+    await openCommandPalette(page); await executeCommand(page, 'Toggle Raw')
+    const raw = page.locator('.cm-content')
+    await expect(raw).toContainText('<!-- FLASHCARD:BACK -->')
+    await raw.fill(saved.replace('<!-- FLASHCARD:BACK -->', ''))
+    await page.keyboard.press('Meta+s')
+    await expect.poll(() => fs.readFileSync(owner, 'utf8')).not.toContain('<!-- FLASHCARD:BACK -->')
+    await openCommandPalette(page); await executeCommand(page, 'Toggle Raw')
+    await expect(page.locator('.bn-editor')).toContainText('Added ordinary text.')
+    await paragraph.click(); await page.keyboard.press('End'); await page.keyboard.insertText(' No marker should return.'); await page.keyboard.press('Meta+s')
+    await expect.poll(() => fs.readFileSync(owner, 'utf8')).toContain('No marker should return.')
+    expect(fs.readFileSync(owner, 'utf8')).not.toContain('<!-- FLASHCARD:BACK -->')
+  } finally { removeFixtureVaultCopy(root) }
 })

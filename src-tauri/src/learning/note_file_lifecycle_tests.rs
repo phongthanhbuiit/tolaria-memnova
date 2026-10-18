@@ -396,3 +396,34 @@ async fn externally_moved_pending_note_is_guarded_by_uuid_but_unrelated_note_can
     );
     assert!(!ordinary.exists());
 }
+
+#[test]
+fn m22_case_and_unicode_alias_renames_keep_bound_identity_and_schedule() {
+    let (directory, mut store) = enabled_fixture();
+    let binding = store.note_binding(&id(1)).unwrap().unwrap();
+    let before = store.get_card(&binding.card_id).unwrap().schedule;
+    let bytes = fs::read(directory.path().join("ordinary.md")).unwrap();
+    let mut path = directory.path().join("ordinary.md");
+    for stem in [
+        "Ordinary",
+        "mnemonic-nguồn",
+        "mnemonic-nguo\u{0302}\u{0300}n",
+    ] {
+        let args = serde_json::from_value(
+            serde_json::json!({"vaultPath":directory.path(),"oldPath":path,"newFilenameStem":stem}),
+        )
+        .unwrap();
+        let result = crate::commands::rename_note_filename(args).unwrap();
+        path = std::path::PathBuf::from(result.new_path);
+        store.sync_pages().unwrap();
+        let view = store.reconcile_note_memory(&id(1)).unwrap();
+        assert_eq!(
+            view.state,
+            super::note_lifecycle::NoteLearningState::Ready,
+            "{stem}"
+        );
+        assert_eq!(view.binding.unwrap().card_id, binding.card_id);
+        assert_eq!(store.get_card(&binding.card_id).unwrap().schedule, before);
+        assert_eq!(fs::read(&path).unwrap(), bytes);
+    }
+}

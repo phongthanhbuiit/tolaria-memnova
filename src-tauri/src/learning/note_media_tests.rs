@@ -120,3 +120,22 @@ fn portable_canvas_asset_uri_rejects_private_traversal_authority_and_encoded_sep
         );
     }
 }
+
+#[test]
+fn m22_media_examples_in_indented_code_are_not_required_assets_but_list_images_remain_live() {
+    for (source, expected) in [
+        (
+            "    ![code](missing.png)\n\t![tabbed](also-missing.png)\n",
+            vec![],
+        ),
+        (
+            "Paragraph\n    ![continuation](live.png)\n",
+            vec!["live.png"],
+        ),
+        ("- Item\n\n    ![list](live.png)\n", vec!["live.png"]),
+        ("- Item\n\n      ![list code](missing.png)\n", vec![]),
+        ("```txt\nliteral\n```\n    ![code](missing.png)\n", vec![]),
+    ] {
+        assert_eq!(media_sources(source).unwrap(), expected, "{source}");
+    }
+}

@@ -175,8 +175,14 @@ impl Store {
         }
         let (metadata, _) = legacy_markdown::frontmatter(&source)?;
         let owned = legacy_markdown::page_id(&metadata)?;
-        if owned.is_some() {
-            self.sync_pages()?;
+        if let Some(id) = owned.as_deref() {
+            let catalog = super::page_sources::SourceCatalog::scan(&self.root)?;
+            if !catalog.matches(id, relative) {
+                return Err(
+                    "Duplicate lesson identities; resolve the copied page before continuing".into(),
+                );
+            }
+            self.sync_pages_from_sources(&catalog.sources)?;
         }
         let title = legacy_markdown::title(&metadata, &source, relative);
         let id = owned

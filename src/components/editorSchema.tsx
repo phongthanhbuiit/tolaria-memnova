@@ -24,6 +24,7 @@ import { MERMAID_BLOCK_TYPE, mermaidFenceSource } from '../utils/mermaidMarkdown
 import { TLDRAW_BLOCK_TYPE, TLDRAW_DEFAULT_HEIGHT } from '../utils/tldrawMarkdown'
 import type { VaultEntry } from '../types'
 import { createTolariaCodeBlockOptions } from './codeBlockOptions'
+import { literalNoteMarkerBlock } from './literalNoteMarkerBlock'
 import { NoteTitleIcon } from './NoteTitleIcon'
 import { MermaidDiagram } from './MermaidDiagram'
 import { SafeHtmlSpan } from './SafeMarkup'
@@ -407,6 +408,7 @@ export const schema = BlockNoteSchema.create({
 }).extend({
   blockSpecs: {
     audio: audioBlock,
+    literalNoteMarker: literalNoteMarkerBlock,
     mathBlock,
     mermaidBlock,
     tldrawBlock,

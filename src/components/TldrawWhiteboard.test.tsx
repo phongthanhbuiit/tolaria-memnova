@@ -431,3 +431,30 @@ it('captures an immediate save even before tldraw delivers its buffered document
   expect(JSON.parse(onSnapshotChange.mock.calls[0][0]).records['shape:buffered'].text).toBe('must save now')
   view.unmount()
 })
+
+it.each(['cancel', 'unmount'])('discards resize listeners on %s without a late dimension write', async action => {
+  const onSizeChange = vi.fn()
+  const view = await renderWhiteboard({ onSizeChange })
+  fireEvent(screen.getByRole('button', { name: 'Resize whiteboard width', exact: true }), new MouseEvent('pointerdown', { bubbles: true, clientX: 100, clientY: 100 }))
+  if (action === 'cancel') fireEvent(window, new MouseEvent('pointercancel'))
+  else view.unmount()
+  fireEvent(window, new MouseEvent('pointermove', { clientX: 160, clientY: 100 }))
+  fireEvent(window, new MouseEvent('pointerup', { clientX: 160, clientY: 100 }))
+  expect(onSizeChange).not.toHaveBeenCalled()
+  if (action === 'cancel') view.unmount()
+})
+
+it('converts automatic canvas width to document pixels before keyboard resizing at app zoom', async () => {
+  const onSizeChange = vi.fn()
+  const readStyle = document.documentElement.style.getPropertyValue.bind(document.documentElement.style)
+  const zoomRead = vi.spyOn(document.documentElement.style, 'getPropertyValue').mockImplementation(name => name === 'zoom' ? '150%' : readStyle(name))
+  try {
+    const view = await renderWhiteboard({ width: '', height: '520', onSizeChange })
+    const board = view.container.querySelector('.tldraw-whiteboard')!
+    const measurement = vi.spyOn(board, 'getBoundingClientRect').mockReturnValue(new DOMRect(0, 0, 900, 780))
+    fireEvent.keyDown(screen.getByRole('button', { name: 'Resize whiteboard width', exact: true }), { key: 'ArrowRight' })
+    expect(onSizeChange).toHaveBeenCalledWith({ width: '608', height: '520' })
+    measurement.mockRestore()
+    view.unmount()
+  } finally { zoomRead.mockRestore() }
+})

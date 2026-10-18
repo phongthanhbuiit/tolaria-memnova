@@ -117,3 +117,26 @@ test('editable canvas keeps its saved width through fullscreen and supports keyb
   await expect(vocabulary).toBeFocused()
   await expect(page.getByRole('textbox', { name: 'Search vocabulary…', exact: true })).toBeHidden()
 })
+
+test('pointer resizing follows physical drag distance at application zoom', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 })
+  await page.goto('/tests/fixtures/note-memory-layout.html')
+  await page.getByRole('button', { name: 'Study', exact: true }).waitFor()
+  for (const zoom of [100, 125, 150]) {
+    await page.evaluate(zoom => {
+      document.documentElement.style.zoom = `${zoom}%`
+      document.documentElement.style.setProperty('--tolaria-overlay-zoom-factor', String(zoom / 100))
+      document.documentElement.style.setProperty('--tolaria-overlay-zoom-inverse', String(100 / zoom))
+      window.setNoteLayoutCase?.({ surface: 'whiteboard', locale: 'en', theme: 'light' })
+    }, zoom)
+    const board = page.locator('.tldraw-whiteboard')
+    await expect(board.locator('.tl-container')).toBeVisible()
+    const before = await board.evaluate(element => element.getBoundingClientRect().width)
+    const resize = await page.getByRole('button', { name: 'Resize whiteboard width', exact: true }).boundingBox()
+    expect(resize).not.toBeNull()
+    const x = resize!.x + resize!.width / 2, y = resize!.y + resize!.height / 2
+    await page.mouse.move(x, y); await page.mouse.down(); await page.mouse.move(x + 40, y); await page.mouse.up()
+    await expect.poll(() => board.evaluate(element => element.getBoundingClientRect().width)).toBeGreaterThan(before)
+    expect(Math.abs(await board.evaluate(element => element.getBoundingClientRect().width) - before - 40)).toBeLessThanOrEqual(1.5)
+  }
+})

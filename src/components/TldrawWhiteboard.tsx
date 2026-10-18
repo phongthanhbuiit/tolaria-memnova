@@ -510,8 +510,10 @@ export function TldrawWhiteboard({
   const documentState = useWhiteboardDocument({ store,snapshot,readOnly,documentScope,blockId,onSnapshotChange })
   const [copyFailed,setCopyFailed] = useState(false)
   const persistedSize = useMemo(() => normalizeSize({ height, width }), [height, width])
-  const [resizingSize, setResizingSize] = useState<PixelSize | null>(null)
-  const visibleSize = resizingSize ?? persistedSize
+  const [resizePreview, setResizePreview] = useState<{ lifecycle: typeof lifecycle; size: PixelSize } | null>(null)
+  const resizeCleanupRef = useRef<(() => void) | null>(null)
+  useEffect(() => () => { resizeCleanupRef.current?.() }, [lifecycle])
+  const visibleSize = resizePreview?.lifecycle === lifecycle ? resizePreview.size : persistedSize
   const { fullscreen, toggleFullscreen } = useFullscreenWhiteboard()
   const locale = useDocumentLocale()
   const fullscreenLabel = translate(
@@ -559,38 +561,48 @@ export function TldrawWhiteboard({
   const startResize = (mode: ResizeMode) => (event: ReactPointerEvent<HTMLButtonElement>) => {
     event.preventDefault()
     event.stopPropagation()
+    resizeCleanupRef.current?.()
 
     const rect = boardRef.current?.getBoundingClientRect()
+    const zoom = documentZoom()
     const start: ResizeStart = {
       height: visibleSize.height,
       pointerX: event.clientX,
       pointerY: event.clientY,
-      width: visibleSize.width ?? rect?.width ?? MIN_WIDTH,
+      width: visibleSize.width ?? (rect ? rect.width / zoom : MIN_WIDTH),
     }
 
     const onPointerMove = (moveEvent: PointerEvent) => {
       const nextSize = {
-        height: mode === 'width' ? start.height : start.height + moveEvent.clientY - start.pointerY,
-        width: mode === 'height' ? visibleSize.width : start.width + moveEvent.clientX - start.pointerX,
+        height: mode === 'width' ? start.height : start.height + (moveEvent.clientY - start.pointerY) / zoom,
+        width: mode === 'height' ? visibleSize.width : start.width + (moveEvent.clientX - start.pointerX) / zoom,
       }
-      setResizingSize(normalizeSize(sizeToProps(nextSize)))
+      if (lifecycle.isActive()) setResizePreview({ lifecycle, size: normalizeSize(sizeToProps(nextSize)) })
     }
 
     const onPointerUp = (upEvent: PointerEvent) => {
-      window.removeEventListener('pointermove', onPointerMove)
-      window.removeEventListener('pointerup', onPointerUp)
-
+      cleanup()
+      if (!lifecycle.isActive()) return
       const finalSize = {
-        height: mode === 'width' ? start.height : start.height + upEvent.clientY - start.pointerY,
-        width: mode === 'height' ? visibleSize.width : start.width + upEvent.clientX - start.pointerX,
+        height: mode === 'width' ? start.height : start.height + (upEvent.clientY - start.pointerY) / zoom,
+        width: mode === 'height' ? visibleSize.width : start.width + (upEvent.clientX - start.pointerX) / zoom,
       }
       const nextProps = sizeToProps(normalizeSize(sizeToProps(finalSize)))
-      setResizingSize(null)
+      setResizePreview(null)
       onSizeChange(nextProps)
     }
 
+    const onPointerCancel = () => { cleanup(); if (lifecycle.isActive()) setResizePreview(null) }
+    const cleanup = () => {
+      window.removeEventListener('pointermove', onPointerMove)
+      window.removeEventListener('pointerup', onPointerUp)
+      window.removeEventListener('pointercancel', onPointerCancel)
+      if (resizeCleanupRef.current === cleanup) resizeCleanupRef.current = null
+    }
+    resizeCleanupRef.current = cleanup
     window.addEventListener('pointermove', onPointerMove)
     window.addEventListener('pointerup', onPointerUp, { once: true })
+    window.addEventListener('pointercancel', onPointerCancel, { once: true })
   }
 
   const resizeWithKeys = (mode: ResizeMode) => (event: ReactKeyboardEvent<HTMLButtonElement>) => {
@@ -600,7 +612,9 @@ export function TldrawWhiteboard({
     if ((!horizontal || mode === 'height') && (!vertical || mode === 'width')) return
     event.preventDefault(); event.stopPropagation()
     const step = event.shiftKey ? 40 : 8
-    const width = mode === 'height' ? visibleSize.width : (visibleSize.width ?? boardRef.current?.getBoundingClientRect().width ?? MIN_WIDTH) + horizontal * step
+    const measuredWidth = boardRef.current?.getBoundingClientRect().width
+    const widthBasis = visibleSize.width ?? (measuredWidth === undefined ? MIN_WIDTH : measuredWidth / documentZoom())
+    const width = mode === 'height' ? visibleSize.width : widthBasis + horizontal * step
     const height = mode === 'width' ? visibleSize.height : visibleSize.height + vertical * step
     onSizeChange(sizeToProps(normalizeSize(sizeToProps({ width, height }))))
   }

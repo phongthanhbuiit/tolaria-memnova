@@ -105,11 +105,21 @@ pub(super) fn register_page_in(
         .query_row("SELECT path FROM pages WHERE id=?1", [id], |row| row.get(0))
         .optional()
         .map_err(|e| e.to_string())?;
-    if previous
+    if let Some(old) = previous
         .as_deref()
-        .is_some_and(|old| old != path && root.join(old).exists())
+        .filter(|old| *old != path && root.join(old).exists())
     {
-        return Err("Duplicate page identity: the original page still exists".into());
+        let previous_file = root
+            .join(old)
+            .canonicalize()
+            .map_err(|error| error.to_string())?;
+        let current_file = root
+            .join(path)
+            .canonicalize()
+            .map_err(|error| error.to_string())?;
+        if previous_file != current_file {
+            return Err("Duplicate page identity: the original page still exists".into());
+        }
     }
     transaction.execute("INSERT INTO pages(id,path,title) VALUES(?1,?2,?3) ON CONFLICT(id) DO UPDATE SET path=excluded.path,title=excluded.title,deleted_at=NULL", (id,path,title)).map_err(|e| e.to_string())?;
     Ok(())

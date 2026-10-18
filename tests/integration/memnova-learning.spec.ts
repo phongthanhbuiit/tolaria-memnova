@@ -2,36 +2,43 @@ import { test, expect, type Page } from '@playwright/test'
 
 test.setTimeout(60_000)
 
+// Retained-card fixtures use the existing API; the default note UI intentionally has no Add/Clone action.
+import { createFixtureVaultCopy, openFixtureVault, removeFixtureVaultCopy } from '../helpers/fixtureVault'
+const libraries = new WeakMap<Page, string>()
+test.beforeEach(async ({ page }) => {
+  const root = createFixtureVaultCopy()
+  libraries.set(page, root)
+  await openFixtureVault(page, root, { preserveLearningState: true })
+})
+test.afterEach(async ({ page }) => { removeFixtureVaultCopy(libraries.get(page)); libraries.delete(page) })
+
 async function openLesson(page: Page) {
-  await page.addInitScript(() => {
-    localStorage.setItem('tolaria:ai-agents-onboarding-dismissed', '1')
-    localStorage.setItem('tolaria:claude-code-onboarding-dismissed', '1')
-  })
-  await page.goto('/')
-  const later = page.getByRole('button', { name: 'Set up later', exact: true })
-  await later.or(page.getByRole('button', { name: 'Home', exact: true })).first().waitFor({ state: 'visible' })
-  if (await later.isVisible()) await later.click()
-  await page.getByRole('listbox', { name: 'Notes', exact: true }).getByText('Build Laputa App', { exact: true }).click()
+  await page.getByRole('button', { name: /^All Notes/ }).click()
+  await page.getByTestId('note-list-container').getByText('Alpha Project', { exact: true }).click()
   await page.getByRole('tab', { name: 'Flashcards', exact: true }).click()
-  await expect(page.getByRole('button', { name: 'Add card', exact: true })).toBeEnabled()
+  const retained = page.getByRole('button', { name: /^Old cards \(\d+\)$/ })
+  if (await retained.count() && await retained.getAttribute('aria-expanded') !== 'true') await retained.click()
+  await expect(page.getByRole('button', { name: 'Add card', exact: true })).toHaveCount(0)
 }
 async function addCard(page: Page, question: string, wholePage = false) {
-  await page.getByRole('button', { name: 'Add card', exact: true }).click()
-  const dialog = page.getByRole('dialog')
-  await dialog.getByRole('textbox', { name: 'Question', exact: true }).fill(question)
-  if (wholePage) { await dialog.getByRole('combobox', { name: 'Answer type' }).click(); await page.getByRole('option', { name: 'Use current page' }).click() }
-  else await dialog.getByRole('textbox', { name: 'Answer', exact: true }).fill('An independently saved answer')
-  await dialog.getByRole('combobox', { name: 'Status', exact: true }).click()
-  await page.getByRole('option', { name: 'Active', exact: true }).click()
-  await dialog.getByRole('button', { name: 'Save', exact: true }).click()
-  await expect(dialog).toBeHidden()
+  const id = await page.evaluate(async ({ root, question, wholePage }) => {
+    const modulePath = '/src/lib/learning/client.ts'
+    const { LearningClient } = await import(modulePath)
+    const client = await LearningClient.connect(root)
+    const owner = await client.ensurePage('project/alpha-project.md')
+    const card = await client.createCard(owner.id, { front: question, back: wholePage ? '' : 'An independently saved answer', answerMode: wholePage ? 'page' : 'inline', answerPageId: wholePage ? owner.id : null, status: 'active', position: (await client.listCards(owner.id)).length, properties: {} })
+    return card.id as string
+  }, { root: libraries.get(page)!, question, wholePage })
+  await page.reload()
+  await openLesson(page)
+  return id
 }
 
 test('one lesson owns independent cards, a live page answer, resumable waiting and undo', async ({ page }) => {
   await openLesson(page)
   await addCard(page, 'First independent question')
   await addCard(page, 'Recall the complete lesson', true)
-  const cards = page.getByRole('tabpanel', { name: 'Flashcards', exact: true })
+  const cards = page.getByRole('region', { name: 'Flashcards', exact: true })
   await expect(cards.getByRole('button', { name: 'First independent question', exact: true })).toBeVisible()
   await expect(cards.getByRole('button', { name: 'Recall the complete lesson', exact: true })).toBeVisible()
   await cards.getByRole('button', { name: 'Study', exact: true }).click()
@@ -42,7 +49,7 @@ test('one lesson owns independent cards, a live page answer, resumable waiting a
   await study.getByRole('button', { name: /^Again/ }).click()
   await expect(study.getByText('Recall the complete lesson', { exact: true })).toBeVisible()
   await study.getByRole('button', { name: 'Show answer', exact: true }).click()
-  await expect(study.getByRole('heading', { name: 'Text Formatting', exact: true })).toBeVisible()
+  await expect(study.getByText('This is a test project that references other notes.', { exact: true })).toBeVisible()
   await study.getByRole('button', { name: /^Easy/ }).click()
   await expect(study.getByText('Waiting for the next learning step')).toBeVisible()
   await expect(study.getByRole('heading', { name: 'Done', exact: true })).toHaveCount(0)
@@ -52,7 +59,7 @@ test('one lesson owns independent cards, a live page answer, resumable waiting a
   await expect(study).toBeHidden()
   await page.reload()
   await openLesson(page)
-  await page.getByRole('tabpanel', { name: 'Flashcards', exact: true }).getByRole('button', { name: 'Study', exact: true }).click()
+  await page.getByRole('region', { name: 'Flashcards', exact: true }).getByRole('button', { name: 'Study', exact: true }).click()
   await expect(study.getByText('Recall the complete lesson', { exact: true })).toBeVisible()
   await study.getByRole('button', { name: 'Show answer', exact: true }).focus()
   await page.keyboard.press('Space')
@@ -61,12 +68,19 @@ test('one lesson owns independent cards, a live page answer, resumable waiting a
   await expect(study.getByText('Waiting for the next learning step')).toBeVisible()
 })
 
-test('card lifecycle actions preserve the lesson and support clone, suspension and trash recovery', async ({ page }) => {
+test('retained clones remain editable and suspension and trash recovery preserve the lesson', async ({ page }) => {
   await openLesson(page)
-  await addCard(page, 'Lifecycle question')
-  const cards = page.getByRole('tabpanel', { name: 'Flashcards', exact: true })
+  const originalId = await addCard(page, 'Lifecycle question')
+  const cards = page.getByRole('region', { name: 'Flashcards', exact: true })
   const original = cards.getByRole('article').filter({ has: page.getByRole('button', { name: 'Lifecycle question', exact: true }) }).first()
-  await original.getByRole('button', { name: 'Clone', exact: true }).click()
+  await expect(cards.getByRole('button', { name: 'Clone', exact: true })).toHaveCount(0)
+  await page.evaluate(async ({ root, originalId }) => {
+    const modulePath = '/src/lib/learning/client.ts'
+    const { LearningClient } = await import(modulePath)
+    await (await LearningClient.connect(root)).cloneCard(originalId)
+  }, { root: libraries.get(page)!, originalId })
+  await page.reload(); await openLesson(page)
+  await cards.getByRole('button', { name: 'Lifecycle question', exact: true }).nth(1).click()
   await page.getByRole('dialog').getByRole('textbox', { name: 'Question', exact: true }).fill('Cloned draft question')
   await page.getByRole('dialog').getByRole('button', { name: 'Save', exact: true }).click()
   await expect(cards.getByRole('button', { name: 'Cloned draft question', exact: true })).toBeVisible()
@@ -81,13 +95,13 @@ test('card lifecycle actions preserve the lesson and support clone, suspension a
   await page.getByRole('option', { name: 'All', exact: true }).click()
   await expect(cards.getByRole('button', { name: 'Lifecycle question', exact: true })).toBeVisible()
   await page.getByRole('tab', { name: 'Content', exact: true }).click()
-  await expect(page.getByRole('heading', { name: 'Build Laputa App', exact: true })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Alpha Project', exact: true })).toBeVisible()
 })
 
 test('study controls remain visible and usable in a compact window', async ({ page }, testInfo) => {
   await openLesson(page)
   await addCard(page, 'Compact study question')
-  await page.getByRole('tabpanel', { name: 'Flashcards', exact: true }).getByRole('button', { name: 'Study', exact: true }).click()
+  await page.getByRole('region', { name: 'Flashcards', exact: true }).getByRole('button', { name: 'Study', exact: true }).click()
   await page.setViewportSize({ width: 480, height: 800 })
   const dialog = page.getByRole('dialog')
   await dialog.getByRole('button', { name: 'Show answer', exact: true }).click()
@@ -107,7 +121,8 @@ test('study controls remain visible and usable in a compact window', async ({ pa
 
 test('card form keeps actions visible with long vocabulary content in a compact window', async ({ page }, testInfo) => {
   await openLesson(page)
-  await page.getByRole('button', { name: 'Add card', exact: true }).click()
+  await addCard(page, 'Existing vocabulary question')
+  await page.getByRole('button', { name: 'Existing vocabulary question', exact: true }).click()
   const dialog = page.getByRole('dialog')
   await dialog.getByRole('textbox', { name: 'Question', exact: true }).fill('LongQuestion'.repeat(35))
   await dialog.getByRole('textbox', { name: 'Answer', exact: true }).fill('Answer kept when switching modes')
@@ -144,7 +159,7 @@ test('backup catalog survives reload and requires verification before restore', 
   await panel.getByRole('button', { name: 'Verify backup', exact: true }).click()
   await expect(panel.getByRole('button', { name: 'Restore backup', exact: true })).toBeEnabled()
   await page.reload()
-  await page.getByRole('listbox', { name: 'Notes', exact: true }).getByText('Build Laputa App', { exact: true }).waitFor({ state: 'visible' })
+  await page.getByTestId('note-list-container').getByText('Alpha Project', { exact: true }).waitFor({ state: 'visible' })
   await page.getByRole('button', { name: 'Home', exact: true }).click()
   await page.getByRole('button', { name: 'Advanced', exact: true }).click()
   await expect(panel.getByRole('combobox', { name: 'Backup history', exact: true })).toHaveText(choice)

@@ -11,6 +11,7 @@ import {
   preProcessFileAttachmentMarkdown,
   serializeFileAttachmentBlocks,
 } from './fileAttachmentMarkdown'
+import { literalNoteMarkerCodec, preProcessLiteralNoteMarkers } from './literalNoteMarker'
 import { serializeMathAwareBlocks } from './mathMarkdown'
 import { mermaidMarkdownCodec } from './mermaidMarkdown'
 import { tldrawMarkdownCodec } from './tldrawMarkdown'
@@ -18,11 +19,12 @@ import { tldrawMarkdownCodec } from './tldrawMarkdown'
 const EDITOR_DURABLE_MARKDOWN_CODECS = [
   mermaidMarkdownCodec,
   tldrawMarkdownCodec,
+  literalNoteMarkerCodec,
 ] as const
 
 export function preProcessDurableEditorMarkdown({ markdown }: { markdown: string }): string {
   const withDurableBlocks = preProcessDurableMarkdownBlocks({
-    markdown,
+    markdown: preProcessLiteralNoteMarkers(markdown),
     codecs: EDITOR_DURABLE_MARKDOWN_CODECS,
   })
   return preProcessFileAttachmentMarkdown({ markdown: withDurableBlocks })
