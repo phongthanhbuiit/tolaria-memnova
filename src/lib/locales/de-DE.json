@@ -976,5 +976,9 @@
   "editor.whiteboard.resizeWidth": "Breite der Zeichenfläche ändern",
   "editor.whiteboard.resizeHeight": "Höhe der Zeichenfläche ändern",
   "editor.whiteboard.resizeBoth": "Größe der Zeichenfläche ändern",
-  "editor.whiteboard.resizeHelp": "Mit den Pfeiltasten die Größe ändern. Für größere Schritte die Umschalttaste gedrückt halten."
+  "editor.whiteboard.resizeHelp": "Mit den Pfeiltasten die Größe ändern. Für größere Schritte die Umschalttaste gedrückt halten.",
+  "save.close.saving": "Speichern vor dem Schließen…",
+  "save.close.wait": "Bitte warte, bis deine letzten Änderungen gespeichert sind.",
+  "save.close.failed": "Sicheres Schließen nicht möglich",
+  "save.close.retained": "Deine Änderungen bleiben geöffnet. Behebe den Speicherfehler und versuche es erneut."
 }

@@ -976,5 +976,9 @@
   "editor.whiteboard.resizeWidth": "Ubah lebar papan gambar",
   "editor.whiteboard.resizeHeight": "Ubah tinggi papan gambar",
   "editor.whiteboard.resizeBoth": "Ubah ukuran papan gambar",
-  "editor.whiteboard.resizeHelp": "Gunakan tombol panah untuk mengubah ukuran. Tahan Shift untuk langkah lebih besar."
+  "editor.whiteboard.resizeHelp": "Gunakan tombol panah untuk mengubah ukuran. Tahan Shift untuk langkah lebih besar.",
+  "save.close.saving": "Menyimpan sebelum menutup…",
+  "save.close.wait": "Tunggu hingga perubahan terbaru Anda tersimpan.",
+  "save.close.failed": "Belum dapat ditutup dengan aman",
+  "save.close.retained": "Perubahan Anda tetap terbuka. Perbaiki kesalahan penyimpanan, lalu coba lagi."
 }

@@ -976,5 +976,9 @@
   "editor.whiteboard.resizeWidth": "Изменить ширину доски",
   "editor.whiteboard.resizeHeight": "Изменить высоту доски",
   "editor.whiteboard.resizeBoth": "Изменить размер доски",
-  "editor.whiteboard.resizeHelp": "Меняйте размер стрелками. Удерживайте Shift для большего шага."
+  "editor.whiteboard.resizeHelp": "Меняйте размер стрелками. Удерживайте Shift для большего шага.",
+  "save.close.saving": "Сохранение перед закрытием…",
+  "save.close.wait": "Дождитесь сохранения последних изменений.",
+  "save.close.failed": "Безопасное закрытие невозможно",
+  "save.close.retained": "Изменения остаются в открытом окне. Устраните ошибку сохранения и повторите попытку."
 }

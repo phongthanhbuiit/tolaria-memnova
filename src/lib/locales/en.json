@@ -976,5 +976,9 @@
   "editor.whiteboard.resizeWidth": "Resize whiteboard width",
   "editor.whiteboard.resizeHeight": "Resize whiteboard height",
   "editor.whiteboard.resizeBoth": "Resize whiteboard",
-  "editor.whiteboard.resizeHelp": "Use arrow keys to resize. Hold Shift for larger steps."
+  "editor.whiteboard.resizeHelp": "Use arrow keys to resize. Hold Shift for larger steps.",
+  "save.close.saving": "Saving before closing…",
+  "save.close.wait": "Please wait while your latest edits are saved.",
+  "save.close.failed": "Could not close safely",
+  "save.close.retained": "Your edits remain open. Fix the save error, then retry."
 }

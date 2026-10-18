@@ -976,5 +976,9 @@
   "editor.whiteboard.resizeWidth": "调整画板宽度",
   "editor.whiteboard.resizeHeight": "调整画板高度",
   "editor.whiteboard.resizeBoth": "调整画板大小",
-  "editor.whiteboard.resizeHelp": "使用方向键调整大小。按住 Shift 可增大步幅。"
+  "editor.whiteboard.resizeHelp": "使用方向键调整大小。按住 Shift 可增大步幅。",
+  "save.close.saving": "正在保存后关闭…",
+  "save.close.wait": "请稍候，正在保存您的最新更改。",
+  "save.close.failed": "暂时无法安全关闭",
+  "save.close.retained": "您的更改仍保留在窗口中。请解决保存错误后重试。"
 }

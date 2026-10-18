@@ -11,8 +11,8 @@ use std::{
 use tauri::{menu::MenuEvent, Manager};
 use tauri::{
     menu::{
-        MenuBuilder, MenuItem, MenuItemBuilder, MenuItemKind, Submenu, SubmenuBuilder,
-        WINDOW_SUBMENU_ID,
+        MenuBuilder, MenuItem, MenuItemBuilder, MenuItemKind, PredefinedMenuItem, Submenu,
+        SubmenuBuilder, WINDOW_SUBMENU_ID,
     },
     App, AppHandle, Emitter,
 };
@@ -326,7 +326,13 @@ fn build_app_menu(app: &App) -> MenuResult {
             .separator();
     }
 
-    Ok(builder.quit().build()?)
+    // macOS's predefined Quit invokes NSApp.terminate directly, bypassing ExitRequested.
+    // Preserve its platform label, but dispatch through the asynchronous note-close barrier.
+    let quit_label = PredefinedMenuItem::quit(app, None)?.text()?;
+    let quit = MenuItemBuilder::with_id("app-quit", quit_label)
+        .accelerator("CmdOrCtrl+Q")
+        .build(app)?;
+    Ok(builder.item(&quit).build()?)
 }
 
 fn build_file_menu(app: &App) -> MenuResult {
@@ -458,6 +464,10 @@ fn emitted_menu_event_id(id: &str) -> Option<&'static str> {
 }
 
 pub fn emit_custom_menu_event(app_handle: &AppHandle, id: &str) -> Result<(), String> {
+    if id == "app-quit" {
+        app_handle.exit(0);
+        return Ok(());
+    }
     if !custom_menu_ids().contains(id) {
         return Err(format!("Unknown custom menu event: {id}"));
     }

@@ -976,5 +976,9 @@
   "editor.whiteboard.resizeWidth": "Zmianić šyryniu doški",
   "editor.whiteboard.resizeHeight": "Zmianić vyšyniu doški",
   "editor.whiteboard.resizeBoth": "Zmianić pamier doški",
-  "editor.whiteboard.resizeHelp": "Zmianiajcie pamier strelkami. Utrymlivajcie Shift dlia boĺšaha kroku."
+  "editor.whiteboard.resizeHelp": "Zmianiajcie pamier strelkami. Utrymlivajcie Shift dlia boĺšaha kroku.",
+  "save.close.saving": "Zachavańnie pierad zakryćciom…",
+  "save.close.wait": "Pačakajcie, pakuĺ zachavajucca apošnija źmieny.",
+  "save.close.failed": "Niemahčyma biaśpiečna zakryć",
+  "save.close.retained": "Źmieny zastajucca ŭ adkrytym aknie. Vypraŭcie pamyłku zachavańnia i pasprabujcie znoŭ."
 }

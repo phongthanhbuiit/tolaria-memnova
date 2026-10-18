@@ -976,5 +976,9 @@
   "editor.whiteboard.resizeWidth": "Đổi chiều rộng bảng vẽ",
   "editor.whiteboard.resizeHeight": "Đổi chiều cao bảng vẽ",
   "editor.whiteboard.resizeBoth": "Đổi kích thước bảng vẽ",
-  "editor.whiteboard.resizeHelp": "Dùng phím mũi tên để đổi kích thước. Giữ Shift để đổi nhanh hơn."
+  "editor.whiteboard.resizeHelp": "Dùng phím mũi tên để đổi kích thước. Giữ Shift để đổi nhanh hơn.",
+  "save.close.saving": "Đang lưu trước khi đóng…",
+  "save.close.wait": "Vui lòng đợi lưu xong những thay đổi mới nhất.",
+  "save.close.failed": "Chưa thể đóng an toàn",
+  "save.close.retained": "Các thay đổi vẫn được giữ trong cửa sổ. Hãy khắc phục lỗi lưu rồi thử lại."
 }

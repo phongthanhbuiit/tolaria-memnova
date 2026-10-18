@@ -2,7 +2,7 @@
 
 Plan: [nghiệp vụ và dữ liệu](MEMNOVA-NOTE-MEMORY-PLAN.md). Task: [M00 đến M25](MEMNOVA-NOTE-MEMORY-TASKS.md).
 
-Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. DONE bên dưới ghi checkpoint phạm vi task đã push, không có nghĩa toàn bộ nghiệp vụ đã mở cho người dùng. M19–M25 vẫn chưa hoàn tất. Các điều kiện nghiệm thu cần tích hợp lại (đặc biệt watcher M05 và inactive properties M18) được ghi trong [kiểm toán hiện tại](baselines/2026-10-19-note-memory-task-audit.md); không tính chúng là đã qua nghiệm thu toàn luồng. VERIFIED_LOCAL chưa phải hoàn tất hoặc đã phát hành.
+Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. DONE bên dưới ghi checkpoint phạm vi task đã push, không có nghĩa toàn bộ nghiệp vụ đã mở cho người dùng. M23–M25 vẫn chưa hoàn tất. Các điều kiện nghiệm thu cần tích hợp lại (đặc biệt watcher M05 và inactive properties M18) được ghi trong [kiểm toán hiện tại](baselines/2026-10-19-note-memory-task-audit.md); không tính chúng là đã qua nghiệm thu toàn luồng. VERIFIED_LOCAL chưa phải hoàn tất hoặc đã phát hành.
 
 | Task | Trạng thái | Commit đã push | Bằng chứng và giới hạn |
 |---|---|---|---|
@@ -25,11 +25,11 @@ Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. DONE bên d
 | M16 | DONE | 81bce958,a1cededc | Read-only native source preview; explicit guarded registration/config queue. 5 real IPC cases; UI pre-commit305 tests/32files and browser9.7s; 18locales/957keys. Native checkpoint completed; normal batch push c8c71603 passed. |
 | M17 | DONE | b27e1144 | 11 native lifecycle cases,44 focused frontend; normal pre-commit4797 frontend/464files,1210Rust/3ignored, browser9.8s; normal batch push c8c71603 passed. |
 | M18 | DONE | 678c5826,c8c71603 | Canonical property writes, readonly schedule/raw metadata;4816frontend/1216Rust verified hook; actual native property/width/two-face/source Cancel/link/inline/restart proof,419 vault tests. Normal batch push c8c71603 passed. |
-| M19 | VERIFIED_LOCAL | fa3934f4 (local) | 65module tests8.05s; normal hook305tests/39files,3browser7.1s,18locales/962keys; M22 baseline integration issue explicitly retained. Batch push follows M22. |
-| M20 | VERIFIED_LOCAL | d76f7d99,679f3c05,1e3514e1 (local) | Default note/legacy workspace, opt-in controls, scoped properties, conversion/recovery and startup backup reader implemented. Normal final hook4861frontend/481files,1228Rust/3ignored pass;274module frontend,206learning Rust,3real startup recovery,4browser12.9s pass. No normal push/native end-to-end yet; M21–M25 remain. |
-| M21 | VERIFIED_LOCAL | 9baccd37 (local) | Normal hook4864frontend/481files133.99s;4browser59.0s including378layout cases and canvas keyboard/fullscreen;978keys/18catalogs. CodeScene NOT RUN. Batch push pending M22. |
-| M22 | VERIFIED_LOCAL | 98ea525d,6ea806a8 (local) | Final normal hook368frontend/49files26.50s,213native15.31s,12browser1.8m passed;244native learning/IPC,15integration zero retries +4file-backed browser cases,lint/types/clippy/Codacy pass. Normal batch push pending; M23–M25 not run. |
-| M23 | NOT_STARTED | — | — |
+| M19 | DONE | fa3934f4; pushed35dfa19f | 65module tests8.05s; normal hook305tests/39files,3browser7.1s,18locales/962keys; M22 baseline integration issue explicitly retained. Normal batch pushed35dfa19f; full gates below. |
+| M20 | DONE | d76f7d99,679f3c05,1e3514e1; pushed35dfa19f | Default note/legacy workspace, opt-in controls, scoped properties, conversion/recovery and startup backup reader implemented. Normal final hook4861frontend/481files,1228Rust/3ignored pass;274module frontend,206learning Rust,3real startup recovery,4browser12.9s pass. Normal batch pushed35dfa19f; native end-to-end M23–M25 remain. |
+| M21 | DONE | 9baccd37; pushed35dfa19f | Normal hook4864frontend/481files133.99s;4browser59.0s including378layout cases and canvas keyboard/fullscreen;978keys/18catalogs. CodeScene NOT RUN. Normal batch pushed35dfa19f. |
+| M22 | DONE | 98ea525d,6ea806a8; pushed35dfa19f | Final normal hook368frontend/49files26.50s,213native15.31s,12browser1.8m passed;244native learning/IPC,15integration zero retries +4file-backed browser cases,lint/types/clippy/Codacy pass. Normal batch pushed35dfa19f; M23–M25 not yet accepted. |
+| M23 | IN_PROGRESS | M22 pushed35dfa19f | Fresh isolated native build and ordinary/A4/canvas/quit/conversion/recovery/restore walkthrough pending. |
 | M24 | NOT_STARTED | — | — |
 | M25 | NOT_STARTED | — | — |
 
@@ -119,3 +119,7 @@ Xem [báo cáo audit tại checkpoint c8c71603](baselines/2026-10-19-note-memory
 Nguyên nhân kéo dài được xác nhận: implementation/integration còn thiếu, cộng với nhiều lần chạy full hook do IPC/shared CSS, push khoảng 9–10 phút và rebuild native sau khi tìm được regression. Ngoài ra sổ tiến độ có đoạn lỗi thời gây cảm giác quay lại task cũ. Không bỏ hook hoặc đổi tiêu chí nghiệm thu để gọi phần còn thiếu là hoàn tất.
 
 M19 normal verified commit fa3934f410309f81cf1bbacaca61a0970d244237:305related frontend/39files,3browser7.1s,lint/types/localization962keys passed. No hook bypass. Additional editor-resource case1pass645ms. Tree clean after commit; remote stillc8c71603 because the planned M19–M22 batch is not pushed yet. This is VERIFIED_LOCAL, not DONE or final release.
+
+## M19–M22 normal batch release
+
+Push35dfa19f succeeded8m53s:4871frontend/482files147.32s,87.33%lines/83.49%statements;1235Rustunit+1integration/3ignored;hook Rust87.69%lines with its existing exclusions.54core smoke4.6m;lint/types/build/clippy/format pass. CodeScene NOT RUN optional unavailable. Remote/localSHA match and tree/demo clean. M23 native final, M24 performance and M25 final unexcluded coverage/release remain required.

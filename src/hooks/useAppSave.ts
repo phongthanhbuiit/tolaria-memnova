@@ -556,7 +556,11 @@ function useFlushBeforeAction({
   return useCallback(async (path: string) => {
     const currentPath = resolveCurrentPath(path)
     if (!canPersist) {
-      if (unsavedPathsRef.current.has(currentPath)) setToastMessage(t('save.toast.missingActiveVault'))
+      if (unsavedPathsRef.current.has(currentPath)) {
+        const message = t('save.toast.missingActiveVault')
+        setToastMessage(message)
+        throw new Error(message)
+      }
       return
     }
     try {

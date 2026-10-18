@@ -976,5 +976,9 @@
   "editor.whiteboard.resizeWidth": "Modifier la largeur du tableau",
   "editor.whiteboard.resizeHeight": "Modifier la hauteur du tableau",
   "editor.whiteboard.resizeBoth": "Redimensionner le tableau",
-  "editor.whiteboard.resizeHelp": "Utilisez les flèches pour redimensionner. Maintenez Maj pour des pas plus grands."
+  "editor.whiteboard.resizeHelp": "Utilisez les flèches pour redimensionner. Maintenez Maj pour des pas plus grands.",
+  "save.close.saving": "Enregistrement avant fermeture…",
+  "save.close.wait": "Veuillez patienter pendant l’enregistrement de vos dernières modifications.",
+  "save.close.failed": "Fermeture impossible en toute sécurité",
+  "save.close.retained": "Vos modifications restent ouvertes. Corrigez l’erreur d’enregistrement, puis réessayez."
 }

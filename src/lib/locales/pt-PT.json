@@ -976,5 +976,9 @@
   "editor.whiteboard.resizeWidth": "Redimensionar a largura do quadro",
   "editor.whiteboard.resizeHeight": "Redimensionar a altura do quadro",
   "editor.whiteboard.resizeBoth": "Redimensionar o quadro",
-  "editor.whiteboard.resizeHelp": "Usa as setas para redimensionar. Mantém Shift premido para passos maiores."
+  "editor.whiteboard.resizeHelp": "Usa as setas para redimensionar. Mantém Shift premido para passos maiores.",
+  "save.close.saving": "A guardar antes de fechar…",
+  "save.close.wait": "Aguarde enquanto as últimas alterações são guardadas.",
+  "save.close.failed": "Não foi possível fechar em segurança",
+  "save.close.retained": "As alterações continuam abertas. Corrija o erro ao guardar e tente novamente."
 }

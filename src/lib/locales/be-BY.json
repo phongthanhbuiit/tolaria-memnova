@@ -976,5 +976,9 @@
   "editor.whiteboard.resizeWidth": "Змяніць шырыню дошкі",
   "editor.whiteboard.resizeHeight": "Змяніць вышыню дошкі",
   "editor.whiteboard.resizeBoth": "Змяніць памер дошкі",
-  "editor.whiteboard.resizeHelp": "Змяняйце памер стрэлкамі. Утрымлівайце Shift для большага кроку."
+  "editor.whiteboard.resizeHelp": "Змяняйце памер стрэлкамі. Утрымлівайце Shift для большага кроку.",
+  "save.close.saving": "Захаванне перад закрыццём…",
+  "save.close.wait": "Пачакайце, пакуль захаваюцца апошнія змены.",
+  "save.close.failed": "Немагчыма бяспечна закрыць",
+  "save.close.retained": "Змены застаюцца ў адкрытым акне. Выпраўце памылку захавання і паспрабуйце зноў."
 }

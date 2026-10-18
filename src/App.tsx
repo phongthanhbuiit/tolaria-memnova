@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { Sidebar } from './components/Sidebar'
+import { SaveBeforeCloseBoundary } from './components/SaveBeforeCloseBoundary'
+import { registerNoteCloseFlush } from './lib/noteCloseFlush'
 import { NoteList } from './components/NoteList'
 import { Editor } from './components/Editor'
 import { ResizeHandle } from './components/ResizeHandle'
@@ -166,9 +168,9 @@ function App() {
   const noteWindowParams = useMemo(() => isNoteWindow() ? getNoteWindowParams() : null, [])
   const aiWorkspaceWindow = useMemo(() => isAiWorkspaceWindow(), [])
 
-  if (aiWorkspaceWindow) return <AiWorkspaceWindowApp />
-
-  return <MainApp noteWindowParams={noteWindowParams} />
+  return <SaveBeforeCloseBoundary>{aiWorkspaceWindow
+    ? <AiWorkspaceWindowApp />
+    : <MainApp noteWindowParams={noteWindowParams} />}</SaveBeforeCloseBoundary>
 }
 
 function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | null }) {
@@ -713,9 +715,13 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
     onInternalVaultWrite: markRecentVaultWrite,
     locale: appLocale,
   })
-  useEffect(() => {
+  useLayoutEffect(() => {
     appSaveFlushBeforeActionRef.current = appSave.flushBeforeAction
   }, [appSave.flushBeforeAction])
+  useLayoutEffect(() => registerNoteCloseFlush(async () => {
+    const path = notes.activeTabPathRef.current
+    if (path) await flushEditorStateBeforeAction(path)
+  }), [resolvedPath, notes.activeTabPathRef, flushEditorStateBeforeAction])
 
   const handleChangeWorkspace = useCallback(async (entry: VaultEntry, workspace: WorkspaceIdentity) => {
     const sourceVaultPath = vaultPathForEntry(entry, resolvedPath)

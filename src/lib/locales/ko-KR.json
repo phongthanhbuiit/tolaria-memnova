@@ -976,5 +976,9 @@
   "editor.whiteboard.resizeWidth": "화이트보드 너비 조절",
   "editor.whiteboard.resizeHeight": "화이트보드 높이 조절",
   "editor.whiteboard.resizeBoth": "화이트보드 크기 조절",
-  "editor.whiteboard.resizeHelp": "화살표 키로 크기를 조절하세요. Shift를 누르면 더 크게 조절됩니다."
+  "editor.whiteboard.resizeHelp": "화살표 키로 크기를 조절하세요. Shift를 누르면 더 크게 조절됩니다.",
+  "save.close.saving": "닫기 전에 저장 중…",
+  "save.close.wait": "최근 변경 사항이 저장될 때까지 기다려 주세요.",
+  "save.close.failed": "안전하게 닫을 수 없습니다",
+  "save.close.retained": "변경 사항이 창에 유지됩니다. 저장 오류를 해결한 다음 다시 시도하세요."
 }

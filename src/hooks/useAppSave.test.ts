@@ -227,6 +227,14 @@ describe('useAppSave', () => {
     expect(typeof result.current.flushBeforeAction).toBe('function')
   })
 
+  it('rejects closing a dirty note when its Library is unavailable', async () => {
+    const path = '/vault/unsaved.md'
+    const { result } = renderSave({ resolvedPath: '', unsavedPaths: new Set([path]) })
+    await expect(result.current.flushBeforeAction(path)).rejects.toThrow()
+    expect(deps.clearUnsaved).not.toHaveBeenCalled()
+    expect(deps.setToastMessage).toHaveBeenCalled()
+  })
+
   it('handleSave calls save with no fallback when no active tab', async () => {
     const { result } = renderSave()
 
@@ -330,7 +338,7 @@ describe('useAppSave', () => {
     const { path, result } = renderMissingVaultDraft()
 
     await act(async () => {
-      await result.current.flushBeforeAction(path)
+      await expect(result.current.flushBeforeAction(path)).rejects.toThrow('Select or restore a vault')
     })
 
     expect(deps.setToastMessage).toHaveBeenCalledWith('Select or restore a vault before saving.')

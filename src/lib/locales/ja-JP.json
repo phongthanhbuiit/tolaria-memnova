@@ -976,5 +976,9 @@
   "editor.whiteboard.resizeWidth": "ホワイトボードの幅を変更",
   "editor.whiteboard.resizeHeight": "ホワイトボードの高さを変更",
   "editor.whiteboard.resizeBoth": "ホワイトボードのサイズを変更",
-  "editor.whiteboard.resizeHelp": "矢印キーでサイズを変更します。Shiftを押すと変更幅が大きくなります。"
+  "editor.whiteboard.resizeHelp": "矢印キーでサイズを変更します。Shiftを押すと変更幅が大きくなります。",
+  "save.close.saving": "閉じる前に保存しています…",
+  "save.close.wait": "最新の変更の保存が完了するまでお待ちください。",
+  "save.close.failed": "安全に閉じることができませんでした",
+  "save.close.retained": "変更内容はウィンドウに保持されています。保存エラーを解決してから再試行してください。"
 }

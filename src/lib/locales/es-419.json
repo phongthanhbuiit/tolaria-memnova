@@ -976,5 +976,9 @@
   "editor.whiteboard.resizeWidth": "Cambiar el ancho de la pizarra",
   "editor.whiteboard.resizeHeight": "Cambiar la altura de la pizarra",
   "editor.whiteboard.resizeBoth": "Cambiar el tamaño de la pizarra",
-  "editor.whiteboard.resizeHelp": "Usa las flechas para cambiar el tamaño. Mantén Mayús para pasos mayores."
+  "editor.whiteboard.resizeHelp": "Usa las flechas para cambiar el tamaño. Mantén Mayús para pasos mayores.",
+  "save.close.saving": "Guardando antes de cerrar…",
+  "save.close.wait": "Espera mientras se guardan los últimos cambios.",
+  "save.close.failed": "No se pudo cerrar de forma segura",
+  "save.close.retained": "Tus cambios siguen abiertos. Corrige el error al guardar y vuelve a intentarlo."
 }

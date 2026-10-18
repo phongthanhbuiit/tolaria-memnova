@@ -976,5 +976,9 @@
   "editor.whiteboard.resizeWidth": "Zmień szerokość tablicy",
   "editor.whiteboard.resizeHeight": "Zmień wysokość tablicy",
   "editor.whiteboard.resizeBoth": "Zmień rozmiar tablicy",
-  "editor.whiteboard.resizeHelp": "Zmieniaj rozmiar strzałkami. Przytrzymaj Shift, aby zwiększyć krok."
+  "editor.whiteboard.resizeHelp": "Zmieniaj rozmiar strzałkami. Przytrzymaj Shift, aby zwiększyć krok.",
+  "save.close.saving": "Zapisywanie przed zamknięciem…",
+  "save.close.wait": "Poczekaj na zapisanie ostatnich zmian.",
+  "save.close.failed": "Nie można bezpiecznie zamknąć",
+  "save.close.retained": "Zmiany pozostają w otwartym oknie. Usuń błąd zapisu i spróbuj ponownie."
 }

@@ -976,5 +976,9 @@
   "editor.whiteboard.resizeWidth": "Ridimensiona la larghezza della lavagna",
   "editor.whiteboard.resizeHeight": "Ridimensiona l’altezza della lavagna",
   "editor.whiteboard.resizeBoth": "Ridimensiona la lavagna",
-  "editor.whiteboard.resizeHelp": "Usa le frecce per ridimensionare. Tieni premuto Maiusc per passi più grandi."
+  "editor.whiteboard.resizeHelp": "Usa le frecce per ridimensionare. Tieni premuto Maiusc per passi più grandi.",
+  "save.close.saving": "Salvataggio prima della chiusura…",
+  "save.close.wait": "Attendi il salvataggio delle ultime modifiche.",
+  "save.close.failed": "Impossibile chiudere in sicurezza",
+  "save.close.retained": "Le modifiche restano aperte. Risolvi l’errore di salvataggio e riprova."
 }

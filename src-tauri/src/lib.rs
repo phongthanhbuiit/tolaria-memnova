@@ -21,6 +21,8 @@ mod linux_appimage;
 pub mod mcp;
 #[cfg(desktop)]
 pub mod menu;
+mod note_close;
+mod note_close_native;
 pub mod opencode_cli;
 mod opencode_config;
 mod opencode_discovery;
@@ -501,6 +503,9 @@ pub(crate) fn sync_vault_asset_scope(
 macro_rules! app_invoke_handler {
     () => {
         tauri::generate_handler![
+            note_close_native::pending_note_close,
+            note_close_native::acknowledge_note_close,
+            note_close_native::retry_note_close,
             commands::list_vault,
             commands::list_vault_folders,
             commands::get_note_content,
@@ -616,6 +621,7 @@ fn handle_run_event(app_handle: &tauri::AppHandle, event: &tauri::RunEvent) {
     use tauri::Manager;
 
     window_state::handle_run_event(app_handle, event);
+    note_close_native::handle_run_event(app_handle, event);
 
     if let tauri::RunEvent::Exit = event {
         let state: tauri::State<'_, WsBridgeChild> = app_handle.state();
@@ -629,7 +635,7 @@ pub fn run() {
     #[cfg(all(desktop, target_os = "linux"))]
     linux_appimage::apply_startup_env_overrides();
 
-    let builder = tauri::Builder::default();
+    let builder = tauri::Builder::default().manage(note_close_native::NoteCloseState::default());
 
     #[cfg(desktop)]
     let builder = with_desktop_entry_plugins(builder);
