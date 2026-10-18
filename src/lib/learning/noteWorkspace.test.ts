@@ -1,6 +1,7 @@
 import { expect, it } from 'vitest'
 import type { LearningCard, LearningPage, NoteLearningSummary } from './types'
 import {
+  noteFolderPaths,
   noteFolderScope,
   studyScopeForWorkspace,
   workspaceDue,
@@ -12,6 +13,18 @@ const pages = [
   { id: 'c', path: 'Biology-extra/c.md', available: true },
   { id: 'missing', path: 'Biology/missing.md', available: false },
 ] as LearningPage[]
+it('never exposes internal retired-note or backup folders as study folders', () => {
+  const hidden = {
+    id: 'retired',
+    path: '.memnova/retired/old.md',
+    available: false,
+  } as LearningPage
+  expect(noteFolderPaths([...pages, hidden])).toEqual([
+    'Biology',
+    'Biology-extra',
+    'Biology/Cells',
+  ])
+})
 function card(id: string, pageId = 'a'): LearningCard {
   return {
     id,

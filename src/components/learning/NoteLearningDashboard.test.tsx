@@ -81,3 +81,28 @@ it('connects conversion and recovery entries instead of leaving dialogs unreacha
   )
   expect(screen.getByText('Recovery opened')).toBeInTheDocument()
 })
+
+it('keeps internal retained-history paths out of the folder picker', () => {
+  workspace.pages.push({
+    id: 'retired',
+    path: '.memnova/retired/old.md',
+    title: 'Retired',
+    available: false,
+  })
+  try {
+    render(
+      <NoteLearningDashboard
+        mode="decks"
+        locale="en"
+        onOpenPage={vi.fn()}
+        legacy={null}
+      />
+    )
+    fireEvent.click(screen.getByRole('combobox', { name: 'Folder' }))
+    expect(
+      screen.queryAllByRole('option', { name: /^\.memnova/ })
+    ).toHaveLength(0)
+  } finally {
+    workspace.pages.pop()
+  }
+})

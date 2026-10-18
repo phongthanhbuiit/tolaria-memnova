@@ -18,7 +18,11 @@ import { Switch } from '../ui/switch'
 import { Label } from '../ui/label'
 import { translate, type AppLocale } from '../../lib/i18n'
 import type { LearningPage } from '../../lib/learning/types'
-import { noteFolderScope, workspaceDue } from '../../lib/learning/noteWorkspace'
+import {
+  noteFolderPaths,
+  noteFolderScope,
+  workspaceDue,
+} from '../../lib/learning/noteWorkspace'
 import { useLearningWorkspace } from './LearningContext'
 import { NoteConversionDialog } from './NoteConversionDialog'
 import { NoteRecoveryDialog } from './NoteRecoveryDialog'
@@ -66,12 +70,7 @@ export function NoteLearningDashboard({
     workspace.cards,
     workspace.clock
   )
-  const folders = new Set<string>()
-  for (const page of workspace.pages) {
-    const parts = page.path.split('/').slice(0, -1)
-    for (let index = 1; index <= parts.length; index++)
-      folders.add(parts.slice(0, index).join('/'))
-  }
+  const folders = new Set(noteFolderPaths(workspace.pages))
   const currentFolder = folders.has(folder) ? folder : ''
   const scope = noteFolderScope(currentFolder, workspace.pages, recursive)
   const selected = new Set(scope)

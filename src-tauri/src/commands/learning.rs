@@ -138,6 +138,13 @@ pub enum LearningRequest {
     RestoreBackup {
         backup_id: String,
     },
+    ListRecoveryBackups {},
+    VerifyRecoveryBackup {
+        backup_id: String,
+    },
+    RestoreRecoveryBackup {
+        backup_id: String,
+    },
 }
 
 #[cfg(test)]
@@ -156,6 +163,14 @@ fn execute_with_log(
     legacy_log: Option<&std::path::Path>,
 ) -> Result<Value, String> {
     let boundary = VaultBoundary::from_request(Some(vault_path))?;
+    if matches!(
+        request,
+        LearningRequest::ListRecoveryBackups {}
+            | LearningRequest::VerifyRecoveryBackup { .. }
+            | LearningRequest::RestoreRecoveryBackup { .. }
+    ) {
+        return execute_backup_recovery(boundary.requested_root(), library_id.as_deref(), request);
+    }
     if let LearningRequest::PreviewNoteSource { path, face } = &request {
         return encode(crate::learning::preview_note_source(
             boundary.requested_root(),
@@ -191,12 +206,43 @@ fn encode(value: impl serde::Serialize) -> Result<Value, String> {
     serde_json::to_value(value).map_err(|error| error.to_string())
 }
 
+fn execute_backup_recovery(
+    root: &std::path::Path,
+    library_id: Option<&str>,
+    request: LearningRequest,
+) -> Result<Value, String> {
+    let reader = crate::learning::BackupReader::open(root)?;
+    if library_id.is_some_and(|expected| expected != reader.library_id()) {
+        return Err("Library identity changed; reload before continuing".into());
+    }
+    if !matches!(request, LearningRequest::ListRecoveryBackups {}) && library_id.is_none() {
+        return Err("missing-library-id".into());
+    }
+    match request {
+        LearningRequest::ListRecoveryBackups {} => {
+            Ok(json!({"libraryId":reader.library_id(),"backups":reader.list_backups()?}))
+        }
+        LearningRequest::VerifyRecoveryBackup { backup_id } => {
+            encode(reader.verify_backup(&backup_id)?)
+        }
+        LearningRequest::RestoreRecoveryBackup { backup_id } => {
+            Ok(json!({"path":reader.restore_local_backup(&backup_id)?}))
+        }
+        _ => Err("Invalid backup recovery request".into()),
+    }
+}
+
 fn dispatch(
     store: &mut Store,
     request: LearningRequest,
     legacy_log: Option<&std::path::Path>,
 ) -> Result<Value, String> {
     match request {
+        LearningRequest::ListRecoveryBackups {}
+        | LearningRequest::VerifyRecoveryBackup { .. }
+        | LearningRequest::RestoreRecoveryBackup { .. } => {
+            Err("Backup recovery must run before Store initialization".into())
+        }
         LearningRequest::PreviewNoteSource { .. } => {
             Err("Source preview must use the read-only route".into())
         }

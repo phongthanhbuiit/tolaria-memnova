@@ -19,6 +19,13 @@ type Receipt = { request: RateRequest; before: LearningSchedule; index: number; 
 export type Fixture = { noteMemory?: FixtureNoteMemory; pageDefinitions?: Record<string, PropertyDefinitions>; id: string; pages: LearningPage[]; cards: LearningCard[]; sessions: FixtureSession[]; reviews: Receipt[]; goal: number; backups?: { descriptor: BackupDescriptor; snapshot: string; files: Record<string, string> }[]; restoredFiles?: Record<string,string> }
 export type Context = { allContent?: () => Promise<Record<string,string>>; write?: (path: string, content: string) => Promise<void>; read: (path: string) => Promise<string>; entries: () => Promise<VaultEntry[]> }
 const fixtures = new Map<string, Fixture>()
+const recoveryBackupKinds = new Map([['listRecoveryBackups', 'listBackups'], ['verifyRecoveryBackup', 'verifyBackup'], ['restoreRecoveryBackup', 'restoreBackup']])
+function existingFixture(root: string): Fixture | null {
+  const cached = fixtures.get(root)
+  if (cached) return cached
+  const raw = localStorage.getItem(`memnova:qa-learning:${root}`)
+  return raw ? JSON.parse(raw) : null
+}
 const fresh = (): LearningSchedule => ({ state: 'new', due: new Date().toISOString(), stability: 0, difficulty: 0, reps: 0, lapses: 0, elapsedDays: 0, scheduledDays: 0, lastReview: null, learningSteps: 0, engine: 'legacy-fsrs5', revision: 0 })
 function fixture(root: string): Fixture {
   const existing = fixtures.get(root)
@@ -96,18 +103,24 @@ export function mockLearningCommand(args: Record<string, unknown>, context: Cont
 async function executeMockLearningCommand(args: Record<string, unknown>, context: Context): Promise<unknown> {
   const root = String(args.vaultPath).replace(/\/$/, '')
   const request = args.request as Record<string, unknown>
+  const recoveryKind = recoveryBackupKinds.get(String(request.kind))
+  if (recoveryKind) {
+    const list = request.kind === 'listRecoveryBackups'
+    if (Object.keys(request).some(key => key !== 'kind' && (list || key !== 'backupId'))) throw Error('Invalid backup recovery request')
+    const existing = existingFixture(root)
+    if (!existing) throw Error('Library backup identity is unavailable')
+    if ((!list || args.libraryId != null) && args.libraryId !== existing.id) throw Error('Library identity changed')
+    const result = await executeMockLearningCommand({ ...args, libraryId: existing.id, request: { kind: recoveryKind, backupId: request.backupId } }, context)
+    return list ? { libraryId: existing.id, backups: result } : result
+  }
   if (request.kind === 'previewNoteSource') {
-    const cached = fixtures.get(root)
-    const raw = cached ? null : localStorage.getItem(`memnova:qa-learning:${root}`)
-    const existing: Fixture | null = cached ?? (raw ? JSON.parse(raw) : null)
+    const existing = existingFixture(root)
     if (!existing || args.libraryId !== existing.id) throw Error('Library identity changed')
     return mockNoteSourcePreview(root, existing, context, request, hash)
   }
   if (request.kind === 'previewNoteConversion') {
     if (Object.keys(request).some(key => key !== 'kind')) throw Error('Invalid conversion preview request')
-    const cached = fixtures.get(root)
-    const raw = cached ? null : localStorage.getItem(`memnova:qa-learning:${root}`)
-    const existing: Fixture | null = cached ?? (raw ? JSON.parse(raw) : null)
+    const existing = existingFixture(root)
     if (args.libraryId != null && args.libraryId !== existing?.id) throw Error('Library identity changed')
     return mockNoteConversionPreview(root, existing, context, hash)
   }
@@ -209,7 +222,7 @@ async function executeMockLearningCommand(args: Record<string, unknown>, context
       case 'createBackup': return createMockLearningBackup(data, root, context)
       case 'restoreBackup': {
         const backup = required(data.backups?.find(backup => backup.descriptor.id === request.backupId))
-        const path = `${root}/restored-${crypto.randomUUID()}`
+        const path = `${root}/.memnova/restores/${crypto.randomUUID()}`
         const restored: Fixture = { ...JSON.parse(backup.snapshot), restoredFiles: backup.files }
         fixtures.set(path, restored); localStorage.setItem(`memnova:qa-learning:${path}`, JSON.stringify(restored))
         return { path }

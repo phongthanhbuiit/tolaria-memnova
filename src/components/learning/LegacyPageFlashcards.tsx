@@ -6,6 +6,7 @@ import { translate, type TranslationKey, type AppLocale } from '../../lib/i18n'
 import { trackEvent } from '../../lib/telemetry'
 import { CardForm } from './CardForm'
 import { useLearningWorkspace } from './LearningContext'
+import { BackupPanel } from './BackupPanel'
 
 function cardDraft(card?: LearningCard, position = 0): CardDraft {
   return card ? { front: card.front, back: card.back, answerMode: card.answerMode, answerPageId: card.answerPageId ?? null, status: card.status, position: card.position, propertyDefinitions: structuredClone(card.propertyDefinitions ?? {}), properties: structuredClone(card.properties) } : { front: '', back: '', answerMode: 'inline', status: 'draft', position, properties: {} }
@@ -30,7 +31,7 @@ export function LegacyPageFlashcards({ path, locale }: { path: string; locale: A
     return () => { cancelled = true }
   }, [path, ready, client, root, attempt])
   if (!workspace) return null
-  if (!ready) return <div className="p-8"><Button onClick={() => { void workspace.openMigration() }}>{t('learning.prepare')}</Button>{workspace.error && <p role="alert">{workspace.error}</p>}</div>
+  if (!ready) return <div className="space-y-5 p-8">{workspace.phase === 'error' ? <><Button onClick={() => { void workspace.reconnect() }}>{t('learning.retry')}</Button><BackupPanel locale={locale} /></> : <Button onClick={() => { void workspace.openMigration() }}>{t('learning.prepare')}</Button>}{workspace.error && <p role="alert">{workspace.error}</p>}</div>
   const outsideLibrary = !path.startsWith(`${root}/`)
   const current = !outsideLibrary && page?.path === path ? page.page : null
   const cards = current ? workspace.cards.filter(card => card.pageId === current.id) : []

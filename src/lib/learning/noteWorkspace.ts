@@ -6,6 +6,17 @@ import type {
   StudyLane,
 } from './types'
 
+export function noteFolderPaths(pages: LearningPage[]): string[] {
+  const folders = new Set<string>()
+  for (const page of pages) {
+    const parts = page.path.split('/')
+    if (parts.some((part) => part.startsWith('.'))) continue
+    for (let depth = 1; depth < parts.length; depth++)
+      folders.add(parts.slice(0, depth).join('/'))
+  }
+  return [...folders].sort()
+}
+
 export function studyScopeForWorkspace(
   supported: boolean,
   pageIds?: string[],

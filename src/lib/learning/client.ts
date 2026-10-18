@@ -7,7 +7,7 @@ import { isTauri, mockInvoke } from '../../mock-tauri'
 import type { StudyStats } from '../../hooks/useStats'
 import type { BackupCatalogEntry, BackupDescriptor, CardDraft, LearningCard, LibraryDescriptor, MigrationPreview, MigrationProgress, SessionScope, StudySession, StudyPage, RateRequest, RateResult, LearningPage } from './types'
 
-function learningInvoke<T>(command: string, args: Record<string, unknown>): Promise<T> {
+export function learningInvoke<T>(command: string, args: Record<string, unknown>): Promise<T> {
   return isTauri() ? invoke<T>(command, args) : mockInvoke<T>(command, args)
 }
 

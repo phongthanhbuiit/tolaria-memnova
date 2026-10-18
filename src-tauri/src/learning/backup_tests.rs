@@ -1,6 +1,13 @@
 use super::{CardDraft, Store};
 use serde_json::json;
 
+#[test]
+fn startup_backup_recovery_rejects_invalid_identity_before_creating_a_restore_container() {
+    let (directory, store) = fixture();
+    assert!(store.restore_local_backup("not-a-backup-id").is_err());
+    assert!(!directory.path().join(".memnova/restores").exists());
+}
+
 fn fixture() -> (tempfile::TempDir, Store) {
     let dir = tempfile::tempdir().unwrap();
     std::fs::write(

@@ -81,6 +81,28 @@ fn verify_database(path: &Path, library_id: &str) -> Result<(), String> {
 }
 
 impl Store {
+    fn backup_reader(&self) -> BackupReader {
+        BackupReader {
+            root: self.root.clone(),
+            library_id: self.library_id.clone(),
+        }
+    }
+    pub fn list_backups(&self) -> Result<Vec<BackupCatalogEntry>, String> {
+        self.backup_reader().list_backups()
+    }
+    pub fn verify_backup(&self, id: &str) -> Result<BackupDescriptor, String> {
+        self.backup_reader().verify_backup(id)
+    }
+    pub fn restore_local_backup(&self, id: &str) -> Result<PathBuf, String> {
+        self.backup_reader().restore_local_backup(id)
+    }
+    pub fn restore_backup(&self, id: &str, target: &Path) -> Result<(), String> {
+        self.backup_reader().restore_backup(id, target)
+    }
+    fn backups_directory(&self) -> Result<PathBuf, String> {
+        self.backup_reader().backups_directory()
+    }
+
     fn ensure_snapshot_unchanged(
         &self,
         version: i64,
@@ -98,91 +120,6 @@ impl Store {
             return Err("Library changed during backup; retry after saving".into());
         }
         Ok(())
-    }
-
-    pub fn list_backups(&self) -> Result<Vec<BackupCatalogEntry>, String> {
-        let directory = self.backups_directory()?;
-        if !directory.exists() {
-            return Ok(Vec::new());
-        }
-        let mut catalog = Vec::new();
-        for entry in fs::read_dir(directory).map_err(|error| error.to_string())? {
-            let entry = entry.map_err(|error| error.to_string())?;
-            let id = entry.file_name().to_string_lossy().into_owned();
-            if uuid::Uuid::parse_str(&id).is_err() {
-                continue;
-            }
-            let description = self.backup_description(&entry.path(), &id);
-            catalog.push(match description {
-                Ok(descriptor) => BackupCatalogEntry {
-                    id,
-                    descriptor: Some(descriptor),
-                    error: None,
-                },
-                Err(error) => BackupCatalogEntry {
-                    id,
-                    descriptor: None,
-                    error: Some(error),
-                },
-            });
-        }
-        catalog.sort_by(|left, right| {
-            right
-                .descriptor
-                .as_ref()
-                .map(|value| value.created_at)
-                .cmp(&left.descriptor.as_ref().map(|value| value.created_at))
-                .then(left.id.cmp(&right.id))
-        });
-        Ok(catalog)
-    }
-
-    fn backup_description(&self, directory: &Path, id: &str) -> Result<BackupDescriptor, String> {
-        self.backup_manifest(directory, id)
-            .map(|manifest| manifest.description)
-    }
-
-    fn backup_manifest(&self, directory: &Path, id: &str) -> Result<Manifest, String> {
-        reject_symlink(directory)?;
-        let path = checked_source(directory, "backup.json")?;
-        let manifest: Manifest =
-            serde_json::from_slice(&fs::read(path).map_err(|error| error.to_string())?)
-                .map_err(|error| error.to_string())?;
-        if manifest.format_version != 1
-            || manifest.description.id != id
-            || manifest.description.library_id != self.library_id
-            || manifest.description.file_count != manifest.files.len()
-        {
-            return Err("Backup manifest does not match this Library".into());
-        }
-        if chrono::DateTime::<chrono::Utc>::from_timestamp_millis(manifest.description.created_at)
-            .is_none()
-        {
-            return Err("Backup creation timestamp is outside the supported range".into());
-        }
-        Ok(manifest)
-    }
-
-    pub fn verify_backup(&self, id: &str) -> Result<BackupDescriptor, String> {
-        self.verified_backup(id)
-            .map(|(manifest, _)| manifest.description)
-    }
-
-    pub fn restore_local_backup(&self, id: &str) -> Result<PathBuf, String> {
-        let directory = self.root.join(".memnova/restores");
-        reject_symlink(&self.root.join(".memnova"))?;
-        reject_symlink(&directory)?;
-        fs::create_dir_all(&directory).map_err(|e| e.to_string())?;
-        let target = directory.join(uuid::Uuid::new_v4().to_string());
-        self.restore_backup(id, &target)?;
-        Ok(target)
-    }
-
-    fn backups_directory(&self) -> Result<PathBuf, String> {
-        reject_symlink(&self.root.join(".memnova"))?;
-        let path = self.root.join(".memnova/backups");
-        reject_symlink(&path)?;
-        Ok(path)
     }
 
     pub fn create_backup(&self) -> Result<BackupDescriptor, String> {
@@ -235,45 +172,6 @@ impl Store {
         write_manifest(&staged.path().join("backup.json"), &manifest)?;
         fs::rename(staged.path(), directory.join(&description.id)).map_err(|e| e.to_string())?;
         Ok(description)
-    }
-
-    fn verified_backup(&self, id: &str) -> Result<(Manifest, PathBuf), String> {
-        uuid::Uuid::parse_str(id).map_err(|_| "Invalid backup identity")?;
-        let directory = self.backups_directory()?.join(id);
-        let manifest = self.backup_manifest(&directory, id)?;
-        let root = directory.join("files");
-        reject_symlink(&root)?;
-        verify_directories(&root, &manifest.directories)?;
-        verify_files(&root, &manifest.files)?;
-        verify_library_identity(&root, &self.library_id)?;
-        verify_database(&root.join(".memnova/learning.sqlite3"), &self.library_id)?;
-        Ok((manifest, root))
-    }
-
-    pub fn restore_backup(&self, id: &str, target: &Path) -> Result<(), String> {
-        if target.exists() || target.symlink_metadata().is_ok() {
-            return Err("Restore requires a new directory; existing data is never replaced".into());
-        }
-        let (manifest, source) = self.verified_backup(id)?;
-        let parent = target
-            .parent()
-            .ok_or("Restore target needs a parent directory")?;
-        let staged = tempfile::Builder::new()
-            .prefix(".restore-")
-            .tempdir_in(parent)
-            .map_err(|e| e.to_string())?;
-        for directory in &manifest.directories {
-            fs::create_dir_all(staged.path().join(relative_path(directory)?))
-                .map_err(|e| e.to_string())?;
-        }
-        for file in &manifest.files {
-            copy_snapshot_file(&source, staged.path(), file)?;
-        }
-        verify_database(
-            &staged.path().join(".memnova/learning.sqlite3"),
-            &self.library_id,
-        )?;
-        fs::rename(staged.path(), target).map_err(|e| e.to_string())
     }
 }
 
@@ -400,5 +298,145 @@ pub(super) fn read_optional_recovery(path: &Path) -> Result<Option<Vec<u8>>, Str
         Ok(bytes) => Ok(Some(bytes)),
         Err(error) if error.kind() == std::io::ErrorKind::NotFound => Ok(None),
         Err(error) => Err(error.to_string()),
+    }
+}
+
+/// Reads verified backup metadata without opening or initializing the current learning database.
+pub struct BackupReader {
+    root: PathBuf,
+    library_id: String,
+}
+impl BackupReader {
+    pub fn open(root: &Path) -> Result<Self, String> {
+        let root = root.canonicalize().map_err(|error| error.to_string())?;
+        let library_id = read_library_identity(&root.join(".memnova"))?;
+        Ok(Self { root, library_id })
+    }
+    pub fn library_id(&self) -> &str {
+        &self.library_id
+    }
+    pub fn list_backups(&self) -> Result<Vec<BackupCatalogEntry>, String> {
+        let directory = self.backups_directory()?;
+        if !directory.exists() {
+            return Ok(Vec::new());
+        }
+        let mut catalog = Vec::new();
+        for entry in fs::read_dir(directory).map_err(|error| error.to_string())? {
+            let entry = entry.map_err(|error| error.to_string())?;
+            let id = entry.file_name().to_string_lossy().into_owned();
+            if uuid::Uuid::parse_str(&id).is_err() {
+                continue;
+            }
+            let description = self.backup_description(&entry.path(), &id);
+            catalog.push(match description {
+                Ok(descriptor) => BackupCatalogEntry {
+                    id,
+                    descriptor: Some(descriptor),
+                    error: None,
+                },
+                Err(error) => BackupCatalogEntry {
+                    id,
+                    descriptor: None,
+                    error: Some(error),
+                },
+            });
+        }
+        catalog.sort_by(|left, right| {
+            right
+                .descriptor
+                .as_ref()
+                .map(|value| value.created_at)
+                .cmp(&left.descriptor.as_ref().map(|value| value.created_at))
+                .then(left.id.cmp(&right.id))
+        });
+        Ok(catalog)
+    }
+
+    fn backup_description(&self, directory: &Path, id: &str) -> Result<BackupDescriptor, String> {
+        self.backup_manifest(directory, id)
+            .map(|manifest| manifest.description)
+    }
+
+    fn backup_manifest(&self, directory: &Path, id: &str) -> Result<Manifest, String> {
+        reject_symlink(directory)?;
+        let path = checked_source(directory, "backup.json")?;
+        let manifest: Manifest =
+            serde_json::from_slice(&fs::read(path).map_err(|error| error.to_string())?)
+                .map_err(|error| error.to_string())?;
+        if manifest.format_version != 1
+            || manifest.description.id != id
+            || manifest.description.library_id != self.library_id
+            || manifest.description.file_count != manifest.files.len()
+        {
+            return Err("Backup manifest does not match this Library".into());
+        }
+        if chrono::DateTime::<chrono::Utc>::from_timestamp_millis(manifest.description.created_at)
+            .is_none()
+        {
+            return Err("Backup creation timestamp is outside the supported range".into());
+        }
+        Ok(manifest)
+    }
+
+    pub fn verify_backup(&self, id: &str) -> Result<BackupDescriptor, String> {
+        self.verified_backup(id)
+            .map(|(manifest, _)| manifest.description)
+    }
+
+    pub fn restore_local_backup(&self, id: &str) -> Result<PathBuf, String> {
+        self.verified_backup(id)?;
+        let directory = self.root.join(".memnova/restores");
+        reject_symlink(&self.root.join(".memnova"))?;
+        reject_symlink(&directory)?;
+        fs::create_dir_all(&directory).map_err(|e| e.to_string())?;
+        let target = directory.join(uuid::Uuid::new_v4().to_string());
+        self.restore_backup(id, &target)?;
+        Ok(target)
+    }
+
+    fn backups_directory(&self) -> Result<PathBuf, String> {
+        reject_symlink(&self.root.join(".memnova"))?;
+        let path = self.root.join(".memnova/backups");
+        reject_symlink(&path)?;
+        Ok(path)
+    }
+
+    fn verified_backup(&self, id: &str) -> Result<(Manifest, PathBuf), String> {
+        uuid::Uuid::parse_str(id).map_err(|_| "Invalid backup identity")?;
+        let directory = self.backups_directory()?.join(id);
+        let manifest = self.backup_manifest(&directory, id)?;
+        let root = directory.join("files");
+        reject_symlink(&root)?;
+        verify_directories(&root, &manifest.directories)?;
+        verify_files(&root, &manifest.files)?;
+        verify_library_identity(&root, &self.library_id)?;
+        verify_database(&root.join(".memnova/learning.sqlite3"), &self.library_id)?;
+        Ok((manifest, root))
+    }
+
+    pub fn restore_backup(&self, id: &str, target: &Path) -> Result<(), String> {
+        if target.exists() || target.symlink_metadata().is_ok() {
+            return Err("Restore requires a new directory; existing data is never replaced".into());
+        }
+        let (manifest, source) = self.verified_backup(id)?;
+        let parent = target
+            .parent()
+            .ok_or("Restore target needs a parent directory")?;
+        let staged = tempfile::Builder::new()
+            .prefix(".restore-")
+            .tempdir_in(parent)
+            .map_err(|e| e.to_string())?;
+        for directory in &manifest.directories {
+            fs::create_dir_all(staged.path().join(relative_path(directory)?))
+                .map_err(|e| e.to_string())?;
+        }
+        for file in &manifest.files {
+            copy_snapshot_file(&source, staged.path(), file)?;
+        }
+        verify_database(
+            &staged.path().join(".memnova/learning.sqlite3"),
+            &self.library_id,
+        )?;
+        fs::rename(staged.path(), target).map_err(|e| e.to_string())
     }
 }
