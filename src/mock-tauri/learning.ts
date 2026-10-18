@@ -1,3 +1,5 @@
+import { createMockLearningBackup } from './learning-backup'
+import { isMockConversionRequest, mockConversionCommand } from './note-conversion-runner'
 import { mockNoteConversionPreview } from './note-conversion'
 import { isNoteMemoryRequest, mockNoteMemoryCommand, mockNoteStudyContent, isMockBoundCard, hasMockPendingNote, mockNotePath, withMockNoteIdentity, type FixtureNoteMemory } from './note-memory'
 import { parseNoteMemoryDocument } from '../lib/learning/noteMemoryDocument'
@@ -99,6 +101,10 @@ async function executeMockLearningCommand(args: Record<string, unknown>, context
     return mockNoteConversionPreview(root, existing, context, hash)
   }
   const data = fixture(root)
+  if (isMockConversionRequest(request.kind) || request.kind === 'resumeNoteMemory' && data.noteMemory?.operations[String(request.operationId)]?.kind === 'convert') {
+    if (args.libraryId !== data.id) throw Error('Library identity changed')
+    return structuredClone(await mockConversionCommand({ data, root, context, fresh, hash, persist: () => localStorage.setItem(`memnova:qa-learning:${root}`, JSON.stringify(data)) }, request))
+  }
   if (isNoteMemoryRequest(request.kind)) {
     if (args.libraryId !== data.id) throw Error('Library identity changed')
     return structuredClone(await mockNoteMemoryCommand({ data, root, context, fresh, hash, persist: () => localStorage.setItem(`memnova:qa-learning:${root}`, JSON.stringify(data)) }, request))
@@ -176,14 +182,7 @@ async function executeMockLearningCommand(args: Record<string, unknown>, context
       }
       case 'listBackups': return (data.backups ?? []).map(backup => ({ id: backup.descriptor.id, descriptor: backup.descriptor, error: null }))
       case 'verifyBackup': return required(data.backups?.find(backup => backup.descriptor.id === request.backupId)).descriptor
-      case 'createBackup': {
-        const files: Record<string, string> = {}
-        await Promise.all(data.pages.map(async page => { files[page.path] = data.restoredFiles?.[page.path] ?? await context.read(`${root}/${page.path}`) }))
-        const descriptor: BackupDescriptor = { id: crypto.randomUUID(), libraryId: data.id, createdAt: Date.now(), fileCount: Object.keys(files).length, bytes: new TextEncoder().encode(JSON.stringify(files)).length }
-        const snapshot = JSON.stringify({ ...data, backups: [] })
-        ;(data.backups ??= []).unshift({ descriptor, snapshot, files })
-        return descriptor
-      }
+      case 'createBackup': return createMockLearningBackup(data, root, context)
       case 'restoreBackup': {
         const backup = required(data.backups?.find(backup => backup.descriptor.id === request.backupId))
         const path = `${root}/restored-${crypto.randomUUID()}`

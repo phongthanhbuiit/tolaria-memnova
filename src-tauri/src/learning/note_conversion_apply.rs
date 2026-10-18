@@ -5,7 +5,7 @@ use super::{
     note_write::{NoteWriteHooks, NoteWriteRequest, PreparedWrite},
     NoteConversionDetails, NoteConversionRequest, NoteConversionResult, Store,
 };
-use rusqlite::{Connection, Transaction};
+use rusqlite::{Connection, OptionalExtension, Transaction};
 use std::{path::Path, sync::Mutex};
 
 static CONVERSION_PREPARATION: Mutex<()> = Mutex::new(());
@@ -238,6 +238,19 @@ impl Store {
             complete_conversion(transaction, &root, prepared)
         })?;
         Ok(intent.result(outcome))
+    }
+    pub fn note_compatibility(
+        &self,
+        page_id: &str,
+    ) -> Result<Option<NoteConversionDetails>, String> {
+        let Some(binding) = self.note_binding(page_id)? else {
+            return Ok(None);
+        };
+        let operation: Option<String> = self.conn.query_row("SELECT id FROM note_learning_operations WHERE page_id=?1 AND kind='convert' AND phase='applied' ORDER BY created_at DESC,id DESC LIMIT 1",[page_id],|row|row.get(0)).optional().map_err(|error|error.to_string())?;
+        let details = operation
+            .map(|id| self.note_conversion_details(&id))
+            .transpose()?;
+        Ok(details.filter(|details| details.card_id == binding.card_id))
     }
     pub fn note_conversion_details(&self, id: &str) -> Result<NoteConversionDetails, String> {
         let prepared = self

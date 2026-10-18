@@ -1,3 +1,4 @@
+import type { FixtureConversionIntent } from './note-conversion-runner'
 /** Browser QA model of the note IPC contract. This is not native persistence evidence. */
 import type { Context, Fixture } from './learning'
 import type { LearningCard, LearningSchedule, NoteBinding, NoteConfigureRequest, NoteMemoryView, NoteWriteOutcome, NoteWriteRequest, NoteFacePreview, StudyItem } from '../lib/learning/types'
@@ -7,11 +8,13 @@ import { patchNoteMemoryConfig } from '../lib/learning/noteMemoryPatch'
 import { memoryHeader, memoryLines } from '../lib/learning/noteMemoryLines'
 import { usefulMemoryContent } from '../lib/learning/noteMemoryReadiness'
 
-type Operation = {
-  operationId: string; pageId: string; kind: 'save' | 'configure'; phase: 'prepared' | 'file_written' | 'applied' | 'conflict'
+export type FixtureNoteOperation = {
+  operationId: string; pageId: string; kind: 'save' | 'configure' | 'convert'; phase: 'prepared' | 'file_written' | 'applied' | 'conflict'
   requestHash: string; beforeHash: string; afterHash: string; expectedRevision: number | null
+  conversion?: FixtureConversionIntent
   source: string | null; cardId: string; outcome: NoteWriteOutcome | null; createdAt: number
 }
+type Operation = FixtureNoteOperation
 export interface FixtureNoteMemory { bindings: Record<string, NoteBinding>; operations: Record<string, Operation> }
 type Environment = { data: Fixture; root: string; context: Context; fresh: () => LearningSchedule; hash: (value: string) => Promise<string>; persist: () => void }
 type ReadEnvironment = Pick<Environment, 'data' | 'root' | 'context' | 'hash'>
@@ -128,6 +131,7 @@ function outcome(op: Operation, status: NoteWriteOutcome['status'], problem: str
   return { operationId: op.operationId, pageId: op.pageId, status, sourceHash: op.afterHash, revision, problem }
 }
 async function resume(env: Environment, op: Operation): Promise<NoteWriteOutcome> {
+  if (op.kind === 'convert') throw Error('Use the conversion runner')
   if (op.outcome) return op.outcome
   let source: string
   try { source = await read(env, op.pageId) } catch { op.phase = 'conflict'; env.persist(); return outcome(op, 'conflict', 'missing-source') }
@@ -192,7 +196,7 @@ export async function mockNoteMemoryCommand(env: Environment, input: Record<stri
   }
 }
 
-async function mockNoteFace(env: ReadEnvironment, id: string, face: unknown): Promise<NoteFacePreview> {
+export async function mockNoteFace(env: ReadEnvironment, id: string, face: unknown): Promise<NoteFacePreview> {
   if (face !== 'front' && face !== 'back') throw Error('Invalid note face')
   const source = await read(env, id)
   const document = parseNoteMemoryDocument(source)

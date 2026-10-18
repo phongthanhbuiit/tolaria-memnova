@@ -40,3 +40,17 @@ it('previews conversion without connecting or initializing a Library', async () 
   await client.previewNoteConversion()
   expect(invoke).toHaveBeenLastCalledWith('learning_command', { vaultPath: '/existing', libraryId: 'existing', request: { kind: 'previewNoteConversion' } })
 })
+
+it('binds conversion apply/recovery/compatibility requests to the current Library', async () => {
+  vi.mocked(invoke).mockResolvedValueOnce({ libraryId: 'owned', schemaVersion: 5 }).mockResolvedValue({})
+  const client = await LearningClient.connect('/qa')
+  const request = { operationId: 'op', pageId: 'page', expectedFingerprint: 'before', front: { kind: 'markdown' as const }, back: { kind: 'inline' as const, source: { kind: 'markdown' as const } }, memory: { kind: 'fresh' as const } }
+  await client.applyNoteConversion(request)
+  expect(invoke).toHaveBeenLastCalledWith('learning_command', { vaultPath: '/qa', libraryId: 'owned', request: { kind: 'applyNoteConversion', request } })
+  await client.resumeNoteConversion('op')
+  expect(invoke).toHaveBeenLastCalledWith('learning_command', { vaultPath: '/qa', libraryId: 'owned', request: { kind: 'resumeNoteConversion', operationId: 'op' } })
+  await client.noteConversionDetails('op')
+  expect(invoke).toHaveBeenLastCalledWith('learning_command', { vaultPath: '/qa', libraryId: 'owned', request: { kind: 'noteConversionDetails', operationId: 'op' } })
+  await client.noteCompatibility('page')
+  expect(invoke).toHaveBeenLastCalledWith('learning_command', { vaultPath: '/qa', libraryId: 'owned', request: { kind: 'noteCompatibility', pageId: 'page' } })
+})

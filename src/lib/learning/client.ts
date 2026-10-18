@@ -1,4 +1,4 @@
-import type { NoteConversionPreview } from './noteConversionTypes'
+import type { NoteConversionPreview, NoteConversionRequest, NoteConversionResult, NoteConversionDetails } from './noteConversionTypes'
 import type { NoteFacePreview, NoteMemoryView, NoteWriteRequest, NoteConfigureRequest, NoteWriteOutcome } from './types'
 import type { PropertyDefinitions } from './propertyValues'
 import { invoke } from '@tauri-apps/api/core'
@@ -42,6 +42,11 @@ export class LearningClient {
   private call<T>(request: Record<string, unknown>): Promise<T> {
     return learningInvoke<T>('learning_command', { vaultPath: this.vaultPath, libraryId: this.libraryId, request })
   }
+
+  applyNoteConversion(request: NoteConversionRequest): Promise<NoteConversionResult> { return this.call({ kind: 'applyNoteConversion', request }) }
+  resumeNoteConversion(operationId: string): Promise<NoteConversionResult> { return this.call({ kind: 'resumeNoteConversion', operationId }) }
+  noteConversionDetails(operationId: string): Promise<NoteConversionDetails> { return this.call({ kind: 'noteConversionDetails', operationId }) }
+  noteCompatibility(pageId: string): Promise<NoteConversionDetails | null> { return this.call({ kind: 'noteCompatibility', pageId }) }
 
   readNoteFace(pageId: string, face: import('./noteMemoryConfig').MemoryFace): Promise<NoteFacePreview> { return this.call({ kind: 'readNoteFace', pageId, face }) }
   readNoteMemory(pageId: string): Promise<NoteMemoryView> { return this.call({ kind: 'readNoteMemory', pageId }) }

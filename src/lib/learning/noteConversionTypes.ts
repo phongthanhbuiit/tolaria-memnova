@@ -36,3 +36,31 @@ export interface NoteConversionPreview {
   pages: NoteConversionPage[]
   fingerprint: string
 }
+
+export type ConversionFaceChoice = { kind: 'markdown' } | { kind: 'card'; cardId: string }
+export type ConversionBackChoice = { kind: 'inline'; source: ConversionFaceChoice } | { kind: 'page'; pageId: string; face: 'front' | 'back' }
+export type ConversionMemoryChoice = { kind: 'reuse'; cardId: string; confirmedSameGoal: boolean } | { kind: 'fresh' }
+export interface NoteConversionRequest {
+  operationId: string
+  pageId: string
+  expectedFingerprint: string
+  front: ConversionFaceChoice
+  back: ConversionBackChoice
+  memory: ConversionMemoryChoice
+}
+export interface NoteConversionResult {
+  outcome: import('./types').NoteWriteOutcome
+  backupId: string
+  cardId: string
+  retainedLegacyCards: number
+}
+export interface NoteConversionDetails {
+  operationId: string
+  pageId: string
+  phase: 'prepared' | 'file_written' | 'applied' | 'conflict'
+  backupId: string
+  cardId: string
+  beforeSource: string
+  afterSource: string
+  legacyCards: NoteConversionCandidate[]
+}

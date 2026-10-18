@@ -31,6 +31,18 @@ pub enum LearningRequest {
     ReconcileNoteMemory {
         page_id: String,
     },
+    ApplyNoteConversion {
+        request: crate::learning::NoteConversionRequest,
+    },
+    ResumeNoteConversion {
+        operation_id: String,
+    },
+    NoteConversionDetails {
+        operation_id: String,
+    },
+    NoteCompatibility {
+        page_id: String,
+    },
     PreviewNoteConversion {},
     PreviewMigration,
     BeginMigration {
@@ -173,7 +185,11 @@ fn dispatch(
         | LearningRequest::SaveNoteMemory { .. }
         | LearningRequest::ConfigureNoteMemory { .. }
         | LearningRequest::ResumeNoteMemory { .. }
-        | LearningRequest::ReconcileNoteMemory { .. }) => dispatch_note_memory(store, note),
+        | LearningRequest::ReconcileNoteMemory { .. }
+        | LearningRequest::ApplyNoteConversion { .. }
+        | LearningRequest::ResumeNoteConversion { .. }
+        | LearningRequest::NoteConversionDetails { .. }
+        | LearningRequest::NoteCompatibility { .. }) => dispatch_note_memory(store, note),
         LearningRequest::Describe => Ok(
             json!({"libraryId":store.library_id,"schemaVersion":crate::learning::SCHEMA_VERSION,"migrationState":store.migration_state()?}),
         ),
@@ -189,37 +205,21 @@ fn dispatch(
         | LearningRequest::CreateCard { .. }
         | LearningRequest::UpdateCard { .. }
         | LearningRequest::CloneCard { .. }) => dispatch_cards(store, card),
-        LearningRequest::ListPages => encode(store.list_pages()?),
-        LearningRequest::SyncPages => encode(store.sync_pages()?),
-        LearningRequest::EnsurePage { path } => encode(store.ensure_page(&path)?),
-        LearningRequest::ReadStudyPage { page_id } => encode(store.read_study_page(&page_id)?),
-        LearningRequest::PagePropertyDefinitions { page_id } => {
-            encode(store.page_property_definitions(&page_id)?)
-        }
-        LearningRequest::SetPagePropertyDefinitions {
-            page_id,
-            expected,
-            definitions,
-        } => encode(store.set_page_property_definitions(&page_id, &expected, &definitions)?),
+        page @ (LearningRequest::ListPages
+        | LearningRequest::SyncPages
+        | LearningRequest::EnsurePage { .. }
+        | LearningRequest::ReadStudyPage { .. }
+        | LearningRequest::PagePropertyDefinitions { .. }
+        | LearningRequest::SetPagePropertyDefinitions { .. }) => dispatch_pages(store, page),
         LearningRequest::StudyStats => encode(store.study_stats()?),
         LearningRequest::SetDailyGoal { goal } => encode(store.set_daily_goal(goal)?),
-        LearningRequest::StartSession { scope } => encode(store.start_session(scope)?),
-        LearningRequest::GetSession { session_id } => encode(store.get_session(&session_id)?),
-        LearningRequest::ResumeSession { session_id } => encode(store.resume_session(&session_id)?),
-        LearningRequest::PauseSession {
-            session_id,
-            revision,
-        } => encode(store.pause_session(&session_id, revision)?),
-        LearningRequest::SkipSessionCard {
-            session_id,
-            revision,
-        } => encode(store.skip_session_card(&session_id, revision)?),
-        LearningRequest::RateCard { review } => encode(store.rate_card(review)?),
-        LearningRequest::UndoReview {
-            session_id,
-            review_id,
-            revision,
-        } => encode(store.undo_review(&session_id, &review_id, revision)?),
+        study @ (LearningRequest::StartSession { .. }
+        | LearningRequest::GetSession { .. }
+        | LearningRequest::ResumeSession { .. }
+        | LearningRequest::PauseSession { .. }
+        | LearningRequest::SkipSessionCard { .. }
+        | LearningRequest::RateCard { .. }
+        | LearningRequest::UndoReview { .. }) => dispatch_study(store, study),
         recovery @ (LearningRequest::ListBackups
         | LearningRequest::VerifyBackup { .. }
         | LearningRequest::CreateBackup
@@ -229,6 +229,18 @@ fn dispatch(
 
 fn dispatch_note_memory(store: &mut Store, request: LearningRequest) -> Result<Value, String> {
     match request {
+        LearningRequest::ApplyNoteConversion { request } => {
+            encode(store.apply_note_conversion(request)?)
+        }
+        LearningRequest::ResumeNoteConversion { operation_id } => {
+            encode(store.resume_note_conversion(&operation_id)?)
+        }
+        LearningRequest::NoteConversionDetails { operation_id } => {
+            encode(store.note_conversion_details(&operation_id)?)
+        }
+        LearningRequest::NoteCompatibility { page_id } => {
+            encode(store.note_compatibility(&page_id)?)
+        }
         LearningRequest::ReadNoteFace { page_id, face } => {
             encode(store.read_note_face(&page_id, face)?)
         }
@@ -296,4 +308,44 @@ pub async fn learning_command(
     })
     .await
     .map_err(|e| e.to_string())?
+}
+
+fn dispatch_pages(store: &mut Store, request: LearningRequest) -> Result<Value, String> {
+    match request {
+        LearningRequest::ListPages => encode(store.list_pages()?),
+        LearningRequest::SyncPages => encode(store.sync_pages()?),
+        LearningRequest::EnsurePage { path } => encode(store.ensure_page(&path)?),
+        LearningRequest::ReadStudyPage { page_id } => encode(store.read_study_page(&page_id)?),
+        LearningRequest::PagePropertyDefinitions { page_id } => {
+            encode(store.page_property_definitions(&page_id)?)
+        }
+        LearningRequest::SetPagePropertyDefinitions {
+            page_id,
+            expected,
+            definitions,
+        } => encode(store.set_page_property_definitions(&page_id, &expected, &definitions)?),
+        _ => Err("Invalid page command routing".into()),
+    }
+}
+fn dispatch_study(store: &mut Store, request: LearningRequest) -> Result<Value, String> {
+    match request {
+        LearningRequest::StartSession { scope } => encode(store.start_session(scope)?),
+        LearningRequest::GetSession { session_id } => encode(store.get_session(&session_id)?),
+        LearningRequest::ResumeSession { session_id } => encode(store.resume_session(&session_id)?),
+        LearningRequest::PauseSession {
+            session_id,
+            revision,
+        } => encode(store.pause_session(&session_id, revision)?),
+        LearningRequest::SkipSessionCard {
+            session_id,
+            revision,
+        } => encode(store.skip_session_card(&session_id, revision)?),
+        LearningRequest::RateCard { review } => encode(store.rate_card(review)?),
+        LearningRequest::UndoReview {
+            session_id,
+            review_id,
+            revision,
+        } => encode(store.undo_review(&session_id, &review_id, revision)?),
+        _ => Err("Invalid study command routing".into()),
+    }
 }

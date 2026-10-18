@@ -259,3 +259,87 @@ fn conversion_preview_ipc_never_opens_an_uninitialized_store() {
     )
     .is_err());
 }
+
+#[test]
+fn conversion_commands_are_library_bound_and_preserve_compatibility_snapshots() {
+    let (dir, library) = fixture();
+    let (request, original) = conversion_command_fixture(dir.path(), &library);
+    assert!(call(
+        dir.path(),
+        "foreign",
+        json!({"kind":"applyNoteConversion","request":request})
+    )
+    .is_err());
+    let result = call(
+        dir.path(),
+        &library,
+        json!({"kind":"applyNoteConversion","request":request}),
+    )
+    .unwrap();
+    assert_eq!(result["outcome"]["status"], "committed");
+    let detail = call(
+        dir.path(),
+        &library,
+        json!({"kind":"noteConversionDetails","operationId":id(802)}),
+    )
+    .unwrap();
+    assert_eq!(
+        detail["legacyCards"][0]["card"]["properties"],
+        json!({"opaque":[false,null]})
+    );
+    assert_eq!(
+        call(
+            dir.path(),
+            &library,
+            json!({"kind":"noteCompatibility","pageId":id(1)})
+        )
+        .unwrap(),
+        detail
+    );
+    assert_eq!(
+        Store::open(dir.path())
+            .unwrap()
+            .get_card(&id(101))
+            .unwrap()
+            .schedule,
+        original
+    );
+    fs::remove_file(dir.path().join("article.md")).unwrap();
+    assert_eq!(
+        call(
+            dir.path(),
+            &library,
+            json!({"kind":"resumeNoteConversion","operationId":id(802)})
+        )
+        .unwrap(),
+        result
+    );
+    assert_eq!(
+        call(
+            dir.path(),
+            &library,
+            json!({"kind":"applyNoteConversion","request":request})
+        )
+        .unwrap(),
+        result
+    );
+}
+
+fn conversion_command_fixture(
+    root: &std::path::Path,
+    library: &str,
+) -> (Value, crate::learning::Schedule) {
+    let mut store = Store::open(root).unwrap();
+    store.create_card_once(&id(101),&id(1),serde_json::from_value(json!({"front":"SQL question","back":"SQL answer","answerMode":"inline","status":"active","position":0,"properties":{"opaque":[false,null]}})).unwrap()).unwrap();
+    let original = store.get_card(&id(101)).unwrap().schedule;
+    drop(store);
+    let preview = call(root, library, json!({"kind":"previewNoteConversion"})).unwrap();
+    let page = preview["pages"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|page| page["pageId"] == id(1))
+        .unwrap();
+    let request = json!({"operationId":id(802),"pageId":id(1),"expectedFingerprint":page["fingerprint"],"front":{"kind":"markdown"},"back":{"kind":"inline","source":{"kind":"markdown"}},"memory":{"kind":"reuse","cardId":id(101),"confirmedSameGoal":true}});
+    (request, original)
+}
