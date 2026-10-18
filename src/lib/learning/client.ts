@@ -1,4 +1,4 @@
-import type { NoteConversionPreview, NoteConversionRequest, NoteConversionResult, NoteConversionDetails } from './noteConversionTypes'
+import type { NoteConversionPreview, NoteConversionRequest, NoteConversionResult, NoteConversionDetails, NoteRecoveryRequest, NoteRecoverySummary, NoteRecoveryView } from './noteConversionTypes'
 import type { NoteFacePreview, NoteMemoryView, NoteWriteRequest, NoteConfigureRequest, NoteWriteOutcome } from './types'
 import type { PropertyDefinitions } from './propertyValues'
 import { invoke } from '@tauri-apps/api/core'
@@ -42,6 +42,10 @@ export class LearningClient {
   private call<T>(request: Record<string, unknown>): Promise<T> {
     return learningInvoke<T>('learning_command', { vaultPath: this.vaultPath, libraryId: this.libraryId, request })
   }
+
+  listNoteRecovery(includeResolved = false): Promise<NoteRecoverySummary[]> { return this.call({ kind: 'listNoteRecovery', includeResolved }) }
+  readNoteRecovery(operationId: string): Promise<NoteRecoveryView> { return this.call({ kind: 'readNoteRecovery', operationId }) }
+  resolveNoteRecovery(request: NoteRecoveryRequest): Promise<NoteWriteOutcome> { return this.call({ kind: 'resolveNoteRecovery', request }) }
 
   applyNoteConversion(request: NoteConversionRequest): Promise<NoteConversionResult> { return this.call({ kind: 'applyNoteConversion', request }) }
   resumeNoteConversion(operationId: string): Promise<NoteConversionResult> { return this.call({ kind: 'resumeNoteConversion', operationId }) }

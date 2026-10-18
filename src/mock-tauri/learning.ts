@@ -1,3 +1,4 @@
+import { isMockRecoveryRequest, mockRecoveryCommand } from './note-recovery'
 import { createMockLearningBackup } from './learning-backup'
 import { isMockConversionRequest, mockConversionCommand } from './note-conversion-runner'
 import { mockNoteConversionPreview } from './note-conversion'
@@ -101,6 +102,10 @@ async function executeMockLearningCommand(args: Record<string, unknown>, context
     return mockNoteConversionPreview(root, existing, context, hash)
   }
   const data = fixture(root)
+  if (isMockRecoveryRequest(request.kind)) {
+    if (args.libraryId !== data.id) throw Error('Library identity changed')
+    return structuredClone(await mockRecoveryCommand({ data, root, context, fresh, hash, persist: () => localStorage.setItem(`memnova:qa-learning:${root}`, JSON.stringify(data)) }, request))
+  }
   if (isMockConversionRequest(request.kind) || request.kind === 'resumeNoteMemory' && data.noteMemory?.operations[String(request.operationId)]?.kind === 'convert') {
     if (args.libraryId !== data.id) throw Error('Library identity changed')
     return structuredClone(await mockConversionCommand({ data, root, context, fresh, hash, persist: () => localStorage.setItem(`memnova:qa-learning:${root}`, JSON.stringify(data)) }, request))

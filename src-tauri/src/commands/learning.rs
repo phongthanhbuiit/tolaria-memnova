@@ -31,6 +31,15 @@ pub enum LearningRequest {
     ReconcileNoteMemory {
         page_id: String,
     },
+    ListNoteRecovery {
+        include_resolved: bool,
+    },
+    ReadNoteRecovery {
+        operation_id: String,
+    },
+    ResolveNoteRecovery {
+        request: crate::learning::NoteRecoveryRequest,
+    },
     ApplyNoteConversion {
         request: crate::learning::NoteConversionRequest,
     },
@@ -186,6 +195,9 @@ fn dispatch(
         | LearningRequest::ConfigureNoteMemory { .. }
         | LearningRequest::ResumeNoteMemory { .. }
         | LearningRequest::ReconcileNoteMemory { .. }
+        | LearningRequest::ListNoteRecovery { .. }
+        | LearningRequest::ReadNoteRecovery { .. }
+        | LearningRequest::ResolveNoteRecovery { .. }
         | LearningRequest::ApplyNoteConversion { .. }
         | LearningRequest::ResumeNoteConversion { .. }
         | LearningRequest::NoteConversionDetails { .. }
@@ -229,6 +241,17 @@ fn dispatch(
 
 fn dispatch_note_memory(store: &mut Store, request: LearningRequest) -> Result<Value, String> {
     match request {
+        LearningRequest::ListNoteRecovery { include_resolved } => encode(if include_resolved {
+            store.list_note_recovery_history()?
+        } else {
+            store.list_note_recovery()?
+        }),
+        LearningRequest::ReadNoteRecovery { operation_id } => {
+            encode(store.read_note_recovery(&operation_id)?)
+        }
+        LearningRequest::ResolveNoteRecovery { request } => {
+            encode(store.resolve_note_recovery(request)?)
+        }
         LearningRequest::ApplyNoteConversion { request } => {
             encode(store.apply_note_conversion(request)?)
         }

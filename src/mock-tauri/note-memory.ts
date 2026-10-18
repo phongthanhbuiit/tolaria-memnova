@@ -1,3 +1,4 @@
+import type { FixtureNoteResolution } from './note-recovery'
 import type { FixtureConversionIntent } from './note-conversion-runner'
 /** Browser QA model of the note IPC contract. This is not native persistence evidence. */
 import type { Context, Fixture } from './learning'
@@ -11,6 +12,7 @@ import { usefulMemoryContent } from '../lib/learning/noteMemoryReadiness'
 export type FixtureNoteOperation = {
   operationId: string; pageId: string; kind: 'save' | 'configure' | 'convert'; phase: 'prepared' | 'file_written' | 'applied' | 'conflict'
   requestHash: string; beforeHash: string; afterHash: string; expectedRevision: number | null
+  resolution?: FixtureNoteResolution
   conversion?: FixtureConversionIntent
   source: string | null; cardId: string; outcome: NoteWriteOutcome | null; createdAt: number
 }
@@ -221,4 +223,10 @@ export async function mockNoteStudyContent(env: ReadEnvironment, card: LearningC
     sourceError: null,
     content: { kind: 'note', details: { backSource: { pageId: reverse.pageId, path: reverse.path, face: reverse.face }, propertiesRaw: (await read(env, card.pageId)).slice(0, original.offsets.front.start), frontMedia: [], backMedia: [], fingerprint: await env.hash(`${owner.fingerprint}\0${reverse.fingerprint}`) } },
   }
+}
+
+export async function reconcileKeptMockNote(env: Environment, pageId: string, ignore: string): Promise<number | null> {
+  const current = await view(env,pageId,ignore)
+  if (!current.value.binding || current.value.state === 'pending') return current.value.binding?.revision ?? null
+  return reconcile(env,current.value,current.identityValid)
 }

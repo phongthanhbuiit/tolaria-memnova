@@ -64,3 +64,10 @@ export interface NoteConversionDetails {
   afterSource: string
   legacyCards: NoteConversionCandidate[]
 }
+
+export interface NoteRecoveryRequest { operationId: string; expectedCurrentHash: string | null; choice: 'keepDisk' }
+export interface NoteRecoverySummary { operationId: string; pageId: string | null; kind: 'save' | 'configure' | 'convert' | 'reconcile'; phase: 'prepared' | 'file_written' | 'applied' | 'conflict'; createdAt: number }
+export interface NoteRecoveryView {
+  operationId: string; pageId: string; phase: NoteRecoverySummary['phase']; draftSource: string | null; beforeSource: string | null;
+  currentPath: string | null; currentSource: string | null; currentHash: string | null; sourceError: string | null; keptSource: string | null; outcome: import('./types').NoteWriteOutcome | null
+}

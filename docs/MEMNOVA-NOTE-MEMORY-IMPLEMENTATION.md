@@ -16,8 +16,8 @@ Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. **Đây là
 | M07 | DONE | 95aed8a0 | Live faces/source/media fingerprints;1153 native and90 focused frontend pass; see M07 baseline. Normal pre-commit4662 frontend/1153 Rust passed; batch push pending. |
 | M08 | DONE | 98e31147 | Seven real-file backup tests/150 learning pass; typed binding/journal validation, old1–4 restore and root-move preservation. See M08 baseline; committed/pushed98e31147. |
 | M09 | VERIFIED_LOCAL | 7f223d38 | Read-only DB/WAL/source preview;9 native domain+1 command cases,159 learning/7 IPC/14 focused frontend pass. See M09 baseline. Normal commit/batch push pending. |
-| M10 | VERIFIED_LOCAL | 1e055d09 + API commit pending | Explicit backup-first apply/resume/compatibility;13 native domain cases,1184 unit/22 focused frontend pass; normal API commit and batch push pending. See M10 baseline. |
-| M11 | NOT_STARTED | — | — |
+| M10 | VERIFIED_LOCAL | 1e055d09,b6584766 | Explicit backup-first apply/resume/compatibility;13 native domain cases,1184 unit/22 focused frontend pass; normal pre-commit passed; batch push pending. See M10 baseline. |
+| M11 | IN_PROGRESS | — | Depends on localb6584766; explicit recovery and staged UI first. |
 | M12 | NOT_STARTED | — | — |
 | M13 | NOT_STARTED | — | — |
 | M14 | NOT_STARTED | — | — |
@@ -79,3 +79,5 @@ M06 normal pre-commit: full frontend4659 tests/440files pass121.62s; Rust1139 pa
 Normal push98e31147 passed9m5s: lint/build/types,4662 frontend tests/441files, frontend86.78% lines (83.22% statements),1160 Rust unit tests+1integration/3ignored, hook Rust87.36% lines (existing lib/main/menu exclusions),54smoke/4.6m. CodeScene NOT RUN optional unavailable. Remote/local SHA matched, working tree/demo dirt empty. M08 normal pre-commit150 learning tests passed4.97s. Evidence:/tmp/memnova-note-memory-evidence/m08/. M25 unexcluded coverage/native QA still required; this is not completion of the whole plan.
 
 M09 normal pre-commit:4664 frontend tests/442files pass137.52s;1170 Rust unit tests pass/3ignored42.48s. Commit7f223d38; batch push follows M11.
+
+M10 API normal pre-commit: full frontend passed (see archived log);1184 Rust unit tests pass/3ignored51.76s. Commitb6584766; native core1e055d09. Codacy reviewed one63-line behavioral command test plus existing dispatcher/false browser span; no new security/CriticalHigh. Batch push follows M11.

@@ -119,6 +119,7 @@ fn prepare_checkpoint(
         outcome: None,
         configuration,
         conversion,
+        resolution: None,
     };
     prepared.validate()?;
     if prepared.conversion.is_some()

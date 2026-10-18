@@ -54,3 +54,14 @@ it('binds conversion apply/recovery/compatibility requests to the current Librar
   await client.noteCompatibility('page')
   expect(invoke).toHaveBeenLastCalledWith('learning_command', { vaultPath: '/qa', libraryId: 'owned', request: { kind: 'noteCompatibility', pageId: 'page' } })
 })
+it('requires explicit source expectations on recovery and retains read-only history routing', async () => {
+  vi.mocked(invoke).mockResolvedValueOnce({ libraryId: 'owned', schemaVersion: 5 }).mockResolvedValue({ status: 'discarded' })
+  const client = await LearningClient.connect('/qa')
+  await client.listNoteRecovery(true)
+  expect(invoke).toHaveBeenLastCalledWith('learning_command', { vaultPath: '/qa', libraryId: 'owned', request: { kind: 'listNoteRecovery', includeResolved: true } })
+  await client.readNoteRecovery('op')
+  expect(invoke).toHaveBeenLastCalledWith('learning_command', { vaultPath: '/qa', libraryId: 'owned', request: { kind: 'readNoteRecovery', operationId: 'op' } })
+  const request = { operationId: 'op', expectedCurrentHash: null, choice: 'keepDisk' as const }
+  expect(await client.resolveNoteRecovery(request)).toMatchObject({ status: 'discarded' })
+  expect(invoke).toHaveBeenLastCalledWith('learning_command', { vaultPath: '/qa', libraryId: 'owned', request: { kind: 'resolveNoteRecovery', request } })
+})

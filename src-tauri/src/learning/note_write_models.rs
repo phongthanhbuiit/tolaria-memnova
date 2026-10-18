@@ -18,6 +18,7 @@ pub enum NoteWriteStatus {
     Committed,
     Pending,
     Conflict,
+    Discarded,
 }
 
 #[derive(Clone, Debug, Deserialize, Serialize, PartialEq, Eq)]
@@ -48,6 +49,8 @@ pub struct PreparedWrite {
     pub configuration: Option<super::note_memory::MemoryConfig>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub(super) conversion: Option<super::note_conversion_intent::ConversionIntent>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub(super) resolution: Option<super::note_recovery_models::NoteResolution>,
 }
 
 impl PreparedWrite {
@@ -86,6 +89,29 @@ impl PreparedWrite {
         {
             return Err("Invalid configuration checkpoint".into());
         }
+        self.validate_target_source()?;
+        if let Some(conversion) = &self.conversion {
+            conversion.validate(self)?;
+        }
+        if let Some(resolution) = &self.resolution {
+            resolution.validate(self)?;
+        }
+        if let Some(outcome) = &self.outcome {
+            if outcome.operation_id != self.operation_id
+                || outcome.page_id != self.page_id
+                || outcome.source_hash != self.after_hash
+                || !matches!(
+                    outcome.status,
+                    NoteWriteStatus::Committed | NoteWriteStatus::Discarded
+                )
+                || (outcome.status == NoteWriteStatus::Discarded) != self.resolution.is_some()
+            {
+                return Err("Invalid note operation receipt".into());
+            }
+        }
+        Ok(())
+    }
+    fn validate_target_source(&self) -> Result<(), String> {
         if let Some(source) = &self.after_source {
             if content_hash(source) != self.after_hash {
                 return Err("Note operation source checksum mismatch".into());
@@ -95,18 +121,6 @@ impl PreparedWrite {
                 && super::note_memory::parse_document(source).config != self.configuration
             {
                 return Err("Configuration checkpoint mismatch".into());
-            }
-        }
-        if let Some(conversion) = &self.conversion {
-            conversion.validate(self)?;
-        }
-        if let Some(outcome) = &self.outcome {
-            if outcome.operation_id != self.operation_id
-                || outcome.page_id != self.page_id
-                || outcome.source_hash != self.after_hash
-                || outcome.status != NoteWriteStatus::Committed
-            {
-                return Err("Invalid note operation receipt".into());
             }
         }
         Ok(())
@@ -127,7 +141,7 @@ pub(super) fn required_revision<'de, D: serde::Deserializer<'de>>(
     Option::deserialize(deserializer)
 }
 
-fn validate_historical_path(path: &str) -> Result<(), String> {
+pub(super) fn validate_historical_path(path: &str) -> Result<(), String> {
     let path = super::backup_files::relative_path(path)?;
     if path.components().any(|part| {
         part.as_os_str()

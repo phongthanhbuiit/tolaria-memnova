@@ -343,3 +343,69 @@ fn conversion_command_fixture(
     let request = json!({"operationId":id(802),"pageId":id(1),"expectedFingerprint":page["fingerprint"],"front":{"kind":"markdown"},"back":{"kind":"inline","source":{"kind":"markdown"}},"memory":{"kind":"reuse","cardId":id(101),"confirmedSameGoal":true}});
     (request, original)
 }
+
+#[test]
+fn recovery_ipc_keeps_current_source_and_exposes_saved_drafts_after_resolution() {
+    let (dir, library) = fixture();
+    let (request, _) = conversion_command_fixture(dir.path(), &library);
+    let db = rusqlite::Connection::open(dir.path().join(".memnova/learning.sqlite3")).unwrap();
+    db.execute_batch("CREATE TRIGGER fail_recovery_fixture BEFORE INSERT ON note_card_bindings BEGIN SELECT RAISE(ABORT,'test interruption'); END;").unwrap();
+    assert_eq!(
+        call(
+            dir.path(),
+            &library,
+            json!({"kind":"applyNoteConversion","request":request})
+        )
+        .unwrap()["outcome"]["status"],
+        "pending"
+    );
+    db.execute_batch("DROP TRIGGER fail_recovery_fixture;")
+        .unwrap();
+    drop(db);
+    let path = dir.path().join("article.md");
+    let raw = fs::read_to_string(&path)
+        .unwrap()
+        .replace("Article", "External article");
+    fs::write(&path, &raw).unwrap();
+    let view = call(
+        dir.path(),
+        &library,
+        json!({"kind":"readNoteRecovery","operationId":id(802)}),
+    )
+    .unwrap();
+    let resolution = json!({"operationId":id(802),"expectedCurrentHash":view["currentHash"],"choice":"keepDisk"});
+    assert_eq!(
+        call(
+            dir.path(),
+            &library,
+            json!({"kind":"resolveNoteRecovery","request":resolution})
+        )
+        .unwrap()["status"],
+        "discarded"
+    );
+    assert_eq!(fs::read_to_string(path).unwrap(), raw);
+    assert_eq!(
+        call(
+            dir.path(),
+            &library,
+            json!({"kind":"listNoteRecovery","includeResolved":false})
+        )
+        .unwrap(),
+        json!([])
+    );
+    let history = call(
+        dir.path(),
+        &library,
+        json!({"kind":"listNoteRecovery","includeResolved":true}),
+    )
+    .unwrap();
+    assert_eq!(history.as_array().unwrap().len(), 1);
+    let recovered = call(
+        dir.path(),
+        &library,
+        json!({"kind":"readNoteRecovery","operationId":id(802)}),
+    )
+    .unwrap();
+    assert_eq!(recovered["draftSource"], view["draftSource"]);
+    assert_eq!(recovered["keptSource"], raw);
+}

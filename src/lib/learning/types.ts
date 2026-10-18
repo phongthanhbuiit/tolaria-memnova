@@ -168,7 +168,7 @@ export interface NoteConfigureRequest extends Omit<NoteWriteRequest, 'source'> {
 export interface NoteWriteOutcome {
   operationId: string
   pageId: string
-  status: 'committed' | 'pending' | 'conflict'
+  status: 'committed' | 'pending' | 'conflict' | 'discarded'
   sourceHash: string
   revision: number | null
   problem: string | null

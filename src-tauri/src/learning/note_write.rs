@@ -140,7 +140,10 @@ impl Store {
             .outcome
             .clone()
             .ok_or("Note write receipt is missing")?;
-        if prepared.conversion.is_none() && prepared.after_source.take().is_some() {
+        if outcome.status == NoteWriteStatus::Committed
+            && prepared.conversion.is_none()
+            && prepared.after_source.take().is_some()
+        {
             write_payload(&self.conn, prepared, NoteOperationPhase::Applied)?;
         }
         Ok(outcome)

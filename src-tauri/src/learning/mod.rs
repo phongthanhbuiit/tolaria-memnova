@@ -170,3 +170,10 @@ pub use note_conversion_intent::{
 
 #[cfg(test)]
 mod note_conversion_test_support;
+
+#[cfg(test)]
+mod note_recovery_tests;
+
+mod note_recovery;
+mod note_recovery_models;
+pub use note_recovery_models::{NoteRecoveryRequest, NoteRecoverySummary, NoteRecoveryView};
