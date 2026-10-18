@@ -50,3 +50,5 @@ Codacy final23touched/new paths:ESLint0;Opengrep6baseline typed custom-component
 | I12 | 378layout cases plus computed contrast/focus/coarse/reduced motion; physical zoom resize and fullscreen/width return | Native WebKit observation at M23; hardware touch/screen reader NOT RUN |
 
 All these are task-scoped checkpoints, not a substitute for M23/M24/M25. Folder-tab suspicion was inspected: current navigation uses setSingleTab plus a flush boundary; no reachable unrelated dirty-tab loss was demonstrated. No multi-tab redesign added. Conversion readiness/media snapshots already compare the full ConversionSources on resume/commit; no change needed there. Do not leave speculative review notes labeled as confirmed bugs.
+
+Final normal verified commit6ea806a8:368frontend/49files26.50s,213native learning15.31s and12changed integration tests1.8m pass; lint/types/format pass. No retries occurred and no hook was bypassed. Preceding native fault commit98ea525d passed211learning tests13.44s. Both commits are VERIFIED_LOCAL until normal batch push succeeds. Demo dirt clean.
