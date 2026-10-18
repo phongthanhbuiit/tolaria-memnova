@@ -957,5 +957,6 @@
   "editor.noteMemory.useLocal": "Utiliser l’aide-mémoire local",
   "editor.noteMemory.sourceReadOnly": "Aperçu de la source · lecture seule",
   "editor.noteMemory.deleteConfirmation": "Supprimer définitivement les notes sélectionnées et leurs moyens mnémotechniques intégrés ? Les notes sources liées et les pièces jointes extérieures aux fichiers sélectionnés sont conservées. Cette action est irréversible.",
-  "editor.noteMemory.deleteFolderConfirmation": "Supprimer définitivement ce dossier, ses sous-dossiers, notes, moyens mnémotechniques intégrés et autres fichiers ? Les sources liées hors du dossier sont conservées. Cette action est irréversible."
+  "editor.noteMemory.deleteFolderConfirmation": "Supprimer définitivement ce dossier, ses sous-dossiers, notes, moyens mnémotechniques intégrés et autres fichiers ? Les sources liées hors du dossier sont conservées. Cette action est irréversible.",
+  "properties.noNoteMemory": "Cette note n’a pas encore de calendrier de révision."
 }

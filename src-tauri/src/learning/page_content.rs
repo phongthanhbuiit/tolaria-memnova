@@ -6,13 +6,19 @@ use super::{
 };
 use std::{fs, path::Path};
 
-fn learning_store(root: &Path) -> Result<Option<Store>, String> {
+fn existing_store(root: &Path) -> Result<Option<Store>, String> {
     if !root.join(".memnova/learning.sqlite3").exists()
         && !root.join(".memnova/library.json").exists()
     {
         return Ok(None);
     }
-    let store = Store::open(root)?;
+    Store::open(root).map(Some)
+}
+
+fn learning_store(root: &Path) -> Result<Option<Store>, String> {
+    let Some(store) = existing_store(root)? else {
+        return Ok(None);
+    };
     match store.migration_state()? {
         MigrationState::Migrating => {
             Err("Finish or recover the Library import before editing lessons".into())
@@ -62,26 +68,45 @@ pub fn with_source_write<T>(write: impl FnOnce() -> Result<T, String>) -> Result
 
 /// The generic file writer must not become a second writer for a bound note.
 pub fn guard_memory_write(root: &Path, path: &Path) -> Result<(), String> {
-    let Some(store) = learning_store(root)? else {
+    let store = learning_store(root)?;
+    guard_owned_source(store.as_ref(), path)
+}
+
+/// Ordinary custom properties remain editable during legacy import; owned note
+/// sources still require their coordinator. Legacy schedule writes are guarded
+/// separately by with_legacy_write at the command boundary.
+pub fn guard_property_write(root: &Path, path: &Path) -> Result<(), String> {
+    let store = existing_store(root)?;
+    guard_owned_source(store.as_ref(), path)
+}
+
+fn guard_owned_source(store: Option<&Store>, path: &Path) -> Result<(), String> {
+    if store.is_none() && !path.exists() {
         return Ok(());
-    };
-    let relative = path
-        .canonicalize()
-        .map_err(|error| error.to_string())?
-        .strip_prefix(&store.root)
-        .map_err(|error| error.to_string())?
-        .to_string_lossy()
-        .replace(std::path::MAIN_SEPARATOR, "/");
-    let registered = page_identity_at(&store.conn, &relative)?;
-    let owned = super::note_memory::parse_document(
-        &fs::read_to_string(path).map_err(|error| error.to_string())?,
-    )
-    .page_id;
-    for page in registered.iter().chain(owned.iter()) {
-        if store.note_binding(page)?.is_some() {
-            return Err("bound-note-card: use the note source coordinator".into());
+    }
+    let source = fs::read_to_string(path).map_err(|error| error.to_string())?;
+    let document = super::note_memory::parse_document(&source);
+    if let Some(store) = store {
+        let canonical = path.canonicalize().map_err(|error| error.to_string())?;
+        let relative = canonical
+            .strip_prefix(&store.root)
+            .map_err(|error| error.to_string())?
+            .to_string_lossy()
+            .replace(std::path::MAIN_SEPARATOR, "/");
+        let registered = page_identity_at(&store.conn, &relative)?;
+        for page in registered.iter().chain(document.page_id.iter()) {
+            if store.note_binding(page)?.is_some() {
+                return Err("bound-note-card: use the note source coordinator".into());
+            }
+            super::note_guard::require_note_page_writable(&store.conn, page)?;
         }
-        super::note_guard::require_note_page_writable(&store.conn, page)?;
+    }
+    if document.config.is_some()
+        || source
+            .lines()
+            .any(|line| line.starts_with("_memnova_learning_"))
+    {
+        return Err("note-memory-source: use the note source coordinator".into());
     }
     Ok(())
 }

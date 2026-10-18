@@ -72,7 +72,7 @@ fn preferred_relationship_refs(
 
 pub(crate) fn derive_markdown_title_from_content(content: &str, filename: &str) -> String {
     let matter = Matter::<YAML>::new();
-    let parsed = matter.parse(content);
+    let parsed = matter.parse(content.trim_start_matches('\u{feff}'));
     let (frontmatter, _, _) = extract_fm_and_rels(parsed.data, content);
     extract_title(frontmatter.title.as_deref(), content, filename)
 }
@@ -106,7 +106,7 @@ pub fn parse_md_file(path: &Path, git_dates: Option<(u64, u64)>) -> Result<Vault
         .unwrap_or_default();
 
     let matter = Matter::<YAML>::new();
-    let parsed = matter.parse(&content);
+    let parsed = matter.parse(content.trim_start_matches('\u{feff}'));
     let (frontmatter, mut relationships, properties) = extract_fm_and_rels(parsed.data, &content);
 
     let title = derive_markdown_title_from_content(&content, &filename);

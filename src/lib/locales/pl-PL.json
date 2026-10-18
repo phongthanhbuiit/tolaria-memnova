@@ -957,5 +957,6 @@
   "editor.noteMemory.useLocal": "Użyj lokalnej pomocy pamięciowej",
   "editor.noteMemory.sourceReadOnly": "Podgląd źródła · tylko do odczytu",
   "editor.noteMemory.deleteConfirmation": "Trwale usunąć wybrane notatki i osadzone pomoce pamięciowe? Powiązane notatki źródłowe i załączniki poza wybranymi plikami zostaną zachowane. Tej operacji nie można cofnąć.",
-  "editor.noteMemory.deleteFolderConfirmation": "Trwale usunąć ten folder, podfoldery, notatki, osadzone pomoce pamięciowe i inne pliki? Powiązane źródła poza folderem zostaną zachowane. Tej operacji nie można cofnąć."
+  "editor.noteMemory.deleteFolderConfirmation": "Trwale usunąć ten folder, podfoldery, notatki, osadzone pomoce pamięciowe i inne pliki? Powiązane źródła poza folderem zostaną zachowane. Tej operacji nie można cofnąć.",
+  "properties.noNoteMemory": "Ta notatka nie ma jeszcze harmonogramu powtórek."
 }

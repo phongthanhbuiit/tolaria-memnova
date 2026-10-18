@@ -957,5 +957,6 @@
   "editor.noteMemory.useLocal": "Use local mnemonic",
   "editor.noteMemory.sourceReadOnly": "Source preview · read only",
   "editor.noteMemory.deleteConfirmation": "Permanently delete the selected notes and their inline mnemonics? Linked source notes and attachments outside the selected files are kept. This cannot be undone.",
-  "editor.noteMemory.deleteFolderConfirmation": "Permanently delete this folder, its nested folders, notes, inline mnemonics and other files? Linked sources outside this folder are kept. This cannot be undone."
+  "editor.noteMemory.deleteFolderConfirmation": "Permanently delete this folder, its nested folders, notes, inline mnemonics and other files? Linked sources outside this folder are kept. This cannot be undone.",
+  "properties.noNoteMemory": "This note has no review schedule yet."
 }

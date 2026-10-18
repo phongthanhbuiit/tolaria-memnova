@@ -317,17 +317,6 @@ pub(crate) fn with_validated_path<T>(
     })
 }
 
-pub(crate) fn with_existing_paths<T>(
-    paths: &[String],
-    vault_path: Option<&str>,
-    action: impl FnOnce(Vec<String>) -> Result<T, String>,
-) -> Result<T, String> {
-    with_boundary(vault_path, |boundary| {
-        let validated_paths = boundary.validate_existing_paths(paths)?;
-        action(validated_paths)
-    })
-}
-
 pub(crate) fn with_requested_root<T>(
     vault_path: &str,
     action: impl FnOnce(&str) -> Result<T, String>,

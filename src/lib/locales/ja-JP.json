@@ -957,5 +957,6 @@
   "editor.noteMemory.useLocal": "このノートの記憶の手がかりを使う",
   "editor.noteMemory.sourceReadOnly": "参照元のプレビュー · 読み取り専用",
   "editor.noteMemory.deleteConfirmation": "選択したノートと内部の記憶用ヒントを完全に削除しますか？リンクされた参照元ノートと、選択ファイル外の添付ファイルは保持されます。この操作は取り消せません。",
-  "editor.noteMemory.deleteFolderConfirmation": "このフォルダーとサブフォルダー、ノート、内部の記憶用ヒント、その他のファイルを完全に削除しますか？フォルダー外のリンクされた参照元は保持されます。この操作は取り消せません。"
+  "editor.noteMemory.deleteFolderConfirmation": "このフォルダーとサブフォルダー、ノート、内部の記憶用ヒント、その他のファイルを完全に削除しますか？フォルダー外のリンクされた参照元は保持されます。この操作は取り消せません。",
+  "properties.noNoteMemory": "このノートにはまだ復習予定がありません。"
 }

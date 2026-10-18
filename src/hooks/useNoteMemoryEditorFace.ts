@@ -72,11 +72,17 @@ export function useNoteMemoryEditorFace(
       path,
       source: document.getBaseline(),
       onSaved: (source) => document.markSaved(source),
+      getCurrentSource: () => document.getSnapshot().source,
+      onPropertyDraft: draft => {
+        const next = document.stageProperty(draft.beforeSource, draft.afterSource, draft.key, draft.value, draft.rememberOnly)
+        if (next !== null) onContentChangeRef.current(path, next)
+      },
       onConfigurationDraft: (draft) => {
         const next = document.stageConfiguration(
           draft.beforeSource,
           draft.afterSource,
-          draft.config
+          draft.config,
+          draft.rememberOnly
         )
         if (next !== null) onContentChangeRef.current(path, next)
       },

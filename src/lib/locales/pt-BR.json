@@ -957,5 +957,6 @@
   "editor.noteMemory.useLocal": "Usar recurso de memorização local",
   "editor.noteMemory.sourceReadOnly": "Prévia da fonte · somente leitura",
   "editor.noteMemory.deleteConfirmation": "Excluir permanentemente as notas selecionadas e seus recursos mnemônicos integrados? As notas de origem vinculadas e os anexos externos aos arquivos selecionados são mantidos. Esta ação não pode ser desfeita.",
-  "editor.noteMemory.deleteFolderConfirmation": "Excluir permanentemente esta pasta, suas subpastas, notas, recursos mnemônicos integrados e outros arquivos? As origens vinculadas externas à pasta são mantidas. Esta ação não pode ser desfeita."
+  "editor.noteMemory.deleteFolderConfirmation": "Excluir permanentemente esta pasta, suas subpastas, notas, recursos mnemônicos integrados e outros arquivos? As origens vinculadas externas à pasta são mantidas. Esta ação não pode ser desfeita.",
+  "properties.noNoteMemory": "Esta nota ainda não tem um cronograma de revisão."
 }

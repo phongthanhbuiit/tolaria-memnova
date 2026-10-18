@@ -39,7 +39,7 @@ test('note memory edits both faces and raw mode through one complete saved docum
     await expect(raw).toContainText('Last mnemonic stroke')
     await expect(raw).toContainText('<!-- FLASHCARD:BACK -->')
     expect(fs.readFileSync(note, 'utf8').startsWith(header)).toBe(true)
-    expect(fs.readFileSync(note, 'utf8').match(/<!-- FLASHCARD:BACK -->/g)).toHaveLength(1)
+    expect(fs.readFileSync(note, 'utf8').split('<!-- FLASHCARD:BACK -->')).toHaveLength(2)
     await page.screenshot({ path: '/tmp/memnova-m15-editor-raw.png' })
   } finally { removeFixtureVaultCopy(root) }
 })

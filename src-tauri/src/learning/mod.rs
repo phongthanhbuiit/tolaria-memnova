@@ -182,3 +182,6 @@ pub use note_recovery_models::{NoteRecoveryRequest, NoteRecoverySummary, NoteRec
 
 #[cfg(test)]
 mod note_file_lifecycle_tests;
+
+#[cfg(test)]
+mod note_property_write_tests;

@@ -1,3 +1,4 @@
+import { NoteEditorDocument } from './noteEditorDocument'
 import { describe, expect, it, vi } from 'vitest'
 import { NoteEditorPersistence, registerNoteEditorPersistence, saveThroughNoteEditor } from './noteEditorPersistence'
 import type { NoteConfigureRequest, NoteMemoryView, NoteWriteRequest, NoteWriteOutcome } from './types'
@@ -127,4 +128,49 @@ describe('configuration shares the editor write queue', () => {
     await writer.configure(config)
     expect(client.configureNoteMemory).toHaveBeenCalledOnce()
   })
+})
+
+it('stages a configuration before a previous queued save returns so new edits cannot capture the old configuration', async () => {
+  const { writer, client, drafted } = fixture()
+  const original = client.saveNoteMemory.getMockImplementation()!
+  let release!: () => void
+  const response = new Promise<void>(resolve => { release = resolve })
+  client.saveNoteMemory.mockImplementationOnce(async request => { await response; return original(request) })
+  const first = writer.save('First unsaved article')
+  await vi.waitFor(() => expect(client.saveNoteMemory).toHaveBeenCalledOnce())
+  const config: NoteMemoryConfig = { version: 1, enabled: false, back: { kind: 'inline' } }
+  const configured = writer.configure(config)
+  const stagedBeforeResponse = drafted.mock.calls.length
+  release()
+  await Promise.all([first, configured])
+  expect(stagedBeforeResponse).toBe(1)
+})
+
+it('does not let an older property intent overwrite a newer choice captured by autosave', async () => {
+  const document = new NoteEditorDocument('/library/a.md', baseline)
+  let release!: () => void
+  const response = new Promise<void>(resolve => { release = resolve })
+  let revision = 4
+  const saveNoteMemory = vi.fn(async (request: NoteWriteRequest) => {
+    if (revision === 4) await response
+    return { operationId: request.operationId, pageId, status: 'committed' as const, sourceHash: await sha256(request.source), revision: ++revision, problem: null }
+  })
+  const client = { vaultPath: '/library', saveNoteMemory, readNoteMemory: vi.fn(async () => ({ pageId, path: 'a.md', binding: { revision: 4 } }) as NoteMemoryView) }
+  const writer = new NoteEditorPersistence({ client, path: '/library/a.md', pageId, source: baseline,
+    getCurrentSource: () => document.getSnapshot().source,
+    onPropertyDraft: draft => { document.stageProperty(draft.beforeSource, draft.afterSource, draft.key, draft.value, draft.rememberOnly) },
+    onSaved: source => document.markSaved(source) })
+  const first = writer.property('Status', 'First'), second = writer.property('Status', 'Second')
+  await vi.waitFor(() => expect(saveNoteMemory).toHaveBeenCalledOnce())
+  const autosave = writer.save(document.getSnapshot().source)
+  release()
+  await Promise.all([first, second, autosave])
+  expect(saveNoteMemory.mock.calls.at(-1)![0].source).toContain('Status: "Second"')
+})
+
+it('never writes when a property draft cannot be staged in its editor', async () => {
+  const { client } = fixture()
+  const writer = new NoteEditorPersistence({ client, path: '/library/a.md', pageId, source: baseline, onPropertyDraft: () => { throw Error('Editor unavailable') } })
+  await expect(writer.property('Status', 'Done')).rejects.toThrow('Editor unavailable')
+  expect(client.saveNoteMemory).not.toHaveBeenCalled()
 })

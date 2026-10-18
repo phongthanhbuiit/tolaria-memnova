@@ -957,5 +957,6 @@
   "editor.noteMemory.useLocal": "使用当前笔记的记忆提示",
   "editor.noteMemory.sourceReadOnly": "来源预览 · 只读",
   "editor.noteMemory.deleteConfirmation": "永久删除所选笔记及其内嵌记忆提示？链接的来源笔记和所选文件以外的附件将保留。此操作无法撤销。",
-  "editor.noteMemory.deleteFolderConfirmation": "永久删除此文件夹及其子文件夹、笔记、内嵌记忆提示和其他文件？文件夹外链接的来源将保留。此操作无法撤销。"
+  "editor.noteMemory.deleteFolderConfirmation": "永久删除此文件夹及其子文件夹、笔记、内嵌记忆提示和其他文件？文件夹外链接的来源将保留。此操作无法撤销。",
+  "properties.noNoteMemory": "此笔记尚无复习计划。"
 }

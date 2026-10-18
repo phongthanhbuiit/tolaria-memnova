@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { NoteEditorDocument } from './noteEditorDocument'
 import { parseNoteMemoryDocument } from './noteMemoryDocument'
 import { patchNoteMemoryConfig } from './noteMemoryPatch'
+import { patchNoteProperty } from './notePropertyPatch'
 import type { NoteMemoryConfig } from './noteMemoryConfig'
 
 const header = '---\n_memnova_page_id: 11111111-1111-4111-8111-111111111111\n_memnova_learning_version: 1\n_memnova_learning_enabled: false\n_memnova_back_kind: inline\ncustom: 9007199254740999\n---\n'
@@ -114,4 +115,22 @@ describe('canonical note editor document', () => {
     doc.stageConfiguration(linkedSource, source, inline)
     expect(doc.getSnapshot().source).toBe(source)
   })
+})
+
+it('merges a property into newer face text and accepts only the matching persisted echo as its base', () => {
+  const document = make()
+  document.edit('/library/a.md', `${header}Newer article stroke`)
+  const saved = patchNoteProperty(source, 'Status', 'Done')
+  document.stageProperty(source, saved, 'Status', 'Done')
+  const combined = document.getSnapshot().source
+  expect(combined).toContain('Newer article stroke')
+  expect(combined).toContain('Status: "Done"')
+  expect(parseNoteMemoryDocument(combined).back).toBe(parseNoteMemoryDocument(source).back)
+  document.stageProperty(saved, patchNoteProperty(saved, 'Status', 'Newer'), 'Status', 'Newer')
+  const latest = document.getSnapshot().source
+  document.stageProperty(source, saved, 'Status', 'Done', true)
+  document.receive(saved)
+  document.markSaved(saved)
+  expect(document.getSnapshot()).toMatchObject({ source: latest, conflict: false, externalVersion: 0 })
+  expect(document.getBaseline()).toBe(saved)
 })

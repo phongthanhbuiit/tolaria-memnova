@@ -7,6 +7,7 @@ import type {
 } from './types'
 import type { NoteMemoryConfig } from './noteMemoryConfig'
 import { patchNoteMemoryConfig } from './noteMemoryPatch'
+import { patchNoteProperty, type NotePropertyValue } from './notePropertyPatch'
 
 type EditorMemoryClient = Pick<
   LearningClient,
@@ -22,10 +23,13 @@ interface PersistenceOptions {
   pageId: string
   source: string
   onSaved?: (source: string) => void
+  getCurrentSource?: () => string
+  onPropertyDraft?: (draft: { beforeSource: string; afterSource: string; key: string; value: NotePropertyValue | undefined; rememberOnly?: boolean }) => void
   onConfigurationDraft?: (draft: {
     beforeSource: string
     afterSource: string
     config: NoteMemoryConfig
+    rememberOnly?: boolean
   }) => void
 }
 
@@ -73,12 +77,38 @@ export class NoteEditorPersistence {
   configure(config: NoteMemoryConfig): Promise<void> {
     const generation = this.generation
     const configuration = structuredClone(config)
-    return this.enqueue(() => this.configureCurrent(configuration, generation))
+    return this.enqueueDraft(() => this.configureCurrent(configuration, generation), () => {
+      this.current(generation)
+      this.options.onConfigurationDraft?.({ beforeSource: this.source,
+        afterSource: patchNoteMemoryConfig(this.source, configuration), config: configuration })
+    })
   }
 
-  private enqueue(execute: () => Promise<void>): Promise<void> {
+  property(key: string, value: NotePropertyValue | undefined): Promise<string> {
+    const generation = this.generation
+    const propertyValue = value === undefined ? undefined : structuredClone(value)
+    return this.enqueueDraft(() => this.propertyCurrent(key, propertyValue, generation), () => {
+      this.current(generation)
+      const afterSource = patchNoteProperty(this.source, key, propertyValue)
+      this.options.onPropertyDraft?.({ beforeSource: this.source, afterSource, key, value: propertyValue })
+    })
+  }
+
+  private enqueue<T>(execute: () => Promise<T>): Promise<T> {
     const result = this.queue.then(execute, execute)
-    this.queue = result.catch(() => {})
+    this.queue = result.then(() => undefined, () => undefined)
+    return result
+  }
+
+  private enqueueDraft<T>(execute: () => Promise<T>, stage: () => void): Promise<T> {
+    let failure: { error: unknown } | null = null
+    const result = this.enqueue(() => {
+      if (failure) throw failure.error
+      return execute()
+    })
+    // Stage synchronously, even while an earlier intent awaits its receipt. Any
+    // subsequent autosave then captures the selected property/configuration.
+    try { stage() } catch (error) { failure = { error } }
     return result
   }
 
@@ -148,6 +178,19 @@ export class NoteEditorPersistence {
     await this.commitIntent(generation)
   }
 
+  private async propertyCurrent(key: string, value: NotePropertyValue | undefined, generation: number): Promise<string> {
+    this.current(generation)
+    if (this.intent) await this.commitIntent(generation)
+    const beforeSource = this.source, afterSource = patchNoteProperty(beforeSource, key, value)
+    if (beforeSource !== afterSource) {
+      const base = await this.prepareBase(generation)
+      this.intent = { kind: 'save', request: { ...base, operationId: crypto.randomUUID(), pageId: this.options.pageId, source: afterSource }, afterSource }
+      this.options.onPropertyDraft?.({ beforeSource, afterSource, key, value, rememberOnly: true })
+      await this.commitIntent(generation)
+    }
+    return this.options.getCurrentSource?.() ?? this.source
+  }
+
   private async configureCurrent(
     config: NoteMemoryConfig,
     generation: number
@@ -172,6 +215,7 @@ export class NoteEditorPersistence {
       beforeSource,
       afterSource,
       config: structuredClone(config),
+      rememberOnly: true,
     })
     await this.commitIntent(generation)
   }
@@ -206,4 +250,9 @@ export async function configureThroughNoteEditor(
   if (!writer) return false
   await writer.configure(config)
   return true
+}
+
+export async function propertyThroughNoteEditor(path: string, key: string, value: NotePropertyValue | undefined): Promise<string | null> {
+  const writer = writers.get(path)
+  return writer ? writer.property(key, value) : null
 }

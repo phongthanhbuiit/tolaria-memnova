@@ -957,5 +957,6 @@
   "editor.noteMemory.useLocal": "Gunakan alat bantu ingatan lokal",
   "editor.noteMemory.sourceReadOnly": "Pratinjau sumber · hanya baca",
   "editor.noteMemory.deleteConfirmation": "Hapus permanen catatan terpilih dan pengingat yang tertanam di dalamnya? Catatan sumber tertaut dan lampiran di luar berkas terpilih tetap disimpan. Tindakan ini tidak dapat dibatalkan.",
-  "editor.noteMemory.deleteFolderConfirmation": "Hapus permanen folder ini beserta subfolder, catatan, pengingat tertanam, dan berkas lainnya? Sumber tertaut di luar folder tetap disimpan. Tindakan ini tidak dapat dibatalkan."
+  "editor.noteMemory.deleteFolderConfirmation": "Hapus permanen folder ini beserta subfolder, catatan, pengingat tertanam, dan berkas lainnya? Sumber tertaut di luar folder tetap disimpan. Tindakan ini tidak dapat dibatalkan.",
+  "properties.noNoteMemory": "Catatan ini belum memiliki jadwal tinjauan."
 }

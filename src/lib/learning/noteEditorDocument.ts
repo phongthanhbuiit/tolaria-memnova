@@ -1,3 +1,4 @@
+import { patchNoteProperty, type NotePropertyValue } from './notePropertyPatch'
 import type { MemoryFace, NoteMemoryConfig } from './noteMemoryConfig'
 import { parseNoteMemoryDocument } from './noteMemoryDocument'
 import { patchNoteMemoryConfig, patchNoteMemoryFace } from './noteMemoryPatch'
@@ -63,11 +64,20 @@ export class NoteEditorDocument {
     if (this.echoes.size > 32) this.echoes.delete(this.echoes.values().next().value!)
   }
 
-  stageConfiguration(beforeSource: string, afterSource: string, config: NoteMemoryConfig): string | null {
+  stageConfiguration(beforeSource: string, afterSource: string, config: NoteMemoryConfig, rememberOnly = false): string | null {
     if (!this.active) return null
     this.remember(beforeSource)
     this.remember(afterSource)
+    if (rememberOnly) return null
     return this.local(patchNoteMemoryConfig(this.state.source, config))
+  }
+
+  stageProperty(beforeSource: string, afterSource: string, key: string, value: NotePropertyValue | undefined, rememberOnly = false): string | null {
+    if (!this.active) return null
+    this.remember(beforeSource)
+    this.remember(afterSource)
+    if (rememberOnly) return null
+    return this.local(patchNoteProperty(this.state.source, key, value))
   }
 
   receive(source: string): void {

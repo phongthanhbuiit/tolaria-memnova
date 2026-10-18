@@ -301,8 +301,10 @@ function collapseWikilinksInContent(content: InlineItem[]): InlineItem[] {
 }
 
 function frontmatterOpeningLength(content: MarkdownSource): CharacterCount | null {
-  if (content.startsWith('---\r\n')) return 5
-  if (content.startsWith('---\n')) return 4
+  const offset = content.startsWith('\ufeff') ? 1 : 0
+  const body = content.slice(offset)
+  if (body.startsWith('---\r\n')) return offset + 5
+  if (body.startsWith('---\n')) return offset + 4
   return null
 }
 

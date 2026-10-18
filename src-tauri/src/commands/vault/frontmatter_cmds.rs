@@ -1,18 +1,30 @@
 use crate::frontmatter;
 use crate::frontmatter::FrontmatterValue;
 
-use super::boundary::{with_existing_paths, with_validated_path, ValidatedPathMode};
+use super::boundary::{with_boundary, with_validated_path, ValidatedPathMode};
 
 fn with_learning_property<T>(
     key: &str,
+    path: &str,
     root: Option<&str>,
     write: impl FnOnce() -> Result<T, String>,
 ) -> Result<T, String> {
-    if key.starts_with("_fsrs_") {
-        let boundary = super::boundary::VaultBoundary::from_request(root)?;
-        crate::learning::with_legacy_write(boundary.requested_root(), write)
-    } else {
+    let normalized = key.trim().to_ascii_lowercase();
+    if normalized.starts_with("_memnova_") {
+        return Err("reserved-note-property: use note learning configuration".into());
+    }
+    let boundary = super::boundary::VaultBoundary::from_request(root)?;
+    let guarded = || {
+        crate::learning::page_content::guard_property_write(
+            boundary.requested_root(),
+            std::path::Path::new(path),
+        )?;
         write()
+    };
+    if normalized.starts_with("_fsrs_") {
+        crate::learning::with_legacy_write(boundary.requested_root(), guarded)
+    } else {
+        crate::learning::page_content::with_source_write(guarded)
     }
 }
 
@@ -28,7 +40,7 @@ pub fn update_frontmatter(
         vault_path.as_deref(),
         ValidatedPathMode::Existing,
         |validated_path| {
-            with_learning_property(&key, vault_path.as_deref(), || {
+            with_learning_property(&key, validated_path, vault_path.as_deref(), || {
                 frontmatter::update_frontmatter(validated_path, &key, value)
             })
         },
@@ -46,7 +58,7 @@ pub fn delete_frontmatter_property(
         vault_path.as_deref(),
         ValidatedPathMode::Existing,
         |validated_path| {
-            with_learning_property(&key, vault_path.as_deref(), || {
+            with_learning_property(&key, validated_path, vault_path.as_deref(), || {
                 frontmatter::delete_frontmatter_property(validated_path, &key)
             })
         },
@@ -58,13 +70,20 @@ pub fn batch_archive_notes(
     paths: Vec<String>,
     vault_path: Option<String>,
 ) -> Result<usize, String> {
-    with_existing_paths(&paths, vault_path.as_deref(), |validated_paths| {
-        let mut count = 0;
-        for path in &validated_paths {
-            frontmatter::update_frontmatter(path, "_archived", FrontmatterValue::Bool(true))?;
-            count += 1;
-        }
-        Ok(count)
+    with_boundary(vault_path.as_deref(), |boundary| {
+        let validated_paths = boundary.validate_existing_paths(&paths)?;
+        crate::learning::page_content::with_source_write(|| {
+            for path in &validated_paths {
+                crate::learning::page_content::guard_property_write(
+                    boundary.requested_root(),
+                    std::path::Path::new(path),
+                )?;
+            }
+            for path in &validated_paths {
+                frontmatter::update_frontmatter(path, "_archived", FrontmatterValue::Bool(true))?;
+            }
+            Ok(validated_paths.len())
+        })
     })
 }
 

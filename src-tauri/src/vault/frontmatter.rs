@@ -469,7 +469,7 @@ struct RawFrontmatter<'a>(&'a str);
 
 impl<'a> RawFrontmatter<'a> {
     fn extract_block(self) -> Option<&'a str> {
-        let rest = self.0.strip_prefix("---")?;
+        let rest = self.0.trim_start_matches('\u{feff}').strip_prefix("---")?;
         let rest = rest
             .strip_prefix('\n')
             .or_else(|| rest.strip_prefix("\r\n"))?;

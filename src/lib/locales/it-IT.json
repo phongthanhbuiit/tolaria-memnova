@@ -957,5 +957,6 @@
   "editor.noteMemory.useLocal": "Usa aiuto mnemonico locale",
   "editor.noteMemory.sourceReadOnly": "Anteprima dell’origine · sola lettura",
   "editor.noteMemory.deleteConfirmation": "Eliminare definitivamente le note selezionate e i promemoria incorporati? Le note sorgente collegate e gli allegati esterni ai file selezionati vengono conservati. Non è possibile annullare.",
-  "editor.noteMemory.deleteFolderConfirmation": "Eliminare definitivamente questa cartella, le sottocartelle, le note, i promemoria incorporati e gli altri file? Le sorgenti collegate esterne alla cartella vengono conservate. Non è possibile annullare."
+  "editor.noteMemory.deleteFolderConfirmation": "Eliminare definitivamente questa cartella, le sottocartelle, le note, i promemoria incorporati e gli altri file? Le sorgenti collegate esterne alla cartella vengono conservate. Non è possibile annullare.",
+  "properties.noNoteMemory": "Questa nota non ha ancora un programma di ripasso."
 }

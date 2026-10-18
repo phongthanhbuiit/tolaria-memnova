@@ -2,7 +2,7 @@
 
 Plan: [nghiệp vụ và dữ liệu](MEMNOVA-NOTE-MEMORY-PLAN.md). Task: [M00 đến M25](MEMNOVA-NOTE-MEMORY-TASKS.md).
 
-Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. **Đây là bàn giao kế hoạch, không phải báo cáo đã triển khai. Tất cả task dưới đây chưa bắt đầu.** Task M00 phải lấy HEAD/toolchain/baseline mới khi thực thi.
+Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. Bảng dưới ghi trạng thái triển khai thực tế; VERIFIED_LOCAL chưa phải hoàn tất hoặc đã phát hành. Các giới hạn kiểm chứng được ghi trong từng baseline.
 
 | Task | Trạng thái | Commit đã push | Bằng chứng và giới hạn |
 |---|---|---|---|
@@ -23,8 +23,8 @@ Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. **Đây là
 | M14 | DONE | 77d107c3 batch release | Normal push passed9m8s; frontend4730/87.11%lines, native1194+1integration/3ignored, hook87.62%lines,54smoke4.6m. Native M14 proof in baseline. |
 | M15 | VERIFIED_LOCAL | 0a1bfc8d | Canonical editor, scoped persistence/projection;143 targeted tests,411 verified pre-commit tests/43files, browser8.3s. Native checkpoint and batch push follow M18. |
 | M16 | VERIFIED_LOCAL | 81bce958,a1cededc | Read-only native source preview; explicit guarded registration/config queue. 5 real IPC cases; UI pre-commit305 tests/32files and browser9.7s; 18locales/957keys. Native checkpoint/batch push pending M18. |
-| M17 | IN_PROGRESS | M08 DONE; M15–16 VERIFIED_LOCAL | File lifecycle guards, lossless clone identity, canonical flush before destructive actions. |
-| M18 | NOT_STARTED | — | — |
+| M17 | VERIFIED_LOCAL | b27e1144 | 11 native lifecycle cases,44 focused frontend; normal pre-commit4797 frontend/464files,1210Rust/3ignored, browser9.8s; batch release pending M18. |
+| M18 | IN_PROGRESS | M11 DONE; M15 VERIFIED_LOCAL | Property writer isolation, raw preservation and readonly learning metadata. |
 | M19 | NOT_STARTED | — | — |
 | M20 | NOT_STARTED | — | — |
 | M21 | NOT_STARTED | — | — |

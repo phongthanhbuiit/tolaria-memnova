@@ -33,3 +33,12 @@ it('rejects a case-only rename that the existing Markdown writer treats as the s
     pagePropertyKey('status', { Status: 'Active' }, 'Status'),
   ).toThrow()
 })
+
+it('reads editable properties and protects opaque YAML in a BOM/CRLF note', () => {
+  const raw = '\ufeff---\r\nStatus: Draft\r\ncount: 0\r\nopaque: &value {huge: 9007199254740993, empty: null}\r\ncopy: *value\r\n---\r\nArticle\r\n<!-- FLASHCARD:BACK -->\r\nMnemonic\r\n'
+  const snapshot = pagePropertySnapshot(parseFrontmatter(raw), raw)
+  expect(snapshot.Status).toBe('Draft')
+  expect(snapshot.count).toBe(0)
+  expect(snapshot.opaque).toEqual({ raw: 'opaque: &value {huge: 9007199254740993, empty: null}' })
+  expect(snapshot.copy).toEqual({ raw: 'copy: *value' })
+})

@@ -603,6 +603,7 @@ function DynamicPropertiesPanelContent({
 }
 
 interface DynamicPropertiesPanelProps {
+  hiddenPropertyKeys?: readonly string[]
   entry: VaultEntry
   content?: string | null
   frontmatter: ParsedFrontmatter
@@ -618,12 +619,18 @@ interface DynamicPropertiesPanelProps {
 }
 
 export function DynamicPropertiesPanel({
-  entry, frontmatter, entries,
+  entry, frontmatter, entries, hiddenPropertyKeys = [],
   onUpdateProperty, onDeleteProperty, onAddProperty, onNavigate, onCreateMissingType,
   onChangeWorkspace, workspaces,
   locale = 'en',
 }: DynamicPropertiesPanelProps) {
   const propertyState = usePropertyPanelState({ entries, entryIsA: entry.isA, frontmatter, onUpdateProperty, onDeleteProperty, onAddProperty })
+  const hiddenKeys = new Set(hiddenPropertyKeys.map(canonicalSystemMetadataKey))
+  const visiblePropertyState = hiddenKeys.size === 0 ? propertyState : {
+    ...propertyState,
+    propertyEntries: propertyState.propertyEntries.filter(([key]) => !hiddenKeys.has(canonicalSystemMetadataKey(key))),
+    typeDerivedPropertyEntries: propertyState.typeDerivedPropertyEntries.filter(([key]) => !hiddenKeys.has(canonicalSystemMetadataKey(key))),
+  }
   const [pendingSuggestedKey, setPendingSuggestedKey] = useState<string | null>(null)
   const missingTypeName = useMemo(() => resolveMissingTypeName(entry.isA, propertyState.availableTypes), [entry.isA, propertyState.availableTypes])
 
@@ -650,7 +657,7 @@ export function DynamicPropertiesPanel({
   return (
     <DynamicPropertiesPanelContent
       entry={entry}
-      propertyState={propertyState}
+      propertyState={visiblePropertyState}
       pendingSuggestedKey={pendingSuggestedKey}
       missingSuggested={missingSuggested}
       missingTypeName={missingTypeName}

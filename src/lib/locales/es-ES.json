@@ -957,5 +957,6 @@
   "editor.noteMemory.useLocal": "Usar ayuda de memoria local",
   "editor.noteMemory.sourceReadOnly": "Vista previa de la fuente · solo lectura",
   "editor.noteMemory.deleteConfirmation": "¿Eliminar permanentemente las notas seleccionadas y sus ayudas de memoria integradas? Se conservan las notas fuente enlazadas y los adjuntos externos a los archivos seleccionados. Esta acción no se puede deshacer.",
-  "editor.noteMemory.deleteFolderConfirmation": "¿Eliminar permanentemente esta carpeta, sus subcarpetas, notas, ayudas de memoria integradas y otros archivos? Se conservan las fuentes enlazadas externas a la carpeta. Esta acción no se puede deshacer."
+  "editor.noteMemory.deleteFolderConfirmation": "¿Eliminar permanentemente esta carpeta, sus subcarpetas, notas, ayudas de memoria integradas y otros archivos? Se conservan las fuentes enlazadas externas a la carpeta. Esta acción no se puede deshacer.",
+  "properties.noNoteMemory": "Esta nota aún no tiene un calendario de repaso."
 }

@@ -1,3 +1,4 @@
+import { propertyThroughNoteEditor } from '../lib/learning/noteEditorPersistence'
 import { invoke } from '@tauri-apps/api/core'
 import { isTauri, mockInvoke } from '../mock-tauri'
 import type { VaultEntry, VaultPropertyValue } from '../types'
@@ -262,6 +263,9 @@ async function executeFrontmatterOp(
   key: FrontmatterKey,
   value?: FrontmatterValue,
 ): Promise<MarkdownContent> {
+  if (key.trim().toLowerCase().startsWith('_memnova_')) throw Error('reserved-note-property')
+  const canonical = await propertyThroughNoteEditor(path, key, op === 'delete' ? undefined : value)
+  if (canonical !== null) return canonical
   if (op === 'update') {
     return isTauri()
       ? invokeFrontmatter('update_frontmatter', { path, key, value })

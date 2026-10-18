@@ -957,5 +957,6 @@
   "editor.noteMemory.useLocal": "Dùng gợi nhớ trong ghi chú",
   "editor.noteMemory.sourceReadOnly": "Xem trước nguồn · chỉ đọc",
   "editor.noteMemory.deleteConfirmation": "Xóa vĩnh viễn các ghi chú đã chọn và mặt gợi nhớ bên trong? Ghi chú nguồn liên kết và tệp đính kèm ngoài các tệp đã chọn được giữ lại. Không thể hoàn tác.",
-  "editor.noteMemory.deleteFolderConfirmation": "Xóa vĩnh viễn thư mục này, các thư mục con, ghi chú, mặt gợi nhớ bên trong và tệp khác? Nguồn liên kết ngoài thư mục được giữ lại. Không thể hoàn tác."
+  "editor.noteMemory.deleteFolderConfirmation": "Xóa vĩnh viễn thư mục này, các thư mục con, ghi chú, mặt gợi nhớ bên trong và tệp khác? Nguồn liên kết ngoài thư mục được giữ lại. Không thể hoàn tác.",
+  "properties.noNoteMemory": "Ghi chú này chưa có lịch ôn tập."
 }

@@ -3,6 +3,9 @@ import type { VaultEntry, GitCommit, WorkspaceIdentity } from '../types'
 import { cn } from '@/lib/utils'
 import { Separator } from './ui/separator'
 import { parseFrontmatter, detectFrontmatterState, detectFrontmatterWarnings } from '../utils/frontmatter'
+import { pagePropertySnapshot } from '../lib/learning/pagePropertySnapshot'
+import { parseNoteMemoryDocument } from '../lib/learning/noteMemoryDocument'
+import { NoteMemoryInspector } from './learning/NoteMemoryInspector'
 import { PagePropertyTools } from './learning/PagePropertyTools'
 import { DynamicPropertiesPanel } from './DynamicPropertiesPanel'
 import type { FrontmatterOpOptions } from '../hooks/frontmatterOps'
@@ -88,6 +91,7 @@ function ValidFrontmatterPanels({
   entry,
   entries,
   frontmatter,
+  hiddenPropertyKeys,
   typeEntryMap,
   vaultPath,
   referencedBy,
@@ -104,6 +108,7 @@ function ValidFrontmatterPanels({
   entry: VaultEntry
   entries: VaultEntry[]
   frontmatter: ReturnType<typeof parseFrontmatter>
+  hiddenPropertyKeys: readonly string[]
   typeEntryMap: Record<string, VaultEntry>
   vaultPath?: string
   referencedBy: ReferencedByItem[]
@@ -123,6 +128,7 @@ function ValidFrontmatterPanels({
       <DynamicPropertiesPanel
         entry={entryForWorkspaceActions}
         frontmatter={frontmatter}
+        hiddenPropertyKeys={hiddenPropertyKeys}
         entries={entries}
         onUpdateProperty={onUpdateProperty}
         onDeleteProperty={onDeleteProperty}
@@ -157,6 +163,7 @@ function PrimaryInspectorPanel({
   entry,
   frontmatterState,
   frontmatter,
+  hiddenPropertyKeys,
   entries,
   typeEntryMap,
   vaultPath,
@@ -176,6 +183,7 @@ function PrimaryInspectorPanel({
   entry: VaultEntry
   frontmatterState: ReturnType<typeof detectFrontmatterState>
   frontmatter: ReturnType<typeof parseFrontmatter>
+  hiddenPropertyKeys: readonly string[]
   entries: VaultEntry[]
   typeEntryMap: Record<string, VaultEntry>
   vaultPath?: string
@@ -198,6 +206,7 @@ function PrimaryInspectorPanel({
         entry={entry}
         entries={entries}
         frontmatter={frontmatter}
+        hiddenPropertyKeys={hiddenPropertyKeys}
         typeEntryMap={typeEntryMap}
         vaultPath={vaultPath}
         referencedBy={referencedBy}
@@ -244,6 +253,13 @@ function InspectorBody({
   const referencedBy = useReferencedBy(entry, entries)
   const backlinks = useBacklinks(entry, entries, referencedBy)
   const frontmatter = useMemo(() => parseFrontmatter(content), [content])
+  const hiddenPropertyKeys = useMemo(() => {
+    const document = parseNoteMemoryDocument(content ?? '')
+    if (!document.config && !/(?:^|\n)_memnova_learning_/.test(content ?? '')) return []
+    return Object.entries(pagePropertySnapshot(frontmatter, content))
+      .filter(([, value]) => value !== null && typeof value === 'object' && !Array.isArray(value))
+      .map(([key]) => key)
+  }, [content, frontmatter])
   const frontmatterState = useMemo(() => detectFrontmatterState(content), [content])
   const typeEntryMap = useMemo(() => buildTypeEntryMap(entries), [entries])
   const {
@@ -284,6 +300,7 @@ function InspectorBody({
           entry={entry}
           frontmatterState={frontmatterState}
           frontmatter={frontmatter}
+          hiddenPropertyKeys={hiddenPropertyKeys}
           entries={entries}
           typeEntryMap={typeEntryMap}
           vaultPath={vaultPath}
@@ -302,6 +319,7 @@ function InspectorBody({
         />
       )}
       {supportsFrontmatter(entry) && <PagePropertyTools path={entry.path} content={content} frontmatter={frontmatter} locale={locale} onUpdate={handleUpdateProperty} onRemove={handleDeleteProperty} />}
+      {supportsFrontmatter(entry) && <NoteMemoryInspector path={entry.path} content={content} locale={locale} />}
       {backlinks.length > 0 && <Separator />}
       <BacklinksPanel backlinks={backlinks} onNavigate={onNavigate} />
       <Separator />

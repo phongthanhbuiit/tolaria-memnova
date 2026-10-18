@@ -957,5 +957,6 @@
   "editor.noteMemory.useLocal": "使用目前筆記的記憶提示",
   "editor.noteMemory.sourceReadOnly": "來源預覽 · 唯讀",
   "editor.noteMemory.deleteConfirmation": "永久刪除所選筆記及其內嵌記憶提示？連結的來源筆記及所選檔案以外的附件將保留。此操作無法復原。",
-  "editor.noteMemory.deleteFolderConfirmation": "永久刪除此資料夾及其子資料夾、筆記、內嵌記憶提示和其他檔案？資料夾外連結的來源將保留。此操作無法復原。"
+  "editor.noteMemory.deleteFolderConfirmation": "永久刪除此資料夾及其子資料夾、筆記、內嵌記憶提示和其他檔案？資料夾外連結的來源將保留。此操作無法復原。",
+  "properties.noNoteMemory": "此筆記尚無複習排程。"
 }
