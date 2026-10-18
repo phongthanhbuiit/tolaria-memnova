@@ -969,5 +969,12 @@
   "learning.noteMemory.enabledHelp": "Artikel adalah sisi depan. Tambahkan gambar, teks, atau papan gambar pada sisi pengingat.",
   "learning.noteMemory.folder": "Folder",
   "learning.noteMemory.includeSubfolders": "Sertakan subfolder",
-  "learning.noteMemory.prepareNote": "Siapkan catatan ini"
+  "learning.noteMemory.prepareNote": "Siapkan catatan ini",
+  "editor.whiteboard.vocabularyImage": "Gambar kosakata",
+  "editor.whiteboard.searchVocabulary": "Cari kosakata…",
+  "editor.whiteboard.noVocabulary": "Tidak ada catatan kosakata",
+  "editor.whiteboard.resizeWidth": "Ubah lebar papan gambar",
+  "editor.whiteboard.resizeHeight": "Ubah tinggi papan gambar",
+  "editor.whiteboard.resizeBoth": "Ubah ukuran papan gambar",
+  "editor.whiteboard.resizeHelp": "Gunakan tombol panah untuk mengubah ukuran. Tahan Shift untuk langkah lebih besar."
 }

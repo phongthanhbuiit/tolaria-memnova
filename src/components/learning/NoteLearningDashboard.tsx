@@ -83,7 +83,7 @@ export function NoteLearningDashboard({
   )
   const selectedDue = due.notes.filter((card) => selected.has(card.pageId))
   return (
-    <div className="min-h-0 overflow-y-auto">
+    <div className="note-memory-surface min-h-0 overflow-y-auto">
       <nav
         className="flex flex-wrap items-center gap-2 border-b px-4 py-3"
         aria-label={t('learning.library')}
@@ -170,7 +170,7 @@ export function NoteLearningDashboard({
               >
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="note-memory-portal">
                 <SelectItem value="root">{t('learning.library')}</SelectItem>
                 {[...folders].sort().map((path) => (
                   <SelectItem key={path} value={`folder:${path}`}>

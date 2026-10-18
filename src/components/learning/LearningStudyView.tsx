@@ -1,3 +1,4 @@
+import './noteMemory.css'
 import { useEffect, useMemo } from 'react'
 import { Button } from '../ui/button'
 import {
@@ -130,7 +131,7 @@ export function LearningStudyView({
     >
       <DialogContent
         showCloseButton={false}
-        className="flex max-h-[94dvh] flex-col gap-0 overflow-hidden p-0 sm:max-w-4xl"
+        className="learning-study-dialog flex max-h-[94dvh] flex-col gap-0 overflow-hidden p-0 sm:max-w-4xl"
         onEscapeKeyDown={(event) => {
           event.preventDefault()
           void study.close()
@@ -330,6 +331,7 @@ export function LearningStudyView({
                   <Button
                     key={rating}
                     variant="outline"
+                    data-note-grade={rating}
                     className={`h-auto min-h-16 flex-col gap-1 whitespace-normal border-2 ${colors[rating - 1]}`}
                     disabled={
                       study.busy ||

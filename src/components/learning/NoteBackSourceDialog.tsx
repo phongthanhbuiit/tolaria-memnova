@@ -195,7 +195,7 @@ export function NoteBackSourceDialog(props: BackSourceDialogProps) {
     >
       <DialogContent
         className="note-memory-dialog"
-        showCloseButton={!action?.busy}
+        showCloseButton={false}
         onKeyDown={(event) => event.stopPropagation()}
       >
         <DialogHeader>

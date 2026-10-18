@@ -42,7 +42,7 @@ export function NoteMemoryEditorTabs(props: NoteMemoryEditorTabsProps) {
     event.preventDefault()
     if (change(next === 0 ? 'front' : 'back')) tabs[next].focus()
   }
-  return <div className="border-b border-border bg-muted/30">
+  return <div className="note-memory-nav border-b border-border bg-muted/30">
     <div role="tablist" aria-label={translate(locale, 'learning.content')} onKeyDown={navigate} className="flex flex-wrap items-center gap-1 px-3 py-1.5">
       <Button id={`${panelId}-front`} role="tab" aria-selected={activeFace === 'front'} aria-controls={panelId} tabIndex={activeFace === 'front' ? 0 : -1} size="sm" variant={activeFace === 'front' ? 'secondary' : 'ghost'} onClick={() => change('front')}><BookOpen aria-hidden="true" />{translate(locale, 'learning.noteMemory.article')}</Button>
       {hasBack ? <Button id={`${panelId}-back`} role="tab" aria-selected={activeFace === 'back'} aria-controls={panelId} tabIndex={activeFace === 'back' ? 0 : -1} size="sm" variant={activeFace === 'back' ? 'secondary' : 'ghost'} onClick={() => change('back')}><PencilSimpleLine aria-hidden="true" />{translate(locale, 'learning.noteMemory.mnemonic')}</Button> : <Button size="sm" variant="outline" onClick={() => { try { onAddBack(); setError(false) } catch { setError(true) } }}><Plus aria-hidden="true" />{translate(locale, 'editor.noteMemory.addMnemonic')}</Button>}

@@ -969,5 +969,12 @@
   "learning.noteMemory.enabledHelp": "文章是正面。可以在記憶提示面加入圖片、文字或畫布。",
   "learning.noteMemory.folder": "資料夾",
   "learning.noteMemory.includeSubfolders": "包含子資料夾",
-  "learning.noteMemory.prepareNote": "準備此筆記"
+  "learning.noteMemory.prepareNote": "準備此筆記",
+  "editor.whiteboard.vocabularyImage": "詞彙圖片",
+  "editor.whiteboard.searchVocabulary": "搜尋詞彙…",
+  "editor.whiteboard.noVocabulary": "找不到詞彙筆記",
+  "editor.whiteboard.resizeWidth": "調整畫板寬度",
+  "editor.whiteboard.resizeHeight": "調整畫板高度",
+  "editor.whiteboard.resizeBoth": "調整畫板大小",
+  "editor.whiteboard.resizeHelp": "使用方向鍵調整大小。按住 Shift 可增大步幅。"
 }

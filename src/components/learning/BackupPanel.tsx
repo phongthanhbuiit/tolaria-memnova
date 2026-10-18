@@ -62,7 +62,7 @@ export function BackupPanel({ locale }: { locale: AppLocale }) {
     finally { if (active.current === visit) { locked.current = false; setBusy(false) } }
   }
   const chosen = items.find(item => item.id === selected)
-  return <section className="space-y-4" aria-label={t('learning.backupHistory')}>
+  return <section className="note-memory-surface space-y-4" aria-label={t('learning.backupHistory')}>
     <h3 className="text-sm font-medium">{t('learning.backupHistory')}</h3>
     {busy && <p role="status" className="text-sm text-muted-foreground">{t('learning.loading')}</p>}
     {error && <div role="alert" className="rounded-md border border-destructive p-3 text-sm"><p>{t('learning.error')}</p><pre className="my-2 whitespace-pre-wrap break-words text-xs">{error}</pre><Button variant="outline" disabled={busy} onClick={() => setAttempt(value => value + 1)}>{t('learning.retry')}</Button></div>}

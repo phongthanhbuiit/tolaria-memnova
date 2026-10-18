@@ -1,4 +1,5 @@
-import { memo, useCallback, useContext, useEffect, useMemo, useRef, useState, type CSSProperties, type MouseEvent as ReactMouseEvent, type MutableRefObject, type PointerEvent as ReactPointerEvent } from 'react'
+import './learning/noteMemory.css'
+import { memo, useCallback, useContext, useEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent as ReactKeyboardEvent, type MouseEvent as ReactMouseEvent, type MutableRefObject, type PointerEvent as ReactPointerEvent } from 'react'
 import { getAssetUrlsByImport } from '@tldraw/assets/imports.vite'
 import { ArrowsIn, ArrowsOut, Plus } from '@phosphor-icons/react'
 import { Dialog as DialogPrimitive } from 'radix-ui'
@@ -21,6 +22,7 @@ import { resolveEffectiveLocale, translate, type AppLocale } from '../lib/i18n'
 import type { ResolvedThemeMode } from '../lib/themeMode'
 import { Button } from './ui/button'
 import { Input } from './ui/input'
+import { Popover, PopoverContent, PopoverTrigger } from './ui/popover'
 import { ActionTooltip } from './ui/action-tooltip'
 import { installTldrawTextMeasurementGuard } from './tldrawTextMeasurementGuard'
 import { _wikilinkEntriesRef } from './editorSchema'
@@ -591,6 +593,18 @@ export function TldrawWhiteboard({
     window.addEventListener('pointerup', onPointerUp, { once: true })
   }
 
+  const resizeWithKeys = (mode: ResizeMode) => (event: ReactKeyboardEvent<HTMLButtonElement>) => {
+    if (event.metaKey || event.ctrlKey || event.altKey || !lifecycle.isActive()) return
+    const horizontal = event.key === 'ArrowLeft' ? -1 : event.key === 'ArrowRight' ? 1 : 0
+    const vertical = event.key === 'ArrowUp' ? -1 : event.key === 'ArrowDown' ? 1 : 0
+    if ((!horizontal || mode === 'height') && (!vertical || mode === 'width')) return
+    event.preventDefault(); event.stopPropagation()
+    const step = event.shiftKey ? 40 : 8
+    const width = mode === 'height' ? visibleSize.width : (visibleSize.width ?? boardRef.current?.getBoundingClientRect().width ?? MIN_WIDTH) + horizontal * step
+    const height = mode === 'width' ? visibleSize.height : visibleSize.height + vertical * step
+    onSizeChange(sizeToProps(normalizeSize(sizeToProps({ width, height }))))
+  }
+
   const handleMount = useCallback((editor: Editor) => {
     tldrawEditorRef.current = editor
     setMountedStore(store)
@@ -637,47 +651,49 @@ export function TldrawWhiteboard({
         user={tldrawUser}
       />
       {!readOnly && (
-        <div className="absolute top-2 right-12 z-[90] flex items-center gap-2">
-          <div className="relative">
+        <div className="whiteboard-note-controls absolute top-2 right-12 z-[90] flex items-center gap-2">
+          <Popover open={showVocabMenu} onOpenChange={setShowVocabMenu}>
+            <PopoverTrigger asChild>
             <Button
               type="button"
               variant="outline"
               size="sm"
               className="h-7 px-2.5 text-xs bg-background shadow-md border border-border"
-              onClick={() => setShowVocabMenu(prev => !prev)}
             >
-              <Plus size={12} className="mr-1" />
-              Vocab Image
+              <Plus size={16} aria-hidden="true" />
+              {translate(locale,'editor.whiteboard.vocabularyImage')}
             </Button>
-            {showVocabMenu && (
-              <div className="absolute right-0 top-8 w-64 bg-popover text-popover-foreground border border-border rounded-lg shadow-xl z-50 p-2 flex flex-col gap-2">
+            </PopoverTrigger>
+              <PopoverContent align="end" className="whiteboard-vocab-menu z-[1001] flex w-64 flex-col gap-2 p-2" onOpenAutoFocus={event => { if (typeof window.matchMedia === 'function' && window.matchMedia('(pointer: coarse)').matches) event.preventDefault() }}>
                 <Input
-                  placeholder="Search vocabulary..."
+                  name="whiteboard-vocabulary-search"
+                  aria-label={translate(locale,'editor.whiteboard.searchVocabulary')}
+                  placeholder={translate(locale,'editor.whiteboard.searchVocabulary')}
+                  autoComplete="off"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="h-8 text-xs focus-visible:ring-1"
-                  autoFocus
                 />
                 <div className="max-h-48 overflow-y-auto flex flex-col gap-1">
                   {filteredVocabs.map((entry) => (
-                    <button
+                    <Button
                       key={entry.path}
                       type="button"
-                      onClick={() => handleInsertVocabImage(entry)}
-                      className="text-left text-xs px-2 py-1.5 hover:bg-accent hover:text-accent-foreground rounded transition-colors truncate w-full"
+                      variant="ghost"
+                      className="h-auto w-full justify-start whitespace-normal break-words text-left text-sm"
+                      onClick={() => { void handleInsertVocabImage(entry) }}
                     >
                       {entry.title}
-                    </button>
+                    </Button>
                   ))}
                   {filteredVocabs.length === 0 && (
                     <div className="text-[10px] text-muted-foreground p-2 text-center">
-                      No vocabulary notes found
+                      {translate(locale,'editor.whiteboard.noVocabulary')}
                     </div>
                   )}
                 </div>
-              </div>
-            )}
-          </div>
+              </PopoverContent>
+          </Popover>
         </div>
       )}
       <ActionTooltip copy={{ label: fullscreenLabel }} side="left">
@@ -697,23 +713,32 @@ export function TldrawWhiteboard({
       </ActionTooltip>
       {!readOnly && (
         <>
-          <button
+          <Button variant="ghost" size="icon"
             type="button"
-            aria-label="Resize whiteboard width"
+            aria-label={translate(locale,'editor.whiteboard.resizeWidth')}
+            aria-description={translate(locale,'editor.whiteboard.resizeHelp')}
+            aria-keyshortcuts="ArrowLeft ArrowRight"
             className="tldraw-whiteboard__resize-handle tldraw-whiteboard__resize-handle--width border-0 bg-transparent p-0"
             onPointerDown={startResize('width')}
+            onKeyDown={resizeWithKeys('width')}
           />
-          <button
+          <Button variant="ghost" size="icon"
             type="button"
-            aria-label="Resize whiteboard height"
+            aria-label={translate(locale,'editor.whiteboard.resizeHeight')}
+            aria-description={translate(locale,'editor.whiteboard.resizeHelp')}
+            aria-keyshortcuts="ArrowUp ArrowDown"
             className="tldraw-whiteboard__resize-handle tldraw-whiteboard__resize-handle--height border-0 bg-transparent p-0"
             onPointerDown={startResize('height')}
+            onKeyDown={resizeWithKeys('height')}
           />
-          <button
+          <Button variant="ghost" size="icon"
             type="button"
-            aria-label="Resize whiteboard"
+            aria-label={translate(locale,'editor.whiteboard.resizeBoth')}
+            aria-description={translate(locale,'editor.whiteboard.resizeHelp')}
+            aria-keyshortcuts="ArrowLeft ArrowRight ArrowUp ArrowDown"
             className="tldraw-whiteboard__resize-handle tldraw-whiteboard__resize-handle--corner border-0 bg-transparent p-0"
             onPointerDown={startResize('both')}
+            onKeyDown={resizeWithKeys('both')}
           />
         </>
       )}

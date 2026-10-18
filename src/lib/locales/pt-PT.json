@@ -969,5 +969,12 @@
   "learning.noteMemory.enabledHelp": "O artigo é a frente. Adiciona imagens, texto ou um quadro à ajuda de memória.",
   "learning.noteMemory.folder": "Pasta",
   "learning.noteMemory.includeSubfolders": "Incluir subpastas",
-  "learning.noteMemory.prepareNote": "Preparar esta nota"
+  "learning.noteMemory.prepareNote": "Preparar esta nota",
+  "editor.whiteboard.vocabularyImage": "Imagem de vocabulário",
+  "editor.whiteboard.searchVocabulary": "Pesquisar vocabulário…",
+  "editor.whiteboard.noVocabulary": "Não foram encontradas notas de vocabulário",
+  "editor.whiteboard.resizeWidth": "Redimensionar a largura do quadro",
+  "editor.whiteboard.resizeHeight": "Redimensionar a altura do quadro",
+  "editor.whiteboard.resizeBoth": "Redimensionar o quadro",
+  "editor.whiteboard.resizeHelp": "Usa as setas para redimensionar. Mantém Shift premido para passos maiores."
 }

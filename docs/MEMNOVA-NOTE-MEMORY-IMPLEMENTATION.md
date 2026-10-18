@@ -26,8 +26,8 @@ Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. DONE bên d
 | M17 | DONE | b27e1144 | 11 native lifecycle cases,44 focused frontend; normal pre-commit4797 frontend/464files,1210Rust/3ignored, browser9.8s; normal batch push c8c71603 passed. |
 | M18 | DONE | 678c5826,c8c71603 | Canonical property writes, readonly schedule/raw metadata;4816frontend/1216Rust verified hook; actual native property/width/two-face/source Cancel/link/inline/restart proof,419 vault tests. Normal batch push c8c71603 passed. |
 | M19 | VERIFIED_LOCAL | fa3934f4 (local) | 65module tests8.05s; normal hook305tests/39files,3browser7.1s,18locales/962keys; M22 baseline integration issue explicitly retained. Batch push follows M22. |
-| M20 | IN_PROGRESS | d76f7d99 backend;679f3c05 UI (local); final hook pending | Đã nối default notes/legacy UI, folder scope/counts, explicit enable/pause, conversion/recovery và inactive writes; startup backup reader/API/UI trước Store-open đã triển khai.274module frontend/206learning Rust,3real startup recovery,4browser12.9s pass. Final normal hook/push/native end-to-end còn chưa hoàn tất; M21–M25 vẫn pending. |
-| M21 | NOT_STARTED | — | — |
+| M20 | VERIFIED_LOCAL | d76f7d99,679f3c05,1e3514e1 (local) | Default note/legacy workspace, opt-in controls, scoped properties, conversion/recovery and startup backup reader implemented. Normal final hook4861frontend/481files,1228Rust/3ignored pass;274module frontend,206learning Rust,3real startup recovery,4browser12.9s pass. No normal push/native end-to-end yet; M21–M25 remain. |
+| M21 | IN_PROGRESS | M20 VERIFIED_LOCAL1e3514e1 | Baseline24focused tests2.49s; scoped visual/a11y/copy audit and matrix pending. |
 | M22 | NOT_STARTED | — | — |
 | M23 | NOT_STARTED | — | — |
 | M24 | NOT_STARTED | — | — |
@@ -35,11 +35,13 @@ Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. DONE bên d
 
 Trạng thái dùng: NOT_STARTED, IN_PROGRESS, VERIFIED_LOCAL, BLOCKED_WITH_EVIDENCE, DONE. VERIFIED_LOCAL là code đã commit và test tại local, chưa phải hoàn tất hoặc releasable. Khi user giao toàn bộ đợt, dependency có thể dùng checkpoint VERIFIED_LOCAL có commit và evidence thật; chỉ đổi DONE sau normal push thành công. Khi giao một task riêng, dependency phải DONE. Không có trạng thái “DONE nhưng chưa test/push”.
 
-## Snapshot kiểm toán hiện tại — 2026-10-19
+## Snapshot kiểm toán hiện tại — 2026-10-19 (lượt kiểm tra lại)
 
-Local HEAD `fa3934f410309f81cf1bbacaca61a0970d244237`; remote `refs/heads/main` xác minh qua `git ls-remote` là `c8c71603095dbd0d322ff48a1347bd9c6cbaf655`. Có một commit M19 chưa push và code M20 chưa commit. Không lấy coverage/hook c8c71603 làm bằng chứng cho working tree này.
+Local HEAD `1e3514e15ac0b074667d94f6f8aa661ee266121c`; remote `refs/heads/main` xác minh lại qua `git ls-remote` là `c8c71603095dbd0d322ff48a1347bd9c6cbaf655`. Bốn commit M19/M20 chưa push (`fa3934f4`, `d76f7d99`, `679f3c05`, `1e3514e1`); M21 đang có thay đổi chưa commit. Không lấy coverage/hook c8c71603 làm bằng chứng release của working tree.
 
-Lần rà soát này chạy lại48frontend tests/8files (4.01s),205native learning tests (5.43s), `pnpm exec tsc -b` và `git diff --check`: pass. Không chạy full release suite, native UI, Codacy mới hoặc CodeScene; không tuyên bố chúng pass. Xem [báo cáo với code references, phần thiếu và thứ tự đóng task](baselines/2026-10-19-note-memory-task-audit.md). Các bảng audit/hook bên dưới là lịch sử theo checkpoint được nêu, không phải trạng thái hiện tại.
+Bảng task ở đầu tài liệu là nguồn trạng thái hiện hành duy nhất. Các mục batch release và audit cũ bên dưới là lịch sử, không phải danh sách việc hiện còn thiếu. M19 live faces và M20 default workspace/conversion/recovery đã có code tích hợp và local tests; chúng không còn là các implementation gap như tại lần audit đầu. M22–M25 vẫn chưa nghiệm thu.
+
+Lần kiểm tra lại phát hiện lỗi báo cáo: snapshot cũ dùng HEAD fa3934f4, một bảng audit lịch sử bị cập nhật lẫn 4/5 cột, và đoạn M19 cũ vẫn nói “chưa commit”. Đã tách lịch sử khỏi trạng thái hiện tại. Kết quả M21 và các lỗi dữ liệu nghi vấn phải được xác minh riêng, không đánh dấu DONE chỉ vì sửa sổ tiến độ.
 
 ## Mẫu ghi kết quả mỗi task
 
@@ -110,30 +112,10 @@ M16 UI normal verified commit a1cededc:305 frontend tests/32files, lint/types,1 
 Normal push c8c71603095dbd0d322ff48a1347bd9c6cbaf655 succeeded9m51s:4816frontend/468files,87.25%lines/83.44%statements;1216Rust/3ignored,hook87.63%lines;54core smoke4.7m;lint/types/build/clippy/format pass. Additional unexcluded cargo llvm-cov report --fail-under-lines85 succeeds86.62%lines, including lib/main/menu; final M25 command must still run after last changes. CodeScene NOT RUN optional unavailable. Codacy all changed code reviewed and native combined checkpoint with rebuilt backend/SQLite/byte proof recorded in M18 baseline. Remote/local match, working tree/demo dirt empty. Evidence /tmp/memnova-note-memory-evidence/m18/. Remaining M19–M25 are not complete.
 
 
-## Kiểm toán tiến độ theo yêu cầu người dùng — 2026-10-19
+## Lịch sử audit đầu — 2026-10-19
 
-Đối chiếu task M00–M25, code consumers, git local/remote và log thực; không chạy lại full suite chỉ để báo trạng thái. HEAD/remote cùng c8c71603095dbd0d322ff48a1347bd9c6cbaf655. Local có thay đổi M19 chưa commit, nên bằng chứng release c8c71603 không bao phủ working tree hiện tại.
+Xem [báo cáo audit tại checkpoint c8c71603](baselines/2026-10-19-note-memory-task-audit.md). Khi đó M19 chưa hoàn thiện, conversion/recovery UI chưa được mount và default workspace vẫn dùng đường cũ. Đây là các thiếu sót thật ở checkpoint đó. M19–M20 đã tiếp tục triển khai sau audit, theo các commit và baseline trong bảng hiện hành; không đọc các kết luận lịch sử này như trạng thái của HEAD mới.
 
-| Nhóm | Kết luận sau đối chiếu | Việc còn lại |
-|---|---|---|
-| M00–M10 | Codec/binding/journal/backup/conversion backend đã commit/push và có regression evidence | Không dùng các pass này thay nghiệm thu end-to-end cuối đợt |
-| M11 | Component chuyển đổi/phục hồi và tests đã push | NoteConversionDialog chưa được mount trong luồng app; integration thuộc M20, chưa được tuyên bố là sử dụng trọn vẹn |
-| M12–M14 | Canvas flush, lỗi snapshot, portable media đã push; native subset có bằng chứng | Native toàn luồng sau default cutover vẫn thuộc M23 |
-| M15–M18 | Editor, linked source, lifecycle và properties đã push c8c71603; native subset/SQLite/file proof | Giao diện bật/tắt mới và workspace mutations khi note không active thuộc M20; không coi M18 là đã thay mọi generic writer |
-| M19 | Đang làm, chưa commit/push | LearningStudyView vẫn dùng card.front/card.back; chưa tiêu thụ note details/render status/media verification; thiếu return Article/hide front và shortcut guards |
-| M20 | Chưa bắt đầu | Default note lane, legacy lane riêng, enable/disable/conversion/recovery entry, folder scope và inactive/bulk mutations |
-| M21 | Chưa bắt đầu | Toàn bộ style/a11y/locales/width/zoom matrix; screenshots cũ chỉ là subset |
-| M22 | Chưa bắt đầu | Full I01–I12/fault matrix; các edge cases/race đã ghi nhận là cần regression, chưa phải đã sửa |
-| M23 | Chưa bắt đầu | Native end-to-end sau code cuối; các checkpoint M14/M18 không thay task này |
-| M24 | Chưa bắt đầu | Đo lại performance/resource lifecycle so với M00 |
-| M25 | Chưa bắt đầu | Final gates/scans/docs/commit/push sau các task còn lại |
-
-Audit focused command: vitest run LearningStudyView.test.tsx/useLearningStudy.recovery.test.ts/verifiedNoteMedia.test.ts →20tests,17passed/3failed,3.48s. Ba failures là hợp đồng mới chưa hoàn thiện trong Study UI: live faces; revoke grade/render snapshot; shortcuts qua button/repeat. Retry receipt regression và3media mapping cases đã green, nhưng module media chưa tích hợp renderer. tsc -b passed. Changed-file ESLint initially failed1missing-effect-dependency warning in new test mock; this is current WIP, not an upstream failure or a release pass. Logs:/tmp/memnova-task-audit-{focused,types-build,lint}.log.
-
-Nguyên nhân kéo dài: một số commit đổi IPC/shared CSS kích hoạt full pre-commit; push giữ full release gate9m51s, trong đó54core smoke4.7m. Native checkpoints tìm ra lỗi thật phải thêm regression/rebuild; có cả thời gian sửa fixture/launch QA. Quản lý tiến độ chưa tốt: row DONE vẫn chứa câu pending cũ và updates nói nhiều về kiểm tra hơn phần sản phẩm còn thiếu. Đã sửa các câu pending trong bảng hiện tại; các đoạn lịch sử bên dưới vẫn là lịch sử tại thời điểm commit. Không hạ gate, bỏ hook hoặc sửa kế hoạch để gọi phần thiếu là DONE.
-
-
-M19 follow-through after audit: live note faces/readiness/shortcut regressions fixed,65module tests8.05s and3actual-renderer browser cases7.7s pass. A legacy whole-app integration failure at Add card reproduced on clean pushed HEAD as well; it remains explicitly unresolved for M22/M25. Current M19 changes still need normal commit and batch push before DONE. The initial audit's17pass/3fail is historical, not the latest module result.
-
+Nguyên nhân kéo dài được xác nhận: implementation/integration còn thiếu, cộng với nhiều lần chạy full hook do IPC/shared CSS, push khoảng 9–10 phút và rebuild native sau khi tìm được regression. Ngoài ra sổ tiến độ có đoạn lỗi thời gây cảm giác quay lại task cũ. Không bỏ hook hoặc đổi tiêu chí nghiệm thu để gọi phần còn thiếu là hoàn tất.
 
 M19 normal verified commit fa3934f410309f81cf1bbacaca61a0970d244237:305related frontend/39files,3browser7.1s,lint/types/localization962keys passed. No hook bypass. Additional editor-resource case1pass645ms. Tree clean after commit; remote stillc8c71603 because the planned M19–M22 batch is not pushed yet. This is VERIFIED_LOCAL, not DONE or final release.

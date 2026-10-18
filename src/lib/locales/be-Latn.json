@@ -969,5 +969,12 @@
   "learning.noteMemory.enabledHelp": "Artykul — piaredni bok. Dadajcie vyjavy, tekst abo došku na bok z padkazkami.",
   "learning.noteMemory.folder": "Papka",
   "learning.noteMemory.includeSubfolders": "Ukliučać ukladzienyja papki",
-  "learning.noteMemory.prepareNote": "Padrychtavać hetuju natatku"
+  "learning.noteMemory.prepareNote": "Padrychtavać hetuju natatku",
+  "editor.whiteboard.vocabularyImage": "Vyjava slova",
+  "editor.whiteboard.searchVocabulary": "Pošuk sloŭ…",
+  "editor.whiteboard.noVocabulary": "Natatki sa slovami nie znojdzieny",
+  "editor.whiteboard.resizeWidth": "Zmianić šyryniu doški",
+  "editor.whiteboard.resizeHeight": "Zmianić vyšyniu doški",
+  "editor.whiteboard.resizeBoth": "Zmianić pamier doški",
+  "editor.whiteboard.resizeHelp": "Zmianiajcie pamier strelkami. Utrymlivajcie Shift dlia boĺšaha kroku."
 }

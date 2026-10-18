@@ -969,5 +969,12 @@
   "learning.noteMemory.enabledHelp": "Der Artikel ist die Vorderseite. Ergänze die Merkhilfe um Bilder, Text oder eine Zeichenfläche.",
   "learning.noteMemory.folder": "Ordner",
   "learning.noteMemory.includeSubfolders": "Unterordner einschließen",
-  "learning.noteMemory.prepareNote": "Diese Notiz vorbereiten"
+  "learning.noteMemory.prepareNote": "Diese Notiz vorbereiten",
+  "editor.whiteboard.vocabularyImage": "Vokabelbild",
+  "editor.whiteboard.searchVocabulary": "Vokabeln suchen…",
+  "editor.whiteboard.noVocabulary": "Keine Vokabelnotizen gefunden",
+  "editor.whiteboard.resizeWidth": "Breite der Zeichenfläche ändern",
+  "editor.whiteboard.resizeHeight": "Höhe der Zeichenfläche ändern",
+  "editor.whiteboard.resizeBoth": "Größe der Zeichenfläche ändern",
+  "editor.whiteboard.resizeHelp": "Mit den Pfeiltasten die Größe ändern. Für größere Schritte die Umschalttaste gedrückt halten."
 }

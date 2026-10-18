@@ -969,5 +969,12 @@
   "learning.noteMemory.enabledHelp": "L’article est au recto. Ajoutez des images, du texte ou un tableau à l’aide-mémoire.",
   "learning.noteMemory.folder": "Dossier",
   "learning.noteMemory.includeSubfolders": "Inclure les sous-dossiers",
-  "learning.noteMemory.prepareNote": "Préparer cette note"
+  "learning.noteMemory.prepareNote": "Préparer cette note",
+  "editor.whiteboard.vocabularyImage": "Image de vocabulaire",
+  "editor.whiteboard.searchVocabulary": "Rechercher du vocabulaire…",
+  "editor.whiteboard.noVocabulary": "Aucune note de vocabulaire trouvée",
+  "editor.whiteboard.resizeWidth": "Modifier la largeur du tableau",
+  "editor.whiteboard.resizeHeight": "Modifier la hauteur du tableau",
+  "editor.whiteboard.resizeBoth": "Redimensionner le tableau",
+  "editor.whiteboard.resizeHelp": "Utilisez les flèches pour redimensionner. Maintenez Maj pour des pas plus grands."
 }

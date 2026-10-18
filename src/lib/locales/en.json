@@ -969,5 +969,12 @@
   "learning.noteMemory.enabledHelp": "The article is the front. Add images, text or a canvas to the mnemonic.",
   "learning.noteMemory.folder": "Folder",
   "learning.noteMemory.includeSubfolders": "Include subfolders",
-  "learning.noteMemory.prepareNote": "Prepare this note"
+  "learning.noteMemory.prepareNote": "Prepare this note",
+  "editor.whiteboard.vocabularyImage": "Vocabulary image",
+  "editor.whiteboard.searchVocabulary": "Search vocabulary…",
+  "editor.whiteboard.noVocabulary": "No vocabulary notes found",
+  "editor.whiteboard.resizeWidth": "Resize whiteboard width",
+  "editor.whiteboard.resizeHeight": "Resize whiteboard height",
+  "editor.whiteboard.resizeBoth": "Resize whiteboard",
+  "editor.whiteboard.resizeHelp": "Use arrow keys to resize. Hold Shift for larger steps."
 }

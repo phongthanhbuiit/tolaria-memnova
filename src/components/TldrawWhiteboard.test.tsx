@@ -199,6 +199,26 @@ async function renderWhiteboard(overrides: Partial<ComponentProps<typeof TldrawW
   return result
 }
 
+it('offers keyboard resizing without writing a snapshot or changing the other dimension', async () => {
+  const onSizeChange = vi.fn(), onSnapshotChange = vi.fn()
+  await renderWhiteboard({ width: '600', height: '520', onSizeChange, onSnapshotChange })
+  fireEvent.keyDown(screen.getByRole('button', { name: 'Resize whiteboard height', exact: true }), { key: 'ArrowDown' })
+  expect(onSizeChange).toHaveBeenCalledWith({ width: '600', height: '528' })
+  expect(onSnapshotChange).not.toHaveBeenCalled()
+})
+
+it('localizes vocabulary actions, search and empty state using the document locale', async () => {
+  const previous = document.documentElement.lang
+  document.documentElement.lang = 'vi'
+  try {
+    await renderWhiteboard()
+    fireEvent.click(screen.getByRole('button', { name: 'Ảnh từ vựng' }))
+    expect(screen.getByRole('textbox', { name: 'Tìm từ vựng…' })).toBeInTheDocument()
+    expect(screen.getByText('Không tìm thấy ghi chú từ vựng')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Đổi chiều cao bảng vẽ' })).toBeInTheDocument()
+  } finally { cleanup(); document.documentElement.lang = previous }
+})
+
 describe('TldrawWhiteboard', () => {
   afterEach(() => {
     cleanup()
@@ -390,7 +410,7 @@ it('does not insert a vocabulary image after the board has been unmounted', asyn
     const view = await renderWhiteboard({ documentScope: scope,blockId: 'board' })
     let dispose = () => {}
     act(() => { dispose = renderedTldrawProps().onMount(editor) })
-    fireEvent.click(screen.getByRole('button',{name:'Vocab Image'}))
+    fireEvent.click(screen.getByRole('button',{name:'Vocabulary image'}))
     fireEvent.click(screen.getByRole('button',{name:'Selected vocabulary'}))
     await act(async () => { await Promise.resolve() })
     expect(imageStarted).toBe(true)

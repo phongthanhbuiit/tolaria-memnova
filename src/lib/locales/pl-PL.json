@@ -969,5 +969,12 @@
   "learning.noteMemory.enabledHelp": "Artykuł to przód. Dodaj obrazy, tekst lub tablicę do pomocy pamięciowej.",
   "learning.noteMemory.folder": "Folder",
   "learning.noteMemory.includeSubfolders": "Uwzględnij podfoldery",
-  "learning.noteMemory.prepareNote": "Przygotuj tę notatkę"
+  "learning.noteMemory.prepareNote": "Przygotuj tę notatkę",
+  "editor.whiteboard.vocabularyImage": "Obraz słownictwa",
+  "editor.whiteboard.searchVocabulary": "Szukaj słownictwa…",
+  "editor.whiteboard.noVocabulary": "Nie znaleziono notatek ze słownictwem",
+  "editor.whiteboard.resizeWidth": "Zmień szerokość tablicy",
+  "editor.whiteboard.resizeHeight": "Zmień wysokość tablicy",
+  "editor.whiteboard.resizeBoth": "Zmień rozmiar tablicy",
+  "editor.whiteboard.resizeHelp": "Zmieniaj rozmiar strzałkami. Przytrzymaj Shift, aby zwiększyć krok."
 }

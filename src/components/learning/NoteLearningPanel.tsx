@@ -87,7 +87,7 @@ export function NoteLearningPanel({
   }
   return (
     <section
-      className="h-full overflow-y-auto bg-background p-4 sm:p-8"
+      className="note-memory-surface h-full overflow-y-auto bg-background p-4 sm:p-8"
       aria-label={t('learning.noteMemory.notes')}
     >
       <div className="mx-auto max-w-3xl space-y-6">
@@ -132,6 +132,7 @@ export function NoteLearningPanel({
             </Button>
           ) : (
             <Button
+              variant={enabled ? 'outline' : 'default'}
               disabled={
                 busy ||
                 outside ||
@@ -155,7 +156,7 @@ export function NoteLearningPanel({
             </Button>
           )}
           <Button
-            variant="outline"
+            variant="default"
             disabled={busy || view?.state !== 'ready' || !page}
             onClick={() =>
               workspace.requestStudy(page ? [page.id] : [], 'notes')

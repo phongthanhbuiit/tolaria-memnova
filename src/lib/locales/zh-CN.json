@@ -969,5 +969,12 @@
   "learning.noteMemory.enabledHelp": "文章是正面。可以在记忆提示面添加图片、文字或画布。",
   "learning.noteMemory.folder": "文件夹",
   "learning.noteMemory.includeSubfolders": "包含子文件夹",
-  "learning.noteMemory.prepareNote": "准备此笔记"
+  "learning.noteMemory.prepareNote": "准备此笔记",
+  "editor.whiteboard.vocabularyImage": "词汇图片",
+  "editor.whiteboard.searchVocabulary": "搜索词汇…",
+  "editor.whiteboard.noVocabulary": "未找到词汇笔记",
+  "editor.whiteboard.resizeWidth": "调整画板宽度",
+  "editor.whiteboard.resizeHeight": "调整画板高度",
+  "editor.whiteboard.resizeBoth": "调整画板大小",
+  "editor.whiteboard.resizeHelp": "使用方向键调整大小。按住 Shift 可增大步幅。"
 }

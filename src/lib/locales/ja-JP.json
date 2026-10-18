@@ -969,5 +969,12 @@
   "learning.noteMemory.enabledHelp": "記事が表面です。記憶の手がかりに画像、テキスト、キャンバスを追加できます。",
   "learning.noteMemory.folder": "フォルダー",
   "learning.noteMemory.includeSubfolders": "サブフォルダーを含める",
-  "learning.noteMemory.prepareNote": "このノートを準備"
+  "learning.noteMemory.prepareNote": "このノートを準備",
+  "editor.whiteboard.vocabularyImage": "語彙の画像",
+  "editor.whiteboard.searchVocabulary": "語彙を検索…",
+  "editor.whiteboard.noVocabulary": "語彙ノートが見つかりません",
+  "editor.whiteboard.resizeWidth": "ホワイトボードの幅を変更",
+  "editor.whiteboard.resizeHeight": "ホワイトボードの高さを変更",
+  "editor.whiteboard.resizeBoth": "ホワイトボードのサイズを変更",
+  "editor.whiteboard.resizeHelp": "矢印キーでサイズを変更します。Shiftを押すと変更幅が大きくなります。"
 }

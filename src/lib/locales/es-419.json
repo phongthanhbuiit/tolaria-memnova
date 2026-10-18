@@ -969,5 +969,12 @@
   "learning.noteMemory.enabledHelp": "El artículo es el frente. Agrega imágenes, texto o un lienzo a la ayuda para recordar.",
   "learning.noteMemory.folder": "Carpeta",
   "learning.noteMemory.includeSubfolders": "Incluir subcarpetas",
-  "learning.noteMemory.prepareNote": "Preparar esta nota"
+  "learning.noteMemory.prepareNote": "Preparar esta nota",
+  "editor.whiteboard.vocabularyImage": "Imagen de vocabulario",
+  "editor.whiteboard.searchVocabulary": "Buscar vocabulario…",
+  "editor.whiteboard.noVocabulary": "No se encontraron notas de vocabulario",
+  "editor.whiteboard.resizeWidth": "Cambiar el ancho de la pizarra",
+  "editor.whiteboard.resizeHeight": "Cambiar la altura de la pizarra",
+  "editor.whiteboard.resizeBoth": "Cambiar el tamaño de la pizarra",
+  "editor.whiteboard.resizeHelp": "Usa las flechas para cambiar el tamaño. Mantén Mayús para pasos mayores."
 }

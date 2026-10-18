@@ -969,5 +969,12 @@
   "learning.noteMemory.enabledHelp": "Bài viết là mặt trước. Thêm ảnh, văn bản hoặc bảng vẽ vào mặt gợi nhớ.",
   "learning.noteMemory.folder": "Thư mục",
   "learning.noteMemory.includeSubfolders": "Gồm thư mục con",
-  "learning.noteMemory.prepareNote": "Chuẩn bị ghi chú này"
+  "learning.noteMemory.prepareNote": "Chuẩn bị ghi chú này",
+  "editor.whiteboard.vocabularyImage": "Ảnh từ vựng",
+  "editor.whiteboard.searchVocabulary": "Tìm từ vựng…",
+  "editor.whiteboard.noVocabulary": "Không tìm thấy ghi chú từ vựng",
+  "editor.whiteboard.resizeWidth": "Đổi chiều rộng bảng vẽ",
+  "editor.whiteboard.resizeHeight": "Đổi chiều cao bảng vẽ",
+  "editor.whiteboard.resizeBoth": "Đổi kích thước bảng vẽ",
+  "editor.whiteboard.resizeHelp": "Dùng phím mũi tên để đổi kích thước. Giữ Shift để đổi nhanh hơn."
 }

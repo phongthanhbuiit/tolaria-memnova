@@ -969,5 +969,12 @@
   "learning.noteMemory.enabledHelp": "L’articolo è il fronte. Aggiungi immagini, testo o una lavagna al promemoria.",
   "learning.noteMemory.folder": "Cartella",
   "learning.noteMemory.includeSubfolders": "Includi sottocartelle",
-  "learning.noteMemory.prepareNote": "Prepara questa nota"
+  "learning.noteMemory.prepareNote": "Prepara questa nota",
+  "editor.whiteboard.vocabularyImage": "Immagine del vocabolario",
+  "editor.whiteboard.searchVocabulary": "Cerca vocaboli…",
+  "editor.whiteboard.noVocabulary": "Nessuna nota di vocabolario trovata",
+  "editor.whiteboard.resizeWidth": "Ridimensiona la larghezza della lavagna",
+  "editor.whiteboard.resizeHeight": "Ridimensiona l’altezza della lavagna",
+  "editor.whiteboard.resizeBoth": "Ridimensiona la lavagna",
+  "editor.whiteboard.resizeHelp": "Usa le frecce per ridimensionare. Tieni premuto Maiusc per passi più grandi."
 }

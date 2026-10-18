@@ -969,5 +969,12 @@
   "learning.noteMemory.enabledHelp": "Статья — лицевая сторона. Добавьте изображения, текст или доску на сторону с подсказками.",
   "learning.noteMemory.folder": "Папка",
   "learning.noteMemory.includeSubfolders": "Включать вложенные папки",
-  "learning.noteMemory.prepareNote": "Подготовить эту заметку"
+  "learning.noteMemory.prepareNote": "Подготовить эту заметку",
+  "editor.whiteboard.vocabularyImage": "Изображение слова",
+  "editor.whiteboard.searchVocabulary": "Поиск слов…",
+  "editor.whiteboard.noVocabulary": "Заметки со словами не найдены",
+  "editor.whiteboard.resizeWidth": "Изменить ширину доски",
+  "editor.whiteboard.resizeHeight": "Изменить высоту доски",
+  "editor.whiteboard.resizeBoth": "Изменить размер доски",
+  "editor.whiteboard.resizeHelp": "Меняйте размер стрелками. Удерживайте Shift для большего шага."
 }

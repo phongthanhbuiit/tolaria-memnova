@@ -161,3 +161,10 @@ it('retains a partial registration and retries the owner action without ensuring
   await waitFor(() => expect(apply).toHaveBeenCalledTimes(2))
   expect(workspace.client.ensurePage).toHaveBeenCalledOnce()
 })
+
+it('offers a localized cancel action without an untranslated duplicate Close button', () => {
+  fixture()
+  render(<NoteBackSourceDialog open locale="vi" ownerPath="/library/owner.md" ownerPageId="owner" onOpenChange={vi.fn()} onApplyBack={vi.fn()} />)
+  expect(screen.queryByRole('button', { name: 'Close', exact: true })).not.toBeInTheDocument()
+  expect(screen.getByRole('button', { name: 'Hủy', exact: true })).toBeEnabled()
+})
