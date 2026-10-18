@@ -590,3 +590,28 @@ fn unrelated_duplicate_ids_do_not_disable_an_independent_note_but_ambiguous_back
         );
     }
 }
+
+#[test]
+fn m22_healthy_source_previews_ignore_unrelated_duplicate_identities_but_reject_their_own() {
+    let (directory, store) = fixture();
+    let unrelated = fs::read(directory.path().join("ordinary.md")).unwrap();
+    fs::write(directory.path().join("ordinary-copy.md"), &unrelated).unwrap();
+    let card = store.note_binding(&id(1)).unwrap().unwrap().card_id;
+    let before = store.get_card(&card).unwrap().schedule;
+    let preview = super::preview_note_source(
+        directory.path(),
+        &store.library_id,
+        "source.md",
+        MemoryFace::Front,
+    )
+    .unwrap();
+    assert_eq!(preview.page_id, Some(id(2)));
+    assert!(store.read_note_face(&id(2), MemoryFace::Front).is_ok());
+    assert!(store.read_note_face(&id(3), MemoryFace::Front).is_err());
+    assert_eq!(store.get_card(&card).unwrap().schedule, before);
+    assert_eq!(
+        fs::read(directory.path().join("ordinary-copy.md")).unwrap(),
+        unrelated
+    );
+    assert!(store.note_binding(&id(2)).unwrap().is_none());
+}

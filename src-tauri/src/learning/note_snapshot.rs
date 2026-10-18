@@ -326,8 +326,8 @@ pub(super) fn preview_face(
     media: &mut MediaSnapshot,
 ) -> Result<NoteFacePreview, String> {
     let source = SourceDocument::read(connection, root, page_id)?;
-    let sources = super::pages::source_ids(root)?;
-    if sources.get(page_id).map(|(path, _)| path.as_str()) != Some(source.path.as_str()) {
+    let sources = super::page_sources::SourceCatalog::scan(root)?;
+    if !sources.matches(page_id, &source.path) {
         return Err("identity-conflict".into());
     }
     let content = source.face(face)?.to_string();

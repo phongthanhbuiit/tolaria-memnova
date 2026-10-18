@@ -27,8 +27,8 @@ Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. DONE bên d
 | M18 | DONE | 678c5826,c8c71603 | Canonical property writes, readonly schedule/raw metadata;4816frontend/1216Rust verified hook; actual native property/width/two-face/source Cancel/link/inline/restart proof,419 vault tests. Normal batch push c8c71603 passed. |
 | M19 | VERIFIED_LOCAL | fa3934f4 (local) | 65module tests8.05s; normal hook305tests/39files,3browser7.1s,18locales/962keys; M22 baseline integration issue explicitly retained. Batch push follows M22. |
 | M20 | VERIFIED_LOCAL | d76f7d99,679f3c05,1e3514e1 (local) | Default note/legacy workspace, opt-in controls, scoped properties, conversion/recovery and startup backup reader implemented. Normal final hook4861frontend/481files,1228Rust/3ignored pass;274module frontend,206learning Rust,3real startup recovery,4browser12.9s pass. No normal push/native end-to-end yet; M21–M25 remain. |
-| M21 | IN_PROGRESS | M20 VERIFIED_LOCAL1e3514e1 | Baseline24focused tests2.49s; scoped visual/a11y/copy audit and matrix pending. |
-| M22 | NOT_STARTED | — | — |
+| M21 | VERIFIED_LOCAL | 9baccd37 (local) | Normal hook4864frontend/481files133.99s;4browser59.0s including378layout cases and canvas keyboard/fullscreen;978keys/18catalogs. CodeScene NOT RUN. Batch push pending M22. |
+| M22 | IN_PROGRESS | M21 VERIFIED_LOCAL9baccd37 | Native baseline206learning tests13.18s; real-file fault regressions and I01–I12 verification underway. |
 | M23 | NOT_STARTED | — | — |
 | M24 | NOT_STARTED | — | — |
 | M25 | NOT_STARTED | — | — |
@@ -37,7 +37,7 @@ Trạng thái dùng: NOT_STARTED, IN_PROGRESS, VERIFIED_LOCAL, BLOCKED_WITH_EVID
 
 ## Snapshot kiểm toán hiện tại — 2026-10-19 (lượt kiểm tra lại)
 
-Local HEAD `1e3514e15ac0b074667d94f6f8aa661ee266121c`; remote `refs/heads/main` xác minh lại qua `git ls-remote` là `c8c71603095dbd0d322ff48a1347bd9c6cbaf655`. Bốn commit M19/M20 chưa push (`fa3934f4`, `d76f7d99`, `679f3c05`, `1e3514e1`); M21 đang có thay đổi chưa commit. Không lấy coverage/hook c8c71603 làm bằng chứng release của working tree.
+Local HEAD `9baccd37`; remote `refs/heads/main` xác minh lại qua `git ls-remote` là `c8c71603095dbd0d322ff48a1347bd9c6cbaf655`. Năm commit M19–M21 chưa push (`fa3934f4`, `d76f7d99`, `679f3c05`, `1e3514e1`, `9baccd37`); M22 đang triển khai. Không lấy coverage/hook c8c71603 làm bằng chứng release của working tree.
 
 Bảng task ở đầu tài liệu là nguồn trạng thái hiện hành duy nhất. Các mục batch release và audit cũ bên dưới là lịch sử, không phải danh sách việc hiện còn thiếu. M19 live faces và M20 default workspace/conversion/recovery đã có code tích hợp và local tests; chúng không còn là các implementation gap như tại lần audit đầu. M22–M25 vẫn chưa nghiệm thu.
 

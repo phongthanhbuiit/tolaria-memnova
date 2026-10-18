@@ -455,3 +455,68 @@ fn source_changed_by_a_failing_completion_is_conflict_not_a_retryable_io_pending
         "External change found during validation"
     );
 }
+
+#[test]
+fn m22_stale_checkpoint_from_a_second_connection_cannot_replace_a_committed_receipt() {
+    for phase in [
+        super::NoteOperationPhase::FileWritten,
+        super::NoteOperationPhase::Conflict,
+    ] {
+        let (directory, mut first) = fixture();
+        let intent = request(&first);
+        first
+            .write_note_source_with_hooks(
+                intent.clone(),
+                complete,
+                &NoteWriteHooks::stop_at(Checkpoint::Prepared),
+            )
+            .unwrap_err();
+        let stale = first
+            .load_note_write(&intent.operation_id)
+            .unwrap()
+            .unwrap();
+        let mut second = Store::open(directory.path()).unwrap();
+        let receipt = second
+            .resume_note_write(&intent.operation_id, complete)
+            .unwrap();
+        let payload: String = second
+            .conn
+            .query_row(
+                "SELECT payload_json FROM note_learning_operations WHERE id=?1",
+                [&intent.operation_id],
+                |row| row.get(0),
+            )
+            .unwrap();
+        assert!(super::note_write_journal::write_payload(&first.conn, &stale, phase).is_err());
+        assert_eq!(
+            first
+                .load_note_write(&intent.operation_id)
+                .unwrap()
+                .unwrap()
+                .outcome,
+            Some(receipt.clone())
+        );
+        assert_eq!(
+            first
+                .conn
+                .query_row(
+                    "SELECT payload_json FROM note_learning_operations WHERE id=?1",
+                    [&intent.operation_id],
+                    |row| row.get::<_, String>(0)
+                )
+                .unwrap(),
+            payload
+        );
+        assert_eq!(
+            first
+                .resume_note_write(&intent.operation_id, complete)
+                .unwrap(),
+            receipt
+        );
+        assert_eq!(first.get_card(&id(101)).unwrap().revision, 1);
+        assert_eq!(
+            fs::read_to_string(directory.path().join("lesson.md")).unwrap(),
+            intent.source
+        );
+    }
+}

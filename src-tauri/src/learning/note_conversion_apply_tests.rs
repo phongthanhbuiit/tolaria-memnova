@@ -438,3 +438,58 @@ fn pending_conversion_requires_its_verified_backup_and_cannot_be_finished_as_a_r
     );
     assert_eq!(count(&store, "note_card_bindings"), 0);
 }
+
+#[test]
+fn m22_fresh_conversion_rejects_corrupt_schedule_fields_without_mutating_user_data() {
+    for (field, value) in [
+        ("stability", json!(12)),
+        ("difficulty", json!(4)),
+        ("elapsedDays", json!(3)),
+        ("scheduledDays", json!(7)),
+        ("lastReview", json!("2026-01-01T00:00:00Z")),
+        ("learningSteps", json!(2)),
+        ("engine", json!("ts-fsrs@5.4.2")),
+        ("due", json!("2999-01-01T00:00:00Z")),
+    ] {
+        let (directory, mut store) = setup();
+        let choice = selection(&store, 2, None);
+        store
+            .apply_note_conversion_with_hooks(
+                serde_json::from_value(choice).unwrap(),
+                &NoteWriteHooks::stop_at(Checkpoint::Prepared),
+            )
+            .unwrap_err();
+        let mut payload: serde_json::Value =
+            serde_json::to_value(store.load_note_write(&id(801)).unwrap().unwrap()).unwrap();
+        payload["conversion"]["schedule"][field] = value;
+        let payload = payload.to_string();
+        store
+            .conn
+            .execute(
+                "UPDATE note_learning_operations SET payload_json=?1 WHERE id=?2",
+                [&payload, &id(801)],
+            )
+            .unwrap();
+        let bytes = fs::read(directory.path().join("lesson.md")).unwrap();
+        let before = protected(&store);
+        assert!(
+            store.resume_note_conversion(&id(801)).is_err(),
+            "field {field}"
+        );
+        assert_eq!(fs::read(directory.path().join("lesson.md")).unwrap(), bytes);
+        assert_eq!(protected(&store), before);
+        assert_eq!(count(&store, "note_card_bindings"), 0);
+        assert_eq!(count(&store, "cards"), 3);
+        assert_eq!(
+            store
+                .conn
+                .query_row(
+                    "SELECT payload_json FROM note_learning_operations WHERE id=?1",
+                    [id(801)],
+                    |row| row.get::<_, String>(0)
+                )
+                .unwrap(),
+            payload
+        );
+    }
+}

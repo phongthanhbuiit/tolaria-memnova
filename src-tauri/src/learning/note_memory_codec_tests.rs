@@ -96,3 +96,9 @@ fn readiness_matches_shared_native_and_browser_corpus() {
         }
     }
 }
+
+#[test]
+fn m22_inline_back_rejects_unknown_nested_fields_instead_of_ignoring_them() {
+    let value = serde_json::json!({"version":1,"enabled":true,"back":{"kind":"inline","pageId":"unexpected"}});
+    assert!(serde_json::from_value::<super::note_memory::MemoryConfig>(value).is_err());
+}

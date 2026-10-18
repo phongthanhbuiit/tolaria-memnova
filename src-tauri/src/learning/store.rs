@@ -27,6 +27,13 @@ impl Store {
             );
         }
         let existing_identity = directory.join("library.json").exists();
+        if !existing_identity
+            && ["", "-wal", "-shm"]
+                .iter()
+                .any(|suffix| directory.join(format!("learning.sqlite3{suffix}")).exists())
+        {
+            return Err("Library manifest is missing; restore its original identity from a verified backup before continuing".into());
+        }
         let library_id = library_identity(&directory)?;
         for suffix in ["", "-wal", "-shm"] {
             reject_symlink(&directory.join(format!("learning.sqlite3{suffix}")))?;

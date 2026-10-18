@@ -10,15 +10,40 @@ pub(super) fn write_payload(
     prepared: &PreparedWrite,
     phase: NoteOperationPhase,
 ) -> Result<(), String> {
+    prepared.validate()?;
     let payload = serde_json::to_string(prepared).map_err(|error| error.to_string())?;
-    let count = connection
-        .execute(
-            "UPDATE note_learning_operations SET payload_json=?1,phase=?2 WHERE id=?3",
-            rusqlite::params![payload, phase.as_str(), prepared.operation_id],
+    let (previous_phase, previous_payload): (String, String) = connection
+        .query_row(
+            "SELECT phase,payload_json FROM note_learning_operations WHERE id=?1",
+            [&prepared.operation_id],
+            |row| Ok((row.get(0)?, row.get(1)?)),
         )
         .map_err(|error| error.to_string())?;
+    if previous_phase == "applied" {
+        if phase != NoteOperationPhase::Applied {
+            return Err("Note operation already completed; reload its receipt".into());
+        }
+        if previous_payload == payload {
+            return Ok(());
+        }
+        let mut previous: PreparedWrite =
+            serde_json::from_str(&previous_payload).map_err(|error| error.to_string())?;
+        previous.validate()?;
+        // A terminal receipt is immutable. Only the existing save compaction is permitted.
+        if previous.conversion.is_some() || previous.resolution.is_some() {
+            return Err("Note operation already completed; reload its receipt".into());
+        }
+        previous.after_source = None;
+        if serde_json::to_string(&previous).map_err(|error| error.to_string())? != payload {
+            return Err("Note operation already completed; reload its receipt".into());
+        }
+    }
+    let count = connection.execute(
+        "UPDATE note_learning_operations SET payload_json=?1,phase=?2 WHERE id=?3 AND phase=?4 AND payload_json=?5",
+        rusqlite::params![payload, phase.as_str(), prepared.operation_id, previous_phase, previous_payload],
+    ).map_err(|error| error.to_string())?;
     if count != 1 {
-        return Err("Note operation checkpoint disappeared".into());
+        return Err("Note operation checkpoint changed; reload before retrying".into());
     }
     Ok(())
 }

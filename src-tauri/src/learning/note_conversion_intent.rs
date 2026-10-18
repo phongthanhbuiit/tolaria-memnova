@@ -162,15 +162,15 @@ impl ConversionIntent {
                 }
             }
             ConversionMemoryChoice::Fresh {} => {
+                let mut fresh = Schedule::fresh();
+                fresh.due.clone_from(&self.schedule.due);
                 if self
                     .before_page
                     .candidates
                     .iter()
                     .any(|candidate| candidate.card.id == self.card_id)
-                    || self.schedule.state != "new"
-                    || self.schedule.reps != 0
-                    || self.schedule.lapses != 0
-                    || self.schedule.revision != 0
+                    || self.schedule != fresh
+                    || self.schedule.due_ms()? > self.timestamp
                 {
                     return Err("conversion-fresh-memory-checkpoint-mismatch".into());
                 }

@@ -1,0 +1,13 @@
+# M22 — integration and failure matrix
+
+Starting HEAD9baccd37 main; M19–M21 VERIFIED_LOCAL, five commits ahead of remote c8c71603. Initial tree clean. M21 final hook4864frontend/481files133.99s,4browser59.0s pass. Native baseline cargo test --manifest-path src-tauri/Cargo.toml --lib learning:: -- --test-threads=1:206pass13.18s. CodeScene before NOT RUN optional unavailable. Relevant coordinator/conversion/source/storage ADRs0148–0161 reviewed; preserve schema5/scheduler/XP and raw user data. Bug fixes require failing regression before edits. Existing I01–I12 evidence will be rerun and mapped rather than equating browser mocks with SQLite/native QA.
+
+## Native fault cycle 1
+
+Five new behavioral regressions all failed before fixes (0pass/5fail,0.31s): missing manifest generated a replacement UUID before owner rejection; stale second-connection file_written/conflict checkpoint overwrote applied receipt; Serde inline unit variant ignored nested unknown fields; fresh conversion accepted nonfresh schedule values; healthy source previews failed on unrelated duplicate UUIDs.
+
+Fixes: fail closed before identity creation when database/WAL/SHM survives without manifest; terminal receipt permits only identical replay or exact existing save compaction, and SQL checkpoint update compares prior phase/payload atomically; strict wire helper preserves inline JSON shape while rejecting unknown fields; fresh conversion compares every schedule field with existing fresh defaults, keeping its frozen due date but rejecting future due beyond intent time; note-only previews use per-UUID SourceCatalog matching while legacy strict importer remains unchanged. No schema or scheduler calculation changes.
+
+GREEN5pass1.57s; complete native learning211pass14.11s; cargo clippy --lib --tests -- -D warnings and cargo fmt pass. Preservation assertions cover source bytes/mtime, exact applied journal, one card revision, retained cards/schedules/reviews/profile/raw properties and no source auto-enable. Two independent Store connections certify stale checkpoint protection; this is not a distributed filesystem transaction guarantee.
+
+Codacy CLI11Rust paths:Opengrep0;Lizard15reviewed advisories (5Medium/10Minor). Test lengths express cross-table preservation; production length/complexity findings are existing store/conversion/codec regions with small guarded fixes. No new Critical/High/security findings. ESLint selected0Rust files (not an ESLint security pass). CodeScene NOT RUN optional unavailable. Localization:no UI copy changes. PostHog:no event needed for correctness guards. No ADR needed for bug fixes; architecture checkpoint note updated. Full fault matrix/native UI/performance/release still pending.

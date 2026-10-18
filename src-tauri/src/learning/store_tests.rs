@@ -168,3 +168,24 @@ fn missing_sqlite_never_reopens_legacy_schedule_writes_for_an_existing_identity(
     assert!(!called.get());
     assert!(!directory.path().join(".memnova/learning.sqlite3").exists());
 }
+
+#[test]
+fn m22_missing_manifest_never_generates_a_replacement_identity_for_existing_memory() {
+    let dir = tempfile::tempdir().unwrap();
+    drop(Store::open(dir.path()).unwrap());
+    let metadata = dir.path().join(".memnova");
+    std::fs::remove_file(metadata.join("library.json")).unwrap();
+    let database = metadata.join("learning.sqlite3");
+    let before = std::fs::read(&database).unwrap();
+    let modified = std::fs::metadata(&database).unwrap().modified().unwrap();
+    assert!(Store::open(dir.path()).is_err());
+    assert!(
+        !metadata.join("library.json").exists(),
+        "a missing manifest must stay missing"
+    );
+    assert_eq!(std::fs::read(&database).unwrap(), before);
+    assert_eq!(
+        std::fs::metadata(database).unwrap().modified().unwrap(),
+        modified
+    );
+}

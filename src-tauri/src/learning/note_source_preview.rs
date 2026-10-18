@@ -71,11 +71,7 @@ fn validate_source_identity(
     }
     if let Some(id) = id {
         super::note_guard::require_note_page_writable(connection, id)?;
-        if super::pages::source_ids(root)?
-            .get(id)
-            .map(|(path, _)| path.as_str())
-            != Some(relative)
-        {
+        if !super::page_sources::SourceCatalog::scan(root)?.matches(id, relative) {
             return Err("identity-conflict".into());
         }
     }

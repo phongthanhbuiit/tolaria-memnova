@@ -23,11 +23,33 @@ pub enum MemoryFace {
     tag = "kind",
     rename_all = "lowercase",
     rename_all_fields = "camelCase",
-    deny_unknown_fields
+    deny_unknown_fields,
+    from = "WireMemoryBack"
 )]
 pub enum MemoryBack {
     Inline,
     Page { page_id: String, face: MemoryFace },
+}
+
+// Serde unit variants otherwise ignore additional fields even with deny_unknown_fields.
+#[derive(Deserialize)]
+#[serde(
+    tag = "kind",
+    rename_all = "lowercase",
+    rename_all_fields = "camelCase",
+    deny_unknown_fields
+)]
+enum WireMemoryBack {
+    Inline {},
+    Page { page_id: String, face: MemoryFace },
+}
+impl From<WireMemoryBack> for MemoryBack {
+    fn from(value: WireMemoryBack) -> Self {
+        match value {
+            WireMemoryBack::Inline {} => Self::Inline,
+            WireMemoryBack::Page { page_id, face } => Self::Page { page_id, face },
+        }
+    }
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
