@@ -12,6 +12,21 @@ use serde_json::{json, Value};
 )]
 pub enum LearningRequest {
     Describe,
+    ReadNoteMemory {
+        page_id: String,
+    },
+    SaveNoteMemory {
+        request: crate::learning::note_write::NoteWriteRequest,
+    },
+    ConfigureNoteMemory {
+        request: crate::learning::NoteConfigureRequest,
+    },
+    ResumeNoteMemory {
+        operation_id: String,
+    },
+    ReconcileNoteMemory {
+        page_id: String,
+    },
     PreviewMigration,
     BeginMigration {
         fingerprint: String,
@@ -139,6 +154,11 @@ fn dispatch(
         LearningRequest::PreviewMigration => {
             Err("Migration preview must run before storage initialization".into())
         }
+        note @ (LearningRequest::ReadNoteMemory { .. }
+        | LearningRequest::SaveNoteMemory { .. }
+        | LearningRequest::ConfigureNoteMemory { .. }
+        | LearningRequest::ResumeNoteMemory { .. }
+        | LearningRequest::ReconcileNoteMemory { .. }) => dispatch_note_memory(store, note),
         LearningRequest::Describe => Ok(
             json!({"libraryId":store.library_id,"schemaVersion":crate::learning::SCHEMA_VERSION,"migrationState":store.migration_state()?}),
         ),
@@ -150,24 +170,10 @@ fn dispatch(
             encode(store.resume_migration(batch_size)?)
         }
         LearningRequest::MigrationStatus => encode(store.migration_progress()?),
-        LearningRequest::ListCards {
-            page_id,
-            include_trashed,
-        } => encode(store.list_cards(page_id.as_deref(), include_trashed)?),
-        LearningRequest::CreateCard {
-            page_id,
-            draft,
-            operation_id,
-        } => encode(match operation_id {
-            Some(id) => store.create_card_once(&id, &page_id, draft)?,
-            None => store.create_card(&page_id, draft)?,
-        }),
-        LearningRequest::UpdateCard {
-            card_id,
-            revision,
-            draft,
-        } => encode(store.update_card(&card_id, revision, draft)?),
-        LearningRequest::CloneCard { card_id } => encode(store.clone_card(&card_id)?),
+        card @ (LearningRequest::ListCards { .. }
+        | LearningRequest::CreateCard { .. }
+        | LearningRequest::UpdateCard { .. }
+        | LearningRequest::CloneCard { .. }) => dispatch_cards(store, card),
         LearningRequest::ListPages => encode(store.list_pages()?),
         LearningRequest::SyncPages => encode(store.sync_pages()?),
         LearningRequest::EnsurePage { path } => encode(store.ensure_page(&path)?),
@@ -199,12 +205,63 @@ fn dispatch(
             review_id,
             revision,
         } => encode(store.undo_review(&session_id, &review_id, revision)?),
+        recovery @ (LearningRequest::ListBackups
+        | LearningRequest::VerifyBackup { .. }
+        | LearningRequest::CreateBackup
+        | LearningRequest::RestoreBackup { .. }) => dispatch_recovery(store, recovery),
+    }
+}
+
+fn dispatch_note_memory(store: &mut Store, request: LearningRequest) -> Result<Value, String> {
+    match request {
+        LearningRequest::ReadNoteMemory { page_id } => encode(store.read_note_memory(&page_id)?),
+        LearningRequest::SaveNoteMemory { request } => encode(store.save_note_memory(request)?),
+        LearningRequest::ConfigureNoteMemory { request } => {
+            encode(store.configure_note_memory(request)?)
+        }
+        LearningRequest::ResumeNoteMemory { operation_id } => {
+            encode(store.resume_note_memory(&operation_id)?)
+        }
+        LearningRequest::ReconcileNoteMemory { page_id } => {
+            encode(store.reconcile_note_memory(&page_id)?)
+        }
+        _ => Err("Invalid note_memory command routing".into()),
+    }
+}
+
+fn dispatch_cards(store: &mut Store, request: LearningRequest) -> Result<Value, String> {
+    match request {
+        LearningRequest::ListCards {
+            page_id,
+            include_trashed,
+        } => encode(store.list_legacy_cards(page_id.as_deref(), include_trashed)?),
+        LearningRequest::CreateCard {
+            page_id,
+            draft,
+            operation_id,
+        } => encode(match operation_id {
+            Some(id) => store.create_card_once(&id, &page_id, draft)?,
+            None => store.create_card(&page_id, draft)?,
+        }),
+        LearningRequest::UpdateCard {
+            card_id,
+            revision,
+            draft,
+        } => encode(store.update_card(&card_id, revision, draft)?),
+        LearningRequest::CloneCard { card_id } => encode(store.clone_card(&card_id)?),
+        _ => Err("Invalid cards command routing".into()),
+    }
+}
+
+fn dispatch_recovery(store: &mut Store, request: LearningRequest) -> Result<Value, String> {
+    match request {
         LearningRequest::ListBackups => encode(store.list_backups()?),
         LearningRequest::VerifyBackup { backup_id } => encode(store.verify_backup(&backup_id)?),
         LearningRequest::CreateBackup => encode(store.create_backup()?),
         LearningRequest::RestoreBackup { backup_id } => {
             Ok(json!({"path":store.restore_local_backup(&backup_id)?}))
         }
+        _ => Err("Invalid recovery command routing".into()),
     }
 }
 

@@ -35,6 +35,7 @@ pub struct NoteMemoryView {
     pub schedule: Option<Schedule>,
     pub legacy_card_count: u32,
     pub diagnostics: Vec<String>,
+    pub pending_operations: Vec<super::note_storage::NoteOperationSummary>,
     #[serde(skip)]
     pub(super) identity_valid: bool,
 }

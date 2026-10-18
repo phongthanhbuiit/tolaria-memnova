@@ -2,7 +2,7 @@ use super::property_definitions::{
     read_definitions, write_definitions, Owner, PropertyDefinitions,
 };
 use super::{Card, CardDraft, Schedule, Store};
-use rusqlite::{params, Row, Transaction};
+use rusqlite::{params, OptionalExtension, Row, Transaction};
 
 const CARD_SELECT: &str = "SELECT c.*,s.state,s.due,s.stability,s.difficulty,s.elapsed_days,s.scheduled_days,s.reps,s.lapses,s.last_review,s.learning_steps,s.engine,s.revision AS schedule_revision FROM cards c JOIN schedules s ON c.id=s.card_id";
 
@@ -129,6 +129,7 @@ impl Store {
             .conn
             .transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)
             .map_err(|error| error.to_string())?;
+        super::note_guard::require_note_page_writable(&transaction, page_id)?;
         let exists: bool = transaction
             .query_row(
                 "SELECT EXISTS(SELECT 1 FROM cards WHERE id=?1)",
@@ -137,6 +138,7 @@ impl Store {
             )
             .map_err(|error| error.to_string())?;
         if exists {
+            require_unbound_card(&transaction, id)?;
             let card = read_card(&transaction, id)?;
             if card.page_id != page_id || card.draft != draft {
                 return Err(
@@ -187,22 +189,9 @@ impl Store {
             .conn
             .transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)
             .map_err(|error| error.to_string())?;
+        require_unbound_card(&transaction, id)?;
         let current = read_card(&transaction, id)?;
-        let mut draft = draft;
-        if draft.property_definitions.is_none() {
-            draft.property_definitions = current.property_definitions.clone();
-        }
-        super::property_precision::preserve_legacy_numbers(
-            &mut draft.properties,
-            &current.properties,
-        );
-        draft.validate()?;
-        validate_answer_source(&transaction, &draft)?;
-        super::property_definitions::validate_reference_owners(
-            &transaction,
-            &draft.properties,
-            &draft.property_definitions.clone().unwrap_or_default(),
-        )?;
+        let draft = normalize_legacy_update(&transaction, &current, draft)?;
         if current.revision == revision.saturating_add(1) && current.draft == draft {
             return Ok(current);
         }
@@ -228,6 +217,10 @@ impl Store {
     }
 
     pub fn clone_card(&mut self, id: &str) -> Result<Card, String> {
+        let _operation = super::migration_import::MIGRATION_OPERATION
+            .lock()
+            .map_err(|error| error.to_string())?;
+        require_unbound_card(&self.conn, id)?;
         let card = self.get_card(id)?;
         if card.status == "trashed" {
             return Err("Restore a trashed card before cloning".into());
@@ -236,4 +229,68 @@ impl Store {
         draft.status = "draft".into();
         self.create_card(&card.page_id, draft)
     }
+}
+
+fn require_unbound_card(connection: &rusqlite::Connection, id: &str) -> Result<(), String> {
+    let bound = is_bound_card(connection, id)?;
+    if bound {
+        return Err("bound-note-card: open the note editor".into());
+    }
+    let page: Option<String> = connection
+        .query_row("SELECT page_id FROM cards WHERE id=?1", [id], |row| {
+            row.get(0)
+        })
+        .optional()
+        .map_err(|error| error.to_string())?;
+    if let Some(page) = page {
+        super::note_guard::require_note_page_writable(connection, &page)?;
+    }
+    Ok(())
+}
+
+fn is_bound_card(connection: &rusqlite::Connection, id: &str) -> Result<bool, String> {
+    connection
+        .query_row(
+            "SELECT EXISTS(SELECT 1 FROM note_card_bindings WHERE card_id=?1)",
+            [id],
+            |row| row.get(0),
+        )
+        .map_err(|error| error.to_string())
+}
+
+impl Store {
+    pub fn list_legacy_cards(
+        &self,
+        page_id: Option<&str>,
+        include_trashed: bool,
+    ) -> Result<Vec<Card>, String> {
+        self.list_cards(page_id, include_trashed)?
+            .into_iter()
+            .filter_map(|card| match is_bound_card(&self.conn, &card.id) {
+                Ok(false) => Some(Ok(card)),
+                Ok(true) => None,
+                Err(error) => Some(Err(error)),
+            })
+            .collect()
+    }
+}
+
+fn normalize_legacy_update(
+    connection: &rusqlite::Connection,
+    current: &Card,
+    draft: CardDraft,
+) -> Result<CardDraft, String> {
+    let mut draft = draft;
+    if draft.property_definitions.is_none() {
+        draft.property_definitions = current.property_definitions.clone();
+    }
+    super::property_precision::preserve_legacy_numbers(&mut draft.properties, &current.properties);
+    draft.validate()?;
+    validate_answer_source(connection, &draft)?;
+    super::property_definitions::validate_reference_owners(
+        connection,
+        &draft.properties,
+        &draft.property_definitions.clone().unwrap_or_default(),
+    )?;
+    Ok(draft)
 }

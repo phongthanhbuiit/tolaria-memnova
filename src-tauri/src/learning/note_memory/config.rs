@@ -47,7 +47,7 @@ impl MemoryConfig {
         }
     }
 
-    pub(super) fn valid(&self) -> bool {
+    pub(crate) fn valid(&self) -> bool {
         self.version == 1
             && match &self.back {
                 MemoryBack::Inline => true,

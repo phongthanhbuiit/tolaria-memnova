@@ -1,3 +1,5 @@
+import { isNoteMemoryRequest, mockNoteMemoryCommand, isMockBoundCard, hasMockPendingNote, mockNotePath, withMockNoteIdentity, type FixtureNoteMemory } from './note-memory'
+import { parseNoteMemoryDocument } from '../lib/learning/noteMemoryDocument'
 import { matchesProperty, propertyKey, type PropertyDefinitions } from '../lib/learning/propertyValues'
 /** Browser-only QA fixture. Native learning data always uses Rust/SQLite. */
 import type { BackupDescriptor, CardDraft, LearningCard, LearningPage, LearningSchedule, RateRequest, SessionScope, StudyPage, StudySession } from '../lib/learning/types'
@@ -7,8 +9,8 @@ import type { VaultEntry } from '../types'
 
 type FixtureSession = { id: string; scope: SessionScope; ids: string[]; initial: number; index: number; revision: number; status: StudySession['status'] }
 type Receipt = { request: RateRequest; before: LearningSchedule; index: number; reinserted: boolean; xp: number; undone: boolean }
-type Fixture = { pageDefinitions?: Record<string, PropertyDefinitions>; id: string; pages: LearningPage[]; cards: LearningCard[]; sessions: FixtureSession[]; reviews: Receipt[]; goal: number; backups?: { descriptor: BackupDescriptor; snapshot: string; files: Record<string, string> }[]; restoredFiles?: Record<string,string> }
-type Context = { read: (path: string) => Promise<string>; entries: () => Promise<VaultEntry[]> }
+export type Fixture = { noteMemory?: FixtureNoteMemory; pageDefinitions?: Record<string, PropertyDefinitions>; id: string; pages: LearningPage[]; cards: LearningCard[]; sessions: FixtureSession[]; reviews: Receipt[]; goal: number; backups?: { descriptor: BackupDescriptor; snapshot: string; files: Record<string, string> }[]; restoredFiles?: Record<string,string> }
+export type Context = { allContent?: () => Promise<Record<string,string>>; write?: (path: string, content: string) => Promise<void>; read: (path: string) => Promise<string>; entries: () => Promise<VaultEntry[]> }
 const fixtures = new Map<string, Fixture>()
 const fresh = (): LearningSchedule => ({ state: 'new', due: new Date().toISOString(), stability: 0, difficulty: 0, reps: 0, lapses: 0, elapsedDays: 0, scheduledDays: 0, lastReview: null, learningSteps: 0, engine: 'legacy-fsrs5', revision: 0 })
 function fixture(root: string): Fixture {
@@ -71,10 +73,23 @@ function draft(value: unknown): CardDraft {
   return result
 }
 
-export async function mockLearningCommand(args: Record<string, unknown>, context: Context): Promise<unknown> {
+const fixtureCommands = new Map<string, Promise<unknown>>()
+export function mockLearningCommand(args: Record<string, unknown>, context: Context): Promise<unknown> {
+  const root = String(args.vaultPath).replace(/\/$/, '')
+  const previous = fixtureCommands.get(root) ?? Promise.resolve()
+  const run = () => executeMockLearningCommand(args, context)
+  const task = previous.then(run, run)
+  fixtureCommands.set(root, task)
+  return task.finally(() => { if (fixtureCommands.get(root) === task) fixtureCommands.delete(root) })
+}
+async function executeMockLearningCommand(args: Record<string, unknown>, context: Context): Promise<unknown> {
   const root = String(args.vaultPath).replace(/\/$/, '')
   const data = fixture(root)
   const request = args.request as Record<string, unknown>
+  if (isNoteMemoryRequest(request.kind)) {
+    if (args.libraryId !== data.id) throw Error('Library identity changed')
+    return structuredClone(await mockNoteMemoryCommand({ data, root, context, fresh, hash, persist: () => localStorage.setItem(`memnova:qa-learning:${root}`, JSON.stringify(data)) }, request))
+  }
   let changed = !['describe', 'migrationStatus', 'listPages', 'listCards', 'studyStats', 'syncPages', 'listBackups', 'verifyBackup', 'readStudyPage', 'pagePropertyDefinitions'].includes(String(request.kind))
   const call = async (): Promise<unknown> => {
     switch (request.kind) {
@@ -98,23 +113,36 @@ export async function mockLearningCommand(args: Record<string, unknown>, context
       case 'syncPages': {
         const entries = await context.entries()
         const byPath = new Map(data.pages.map(page => [page.path, page]))
+        const sources = context.allContent && entries.some(entry => !byPath.has(entry.path.slice(root.length + 1))) ? await context.allContent() : null
         for (const entry of entries.filter(entry => entry.path.startsWith(`${root}/`) && /\.md$/i.test(entry.path))) {
           const path = entry.path.slice(root.length + 1)
           const existing = byPath.get(path)
           if (existing) { if (existing.title !== entry.title) { existing.title = entry.title; changed = true } }
-          else { changed = true; data.pages.push({ id: crypto.randomUUID(), path, title: entry.title, available: true, createdAt: entry.createdAt, modifiedAt: entry.modifiedAt }) }
+          else {
+            const owned = parseNoteMemoryDocument(sources?.[entry.path] ?? await context.read(entry.path)).pageId
+            if (owned && data.pages.some(page => page.id === owned && page.path !== path)) throw Error('Duplicate page identity')
+            changed = true; data.pages.push({ id: owned ?? crypto.randomUUID(), path, title: entry.title, available: true, createdAt: entry.createdAt, modifiedAt: entry.modifiedAt })
+          }
         }
         return data.pages
       }
       case 'ensurePage': {
         const path = String(request.path)
+        const source = await context.read(mockNotePath(root, path))
+        const document = parseNoteMemoryDocument(source)
         let page = data.pages.find(page => page.path === path)
-        if (!page) { page = { id: crypto.randomUUID(), path, title: path.split('/').pop()?.replace(/\.md$/, '') ?? path, available: true, createdAt: null, modifiedAt: null }; data.pages.push(page) }
+        if (!page) { page = { id: document.pageId ?? crypto.randomUUID(), path, title: path.split('/').pop()?.replace(/\.md$/, '') ?? path, available: true, createdAt: null, modifiedAt: null }; data.pages.push(page) }
+        if (context.write) {
+          const updated = withMockNoteIdentity(source, page.id)
+          if (updated !== source) await context.write(mockNotePath(root, path), updated)
+        }
         return page
       }
-      case 'listCards': return data.cards.filter(card => (!request.pageId || card.pageId === request.pageId) && (request.includeTrashed || card.status !== 'trashed'))
+      case 'listCards': return data.cards.filter(card => !isMockBoundCard(data, card.id) && (!request.pageId || card.pageId === request.pageId) && (request.includeTrashed || card.status !== 'trashed'))
       case 'createCard': case 'cloneCard': {
         const original = request.kind === 'cloneCard' ? required(data.cards.find(card => card.id === request.cardId)) : null
+        if (original && isMockBoundCard(data, original.id)) throw Error('bound-note-card: open the note editor')
+        if (hasMockPendingNote(data, original?.pageId ?? String(request.pageId))) throw Error('pending-note-operation')
         if (original?.status === 'trashed') throw new Error('Restore a trashed card before cloning')
         const input = original ? { ...original, status: 'draft' as const } : draft(request.draft)
         const card: LearningCard = { ...input, propertyDefinitions: input.propertyDefinitions ?? {}, pageId: original?.pageId ?? String(request.pageId), id: original ? crypto.randomUUID() : typeof request.operationId === 'string' ? request.operationId : crypto.randomUUID(), revision: 0, createdAt: Date.now(), updatedAt: Date.now(), schedule: fresh() }
@@ -124,6 +152,8 @@ export async function mockLearningCommand(args: Record<string, unknown>, context
       }
       case 'updateCard': {
         const card = required(data.cards.find(card => card.id === request.cardId))
+        if (isMockBoundCard(data, card.id)) throw Error('bound-note-card: open the note editor')
+        if (hasMockPendingNote(data, card.pageId)) throw Error('pending-note-operation')
         const input = draft({...request.draft as CardDraft, propertyDefinitions:(request.draft as CardDraft).propertyDefinitions??card.propertyDefinitions??{}})
         const keys=['front','back','answerMode','answerPageId','status','position','properties','propertyDefinitions']
         if(card.revision===Number(request.revision)+1 && keys.every(key=>JSON.stringify(Reflect.get(input,key)??null)===JSON.stringify(Reflect.get(card,key)??null)))return card

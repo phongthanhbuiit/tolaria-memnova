@@ -105,3 +105,6 @@ mod tests {
 
 #[cfg(test)]
 mod learning_tests;
+
+#[cfg(test)]
+mod learning_note_tests;

@@ -6,6 +6,39 @@ pub use super::note_write_models::{
 use super::{note_write_journal::write_payload, NoteOperationPhase, Store};
 use rusqlite::{OptionalExtension, Transaction};
 
+fn source_matches(
+    connection: &rusqlite::Connection,
+    root: &std::path::Path,
+    prepared: &PreparedWrite,
+) -> Result<bool, String> {
+    let path: Option<String> = connection
+        .query_row(
+            "SELECT path FROM pages WHERE id=?1 AND deleted_at IS NULL",
+            [&prepared.page_id],
+            |row| row.get(0),
+        )
+        .optional()
+        .map_err(|error| error.to_string())?;
+    let hash = super::note_write_disk::current_hash(root, &prepared.path);
+    Ok(path.as_deref() == Some(&prepared.path)
+        && hash.as_deref() == Ok(prepared.after_hash.as_str()))
+}
+
+fn expected_revision_matches(
+    connection: &rusqlite::Connection,
+    prepared: &PreparedWrite,
+) -> Result<bool, String> {
+    let revision: Option<u32> = connection
+        .query_row(
+            "SELECT revision FROM note_card_bindings WHERE page_id=?1",
+            [&prepared.page_id],
+            |row| row.get(0),
+        )
+        .optional()
+        .map_err(|error| error.to_string())?;
+    Ok(revision == prepared.expected_revision)
+}
+
 impl Store {
     pub(super) fn note_write_path(&self, id: &str) -> Result<String, String> {
         self.conn
@@ -42,10 +75,29 @@ impl Store {
         complete: impl FnOnce(&Transaction<'_>, &PreparedWrite) -> Result<Option<u32>, String>,
         hooks: &NoteWriteHooks,
     ) -> Result<NoteWriteOutcome, String> {
+        self.write_note_source_context(request, complete, hooks, None)
+    }
+
+    pub(super) fn write_note_configuration(
+        &mut self,
+        request: NoteWriteRequest,
+        config: super::note_memory::MemoryConfig,
+        complete: impl FnOnce(&Transaction<'_>, &PreparedWrite) -> Result<Option<u32>, String>,
+    ) -> Result<NoteWriteOutcome, String> {
+        self.write_note_source_context(request, complete, &NoteWriteHooks::default(), Some(config))
+    }
+
+    fn write_note_source_context(
+        &mut self,
+        request: NoteWriteRequest,
+        complete: impl FnOnce(&Transaction<'_>, &PreparedWrite) -> Result<Option<u32>, String>,
+        hooks: &NoteWriteHooks,
+        configuration: Option<super::note_memory::MemoryConfig>,
+    ) -> Result<NoteWriteOutcome, String> {
         let _operation = super::migration_import::MIGRATION_OPERATION
             .lock()
             .map_err(|error| error.to_string())?;
-        let mut prepared = self.prepare_note_write(request)?;
+        let mut prepared = self.prepare_note_write(request, configuration)?;
         if prepared.outcome.is_none() {
             hooks.checkpoint(Checkpoint::Prepared)?;
         }
@@ -148,36 +200,32 @@ impl Store {
             .conn
             .transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)
             .map_err(|error| error.to_string())?;
-        let revision: Option<u32> = transaction
-            .query_row(
-                "SELECT revision FROM note_card_bindings WHERE page_id=?1",
-                [&prepared.page_id],
-                |row| row.get(0),
-            )
-            .optional()
-            .map_err(|error| error.to_string())?;
-        if revision != prepared.expected_revision {
+        if !expected_revision_matches(&transaction, prepared)? {
             drop(transaction);
             return self
                 .conflict_note_write(prepared, "Note binding changed before database completion");
         }
+        if !source_matches(&transaction, &self.root, prepared)? {
+            drop(transaction);
+            return self
+                .conflict_note_write(prepared, "Note source changed before database completion");
+        }
         match complete(&transaction, prepared) {
             Ok(revision) => outcome.revision = revision,
-            Err(error) => return Ok(prepared.outcome(NoteWriteStatus::Pending, Some(error))),
+            Err(error) => {
+                let unchanged = source_matches(&transaction, &self.root, prepared)?;
+                drop(transaction);
+                if !unchanged {
+                    return self.conflict_note_write(
+                        prepared,
+                        "Note source changed during failed completion",
+                    );
+                }
+                return Ok(prepared.outcome(NoteWriteStatus::Pending, Some(error)));
+            }
         }
         hooks.checkpoint(Checkpoint::Transaction)?;
-        let path: Option<String> = transaction
-            .query_row(
-                "SELECT path FROM pages WHERE id=?1 AND deleted_at IS NULL",
-                [&prepared.page_id],
-                |row| row.get(0),
-            )
-            .optional()
-            .map_err(|error| error.to_string())?;
-        let hash = super::note_write_disk::current_hash(&self.root, &prepared.path);
-        if path.as_deref() != Some(&prepared.path)
-            || hash.as_deref() != Ok(prepared.after_hash.as_str())
-        {
+        if !source_matches(&transaction, &self.root, prepared)? {
             drop(transaction);
             return self
                 .conflict_note_write(prepared, "Note source changed before database completion");

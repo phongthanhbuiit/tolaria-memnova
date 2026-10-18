@@ -55,6 +55,14 @@ pub(crate) fn with_legacy_write<T>(
         .lock()
         .map_err(|error| error.to_string())?;
     identity::reject_symlink(&root.join(".memnova"))?;
+    if root.join(".memnova/library.json").exists()
+        && !root.join(".memnova/learning.sqlite3").exists()
+    {
+        return Err(
+            "Learning database is missing; restore a verified backup before writing schedules"
+                .into(),
+        );
+    }
     if root.join(".memnova/learning.sqlite3").exists()
         && Store::open(root)?.migration_state()? != MigrationState::Legacy
     {
@@ -99,7 +107,7 @@ pub use property_definitions::{PropertyDefinition, PropertyDefinitions};
 
 mod note_storage;
 mod property_precision;
-pub use note_storage::{NoteBinding, NoteOperationKind, NoteOperationPhase};
+pub use note_storage::{NoteBinding, NoteOperationKind, NoteOperationPhase, NoteOperationSummary};
 
 pub mod note_write;
 mod note_write_disk;
@@ -114,5 +122,9 @@ pub mod note_lifecycle;
 #[cfg(test)]
 mod note_lifecycle_tests;
 
+mod note_configuration;
 mod note_memory_view;
 mod note_reconcile;
+pub use note_configuration::NoteConfigureRequest;
+
+mod note_guard;

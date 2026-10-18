@@ -1,0 +1,62 @@
+[
+  {
+    "name": "empty",
+    "source": "",
+    "useful": false
+  },
+  {
+    "name": "text",
+    "source": "Text",
+    "useful": true
+  },
+  {
+    "name": "board-empty",
+    "source": "```tldraw\n{}\n```",
+    "useful": false
+  },
+  {
+    "name": "store-empty",
+    "source": "~~~tldraw\n{\"store\":{}}\n~~~",
+    "useful": false
+  },
+  {
+    "name": "shape",
+    "source": "```tldraw\n{\"store\":{\"shape:1\":{\"typeName\":\"shape\"}}}\n```",
+    "useful": true
+  },
+  {
+    "name": "legacy-records",
+    "source": "```tldraw\n{\"records\":{\"shape:1\":{\"typeName\":\"shape\"}}}\n```",
+    "useful": true
+  },
+  {
+    "name": "empty-mixed",
+    "source": "Text\n```tldraw\n{}\n```",
+    "useful": true
+  },
+  {
+    "name": "bad-json",
+    "source": "```tldraw\n{broken\n```",
+    "problem": "invalid-canvas"
+  },
+  {
+    "name": "array",
+    "source": "```tldraw\n[]\n```",
+    "problem": "invalid-canvas"
+  },
+  {
+    "name": "unsupported",
+    "source": "```tldraw\n{\"unexpected\":true}\n```",
+    "problem": "unsupported-canvas"
+  },
+  {
+    "name": "unclosed",
+    "source": "```tldraw\n{}",
+    "problem": "unclosed-canvas"
+  },
+  {
+    "name": "literal-code",
+    "source": "````javascript\n```tldraw\n{broken\n```\n````",
+    "useful": true
+  }
+]

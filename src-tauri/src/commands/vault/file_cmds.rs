@@ -166,7 +166,7 @@ pub async fn save_note_content(
         let root = content_library_root(vault_path.as_deref())?;
         crate::learning::page_content::with_source_write(|| {
             with_writable_note_path(path, vault_path, |validated_path| {
-                let content = crate::learning::page_content::prepare_save(
+                let content = crate::learning::page_content::prepare_generic_save(
                     &root,
                     Path::new(validated_path),
                     &content,

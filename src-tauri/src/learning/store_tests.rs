@@ -152,3 +152,19 @@ fn existing_metadata_ignore_cannot_reinclude_private_learning_data() {
         ignore
     );
 }
+
+#[test]
+fn missing_sqlite_never_reopens_legacy_schedule_writes_for_an_existing_identity() {
+    let directory = tempfile::tempdir().unwrap();
+    let store = Store::open(directory.path()).unwrap();
+    drop(store);
+    std::fs::remove_file(directory.path().join(".memnova/learning.sqlite3")).unwrap();
+    let called = std::cell::Cell::new(false);
+    assert!(super::with_legacy_write(directory.path(), || {
+        called.set(true);
+        Ok(())
+    })
+    .is_err());
+    assert!(!called.get());
+    assert!(!directory.path().join(".memnova/learning.sqlite3").exists());
+}

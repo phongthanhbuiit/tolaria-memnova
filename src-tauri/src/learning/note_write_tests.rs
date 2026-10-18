@@ -436,3 +436,22 @@ fn concurrent_retries_share_one_durable_receipt_and_one_completion() {
         1
     );
 }
+
+#[test]
+fn source_changed_by_a_failing_completion_is_conflict_not_a_retryable_io_pending() {
+    let (directory, mut store) = fixture();
+    let intent = request(&store);
+    let path = directory.path().join("lesson.md");
+    let result = store
+        .write_note_source(intent, |_, _| {
+            fs::write(&path, "External change found during validation").unwrap();
+            Err("Source validation failed".into())
+        })
+        .unwrap();
+    assert_eq!(result.status, NoteWriteStatus::Conflict);
+    assert_eq!(store.get_card(&id(101)).unwrap().revision, 0);
+    assert_eq!(
+        fs::read_to_string(path).unwrap(),
+        "External change found during validation"
+    );
+}

@@ -35,12 +35,15 @@ impl Store {
             .optional()
             .map_err(|error| error.to_string())?;
         row.map(|(payload, kind, owner)| {
-            if kind != "save" {
+            if !["save", "configure"].contains(&kind.as_str()) {
                 return Err("Operation identity belongs to another kind".into());
             }
             let prepared: PreparedWrite =
                 serde_json::from_str(&payload).map_err(|error| error.to_string())?;
             prepared.validate()?;
+            if (kind == "configure") != prepared.configuration.is_some() {
+                return Err("Note operation kind mismatch".into());
+            }
             if prepared.operation_id != id || owner.as_deref() != Some(&prepared.page_id) {
                 return Err("Note operation owner mismatch".into());
             }
@@ -68,17 +71,13 @@ impl Store {
     pub(super) fn prepare_note_write(
         &self,
         request: NoteWriteRequest,
+        configuration: Option<super::note_memory::MemoryConfig>,
     ) -> Result<PreparedWrite, String> {
-        for id in [&request.operation_id, &request.page_id] {
-            uuid::Uuid::parse_str(id).map_err(|_| "Invalid note write identity")?;
-        }
-        if !super::note_write_disk::valid_hash(&request.expected_hash) {
-            return Err("Invalid expected source fingerprint".into());
-        }
+        validate_write_request(&request)?;
         let intent_hash =
             content_hash(&serde_json::to_string(&request).map_err(|error| error.to_string())?);
         if let Some(prepared) = self.load_note_write(&request.operation_id)? {
-            if prepared.intent_hash != intent_hash {
+            if prepared.intent_hash != intent_hash || prepared.configuration != configuration {
                 return Err("Operation identity has a different immutable intent".into());
             }
             return Ok(prepared);
@@ -110,8 +109,19 @@ impl Store {
             intent_hash,
             after_source: Some(request.source),
             outcome: None,
+            configuration,
         };
-        self.conn.execute("INSERT INTO note_learning_operations(id,page_id,kind,payload_json,phase,created_at) VALUES(?1,?2,'save',?3,'prepared',?4)",rusqlite::params![prepared.operation_id,prepared.page_id,serde_json::to_string(&prepared).map_err(|error| error.to_string())?,chrono::Utc::now().timestamp_millis()]).map_err(|error| error.to_string())?;
+        self.conn.execute("INSERT INTO note_learning_operations(id,page_id,kind,payload_json,phase,created_at) VALUES(?1,?2,?5,?3,'prepared',?4)",rusqlite::params![prepared.operation_id,prepared.page_id,serde_json::to_string(&prepared).map_err(|error| error.to_string())?,chrono::Utc::now().timestamp_millis(),if prepared.configuration.is_some() {"configure"} else {"save"}]).map_err(|error| error.to_string())?;
         Ok(prepared)
     }
+}
+
+fn validate_write_request(request: &NoteWriteRequest) -> Result<(), String> {
+    for id in [&request.operation_id, &request.page_id] {
+        uuid::Uuid::parse_str(id).map_err(|_| "Invalid note write identity")?;
+    }
+    if !super::note_write_disk::valid_hash(&request.expected_hash) {
+        return Err("Invalid expected source fingerprint".into());
+    }
+    Ok(())
 }

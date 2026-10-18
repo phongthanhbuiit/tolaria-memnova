@@ -70,3 +70,29 @@ fn native_patches_fail_closed_for_ambiguous_or_future_sources() {
     )
     .is_err());
 }
+
+#[test]
+fn readiness_matches_shared_native_and_browser_corpus() {
+    let cases: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../tests/fixtures/note-memory/readiness-corpus.json"
+    ))
+    .unwrap();
+    for case in cases.as_array().unwrap() {
+        let result = super::note_memory::useful_content(case["source"].as_str().unwrap());
+        if let Some(problem) = case.get("problem") {
+            assert_eq!(
+                result.unwrap_err(),
+                problem.as_str().unwrap(),
+                "{}",
+                case["name"]
+            );
+        } else {
+            assert_eq!(
+                result.unwrap(),
+                case["useful"].as_bool().unwrap(),
+                "{}",
+                case["name"]
+            );
+        }
+    }
+}

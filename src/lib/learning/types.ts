@@ -138,3 +138,37 @@ export interface LearningPage {
   createdAt: number | null
   modifiedAt: number | null
 }
+
+
+export type NoteLearningState = 'ordinary' | 'retained' | 'disabled' | 'draft' | 'ready' | 'invalid' | 'deleted' | 'conversionRequired' | 'pending'
+export interface NoteBinding { pageId: string; cardId: string; sourceHash: string; revision: number }
+export interface NoteOperationSummary { operationId: string; kind: 'save' | 'configure' | 'reconcile' | 'convert'; phase: 'prepared' | 'file_written' | 'applied' | 'conflict'; createdAt: number }
+export interface NoteMemoryView {
+  pageId: string
+  path: string
+  sourceHash: string | null
+  config: import('./noteMemoryConfig').NoteMemoryConfig | null
+  hasBack: boolean
+  state: NoteLearningState
+  binding: NoteBinding | null
+  schedule: LearningSchedule | null
+  legacyCardCount: number
+  diagnostics: string[]
+  pendingOperations: NoteOperationSummary[]
+}
+export interface NoteWriteRequest {
+  operationId: string
+  pageId: string
+  expectedHash: string
+  expectedRevision: number | null
+  source: string
+}
+export interface NoteConfigureRequest extends Omit<NoteWriteRequest, 'source'> { config: import('./noteMemoryConfig').NoteMemoryConfig }
+export interface NoteWriteOutcome {
+  operationId: string
+  pageId: string
+  status: 'committed' | 'pending' | 'conflict'
+  sourceHash: string
+  revision: number | null
+  problem: string | null
+}

@@ -7,6 +7,7 @@ pub struct NoteWriteRequest {
     pub operation_id: String,
     pub page_id: String,
     pub expected_hash: String,
+    #[serde(deserialize_with = "required_revision")]
     pub expected_revision: Option<u32>,
     pub source: String,
 }
@@ -43,6 +44,8 @@ pub struct PreparedWrite {
     pub intent_hash: String,
     pub after_source: Option<String>,
     pub outcome: Option<NoteWriteOutcome>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub configuration: Option<super::note_memory::MemoryConfig>,
 }
 
 impl PreparedWrite {
@@ -73,11 +76,23 @@ impl PreparedWrite {
         for id in [&self.operation_id, &self.page_id] {
             uuid::Uuid::parse_str(id).map_err(|_| "Invalid note operation identity")?;
         }
+        if self
+            .configuration
+            .as_ref()
+            .is_some_and(|config| !config.valid())
+        {
+            return Err("Invalid configuration checkpoint".into());
+        }
         if let Some(source) = &self.after_source {
             if content_hash(source) != self.after_hash {
                 return Err("Note operation source checksum mismatch".into());
             }
             validate_source(source, &self.page_id)?;
+            if self.configuration.is_some()
+                && super::note_memory::parse_document(source).config != self.configuration
+            {
+                return Err("Configuration checkpoint mismatch".into());
+            }
         }
         if let Some(outcome) = &self.outcome {
             if outcome.operation_id != self.operation_id
@@ -98,4 +113,10 @@ pub(super) fn validate_source(source: &str, id: &str) -> Result<(), String> {
         return Err("Invalid or changed note identity/configuration".into());
     }
     Ok(())
+}
+
+pub(super) fn required_revision<'de, D: serde::Deserializer<'de>>(
+    deserializer: D,
+) -> Result<Option<u32>, D::Error> {
+    Option::deserialize(deserializer)
 }

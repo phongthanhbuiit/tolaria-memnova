@@ -141,8 +141,9 @@ pub(super) fn memory_view(
         view.state = NoteLearningState::Invalid;
         view.diagnostics.push("identity-conflict".into());
     }
-    let pending: bool = connection.query_row("SELECT EXISTS(SELECT 1 FROM note_learning_operations WHERE page_id=?1 AND phase!='applied' AND (?2 IS NULL OR id!=?2))", rusqlite::params![page_id,ignore_operation], |row| row.get(0)).map_err(|error| error.to_string())?;
-    if pending {
+    view.pending_operations =
+        super::note_storage::pending_operations(connection, page_id, ignore_operation)?;
+    if !view.pending_operations.is_empty() {
         view.state = NoteLearningState::Pending;
         view.diagnostics.push("pending-operation".into());
     }
@@ -178,6 +179,7 @@ fn initial_view(
         schedule,
         legacy_card_count,
         diagnostics: Vec::new(),
+        pending_operations: Vec::new(),
         identity_valid: true,
     };
     Ok((view, deleted))

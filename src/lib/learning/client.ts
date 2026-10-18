@@ -1,3 +1,4 @@
+import type { NoteMemoryView, NoteWriteRequest, NoteConfigureRequest, NoteWriteOutcome } from './types'
 import type { PropertyDefinitions } from './propertyValues'
 import { invoke } from '@tauri-apps/api/core'
 import { isTauri, mockInvoke } from '../../mock-tauri'
@@ -35,6 +36,12 @@ export class LearningClient {
   private call<T>(request: Record<string, unknown>): Promise<T> {
     return learningInvoke<T>('learning_command', { vaultPath: this.vaultPath, libraryId: this.libraryId, request })
   }
+
+  readNoteMemory(pageId: string): Promise<NoteMemoryView> { return this.call({ kind: 'readNoteMemory', pageId }) }
+  saveNoteMemory(request: NoteWriteRequest): Promise<NoteWriteOutcome> { return this.call({ kind: 'saveNoteMemory', request }) }
+  configureNoteMemory(request: NoteConfigureRequest): Promise<NoteWriteOutcome> { return this.call({ kind: 'configureNoteMemory', request }) }
+  reconcileNoteMemory(pageId: string): Promise<NoteMemoryView> { return this.call({ kind: 'reconcileNoteMemory', pageId }) }
+  resumeNoteMemory(operationId: string): Promise<NoteWriteOutcome> { return this.call({ kind: 'resumeNoteMemory', operationId }) }
 
   pagePropertyDefinitions(pageId: string): Promise<PropertyDefinitions> { return this.call({ kind: 'pagePropertyDefinitions', pageId }) }
   setPagePropertyDefinitions(pageId: string, expected: PropertyDefinitions, definitions: PropertyDefinitions): Promise<PropertyDefinitions> { return this.call({ kind: 'setPagePropertyDefinitions', pageId, expected, definitions }) }

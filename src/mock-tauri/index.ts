@@ -37,7 +37,9 @@ function resolveMockHandler(command: string) {
 export async function mockInvoke<T>(cmd: string, args?: Record<string, unknown>): Promise<T> {
   if (cmd === 'learning_command') return await mockLearningCommand(args ?? {}, {
     read: path => mockInvoke<string>('get_note_content', { path }),
+    write: (path, content) => mockInvoke<void>('save_note_content', { path, content, vaultPath: args?.vaultPath }),
     entries: () => mockInvoke('list_vault', { path: args?.vaultPath }),
+    allContent: () => mockInvoke<Record<string,string>>('get_all_content', { path: args?.vaultPath }),
   }) as T
   const vaultResult = await tryVaultApi<T>(cmd, args)
   if (vaultResult !== undefined) return vaultResult

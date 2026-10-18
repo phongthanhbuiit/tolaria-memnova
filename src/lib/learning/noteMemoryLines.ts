@@ -10,7 +10,7 @@ export interface MemoryHeader {
   bodyStart: number
 }
 
-interface Fence {
+export interface Fence {
   character: string
   length: number
   info: string
@@ -39,7 +39,7 @@ export function memoryHeader(lines: MemoryLine[]): MemoryHeader | null | 'unclos
   return { contentStart: lines[0].end, contentEnd: closing.start, bodyStart: closing.end }
 }
 
-function fenceAt(line: string): Fence | null {
+export function fenceAt(line: string): Fence | null {
   const match = line.match(/^ {0,3}(`{3,}|~{3,})(.*)$/)
   return match ? { character: match[1][0], length: match[1].length, info: match[2] } : null
 }
@@ -63,11 +63,11 @@ function advanceInline(source: string, context: InlineContext): void {
   }
 }
 
-function closesFence(candidate: Fence | null, fence: Fence): boolean {
+export function closesFence(candidate: Fence | null, fence: Fence): boolean {
   return candidate?.character === fence.character && candidate.length >= fence.length && !candidate.info.trim()
 }
 
-function opensFence(candidate: Fence | null): candidate is Fence {
+export function opensFence(candidate: Fence | null): candidate is Fence {
   return candidate !== null && !(candidate.character === '`' && candidate.info.includes('`'))
 }
 
