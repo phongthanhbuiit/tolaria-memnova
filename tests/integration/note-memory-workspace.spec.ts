@@ -97,16 +97,18 @@ test('explicit note enable, mnemonic editing, study and pause use the default wo
   }
 })
 
-test('ordinary note editing retains a literal two-face marker without enabling learning', async ({ page }) => {
+for (const separator of ['\n\n', '\n']) {
+test(`ordinary note editing retains a literal two-face marker without enabling learning (${separator.length === 1 ? 'no blank lines' : 'blank lines'})`, async ({ page }) => {
   const root = createNoteMemoryFixture()
   const owner = path.join(root, 'project/alpha-project.md')
-  const source = '# Alpha Project\n\nOrdinary article.\n\n<!-- FLASHCARD:BACK -->\n\nThis marker is an ordinary note example.\n'
+  const source = `# Alpha Project\n\nOrdinary article.${separator}<!-- FLASHCARD:BACK -->${separator}This marker is an ordinary note example.\n`
   fs.writeFileSync(owner, source)
   try {
     await openFixtureVault(page, root, { preserveLearningState: true })
     await page.getByRole('button', { name: /^All Notes/ }).click()
     await page.getByTestId('note-list-container').getByText('Alpha Project', { exact: true }).click()
     await expect(page.getByRole('tab', { name: 'Mnemonic', exact: true })).toHaveCount(0)
+    await expect(page.locator('.bn-editor')).not.toContainText('@@MEMNOVA_LITERAL_NOTE_MARKER:')
     const paragraph = page.locator('.bn-editor [data-content-type="paragraph"]').last()
     await paragraph.click(); await page.keyboard.press('End'); await page.keyboard.insertText(' Added ordinary text.'); await page.keyboard.press('Meta+s')
     await expect.poll(() => fs.readFileSync(owner, 'utf8')).toContain('Added ordinary text.')
@@ -132,3 +134,4 @@ test('ordinary note editing retains a literal two-face marker without enabling l
     expect(fs.readFileSync(owner, 'utf8')).not.toContain('<!-- FLASHCARD:BACK -->')
   } finally { removeFixtureVaultCopy(root) }
 })
+}

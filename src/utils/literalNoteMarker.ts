@@ -13,7 +13,15 @@ export function preProcessLiteralNoteMarkers(markdown: string): string {
   let result = markdown
   for (const line of memoryBoundaries(memoryLines(markdown)).reverse()) {
     const token = `${prefix}${encodeURIComponent(JSON.stringify(line.text))}${suffix}`
-    result = result.slice(0, line.start) + token + markdown.slice(line.start + line.text.length, line.end) + result.slice(line.end)
+    // A bare token adjacent to prose becomes part of that paragraph and cannot be decoded.
+    // Isolate this renderer placeholder; the codec still serializes the original comment.
+    const before = result.slice(0, line.start)
+    const after = result.slice(line.end)
+    const ending = markdown.slice(line.start + line.text.length, line.end)
+    const separator = ending || '\n'
+    const beforeGap = before && !/\r?\n\r?\n$/.test(before) ? separator : ''
+    const afterGap = after && !/^\r?\n/.test(after) ? separator : ''
+    result = before + beforeGap + token + ending + afterGap + after
   }
   return result
 }

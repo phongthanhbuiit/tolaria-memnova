@@ -55,3 +55,15 @@ it('keeps an unconfigured standalone back marker as a durable comment while leav
   const fenced = `\`\`\`html\n${marker}\n\`\`\``
   expect(preProcessDurableEditorMarkdown({ markdown: fenced })).toBe(fenced)
 })
+
+it.each(['\n', '\r\n'])('isolates an ordinary comment adjacent to prose with %j line endings', ending => {
+  const marker = '<!-- FLASHCARD:BACK -->'
+  const processed = preProcessDurableEditorMarkdown({ markdown: `Before${ending}${marker}${ending}After` })
+  const paragraphs = processed.trim().split(/\r?\n(?:\r?\n)+/).map(text => ({ type: 'paragraph', content: [{ type: 'text', text, styles: {} }] }))
+  const blocks = injectDurableEditorMarkdownBlocks(paragraphs) as typeof paragraphs
+  expect(blocks.map(b => b.type)).toEqual(['paragraph', 'literalNoteMarker', 'paragraph'])
+  const serializer = { blocksToMarkdownLossy: (values: unknown[]) => (values as typeof paragraphs).map(v => v.content.map(t => t.text).join('')).join('\n\n') }
+  const saved = serializeDurableEditorBlocks(serializer, blocks)
+  expect(saved).toBe(`Before\n\n${marker}\n\nAfter`)
+  expect(saved).not.toContain('@@MEMNOVA_')
+})
