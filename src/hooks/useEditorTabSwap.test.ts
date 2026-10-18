@@ -499,6 +499,23 @@ describe('useEditorTabSwap raw mode sync', () => {
     expect(mockEditor.replaceBlocks).toHaveBeenCalled()
   })
 
+  it('replaces a projected face even while the previous face has a pending parent echo', async () => {
+    installEditorDomSpies()
+    const mockEditor = makeMockEditor({ current: [] })
+    const front = makeTab('a.md', 'Note A')
+    const back = { ...front, content: '---\ntitle: Note A\n---\n\nMnemonic-only text' }
+    const changed = vi.fn()
+    const { result, rerender } = renderHook(({ tab, identity }) => useEditorTabSwap({ tabs: [tab], activeTabPath: 'a.md', editor: mockEditor as never, onContentChange: changed, contentIdentity: identity }), { initialProps: { tab: front, identity: 'front' } })
+    await flushEditorTick()
+    mockEditor.blocksToMarkdownLossy.mockReturnValue('Last article stroke')
+    act(() => { result.current.handleEditorChange(); result.current.flushPendingEditorChange() })
+    expect(changed).toHaveBeenCalled()
+    mockEditor.tryParseMarkdownToBlocks.mockClear()
+    rerender({ tab: back, identity: 'back' })
+    await flushEditorTick()
+    expect(mockEditor.tryParseMarkdownToBlocks).toHaveBeenCalledWith(expect.stringContaining('Mnemonic-only text'))
+  })
+
   it('repairs parsed blocks with missing ids before applying them to the editor', async () => {
     const tabA = makeTab('a.md', 'Note A')
     const malformedTab = {

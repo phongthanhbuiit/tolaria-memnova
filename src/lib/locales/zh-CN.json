@@ -943,5 +943,8 @@
   "learning.noteMemory.noDrafts": "没有需要恢复的已保存草稿。",
   "editor.whiteboard.loadError": "无法加载此白板。原始快照已保留。",
   "editor.whiteboard.copySnapshot": "复制原始快照",
-  "editor.whiteboard.mediaNotice": "部分媒体使用在线链接或旧设备路径，或在此处不可用。原始链接已保留。修复前请备份 Library。"
+  "editor.whiteboard.mediaNotice": "部分媒体使用在线链接或旧设备路径，或在此处不可用。原始链接已保留。修复前请备份 Library。",
+  "editor.noteMemory.addMnemonic": "添加记忆提示",
+  "editor.noteMemory.externalConflict": "文件已在其他位置更改。本地草稿已保留，请在重新加载前复制。",
+  "editor.noteMemory.mnemonicHelp": "添加图片、文字或白板，帮助回忆文章内容。"
 }

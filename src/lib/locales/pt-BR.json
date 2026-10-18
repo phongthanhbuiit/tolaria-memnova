@@ -943,5 +943,8 @@
   "learning.noteMemory.noDrafts": "Nenhum rascunho salvo precisa de recuperação.",
   "editor.whiteboard.loadError": "Não foi possível carregar este quadro. O snapshot original foi preservado.",
   "editor.whiteboard.copySnapshot": "Copiar snapshot original",
-  "editor.whiteboard.mediaNotice": "Algumas mídias usam links online ou caminhos de outro dispositivo, ou estão indisponíveis aqui. Os links originais foram preservados. Faça um backup da Library antes de corrigi-los."
+  "editor.whiteboard.mediaNotice": "Algumas mídias usam links online ou caminhos de outro dispositivo, ou estão indisponíveis aqui. Os links originais foram preservados. Faça um backup da Library antes de corrigi-los.",
+  "editor.noteMemory.addMnemonic": "Adicionar recurso de memorização",
+  "editor.noteMemory.externalConflict": "O arquivo foi alterado em outro lugar. Seu rascunho local foi mantido. Copie-o antes de recarregar.",
+  "editor.noteMemory.mnemonicHelp": "Adicione imagens, texto ou um quadro branco para ajudar a lembrar do artigo."
 }

@@ -34,6 +34,17 @@ describe('useRawModeWithFlush', () => {
     store.resetVaultConfigStore()
   })
 
+  it('enters raw mode using the complete canonical document after flushing a projected face', async () => {
+    const full = '# Article\n<!-- FLASHCARD:BACK -->\nMnemonic'
+    let canonical = full
+    const editor = makeEditor()
+    editor.blocksToMarkdownLossy.mockReturnValue('Visible face only')
+    const flush = { current: () => { canonical = full.replace('Article', 'Last stroke'); return true } }
+    const { result } = renderHook(() => useRawModeWithFlush(editor as never, notePath, full, vi.fn(), undefined, flush, () => canonical))
+    await act(async () => { await result.current.handleToggleRaw() })
+    expect(result.current.rawModeContentOverride?.content).toBe('# Last stroke\n<!-- FLASHCARD:BACK -->\nMnemonic')
+  })
+
   it('re-enters raw mode with pending raw edits while tab state is still stale', async () => {
     const onContentChange = vi.fn()
     const flushPendingEditorChangeRef = { current: vi.fn(() => false) }

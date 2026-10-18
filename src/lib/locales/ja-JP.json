@@ -943,5 +943,8 @@
   "learning.noteMemory.noDrafts": "復旧が必要な保存済みの下書きはありません。",
   "editor.whiteboard.loadError": "このホワイトボードを読み込めませんでした。元のスナップショットは保持されています。",
   "editor.whiteboard.copySnapshot": "元のスナップショットをコピー",
-  "editor.whiteboard.mediaNotice": "一部のメディアはオンラインのリンクや以前の端末のパスを使用しているか、ここでは利用できません。元のリンクは保持されています。修復前にLibraryをバックアップしてください。"
+  "editor.whiteboard.mediaNotice": "一部のメディアはオンラインのリンクや以前の端末のパスを使用しているか、ここでは利用できません。元のリンクは保持されています。修復前にLibraryをバックアップしてください。",
+  "editor.noteMemory.addMnemonic": "記憶の手がかりを追加",
+  "editor.noteMemory.externalConflict": "ファイルは別の場所で変更されました。ローカルの下書きは保持されています。再読み込みする前にコピーしてください。",
+  "editor.noteMemory.mnemonicHelp": "記事を思い出す手がかりになる画像、テキスト、ホワイトボードを追加してください。"
 }

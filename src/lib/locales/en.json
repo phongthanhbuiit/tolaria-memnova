@@ -943,5 +943,8 @@
   "learning.noteMemory.noDrafts": "No saved drafts need recovery.",
   "editor.whiteboard.loadError": "This whiteboard could not be loaded. The original snapshot is preserved.",
   "editor.whiteboard.copySnapshot": "Copy original snapshot",
-  "editor.whiteboard.mediaNotice": "Some canvas media use online or old device links, or are unavailable here. Original links are preserved. Back up your Library before repairing them."
+  "editor.whiteboard.mediaNotice": "Some canvas media use online or old device links, or are unavailable here. Original links are preserved. Back up your Library before repairing them.",
+  "editor.noteMemory.addMnemonic": "Add mnemonic",
+  "editor.noteMemory.externalConflict": "The file changed elsewhere. Your local draft is kept. Copy it before reloading.",
+  "editor.noteMemory.mnemonicHelp": "Add images, text or a whiteboard to help recall the article."
 }

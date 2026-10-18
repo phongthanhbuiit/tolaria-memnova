@@ -21,8 +21,9 @@ import {
 import type { FlashcardFace } from '../components/FlashcardEditorTabs'
 import type { VaultEntry } from '../types'
 import { isFSRSEnabled } from '../lib/fsrsVaultEntry'
+import { useNoteMemoryEditorFace } from './useNoteMemoryEditorFace'
 
-interface UseFlashcardEditorFaceOptions {
+export interface UseFlashcardEditorFaceOptions {
   disableLegacy?: boolean
   entry: VaultEntry | null
   /** Full raw markdown content of the active note */
@@ -34,6 +35,13 @@ interface UseFlashcardEditorFaceOptions {
 }
 
 interface FlashcardEditorFaceState {
+  isNoteMemory?: boolean
+  linkedBack?: boolean
+  conflict?: boolean
+  viewLoading?: boolean
+  emptyBack?: boolean
+  getCanonicalDocument?: () => string
+  handleRawContentChange?: (path: string, content: string) => void
   /** Whether this note has FSRS enabled (show tabs) */
   isFSRS: boolean
   /** Which face is currently shown in the editor */
@@ -50,7 +58,13 @@ interface FlashcardEditorFaceState {
   handleEditorContentChange: (path: string, sliceContent: string) => void
 }
 
-export function useFlashcardEditorFace({
+export function useFlashcardEditorFace(options: UseFlashcardEditorFaceOptions): FlashcardEditorFaceState {
+  const note = useNoteMemoryEditorFace(options)
+  const legacy = useLegacyFlashcardEditorFace({ ...options, disableLegacy: options.disableLegacy || note.managed })
+  return note.managed ? note : legacy
+}
+
+function useLegacyFlashcardEditorFace({
   disableLegacy = false,
   entry,
   fullContent,

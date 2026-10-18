@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, type MutableRefObject } from 'react'
 import type { useCreateBlockNote } from '@blocknote/react'
 import type { VaultEntry } from '../types'
 import { flushEditorDocuments } from '../utils/editorDocumentFlush'
+import { useEditorProjection } from './useEditorProjection'
 import { compactMarkdown } from '../utils/compact-markdown'
 import { failNoteOpenTrace, finishNoteOpenTrace } from '../utils/noteOpenPerformance'
 import {
@@ -74,6 +75,7 @@ interface UseEditorTabSwapOptions {
   /** When true, the BlockNote editor is hidden (raw/CodeMirror mode active). */
   rawMode?: boolean
   vaultPath?: string
+  contentIdentity?: string
 }
 
 interface RunTabSwapEffectOptions {
@@ -493,6 +495,7 @@ function handleStableActivePath(options: {
   if (rawModeJustEnded) {
     return !markRawModeReswapPending({ activeTabPath, cache, rawSwapPendingRef })
   }
+  if (editorContentPathRef.current !== activeTabPath) return false
   if (shouldKeepPendingLocalContent({ activeTabPath, activeTab, pendingLocalContentRef })) {
     return consumePendingLocalContent({
       cache,
@@ -1133,7 +1136,7 @@ function usePrepareParsedBlocks(options: {
  * Returns the onChange callback for SingleEditorView and a flush hook for
  * save/navigation paths that need the latest rich-editor content immediately.
  */
-export function useEditorTabSwap({ tabs, activeTabPath, editor, onContentChange, rawMode, vaultPath }: UseEditorTabSwapOptions) {
+export function useEditorTabSwap({ tabs, activeTabPath, editor, onContentChange, rawMode, vaultPath, contentIdentity }: UseEditorTabSwapOptions) {
   const tabCacheRef = useRef<Map<string, CachedTabState>>(new Map())
   const pendingLocalContentRef = useRef<PendingLocalContent | null>(null)
   const prevActivePathRef = useRef<string | null>(null)
@@ -1146,6 +1149,7 @@ export function useEditorTabSwap({ tabs, activeTabPath, editor, onContentChange,
   const rawModeLatestRef = useLatestRef(!!rawMode)
   const rawSwapPendingRef = useRef(false)
   const suppressChangeRef = useRef(false)
+  const projectionLoading = useEditorProjection({ path: activeTabPath, identity: contentIdentity, cacheRef: tabCacheRef, pendingLocalRef: pendingLocalContentRef, contentPathRef: editorContentPathRef, suppressRef: suppressChangeRef, pendingSwapRef, sequenceRef: swapSeqRef })
   const onContentChangeRef = useLatestRef(onContentChange)
   const tabsRef = useLatestRef(tabs)
   const vaultPathRef = useLatestRef(vaultPath)
@@ -1193,5 +1197,5 @@ export function useEditorTabSwap({ tabs, activeTabPath, editor, onContentChange,
     flushPendingEditorChange,
   })
 
-  return { handleEditorChange: handleForegroundEditorChange, flushPendingEditorChange, editorMountedRef }
+  return { handleEditorChange: handleForegroundEditorChange, flushPendingEditorChange, editorMountedRef, projectionLoading }
 }

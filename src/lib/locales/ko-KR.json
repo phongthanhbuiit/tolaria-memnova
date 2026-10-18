@@ -943,5 +943,8 @@
   "learning.noteMemory.noDrafts": "복구할 저장된 초안이 없습니다.",
   "editor.whiteboard.loadError": "화이트보드를 불러올 수 없습니다. 원본 스냅샷은 보존됩니다.",
   "editor.whiteboard.copySnapshot": "원본 스냅샷 복사",
-  "editor.whiteboard.mediaNotice": "일부 미디어는 온라인 링크나 이전 기기의 경로를 사용하거나 여기서 사용할 수 없습니다. 원본 링크는 보존됩니다. 수정 전에 Library를 백업하세요."
+  "editor.whiteboard.mediaNotice": "일부 미디어는 온라인 링크나 이전 기기의 경로를 사용하거나 여기서 사용할 수 없습니다. 원본 링크는 보존됩니다. 수정 전에 Library를 백업하세요.",
+  "editor.noteMemory.addMnemonic": "기억 단서 추가",
+  "editor.noteMemory.externalConflict": "다른 곳에서 파일이 변경되었습니다. 로컬 초안은 유지됩니다. 다시 불러오기 전에 복사하세요.",
+  "editor.noteMemory.mnemonicHelp": "글을 떠올릴 수 있도록 이미지, 텍스트 또는 화이트보드를 추가하세요."
 }

@@ -157,6 +157,7 @@ function useHandleFlushPending({
   restoreTransitionRef,
   setRawModeContentOverride,
   vaultPath,
+  getCanonicalDocument,
 }: {
   editor: ReturnType<typeof useCreateBlockNote>
   activeTabPath: string | null
@@ -168,11 +169,12 @@ function useHandleFlushPending({
   restoreTransitionRef: React.MutableRefObject<EditorModeRestoreTransition>
   setRawModeContentOverride: React.Dispatch<React.SetStateAction<PendingRawExitContent | null>>
   vaultPath?: string
+  getCanonicalDocument?: () => string
 }) {
   return useCallback(async () => {
     rawSourceContentRef.current = activeTabContent
     const serializeRichEditorContent = flushPendingEditorChangeRef?.current?.() ?? true
-    const syncedContent = syncActiveTabIntoRawBuffer({
+    const syncedContent = getCanonicalDocument ? getCanonicalDocument() : syncActiveTabIntoRawBuffer({
       editor,
       activeTabPath,
       activeTabContent,
@@ -180,6 +182,7 @@ function useHandleFlushPending({
       serializeRichEditorContent,
       vaultPath,
     })
+    rawLatestContentRef.current = syncedContent
     rawInitialContentRef.current = syncedContent ?? activeTabContent
     const restoreTransition = restoreTransitionRef.current
     restoreTransition.rawRestore = buildPendingRawRestore({
@@ -204,6 +207,7 @@ function useHandleFlushPending({
     rawSourceContentRef,
     setRawModeContentOverride,
     vaultPath,
+    getCanonicalDocument,
   ])
 }
 
@@ -289,6 +293,7 @@ export function useRawModeWithFlush(
   onContentChange?: (path: string, content: string) => void,
   vaultPath?: string,
   flushPendingEditorChangeRef?: React.MutableRefObject<(() => boolean) | null>,
+  getCanonicalDocument?: () => string,
 ) {
   const rawLatestContentRef = useRef<string | null>(null)
   const rawInitialContentRef = useRef<string | null>(null)
@@ -333,6 +338,7 @@ export function useRawModeWithFlush(
     restoreTransitionRef,
     setRawModeContentOverride,
     vaultPath,
+    getCanonicalDocument,
   })
   const handleBeforeRawEnd = useHandleBeforeRawEnd({
     activeTabPath,

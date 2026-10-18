@@ -239,9 +239,17 @@ function useEditorSetup({
       createMathInputExtension(),
     ],
   })
-  useRegisterEditorResources(editor,vaultPath,activeTabPath ?? undefined)
   useFilenameAutolinkGuard(editor)
   const activeTab = tabs.find((t) => t.entry.path === activeTabPath) ?? null
+  const learningWorkspace = useLearningWorkspace()
+  const flashcard = useFlashcardEditorFace({
+    disableLegacy: learningWorkspace?.phase === 'ready',
+    entry: activeTab?.entry ?? null,
+    fullContent: activeTab?.content ?? '',
+    onContentChange: onContentChange ?? (() => {}),
+    flushPendingEditorChangeRef,
+  })
+  useRegisterEditorResources(editor,vaultPath,activeTabPath ?? undefined,flashcard.isNoteMemory ? flashcard.activeFace : undefined)
   const {
     rawMode,
     handleToggleRaw,
@@ -253,19 +261,11 @@ function useEditorSetup({
     editor,
     activeTabPath,
     activeTab?.content ?? null,
-    onContentChange,
+    flashcard.handleRawContentChange ?? onContentChange,
     vaultPath,
     flushPendingEditorChangeRef,
+    flashcard.getCanonicalDocument,
   )
-
-  const learningWorkspace = useLearningWorkspace()
-  const flashcard = useFlashcardEditorFace({
-    disableLegacy: learningWorkspace?.phase === 'ready',
-    entry: activeTab?.entry ?? null,
-    fullContent: activeTab?.content ?? '',
-    onContentChange: onContentChange ?? (() => {}),
-    flushPendingEditorChangeRef,
-  })
 
   const rawTabsForEditorSwap = applyPendingRawExitContent(tabs, pendingRawExitContent)
   const tabsForEditorSwap = useMemo(() => {
@@ -287,13 +287,14 @@ function useEditorSetup({
     }))
   }, [activeTabPath, setPendingRawExitContent, tabs])
 
-  const { handleEditorChange, flushPendingEditorChange, editorMountedRef } = useEditorTabSwap({
+  const { handleEditorChange, flushPendingEditorChange, editorMountedRef, projectionLoading } = useEditorTabSwap({
     tabs: tabsForEditorSwap,
     activeTabPath,
     editor,
     onContentChange: flashcard?.handleEditorContentChange,
     rawMode,
     vaultPath,
+    contentIdentity: flashcard.isNoteMemory ? flashcard.activeFace : undefined,
   })
   useEffect(() => {
     flushPendingEditorChangeRef.current = flushPendingEditorChange
@@ -326,7 +327,7 @@ function useEditorSetup({
     rawMode, diffMode, diffContent, diffLoading,
     handleToggleDiffExclusive, handleToggleRawExclusive,
     handleEditorChange, flushPendingEditorChange, handleViewCommitDiff,
-    isLoadingNewTab, activeStatus, showDiffToggle, flashcard,
+    isLoadingNewTab, activeStatus, showDiffToggle, flashcard: { ...flashcard, viewLoading: projectionLoading },
   }
 }
 

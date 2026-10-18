@@ -943,5 +943,8 @@
   "learning.noteMemory.noDrafts": "Nessuna bozza salvata da recuperare.",
   "editor.whiteboard.loadError": "Impossibile caricare questa lavagna. L’istantanea originale è conservata.",
   "editor.whiteboard.copySnapshot": "Copia istantanea originale",
-  "editor.whiteboard.mediaNotice": "Alcuni contenuti usano link online o percorsi di un vecchio dispositivo, oppure non sono disponibili qui. I link originali sono conservati. Esegui un backup della Library prima di correggerli."
+  "editor.whiteboard.mediaNotice": "Alcuni contenuti usano link online o percorsi di un vecchio dispositivo, oppure non sono disponibili qui. I link originali sono conservati. Esegui un backup della Library prima di correggerli.",
+  "editor.noteMemory.addMnemonic": "Aggiungi aiuto mnemonico",
+  "editor.noteMemory.externalConflict": "Il file è stato modificato altrove. La bozza locale è conservata. Copiala prima di ricaricare.",
+  "editor.noteMemory.mnemonicHelp": "Aggiungi immagini, testo o una lavagna per ricordare l’articolo."
 }

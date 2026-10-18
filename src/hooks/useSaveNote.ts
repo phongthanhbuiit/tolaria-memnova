@@ -2,8 +2,11 @@ import { useCallback } from 'react'
 import { invoke } from '@tauri-apps/api/core'
 import { isTauri, mockInvoke, updateMockContent } from '../mock-tauri'
 import { cacheNoteContent } from './useTabManagement'
+import { saveThroughNoteEditor } from '../lib/learning/noteEditorPersistence'
 
 export async function persistContent(path: string, content: string): Promise<void> {
+  if (await saveThroughNoteEditor(path, content)) return
+  if (/(?:^|\n)_memnova_learning_/.test(content)) throw Error('note-editor-persistence-unavailable')
   if (isTauri()) {
     await invoke('save_note_content', { path, content })
   } else {

@@ -943,5 +943,8 @@
   "learning.noteMemory.noDrafts": "Aucun brouillon enregistré à récupérer.",
   "editor.whiteboard.loadError": "Impossible de charger ce tableau blanc. La capture d’origine est conservée.",
   "editor.whiteboard.copySnapshot": "Copier la capture d’origine",
-  "editor.whiteboard.mediaNotice": "Certains médias utilisent des liens en ligne ou d’un ancien appareil, ou sont indisponibles ici. Les liens d’origine sont conservés. Sauvegardez votre Library avant de les réparer."
+  "editor.whiteboard.mediaNotice": "Certains médias utilisent des liens en ligne ou d’un ancien appareil, ou sont indisponibles ici. Les liens d’origine sont conservés. Sauvegardez votre Library avant de les réparer.",
+  "editor.noteMemory.addMnemonic": "Ajouter un aide-mémoire",
+  "editor.noteMemory.externalConflict": "Le fichier a été modifié ailleurs. Votre brouillon local est conservé. Copiez-le avant de recharger.",
+  "editor.noteMemory.mnemonicHelp": "Ajoutez des images, du texte ou un tableau blanc pour vous aider à mémoriser l’article."
 }

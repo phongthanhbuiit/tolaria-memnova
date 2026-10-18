@@ -943,5 +943,8 @@
   "learning.noteMemory.noDrafts": "Keine gespeicherten Entwürfe zur Wiederherstellung.",
   "editor.whiteboard.loadError": "Dieses Whiteboard konnte nicht geladen werden. Der ursprüngliche Snapshot bleibt erhalten.",
   "editor.whiteboard.copySnapshot": "Ursprünglichen Snapshot kopieren",
-  "editor.whiteboard.mediaNotice": "Einige Canvas-Medien verwenden Online- oder alte Gerätepfade oder sind hier nicht verfügbar. Die ursprünglichen Links bleiben erhalten. Sichern Sie Ihre Library vor der Reparatur."
+  "editor.whiteboard.mediaNotice": "Einige Canvas-Medien verwenden Online- oder alte Gerätepfade oder sind hier nicht verfügbar. Die ursprünglichen Links bleiben erhalten. Sichern Sie Ihre Library vor der Reparatur.",
+  "editor.noteMemory.addMnemonic": "Merkhilfe hinzufügen",
+  "editor.noteMemory.externalConflict": "Die Datei wurde andernorts geändert. Ihr lokaler Entwurf bleibt erhalten. Kopieren Sie ihn vor dem Neuladen.",
+  "editor.noteMemory.mnemonicHelp": "Fügen Sie Bilder, Text oder ein Whiteboard hinzu, um sich an den Artikel zu erinnern."
 }

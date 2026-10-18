@@ -943,5 +943,8 @@
   "learning.noteMemory.noDrafts": "Không có bản nháp cần phục hồi.",
   "editor.whiteboard.loadError": "Không thể tải bảng vẽ này. Snapshot gốc vẫn được giữ nguyên.",
   "editor.whiteboard.copySnapshot": "Sao chép snapshot gốc",
-  "editor.whiteboard.mediaNotice": "Một số ảnh trên canvas dùng liên kết online, đường dẫn máy cũ hoặc không khả dụng tại đây. Liên kết gốc vẫn được giữ. Hãy sao lưu Library trước khi sửa."
+  "editor.whiteboard.mediaNotice": "Một số ảnh trên canvas dùng liên kết online, đường dẫn máy cũ hoặc không khả dụng tại đây. Liên kết gốc vẫn được giữ. Hãy sao lưu Library trước khi sửa.",
+  "editor.noteMemory.addMnemonic": "Thêm gợi nhớ",
+  "editor.noteMemory.externalConflict": "Tệp đã được sửa ở nơi khác. Bản nháp cục bộ vẫn được giữ. Hãy sao chép trước khi tải lại.",
+  "editor.noteMemory.mnemonicHelp": "Thêm hình ảnh, văn bản hoặc bảng vẽ để giúp ghi nhớ bài viết."
 }

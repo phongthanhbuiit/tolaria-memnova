@@ -943,5 +943,8 @@
   "learning.noteMemory.noDrafts": "Niama zachavanych čarnavikoŭ dla adnaŭleńnia.",
   "editor.whiteboard.loadError": "Nie ŭdałosia zahruzić hetuju došku. Zychodny zdymak zachavany.",
   "editor.whiteboard.copySnapshot": "Skapijavać zychodny zdymak",
-  "editor.whiteboard.mediaNotice": "Niekatoryja materyjały vykarystoŭvajuć anłajn-spasyłki ci šlachi staroj pryłady abo niedastupnyja tut. Zychodnyja spasyłki zachavanyja. Zrabicie rezervovuju kopiju Library pierad vypraŭleńniem."
+  "editor.whiteboard.mediaNotice": "Niekatoryja materyjały vykarystoŭvajuć anłajn-spasyłki ci šlachi staroj pryłady abo niedastupnyja tut. Zychodnyja spasyłki zachavanyja. Zrabicie rezervovuju kopiju Library pierad vypraŭleńniem.",
+  "editor.noteMemory.addMnemonic": "Dadać mnemoniku",
+  "editor.noteMemory.externalConflict": "Fajł źmienieny ŭ inšym miescy. Łakalny čarnavik zachavany. Skapirujcie jaho pierad paŭtornaj zahruzkaj.",
+  "editor.noteMemory.mnemonicHelp": "Dadajcie vyjavy, tekst abo došku, kab łahčej uzhadać artykuł."
 }

@@ -18,10 +18,10 @@ Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. **Đây là
 | M09 | DONE | 7f223d38 | Read-only DB/WAL/source preview;9 native domain+1 command cases,159 learning/7 IPC/14 focused frontend pass. See M09 baseline. Normal commit/batch push pending. |
 | M10 | DONE | 1e055d09,b6584766 | Explicit backup-first apply/resume/compatibility;13 native domain cases,1184 unit/22 focused frontend pass; normal pre-commit passed; batch push pending. See M10 baseline. |
 | M11 | DONE | 0082af91 + UI checkpoint | Core recovery178 module/9 IPC; UI10 tests, browser mouse/text-model QA; baseline m11. Normal batch push pending. |
-| M12 | VERIFIED_LOCAL | canvas flush checkpoint | RED3 regressions; GREEN243 tests/10files, lint/types; baseline m12. Batch push/native proof pending M14. |
-| M13 | VERIFIED_LOCAL | snapshot/readiness checkpoint | RED6 regressions; GREEN42 focused tests, types/lint,18 locales, Codacy reviewed; baseline m13. Push/native pending M14. |
-| M14 | VERIFIED_LOCAL | — | Portable URI/assets,181 learning tests, native picker/restart/relocation/save proof; final input regression/commit/push pending. |
-| M15 | NOT_STARTED | — | — |
+| M12 | DONE | 77d107c3 batch release | Normal push passed9m8s; frontend4730/87.11%lines, native1194+1integration/3ignored, hook87.62%lines,54smoke4.6m. Native M14 proof in baseline. |
+| M13 | DONE | 77d107c3 batch release | Normal push passed9m8s; frontend4730/87.11%lines, native1194+1integration/3ignored, hook87.62%lines,54smoke4.6m. Native M14 proof in baseline. |
+| M14 | DONE | 77d107c3 batch release | Normal push passed9m8s; frontend4730/87.11%lines, native1194+1integration/3ignored, hook87.62%lines,54smoke4.6m. Native M14 proof in baseline. |
+| M15 | IN_PROGRESS | M06,M12–M14 DONE | Focused baseline and canonical face/save regressions. |
 | M16 | NOT_STARTED | — | — |
 | M17 | NOT_STARTED | — | — |
 | M18 | NOT_STARTED | — | — |
@@ -89,3 +89,7 @@ Normal push90256f36 succeeded10m42s: build/lint/types,4682 frontend tests/445fil
 M12 commit31baa8cf normal pre-commit308 tests/39files pass32.35s. M13 uses this committed local dependency; normal batch push follows M14.
 
 M13 commita16cf2cf normal pre-commit256 related tests/29files pass43.09s. M14 native QA added real-store/schema/whole-Tauri-URL/buffered-event and desktop-menu regressions that also harden M12/M13 before the batch push.
+
+## M12–M14 batch release evidence
+
+Normal push77d107c35e095f1aa15641503422057655ee34f1 succeeded9m8s.4730 frontend tests,87.11%lines/83.33%statements;1194 Rust unit tests+1integration pass,3ignored; hook Rust87.62%lines with existing lib/main/menu exclusions.54core smoke pass4.6m; lint/types/build pass. CodeScene NOT RUN optional credentials unavailable. Codacy25paths reviewed,no newCritical/High/security findings. Remote/local SHA matched and working tree/demo dirt empty. M14 verified commit77d107c3:294frontend/35files,181learning,4browser tests. Evidence:/tmp/memnova-note-memory-evidence/m14/. M25 unexcluded Rust coverage and remaining M15–M25 acceptance still required.

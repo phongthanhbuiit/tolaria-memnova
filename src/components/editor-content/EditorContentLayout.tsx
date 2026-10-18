@@ -1,5 +1,5 @@
 import type React from 'react'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { cn } from '@/lib/utils'
 import { translate, type AppLocale } from '../../lib/i18n'
 import type { VaultEntry } from '../../types'
@@ -14,6 +14,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '../ui/tabs'
 import { PageFlashcards } from '../learning/PageFlashcards'
 import { useLearningWorkspace } from '../learning/LearningContext'
 import { FlashcardEditorTabs } from '../FlashcardEditorTabs'
+import { NoteMemoryEditorTabs } from '../NoteMemoryEditorTabs'
 import type { useEditorContentModel } from './useEditorContentModel'
 
 type EditorContentModel = ReturnType<typeof useEditorContentModel>
@@ -499,6 +500,7 @@ export function EditorContentLayout(model: EditorContentModel) {
   } = model
 
   const learningWorkspace = useLearningWorkspace()
+  const memoryPanelId = useId()
   const [learningPanel, setLearningPanel] = useState({ path: '', tab: 'content' })
   const [tabError, setTabError] = useState<string | null>(null)
   const tab = learningPanel.path === path ? learningPanel.tab : 'content'
@@ -538,7 +540,16 @@ export function EditorContentLayout(model: EditorContentModel) {
       <TabsContent value="content" forceMount className="flex min-h-0 flex-1 flex-col data-[state=inactive]:hidden">
       {/* Flashcard tab bar — only shown when FSRS is enabled on the active note */}
       {showActiveContent && flashcard.isFSRS && !effectiveRawMode && !diffMode && (
-        <FlashcardEditorTabs
+        flashcard.isNoteMemory ? <NoteMemoryEditorTabs
+          activeFace={flashcard.activeFace}
+          hasBack={flashcard.hasBack}
+          panelId={memoryPanelId}
+          locale={locale}
+          onChangeFace={flashcard.setActiveFace}
+          onAddBack={flashcard.handleAddBack}
+          conflict={flashcard.conflict}
+          draft={flashcard.getCanonicalDocument}
+        /> : <FlashcardEditorTabs
           activeFace={flashcard.activeFace}
           hasBack={flashcard.hasBack}
           onChangeFace={flashcard.setActiveFace}
@@ -546,7 +557,7 @@ export function EditorContentLayout(model: EditorContentModel) {
         />
       )}
       {showActiveContent && (
-        <>
+        <div className="flex min-h-0 flex-1 flex-col" id={memoryPanelId} role={flashcard.isNoteMemory && flashcard.isFSRS && !effectiveRawMode && !diffMode ? 'tabpanel' : undefined} aria-labelledby={flashcard.isNoteMemory && flashcard.isFSRS && !effectiveRawMode && !diffMode ? `${memoryPanelId}-${flashcard.activeFace}` : undefined}>
           <EditorChrome
             isArchived={isArchived}
             onUnarchiveNote={onUnarchiveNote}
@@ -571,6 +582,9 @@ export function EditorContentLayout(model: EditorContentModel) {
             vaultPath={vaultPath}
             locale={locale}
           />
+          {flashcard.viewLoading && !effectiveRawMode && <p role="status" className="px-4 py-2 text-sm text-muted-foreground">{translate(locale, 'learning.loading')}</p>}
+          {flashcard.isNoteMemory && flashcard.activeFace === 'back' && flashcard.emptyBack && !flashcard.linkedBack && !effectiveRawMode && <p className="px-4 py-2 text-sm text-muted-foreground">{translate(locale, 'editor.noteMemory.mnemonicHelp')}</p>}
+          <div className="flex min-h-0 flex-1 flex-col" inert={flashcard.viewLoading || undefined} aria-hidden={flashcard.viewLoading || undefined} style={flashcard.viewLoading ? { visibility: 'hidden' } : undefined}>
           <EditorCanvas
             showEditor={showEditor}
             cssVars={cssVars}
@@ -584,7 +598,8 @@ export function EditorContentLayout(model: EditorContentModel) {
             isDeletedPreview={isDeletedPreview}
             locale={locale}
           />
-        </>
+          </div>
+        </div>
       )}
       {showLoadingContent && <EditorLoadingCanvas cssVars={cssVars} />}
       </TabsContent>
