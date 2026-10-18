@@ -125,6 +125,14 @@ fn native_note_listing_recognizes_properties_in_bom_crlf_header_without_rewritin
     assert_eq!(entry.title, "Custom title");
     assert_eq!(entry.status.as_deref(), Some("Done"));
     assert_eq!(entry.properties.get("custom"), Some(&serde_json::json!(0)));
+    assert!(!entry.snippet.contains("Status:"));
+    assert!(!entry.snippet.contains("Custom title"));
+    assert!(entry.snippet.starts_with("Article"));
+    fs::write(&path, source.trim_start_matches('\u{feff}')).unwrap();
+    let without_bom = crate::vault::parse_md_file(&path, None).unwrap();
+    assert_eq!(entry.word_count, without_bom.word_count);
+    assert_eq!(entry.snippet, without_bom.snippet);
+    fs::write(&path, source).unwrap();
     assert_eq!(fs::read_to_string(path).unwrap(), source);
 }
 

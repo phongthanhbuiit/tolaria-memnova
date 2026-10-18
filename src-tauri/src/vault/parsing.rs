@@ -64,6 +64,7 @@ pub(super) fn extract_title(fm_title: Option<&str>, content: &str, filename: &st
 /// The closing `---` must appear at the start of a line to avoid matching
 /// occurrences inside frontmatter values (e.g. `title: foo---bar`).
 fn strip_frontmatter(content: &str) -> &str {
+    let content = content.strip_prefix('\u{feff}').unwrap_or(content);
     let Some(rest) = content.strip_prefix("---") else {
         return content;
     };

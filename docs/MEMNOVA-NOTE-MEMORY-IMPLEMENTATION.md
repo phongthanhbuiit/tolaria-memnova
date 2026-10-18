@@ -24,7 +24,7 @@ Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. Bảng dư�
 | M15 | VERIFIED_LOCAL | 0a1bfc8d | Canonical editor, scoped persistence/projection;143 targeted tests,411 verified pre-commit tests/43files, browser8.3s. Native checkpoint and batch push follow M18. |
 | M16 | VERIFIED_LOCAL | 81bce958,a1cededc | Read-only native source preview; explicit guarded registration/config queue. 5 real IPC cases; UI pre-commit305 tests/32files and browser9.7s; 18locales/957keys. Native checkpoint/batch push pending M18. |
 | M17 | VERIFIED_LOCAL | b27e1144 | 11 native lifecycle cases,44 focused frontend; normal pre-commit4797 frontend/464files,1210Rust/3ignored, browser9.8s; batch release pending M18. |
-| M18 | IN_PROGRESS | M11 DONE; M15 VERIFIED_LOCAL | Property writer isolation, raw preservation and readonly learning metadata. |
+| M18 | VERIFIED_LOCAL | 678c5826 + native BOM followup | Canonical property writes, readonly schedule/raw metadata;4816frontend/1216Rust verified hook; actual native property/width/two-face/source Cancel/link/inline/restart proof,419 vault tests. Batch push pending. |
 | M19 | NOT_STARTED | — | — |
 | M20 | NOT_STARTED | — | — |
 | M21 | NOT_STARTED | — | — |
