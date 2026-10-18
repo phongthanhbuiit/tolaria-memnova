@@ -1,0 +1,41 @@
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { expect, it, vi } from 'vitest'
+import { noteMemoryFlowFixture } from '../../test-utils/noteMemoryFlowFixture'
+import { NoteRecoveryDialog } from './NoteRecoveryDialog'
+vi.mock('../../lib/telemetry', () => ({ trackEvent: vi.fn() }))
+vi.mock('../../utils/clipboardText', () => ({ writeClipboardText: vi.fn().mockResolvedValue(undefined) }))
+it('compares both sources before an explicit expected-hash keep-current decision', async () => {
+  const { client,recovery } = noteMemoryFlowFixture()
+  render(<NoteRecoveryDialog client={client} open locale="en" onOpenChange={vi.fn()} onUpdated={vi.fn()} />)
+  expect((await screen.findByText('Saved draft', { selector: 'pre' })).textContent).toBe('Saved draft\n')
+  expect(screen.getByText('External source', { exact: false })).toBeInTheDocument()
+  expect(client.resolveNoteRecovery).not.toHaveBeenCalled()
+  fireEvent.click(screen.getByRole('button', { name: 'Keep current file' }))
+  await waitFor(() => expect(client.resolveNoteRecovery).toHaveBeenCalledWith({ operationId: 'operation', expectedCurrentHash: recovery.currentHash, choice: 'keepDisk' }))
+})
+it('retries only refresh after a keep-current receipt and blocks unreadable-source resolution', async () => {
+  const { client,recovery } = noteMemoryFlowFixture(), onUpdated = vi.fn().mockRejectedValueOnce(Error('refresh failed')).mockResolvedValue(undefined)
+  const { unmount } = render(<NoteRecoveryDialog client={client} open locale="en" onOpenChange={vi.fn()} onUpdated={onUpdated} />)
+  await screen.findByRole('button', { name: 'Keep current file' })
+  fireEvent.click(screen.getByRole('button', { name: 'Keep current file' }))
+  fireEvent.click(await screen.findByRole('button', { name: 'Retry refresh' }))
+  await waitFor(() => expect(onUpdated).toHaveBeenCalledTimes(2))
+  expect(client.resolveNoteRecovery).toHaveBeenCalledTimes(1)
+  unmount(); client.readNoteRecovery.mockResolvedValue({ ...recovery,sourceError: 'permission denied',currentSource: null,currentHash: null })
+  render(<NoteRecoveryDialog client={client} open locale="en" onOpenChange={vi.fn()} onUpdated={vi.fn()} />)
+  await screen.findByText('The current source cannot be read. Restore a verified backup or fix its access first.')
+  expect(screen.getByRole('button', { name: 'Keep current file' })).toBeDisabled()
+})
+it('ignores late resolution after the recovery dialog changes Library', async () => {
+  const first = noteMemoryFlowFixture(), second = noteMemoryFlowFixture(), onUpdated = vi.fn()
+  let finish: (value: Awaited<ReturnType<typeof first.client.resolveNoteRecovery>>) => void = () => {}
+  first.client.resolveNoteRecovery.mockReturnValueOnce(new Promise(resolve => { finish = resolve }))
+  const { rerender } = render(<NoteRecoveryDialog client={first.client} open locale="en" onOpenChange={vi.fn()} onUpdated={onUpdated} />)
+  fireEvent.click(await screen.findByRole('button', { name: 'Keep current file' }))
+  await waitFor(() => expect(first.client.resolveNoteRecovery).toHaveBeenCalledTimes(1))
+  rerender(<NoteRecoveryDialog client={second.client} open locale="en" onOpenChange={vi.fn()} onUpdated={onUpdated} />)
+  finish({ ...first.result.outcome,status: 'discarded' })
+  await waitFor(() => expect(second.client.readNoteRecovery).toHaveBeenCalled())
+  expect(onUpdated).not.toHaveBeenCalled()
+  expect(screen.queryByText('Current file kept; draft retained.')).not.toBeInTheDocument()
+})

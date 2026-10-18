@@ -17,7 +17,7 @@ Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. **Đây là
 | M08 | DONE | 98e31147 | Seven real-file backup tests/150 learning pass; typed binding/journal validation, old1–4 restore and root-move preservation. See M08 baseline; committed/pushed98e31147. |
 | M09 | VERIFIED_LOCAL | 7f223d38 | Read-only DB/WAL/source preview;9 native domain+1 command cases,159 learning/7 IPC/14 focused frontend pass. See M09 baseline. Normal commit/batch push pending. |
 | M10 | VERIFIED_LOCAL | 1e055d09,b6584766 | Explicit backup-first apply/resume/compatibility;13 native domain cases,1184 unit/22 focused frontend pass; normal pre-commit passed; batch push pending. See M10 baseline. |
-| M11 | IN_PROGRESS | — | Depends on localb6584766; explicit recovery and staged UI first. |
+| M11 | VERIFIED_LOCAL | 0082af91 + UI checkpoint | Core recovery178 module/9 IPC; UI10 tests, browser mouse/text-model QA; baseline m11. Normal batch push pending. |
 | M12 | NOT_STARTED | — | — |
 | M13 | NOT_STARTED | — | — |
 | M14 | NOT_STARTED | — | — |
