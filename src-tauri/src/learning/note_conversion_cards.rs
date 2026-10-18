@@ -96,3 +96,18 @@ pub(super) fn sessions(connection: &Connection, owner: &str) -> Result<(String, 
         .map_err(|error| error.to_string())?;
     Ok((fingerprint, count))
 }
+
+pub(super) fn page_storage_fingerprint(
+    connection: &Connection,
+    id: &str,
+) -> Result<String, String> {
+    let mut parts = Vec::new();
+    for sql in [
+        "SELECT * FROM pages WHERE id=?1",
+        "SELECT * FROM page_property_definitions WHERE page_id=?1 ORDER BY key",
+        "SELECT * FROM note_card_bindings WHERE page_id=?1",
+    ] {
+        parts.push(rows_fingerprint(connection, sql, id)?);
+    }
+    Ok(content_hash(&parts.join("\0")))
+}

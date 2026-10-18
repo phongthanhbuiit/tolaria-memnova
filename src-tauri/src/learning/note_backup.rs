@@ -65,7 +65,7 @@ fn verify_operations(connection: &Connection) -> Result<(), String> {
             return Err("Invalid note operation timestamp in backup".into());
         }
         match kind.as_str() {
-            "save" | "configure" => {
+            "save" | "configure" | "convert" => {
                 super::note_write_journal::decode_note_write(
                     &id,
                     owner.as_deref(),

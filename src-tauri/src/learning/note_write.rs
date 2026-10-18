@@ -75,7 +75,7 @@ impl Store {
         complete: impl FnOnce(&Transaction<'_>, &PreparedWrite) -> Result<Option<u32>, String>,
         hooks: &NoteWriteHooks,
     ) -> Result<NoteWriteOutcome, String> {
-        self.write_note_source_context(request, complete, hooks, None)
+        self.write_note_source_context(request, complete, hooks, None, None)
     }
 
     pub(super) fn write_note_configuration(
@@ -84,7 +84,23 @@ impl Store {
         config: super::note_memory::MemoryConfig,
         complete: impl FnOnce(&Transaction<'_>, &PreparedWrite) -> Result<Option<u32>, String>,
     ) -> Result<NoteWriteOutcome, String> {
-        self.write_note_source_context(request, complete, &NoteWriteHooks::default(), Some(config))
+        self.write_note_source_context(
+            request,
+            complete,
+            &NoteWriteHooks::default(),
+            Some(config),
+            None,
+        )
+    }
+
+    pub(super) fn write_note_conversion(
+        &mut self,
+        request: NoteWriteRequest,
+        intent: super::note_conversion_intent::ConversionIntent,
+        complete: impl FnOnce(&Transaction<'_>, &PreparedWrite) -> Result<Option<u32>, String>,
+        hooks: &NoteWriteHooks,
+    ) -> Result<NoteWriteOutcome, String> {
+        self.write_note_source_context(request, complete, hooks, None, Some(intent))
     }
 
     fn write_note_source_context(
@@ -93,11 +109,12 @@ impl Store {
         complete: impl FnOnce(&Transaction<'_>, &PreparedWrite) -> Result<Option<u32>, String>,
         hooks: &NoteWriteHooks,
         configuration: Option<super::note_memory::MemoryConfig>,
+        conversion: Option<super::note_conversion_intent::ConversionIntent>,
     ) -> Result<NoteWriteOutcome, String> {
         let _operation = super::migration_import::MIGRATION_OPERATION
             .lock()
             .map_err(|error| error.to_string())?;
-        let mut prepared = self.prepare_note_write(request, configuration)?;
+        let mut prepared = self.prepare_note_write(request, configuration, conversion)?;
         if prepared.outcome.is_none() {
             hooks.checkpoint(Checkpoint::Prepared)?;
         }
@@ -123,7 +140,7 @@ impl Store {
             .outcome
             .clone()
             .ok_or("Note write receipt is missing")?;
-        if prepared.after_source.take().is_some() {
+        if prepared.conversion.is_none() && prepared.after_source.take().is_some() {
             write_payload(&self.conn, prepared, NoteOperationPhase::Applied)?;
         }
         Ok(outcome)
@@ -189,6 +206,26 @@ impl Store {
         Ok(None)
     }
 
+    fn failed_note_completion(
+        &self,
+        prepared: &PreparedWrite,
+        unchanged: bool,
+        error: String,
+    ) -> Result<NoteWriteOutcome, String> {
+        if !unchanged {
+            return self
+                .conflict_note_write(prepared, "Note source changed during failed completion");
+        }
+        if prepared.conversion.is_some()
+            && !super::note_conversion_apply::conversion_inputs_match(
+                &self.conn, &self.root, prepared,
+            )?
+        {
+            return self.conflict_note_write(prepared, "conversion-inputs-changed");
+        }
+        Ok(prepared.outcome(NoteWriteStatus::Pending, Some(error)))
+    }
+
     fn commit_note_write(
         &mut self,
         prepared: &mut PreparedWrite,
@@ -215,13 +252,7 @@ impl Store {
             Err(error) => {
                 let unchanged = source_matches(&transaction, &self.root, prepared)?;
                 drop(transaction);
-                if !unchanged {
-                    return self.conflict_note_write(
-                        prepared,
-                        "Note source changed during failed completion",
-                    );
-                }
-                return Ok(prepared.outcome(NoteWriteStatus::Pending, Some(error)));
+                return self.failed_note_completion(prepared, unchanged, error);
             }
         }
         hooks.checkpoint(Checkpoint::Transaction)?;
@@ -229,6 +260,16 @@ impl Store {
             drop(transaction);
             return self
                 .conflict_note_write(prepared, "Note source changed before database completion");
+        }
+        if prepared.conversion.is_some()
+            && !super::note_conversion_apply::conversion_sources_match(
+                &transaction,
+                &self.root,
+                prepared,
+            )
+        {
+            drop(transaction);
+            return self.conflict_note_write(prepared, "conversion-sources-changed-before-commit");
         }
         prepared.outcome = Some(outcome.clone());
         write_payload(&transaction, prepared, NoteOperationPhase::Applied)?;
@@ -244,6 +285,14 @@ impl Store {
     ) -> Result<NoteWriteOutcome, String> {
         if prepared.outcome.is_some() {
             return self.compact_note_write(prepared);
+        }
+        if let Some(intent) = &prepared.conversion {
+            self.verify_backup(&intent.backup_id)?;
+            if !super::note_conversion_apply::conversion_inputs_match(
+                &self.conn, &self.root, prepared,
+            )? {
+                return self.conflict_note_write(prepared, "conversion-inputs-changed");
+            }
         }
         if let Some(outcome) = self.ensure_note_file(prepared, hooks)? {
             return Ok(outcome);

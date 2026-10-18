@@ -1,6 +1,6 @@
 use super::{
     migration_plan::content_hash,
-    note_conversion_cards::{candidates, rows_fingerprint, sessions},
+    note_conversion_cards::{candidates, page_storage_fingerprint, sessions},
     note_conversion_models::{NoteConversionPage, NoteConversionPreview},
     note_conversion_sources::SourceCatalog,
     note_memory::parse_document,
@@ -104,15 +104,7 @@ fn project_storage(
     let binding = super::note_storage::read_note_binding(connection, id)?;
     let pending = !super::note_storage::pending_operations(connection, id, None)?.is_empty();
     (page.session_fingerprint, page.active_session_count) = sessions(connection, id)?;
-    let mut fingerprints = Vec::new();
-    for sql in [
-        "SELECT * FROM pages WHERE id=?1",
-        "SELECT * FROM page_property_definitions WHERE page_id=?1 ORDER BY key",
-        "SELECT * FROM note_card_bindings WHERE page_id=?1",
-    ] {
-        fingerprints.push(rows_fingerprint(connection, sql, id)?);
-    }
-    page.page_storage_fingerprint = content_hash(&fingerprints.join("\0"));
+    page.page_storage_fingerprint = page_storage_fingerprint(connection, id)?;
     Ok((binding.is_some(), pending))
 }
 fn classification(page: &NoteConversionPage, bound: bool, pending: bool) -> &'static str {

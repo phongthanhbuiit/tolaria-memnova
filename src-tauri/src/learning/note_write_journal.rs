@@ -41,51 +41,92 @@ impl Store {
     }
 
     pub(super) fn prepare_note_write(
-        &self,
+        &mut self,
         request: NoteWriteRequest,
         configuration: Option<super::note_memory::MemoryConfig>,
+        conversion: Option<super::note_conversion_intent::ConversionIntent>,
     ) -> Result<PreparedWrite, String> {
         validate_write_request(&request)?;
         let intent_hash =
             content_hash(&serde_json::to_string(&request).map_err(|error| error.to_string())?);
         if let Some(prepared) = self.load_note_write(&request.operation_id)? {
-            if prepared.intent_hash != intent_hash || prepared.configuration != configuration {
+            let context = serde_json::to_string(&conversion).map_err(|error| error.to_string())?;
+            if prepared.intent_hash != intent_hash
+                || prepared.configuration != configuration
+                || serde_json::to_string(&prepared.conversion).map_err(|error| error.to_string())?
+                    != context
+            {
                 return Err("Operation identity has a different immutable intent".into());
             }
             return Ok(prepared);
         }
         validate_source(&request.source, &request.page_id)?;
-        self.check_note_revision(&request.page_id, request.expected_revision)?;
-        let path = self.note_write_path(&request.page_id)?;
-        let before =
-            std::fs::read_to_string(self.page_path(&path)?).map_err(|error| error.to_string())?;
-        if content_hash(&before) != request.expected_hash {
-            return Err("Note source changed; reload before saving".into());
-        }
-        let document = super::note_memory::parse_document(&before);
-        if document.page_id.as_deref() != Some(&request.page_id) {
-            return Err("Note source identity changed".into());
-        }
-        let pending: bool = self.conn.query_row("SELECT EXISTS(SELECT 1 FROM note_learning_operations WHERE page_id=?1 AND phase!='applied')", [&request.page_id], |row| row.get(0)).map_err(|error| error.to_string())?;
-        if pending {
-            return Err("Recover the pending note operation before another write".into());
-        }
-        let prepared = PreparedWrite {
-            version: 1,
-            operation_id: request.operation_id,
-            page_id: request.page_id,
-            path,
-            before_hash: request.expected_hash,
-            after_hash: content_hash(&request.source),
-            expected_revision: request.expected_revision,
-            intent_hash,
-            after_source: Some(request.source),
-            outcome: None,
+        let transaction = self
+            .conn
+            .transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)
+            .map_err(|error| error.to_string())?;
+        let prepared = prepare_checkpoint(
+            &transaction,
+            &self.root,
+            request,
             configuration,
+            conversion,
+            intent_hash,
+        )?;
+        let kind = if prepared.conversion.is_some() {
+            "convert"
+        } else if prepared.configuration.is_some() {
+            "configure"
+        } else {
+            "save"
         };
-        self.conn.execute("INSERT INTO note_learning_operations(id,page_id,kind,payload_json,phase,created_at) VALUES(?1,?2,?5,?3,'prepared',?4)",rusqlite::params![prepared.operation_id,prepared.page_id,serde_json::to_string(&prepared).map_err(|error| error.to_string())?,chrono::Utc::now().timestamp_millis(),if prepared.configuration.is_some() {"configure"} else {"save"}]).map_err(|error| error.to_string())?;
+        transaction.execute("INSERT INTO note_learning_operations(id,page_id,kind,payload_json,phase,created_at) VALUES(?1,?2,?3,?4,'prepared',?5)", rusqlite::params![prepared.operation_id,prepared.page_id,kind,serde_json::to_string(&prepared).map_err(|error|error.to_string())?,chrono::Utc::now().timestamp_millis()]).map_err(|error|error.to_string())?;
+        transaction.commit().map_err(|error| error.to_string())?;
         Ok(prepared)
     }
+}
+
+fn prepare_checkpoint(
+    connection: &rusqlite::Connection,
+    root: &std::path::Path,
+    request: NoteWriteRequest,
+    configuration: Option<super::note_memory::MemoryConfig>,
+    conversion: Option<super::note_conversion_intent::ConversionIntent>,
+    intent_hash: String,
+) -> Result<PreparedWrite, String> {
+    let (path, before) =
+        super::note_memory_view::read_note_source(connection, root, &request.page_id)?;
+    if content_hash(&before) != request.expected_hash {
+        return Err("Note source changed; reload before saving".into());
+    }
+    if super::note_storage::read_note_binding(connection, &request.page_id)?
+        .map(|binding| binding.revision)
+        != request.expected_revision
+    {
+        return Err("Note learning revision changed; reload before saving".into());
+    }
+    super::note_guard::require_note_page_writable(connection, &request.page_id)?;
+    let prepared = PreparedWrite {
+        version: 1,
+        operation_id: request.operation_id,
+        page_id: request.page_id,
+        path,
+        before_hash: request.expected_hash,
+        after_hash: content_hash(&request.source),
+        expected_revision: request.expected_revision,
+        intent_hash,
+        after_source: Some(request.source),
+        outcome: None,
+        configuration,
+        conversion,
+    };
+    prepared.validate()?;
+    if prepared.conversion.is_some()
+        && !super::note_conversion_apply::conversion_inputs_match(connection, root, &prepared)?
+    {
+        return Err("conversion-preview-changed".into());
+    }
+    Ok(prepared)
 }
 
 fn validate_write_request(request: &NoteWriteRequest) -> Result<(), String> {
@@ -105,13 +146,15 @@ pub(super) fn decode_note_write(
     phase: &str,
     payload: &str,
 ) -> Result<PreparedWrite, String> {
-    if !["save", "configure"].contains(&kind) {
+    if !["save", "configure", "convert"].contains(&kind) {
         return Err("Operation identity belongs to another kind".into());
     }
     let prepared: PreparedWrite =
         serde_json::from_str(payload).map_err(|error| error.to_string())?;
     prepared.validate()?;
-    if (kind == "configure") != prepared.configuration.is_some() {
+    if (kind == "configure") != prepared.configuration.is_some()
+        || (kind == "convert") != prepared.conversion.is_some()
+    {
         return Err("Note operation kind mismatch".into());
     }
     if prepared.operation_id != id || owner != Some(prepared.page_id.as_str()) {

@@ -9,7 +9,7 @@ use std::{
 };
 
 const MAX_MEDIA_BYTES: u64 = 256 * 1024 * 1024;
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct NoteMediaDependency {
     pub url: String,

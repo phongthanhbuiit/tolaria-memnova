@@ -157,3 +157,16 @@ pub use note_conversion_models::{
 pub use note_conversion_preview::preview_note_conversion;
 
 mod note_conversion_sources;
+
+#[cfg(test)]
+mod note_conversion_apply_tests;
+
+mod note_conversion_apply;
+mod note_conversion_intent;
+mod note_conversion_source;
+pub use note_conversion_intent::{
+    NoteConversionDetails, NoteConversionRequest, NoteConversionResult,
+};
+
+#[cfg(test)]
+mod note_conversion_test_support;

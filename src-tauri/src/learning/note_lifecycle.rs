@@ -63,6 +63,14 @@ impl Store {
 
     pub fn resume_note_memory(&mut self, operation_id: &str) -> Result<NoteWriteOutcome, String> {
         self.require_learning_ready()?;
+        if self
+            .load_note_write(operation_id)?
+            .is_some_and(|prepared| prepared.conversion.is_some())
+        {
+            return self
+                .resume_note_conversion(operation_id)
+                .map(|result| result.outcome);
+        }
         let root = self.root.clone();
         self.resume_note_write(operation_id, |transaction, prepared| {
             complete_memory_source(transaction, &root, prepared)

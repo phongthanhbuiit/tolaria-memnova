@@ -9,7 +9,7 @@ use super::{
     Card, NoteMediaDependency, Store, StudyItem, StudyPage,
 };
 use rusqlite::Connection;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use std::path::Path;
 
 #[derive(Clone, Debug, Serialize)]
@@ -34,7 +34,7 @@ pub enum StudyContent {
     Legacy,
     Note { details: Option<NoteStudyDetails> },
 }
-#[derive(Clone, Debug, Serialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct NoteFacePreview {
     pub page_id: String,
@@ -299,24 +299,15 @@ impl Store {
         page_id: &str,
         face: MemoryFace,
     ) -> Result<NoteFacePreview, String> {
-        let source = SourceDocument::read(&self.conn, &self.root, page_id)?;
-        let sources = super::pages::source_ids(&self.root)?;
-        if sources.get(page_id).map(|(path, _)| path.as_str()) != Some(source.path.as_str()) {
-            return Err("identity-conflict".into());
-        }
-        let content = source.face(face)?.to_string();
-        let media = MediaSnapshot::default().collect(&self.root, &source.path, &content)?;
-        let fingerprint = source.fingerprint(face, &media)?;
-        source.unchanged(&self.root)?;
-        Ok(NoteFacePreview {
-            page_id: page_id.into(),
-            path: source.path,
+        preview_face(
+            &self.conn,
+            &self.root,
+            page_id,
             face,
-            content,
-            fingerprint,
-            media,
-        })
+            &mut MediaSnapshot::default(),
+        )
     }
+
     pub fn read_note_study_content(
         &self,
         card_id: &str,
@@ -325,4 +316,30 @@ impl Store {
         let resolved = resolve_study(&self.conn, &self.root, &card)?;
         Ok((resolved.page, resolved.answer_page, resolved.content))
     }
+}
+
+pub(super) fn preview_face(
+    connection: &Connection,
+    root: &Path,
+    page_id: &str,
+    face: MemoryFace,
+    media: &mut MediaSnapshot,
+) -> Result<NoteFacePreview, String> {
+    let source = SourceDocument::read(connection, root, page_id)?;
+    let sources = super::pages::source_ids(root)?;
+    if sources.get(page_id).map(|(path, _)| path.as_str()) != Some(source.path.as_str()) {
+        return Err("identity-conflict".into());
+    }
+    let content = source.face(face)?.to_string();
+    let media = media.collect(root, &source.path, &content)?;
+    let fingerprint = source.fingerprint(face, &media)?;
+    source.unchanged(root)?;
+    Ok(NoteFacePreview {
+        page_id: page_id.into(),
+        path: source.path,
+        face,
+        content,
+        fingerprint,
+        media,
+    })
 }

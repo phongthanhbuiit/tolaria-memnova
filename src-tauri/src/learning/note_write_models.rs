@@ -46,6 +46,8 @@ pub struct PreparedWrite {
     pub outcome: Option<NoteWriteOutcome>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub configuration: Option<super::note_memory::MemoryConfig>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub(super) conversion: Option<super::note_conversion_intent::ConversionIntent>,
 }
 
 impl PreparedWrite {
@@ -94,6 +96,9 @@ impl PreparedWrite {
             {
                 return Err("Configuration checkpoint mismatch".into());
             }
+        }
+        if let Some(conversion) = &self.conversion {
+            conversion.validate(self)?;
         }
         if let Some(outcome) = &self.outcome {
             if outcome.operation_id != self.operation_id

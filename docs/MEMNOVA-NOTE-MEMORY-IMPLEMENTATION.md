@@ -15,8 +15,8 @@ Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. **Đây là
 | M06 | DONE | cb4160ca | Typed note IPC/client/browser QA; six real command cases, all1139 Rust unit tests/3ignored pass; types/lint/clippy; reviewed Codacy2Medium/21Minor, no lint/security/CriticalHigh. Config exact replay, bound/pending/rename/missing-DB guards; see M06 baseline. Pre-commit passed; pushed98e31147. |
 | M07 | DONE | 95aed8a0 | Live faces/source/media fingerprints;1153 native and90 focused frontend pass; see M07 baseline. Normal pre-commit4662 frontend/1153 Rust passed; batch push pending. |
 | M08 | DONE | 98e31147 | Seven real-file backup tests/150 learning pass; typed binding/journal validation, old1–4 restore and root-move preservation. See M08 baseline; committed/pushed98e31147. |
-| M09 | VERIFIED_LOCAL | pending commit | Read-only DB/WAL/source preview;9 native domain+1 command cases,159 learning/7 IPC/14 focused frontend pass. See M09 baseline. Normal commit/batch push pending. |
-| M10 | NOT_STARTED | — | — |
+| M09 | VERIFIED_LOCAL | 7f223d38 | Read-only DB/WAL/source preview;9 native domain+1 command cases,159 learning/7 IPC/14 focused frontend pass. See M09 baseline. Normal commit/batch push pending. |
+| M10 | IN_PROGRESS | — | Depends on local7f223d38; immutable selection/backup/replay tests first. |
 | M11 | NOT_STARTED | — | — |
 | M12 | NOT_STARTED | — | — |
 | M13 | NOT_STARTED | — | — |
@@ -77,3 +77,5 @@ M06 normal pre-commit: full frontend4659 tests/440files pass121.62s; Rust1139 pa
 ## M04–M08 batch release evidence
 
 Normal push98e31147 passed9m5s: lint/build/types,4662 frontend tests/441files, frontend86.78% lines (83.22% statements),1160 Rust unit tests+1integration/3ignored, hook Rust87.36% lines (existing lib/main/menu exclusions),54smoke/4.6m. CodeScene NOT RUN optional unavailable. Remote/local SHA matched, working tree/demo dirt empty. M08 normal pre-commit150 learning tests passed4.97s. Evidence:/tmp/memnova-note-memory-evidence/m08/. M25 unexcluded coverage/native QA still required; this is not completion of the whole plan.
+
+M09 normal pre-commit:4664 frontend tests/442files pass137.52s;1170 Rust unit tests pass/3ignored42.48s. Commit7f223d38; batch push follows M11.
