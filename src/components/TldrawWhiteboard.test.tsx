@@ -2,6 +2,8 @@ import { act, cleanup, fireEvent, render, screen, waitFor } from '@testing-libra
 import type { ComponentProps } from 'react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { Editor } from 'tldraw'
+import { registerEditorResources } from './editorResourceScope'
+import { _activeVaultPathRef, _wikilinkEntriesRef } from './editorSchema'
 import { DocumentRenderBoundary } from './DocumentRenderBoundary'
 import { flushEditorDocuments } from '../utils/editorDocumentFlush'
 import { TldrawWhiteboard } from './TldrawWhiteboard'
@@ -33,6 +35,7 @@ const tldrawMock = vi.hoisted(() => ({
 const tldrawStoreMock = vi.hoisted(() => ({
   createTLStore: vi.fn(() => ({
     document: { records: {} },
+    getStoreSnapshot() { return this.document },
     listen: vi.fn((listener: () => void) => { void listener; return vi.fn() }),
   })),
   getSnapshot: vi.fn((store: { document?: unknown }) => ({ document: store.document ?? { records: {} } })),
@@ -57,6 +60,7 @@ const assetImportMock = vi.hoisted(() => ({
 }))
 
 vi.mock('@tldraw/assets/imports.vite', () => assetImportMock)
+vi.mock('@tauri-apps/api/core', async importOriginal => ({ ...await importOriginal<typeof import('@tauri-apps/api/core')>(),convertFileSrc: (path: string) => `asset://localhost${encodeURI(path)}` }))
 
 vi.mock('tldraw', async () => {
   const { createElement } = await import('react')
@@ -82,6 +86,8 @@ vi.mock('tldraw', async () => {
         this.h = h
       }
     },
+    AssetRecordType: { createId: () => 'asset:test' },
+    createShapeId: () => 'shape:test',
     Tldraw: tldrawMock.Tldraw,
     createTLStore: tldrawStoreMock.createTLStore,
     defaultUserPreferences: {
@@ -111,6 +117,12 @@ function renderedTldrawProps(): MockTldrawProps {
   return props
 }
 
+function mountBoardEditor(editor: Editor): () => void {
+  let dispose = () => {}
+  act(() => { dispose = renderedTldrawProps().onMount(editor) })
+  return () => { act(() => { dispose() }) }
+}
+
 function mockEditor(): Editor {
   const container = document.createElement('div')
   const canvas = document.createElement('div')
@@ -120,6 +132,8 @@ function mockEditor(): Editor {
   return {
     dispatch: vi.fn(),
     updateInstanceState: vi.fn(),
+    registerExternalContentHandler: vi.fn(),
+    options: { maxFilesAtOnce: 100 },
     getContainer: vi.fn(() => container),
     textMeasure: {
       measureElementTextNodeSpans: vi.fn(() => {
@@ -231,7 +245,7 @@ describe('TldrawWhiteboard', () => {
     await renderWhiteboard()
 
     const editor = mockEditor()
-    const cleanup = renderedTldrawProps().onMount(editor)
+    const cleanup = mountBoardEditor(editor)
 
     expect(editor.textMeasure.measureElementTextNodeSpans(measuredTextElement())).toEqual({
       didTruncate: false,
@@ -248,7 +262,7 @@ describe('TldrawWhiteboard', () => {
   it('suppresses whiteboard platform permission rejections while mounted', async () => {
     await renderWhiteboard()
 
-    const cleanup = renderedTldrawProps().onMount(mockEditor())
+    const cleanup = mountBoardEditor(mockEditor())
     const denied = {
       name: 'NotAllowedError',
       message: 'The request is not allowed by the user agent or the platform in the current context, possibly because the user denied permission.',
@@ -358,5 +372,42 @@ it('keeps an explicit way to exit fullscreen when a replacement snapshot fails',
   expect(error).toHaveClass('tldraw-whiteboard--fullscreen')
   fireEvent.click(screen.getByRole('button',{name:'Exit fullscreen whiteboard'}))
   expect(document.body).not.toHaveClass('tldraw-whiteboard-fullscreen-open')
+  view.unmount()
+})
+
+it('does not insert a vocabulary image after the board has been unmounted', async () => {
+  const previousRoot = _activeVaultPathRef.current, previousEntries = _wikilinkEntriesRef.current
+  let completeImage = () => {}, imageStarted = false
+  vi.stubGlobal('Image',class {
+    naturalWidth = 300; naturalHeight = 200; src = ''; onload: (() => void) | null = null; onerror: (() => void) | null = null
+    constructor() { imageStarted = true; completeImage = () => this.onload?.() }
+  })
+  _activeVaultPathRef.current = '/qa/old'
+  _wikilinkEntriesRef.current = [{ path:'/qa/old/vocab.md',title:'Selected vocabulary',properties:{card_type:'vocabulary',image:'attachments/image.png'} } as never]
+  const editor = Object.assign(mockEditor(),{ createAssets: vi.fn(),createShapes: vi.fn(),getViewportPageBounds: () => ({center:{x:0,y:0}}) })
+  try {
+    const scope = {}, visit = registerEditorResources(scope,'/qa/old','/qa/old/owner.md')
+    const view = await renderWhiteboard({ documentScope: scope,blockId: 'board' })
+    let dispose = () => {}
+    act(() => { dispose = renderedTldrawProps().onMount(editor) })
+    fireEvent.click(screen.getByRole('button',{name:'Vocab Image'}))
+    fireEvent.click(screen.getByRole('button',{name:'Selected vocabulary'}))
+    await act(async () => { await Promise.resolve() })
+    expect(imageStarted).toBe(true)
+    act(() => { dispose() }); view.unmount()
+    await act(async () => { completeImage(); await Promise.resolve() })
+    expect(editor.createAssets).not.toHaveBeenCalled()
+    visit.dispose()
+  } finally {
+    _activeVaultPathRef.current = previousRoot; _wikilinkEntriesRef.current = previousEntries; vi.unstubAllGlobals()
+  }
+})
+it('captures an immediate save even before tldraw delivers its buffered document event',async()=>{
+  const owner={}, onSnapshotChange=vi.fn(), view=await renderWhiteboard({documentScope:owner,blockId:'buffered',onSnapshotChange})
+  const store=tldrawStoreMock.loadSnapshot.mock.lastCall![0] as ReturnType<typeof tldrawStoreMock.createTLStore>
+  expect(flushEditorDocuments(owner)).toBe(false)
+  store.document={records:{'shape:buffered':{text:'must save now'}}}
+  act(()=>{expect(flushEditorDocuments(owner)).toBe(true)})
+  expect(JSON.parse(onSnapshotChange.mock.calls[0][0]).records['shape:buffered'].text).toBe('must save now')
   view.unmount()
 })

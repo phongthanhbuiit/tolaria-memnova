@@ -14,8 +14,6 @@ import {
   type TLEventInfo,
   type TLUiDialog,
   type TLUserPreferences,
-  AssetRecordType,
-  createShapeId,
 } from 'tldraw'
 import 'tldraw/tldraw.css'
 import { useDocumentThemeMode } from '../hooks/useDocumentThemeMode'
@@ -25,9 +23,14 @@ import { Button } from './ui/button'
 import { Input } from './ui/input'
 import { ActionTooltip } from './ui/action-tooltip'
 import { installTldrawTextMeasurementGuard } from './tldrawTextMeasurementGuard'
-import { vaultAttachmentAssetUrl } from '../utils/vaultAttachments'
-import { _wikilinkEntriesRef, _activeVaultPathRef } from './editorSchema'
+import { _wikilinkEntriesRef } from './editorSchema'
 import { DocumentRenderContext } from './documentRenderContext'
+import { installCanvasFileImports } from './canvasFileImports'
+import { createResourceLifetime } from './editorResourceScope'
+import { useEditorResourceVisit } from './useEditorResources'
+import { createWhiteboardAssets } from './whiteboardAssets'
+import { insertCanvasVocabulary } from './insertCanvasVocabulary'
+import type { CanvasMediaIssue } from '../utils/canvasMedia'
 import { useWhiteboardDocument } from './useWhiteboardDocument'
 import { writeClipboardText } from '../utils/clipboardText'
 import type { VaultEntry } from '../types'
@@ -179,12 +182,6 @@ function installTldrawPlatformPermissionGuard(): () => void {
   return () => {
     window.removeEventListener('unhandledrejection', handleUnhandledRejection)
   }
-}
-
-function createBoardStore(identity: Pick<TldrawWhiteboardProps, 'boardId' | 'documentScope' | 'blockId'>) {
-  // Identity scopes the memoized mutable store even when two notes reuse a board ID.
-  void identity
-  return createTLStore()
 }
 
 function documentZoom(): number {
@@ -493,7 +490,17 @@ export function TldrawWhiteboard({
   onSnapshotChange,
   onSizeChange,
 }: TldrawWhiteboardProps) {
-  const store = useMemo(() => createBoardStore({ boardId, documentScope, blockId }), [boardId, documentScope, blockId])
+  const resourceVisit = useEditorResourceVisit(documentScope)
+  const lifecycle = useMemo(() => createResourceLifetime({ boardId,documentScope,blockId,resourceVisit }),[boardId,documentScope,blockId,resourceVisit])
+  useEffect(() => { lifecycle.activate(); return lifecycle.deactivate },[lifecycle])
+  const [importing,setImporting] = useState<{ lifecycle: typeof lifecycle; pending: boolean } | null>(null)
+  const [assetIssue,setAssetIssue] = useState<{ lifecycle: typeof lifecycle; issue: CanvasMediaIssue } | null>(null)
+  const assets = useMemo(() => createWhiteboardAssets({
+    scope: resourceVisit ?? {},readOnly,
+    active: () => lifecycle.isActive() && (!resourceVisit || resourceVisit.isCurrent()),
+    issue: issue => { queueMicrotask(() => { if (lifecycle.isActive() && (!resourceVisit || resourceVisit.isCurrent())) setAssetIssue({ lifecycle,issue }) }) },
+  }),[resourceVisit,readOnly,lifecycle])
+  const store = useMemo(() => createTLStore({ assets }),[assets])
   const boardRef = useRef<HTMLDivElement | null>(null)
   const tldrawEditorRef = useRef<Editor | null>(null)
   const [mountedStore,setMountedStore] = useState<typeof store | null>(null)
@@ -531,73 +538,15 @@ export function TldrawWhiteboard({
   )
 
   const handleInsertVocabImage = useCallback(async (entry: VaultEntry) => {
-    const editor = tldrawEditorRef.current
-    if (!editor) return
-
-    const imageProp = entry.properties?.['image']
-    if (typeof imageProp !== 'string' || !imageProp.trim()) return
-
-    const vaultPath = _activeVaultPathRef.current
-    if (!vaultPath) return
-
-    const assetUrl = vaultAttachmentAssetUrl({
-      vaultPath,
-      attachmentPath: imageProp,
+    const editor = tldrawEditorRef.current, source = entry.properties?.image
+    if (!editor || !resourceVisit?.vaultPath || typeof source !== 'string') return
+    const inserted = await insertCanvasVocabulary({
+      editor,source,title:entry.title,sourcePath:entry.path,visit:resourceVisit,
+      active: () => lifecycle.isActive() && resourceVisit.isCurrent() && tldrawEditorRef.current === editor,
+      issue: issue => setAssetIssue({lifecycle,issue}),
     })
-
-    const getImgSize = (url: string): Promise<{ w: number; h: number }> => {
-      return new Promise((resolve) => {
-        const img = new Image()
-        img.onload = () => {
-          resolve({ w: img.naturalWidth || 300, h: img.naturalHeight || 300 })
-        }
-        img.onerror = () => {
-          resolve({ w: 300, h: 300 })
-        }
-        img.src = url
-      })
-    }
-
-    const { w, h } = await getImgSize(assetUrl)
-    const assetId = AssetRecordType.createId()
-
-    editor.createAssets([
-      {
-        id: assetId,
-        type: 'image',
-        typeName: 'asset',
-        props: {
-          name: entry.title,
-          src: assetUrl,
-          w,
-          h,
-          mimeType: 'image/png',
-          isAnimated: false,
-        },
-        meta: {},
-      }
-    ])
-
-    const shapeId = createShapeId()
-    const center = editor.getViewportPageBounds().center
-
-    editor.createShapes([
-      {
-        id: shapeId,
-        type: 'image',
-        x: center.x - w / 2,
-        y: center.y - h / 2,
-        props: {
-          assetId,
-          w,
-          h,
-        }
-      }
-    ])
-
-    setShowVocabMenu(false)
-    setSearchQuery('')
-  }, [])
+    if (inserted && lifecycle.isActive() && resourceVisit.isCurrent()) { setShowVocabMenu(false); setSearchQuery('') }
+  },[resourceVisit,lifecycle])
 
   useEffect(() => {
     return () => {
@@ -648,8 +597,12 @@ export function TldrawWhiteboard({
     if (readOnly) {
       editor.updateInstanceState({ isReadonly: true })
     }
-    return installWhiteboardRuntimeGuards(editor)
-  }, [readOnly,store])
+    const runtime = installWhiteboardRuntimeGuards(editor)
+    const imports = readOnly ? () => {} : installCanvasFileImports(editor,
+      () => lifecycle.isActive() && (!resourceVisit || resourceVisit.isCurrent()),
+      issue => setAssetIssue({lifecycle,issue}),pending => setImporting({lifecycle,pending}))
+    return () => { imports(); runtime() }
+  }, [readOnly,store,lifecycle,resourceVisit])
   useEffect(() => {
     if (!blockId || !reportDocument) return
     const status = documentState.status === 'error' ? 'error' : documentState.sourceReady && mountedStore === store ? 'ready' : 'loading'
@@ -673,6 +626,8 @@ export function TldrawWhiteboard({
       data-board-id={boardId}
       style={cssSize(visibleSize)}
     >
+      {importing?.lifecycle === lifecycle && importing.pending && <p role="status" className="relative z-[90] border-b bg-background p-3 text-sm">{translate(locale,'learning.loading')}</p>}
+      {assetIssue?.lifecycle === lifecycle && <p role="alert" className="relative z-[90] border-b bg-background p-3 text-sm">{translate(locale,'editor.whiteboard.mediaNotice')}</p>}
       <Tldraw
         assetUrls={tldrawAssetUrls}
         components={tldrawUiComponents}

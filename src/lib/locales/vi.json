@@ -942,5 +942,6 @@
   "learning.noteMemory.keptDisk": "Đã giữ file hiện tại và bản nháp.",
   "learning.noteMemory.noDrafts": "Không có bản nháp cần phục hồi.",
   "editor.whiteboard.loadError": "Không thể tải bảng vẽ này. Snapshot gốc vẫn được giữ nguyên.",
-  "editor.whiteboard.copySnapshot": "Sao chép snapshot gốc"
+  "editor.whiteboard.copySnapshot": "Sao chép snapshot gốc",
+  "editor.whiteboard.mediaNotice": "Một số ảnh trên canvas dùng liên kết online, đường dẫn máy cũ hoặc không khả dụng tại đây. Liên kết gốc vẫn được giữ. Hãy sao lưu Library trước khi sửa."
 }

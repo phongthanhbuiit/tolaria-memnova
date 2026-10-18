@@ -942,5 +942,6 @@
   "learning.noteMemory.keptDisk": "Aktuelle Datei und Entwurf beibehalten.",
   "learning.noteMemory.noDrafts": "Keine gespeicherten Entwürfe zur Wiederherstellung.",
   "editor.whiteboard.loadError": "Dieses Whiteboard konnte nicht geladen werden. Der ursprüngliche Snapshot bleibt erhalten.",
-  "editor.whiteboard.copySnapshot": "Ursprünglichen Snapshot kopieren"
+  "editor.whiteboard.copySnapshot": "Ursprünglichen Snapshot kopieren",
+  "editor.whiteboard.mediaNotice": "Einige Canvas-Medien verwenden Online- oder alte Gerätepfade oder sind hier nicht verfügbar. Die ursprünglichen Links bleiben erhalten. Sichern Sie Ihre Library vor der Reparatur."
 }

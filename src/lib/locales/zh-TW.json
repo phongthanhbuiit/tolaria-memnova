@@ -942,5 +942,6 @@
   "learning.noteMemory.keptDisk": "已保留目前檔案和草稿。",
   "learning.noteMemory.noDrafts": "沒有需要復原的已儲存草稿。",
   "editor.whiteboard.loadError": "無法載入此白板。原始快照已保留。",
-  "editor.whiteboard.copySnapshot": "複製原始快照"
+  "editor.whiteboard.copySnapshot": "複製原始快照",
+  "editor.whiteboard.mediaNotice": "部分媒體使用線上連結或舊裝置路徑，或在此處無法使用。原始連結已保留。修復前請備份 Library。"
 }

@@ -31,6 +31,9 @@ fn absolute_source(root: &Path, owner: &str, raw: &str) -> Result<Option<PathBuf
         return Ok(Some(PathBuf::from(raw)));
     }
     match tauri::Url::parse(raw) {
+        Ok(url) if url.scheme() == "asset" && url.host_str() == Some("memnova") => {
+            portable_canvas_source(root, &url).map(Some)
+        }
         Ok(url) => url_source(&url),
         Err(_) => {
             let base = if raw.starts_with("attachments/") {
@@ -51,6 +54,27 @@ fn absolute_source(root: &Path, owner: &str, raw: &str) -> Result<Option<PathBuf
             ))
         }
     }
+}
+fn portable_canvas_source(root: &Path, url: &tauri::Url) -> Result<PathBuf, String> {
+    let path = url.path();
+    let lower = path.to_ascii_lowercase();
+    if !path.starts_with("/attachments/")
+        || url.port().is_some()
+        || !url.username().is_empty()
+        || url.password().is_some()
+        || url.query().is_some()
+        || url.fragment().is_some()
+        || lower.contains("%2f")
+        || lower.contains("%5c")
+    {
+        return Err("invalid-portable-canvas-source".into());
+    }
+    tauri::Url::from_directory_path(root)
+        .map_err(|_| "invalid-media-base")?
+        .join(&path[1..])
+        .map_err(|_| "invalid-media-path")?
+        .to_file_path()
+        .map_err(|_| "invalid-media-path".into())
 }
 fn url_source(url: &tauri::Url) -> Result<Option<PathBuf>, String> {
     {

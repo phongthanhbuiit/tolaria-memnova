@@ -234,7 +234,10 @@ test('@smoke switching notes during a slow rich-editor save writes once and open
   await expect(page.locator('.bn-block-content').filter({ hasText: appendedText })).toBeVisible({ timeout: 5_000 })
   await page.waitForTimeout(100)
   await triggerMenuCommand(page, 'file-save')
-  await expect.poll(() => delayedSaveCount(page), { timeout: 5_000 }).toBe(1)
+  await expect.poll(() => page.evaluate(() =>
+    (window as SaveBeforeSwitchProbeWindow).__saveBeforeSwitchProbe?.calls.at(-1)?.content ?? '',
+  ), { timeout: 450, intervals: [25, 50, 100, 100, 100] }).toContain(appendedText)
+  await expect.poll(() => delayedSaveCount(page), { timeout: 450 }).toBe(1)
 
   await noteList.getByText('Alpha Project', { exact: true }).click()
   await noteList.getByText('Note C', { exact: true }).click()

@@ -60,7 +60,7 @@ export async function uploadImageFile(file: File, vaultPath?: string): Promise<s
 }
 
 /** Copy a dropped file (by OS path) into vault/attachments and return its asset URL. */
-async function copyImageToVault({
+export async function copyImageToVault({
   sourcePath,
   vaultPath,
 }: CopyImageToVaultRequest): Promise<string> {

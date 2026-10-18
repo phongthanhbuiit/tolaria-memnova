@@ -942,5 +942,6 @@
   "learning.noteMemory.keptDisk": "Archivo actual y borrador conservados.",
   "learning.noteMemory.noDrafts": "No hay borradores guardados que recuperar.",
   "editor.whiteboard.loadError": "No se pudo cargar esta pizarra. Se conserva la instantánea original.",
-  "editor.whiteboard.copySnapshot": "Copiar instantánea original"
+  "editor.whiteboard.copySnapshot": "Copiar instantánea original",
+  "editor.whiteboard.mediaNotice": "Algunos archivos del lienzo usan enlaces en línea o rutas de otro dispositivo, o no están disponibles aquí. Se conservan los enlaces originales. Haz una copia de tu Library antes de repararlos."
 }

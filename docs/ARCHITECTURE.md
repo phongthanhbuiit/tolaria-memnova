@@ -1252,3 +1252,7 @@ List/read/resolve recovery APIs are Library-bound. Pending save/configure/conver
 ### Canvas snapshot and visual readiness
 
 Canvas source remains in its Markdown fence. Invalid/unsupported snapshots are preserved with copy/retry, never replaced by an empty editable document. Only successful editable loads register synchronous document producers. Read-only Markdown rendering uses a per-document boundary over expected canvas block IDs; successful parsing is insufficient until each canvas has loaded and mounted. This visual gate complements native source/media fingerprints and will be consumed by note study at M19 (ADR0152).
+
+### Portable canvas media
+
+New local canvas assets use asset://memnova/attachments URI references inside the existing Markdown snapshot. Renderer and native media validation resolve those references against the current Library; display URLs never become the persisted authority. Legacy sources stay intact with a repair notice. Async upload/image insertion requires the originating editor/note visit to remain live. File inputs share an upload-first handler before document mutation, reusing tldraw asset validation and the existing attachment pipeline (ADR0153). No hidden canvas folder, sidecar database content, attachment GC or scheduler change is introduced.

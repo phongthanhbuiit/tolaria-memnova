@@ -1,12 +1,13 @@
-import { createTLStore, getSnapshot, loadSnapshot, type TLStore, type TLStoreSnapshot } from 'tldraw'
+import { createTLStore, loadSnapshot, type TLStore, type TLStoreSnapshot } from 'tldraw'
 
 export type WhiteboardLoad = { status: 'ready' } | { status: 'error' }
 export function serializeWhiteboardSnapshot(snapshot: unknown): string {
   return `${JSON.stringify(snapshot, null, 2)}\n`
 }
-let empty: ReturnType<typeof getSnapshot>['document'] | null = null
+export function whiteboardDocumentSnapshot(store: TLStore) { return store.getStoreSnapshot('document') }
+let empty: ReturnType<typeof whiteboardDocumentSnapshot> | null = null
 export function emptyWhiteboardSnapshot() {
-  empty ??= getSnapshot(createTLStore()).document
+  empty ??= whiteboardDocumentSnapshot(createTLStore())
   return { document: empty, json: serializeWhiteboardSnapshot(empty) }
 }
 

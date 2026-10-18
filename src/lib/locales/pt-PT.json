@@ -942,5 +942,6 @@
   "learning.noteMemory.keptDisk": "Ficheiro atual e rascunho mantidos.",
   "learning.noteMemory.noDrafts": "Não há rascunhos guardados a recuperar.",
   "editor.whiteboard.loadError": "Não foi possível carregar este quadro. O snapshot original foi preservado.",
-  "editor.whiteboard.copySnapshot": "Copiar snapshot original"
+  "editor.whiteboard.copySnapshot": "Copiar snapshot original",
+  "editor.whiteboard.mediaNotice": "Alguns conteúdos usam ligações online ou caminhos de outro dispositivo, ou estão indisponíveis aqui. As ligações originais são preservadas. Faça uma cópia da Library antes de as corrigir."
 }

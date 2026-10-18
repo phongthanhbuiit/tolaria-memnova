@@ -357,3 +357,44 @@ fn restoring_semantically_corrupt_note_metadata_is_rejected_even_with_matching_c
     assert!(!target.exists());
     assert_eq!(rows(&store), before);
 }
+
+#[test]
+fn portable_canvas_backup_restores_media_bytes_and_binding_without_original_root_paths() {
+    let (directory, mut store) = memory_fixture();
+    let path = directory.path().join("ordinary.md");
+    let svg = b"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"10\"><rect width=\"16\" height=\"10\" fill=\"blue\"/></svg>";
+    fs::write(directory.path().join("attachments/ảnh nhớ.svg"), svg).unwrap();
+    let canvas = json!({"store": {
+        "asset:image": {"typeName":"asset","type":"image","props":{"src":"asset://memnova/attachments/%E1%BA%A3nh%20nh%E1%BB%9B.svg"}},
+        "shape:image": {"typeName":"shape","type":"image","props":{"assetId":"asset:image"}}
+    }});
+    let source = patch_face(
+        &fs::read_to_string(&path).unwrap(),
+        MemoryFace::Back,
+        &format!("```tldraw\n{canvas}\n```\n"),
+        false,
+    )
+    .unwrap();
+    fs::write(&path, &source).unwrap();
+    store.reconcile_note_memory(&id(1)).unwrap();
+    let expected = rows(&store);
+    let before = store.read_note_face(&id(1), MemoryFace::Back).unwrap();
+    let backup = store.create_backup().unwrap();
+    store.verify_backup(&backup.id).unwrap();
+    let parent = tempfile::tempdir().unwrap();
+    let target = parent.path().join("restored-canvas");
+    store.restore_backup(&backup.id, &target).unwrap();
+    let restored = Store::open(&target).unwrap();
+    let after = restored.read_note_face(&id(1), MemoryFace::Back).unwrap();
+    assert_eq!(rows(&restored), expected);
+    assert_eq!(before.fingerprint, after.fingerprint);
+    assert_eq!(before.media, after.media);
+    assert_eq!(
+        fs::read(target.join("attachments/ảnh nhớ.svg")).unwrap(),
+        svg
+    );
+    assert_eq!(
+        fs::read_to_string(target.join("ordinary.md")).unwrap(),
+        source
+    );
+}

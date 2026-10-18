@@ -13,6 +13,7 @@ import { resolveImageUrls } from '../utils/vaultImages'
 import { preProcessWikilinks, injectWikilinks } from '../utils/wikilinks'
 import { preProcessMathMarkdown, injectMathInBlocks } from '../utils/mathMarkdown'
 import { translate, type AppLocale } from '../lib/i18n'
+import { useRegisterEditorResources } from './useEditorResources'
 import { DocumentRenderBoundary } from './DocumentRenderBoundary'
 import { documentCanvasIds, type DocumentRenderStatus } from './documentRenderGate'
 import './EditorTheme.css'
@@ -35,6 +36,7 @@ export function BlockNoteReadOnly(props: BlockNoteReadOnlyProps) {
     _tiptapOptions: { injectNonce: getRuntimeStyleNonce() },
     extensions: [createArrowLigaturesExtension(), createMathInputExtension()],
   })
+  useRegisterEditorResources(editor,vaultPath ?? undefined,notePath)
   const [prevContent, setPrevContent] = useState(content)
   const [ready, setReady] = useState(false)
   const [renderError, setRenderError] = useState(false)

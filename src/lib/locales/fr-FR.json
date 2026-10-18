@@ -942,5 +942,6 @@
   "learning.noteMemory.keptDisk": "Fichier actuel et brouillon conservés.",
   "learning.noteMemory.noDrafts": "Aucun brouillon enregistré à récupérer.",
   "editor.whiteboard.loadError": "Impossible de charger ce tableau blanc. La capture d’origine est conservée.",
-  "editor.whiteboard.copySnapshot": "Copier la capture d’origine"
+  "editor.whiteboard.copySnapshot": "Copier la capture d’origine",
+  "editor.whiteboard.mediaNotice": "Certains médias utilisent des liens en ligne ou d’un ancien appareil, ou sont indisponibles ici. Les liens d’origine sont conservés. Sauvegardez votre Library avant de les réparer."
 }

@@ -942,5 +942,6 @@
   "learning.noteMemory.keptDisk": "Текущий файл и черновик сохранены.",
   "learning.noteMemory.noDrafts": "Нет черновиков для восстановления.",
   "editor.whiteboard.loadError": "Не удалось загрузить эту доску. Исходный снимок сохранён.",
-  "editor.whiteboard.copySnapshot": "Копировать исходный снимок"
+  "editor.whiteboard.copySnapshot": "Копировать исходный снимок",
+  "editor.whiteboard.mediaNotice": "Некоторые материалы используют онлайн-ссылки или пути старого устройства либо недоступны здесь. Исходные ссылки сохранены. Создайте резервную копию Library перед исправлением."
 }

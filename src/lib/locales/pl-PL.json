@@ -942,5 +942,6 @@
   "learning.noteMemory.keptDisk": "Bieżący plik i wersja robocza zachowane.",
   "learning.noteMemory.noDrafts": "Brak zapisanych wersji roboczych do odzyskania.",
   "editor.whiteboard.loadError": "Nie można wczytać tej tablicy. Oryginalny zapis został zachowany.",
-  "editor.whiteboard.copySnapshot": "Kopiuj oryginalny zapis"
+  "editor.whiteboard.copySnapshot": "Kopiuj oryginalny zapis",
+  "editor.whiteboard.mediaNotice": "Niektóre multimedia używają łączy internetowych lub ścieżek starego urządzenia albo są tutaj niedostępne. Oryginalne łącza zachowano. Utwórz kopię Library przed ich naprawą."
 }

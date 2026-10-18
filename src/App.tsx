@@ -1448,7 +1448,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
     onPastePlainText: pastePlainTextCommand,
     onCreateNote: notes.handleCreateNoteImmediate,
     onCreateNoteOfType: notes.handleCreateNoteImmediate,
-    onSave: appSave.handleSave,
+    onSave: handleTrackedSave,
     onUndo: undoCommand,
     onRedo: redoCommand,
     canUndo: notes.canUndo,

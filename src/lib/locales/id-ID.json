@@ -942,5 +942,6 @@
   "learning.noteMemory.keptDisk": "Berkas saat ini dan draf dipertahankan.",
   "learning.noteMemory.noDrafts": "Tidak ada draf tersimpan yang perlu dipulihkan.",
   "editor.whiteboard.loadError": "Papan tulis ini tidak dapat dimuat. Snapshot asli tetap disimpan.",
-  "editor.whiteboard.copySnapshot": "Salin snapshot asli"
+  "editor.whiteboard.copySnapshot": "Salin snapshot asli",
+  "editor.whiteboard.mediaNotice": "Sebagian media memakai tautan daring atau jalur perangkat lama, atau tidak tersedia di sini. Tautan asli tetap disimpan. Cadangkan Library sebelum memperbaikinya."
 }

@@ -35,6 +35,14 @@ fn local_media_resolves_unicode_relative_base_and_rejects_foreign_asset_authorit
         media.collect(&root, "article.md", &local).unwrap()[0].sha256,
         first[0].sha256
     );
+    let encoded = format!(
+        "![hint](asset://localhost/{})",
+        file.path().replace('/', "%2F")
+    );
+    assert_eq!(
+        media.collect(&root, "article.md", &encoded).unwrap()[0].sha256,
+        first[0].sha256
+    );
     let foreign = format!("![hint](asset://untrusted{})", file.path());
     assert!(media.collect(&root, "article.md", &foreign).is_err());
 }
@@ -57,5 +65,58 @@ fn verification_budget_and_symlinks_fail_without_reading_an_unbounded_media_file
         assert!(MediaSnapshot::default()
             .collect(&root, "article.md", "![link](link.png)")
             .is_err());
+    }
+}
+#[test]
+fn portable_canvas_asset_uri_resolves_identical_bytes_after_restoring_to_a_new_root() {
+    let original = tempfile::tempdir().unwrap();
+    let restored = tempfile::tempdir().unwrap();
+    for directory in [&original, &restored] {
+        fs::create_dir(directory.path().join("attachments")).unwrap();
+        fs::write(
+            directory.path().join("attachments/ảnh nhớ.png"),
+            b"portable image bytes",
+        )
+        .unwrap();
+    }
+    let source = "```tldraw\n{\"store\":{\"asset:one\":{\"typeName\":\"asset\",\"props\":{\"src\":\"asset://memnova/attachments/%E1%BA%A3nh%20nh%E1%BB%9B.png\"}},\"shape:one\":{\"typeName\":\"shape\",\"type\":\"image\",\"props\":{\"assetId\":\"asset:one\"}}}}\n```";
+    let first = MediaSnapshot::default()
+        .collect(
+            &original.path().canonicalize().unwrap(),
+            "lessons/article.md",
+            source,
+        )
+        .unwrap();
+    let second = MediaSnapshot::default()
+        .collect(
+            &restored.path().canonicalize().unwrap(),
+            "moved/article.md",
+            source,
+        )
+        .unwrap();
+    assert_eq!(first, second);
+    assert_eq!(first[0].path, "attachments/ảnh nhớ.png");
+    assert_eq!(first[0].bytes, 20);
+}
+#[test]
+fn portable_canvas_asset_uri_rejects_private_traversal_authority_and_encoded_separator() {
+    let directory = tempfile::tempdir().unwrap();
+    let root = directory.path().canonicalize().unwrap();
+    for source in [
+        "asset://memnova/.memnova/learning.sqlite3",
+        "asset://memnova/attachments/../../outside.png",
+        "asset://memnova/attachments/%2foutside.png",
+        "asset://user@memnova/attachments/x.png",
+        "asset://memnova:123/attachments/x.png",
+        "asset://memnova/attachments/x.png?redirect=other",
+        "asset://memnova/attachments/x.png#other",
+    ] {
+        let body = format!("![image]({source})");
+        assert!(
+            MediaSnapshot::default()
+                .collect(&root, "owner.md", &body)
+                .is_err(),
+            "{source}"
+        );
     }
 }

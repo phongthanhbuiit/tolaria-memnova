@@ -16,6 +16,7 @@ import { ResizeHandle } from './ResizeHandle'
 import { useDiffMode, type CommitDiffRequest } from '../hooks/useDiffMode'
 import { useEditorFocus } from '../hooks/useEditorFocus'
 import { useLearningWorkspace } from './learning/LearningContext'
+import { useRegisterEditorResources } from './useEditorResources'
 import { useFlashcardEditorFace } from '../hooks/useFlashcardEditorFace'
 import { useDragRegion } from '../hooks/useDragRegion'
 import { formatShortcutDisplay } from '../hooks/appCommandCatalog'
@@ -238,6 +239,7 @@ function useEditorSetup({
       createMathInputExtension(),
     ],
   })
+  useRegisterEditorResources(editor,vaultPath,activeTabPath ?? undefined)
   useFilenameAutolinkGuard(editor)
   const activeTab = tabs.find((t) => t.entry.path === activeTabPath) ?? null
   const {

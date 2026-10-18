@@ -942,5 +942,6 @@
   "learning.noteMemory.keptDisk": "現在のファイルと下書きを保持しました。",
   "learning.noteMemory.noDrafts": "復旧が必要な保存済みの下書きはありません。",
   "editor.whiteboard.loadError": "このホワイトボードを読み込めませんでした。元のスナップショットは保持されています。",
-  "editor.whiteboard.copySnapshot": "元のスナップショットをコピー"
+  "editor.whiteboard.copySnapshot": "元のスナップショットをコピー",
+  "editor.whiteboard.mediaNotice": "一部のメディアはオンラインのリンクや以前の端末のパスを使用しているか、ここでは利用できません。元のリンクは保持されています。修復前にLibraryをバックアップしてください。"
 }

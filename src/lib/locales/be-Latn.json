@@ -942,5 +942,6 @@
   "learning.noteMemory.keptDisk": "Biahučy fajł i čarnavik zachavany.",
   "learning.noteMemory.noDrafts": "Niama zachavanych čarnavikoŭ dla adnaŭleńnia.",
   "editor.whiteboard.loadError": "Nie ŭdałosia zahruzić hetuju došku. Zychodny zdymak zachavany.",
-  "editor.whiteboard.copySnapshot": "Skapijavać zychodny zdymak"
+  "editor.whiteboard.copySnapshot": "Skapijavać zychodny zdymak",
+  "editor.whiteboard.mediaNotice": "Niekatoryja materyjały vykarystoŭvajuć anłajn-spasyłki ci šlachi staroj pryłady abo niedastupnyja tut. Zychodnyja spasyłki zachavanyja. Zrabicie rezervovuju kopiju Library pierad vypraŭleńniem."
 }
