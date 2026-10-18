@@ -81,3 +81,12 @@ it('binds page definition compare-and-swap to the connected library',async()=>{
  await client.setPagePropertyDefinitions('page',{},next)
  expect(invoke).toHaveBeenLastCalledWith('learning_command',{vaultPath:'/qa',libraryId:'library',request:{kind:'setPagePropertyDefinitions',pageId:'page',expected:{},definitions:next}})
 })
+
+it('previews an unregistered source without ensuring its identity and guards explicit registration with its source hash', async () => {
+ vi.mocked(invoke).mockResolvedValueOnce({libraryId:'library',schemaVersion:5}).mockResolvedValue({path:'source.md'})
+ const client=await LearningClient.connect('/qa')
+ await client.previewNoteSource('source.md','back')
+ expect(invoke).toHaveBeenLastCalledWith('learning_command',{vaultPath:'/qa',libraryId:'library',request:{kind:'previewNoteSource',path:'source.md',face:'back'}})
+ await client.ensurePage('source.md','a'.repeat(64))
+ expect(invoke).toHaveBeenLastCalledWith('learning_command',{vaultPath:'/qa',libraryId:'library',request:{kind:'ensurePage',path:'source.md',expectedHash:'a'.repeat(64)}})
+})

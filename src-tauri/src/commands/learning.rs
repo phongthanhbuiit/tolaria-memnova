@@ -12,6 +12,10 @@ use serde_json::{json, Value};
 )]
 pub enum LearningRequest {
     Describe,
+    PreviewNoteSource {
+        path: String,
+        face: crate::learning::note_memory::MemoryFace,
+    },
     ReadNoteFace {
         page_id: String,
         face: crate::learning::note_memory::MemoryFace,
@@ -83,6 +87,7 @@ pub enum LearningRequest {
     SyncPages,
     EnsurePage {
         path: String,
+        expected_hash: Option<String>,
     },
     ReadStudyPage {
         page_id: String,
@@ -150,6 +155,14 @@ fn execute_with_log(
     legacy_log: Option<&std::path::Path>,
 ) -> Result<Value, String> {
     let boundary = VaultBoundary::from_request(Some(vault_path))?;
+    if let LearningRequest::PreviewNoteSource { path, face } = &request {
+        return encode(crate::learning::preview_note_source(
+            boundary.requested_root(),
+            library_id.as_deref().ok_or("missing-library-id")?,
+            path,
+            *face,
+        )?);
+    }
     if matches!(request, LearningRequest::PreviewNoteConversion {}) {
         return encode(crate::learning::preview_note_conversion(
             boundary.requested_root(),
@@ -183,6 +196,9 @@ fn dispatch(
     legacy_log: Option<&std::path::Path>,
 ) -> Result<Value, String> {
     match request {
+        LearningRequest::PreviewNoteSource { .. } => {
+            Err("Source preview must use the read-only route".into())
+        }
         LearningRequest::PreviewNoteConversion {} => {
             Err("Conversion preview must use the read-only route".into())
         }
@@ -337,7 +353,13 @@ fn dispatch_pages(store: &mut Store, request: LearningRequest) -> Result<Value, 
     match request {
         LearningRequest::ListPages => encode(store.list_pages()?),
         LearningRequest::SyncPages => encode(store.sync_pages()?),
-        LearningRequest::EnsurePage { path } => encode(store.ensure_page(&path)?),
+        LearningRequest::EnsurePage {
+            path,
+            expected_hash,
+        } => encode(match expected_hash {
+            Some(expected) => store.ensure_page_with_hash(&path, Some(&expected))?,
+            None => store.ensure_page(&path)?,
+        }),
         LearningRequest::ReadStudyPage { page_id } => encode(store.read_study_page(&page_id)?),
         LearningRequest::PagePropertyDefinitions { page_id } => {
             encode(store.page_property_definitions(&page_id)?)

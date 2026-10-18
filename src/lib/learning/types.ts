@@ -183,3 +183,4 @@ export interface NoteStudyDetails {
   fingerprint: string
 }
 export interface NoteFacePreview { pageId: string; path: string; face: import('./noteMemoryConfig').MemoryFace; content: string; fingerprint: string; media: NoteMediaDependency[] }
+export interface NoteSourcePreview extends Omit<NoteFacePreview, 'pageId'> { pageId: string | null; sourceHash: string; hasBack: boolean; backLinked: boolean }

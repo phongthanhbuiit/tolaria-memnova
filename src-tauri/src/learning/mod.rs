@@ -151,10 +151,12 @@ mod note_conversion_cards;
 mod note_conversion_models;
 mod note_conversion_preview;
 mod note_preview_storage;
+mod note_source_preview;
 pub use note_conversion_models::{
     NoteConversionCandidate, NoteConversionPage, NoteConversionPreview,
 };
 pub use note_conversion_preview::preview_note_conversion;
+pub use note_source_preview::{preview_note_source, NoteSourcePreview};
 
 mod note_conversion_sources;
 

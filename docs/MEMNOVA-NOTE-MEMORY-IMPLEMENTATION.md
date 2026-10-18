@@ -21,8 +21,8 @@ Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. **Đây là
 | M12 | DONE | 77d107c3 batch release | Normal push passed9m8s; frontend4730/87.11%lines, native1194+1integration/3ignored, hook87.62%lines,54smoke4.6m. Native M14 proof in baseline. |
 | M13 | DONE | 77d107c3 batch release | Normal push passed9m8s; frontend4730/87.11%lines, native1194+1integration/3ignored, hook87.62%lines,54smoke4.6m. Native M14 proof in baseline. |
 | M14 | DONE | 77d107c3 batch release | Normal push passed9m8s; frontend4730/87.11%lines, native1194+1integration/3ignored, hook87.62%lines,54smoke4.6m. Native M14 proof in baseline. |
-| M15 | IN_PROGRESS | M06,M12–M14 DONE | Focused baseline and canonical face/save regressions. |
-| M16 | NOT_STARTED | — | — |
+| M15 | VERIFIED_LOCAL | 0a1bfc8d | Canonical editor, scoped persistence/projection;143 targeted tests,411 verified pre-commit tests/43files, browser8.3s. Native checkpoint and batch push follow M18. |
+| M16 | IN_PROGRESS | M07 DONE,M15 committed VERIFIED_LOCAL | Read-only source preview and explicit apply. |
 | M17 | NOT_STARTED | — | — |
 | M18 | NOT_STARTED | — | — |
 | M19 | NOT_STARTED | — | — |
@@ -93,3 +93,5 @@ M13 commita16cf2cf normal pre-commit256 related tests/29files pass43.09s. M14 na
 ## M12–M14 batch release evidence
 
 Normal push77d107c35e095f1aa15641503422057655ee34f1 succeeded9m8s.4730 frontend tests,87.11%lines/83.33%statements;1194 Rust unit tests+1integration pass,3ignored; hook Rust87.62%lines with existing lib/main/menu exclusions.54core smoke pass4.6m; lint/types/build pass. CodeScene NOT RUN optional credentials unavailable. Codacy25paths reviewed,no newCritical/High/security findings. Remote/local SHA matched and working tree/demo dirt empty. M14 verified commit77d107c3:294frontend/35files,181learning,4browser tests. Evidence:/tmp/memnova-note-memory-evidence/m14/. M25 unexcluded Rust coverage and remaining M15–M25 acceptance still required.
+
+M15 normal verified commit0a1bfc8d:411 related frontend tests/43files pass, types/lint pass; browser1pass8.3s. No Rust production change in this task. Native combined checkpoint and normal batch push pending M18; no claim of full-plan completion.

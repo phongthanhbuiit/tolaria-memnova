@@ -192,9 +192,20 @@ impl Store {
     }
 
     pub fn ensure_page(&mut self, relative: &str) -> Result<LearningPage, String> {
+        self.ensure_page_with_hash(relative, None)
+    }
+
+    pub fn ensure_page_with_hash(
+        &mut self,
+        relative: &str,
+        expected_hash: Option<&str>,
+    ) -> Result<LearningPage, String> {
         self.require_learning_ready()?;
         let path = self.page_path(relative)?;
         let source = fs::read_to_string(&path).map_err(|error| error.to_string())?;
+        if expected_hash.is_some_and(|expected| expected != content_hash(&source)) {
+            return Err("Changed source before identity assignment; refresh the preview".into());
+        }
         let (metadata, _) = legacy_markdown::frontmatter(&source)?;
         let owned = legacy_markdown::page_id(&metadata)?;
         if owned.is_some() {

@@ -1,5 +1,5 @@
 import type { NoteConversionPreview, NoteConversionRequest, NoteConversionResult, NoteConversionDetails, NoteRecoveryRequest, NoteRecoverySummary, NoteRecoveryView } from './noteConversionTypes'
-import type { NoteFacePreview, NoteMemoryView, NoteWriteRequest, NoteConfigureRequest, NoteWriteOutcome } from './types'
+import type { NoteFacePreview, NoteMemoryView, NoteWriteRequest, NoteConfigureRequest, NoteWriteOutcome, NoteSourcePreview } from './types'
 import type { PropertyDefinitions } from './propertyValues'
 import { invoke } from '@tauri-apps/api/core'
 import { isTauri, mockInvoke } from '../../mock-tauri'
@@ -53,6 +53,7 @@ export class LearningClient {
   noteCompatibility(pageId: string): Promise<NoteConversionDetails | null> { return this.call({ kind: 'noteCompatibility', pageId }) }
 
   readNoteFace(pageId: string, face: import('./noteMemoryConfig').MemoryFace): Promise<NoteFacePreview> { return this.call({ kind: 'readNoteFace', pageId, face }) }
+  previewNoteSource(path: string, face: import('./noteMemoryConfig').MemoryFace): Promise<NoteSourcePreview> { return this.call({ kind: 'previewNoteSource', path, face }) }
   readNoteMemory(pageId: string): Promise<NoteMemoryView> { return this.call({ kind: 'readNoteMemory', pageId }) }
   saveNoteMemory(request: NoteWriteRequest): Promise<NoteWriteOutcome> { return this.call({ kind: 'saveNoteMemory', request }) }
   configureNoteMemory(request: NoteConfigureRequest): Promise<NoteWriteOutcome> { return this.call({ kind: 'configureNoteMemory', request }) }
@@ -105,7 +106,7 @@ export class LearningClient {
   readStudyPage(pageId: string): Promise<StudyPage> { return this.call({ kind: 'readStudyPage', pageId }) }
   listPages(): Promise<LearningPage[]> { return this.call({ kind: 'listPages' }) }
   syncPages(): Promise<LearningPage[]> { return this.call({ kind: 'syncPages' }) }
-  ensurePage(path: string): Promise<LearningPage> { return this.call({ kind: 'ensurePage', path }) }
+  ensurePage(path: string, expectedHash?: string): Promise<LearningPage> { return this.call({ kind: 'ensurePage', path, ...(expectedHash === undefined ? {} : { expectedHash }) }) }
   studyStats(): Promise<StudyStats> { return this.call({ kind: 'studyStats' }) }
   setDailyGoal(goal: number): Promise<StudyStats> { return this.call({ kind: 'setDailyGoal', goal }) }
 

@@ -108,3 +108,5 @@ mod learning_tests;
 
 #[cfg(test)]
 mod learning_note_tests;
+#[cfg(test)]
+mod learning_source_preview_tests;

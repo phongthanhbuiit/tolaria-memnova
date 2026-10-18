@@ -4,6 +4,7 @@ import { isMockConversionRequest, mockConversionCommand } from './note-conversio
 import { mockNoteConversionPreview } from './note-conversion'
 import { isNoteMemoryRequest, mockNoteMemoryCommand, mockNoteStudyContent, isMockBoundCard, hasMockPendingNote, mockNotePath, withMockNoteIdentity, type FixtureNoteMemory } from './note-memory'
 import { parseNoteMemoryDocument } from '../lib/learning/noteMemoryDocument'
+import { mockNoteSourcePreview } from './note-source-preview'
 import { matchesProperty, propertyKey, type PropertyDefinitions } from '../lib/learning/propertyValues'
 /** Browser-only QA fixture. Native learning data always uses Rust/SQLite. */
 import type { BackupDescriptor, CardDraft, LearningCard, LearningPage, LearningSchedule, RateRequest, SessionScope, StudyPage, StudySession } from '../lib/learning/types'
@@ -93,6 +94,13 @@ export function mockLearningCommand(args: Record<string, unknown>, context: Cont
 async function executeMockLearningCommand(args: Record<string, unknown>, context: Context): Promise<unknown> {
   const root = String(args.vaultPath).replace(/\/$/, '')
   const request = args.request as Record<string, unknown>
+  if (request.kind === 'previewNoteSource') {
+    const cached = fixtures.get(root)
+    const raw = cached ? null : localStorage.getItem(`memnova:qa-learning:${root}`)
+    const existing: Fixture | null = cached ?? (raw ? JSON.parse(raw) : null)
+    if (!existing || args.libraryId !== existing.id) throw Error('Library identity changed')
+    return mockNoteSourcePreview(root, existing, context, request, hash)
+  }
   if (request.kind === 'previewNoteConversion') {
     if (Object.keys(request).some(key => key !== 'kind')) throw Error('Invalid conversion preview request')
     const cached = fixtures.get(root)
@@ -153,7 +161,12 @@ async function executeMockLearningCommand(args: Record<string, unknown>, context
       case 'ensurePage': {
         const path = String(request.path)
         const source = await context.read(mockNotePath(root, path))
+        if (request.expectedHash !== undefined && (typeof request.expectedHash !== 'string' || request.expectedHash !== await hash(source))) throw Error('Changed source before identity assignment')
         const document = parseNoteMemoryDocument(source)
+        if (!document.pageId && request.expectedHash !== undefined) {
+          await createMockLearningBackup(data, root, context, {[path]:source})
+          if (await hash(await context.read(mockNotePath(root,path))) !== await hash(source)) throw Error('Changed source during identity assignment')
+        }
         let page = data.pages.find(page => page.path === path)
         if (!page) { page = { id: document.pageId ?? crypto.randomUUID(), path, title: path.split('/').pop()?.replace(/\.md$/, '') ?? path, available: true, createdAt: null, modifiedAt: null }; data.pages.push(page) }
         if (context.write) {
