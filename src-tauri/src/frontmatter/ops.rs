@@ -167,8 +167,20 @@ impl<'a> FieldUpdate<'a> {
     }
 }
 
-/// Internal function to update frontmatter content
+/// Update one field while retaining an existing UTF-8 BOM.
 pub fn update_frontmatter_content(
+    content: &str,
+    key: &str,
+    value: Option<FrontmatterValue>,
+) -> Result<String, String> {
+    let (prefix, body) = match content.strip_prefix('\u{feff}') {
+        Some(body) => ("\u{feff}", body),
+        None => ("", content),
+    };
+    update_document_field(body, key, value).map(|updated| format!("{prefix}{updated}"))
+}
+
+fn update_document_field(
     content: &str,
     key: &str,
     value: Option<FrontmatterValue>,

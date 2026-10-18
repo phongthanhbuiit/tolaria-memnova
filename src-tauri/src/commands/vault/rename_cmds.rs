@@ -34,9 +34,15 @@ fn with_note_path_in_vault<T>(
         request.vault_path,
         request.note_path,
         |requested_root, validated_path| {
-            action(ValidatedNotePath {
-                vault_path: requested_root,
-                note_path: validated_path,
+            crate::learning::page_content::with_source_write(|| {
+                crate::learning::page_content::guard_file_lifecycle(
+                    Path::new(requested_root),
+                    &[Path::new(requested_root)],
+                )?;
+                action(ValidatedNotePath {
+                    vault_path: requested_root,
+                    note_path: validated_path,
+                })
             })
         },
     )
@@ -235,6 +241,16 @@ pub fn move_note_to_workspace(
         let relative_path = relative_path.to_string_lossy();
 
         with_boundary(Some(&args.destination_vault_path), |destination_boundary| {
+            if source_root_path
+                .canonicalize()
+                .map_err(|error| error.to_string())?
+                != destination_boundary
+                    .requested_root()
+                    .canonicalize()
+                    .map_err(|error| error.to_string())?
+            {
+                crate::learning::page_content::guard_library_move(source_root_path, old_file)?;
+            }
             let destination_path = destination_boundary.child_path(relative_path.as_ref())?;
             let destination_root = destination_boundary
                 .requested_root()
@@ -256,13 +272,12 @@ pub fn move_note_to_workspace(
 pub fn auto_rename_untitled(
     args: AutoRenameUntitledCommandArgs,
 ) -> Result<Option<RenameResult>, String> {
-    with_existing_path_in_requested_vault(
-        &args.vault_path,
-        &args.note_path,
-        |requested_root, validated_path| {
+    with_note_path_in_vault(
+        RequestedNotePath::new(&args.vault_path, &args.note_path),
+        |note| {
             vault::auto_rename_untitled(vault::AutoRenameUntitledRequest {
-                vault_path: requested_root,
-                note_path: validated_path,
+                vault_path: note.vault_path,
+                note_path: note.note_path,
             })
         },
     )
@@ -279,7 +294,11 @@ pub fn update_wikilinks_for_renames(
     args: UpdateWikilinksForRenamesCommandArgs,
 ) -> Result<usize, String> {
     let vault_path = expand_tilde(&args.vault_path);
-    vault::update_wikilinks_for_renames(Path::new(vault_path.as_ref()), &args.renames)
+    crate::learning::page_content::with_source_write(|| {
+        let root = Path::new(vault_path.as_ref());
+        crate::learning::page_content::guard_file_lifecycle(root, &[root])?;
+        vault::update_wikilinks_for_renames(root, &args.renames)
+    })
 }
 
 #[cfg(test)]

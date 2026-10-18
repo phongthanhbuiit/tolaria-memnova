@@ -47,12 +47,14 @@ const folderEntry: VaultEntry = {
 
 function renderFolderActions({
   initialSelection,
+  onBeforeAction,
   initialTabs = [{ entry: folderEntry, content: '# Note' }],
   reloadVault,
   reloadFolders,
   setToastMessage,
 }: {
   initialSelection: SidebarSelection
+  onBeforeAction?: (path: string) => Promise<void>
   initialTabs?: Array<{ entry: VaultEntry; content: string }>
   reloadVault: ReturnType<typeof vi.fn>
   reloadFolders: ReturnType<typeof vi.fn>
@@ -70,6 +72,7 @@ function renderFolderActions({
 
     const actions = useFolderActions({
       vaultPath: '/vault',
+      onBeforeAction,
       selection,
       setSelection,
       setTabs,
@@ -98,6 +101,23 @@ describe('useFolderActions', () => {
     reloadVault = vi.fn()
     reloadFolders = vi.fn().mockResolvedValue([])
     setToastMessage = vi.fn()
+  })
+
+  it.each(['rename', 'delete'])('blocks folder %s if flushing a contained note fails', async action => {
+    const onBeforeAction = vi.fn().mockRejectedValue(new Error('pending note operation'))
+    const { result } = renderFolderActions({
+      initialSelection: { kind: 'folder', path: 'projects' },
+      onBeforeAction, reloadVault, reloadFolders, setToastMessage,
+    })
+    if (action === 'rename') {
+      await act(async () => { await result.current.actions.renameFolder('projects', 'work') })
+    } else {
+      act(() => { result.current.actions.requestDeleteFolder('projects') })
+      await act(async () => { await result.current.actions.confirmDeleteSelectedFolder() })
+    }
+    expect(onBeforeAction).toHaveBeenCalledWith('/vault/projects')
+    expect(mockInvokeFn).not.toHaveBeenCalled()
+    expect(result.current.tabs[0]?.entry.path).toBe('/vault/projects/note.md')
   })
 
   it('renames a selected folder and updates selection plus active tab path', async () => {

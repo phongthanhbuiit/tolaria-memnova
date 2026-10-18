@@ -955,5 +955,7 @@
   "editor.noteMemory.sourceFace": "Cara de la fuente",
   "editor.noteMemory.backUnavailable": "Solo está disponible el artículo. La fuente no tiene una ayuda de memoria local o esta enlaza a otra nota.",
   "editor.noteMemory.useLocal": "Usar ayuda de memoria local",
-  "editor.noteMemory.sourceReadOnly": "Vista previa de la fuente · solo lectura"
+  "editor.noteMemory.sourceReadOnly": "Vista previa de la fuente · solo lectura",
+  "editor.noteMemory.deleteConfirmation": "¿Eliminar definitivamente las notas seleccionadas y sus ayudas de memoria integradas? Se conservan las notas fuente vinculadas y los adjuntos externos a los archivos seleccionados. Esta acción no se puede deshacer.",
+  "editor.noteMemory.deleteFolderConfirmation": "¿Eliminar definitivamente esta carpeta, sus subcarpetas, notas, ayudas de memoria integradas y otros archivos? Se conservan las fuentes vinculadas externas a la carpeta. Esta acción no se puede deshacer."
 }

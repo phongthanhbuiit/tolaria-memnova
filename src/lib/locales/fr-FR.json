@@ -955,5 +955,7 @@
   "editor.noteMemory.sourceFace": "Face de la source",
   "editor.noteMemory.backUnavailable": "Seul l’article est disponible. La source n’a pas d’aide-mémoire local, ou celui-ci renvoie vers une autre note.",
   "editor.noteMemory.useLocal": "Utiliser l’aide-mémoire local",
-  "editor.noteMemory.sourceReadOnly": "Aperçu de la source · lecture seule"
+  "editor.noteMemory.sourceReadOnly": "Aperçu de la source · lecture seule",
+  "editor.noteMemory.deleteConfirmation": "Supprimer définitivement les notes sélectionnées et leurs moyens mnémotechniques intégrés ? Les notes sources liées et les pièces jointes extérieures aux fichiers sélectionnés sont conservées. Cette action est irréversible.",
+  "editor.noteMemory.deleteFolderConfirmation": "Supprimer définitivement ce dossier, ses sous-dossiers, notes, moyens mnémotechniques intégrés et autres fichiers ? Les sources liées hors du dossier sont conservées. Cette action est irréversible."
 }

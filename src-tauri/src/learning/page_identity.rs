@@ -42,3 +42,32 @@ pub(super) fn with_page_id(source: &str, id: &str) -> Result<String, String> {
         "{bom}---{line_ending}{line}---{line_ending}{candidate}"
     ))
 }
+
+/// A duplicate owns fresh memory, while every non-identity byte remains unchanged.
+pub(super) fn fresh_page_id(source: &str) -> Result<String, String> {
+    let document = super::note_memory::parse_document(source);
+    let next = uuid::Uuid::new_v4().to_string();
+    let Some(previous) = document.page_id else {
+        return with_page_id(source, &next);
+    };
+    let header = &source[..document.ranges.front.start];
+    let mut offset = 0;
+    for line in header.split_inclusive('\n') {
+        if let Some(value) = line.strip_prefix("_memnova_page_id:") {
+            // Match only this owned scalar, never a reference or the body.
+            let start = offset + line.len() - value.len()
+                + value
+                    .to_lowercase()
+                    .find(&previous.to_lowercase())
+                    .ok_or("Invalid page identity scalar")?;
+            return Ok(format!(
+                "{}{}{}",
+                &source[..start],
+                next,
+                &source[start + previous.len()..]
+            ));
+        }
+        offset += line.len();
+    }
+    Err("Invalid page identity header".into())
+}

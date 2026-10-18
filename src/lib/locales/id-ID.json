@@ -955,5 +955,7 @@
   "editor.noteMemory.sourceFace": "Sisi sumber",
   "editor.noteMemory.backUnavailable": "Hanya artikel yang tersedia. Sumber tidak memiliki alat bantu ingatan lokal, atau alat bantunya menautkan ke catatan lain.",
   "editor.noteMemory.useLocal": "Gunakan alat bantu ingatan lokal",
-  "editor.noteMemory.sourceReadOnly": "Pratinjau sumber · hanya baca"
+  "editor.noteMemory.sourceReadOnly": "Pratinjau sumber · hanya baca",
+  "editor.noteMemory.deleteConfirmation": "Hapus permanen catatan terpilih dan pengingat yang tertanam di dalamnya? Catatan sumber tertaut dan lampiran di luar berkas terpilih tetap disimpan. Tindakan ini tidak dapat dibatalkan.",
+  "editor.noteMemory.deleteFolderConfirmation": "Hapus permanen folder ini beserta subfolder, catatan, pengingat tertanam, dan berkas lainnya? Sumber tertaut di luar folder tetap disimpan. Tindakan ini tidak dapat dibatalkan."
 }

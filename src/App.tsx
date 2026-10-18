@@ -834,7 +834,17 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
     }
   }, [resolvedPath, vault])
 
+  const flushFolderBeforeMutation = useCallback(async (prefix: string) => {
+    for (const tab of notes.tabs) {
+      if (tab.entry.path === prefix || tab.entry.path.startsWith(`${prefix}/`)) {
+        await flushEditorStateBeforeAction(tab.entry.path)
+      }
+    }
+  }, [notes.tabs, flushEditorStateBeforeAction])
+
   const folderActions = useFolderActions({
+    locale: appLocale,
+    onBeforeAction: flushFolderBeforeMutation,
     vaultPath: resolvedPath,
     selection: effectiveSelection,
     setSelection: handleSetSelection,
@@ -1075,6 +1085,8 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
   }, [resolvedPath, vault.entries])
 
   const deleteActions = useDeleteActions({
+    locale: appLocale,
+    onBeforeDelete: flushEditorStateBeforeAction,
     onDeselectNote: (path: string) => { if (notes.activeTabPath === path) notes.closeAllTabs() },
     removeEntry: vault.removeEntry,
     removeEntries: vault.removeEntries,

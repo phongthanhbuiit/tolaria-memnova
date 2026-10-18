@@ -179,3 +179,6 @@ mod note_recovery_tests;
 mod note_recovery;
 mod note_recovery_models;
 pub use note_recovery_models::{NoteRecoveryRequest, NoteRecoverySummary, NoteRecoveryView};
+
+#[cfg(test)]
+mod note_file_lifecycle_tests;

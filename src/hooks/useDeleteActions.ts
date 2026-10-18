@@ -2,6 +2,7 @@ import { startTransition, useCallback, useState } from 'react'
 import { invoke } from '@tauri-apps/api/core'
 import { isTauri, mockInvoke } from '../mock-tauri'
 import { trackEvent } from '../lib/telemetry'
+import { translate, type AppLocale } from '../lib/i18n'
 
 interface ConfirmDeleteState {
   title: string
@@ -11,6 +12,8 @@ interface ConfirmDeleteState {
 }
 
 interface UseDeleteActionsInput {
+  locale?: AppLocale
+  onBeforeDelete?: (path: string) => Promise<void>
   /** Called to deselect the note if it is currently open. */
   onDeselectNote: (path: string) => void
   removeEntry: (path: string) => void
@@ -89,6 +92,7 @@ async function runDeleteCommand(
 
 function useDeleteRunner({
   onDeselectNote,
+  onBeforeDelete,
   removeEntry,
   removeEntries,
   resolveVaultPathForPath,
@@ -121,9 +125,11 @@ function useDeleteRunner({
 
     setPendingDeleteCount((count) => count + paths.length)
     setToastMessage(buildDeleteProgressMessage(paths.length))
-    optimisticallyRemoveEntries(paths)
-
     try {
+      if (onBeforeDelete) {
+        for (const path of paths) await onBeforeDelete(path)
+      }
+      optimisticallyRemoveEntries(paths)
       const deletedPaths = await runDeleteCommand(paths, resolveVaultPathForPath)
       const deletedCount = deletedPaths.length
 
@@ -147,7 +153,7 @@ function useDeleteRunner({
     } finally {
       setPendingDeleteCount((count) => Math.max(0, count - paths.length))
     }
-  }, [optimisticallyRemoveEntries, reconcileDeleteFailure, refreshModifiedFiles, resolveVaultPathForPath, setToastMessage])
+  }, [onBeforeDelete, optimisticallyRemoveEntries, reconcileDeleteFailure, refreshModifiedFiles, resolveVaultPathForPath, setToastMessage])
 
   const deleteNoteFromDisk = useCallback(async (path: string) => {
     const deletedCount = await deleteNotesFromDisk([path])
@@ -162,7 +168,9 @@ function useDeleteRunner({
 }
 
 export function useDeleteActions({
+  locale = 'en',
   onDeselectNote,
+  onBeforeDelete,
   removeEntry,
   removeEntries,
   resolveVaultPathForPath,
@@ -177,6 +185,7 @@ export function useDeleteActions({
     pendingDeleteCount,
   } = useDeleteRunner({
     onDeselectNote,
+    onBeforeDelete,
     removeEntry,
     removeEntries,
     resolveVaultPathForPath,
@@ -188,25 +197,25 @@ export function useDeleteActions({
   const handleDeleteNote = useCallback(async (path: string) => {
     setConfirmDelete({
       title: 'Delete permanently?',
-      message: 'Delete permanently? This cannot be undone. You can recover it from Git history.',
+      message: translate(locale, 'editor.noteMemory.deleteConfirmation'),
       onConfirm: async () => {
         setConfirmDelete(null)
         await deleteNoteFromDisk(path)
       },
     })
-  }, [deleteNoteFromDisk])
+  }, [deleteNoteFromDisk, locale])
 
   const handleBulkDeletePermanently = useCallback((paths: string[]) => {
     const count = paths.length
     setConfirmDelete({
       title: `Delete ${count} ${count === 1 ? 'note' : 'notes'} permanently?`,
-      message: `${count === 1 ? 'This note' : `These ${count} notes`} will be permanently deleted. This cannot be undone.`,
+      message: translate(locale, 'editor.noteMemory.deleteConfirmation'),
       onConfirm: async () => {
         setConfirmDelete(null)
         await deleteNotesFromDisk(paths)
       },
     })
-  }, [deleteNotesFromDisk])
+  }, [deleteNotesFromDisk, locale])
 
   return {
     confirmDelete,

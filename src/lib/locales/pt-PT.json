@@ -955,5 +955,7 @@
   "editor.noteMemory.sourceFace": "Face da fonte",
   "editor.noteMemory.backUnavailable": "Só o artigo está disponível. A fonte não tem um auxiliar de memória local ou este liga a outra nota.",
   "editor.noteMemory.useLocal": "Usar auxiliar de memória local",
-  "editor.noteMemory.sourceReadOnly": "Pré-visualização da fonte · só de leitura"
+  "editor.noteMemory.sourceReadOnly": "Pré-visualização da fonte · só de leitura",
+  "editor.noteMemory.deleteConfirmation": "Eliminar permanentemente as notas selecionadas e as suas mnemónicas incorporadas? As notas de origem ligadas e os anexos externos aos ficheiros selecionados são mantidos. Esta ação não pode ser anulada.",
+  "editor.noteMemory.deleteFolderConfirmation": "Eliminar permanentemente esta pasta, as subpastas, notas, mnemónicas incorporadas e outros ficheiros? As origens ligadas externas à pasta são mantidas. Esta ação não pode ser anulada."
 }

@@ -955,5 +955,7 @@
   "editor.noteMemory.sourceFace": "來源面",
   "editor.noteMemory.backUnavailable": "只能使用文章面。來源沒有本機記憶提示，或其記憶提示連結到其他筆記。",
   "editor.noteMemory.useLocal": "使用目前筆記的記憶提示",
-  "editor.noteMemory.sourceReadOnly": "來源預覽 · 唯讀"
+  "editor.noteMemory.sourceReadOnly": "來源預覽 · 唯讀",
+  "editor.noteMemory.deleteConfirmation": "永久刪除所選筆記及其內嵌記憶提示？連結的來源筆記及所選檔案以外的附件將保留。此操作無法復原。",
+  "editor.noteMemory.deleteFolderConfirmation": "永久刪除此資料夾及其子資料夾、筆記、內嵌記憶提示和其他檔案？資料夾外連結的來源將保留。此操作無法復原。"
 }

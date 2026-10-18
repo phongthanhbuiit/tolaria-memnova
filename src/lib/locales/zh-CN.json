@@ -955,5 +955,7 @@
   "editor.noteMemory.sourceFace": "来源面",
   "editor.noteMemory.backUnavailable": "只能使用文章面。来源没有本地记忆提示，或其记忆提示链接到其他笔记。",
   "editor.noteMemory.useLocal": "使用当前笔记的记忆提示",
-  "editor.noteMemory.sourceReadOnly": "来源预览 · 只读"
+  "editor.noteMemory.sourceReadOnly": "来源预览 · 只读",
+  "editor.noteMemory.deleteConfirmation": "永久删除所选笔记及其内嵌记忆提示？链接的来源笔记和所选文件以外的附件将保留。此操作无法撤销。",
+  "editor.noteMemory.deleteFolderConfirmation": "永久删除此文件夹及其子文件夹、笔记、内嵌记忆提示和其他文件？文件夹外链接的来源将保留。此操作无法撤销。"
 }

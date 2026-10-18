@@ -955,5 +955,7 @@
   "editor.noteMemory.sourceFace": "Bok krynicy",
   "editor.noteMemory.backUnavailable": "Dastupny tolki artykuł. U krynicy niama łakalnaj mnemoniki abo jana spasyłajecca na inšuju natatku.",
   "editor.noteMemory.useLocal": "Vykarystać łakalnuju mnemoniku",
-  "editor.noteMemory.sourceReadOnly": "Prahlad krynicy · tolki čytannie"
+  "editor.noteMemory.sourceReadOnly": "Prahlad krynicy · tolki čytannie",
+  "editor.noteMemory.deleteConfirmation": "Nazaŭsiody vydalić vybranyja natatki i ŭbudavanyja mnemaničnyja padkazki? Zviazanyja zychodnyja natatki i ŭkładańni pa-za vybranymi fajłami zastanucca. Heta dziejańnie nielha admianić.",
+  "editor.noteMemory.deleteFolderConfirmation": "Nazaŭsiody vydalić hetu papku, padpapki, natatki, ŭbudavanyja mnemaničnyja padkazki i inšyja fajły? Zviazanyja krynicy pa-za papkaj zastanucca. Heta dziejańnie nielha admianić."
 }

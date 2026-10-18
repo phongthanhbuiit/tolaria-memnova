@@ -3,9 +3,7 @@ use crate::vault::filename_rules::validate_folder_name;
 use crate::vault::{self, FolderNode, VaultEntry};
 use std::path::{Path, PathBuf};
 
-use super::boundary::{
-    with_boundary, with_existing_paths, with_requested_root, with_validated_path, ValidatedPathMode,
-};
+use super::boundary::{with_boundary, with_requested_root, with_validated_path, ValidatedPathMode};
 
 fn content_library_root(vault_path: Option<&Path>) -> Result<PathBuf, String> {
     let raw = vault_path.map(|path| path.to_string_lossy());
@@ -195,23 +193,38 @@ pub fn create_note_content(
 }
 
 #[tauri::command]
-pub fn delete_note(path: PathBuf) -> Result<String, String> {
-    with_validated_path(
-        path.to_string_lossy().as_ref(),
-        None,
-        ValidatedPathMode::Existing,
-        vault::delete_note,
-    )
+pub fn delete_note(path: PathBuf, vault_path: Option<PathBuf>) -> Result<String, String> {
+    let root = content_library_root(vault_path.as_deref())?;
+    crate::learning::page_content::with_source_write(|| {
+        with_note_path(
+            &path,
+            Some(&root),
+            ValidatedPathMode::Existing,
+            |validated| {
+                crate::learning::page_content::guard_file_lifecycle(&root, &[validated])?;
+                vault::delete_note(&validated.to_string_lossy())
+            },
+        )
+    })
 }
 
 #[tauri::command]
-pub fn batch_delete_notes(paths: Vec<PathBuf>) -> Result<Vec<String>, String> {
+pub fn batch_delete_notes(
+    paths: Vec<PathBuf>,
+    vault_path: Option<PathBuf>,
+) -> Result<Vec<String>, String> {
+    let root = content_library_root(vault_path.as_deref())?;
     let raw_paths = paths
         .iter()
         .map(|path| path.to_string_lossy().into_owned())
         .collect::<Vec<_>>();
-    with_existing_paths(&raw_paths, None, |validated_paths| {
-        vault::batch_delete_notes(&validated_paths)
+    crate::learning::page_content::with_source_write(|| {
+        with_boundary(Some(&root.to_string_lossy()), |boundary| {
+            let validated = boundary.validate_existing_paths(&raw_paths)?;
+            let affected: Vec<&Path> = validated.iter().map(Path::new).collect();
+            crate::learning::page_content::guard_file_lifecycle(&root, &affected)?;
+            vault::batch_delete_notes(&validated)
+        })
     })
 }
 

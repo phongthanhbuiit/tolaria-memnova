@@ -9,17 +9,21 @@ pub fn rename_vault_folder(
     new_name: String,
 ) -> Result<FolderRenameResult, String> {
     let vault_path = expand_tilde(&vault_path);
-    vault::rename_folder(
-        std::path::Path::new(vault_path.as_ref()),
-        &folder_path,
-        &new_name,
-    )
+    crate::learning::page_content::with_source_write(|| {
+        let root = std::path::Path::new(vault_path.as_ref());
+        crate::learning::page_content::guard_file_lifecycle(root, &[&root.join(&folder_path)])?;
+        vault::rename_folder(root, &folder_path, &new_name)
+    })
 }
 
 #[tauri::command]
 pub fn delete_vault_folder(vault_path: String, folder_path: String) -> Result<String, String> {
     let vault_path = expand_tilde(&vault_path);
-    vault::delete_folder(std::path::Path::new(vault_path.as_ref()), &folder_path)
+    crate::learning::page_content::with_source_write(|| {
+        let root = std::path::Path::new(vault_path.as_ref());
+        crate::learning::page_content::guard_file_lifecycle(root, &[&root.join(&folder_path)])?;
+        vault::delete_folder(root, &folder_path)
+    })
 }
 
 #[cfg(test)]

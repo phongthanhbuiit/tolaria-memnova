@@ -1,10 +1,13 @@
+import type { AppLocale } from '../lib/i18n'
 import type { FolderNode, SidebarSelection, VaultEntry } from '../types'
 import type { FolderTab } from './folder-actions/folderActionUtils'
 import { useFolderDelete } from './folder-actions/useFolderDelete'
 import { useFolderRename } from './folder-actions/useFolderRename'
 
 interface UseFolderActionsInput {
+  locale?: AppLocale
   vaultPath: string
+  onBeforeAction?: (prefix: string) => Promise<void>
   selection: SidebarSelection
   setSelection: (selection: SidebarSelection) => void
   setTabs: React.Dispatch<React.SetStateAction<FolderTab[]>>
@@ -17,7 +20,9 @@ interface UseFolderActionsInput {
 }
 
 export function useFolderActions({
+  locale,
   vaultPath,
+  onBeforeAction,
   selection,
   setSelection,
   setTabs,
@@ -38,9 +43,11 @@ export function useFolderActions({
     setTabs,
     setToastMessage,
     vaultPath,
+    onBeforeAction,
   })
   const deleteActions = useFolderDelete({
     activeTabPathRef,
+    locale,
     clearFolderRename: renameActions.cancelFolderRename,
     closeAllTabs,
     reloadFolders,
@@ -50,6 +57,7 @@ export function useFolderActions({
     setTabs,
     setToastMessage,
     vaultPath,
+    onBeforeAction,
   })
 
   return {

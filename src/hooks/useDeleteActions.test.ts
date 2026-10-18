@@ -30,10 +30,11 @@ describe('useDeleteActions', () => {
     mockInvokeFn.mockReset()
   })
 
-  function renderDeleteActions(options: { resolveVaultPathForPath?: (path: string) => string | null | undefined } = {}) {
+  function renderDeleteActions(options: { resolveVaultPathForPath?: (path: string) => string | null | undefined; onBeforeDelete?: (path: string) => Promise<void> } = {}) {
     return renderHook(() =>
       useDeleteActions({
         onDeselectNote,
+        onBeforeDelete: options.onBeforeDelete,
         removeEntry,
         removeEntries,
         resolveVaultPathForPath: options.resolveVaultPathForPath,
@@ -79,6 +80,30 @@ describe('useDeleteActions', () => {
 
     return { result }
   }
+
+  it('keeps a dirty note open and does not delete when its canonical flush fails', async () => {
+    const onBeforeDelete = vi.fn().mockRejectedValue(new Error('unresolved source conflict'))
+    const { result } = renderDeleteActions({ onBeforeDelete })
+    let deleted = true
+    await act(async () => { deleted = await result.current.deleteNoteFromDisk('/vault/a.md') })
+    expect(onBeforeDelete).toHaveBeenCalledWith('/vault/a.md')
+    expect(mockInvokeFn).not.toHaveBeenCalled()
+    expect(onDeselectNote).not.toHaveBeenCalled()
+    expect(removeEntries).not.toHaveBeenCalled()
+    expect(deleted).toBe(false)
+  })
+
+  it('flushes every selected note before deleting or closing any of them', async () => {
+    const order: string[] = []
+    const onBeforeDelete = vi.fn(async (path: string) => { order.push(path) })
+    mockInvokeFn.mockImplementation(async () => { order.push('delete'); return ['/vault/a.md', '/vault/b.md'] })
+    onDeselectNote.mockImplementation(() => { order.push('close') })
+    const { result } = renderDeleteActions({ onBeforeDelete })
+    await openDeleteDialog(result, ['/vault/a.md', '/vault/b.md'])
+    await confirmCurrentDelete(result)
+    expect(order.slice(0, 2)).toEqual(['/vault/a.md', '/vault/b.md'])
+    expect(order).toContain('delete')
+  })
 
   // --- deleteNoteFromDisk ---
 

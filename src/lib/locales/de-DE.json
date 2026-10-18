@@ -955,5 +955,7 @@
   "editor.noteMemory.sourceFace": "Quellseite",
   "editor.noteMemory.backUnavailable": "Nur der Artikel ist verfügbar. Die Quelle hat keine lokale Merkhilfe oder ihre Merkhilfe verweist auf eine andere Notiz.",
   "editor.noteMemory.useLocal": "Lokale Merkhilfe verwenden",
-  "editor.noteMemory.sourceReadOnly": "Quellvorschau · schreibgeschützt"
+  "editor.noteMemory.sourceReadOnly": "Quellvorschau · schreibgeschützt",
+  "editor.noteMemory.deleteConfirmation": "Ausgewählte Notizen samt eingebetteten Merkhilfen dauerhaft löschen? Verknüpfte Quellnotizen und Anhänge außerhalb der ausgewählten Dateien bleiben erhalten. Dies kann nicht rückgängig gemacht werden.",
+  "editor.noteMemory.deleteFolderConfirmation": "Diesen Ordner mit Unterordnern, Notizen, eingebetteten Merkhilfen und anderen Dateien dauerhaft löschen? Verknüpfte Quellen außerhalb des Ordners bleiben erhalten. Dies kann nicht rückgängig gemacht werden."
 }
