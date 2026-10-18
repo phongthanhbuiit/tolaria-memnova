@@ -28,7 +28,7 @@ fn native_patches_match_frontend_without_rewriting_other_bytes() {
         "../../../tests/fixtures/note-memory/patch-corpus.json"
     ))
     .unwrap();
-    assert_eq!(cases.len(), 7);
+    assert_eq!(cases.len(), 9);
     for case in cases {
         let source = case["source"].as_str().unwrap();
         let actual = if case.get("config").is_some() {

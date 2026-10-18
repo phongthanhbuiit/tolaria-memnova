@@ -32,7 +32,7 @@ export function patchNoteMemoryFace(source: string, face: MemoryFace, content: s
     : replaceFace(source, document, face, content, newline)
 }
 
-function patchHeader(source: string, config: NoteMemoryConfig): string {
+function patchHeader(source: string, config: NoteMemoryConfig, newline: string): string {
   const values = memoryConfigValues(config)
   const replaced = memoryLines(source).map(line => {
     const key = line.text.match(/^(_memnova_\w+):/)?.[1]
@@ -46,7 +46,6 @@ function patchHeader(source: string, config: NoteMemoryConfig): string {
     const comment = line.text.match(/\s+#.*$/)?.[0] ?? ''
     return `${key}: ${value}${comment}${ending}`
   }).join('')
-  const newline = source.includes('\r\n') ? '\r\n' : '\n'
   return replaced + [...values].map(([key, value]) => `${key}: ${value}${newline}`).join('')
 }
 
@@ -60,10 +59,10 @@ export function patchNoteMemoryConfig(source: string, config: NoteMemoryConfig):
   let next: string
   if (document.header) {
     const { contentStart, contentEnd } = document.header
-    next = source.slice(0, contentStart) + patchHeader(source.slice(contentStart, contentEnd), config) + source.slice(contentEnd)
+    next = source.slice(0, contentStart) + patchHeader(source.slice(contentStart, contentEnd), config, newline) + source.slice(contentEnd)
   } else {
     const prefix = source.startsWith('\ufeff') ? '\ufeff' : ''
-    next = `${prefix}---${newline}${patchHeader('', config)}---${newline}${source.slice(prefix.length)}`
+    next = `${prefix}---${newline}${patchHeader('', config, newline)}---${newline}${source.slice(prefix.length)}`
   }
   if (parseNoteMemoryDocument(next).issues.length) throw new Error('invalid-config')
   return next

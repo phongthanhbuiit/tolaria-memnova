@@ -65,5 +65,29 @@
       }
     },
     "expected": "---\n_memnova_learning_version: 1\n_memnova_learning_enabled: false\n_memnova_back_kind: page\n_memnova_back_page_id: 1C54F4DA-80C6-4761-98E7-02D4E137B73C\n_memnova_back_face: front\n---\n# Article\n<!-- FLASHCARD:BACK -->\nRetained inline back\n"
+  },
+  {
+    "name": "configure plain CRLF note",
+    "source": "# Article\r\n",
+    "config": {
+      "version": 1,
+      "enabled": true,
+      "back": {
+        "kind": "inline"
+      }
+    },
+    "expected": "---\r\n_memnova_learning_version: 1\r\n_memnova_learning_enabled: true\r\n_memnova_back_kind: inline\r\n---\r\n# Article\r\n"
+  },
+  {
+    "name": "configure empty CRLF header",
+    "source": "---\r\n---\r\n# Article\r\n",
+    "config": {
+      "version": 1,
+      "enabled": true,
+      "back": {
+        "kind": "inline"
+      }
+    },
+    "expected": "---\r\n_memnova_learning_version: 1\r\n_memnova_learning_enabled: true\r\n_memnova_back_kind: inline\r\n---\r\n# Article\r\n"
   }
 ]

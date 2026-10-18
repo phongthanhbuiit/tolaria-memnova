@@ -125,14 +125,14 @@ fn header_line(
     )
 }
 
-fn patch_header(source: &str, config: &MemoryConfig) -> String {
+fn patch_header(source: &str, config: &MemoryConfig, eol: &str) -> String {
     let mut values = config_values(config);
     let mut output: String = lines::lines(source)
         .into_iter()
         .map(|line| header_line(source, line, &mut values))
         .collect();
     for (key, value) in values {
-        output.push_str(&format!("{key}: {value}{}", newline(source)));
+        output.push_str(&format!("{key}: {value}{eol}"));
     }
     output
 }
@@ -149,7 +149,11 @@ pub fn patch_config(source: &str, config: &MemoryConfig) -> Result<String, Strin
         format!(
             "{}{}{}",
             &source[..header.content_start],
-            patch_header(&source[header.content_start..header.content_end], config),
+            patch_header(
+                &source[header.content_start..header.content_end],
+                config,
+                newline(source)
+            ),
             &source[header.content_end..]
         )
     } else {
@@ -161,7 +165,7 @@ pub fn patch_config(source: &str, config: &MemoryConfig) -> Result<String, Strin
         let eol = newline(source);
         format!(
             "{prefix}---{eol}{}---{eol}{}",
-            patch_header("", config).replace('\n', eol),
+            patch_header("", config, eol),
             &source[prefix.len()..]
         )
     };

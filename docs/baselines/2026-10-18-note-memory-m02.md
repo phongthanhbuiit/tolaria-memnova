@@ -11,3 +11,7 @@ Final local Codacy0.24.0 scans six Rust code/test paths with Opengrep/Lizard (ES
 ARCHITECTURE/ABSTRACTIONS updated under ADR-0147. Localization: no UI copy changes. PostHog: no event needed for an unexposed pure codec. No filesystem/SQLite operations in codec code; tests use shared static corpus. Native GUI and coverage are not rerun for this staged step; normal batch gates and final M23/M25 remain required.
 
 Evidence: `/tmp/memnova-note-memory-evidence/m02/`, RED/GREEN/module/clippy logs and final Codacy SARIF. Commit/pre-commit outcome is recorded in the ledger after execution. VERIFIED_LOCAL does not claim a completed remote push.
+
+## CRLF writer follow-up
+
+Initial native checkpoint `ca6d912a` passes normal pre-commit. Two further shared patch vectors reveal a real formatting defect: inserted owned fields used LF for a new/empty CRLF header. Frontend RED has two failures; native RED fails the empty-header vector. Both writers now receive the complete document's selected line ending rather than deriving it from an empty header substring. GREEN:52 frontend codec tests and all three native tests covering28 parse plus nine patch vectors. Focused final Codacy on the three touched code/test files has zero findings. This fix is a separate regression commit; no change to source ownership, schema or user data.
