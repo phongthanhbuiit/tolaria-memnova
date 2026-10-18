@@ -109,3 +109,10 @@ mod note_write_tests;
 mod note_write_hooks;
 mod note_write_journal;
 mod note_write_models;
+
+pub mod note_lifecycle;
+#[cfg(test)]
+mod note_lifecycle_tests;
+
+mod note_memory_view;
+mod note_reconcile;

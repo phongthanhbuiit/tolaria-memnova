@@ -18,10 +18,10 @@ pub(super) struct Header {
 }
 
 #[derive(Clone, Copy)]
-struct Fence<'a> {
+pub(super) struct Fence<'a> {
     character: u8,
     length: usize,
-    info: &'a str,
+    pub(super) info: &'a str,
 }
 
 #[derive(Default)]
@@ -66,7 +66,7 @@ pub(super) fn header(lines: &[Line<'_>]) -> Result<Option<Header>, ()> {
     }))
 }
 
-fn fence_at(text: &str) -> Option<Fence<'_>> {
+pub(super) fn fence_at(text: &str) -> Option<Fence<'_>> {
     let spaces = text.bytes().take_while(|byte| *byte == b' ').count();
     if spaces > 3 {
         return None;
@@ -118,7 +118,7 @@ fn advance_inline(source: &str, context: &mut InlineContext) {
     }
 }
 
-fn closes(candidate: Option<Fence<'_>>, current: Fence<'_>) -> bool {
+pub(super) fn closes(candidate: Option<Fence<'_>>, current: Fence<'_>) -> bool {
     candidate.is_some_and(|next| {
         next.character == current.character
             && next.length >= current.length
@@ -126,7 +126,7 @@ fn closes(candidate: Option<Fence<'_>>, current: Fence<'_>) -> bool {
     })
 }
 
-fn opens(candidate: Option<Fence<'_>>) -> Option<Fence<'_>> {
+pub(super) fn opens(candidate: Option<Fence<'_>>) -> Option<Fence<'_>> {
     candidate.filter(|next| next.character != b'`' || !next.info.contains('`'))
 }
 

@@ -29,7 +29,7 @@ fn seconds(time: std::io::Result<std::time::SystemTime>) -> Option<u64> {
         .map(|duration| duration.as_secs())
 }
 
-fn source_ids(root: &Path) -> Result<HashMap<String, (String, String)>, String> {
+pub(super) fn source_ids(root: &Path) -> Result<HashMap<String, (String, String)>, String> {
     let mut result = HashMap::new();
     let walker = walkdir::WalkDir::new(root)
         .follow_links(false)

@@ -2,8 +2,11 @@ use super::identity::{library_identity, reject_symlink};
 use rusqlite::{Connection, OptionalExtension};
 use std::{
     path::{Component, Path, PathBuf},
+    sync::Mutex,
     time::Duration,
 };
+
+static STORE_OPEN: Mutex<()> = Mutex::new(());
 
 pub struct Store {
     pub(super) conn: Connection,
@@ -13,41 +16,22 @@ pub struct Store {
 
 impl Store {
     pub fn open(root: &Path) -> Result<Self, String> {
+        let _opening = STORE_OPEN.lock().map_err(|error| error.to_string())?;
         let root = root.canonicalize().map_err(|e| e.to_string())?;
         let directory = root.join(".memnova");
+        reject_symlink(&directory)?;
+        if directory.join("library.json").exists() && !directory.join("learning.sqlite3").exists() {
+            return Err(
+                "Learning database is missing; restore a verified Library backup before continuing"
+                    .into(),
+            );
+        }
+        let existing_identity = directory.join("library.json").exists();
         let library_id = library_identity(&directory)?;
-        let path = directory.join("learning.sqlite3");
         for suffix in ["", "-wal", "-shm"] {
             reject_symlink(&directory.join(format!("learning.sqlite3{suffix}")))?;
         }
-        let mut conn = Connection::open(path).map_err(|e| e.to_string())?;
-        conn.busy_timeout(Duration::from_secs(5))
-            .map_err(|e| e.to_string())?;
-        let version: u32 = conn
-            .pragma_query_value(None, "user_version", |row| row.get(0))
-            .map_err(|e| e.to_string())?;
-        if version > super::SCHEMA_VERSION {
-            return Err("Learning database was created by a newer Memnova version".into());
-        }
-        if version == super::SCHEMA_VERSION {
-            super::storage_metadata::validate_owner(&conn, &library_id)?;
-        }
-        conn.execute_batch(
-            "PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL;",
-        )
-        .map_err(|e| e.to_string())?;
-        if version > 0 && version < super::SCHEMA_VERSION {
-            let previous = Self {
-                conn,
-                library_id: library_id.clone(),
-                root: root.clone(),
-            };
-            previous.create_backup()?;
-            conn = previous.conn;
-        }
-        if version < super::SCHEMA_VERSION {
-            super::storage_metadata::initialize_schema(&mut conn, &library_id)?;
-        }
+        let conn = open_owned_database(&root, &library_id, existing_identity)?;
         Ok(Self {
             conn,
             library_id,
@@ -122,4 +106,45 @@ pub(super) fn register_page_in(
     }
     transaction.execute("INSERT INTO pages(id,path,title) VALUES(?1,?2,?3) ON CONFLICT(id) DO UPDATE SET path=excluded.path,title=excluded.title,deleted_at=NULL", (id,path,title)).map_err(|e| e.to_string())?;
     Ok(())
+}
+
+fn open_owned_database(
+    root: &Path,
+    library_id: &str,
+    existing_identity: bool,
+) -> Result<Connection, String> {
+    let mut conn =
+        Connection::open(root.join(".memnova/learning.sqlite3")).map_err(|e| e.to_string())?;
+    conn.busy_timeout(Duration::from_secs(5))
+        .map_err(|e| e.to_string())?;
+    let version: u32 = conn
+        .pragma_query_value(None, "user_version", |row| row.get(0))
+        .map_err(|e| e.to_string())?;
+    if version == 0 && existing_identity {
+        return Err(
+            "Existing Library database is empty; restore a verified backup before continuing"
+                .into(),
+        );
+    }
+    if version > super::SCHEMA_VERSION {
+        return Err("Learning database was created by a newer Memnova version".into());
+    }
+    if version == super::SCHEMA_VERSION {
+        super::storage_metadata::validate_owner(&conn, library_id)?;
+    }
+    conn.execute_batch("PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL;")
+        .map_err(|e| e.to_string())?;
+    if version > 0 && version < super::SCHEMA_VERSION {
+        let previous = Store {
+            conn,
+            library_id: library_id.to_string(),
+            root: root.to_path_buf(),
+        };
+        previous.create_backup()?;
+        conn = previous.conn;
+    }
+    if version < super::SCHEMA_VERSION {
+        super::storage_metadata::initialize_schema(&mut conn, library_id)?;
+    }
+    Ok(conn)
 }

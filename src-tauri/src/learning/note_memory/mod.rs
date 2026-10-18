@@ -128,3 +128,5 @@ fn editable(source: &str) -> Result<MemoryDocument, String> {
         ))
     }
 }
+mod readiness;
+pub use readiness::useful_content;

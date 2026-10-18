@@ -60,25 +60,42 @@ fn valid_source_hash(hash: &str) -> bool {
 
 impl Store {
     pub fn note_binding(&self, page_id: &str) -> Result<Option<NoteBinding>, String> {
-        uuid::Uuid::parse_str(page_id).map_err(|_| "Invalid note identity")?;
-        let binding: Option<NoteBinding> = self.conn.query_row(
-            "SELECT page_id,card_id,source_hash,revision FROM note_card_bindings WHERE page_id=?1",
-            [page_id], |row| Ok(NoteBinding { page_id: row.get(0)?, card_id: row.get(1)?, source_hash: row.get(2)?, revision: row.get(3)? }),
-        ).optional().map_err(|error| error.to_string())?;
-        if let Some(binding) = &binding {
-            uuid::Uuid::parse_str(&binding.card_id).map_err(|_| "Invalid bound card identity")?;
-            let owner: String = self
-                .conn
-                .query_row(
-                    "SELECT page_id FROM cards WHERE id=?1",
-                    [&binding.card_id],
-                    |row| row.get(0),
-                )
-                .map_err(|error| error.to_string())?;
-            if owner != binding.page_id || !valid_source_hash(&binding.source_hash) {
-                return Err("Invalid note learning binding; existing data was preserved".into());
-            }
-        }
-        Ok(binding)
+        read_note_binding(&self.conn, page_id)
     }
+}
+
+pub(super) fn read_note_binding(
+    connection: &rusqlite::Connection,
+    page_id: &str,
+) -> Result<Option<NoteBinding>, String> {
+    uuid::Uuid::parse_str(page_id).map_err(|_| "Invalid note identity")?;
+    let binding: Option<NoteBinding> = connection
+        .query_row(
+            "SELECT page_id,card_id,source_hash,revision FROM note_card_bindings WHERE page_id=?1",
+            [page_id],
+            |row| {
+                Ok(NoteBinding {
+                    page_id: row.get(0)?,
+                    card_id: row.get(1)?,
+                    source_hash: row.get(2)?,
+                    revision: row.get(3)?,
+                })
+            },
+        )
+        .optional()
+        .map_err(|error| error.to_string())?;
+    if let Some(binding) = &binding {
+        uuid::Uuid::parse_str(&binding.card_id).map_err(|_| "Invalid bound card identity")?;
+        let owner: String = connection
+            .query_row(
+                "SELECT page_id FROM cards WHERE id=?1",
+                [&binding.card_id],
+                |row| row.get(0),
+            )
+            .map_err(|error| error.to_string())?;
+        if owner != binding.page_id || !valid_source_hash(&binding.source_hash) {
+            return Err("Invalid note learning binding; existing data was preserved".into());
+        }
+    }
+    Ok(binding)
 }

@@ -548,3 +548,7 @@ In the Properties Inspector, **Page properties** opens the typed editor once the
 A card answer can use its own text, the current page or another page in the same Library. Select a source by its path when titles coincide. Open the source preview to read it without leaving the unsaved card form. Source changes are live; missing sources block grading until repaired/reloaded. Choosing a source never changes the card's owner, review scope or memory.
 
 Use **Media** in the card form to expand image/audio paths and previews. In the desktop app, **Choose image/audio** copies a selected file through the existing attachments pipeline; Save commits the property to the card. A failed preview leaves the path available to correct. Card review dates/counts appear as read-only information. Custom card metadata remains private to the editor rather than being added to the study face.
+
+### Missing learning database
+
+If an existing `.memnova/library.json` has no initialized `learning.sqlite3`, Memnova reports a recovery error instead of replacing review history with an empty database. Restore a verified backup into a new directory. Keep the original Library for inspection. This guard also covers interrupted first initialization: for a genuinely unused empty Library with no backup, choose a new empty directory rather than deleting potentially useful recovery material. Copying Markdown alone does not preserve learning history or necessarily include attachments.
