@@ -7,10 +7,10 @@ Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. **Đây là
 | Task | Trạng thái | Commit đã push | Bằng chứng và giới hạn |
 |---|---|---|---|
 | M00 | DONE | 855ea883 | Baseline122 frontend/92 Rust; fixture test, final93 learning Rust; production20 samples; Codacy0; pre-commit54 smoke/4.6m; pre-push4585 tests, frontend86.51% lines, Rust hook86.97% lines (excludes lib/main/menu),54 smoke/4.7m. Push8m40s passed, remote SHA verified. Native NOT RUN. See baseline report. |
-| M01 | VERIFIED_LOCAL | local4072540b | 50 codec tests;72 focused including legacy;144 learning tests; final types/lint/related pre-commit pass. Shared28 parse+7 patch vectors. Codacy reviewed one false Medium/one Minor, no Critical/High; ADR0147/docs. See M01 baseline. Batch push after M03. |
-| M02 | VERIFIED_LOCAL | localca6d912a,b71dbad8 | Native3 tests cover37 shared vectors; frontend52;96 Rust learning pass; clippy/rustfmt pass. Main Codacy one Minor/no Medium+, CRLF fix scan0. Pre-commit passed, batch push pending. |
-| M03 | VERIFIED_LOCAL | commit recorded below | Additive schema5, four new native tests;100 learning+64 focused frontend pass, types/clippy/fmt pass. Codacy reviewed advisories/no CriticalHigh; ADR0148/docs; normal batch push pending. See M03 baseline. |
-| M04 | NOT_STARTED | — | — |
+| M01 | DONE | 4072540b; pushed fef27504 | 50 codec tests;72 focused including legacy;144 learning tests; final types/lint/related pre-commit pass. Shared28 parse+7 patch vectors. Codacy reviewed one false Medium/one Minor, no Critical/High; ADR0147/docs. See M01 baseline. Batch push after M03. |
+| M02 | DONE | ca6d912a,b71dbad8; pushed fef27504 | Native3 tests cover37 shared vectors; frontend52;96 Rust learning pass; clippy/rustfmt pass. Main Codacy one Minor/no Medium+, CRLF fix scan0. Pre-commit passed, batch push pending. |
+| M03 | DONE | fef27504 | Additive schema5, four new native tests;100 learning+64 focused frontend pass, types/clippy/fmt pass. Codacy reviewed advisories/no CriticalHigh; ADR0148/docs; normal batch push pending. See M03 baseline. |
+| M04 | VERIFIED_LOCAL | commit recorded below | Native coordinator;11 focused and111 learning tests pass; clippy/fmt pass; Codacy no Medium+/6 reviewed Minor. Hash/revision/replay/crash/compaction preservation; see M04 baseline. Normal batch push pending. |
 | M05 | NOT_STARTED | — | — |
 | M06 | NOT_STARTED | — | — |
 | M07 | NOT_STARTED | — | — |
@@ -67,3 +67,7 @@ Task kế tiếp đủ dependency:
 - CodeScene: NOT RUN, docs-only; integration tùy chọn không được dùng để ngăn lập kế hoạch. Codacy/coverage/native/l10n runtime: không chạy lại cho tài liệu này; không có UI copy hoặc production behavior thay đổi.
 - Kiểm tra cấu trúc tài liệu: PASS, đủ 26 task với mục tiêu/nghiệm thu và 26 trạng thái NOT_STARTED; dependency graph không vòng lặp; đủ 12 integration cases; local document/source links tồn tại; code fences cân bằng và không trailing whitespace.
 - Kết quả kiểm tra cấu trúc tài liệu và commit/push của lượt lập kế hoạch được báo ở phần bàn giao; không tự điền SHA chưa tồn tại.
+
+## M01–M03 batch release evidence
+
+Normal `git push origin main` succeeded at fef27504 (9m3s gate). 4638 frontend tests/437 files, lines86.58% (statements83.08%); build/lint/types pass. Rust1104 unit tests plus1 integration pass,3 ignored; hook coverage87.09% lines with its existing lib/main/menu exclusions. Unexcluded final coverage remains M25, not claimed here. Core smoke54 pass (4.6m); CodeScene NOT RUN optional unavailable. M03 pre-commit2751 related frontend tests and100 Rust learning tests pass. Codacy SQL attempt: analyzer selected0 files, SQL scan NOT APPLICABLE (not a claimed security pass); SQLite constraints are verified through real database tests. Final new binding reader scan has one reviewed Minor, no Medium+. Demo dirt empty, remote/local SHA matched after push. Logs archived under /tmp/memnova-note-memory-evidence/m03/.

@@ -100,3 +100,12 @@ pub use property_definitions::{PropertyDefinition, PropertyDefinitions};
 mod note_storage;
 mod property_precision;
 pub use note_storage::{NoteBinding, NoteOperationKind, NoteOperationPhase};
+
+pub mod note_write;
+mod note_write_disk;
+#[cfg(test)]
+mod note_write_tests;
+
+mod note_write_hooks;
+mod note_write_journal;
+mod note_write_models;
