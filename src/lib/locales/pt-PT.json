@@ -946,5 +946,14 @@
   "editor.whiteboard.mediaNotice": "Alguns conteúdos usam ligações online ou caminhos de outro dispositivo, ou estão indisponíveis aqui. As ligações originais são preservadas. Faça uma cópia da Library antes de as corrigir.",
   "editor.noteMemory.addMnemonic": "Adicionar auxiliar de memória",
   "editor.noteMemory.externalConflict": "O ficheiro foi alterado noutro local. O seu rascunho local foi preservado. Copie-o antes de recarregar.",
-  "editor.noteMemory.mnemonicHelp": "Adicione imagens, texto ou um quadro branco para ajudar a recordar o artigo."
+  "editor.noteMemory.mnemonicHelp": "Adicione imagens, texto ou um quadro branco para ajudar a recordar o artigo.",
+  "editor.noteMemory.applySource": "Usar fonte",
+  "editor.noteMemory.registrationHelp": "Se a ligação precisar de alterar o ficheiro de origem, é criada primeiro uma cópia de segurança verificada. Isto não ativa a aprendizagem da fonte.",
+  "editor.noteMemory.registrationPartial": "As alterações no ficheiro de origem podem já estar guardadas. O seu rascunho foi preservado. Tente novamente ou abra a recuperação, se necessário.",
+  "editor.noteMemory.localMnemonic": "Auxiliar de memória local",
+  "editor.noteMemory.openSource": "Abrir fonte",
+  "editor.noteMemory.sourceFace": "Face da fonte",
+  "editor.noteMemory.backUnavailable": "Só o artigo está disponível. A fonte não tem um auxiliar de memória local ou este liga a outra nota.",
+  "editor.noteMemory.useLocal": "Usar auxiliar de memória local",
+  "editor.noteMemory.sourceReadOnly": "Pré-visualização da fonte · só de leitura"
 }

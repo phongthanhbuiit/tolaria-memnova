@@ -1,95 +1,167 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { NoteAutocomplete } from '../NoteAutocomplete'
 import { SourcePagePreview } from './SourcePagePreview'
+import { SourceSelectionPreview } from './SourceSelectionPreview'
+import { Button } from '../ui/button'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '../ui/dialog'
 import { translate, type AppLocale } from '../../lib/i18n'
 import type { LearningPage } from '../../lib/learning/types'
+import type { LearningClient } from '../../lib/learning/client'
+import type { VaultEntry } from '../../types'
+import {
+  registerSelectedSource,
+  SourceRegistrationError,
+} from '../../lib/learning/sourceSelection'
 import { useLearningWorkspace } from './LearningContext'
+import { useSourcePreview } from './useSourcePreview'
+import './noteMemory.css'
 
-export function SourcePagePicker({
-  value,
-  locale,
-  disabled,
-  onChange,
-  onBusyChange,
-  label,
-}: {
+interface PickerProps {
   value: string | null
   locale: AppLocale
   disabled: boolean
   onChange: (page: LearningPage) => void
   onBusyChange?: (busy: boolean) => void
   label?: string
-}) {
-  const workspace = useLearningWorkspace()
-  const client = workspace?.client
-  const root = workspace?.root ?? client?.vaultPath ?? ''
-  const id = useId()
-  const [query, setQuery] = useState('')
+}
+type PendingSource = {
+  client: LearningClient
+  entry: VaultEntry
+  registered?: LearningPage
+}
+type SourceAction = {
+  client: LearningClient
+  busy: boolean
+  error: string | null
+  partial: boolean
+}
+
+export function SourcePagePicker(props: PickerProps) {
+  const { value, locale, disabled, onChange, onBusyChange, label } = props
+  const workspace = useLearningWorkspace(),
+    client = workspace?.client ?? null,
+    root = workspace?.root || client?.vaultPath || ''
+  const id = useId(),
+    [query, setQuery] = useState('')
+  const [stored, setPending] = useState<PendingSource | null>(null),
+    pending = stored?.client === client ? stored : null
   const [choice, setChoice] = useState<{
-    root: string
+    client: LearningClient
     page: LearningPage
   } | null>(null)
-  const [busy, setBusy] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const active = useRef<object | null>(null)
-  const locked = useRef(false)
-  const busyCallback = useRef(onBusyChange)
+  const [storedAction, setAction] = useState<SourceAction | null>(null),
+    action = storedAction?.client === client ? storedAction : null
+  const active = useRef<object | null>(null),
+    locked = useRef<object | null>(null),
+    busyCallbackRef = useRef(onBusyChange)
+  const candidatePath = pending?.entry.path.slice(root.length + 1) ?? null
+  const preview = useSourcePreview({
+    client,
+    path: candidatePath,
+    face: 'front',
+    open: Boolean(pending),
+  })
+  const busy = Boolean(action?.busy || preview.busy)
   useEffect(() => {
-    busyCallback.current = onBusyChange
+    busyCallbackRef.current = onBusyChange
   }, [onBusyChange])
+  useEffect(() => {
+    busyCallbackRef.current?.(busy)
+  }, [busy])
   useEffect(() => {
     const visit = {}
     active.current = visit
-    locked.current = false
-    setBusy(false)
-    busyCallback.current?.(false)
-    setError(null)
+    locked.current = null
     setQuery('')
+    setPending(null)
+    setAction(null)
     return () => {
       if (active.current === visit) {
         active.current = null
-        busyCallback.current?.(false)
+        busyCallbackRef.current?.(false)
       }
     }
   }, [client, root])
-  const selected =
-    workspace?.pages.find((page) => page.id === value) ??
-    (choice?.root === root && choice.page.id === value ? choice.page : null)
   const entries = (workspace?.entries ?? []).filter(
     (entry) =>
-      entry.path.startsWith(`${root}/`) && /\.(md|markdown)$/i.test(entry.path),
+      entry.path.startsWith(`${root}/`) && /\.(md|markdown)$/i.test(entry.path)
   )
-  const choose = async (path: string) => {
+  const selected =
+    workspace?.pages.find((page) => page.id === value) ??
+    (choice?.client === client && choice.page.id === value ? choice.page : null)
+  const choose = (path: string) => {
+    const entry = entries.find((entry) => entry.path === path)
+    if (!client || !entry || disabled || locked.current) return
+    setQuery('')
+    setPending({ client, entry })
+    setAction(null)
+  }
+  const apply = async () => {
     const visit = active.current
     if (
       !workspace ||
       !client ||
       !visit ||
+      !pending ||
       disabled ||
       locked.current ||
-      !entries.some((entry) => entry.path === path)
+      (!pending.registered && !preview.preview)
     )
       return
-    locked.current = true
-    setBusy(true)
-    busyCallback.current?.(true)
-    setError(null)
+    locked.current = visit
+    setAction({
+      client,
+      busy: true,
+      error: null,
+      partial: Boolean(pending.registered),
+    })
+    let partial = Boolean(pending.registered)
     try {
       await workspace.flush()
       if (active.current !== visit) return
-      const page = await client.ensurePage(path.slice(root.length + 1))
-      if (active.current !== visit) return
-      setChoice({ root, page })
-      setQuery('')
-      onChange(page)
+      if (!pending.registered) {
+        const page = await registerSelectedSource(
+          client,
+          preview.preview!,
+          () => active.current === visit
+        )
+        if (active.current !== visit) return
+        partial = true
+        setPending({ ...pending, registered: page })
+        setChoice({ client, page })
+        onChange(page)
+      }
       await workspace.refresh()
-    } catch (error) {
-      if (active.current === visit) setError(String(error))
-    } finally {
       if (active.current === visit) {
-        locked.current = false
-        setBusy(false)
-        busyCallback.current?.(false)
+        setPending(null)
+        setAction(null)
+      }
+    } catch (error) {
+      if (active.current === visit)
+        setAction({
+          client,
+          busy: false,
+          error: String(error),
+          partial:
+            partial ||
+            (error instanceof SourceRegistrationError &&
+              error.registrationAttempted),
+        })
+    } finally {
+      if (locked.current === visit) {
+        locked.current = null
+        if (active.current === visit)
+          setAction((previous) =>
+            previous?.client === client
+              ? { ...previous, busy: false }
+              : previous
+          )
       }
     }
   }
@@ -105,39 +177,93 @@ export function SourcePagePicker({
         typeEntryMap={{}}
         value={query}
         onChange={setQuery}
-        onSelect={(path) => {
-          void choose(path)
-        }}
+        onSelect={choose}
         disabled={disabled || busy}
-        placeholder={translate(locale, 'noteList.searchPlaceholder')}
       />
       {selected && (
-        <div className="rounded-md border bg-muted/30 p-3">
-          <SourcePagePreview
-            pageId={selected.id}
-            title={selected.title}
-            locale={locale}
-            disabled={disabled || !selected.available}
-          />
-          <p className="mt-1 break-all text-xs text-muted-foreground">
-            {selected.path}
-          </p>
-        </div>
+        <SourcePagePreview
+          pageId={selected.id}
+          title={selected.title}
+          locale={locale}
+          disabled={disabled || busy}
+        />
       )}
-      {value && !selected?.available && (
-        <p role="alert" className="text-destructive">
-          {translate(locale, 'learning.sourceUnavailable')}
-        </p>
-      )}
-      {error && (
-        <pre
-          role="alert"
-          className="whitespace-pre-wrap break-words text-xs text-destructive"
+      <Dialog
+        open={Boolean(pending)}
+        onOpenChange={(open) => {
+          if (!open && !locked.current) {
+            setPending(null)
+            setAction(null)
+          }
+        }}
+      >
+        <DialogContent
+          className="note-memory-dialog"
+          showCloseButton={!action?.busy}
+          onKeyDown={(event) => event.stopPropagation()}
         >
-          {error}
-        </pre>
-      )}
-      {busy && <p role="status">{translate(locale, 'learning.loading')}</p>}
+          <DialogHeader>
+            <DialogTitle>
+              {pending?.entry.title ??
+                translate(locale, 'learning.noteMemory.chooseSource')}
+            </DialogTitle>
+            <DialogDescription>
+              {translate(locale, 'editor.noteMemory.registrationHelp')}
+            </DialogDescription>
+            <p className="note-memory-caption break-all">{candidatePath}</p>
+          </DialogHeader>
+          <div className="note-memory-body">
+            <SourceSelectionPreview
+              preview={preview.preview}
+              root={root}
+              locale={locale}
+              busy={preview.busy}
+              error={preview.error}
+              onRetry={preview.reload}
+            />
+            {action?.error && (
+              <div role="alert">
+                <p>{translate(locale, 'learning.error')}</p>
+                <pre className="my-2 whitespace-pre-wrap break-words text-xs">
+                  {action.error}
+                </pre>
+                {action.partial && (
+                  <p>
+                    {translate(locale, 'editor.noteMemory.registrationPartial')}
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+          <div className="note-memory-footer">
+            <Button
+              variant="outline"
+              disabled={Boolean(action?.busy)}
+              onClick={() => {
+                setPending(null)
+                setAction(null)
+              }}
+            >
+              {translate(locale, 'common.cancel')}
+            </Button>
+            <Button
+              disabled={
+                disabled || busy || (!pending?.registered && !preview.preview)
+              }
+              onClick={() => {
+                void apply()
+              }}
+            >
+              {translate(
+                locale,
+                pending?.registered
+                  ? 'learning.noteMemory.retryRefresh'
+                  : 'editor.noteMemory.applySource'
+              )}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

@@ -1,6 +1,8 @@
 import { describe, expect, it, vi } from 'vitest'
 import { NoteEditorDocument } from './noteEditorDocument'
 import { parseNoteMemoryDocument } from './noteMemoryDocument'
+import { patchNoteMemoryConfig } from './noteMemoryPatch'
+import type { NoteMemoryConfig } from './noteMemoryConfig'
 
 const header = '---\n_memnova_page_id: 11111111-1111-4111-8111-111111111111\n_memnova_learning_version: 1\n_memnova_learning_enabled: false\n_memnova_back_kind: inline\ncustom: 9007199254740999\n---\n'
 const source = `${header}# Article\n\nA4 text\n<!-- FLASHCARD:BACK -->\n  Mnemonic ![image](attachments/ảnh.svg)\n`
@@ -85,6 +87,31 @@ describe('canonical note editor document', () => {
   it('cannot edit a linked mnemonic through the owner document', () => {
     const doc = make(source.replace('_memnova_back_kind: inline', '_memnova_back_kind: page\n_memnova_back_page_id: 22222222-2222-4222-8222-222222222222\n_memnova_back_face: front'))
     doc.select('back')
+    expect(doc.project()).not.toContain('Mnemonic ![image]')
     expect(() => doc.edit('/library/a.md', 'Overwrite linked source')).toThrow('linked-mnemonic-read-only')
+  })
+  it('stages its own configuration without replacing newer body changes or mistaking its native echo for a conflict', () => {
+    const doc = make()
+    doc.edit('/library/a.md', `${header}Newer unsaved article`)
+    const config: NoteMemoryConfig = { version: 1, enabled: false, back: { kind: 'page', pageId: '22222222-2222-4222-8222-222222222222', face: 'front' } }
+    const nativeSource = patchNoteMemoryConfig(source, config)
+    const combined = doc.stageConfiguration(source, nativeSource, config)!
+    expect(parseNoteMemoryDocument(combined)).toMatchObject({ front: 'Newer unsaved article\n', back: parseNoteMemoryDocument(source).back, config })
+    doc.receive(nativeSource)
+    doc.markSaved(nativeSource)
+    expect(doc.getSnapshot()).toMatchObject({ source: combined, conflict: false, externalVersion: 0 })
+    expect(doc.getBaseline()).toBe(nativeSource)
+    doc.receive(nativeSource.replace('# Article', '# External'))
+    expect(doc.getSnapshot()).toMatchObject({ source: combined, conflict: true })
+  })
+  it('keeps the local mnemonic bytes through inline to linked and back again', () => {
+    const doc = make()
+    const linked: NoteMemoryConfig = { version: 1, enabled: false, back: { kind: 'page', pageId: '22222222-2222-4222-8222-222222222222', face: 'back' } }
+    const linkedSource = patchNoteMemoryConfig(source, linked)
+    doc.stageConfiguration(source, linkedSource, linked)
+    doc.markSaved(linkedSource)
+    const inline: NoteMemoryConfig = { version: 1, enabled: false, back: { kind: 'inline' } }
+    doc.stageConfiguration(linkedSource, source, inline)
+    expect(doc.getSnapshot().source).toBe(source)
   })
 })

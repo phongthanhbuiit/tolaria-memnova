@@ -946,5 +946,14 @@
   "editor.whiteboard.mediaNotice": "Некоторые материалы используют онлайн-ссылки или пути старого устройства либо недоступны здесь. Исходные ссылки сохранены. Создайте резервную копию Library перед исправлением.",
   "editor.noteMemory.addMnemonic": "Добавить мнемонику",
   "editor.noteMemory.externalConflict": "Файл изменён в другом месте. Локальный черновик сохранён. Скопируйте его перед перезагрузкой.",
-  "editor.noteMemory.mnemonicHelp": "Добавьте изображения, текст или доску, чтобы легче вспомнить статью."
+  "editor.noteMemory.mnemonicHelp": "Добавьте изображения, текст или доску, чтобы легче вспомнить статью.",
+  "editor.noteMemory.applySource": "Использовать источник",
+  "editor.noteMemory.registrationHelp": "Если для связи требуется изменить исходный файл, сначала создаётся проверенная резервная копия. Обучение для источника не включается.",
+  "editor.noteMemory.registrationPartial": "Изменения исходного файла уже могли быть сохранены. Черновик сохранён. Повторите попытку или откройте восстановление.",
+  "editor.noteMemory.localMnemonic": "Локальная мнемоника",
+  "editor.noteMemory.openSource": "Открыть источник",
+  "editor.noteMemory.sourceFace": "Сторона источника",
+  "editor.noteMemory.backUnavailable": "Доступна только статья. У источника нет локальной мнемоники либо она ссылается на другую заметку.",
+  "editor.noteMemory.useLocal": "Использовать локальную мнемонику",
+  "editor.noteMemory.sourceReadOnly": "Просмотр источника · только чтение"
 }

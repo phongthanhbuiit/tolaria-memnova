@@ -249,7 +249,7 @@ function useEditorSetup({
     onContentChange: onContentChange ?? (() => {}),
     flushPendingEditorChangeRef,
   })
-  useRegisterEditorResources(editor,vaultPath,activeTabPath ?? undefined,flashcard.isNoteMemory ? flashcard.activeFace : undefined)
+  useRegisterEditorResources(editor,vaultPath,activeTabPath ?? undefined,flashcard.isNoteMemory ? flashcard.viewIdentity : undefined)
   const {
     rawMode,
     handleToggleRaw,
@@ -294,7 +294,7 @@ function useEditorSetup({
     onContentChange: flashcard?.handleEditorContentChange,
     rawMode,
     vaultPath,
-    contentIdentity: flashcard.isNoteMemory ? flashcard.activeFace : undefined,
+    contentIdentity: flashcard.isNoteMemory ? flashcard.viewIdentity : undefined,
   })
   useEffect(() => {
     flushPendingEditorChangeRef.current = flushPendingEditorChange

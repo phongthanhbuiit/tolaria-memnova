@@ -15,6 +15,7 @@ import { PageFlashcards } from '../learning/PageFlashcards'
 import { useLearningWorkspace } from '../learning/LearningContext'
 import { FlashcardEditorTabs } from '../FlashcardEditorTabs'
 import { NoteMemoryEditorTabs } from '../NoteMemoryEditorTabs'
+import { LinkedNoteBackPreview, NoteBackSourceToolbar } from '../learning/NoteBackSource'
 import type { useEditorContentModel } from './useEditorContentModel'
 
 type EditorContentModel = ReturnType<typeof useEditorContentModel>
@@ -510,7 +511,7 @@ export function EditorContentLayout(model: EditorContentModel) {
   }
   // We require the flashcard model from Editor.tsx to render the tabs
   if (!flashcard) return null
-
+  const linkedBack=flashcard.isNoteMemory&&flashcard.activeFace==='back'&&flashcard.sourceBack?.kind==='page'&&!effectiveRawMode&&!diffMode?flashcard.sourceBack:null
 
   const rootClassName = cn(
     'flex flex-1 flex-col min-w-0 min-h-0',
@@ -556,6 +557,7 @@ export function EditorContentLayout(model: EditorContentModel) {
           onAddBack={flashcard.handleAddBack}
         />
       )}
+      {showActiveContent&&flashcard.isNoteMemory&&flashcard.isFSRS&&flashcard.configureBack&&flashcard.noteMemoryPageId&&flashcard.sourceBack&&!effectiveRawMode&&!diffMode&&<NoteBackSourceToolbar back={flashcard.sourceBack} ownerPath={path} ownerPageId={flashcard.noteMemoryPageId} locale={locale} onApplyBack={flashcard.configureBack} onNavigate={onNavigateWikilink} />}
       {showActiveContent && (
         <div className="flex min-h-0 flex-1 flex-col" id={memoryPanelId} role={flashcard.isNoteMemory && flashcard.isFSRS && !effectiveRawMode && !diffMode ? 'tabpanel' : undefined} aria-labelledby={flashcard.isNoteMemory && flashcard.isFSRS && !effectiveRawMode && !diffMode ? `${memoryPanelId}-${flashcard.activeFace}` : undefined}>
           <EditorChrome
@@ -582,9 +584,10 @@ export function EditorContentLayout(model: EditorContentModel) {
             vaultPath={vaultPath}
             locale={locale}
           />
-          {flashcard.viewLoading && !effectiveRawMode && <p role="status" className="px-4 py-2 text-sm text-muted-foreground">{translate(locale, 'learning.loading')}</p>}
+          {flashcard.viewLoading && !effectiveRawMode && !linkedBack && <p role="status" className="px-4 py-2 text-sm text-muted-foreground">{translate(locale, 'learning.loading')}</p>}
           {flashcard.isNoteMemory && flashcard.activeFace === 'back' && flashcard.emptyBack && !flashcard.linkedBack && !effectiveRawMode && <p className="px-4 py-2 text-sm text-muted-foreground">{translate(locale, 'editor.noteMemory.mnemonicHelp')}</p>}
-          <div className="flex min-h-0 flex-1 flex-col" inert={flashcard.viewLoading || undefined} aria-hidden={flashcard.viewLoading || undefined} style={flashcard.viewLoading ? { visibility: 'hidden' } : undefined}>
+          {linkedBack&&<LinkedNoteBackPreview back={linkedBack} ownerPageId={flashcard.noteMemoryPageId} locale={locale} style={cssVars as React.CSSProperties} />}
+          <div className="flex min-h-0 flex-1 flex-col" hidden={Boolean(linkedBack)} inert={Boolean(linkedBack)||flashcard.viewLoading || undefined} aria-hidden={Boolean(linkedBack)||flashcard.viewLoading || undefined} style={flashcard.viewLoading ? { visibility: 'hidden' } : undefined}>
           <EditorCanvas
             showEditor={showEditor}
             cssVars={cssVars}

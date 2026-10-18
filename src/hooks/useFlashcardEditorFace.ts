@@ -22,6 +22,7 @@ import type { FlashcardFace } from '../components/FlashcardEditorTabs'
 import type { VaultEntry } from '../types'
 import { isFSRSEnabled } from '../lib/fsrsVaultEntry'
 import { useNoteMemoryEditorFace } from './useNoteMemoryEditorFace'
+import type { MemoryBack } from '../lib/learning/noteMemoryConfig'
 
 export interface UseFlashcardEditorFaceOptions {
   disableLegacy?: boolean
@@ -40,6 +41,10 @@ interface FlashcardEditorFaceState {
   conflict?: boolean
   viewLoading?: boolean
   emptyBack?: boolean
+  sourceBack?: MemoryBack | null
+  configureBack?: (back: MemoryBack) => Promise<void>
+  viewIdentity?: string
+  noteMemoryPageId?: string | null
   getCanonicalDocument?: () => string
   handleRawContentChange?: (path: string, content: string) => void
   /** Whether this note has FSRS enabled (show tabs) */

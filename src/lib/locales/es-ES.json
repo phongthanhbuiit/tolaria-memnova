@@ -946,5 +946,14 @@
   "editor.whiteboard.mediaNotice": "Algunos archivos del lienzo usan enlaces en línea o rutas de otro dispositivo, o no están disponibles aquí. Se conservan los enlaces originales. Haz una copia de tu Library antes de repararlos.",
   "editor.noteMemory.addMnemonic": "Añadir recordatorio visual",
   "editor.noteMemory.externalConflict": "El archivo se modificó en otro lugar. Se conserva tu borrador local. Cópialo antes de volver a cargar.",
-  "editor.noteMemory.mnemonicHelp": "Añade imágenes, texto o una pizarra para recordar el artículo."
+  "editor.noteMemory.mnemonicHelp": "Añade imágenes, texto o una pizarra para recordar el artículo.",
+  "editor.noteMemory.applySource": "Usar fuente",
+  "editor.noteMemory.registrationHelp": "Si el enlace requiere modificar el archivo de origen, primero se crea una copia de seguridad verificada. Esto no activa el aprendizaje de la fuente.",
+  "editor.noteMemory.registrationPartial": "Es posible que los cambios del archivo de origen ya se hayan guardado. Se conserva tu borrador. Reintenta o abre la recuperación si es necesario.",
+  "editor.noteMemory.localMnemonic": "Ayuda de memoria local",
+  "editor.noteMemory.openSource": "Abrir fuente",
+  "editor.noteMemory.sourceFace": "Cara de la fuente",
+  "editor.noteMemory.backUnavailable": "Solo está disponible el artículo. La fuente no tiene una ayuda de memoria local o esta enlaza a otra nota.",
+  "editor.noteMemory.useLocal": "Usar ayuda de memoria local",
+  "editor.noteMemory.sourceReadOnly": "Vista previa de la fuente · solo lectura"
 }

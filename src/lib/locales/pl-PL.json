@@ -946,5 +946,14 @@
   "editor.whiteboard.mediaNotice": "Niektóre multimedia używają łączy internetowych lub ścieżek starego urządzenia albo są tutaj niedostępne. Oryginalne łącza zachowano. Utwórz kopię Library przed ich naprawą.",
   "editor.noteMemory.addMnemonic": "Dodaj pomoc pamięciową",
   "editor.noteMemory.externalConflict": "Plik zmieniono w innym miejscu. Lokalny szkic został zachowany. Skopiuj go przed ponownym wczytaniem.",
-  "editor.noteMemory.mnemonicHelp": "Dodaj obrazy, tekst lub tablicę, aby łatwiej przypomnieć sobie artykuł."
+  "editor.noteMemory.mnemonicHelp": "Dodaj obrazy, tekst lub tablicę, aby łatwiej przypomnieć sobie artykuł.",
+  "editor.noteMemory.applySource": "Użyj źródła",
+  "editor.noteMemory.registrationHelp": "Jeśli połączenie wymaga zmiany pliku źródłowego, najpierw powstanie zweryfikowana kopia zapasowa. Nie włącza to nauki źródła.",
+  "editor.noteMemory.registrationPartial": "Zmiany pliku źródłowego mogły już zostać zapisane. Szkic został zachowany. Spróbuj ponownie lub otwórz odzyskiwanie.",
+  "editor.noteMemory.localMnemonic": "Lokalna pomoc pamięciowa",
+  "editor.noteMemory.openSource": "Otwórz źródło",
+  "editor.noteMemory.sourceFace": "Strona źródła",
+  "editor.noteMemory.backUnavailable": "Dostępny jest tylko artykuł. Źródło nie ma lokalnej pomocy pamięciowej lub odsyła ona do innej notatki.",
+  "editor.noteMemory.useLocal": "Użyj lokalnej pomocy pamięciowej",
+  "editor.noteMemory.sourceReadOnly": "Podgląd źródła · tylko do odczytu"
 }

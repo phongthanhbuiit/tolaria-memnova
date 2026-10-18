@@ -1,6 +1,6 @@
-import type { MemoryFace } from './noteMemoryConfig'
+import type { MemoryFace, NoteMemoryConfig } from './noteMemoryConfig'
 import { parseNoteMemoryDocument } from './noteMemoryDocument'
-import { patchNoteMemoryFace } from './noteMemoryPatch'
+import { patchNoteMemoryConfig, patchNoteMemoryFace } from './noteMemoryPatch'
 
 interface EditorSnapshot {
   source: string
@@ -37,6 +37,7 @@ export class NoteEditorDocument {
 
   getSnapshot = (): EditorSnapshot => this.state
   getBaseline = (): string => this.baseline
+  isActive = (): boolean => this.active
   subscribe = (listener: () => void): (() => void) => {
     this.listeners.add(listener)
     return () => { this.listeners.delete(listener) }
@@ -51,11 +52,22 @@ export class NoteEditorDocument {
 
   private local(source: string): string | null {
     if (!this.active || source === this.state.source) return null
-    this.echoes.add(source)
-    if (this.echoes.size > 32) this.echoes.delete(this.echoes.values().next().value!)
+    this.remember(source)
     this.dirty = true
     this.publish(snapshot(source, this.state.face, this.state.conflict, this.state.externalVersion))
     return source
+  }
+
+  private remember(source: string): void {
+    this.echoes.add(source)
+    if (this.echoes.size > 32) this.echoes.delete(this.echoes.values().next().value!)
+  }
+
+  stageConfiguration(beforeSource: string, afterSource: string, config: NoteMemoryConfig): string | null {
+    if (!this.active) return null
+    this.remember(beforeSource)
+    this.remember(afterSource)
+    return this.local(patchNoteMemoryConfig(this.state.source, config))
   }
 
   receive(source: string): void {
@@ -76,7 +88,8 @@ export class NoteEditorDocument {
   project(): string {
     if (!this.state.enabled) return this.state.source
     const doc = parseNoteMemoryDocument(this.state.source)
-    return this.state.source.slice(0, doc.offsets.front.start) + doc[this.state.face]
+    const body = this.state.face === 'back' && this.state.linked ? '' : doc[this.state.face]
+    return this.state.source.slice(0, doc.offsets.front.start) + body
   }
 
   select(face: MemoryFace): void {

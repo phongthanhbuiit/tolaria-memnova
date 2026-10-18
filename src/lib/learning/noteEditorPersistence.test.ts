@@ -1,18 +1,23 @@
 import { describe, expect, it, vi } from 'vitest'
 import { NoteEditorPersistence, registerNoteEditorPersistence, saveThroughNoteEditor } from './noteEditorPersistence'
-import type { NoteMemoryView, NoteWriteRequest, NoteWriteOutcome } from './types'
+import type { NoteConfigureRequest, NoteMemoryView, NoteWriteRequest, NoteWriteOutcome } from './types'
+import { patchNoteMemoryConfig } from './noteMemoryPatch'
+import type { NoteMemoryConfig } from './noteMemoryConfig'
 
 const pageId = '11111111-1111-4111-8111-111111111111'
 const baseline = 'Original article\n<!-- FLASHCARD:BACK -->\nOriginal mnemonic'
 const sha256 = async (value: string) => Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(value))), byte=>byte.toString(16).padStart(2,'0')).join('')
 function fixture() {
   let revision = 4
+  let currentSource = baseline
   const readNoteMemory = vi.fn(async () => ({ pageId, path: 'a.md', sourceHash: await sha256(baseline), binding: { pageId, cardId: 'card', sourceHash: await sha256(baseline), revision } }) as NoteMemoryView)
-  const saveNoteMemory = vi.fn(async (request: NoteWriteRequest): Promise<NoteWriteOutcome> => ({ operationId: request.operationId, pageId, status: 'committed', sourceHash: await sha256(request.source), revision: ++revision, problem: null }))
-  const client = { vaultPath: '/library', readNoteMemory, saveNoteMemory }
+  const saveNoteMemory = vi.fn(async (request: NoteWriteRequest): Promise<NoteWriteOutcome> => { currentSource = request.source; return { operationId: request.operationId, pageId, status: 'committed', sourceHash: await sha256(request.source), revision: ++revision, problem: null } })
+  const configureNoteMemory = vi.fn(async (request: NoteConfigureRequest): Promise<NoteWriteOutcome> => { currentSource = patchNoteMemoryConfig(currentSource, request.config); return {operationId:request.operationId,pageId,status:'committed',sourceHash:await sha256(currentSource),revision:++revision,problem:null} })
+  const client = { vaultPath: '/library', readNoteMemory, saveNoteMemory, configureNoteMemory }
   const saved = vi.fn()
-  const writer = new NoteEditorPersistence({ client, path: '/library/a.md', pageId, source: baseline, onSaved: saved })
-  return { writer, client, saved }
+  const drafted = vi.fn()
+  const writer = new NoteEditorPersistence({ client, path: '/library/a.md', pageId, source: baseline, onSaved: saved, onConfigurationDraft: drafted })
+  return { writer, client, saved, drafted }
 }
 
 describe('note editor persistence coordinator', () => {
@@ -75,5 +80,51 @@ describe('note editor persistence coordinator', () => {
     expect(second.client.saveNoteMemory).toHaveBeenCalledOnce()
     disposeSecond()
     expect(await saveThroughNoteEditor('/library/a.md', 'No owner')).toBe(false)
+  })
+})
+
+describe('configuration shares the editor write queue', () => {
+  const config: NoteMemoryConfig = {version:1,enabled:false,back:{kind:'page',pageId:'22222222-2222-4222-8222-222222222222',face:'front'}}
+  it('stages a local draft, commits config, then saves newer body content with its receipt revision', async () => {
+    const {writer,client,drafted,saved}=fixture()
+    const configured=patchNoteMemoryConfig(baseline,config)
+    const newer=configured.replace('Original article','New last stroke')
+    await Promise.all([writer.configure(config),writer.save(newer)])
+    expect(drafted).toHaveBeenCalledWith({beforeSource:baseline,afterSource:configured,config})
+    expect(client.configureNoteMemory.mock.calls[0][0]).toMatchObject({expectedHash:await sha256(baseline),expectedRevision:4,config})
+    expect(client.saveNoteMemory.mock.calls[0][0]).toMatchObject({expectedHash:await sha256(configured),expectedRevision:5,source:newer})
+    expect(saved.mock.calls).toEqual([[configured],[newer]])
+  })
+  it('freezes a config before waiting in the queue',async()=>{
+    const {writer,client}=fixture(), draft=structuredClone(config)
+    const pending=writer.configure(draft)
+    draft.back={kind:'inline'}
+    await pending
+    expect(client.configureNoteMemory.mock.calls[0][0].config).toEqual(config)
+  })
+  it('replays an uncertain config before a newer save and never converts it into a generic source operation',async()=>{
+    const {writer,client}=fixture()
+    client.configureNoteMemory.mockRejectedValueOnce(Error('Interrupted config response'))
+    await expect(writer.configure(config)).rejects.toThrow('Interrupted')
+    const first=client.configureNoteMemory.mock.calls[0][0]
+    const newer=patchNoteMemoryConfig(baseline,config).replace('Original article','New body')
+    await writer.save(newer)
+    expect(client.configureNoteMemory.mock.calls[1][0]).toEqual(first)
+    expect(client.saveNoteMemory.mock.calls[0][0]).toMatchObject({source:newer,expectedRevision:5})
+  })
+  for(const status of ['pending','conflict','discarded'] as const) it(`keeps ${status} config intents pending instead of saving a newer draft`,async()=>{
+    const {writer,client,saved}=fixture()
+    client.configureNoteMemory.mockImplementation(async request=>({operationId:request.operationId,pageId,status,sourceHash:'c'.repeat(64),revision:4,problem:'Needs recovery'}))
+    await expect(writer.configure(config)).rejects.toThrow(status)
+    await expect(writer.save('Newer draft')).rejects.toThrow(status)
+    expect(client.configureNoteMemory.mock.calls[1][0]).toEqual(client.configureNoteMemory.mock.calls[0][0])
+    expect(client.saveNoteMemory).not.toHaveBeenCalled()
+    expect(saved).not.toHaveBeenCalled()
+  })
+  it('does not create a second config intent for a no-op retry after success',async()=>{
+    const {writer,client}=fixture()
+    await writer.configure(config)
+    await writer.configure(config)
+    expect(client.configureNoteMemory).toHaveBeenCalledOnce()
   })
 })

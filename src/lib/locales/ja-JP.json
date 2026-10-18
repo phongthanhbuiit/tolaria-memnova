@@ -946,5 +946,14 @@
   "editor.whiteboard.mediaNotice": "一部のメディアはオンラインのリンクや以前の端末のパスを使用しているか、ここでは利用できません。元のリンクは保持されています。修復前にLibraryをバックアップしてください。",
   "editor.noteMemory.addMnemonic": "記憶の手がかりを追加",
   "editor.noteMemory.externalConflict": "ファイルは別の場所で変更されました。ローカルの下書きは保持されています。再読み込みする前にコピーしてください。",
-  "editor.noteMemory.mnemonicHelp": "記事を思い出す手がかりになる画像、テキスト、ホワイトボードを追加してください。"
+  "editor.noteMemory.mnemonicHelp": "記事を思い出す手がかりになる画像、テキスト、ホワイトボードを追加してください。",
+  "editor.noteMemory.applySource": "この参照元を使う",
+  "editor.noteMemory.registrationHelp": "リンクのために参照元ファイルを変更する必要がある場合は、先に検証済みバックアップが作成されます。参照元の学習は有効になりません。",
+  "editor.noteMemory.registrationPartial": "参照元ファイルの変更はすでに保存されている可能性があります。下書きは保持されています。再試行するか、必要に応じて復元を開いてください。",
+  "editor.noteMemory.localMnemonic": "このノートの記憶の手がかり",
+  "editor.noteMemory.openSource": "参照元を開く",
+  "editor.noteMemory.sourceFace": "参照元の面",
+  "editor.noteMemory.backUnavailable": "記事のみ利用できます。参照元にローカルの記憶の手がかりがないか、別のノートにリンクしています。",
+  "editor.noteMemory.useLocal": "このノートの記憶の手がかりを使う",
+  "editor.noteMemory.sourceReadOnly": "参照元のプレビュー · 読み取り専用"
 }

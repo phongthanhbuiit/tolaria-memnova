@@ -946,5 +946,14 @@
   "editor.whiteboard.mediaNotice": "Некаторыя матэрыялы выкарыстоўваюць анлайн-спасылкі ці шляхі старой прылады або недаступныя тут. Зыходныя спасылкі захаваныя. Зрабіце рэзервовую копію Library перад выпраўленнем.",
   "editor.noteMemory.addMnemonic": "Дадаць мнемоніку",
   "editor.noteMemory.externalConflict": "Файл зменены ў іншым месцы. Лакальны чарнавік захаваны. Скапіруйце яго перад паўторнай загрузкай.",
-  "editor.noteMemory.mnemonicHelp": "Дадайце выявы, тэкст або дошку, каб лягчэй узгадаць артыкул."
+  "editor.noteMemory.mnemonicHelp": "Дадайце выявы, тэкст або дошку, каб лягчэй узгадаць артыкул.",
+  "editor.noteMemory.applySource": "Выкарыстаць крыніцу",
+  "editor.noteMemory.registrationHelp": "Калі для сувязі трэба змяніць зыходны файл, спачатку ствараецца правераная рэзервовая копія. Навучанне для крыніцы не ўключаецца.",
+  "editor.noteMemory.registrationPartial": "Змены зыходнага файла ўжо маглі быць захаваныя. Чарнавік захаваны. Паўтарыце спробу або адкрыйце аднаўленне.",
+  "editor.noteMemory.localMnemonic": "Лакальная мнемоніка",
+  "editor.noteMemory.openSource": "Адкрыць крыніцу",
+  "editor.noteMemory.sourceFace": "Бок крыніцы",
+  "editor.noteMemory.backUnavailable": "Даступны толькі артыкул. У крыніцы няма лакальнай мнемонікі або яна спасылаецца на іншую нататку.",
+  "editor.noteMemory.useLocal": "Выкарыстаць лакальную мнемоніку",
+  "editor.noteMemory.sourceReadOnly": "Прагляд крыніцы · толькі чытанне"
 }

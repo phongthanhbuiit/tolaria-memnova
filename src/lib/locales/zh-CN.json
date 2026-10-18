@@ -946,5 +946,14 @@
   "editor.whiteboard.mediaNotice": "部分媒体使用在线链接或旧设备路径，或在此处不可用。原始链接已保留。修复前请备份 Library。",
   "editor.noteMemory.addMnemonic": "添加记忆提示",
   "editor.noteMemory.externalConflict": "文件已在其他位置更改。本地草稿已保留，请在重新加载前复制。",
-  "editor.noteMemory.mnemonicHelp": "添加图片、文字或白板，帮助回忆文章内容。"
+  "editor.noteMemory.mnemonicHelp": "添加图片、文字或白板，帮助回忆文章内容。",
+  "editor.noteMemory.applySource": "使用此来源",
+  "editor.noteMemory.registrationHelp": "如果建立链接需要修改来源文件，会先创建经过验证的备份。这不会启用来源的学习功能。",
+  "editor.noteMemory.registrationPartial": "来源文件的更改可能已保存。草稿已保留。请重试，或在需要时打开恢复功能。",
+  "editor.noteMemory.localMnemonic": "当前笔记的记忆提示",
+  "editor.noteMemory.openSource": "打开来源",
+  "editor.noteMemory.sourceFace": "来源面",
+  "editor.noteMemory.backUnavailable": "只能使用文章面。来源没有本地记忆提示，或其记忆提示链接到其他笔记。",
+  "editor.noteMemory.useLocal": "使用当前笔记的记忆提示",
+  "editor.noteMemory.sourceReadOnly": "来源预览 · 只读"
 }

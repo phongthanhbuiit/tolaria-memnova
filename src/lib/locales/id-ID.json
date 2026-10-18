@@ -946,5 +946,14 @@
   "editor.whiteboard.mediaNotice": "Sebagian media memakai tautan daring atau jalur perangkat lama, atau tidak tersedia di sini. Tautan asli tetap disimpan. Cadangkan Library sebelum memperbaikinya.",
   "editor.noteMemory.addMnemonic": "Tambah alat bantu ingatan",
   "editor.noteMemory.externalConflict": "Berkas diubah di tempat lain. Draf lokal Anda tetap disimpan. Salin sebelum memuat ulang.",
-  "editor.noteMemory.mnemonicHelp": "Tambahkan gambar, teks, atau papan tulis untuk membantu mengingat artikel."
+  "editor.noteMemory.mnemonicHelp": "Tambahkan gambar, teks, atau papan tulis untuk membantu mengingat artikel.",
+  "editor.noteMemory.applySource": "Gunakan sumber",
+  "editor.noteMemory.registrationHelp": "Jika penautan perlu mengubah berkas sumber, cadangan terverifikasi dibuat terlebih dahulu. Ini tidak mengaktifkan pembelajaran untuk sumber.",
+  "editor.noteMemory.registrationPartial": "Perubahan pada berkas sumber mungkin sudah tersimpan. Draf Anda tetap disimpan. Coba lagi atau buka pemulihan jika perlu.",
+  "editor.noteMemory.localMnemonic": "Alat bantu ingatan lokal",
+  "editor.noteMemory.openSource": "Buka sumber",
+  "editor.noteMemory.sourceFace": "Sisi sumber",
+  "editor.noteMemory.backUnavailable": "Hanya artikel yang tersedia. Sumber tidak memiliki alat bantu ingatan lokal, atau alat bantunya menautkan ke catatan lain.",
+  "editor.noteMemory.useLocal": "Gunakan alat bantu ingatan lokal",
+  "editor.noteMemory.sourceReadOnly": "Pratinjau sumber · hanya baca"
 }

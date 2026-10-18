@@ -946,5 +946,14 @@
   "editor.whiteboard.mediaNotice": "Algumas mídias usam links online ou caminhos de outro dispositivo, ou estão indisponíveis aqui. Os links originais foram preservados. Faça um backup da Library antes de corrigi-los.",
   "editor.noteMemory.addMnemonic": "Adicionar recurso de memorização",
   "editor.noteMemory.externalConflict": "O arquivo foi alterado em outro lugar. Seu rascunho local foi mantido. Copie-o antes de recarregar.",
-  "editor.noteMemory.mnemonicHelp": "Adicione imagens, texto ou um quadro branco para ajudar a lembrar do artigo."
+  "editor.noteMemory.mnemonicHelp": "Adicione imagens, texto ou um quadro branco para ajudar a lembrar do artigo.",
+  "editor.noteMemory.applySource": "Usar fonte",
+  "editor.noteMemory.registrationHelp": "Se o vínculo precisar alterar o arquivo de origem, um backup verificado será criado primeiro. Isso não ativa o aprendizado da fonte.",
+  "editor.noteMemory.registrationPartial": "As alterações no arquivo de origem podem já estar salvas. Seu rascunho foi mantido. Tente novamente ou abra a recuperação, se necessário.",
+  "editor.noteMemory.localMnemonic": "Recurso de memorização local",
+  "editor.noteMemory.openSource": "Abrir fonte",
+  "editor.noteMemory.sourceFace": "Lado da fonte",
+  "editor.noteMemory.backUnavailable": "Somente o artigo está disponível. A fonte não tem um recurso de memorização local ou ele aponta para outra nota.",
+  "editor.noteMemory.useLocal": "Usar recurso de memorização local",
+  "editor.noteMemory.sourceReadOnly": "Prévia da fonte · somente leitura"
 }

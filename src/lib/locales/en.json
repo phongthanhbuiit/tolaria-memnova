@@ -946,5 +946,14 @@
   "editor.whiteboard.mediaNotice": "Some canvas media use online or old device links, or are unavailable here. Original links are preserved. Back up your Library before repairing them.",
   "editor.noteMemory.addMnemonic": "Add mnemonic",
   "editor.noteMemory.externalConflict": "The file changed elsewhere. Your local draft is kept. Copy it before reloading.",
-  "editor.noteMemory.mnemonicHelp": "Add images, text or a whiteboard to help recall the article."
+  "editor.noteMemory.mnemonicHelp": "Add images, text or a whiteboard to help recall the article.",
+  "editor.noteMemory.applySource": "Use source",
+  "editor.noteMemory.registrationHelp": "If linking needs to change the source file, a verified backup is created first. This does not enable learning for the source.",
+  "editor.noteMemory.registrationPartial": "Changes to the source file may already be saved. Your draft is kept. Retry, or open recovery if needed.",
+  "editor.noteMemory.localMnemonic": "Local mnemonic",
+  "editor.noteMemory.openSource": "Open source",
+  "editor.noteMemory.sourceFace": "Source face",
+  "editor.noteMemory.backUnavailable": "Only the article is available. The source has no local mnemonic, or its mnemonic links to another note.",
+  "editor.noteMemory.useLocal": "Use local mnemonic",
+  "editor.noteMemory.sourceReadOnly": "Source preview · read only"
 }

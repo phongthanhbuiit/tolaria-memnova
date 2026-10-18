@@ -946,5 +946,14 @@
   "editor.whiteboard.mediaNotice": "Niekatoryja materyjały vykarystoŭvajuć anłajn-spasyłki ci šlachi staroj pryłady abo niedastupnyja tut. Zychodnyja spasyłki zachavanyja. Zrabicie rezervovuju kopiju Library pierad vypraŭleńniem.",
   "editor.noteMemory.addMnemonic": "Dadać mnemoniku",
   "editor.noteMemory.externalConflict": "Fajł źmienieny ŭ inšym miescy. Łakalny čarnavik zachavany. Skapirujcie jaho pierad paŭtornaj zahruzkaj.",
-  "editor.noteMemory.mnemonicHelp": "Dadajcie vyjavy, tekst abo došku, kab łahčej uzhadać artykuł."
+  "editor.noteMemory.mnemonicHelp": "Dadajcie vyjavy, tekst abo došku, kab łahčej uzhadać artykuł.",
+  "editor.noteMemory.applySource": "Vykarystać krynicu",
+  "editor.noteMemory.registrationHelp": "Kali dla suviazi treba źmianić zychodny fajł, spačatku stvarajecca pravieranaja rezervovaja kopija. Navučannie dla krynicy nie ŭklučajecca.",
+  "editor.noteMemory.registrationPartial": "Źmieny zychodnaha fajła ŭžo mahli być zachavanyja. Čarnavik zachavany. Paŭtarycie sprobu abo adkryjcie adnaŭlennie.",
+  "editor.noteMemory.localMnemonic": "Łakalnaja mnemonika",
+  "editor.noteMemory.openSource": "Adkryć krynicu",
+  "editor.noteMemory.sourceFace": "Bok krynicy",
+  "editor.noteMemory.backUnavailable": "Dastupny tolki artykuł. U krynicy niama łakalnaj mnemoniki abo jana spasyłajecca na inšuju natatku.",
+  "editor.noteMemory.useLocal": "Vykarystać łakalnuju mnemoniku",
+  "editor.noteMemory.sourceReadOnly": "Prahlad krynicy · tolki čytannie"
 }

@@ -946,5 +946,14 @@
   "editor.whiteboard.mediaNotice": "部分媒體使用線上連結或舊裝置路徑，或在此處無法使用。原始連結已保留。修復前請備份 Library。",
   "editor.noteMemory.addMnemonic": "新增記憶提示",
   "editor.noteMemory.externalConflict": "檔案已在其他位置變更。本機草稿已保留，請在重新載入前複製。",
-  "editor.noteMemory.mnemonicHelp": "新增圖片、文字或白板，幫助回想文章內容。"
+  "editor.noteMemory.mnemonicHelp": "新增圖片、文字或白板，幫助回想文章內容。",
+  "editor.noteMemory.applySource": "使用此來源",
+  "editor.noteMemory.registrationHelp": "如果建立連結需要修改來源檔案，會先建立經過驗證的備份。這不會啟用來源的學習功能。",
+  "editor.noteMemory.registrationPartial": "來源檔案的變更可能已儲存。草稿已保留。請重試，或視需要開啟復原功能。",
+  "editor.noteMemory.localMnemonic": "目前筆記的記憶提示",
+  "editor.noteMemory.openSource": "開啟來源",
+  "editor.noteMemory.sourceFace": "來源面",
+  "editor.noteMemory.backUnavailable": "只能使用文章面。來源沒有本機記憶提示，或其記憶提示連結到其他筆記。",
+  "editor.noteMemory.useLocal": "使用目前筆記的記憶提示",
+  "editor.noteMemory.sourceReadOnly": "來源預覽 · 唯讀"
 }

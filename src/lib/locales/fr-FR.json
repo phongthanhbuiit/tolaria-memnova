@@ -946,5 +946,14 @@
   "editor.whiteboard.mediaNotice": "Certains médias utilisent des liens en ligne ou d’un ancien appareil, ou sont indisponibles ici. Les liens d’origine sont conservés. Sauvegardez votre Library avant de les réparer.",
   "editor.noteMemory.addMnemonic": "Ajouter un aide-mémoire",
   "editor.noteMemory.externalConflict": "Le fichier a été modifié ailleurs. Votre brouillon local est conservé. Copiez-le avant de recharger.",
-  "editor.noteMemory.mnemonicHelp": "Ajoutez des images, du texte ou un tableau blanc pour vous aider à mémoriser l’article."
+  "editor.noteMemory.mnemonicHelp": "Ajoutez des images, du texte ou un tableau blanc pour vous aider à mémoriser l’article.",
+  "editor.noteMemory.applySource": "Utiliser la source",
+  "editor.noteMemory.registrationHelp": "Si le lien nécessite une modification du fichier source, une sauvegarde vérifiée est créée au préalable. Cela n’active pas l’apprentissage de la source.",
+  "editor.noteMemory.registrationPartial": "Des modifications du fichier source ont peut-être déjà été enregistrées. Votre brouillon est conservé. Réessayez ou ouvrez la récupération si nécessaire.",
+  "editor.noteMemory.localMnemonic": "Aide-mémoire local",
+  "editor.noteMemory.openSource": "Ouvrir la source",
+  "editor.noteMemory.sourceFace": "Face de la source",
+  "editor.noteMemory.backUnavailable": "Seul l’article est disponible. La source n’a pas d’aide-mémoire local, ou celui-ci renvoie vers une autre note.",
+  "editor.noteMemory.useLocal": "Utiliser l’aide-mémoire local",
+  "editor.noteMemory.sourceReadOnly": "Aperçu de la source · lecture seule"
 }

@@ -946,5 +946,14 @@
   "editor.whiteboard.mediaNotice": "Một số ảnh trên canvas dùng liên kết online, đường dẫn máy cũ hoặc không khả dụng tại đây. Liên kết gốc vẫn được giữ. Hãy sao lưu Library trước khi sửa.",
   "editor.noteMemory.addMnemonic": "Thêm gợi nhớ",
   "editor.noteMemory.externalConflict": "Tệp đã được sửa ở nơi khác. Bản nháp cục bộ vẫn được giữ. Hãy sao chép trước khi tải lại.",
-  "editor.noteMemory.mnemonicHelp": "Thêm hình ảnh, văn bản hoặc bảng vẽ để giúp ghi nhớ bài viết."
+  "editor.noteMemory.mnemonicHelp": "Thêm hình ảnh, văn bản hoặc bảng vẽ để giúp ghi nhớ bài viết.",
+  "editor.noteMemory.applySource": "Dùng nguồn này",
+  "editor.noteMemory.registrationHelp": "Nếu cần sửa tệp nguồn để liên kết, hệ thống sẽ tạo bản sao lưu đã xác minh trước. Thao tác này không bật học cho nguồn.",
+  "editor.noteMemory.registrationPartial": "Thay đổi ở tệp nguồn có thể đã được lưu. Bản nháp vẫn được giữ. Hãy thử lại hoặc mở phần phục hồi nếu cần.",
+  "editor.noteMemory.localMnemonic": "Gợi nhớ trong ghi chú",
+  "editor.noteMemory.openSource": "Mở nguồn",
+  "editor.noteMemory.sourceFace": "Mặt của nguồn",
+  "editor.noteMemory.backUnavailable": "Chỉ có thể dùng mặt bài viết. Nguồn chưa có gợi nhớ cục bộ hoặc mặt gợi nhớ của nguồn đang liên kết tới ghi chú khác.",
+  "editor.noteMemory.useLocal": "Dùng gợi nhớ trong ghi chú",
+  "editor.noteMemory.sourceReadOnly": "Xem trước nguồn · chỉ đọc"
 }

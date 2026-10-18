@@ -946,5 +946,14 @@
   "editor.whiteboard.mediaNotice": "Alcuni contenuti usano link online o percorsi di un vecchio dispositivo, oppure non sono disponibili qui. I link originali sono conservati. Esegui un backup della Library prima di correggerli.",
   "editor.noteMemory.addMnemonic": "Aggiungi aiuto mnemonico",
   "editor.noteMemory.externalConflict": "Il file è stato modificato altrove. La bozza locale è conservata. Copiala prima di ricaricare.",
-  "editor.noteMemory.mnemonicHelp": "Aggiungi immagini, testo o una lavagna per ricordare l’articolo."
+  "editor.noteMemory.mnemonicHelp": "Aggiungi immagini, testo o una lavagna per ricordare l’articolo.",
+  "editor.noteMemory.applySource": "Usa origine",
+  "editor.noteMemory.registrationHelp": "Se il collegamento richiede modifiche al file di origine, viene prima creato un backup verificato. L’apprendimento dell’origine non viene attivato.",
+  "editor.noteMemory.registrationPartial": "Le modifiche al file di origine potrebbero essere già state salvate. La bozza è conservata. Riprova o apri il ripristino se necessario.",
+  "editor.noteMemory.localMnemonic": "Aiuto mnemonico locale",
+  "editor.noteMemory.openSource": "Apri origine",
+  "editor.noteMemory.sourceFace": "Lato dell’origine",
+  "editor.noteMemory.backUnavailable": "È disponibile solo l’articolo. L’origine non ha un aiuto mnemonico locale oppure rimanda a un’altra nota.",
+  "editor.noteMemory.useLocal": "Usa aiuto mnemonico locale",
+  "editor.noteMemory.sourceReadOnly": "Anteprima dell’origine · sola lettura"
 }

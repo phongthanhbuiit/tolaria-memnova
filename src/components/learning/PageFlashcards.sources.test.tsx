@@ -1,3 +1,4 @@
+vi.mock('../BlockNoteReadOnly', () => ({ BlockNoteReadOnly: ({ content }: { content: string }) => <div>{content}</div> }))
 vi.mock('../FlashcardStudyView', () => ({
   BlockNoteReadOnly: ({ content }: { content: string }) => <div>{content}</div>,
 }))
@@ -21,6 +22,7 @@ const { workspace } = vi.hoisted(() => ({
       ensurePage: vi.fn(),
       updateCard: vi.fn(),
       readStudyPage: vi.fn(),
+      previewNoteSource: vi.fn(),
     },
     root: '/current',
     pages: [] as {
@@ -112,6 +114,7 @@ it('chooses a duplicate-title source by path and previews it without losing the 
       ? { id: 'page', path }
       : workspace.pages.find((page) => page.path === path),
   )
+  workspace.client.previewNoteSource.mockImplementation(async (path: string, face: 'front' | 'back') => ({ pageId: b, path, face, content: 'Candidate article B', sourceHash: 'a'.repeat(64), fingerprint: 'candidate-b', media: [], hasBack: false, backLinked: false }))
   workspace.client.readStudyPage.mockResolvedValue({
     id: b,
     path: 'source-b.md',
@@ -133,9 +136,12 @@ it('chooses a duplicate-title source by path and previews it without losing the 
   fireEvent.click(
     await dialog.findByRole('button', { name: /Same.*source-b.md/ }),
   )
-  await waitFor(() =>
-    expect(workspace.client.ensurePage).toHaveBeenCalledWith('source-b.md'),
-  )
+  const selection = await screen.findByRole('dialog', { name: 'Same', exact: true })
+  const useSource = within(selection).getByRole('button', { name: 'Use source', exact: true })
+  await waitFor(() => expect(useSource).toBeEnabled())
+  fireEvent.click(useSource)
+  await waitFor(() => expect(workspace.client.ensurePage).toHaveBeenCalledWith('source-b.md', 'a'.repeat(64)))
+  await waitFor(() => expect(selection).not.toBeInTheDocument())
   fireEvent.change(dialog.getByLabelText('Question'), {
     target: { value: 'Unsaved draft question' },
   })
