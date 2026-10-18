@@ -31,6 +31,7 @@ pub enum LearningRequest {
     ReconcileNoteMemory {
         page_id: String,
     },
+    PreviewNoteConversion {},
     PreviewMigration,
     BeginMigration {
         fingerprint: String,
@@ -128,6 +129,12 @@ fn execute_with_log(
     legacy_log: Option<&std::path::Path>,
 ) -> Result<Value, String> {
     let boundary = VaultBoundary::from_request(Some(vault_path))?;
+    if matches!(request, LearningRequest::PreviewNoteConversion {}) {
+        return encode(crate::learning::preview_note_conversion(
+            boundary.requested_root(),
+            library_id.as_deref(),
+        )?);
+    }
     if matches!(request, LearningRequest::PreviewMigration) {
         return serde_json::to_value(crate::learning::preview_migration(
             boundary.requested_root(),
@@ -155,6 +162,9 @@ fn dispatch(
     legacy_log: Option<&std::path::Path>,
 ) -> Result<Value, String> {
     match request {
+        LearningRequest::PreviewNoteConversion {} => {
+            Err("Conversion preview must use the read-only route".into())
+        }
         LearningRequest::PreviewMigration => {
             Err("Migration preview must run before storage initialization".into())
         }

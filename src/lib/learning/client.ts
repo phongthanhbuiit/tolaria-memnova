@@ -1,3 +1,4 @@
+import type { NoteConversionPreview } from './noteConversionTypes'
 import type { NoteFacePreview, NoteMemoryView, NoteWriteRequest, NoteConfigureRequest, NoteWriteOutcome } from './types'
 import type { PropertyDefinitions } from './propertyValues'
 import { invoke } from '@tauri-apps/api/core'
@@ -18,6 +19,11 @@ export class LearningClient {
     this.vaultPath = vaultPath
     this.libraryId = libraryId
   }
+
+  static previewNoteConversion(vaultPath: string): Promise<NoteConversionPreview> {
+    return learningInvoke('learning_command', { vaultPath, libraryId: null, request: { kind: 'previewNoteConversion' } })
+  }
+  previewNoteConversion(): Promise<NoteConversionPreview> { return this.call({ kind: 'previewNoteConversion' }) }
 
   static previewMigration(vaultPath: string): Promise<MigrationPreview> {
     return learningInvoke('learning_command', { vaultPath, libraryId: null, request: { kind: 'previewMigration' } })

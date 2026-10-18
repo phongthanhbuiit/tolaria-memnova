@@ -1,5 +1,5 @@
 use super::{identity::reject_symlink, note_memory::media_sources};
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::{
     collections::BTreeMap,
@@ -9,7 +9,7 @@ use std::{
 };
 
 const MAX_MEDIA_BYTES: u64 = 256 * 1024 * 1024;
-#[derive(Clone, Debug, Serialize)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct NoteMediaDependency {
     pub url: String,

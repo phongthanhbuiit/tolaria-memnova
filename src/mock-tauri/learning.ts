@@ -1,3 +1,4 @@
+import { mockNoteConversionPreview } from './note-conversion'
 import { isNoteMemoryRequest, mockNoteMemoryCommand, mockNoteStudyContent, isMockBoundCard, hasMockPendingNote, mockNotePath, withMockNoteIdentity, type FixtureNoteMemory } from './note-memory'
 import { parseNoteMemoryDocument } from '../lib/learning/noteMemoryDocument'
 import { matchesProperty, propertyKey, type PropertyDefinitions } from '../lib/learning/propertyValues'
@@ -88,8 +89,16 @@ export function mockLearningCommand(args: Record<string, unknown>, context: Cont
 }
 async function executeMockLearningCommand(args: Record<string, unknown>, context: Context): Promise<unknown> {
   const root = String(args.vaultPath).replace(/\/$/, '')
-  const data = fixture(root)
   const request = args.request as Record<string, unknown>
+  if (request.kind === 'previewNoteConversion') {
+    if (Object.keys(request).some(key => key !== 'kind')) throw Error('Invalid conversion preview request')
+    const cached = fixtures.get(root)
+    const raw = cached ? null : localStorage.getItem(`memnova:qa-learning:${root}`)
+    const existing: Fixture | null = cached ?? (raw ? JSON.parse(raw) : null)
+    if (args.libraryId != null && args.libraryId !== existing?.id) throw Error('Library identity changed')
+    return mockNoteConversionPreview(root, existing, context, hash)
+  }
+  const data = fixture(root)
   if (isNoteMemoryRequest(request.kind)) {
     if (args.libraryId !== data.id) throw Error('Library identity changed')
     return structuredClone(await mockNoteMemoryCommand({ data, root, context, fresh, hash, persist: () => localStorage.setItem(`memnova:qa-learning:${root}`, JSON.stringify(data)) }, request))

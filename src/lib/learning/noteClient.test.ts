@@ -29,3 +29,14 @@ it('preserves pending/conflict outcomes and failures for the dirty-buffer contro
   expect(await client.resumeNoteMemory('op')).toMatchObject({ status: 'conflict' })
   await expect(client.readNoteMemory('missing')).rejects.toThrow('Changed identity')
 })
+
+it('previews conversion without connecting or initializing a Library', async () => {
+  vi.mocked(invoke).mockResolvedValue({ state: 'importRequired', libraryId: null, pages: [] })
+  await LearningClient.previewNoteConversion('/unopened')
+  expect(invoke).toHaveBeenCalledTimes(1)
+  expect(invoke).toHaveBeenCalledWith('learning_command', { vaultPath: '/unopened', libraryId: null, request: { kind: 'previewNoteConversion' } })
+  vi.mocked(invoke).mockResolvedValueOnce({ libraryId: 'existing', schemaVersion: 5 })
+  const client = await LearningClient.connect('/existing')
+  await client.previewNoteConversion()
+  expect(invoke).toHaveBeenLastCalledWith('learning_command', { vaultPath: '/existing', libraryId: 'existing', request: { kind: 'previewNoteConversion' } })
+})

@@ -143,3 +143,17 @@ mod note_media_tests;
 mod note_backup_tests;
 
 mod note_backup;
+
+#[cfg(test)]
+mod note_conversion_preview_tests;
+
+mod note_conversion_cards;
+mod note_conversion_models;
+mod note_conversion_preview;
+mod note_preview_storage;
+pub use note_conversion_models::{
+    NoteConversionCandidate, NoteConversionPage, NoteConversionPreview,
+};
+pub use note_conversion_preview::preview_note_conversion;
+
+mod note_conversion_sources;

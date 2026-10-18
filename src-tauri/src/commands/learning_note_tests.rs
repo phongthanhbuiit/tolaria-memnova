@@ -240,3 +240,22 @@ fn pending_operations_block_legacy_creates_edits_and_clones_without_a_binding() 
         1
     );
 }
+
+#[test]
+fn conversion_preview_ipc_never_opens_an_uninitialized_store() {
+    let dir = tempfile::tempdir().unwrap();
+    fs::write(dir.path().join("plain.md"), "Ordinary article\n").unwrap();
+    let result = execute(
+        &dir.path().to_string_lossy(),
+        None,
+        serde_json::from_value(json!({"kind":"previewNoteConversion"})).unwrap(),
+    )
+    .unwrap();
+    assert_eq!(result["state"], "importRequired");
+    assert!(result["libraryId"].is_null());
+    assert!(!dir.path().join(".memnova").exists());
+    assert!(serde_json::from_value::<LearningRequest>(
+        json!({"kind":"previewNoteConversion","force":true})
+    )
+    .is_err());
+}
