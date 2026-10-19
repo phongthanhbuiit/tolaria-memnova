@@ -149,7 +149,8 @@ pub(super) fn count_body_words(content: &str) -> u32 {
 /// Extract a snippet: first ~160 chars of content after frontmatter/title, stripped of markdown.
 pub(super) fn extract_snippet(content: &str) -> String {
     let without_fm = strip_frontmatter(content);
-    let body = without_h1_line(without_fm).unwrap_or(without_fm);
+    let visible = super::snippet::snippet_markdown(without_fm);
+    let body = without_h1_line(&visible).unwrap_or(&visible);
     let clean: String = body
         .lines()
         .filter(|line| is_snippet_line(line))
@@ -450,6 +451,22 @@ mod tests {
             extract_title(Some(""), "No heading here.", "empty-h1.md"),
             "Empty H1"
         );
+    }
+
+    #[test]
+    fn test_extract_snippet_durable_projection_corpus() {
+        let cases: serde_json::Value = serde_json::from_str(include_str!(
+            "../../../tests/fixtures/durable-snippets.json"
+        ))
+        .unwrap();
+        for case in cases.as_array().unwrap() {
+            assert_eq!(
+                extract_snippet(case["source"].as_str().unwrap()),
+                case["expected"].as_str().unwrap(),
+                "{}",
+                case["name"]
+            );
+        }
     }
 
     // --- extract_snippet tests ---

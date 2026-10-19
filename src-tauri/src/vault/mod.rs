@@ -13,6 +13,7 @@ mod parsing;
 pub(crate) mod path_identity;
 mod rename;
 mod rename_transaction;
+mod snippet;
 mod title_sync;
 mod trash;
 mod view_date_filters;

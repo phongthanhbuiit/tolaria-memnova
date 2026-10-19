@@ -1133,3 +1133,7 @@ Recovery Retry can return a nonterminal outcome without throwing. `useNoteRecove
 M24 (ADR0164) patches the installed tldraw FocusManager to bind body event handlers once and remove those exact callbacks on disposal. Application editor ownership and serialization remain unchanged. The production-renderer scale regression exercises actual editor mount/unmount across notes and Libraries; its CDP listener/heap counters complement native persistence checks and are not presented as WebKit memory measurements.
 
 M24 durable-token regression: URI encoding alone leaves Markdown delimiters in opaque payloads. Percent-escape those remaining delimiters before inline parsing; decode/serialization and persisted fences stay compatible. Real BlockNote parser tests cover shape IDs, literal asterisks/tildes and Unicode. This prevents internal token paragraphs without flattening styled text or changing user source data.
+# Snippet projection (UX U01)
+
+`snippetMarkdown` / native `vault::snippet::snippet_markdown` remove only closed tldraw fence ranges from display snippets before existing Markdown stripping and heading fallback. They never write source or schedule data. Ordinary and unclosed fences keep prior semantics; outer ordinary fences protect literal nested examples. The shared `tests/fixtures/durable-snippets.json` corpus keeps frontend/dev-adapter and native results aligned.
+

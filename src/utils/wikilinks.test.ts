@@ -1,3 +1,4 @@
+import durableSnippets from '../../tests/fixtures/durable-snippets.json'
 import { describe, it, expect } from 'vitest'
 import { preProcessWikilinks, injectWikilinks, restoreWikilinksInBlocks, splitFrontmatter, countWords, extractOutgoingLinks, extractBacklinkContext, extractSnippet } from './wikilinks'
 
@@ -723,3 +724,9 @@ describe('extractSnippet', () => {
     expect(snippet).toContain('Some text.')
   })
 })
+
+for (const sample of durableSnippets) {
+  it(`extractSnippet durable projection: ${sample.name}`, () => {
+    expect(extractSnippet(sample.source)).toBe(sample.expected)
+  })
+}

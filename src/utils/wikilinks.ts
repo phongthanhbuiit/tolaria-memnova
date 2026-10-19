@@ -1,3 +1,5 @@
+import { snippetMarkdown } from './snippetMarkdown'
+
 // Wikilink placeholder tokens for markdown round-trip
 const WL_START = '\u2039WIKILINK:'
 const WL_END = '\u203A'
@@ -494,7 +496,7 @@ function extractSubheadingText(line: MarkdownLine): MarkdownSource | null {
  *  Mirrors the Rust extract_snippet() logic for frontend use. */
 export function extractSnippet(content: MarkdownSource): MarkdownSource {
   const [, body] = splitFrontmatter(content)
-  const withoutH1 = removeH1Line(body)
+  const withoutH1 = removeH1Line(snippetMarkdown(body))
   const clean = withoutH1.split('\n').filter(isSnippetLine).map(stripListMarker).join(' ')
   const stripped = stripMarkdownChars(clean).trim()
   if (stripped) {
