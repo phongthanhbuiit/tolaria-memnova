@@ -50,15 +50,15 @@ UI review tham chiếu [Web Interface Guidelines](https://raw.githubusercontent.
 
 | Task | Ưu tiên | Phụ thuộc | Trạng thái |
 |---|---|---|---|
-| R00 — baseline và tái hiện helper | P1 | U11 | VERIFIED_LOCAL — lượt review này |
-| R01 — history isolation và regression thật | P1 | R00 | TODO |
-| R02 — tích hợp/native và bảo toàn dữ liệu | P1 | R01 | TODO |
+| R00 — baseline và tái hiện helper | P1 | U11 | DONE — review đã push `878951f8` |
+| R01 — history isolation và regression thật | P1 | R00 | F01 FIXED — `2d8e7a35`/`87836291`/`8bc9f3ad`; ma trận mở rộng xem receipt |
+| R02 — tích hợp/native và bảo toàn dữ liệu | P1 | R01 | VERIFIED_FOR_F01 — browser/native/snapshot; không gọi toàn bộ matrix DONE |
 | R03 — giảm thời gian smoke có đo lường | P2 | R02 | TODO |
 | R04 — accessibility và focus danh sách động | P2 | R02 | TODO |
 | R05 — kiểm tra cấu hình phát hành | Release | R02 | TODO, theo target phát hành |
 | R06 — release follow-up và receipt | P1 | R01–R04; R05 nếu phát hành production | TODO |
 
-R00 chuyển DONE khi tài liệu review được commit/push bình thường; các task khác không tự DONE từ bảng này.
+F01 và hai lỗi trực tiếp phát hiện trong raw/menu đã sửa và push normal tại source/test `d1613fac`; xem [nghiệm thu fix Undo](baselines/2026-10-19-editor-undo.md). Không tái triển khai các fix đó như task chưa làm. Same-document Undo/Redo, face/raw isolation, untitled auto-rename và native menu đã kiểm chứng; mọi kiểu rename giữ history, last-stroke native mới và matrix rộng chưa được nhận là DONE. R03/R04/R05 và release toàn bộ scope R06 vẫn là follow-up riêng; yêu cầu lượt này là sửa lỗi đã tái hiện và push, không tuyên bố đã triển khai trọn R01–R06.
 
 ### R01 — sửa history mà giữ nguyên thao tác chỉnh sửa
 
