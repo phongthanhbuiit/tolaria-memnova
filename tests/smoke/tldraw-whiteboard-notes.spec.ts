@@ -313,10 +313,10 @@ test('embedded tldraw drawing uses the clicked coordinates while zoomed', async 
 
   const whiteboard = page.locator('.tldraw-whiteboard')
   await expect(whiteboard).toBeVisible({ timeout: 20_000 })
+  await page.getByTestId('tools.draw').click()
+  // Clicking the toolbar can scroll a small editor viewport; measure the live canvas afterwards.
   const boardBox = await whiteboard.boundingBox()
   expect(boardBox).not.toBeNull()
-
-  await page.getByTestId('tools.draw').click()
 
   const start = {
     x: boardBox!.x + 180,

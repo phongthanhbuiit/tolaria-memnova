@@ -39,6 +39,9 @@ patchedDependencies:
   '@tiptap/extension-link@3.19.0':
     hash: fbe59b1b8b798ba3fefa371c0729b5aa3458e1ea70a4b86cd5267f9f62529284
     path: patches/@tiptap__extension-link@3.19.0.patch
+  '@tldraw/editor@4.5.10':
+    hash: 1613a26e5ee3c321c4ce616ae79e859b398c768d00fca5740a9f81ad7c0058fb
+    path: patches/@tldraw__editor@4.5.10.patch
   prosemirror-tables@1.8.5:
     hash: cd456f0d1d88a3ce11bcf53122a0e0575c0d82810eddd887adae21d6ec570a8b
     path: patches/prosemirror-tables@1.8.5.patch
@@ -9190,7 +9193,7 @@ snapshots:
     dependencies:
       '@tldraw/utils': 4.5.10
 
-  '@tldraw/editor@4.5.10(@floating-ui/dom@1.7.5)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@tldraw/editor@4.5.10(patch_hash=1613a26e5ee3c321c4ce616ae79e859b398c768d00fca5740a9f81ad7c0058fb)(@floating-ui/dom@1.7.5)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@tiptap/core': 3.19.0(@tiptap/pm@3.19.0)
       '@tiptap/pm': 3.19.0
@@ -12524,7 +12527,7 @@ snapshots:
       '@tiptap/pm': 3.19.0
       '@tiptap/react': 3.19.0(@floating-ui/dom@1.7.5)(@tiptap/core@3.19.0(@tiptap/pm@3.19.0))(@tiptap/pm@3.19.0)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@tiptap/starter-kit': 3.22.5
-      '@tldraw/editor': 4.5.10(@floating-ui/dom@1.7.5)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@tldraw/editor': 4.5.10(patch_hash=1613a26e5ee3c321c4ce616ae79e859b398c768d00fca5740a9f81ad7c0058fb)(@floating-ui/dom@1.7.5)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@tldraw/store': 4.5.10(react@19.2.4)
       classnames: 2.5.1
       hotkeys-js: 3.13.15

@@ -1,6 +1,10 @@
 # Architecture
 
-## Memnova implementation status
+## Current note-memory architecture
+
+The default workspace keeps ordinary Markdown ordinary. Explicit note-memory opt-in creates one study binding per note; Article and inline Mnemonic remain in one Markdown source, with an optional UUID-bound same-Library source face. SQLite schema 5 owns learning state and recovery, not a second authoritative article. Existing multi-card learning remains in the Legacy lane. See [the user guide](MEMNOVA-NOTE-MEMORY-GUIDE.md) and [current M00–M25 ledger](MEMNOVA-NOTE-MEMORY-IMPLEMENTATION.md) for release status and evidence. The transition notes below retain historical context; staged checkpoints are not the current default-workspace state.
+
+## Earlier Memnova transition context
 
 The staged Memnova learning-storage transition is tracked in [MEMNOVA-IMPLEMENTATION.md](./MEMNOVA-IMPLEMENTATION.md). Until verified SQLite cutover, legacy FSRS fields remain in Markdown. `update_fsrs_schedule` validates the active library boundary and allowed scheduling keys, serializes schedule writes, and persists a complete patch with one synced temporary-file replacement. The frontend flushes pending lesson edits before calling it and updates the cache, tab and vault entry only after persistence succeeds. Study progress advances and gamification records only after the promise resolves; a failed write leaves the answer open for retry.
 
@@ -1287,3 +1291,5 @@ M21 scopes system typography, zoom-aware dialog bounds, coarse targets and reduc
 M22 fault checks prevent opening surviving learning database artifacts with a newly generated identity when library.json is missing. Journal checkpoints compare their prior SQL phase/payload and preserve terminal receipts, allowing only existing exact save compaction. Fresh-conversion validation checks all existing scheduler defaults without changing scheduling calculations; note previews isolate unrelated UUID ambiguities through SourceCatalog.
 
 M23 native acceptance exposed a missing normal-close lifecycle (ADR0163): Cmd+Q could terminate before rich/raw/canvas debounce reached the existing canonical writer. Root SaveBeforeCloseBoundary now participates in a native UUID/caller-bound close barrier for main, note and AI windows. It freezes input before the existing producer/flushBeforeAction chain, waits for all affected windows on app quit, and leaves drafts open on failure, context change or timeout. Startup pending-query covers listeners mounted after the close request. No new storage, serializer, learning policy or dependency is introduced; special Tauri restart/force termination remains outside this guarantee.
+
+M24 lifecycle correction (ADR0164): the version-specific `@tldraw/editor@4.5.10` pnpm patch fixes focus-manager cleanup retaining detached editors. Source/ESM/CommonJS use the same bound callback identity for body listener registration and removal. Existing patches and dependency versions are retained. Keep the real twenty-note/twenty-Library lifecycle regression when upgrading the SDK; no app-level global listener removal or storage change is introduced.
