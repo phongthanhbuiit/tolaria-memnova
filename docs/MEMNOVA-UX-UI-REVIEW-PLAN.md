@@ -109,7 +109,7 @@ Mỗi task dưới đây đủ nhỏ để model triển khai riêng. Không suy
 |---|---|---|---|---|
 | U00 | P1 quy trình | — | Baseline/screenshot và trạng thái chuẩn | VERIFIED_LOCAL — [baseline](baselines/2026-10-19-ux-u00.md) |
 | U01 | P2 bug | U00 | Snippet sạch payload, parity TS/Rust | VERIFIED_LOCAL — [evidence](baselines/2026-10-19-ux-u01.md) |
-| U02 | P2 bug | U00 | Error refresh đúng vòng đời | NOT_STARTED |
+| U02 | P2 bug | U00 | Error refresh đúng vòng đời | VERIFIED_LOCAL — [evidence](baselines/2026-10-19-ux-u02.md) |
 | U03 | P2 | U01,U02 | Control/style/icon contract dùng chung trong feature | NOT_STARTED |
 | U04 | P2 | U03 | Editor navigation, toolbar nguồn, width UX | NOT_STARTED |
 | U05 | P2 | U04 | Note learning panel theo trạng thái | NOT_STARTED |

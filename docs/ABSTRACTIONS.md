@@ -1137,3 +1137,5 @@ M24 durable-token regression: URI encoding alone leaves Markdown delimiters in o
 
 `snippetMarkdown` / native `vault::snippet::snippet_markdown` remove only closed tldraw fence ranges from display snippets before existing Markdown stripping and heading fallback. They never write source or schedule data. Ordinary and unclosed fences keep prior semantics; outer ordinary fences protect literal nested examples. The shared `tests/fixtures/durable-snippets.json` corpus keeps frontend/dev-adapter and native results aligned.
 
+Read errors in `useLearningLibrary.load` follow the same Library generation/read sequence guard as successful snapshots. Both manual and background refresh publish through this single state; dashboard/panel do not retain duplicate read-error state. A successful current snapshot clears read errors. Panel mutation errors remain local until another explicit mutation attempt.
+

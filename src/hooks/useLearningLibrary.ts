@@ -22,9 +22,15 @@ export function useLearningLibrary(root: string | null | undefined) {
   const load = useCallback(async (client: LearningClient, epoch: number) => {
     const read = (reads.current.get(path) ?? 0) + 1
     reads.current.set(path, read)
-    const snapshot = client.supportsNoteMemory ? await client.syncNoteWorkspace() : { pages: await client.syncPages(), notes: [] }
-    const [cards, stats] = await Promise.all([client.listCards(null, true), client.studyStats()])
-    if (generation.current === epoch && reads.current.get(path) === read) setState(previous => previous.root !== path ? previous : ({ ...previous, root: path, client, phase: 'ready', ...snapshot, cards, stats, clock: Date.now(), error: null }))
+    const isCurrentRead = () => generation.current === epoch && reads.current.get(path) === read
+    try {
+      const snapshot = client.supportsNoteMemory ? await client.syncNoteWorkspace() : { pages: await client.syncPages(), notes: [] }
+      const [cards, stats] = await Promise.all([client.listCards(null, true), client.studyStats()])
+      if (isCurrentRead()) setState(previous => previous.root !== path ? previous : ({ ...previous, root: path, client, phase: 'ready', ...snapshot, cards, stats, clock: Date.now(), error: null }))
+    } catch (error) {
+      if (isCurrentRead()) setState(previous => previous.root !== path ? previous : { ...previous, error: String(error) })
+      throw error
+    }
   }, [path])
   const connect = useCallback(async () => {
     const epoch = ++generation.current
@@ -50,8 +56,7 @@ export function useLearningLibrary(root: string | null | undefined) {
   }, [current.client, current.phase, load])
   useEffect(() => {
     if (current.phase !== 'ready') return
-    const epoch = generation.current
-    const timer = setInterval(() => { void refresh().catch(error => setState(previous => generation.current === epoch && previous.root === path ? { ...previous, error: String(error) } : previous)) }, 60_000)
+    const timer = setInterval(() => { void refresh().catch(() => {}) }, 60_000)
     return () => clearInterval(timer)
   }, [current.phase, refresh, path])
   const openMigration = useCallback(async () => {

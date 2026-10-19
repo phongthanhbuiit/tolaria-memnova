@@ -1,9 +1,10 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { expect, it, vi } from 'vitest'
 import { NoteLearningDashboard } from './NoteLearningDashboard'
 
 const workspace = {
   root: '/library',
+  error: null as string | null,
   clock: Date.now(),
   client: {},
   pages: [
@@ -105,4 +106,19 @@ it('keeps internal retained-history paths out of the folder picker', () => {
   } finally {
     workspace.pages.pop()
   }
+})
+
+it('clears an initial refresh error when the same mounted workspace publishes a successful snapshot', async () => {
+  workspace.refresh.mockRejectedValueOnce(Error('temporary-read-failure'))
+  const props = { mode: 'home' as const, locale: 'en' as const, onOpenPage: vi.fn(), legacy: null }
+  const view = render(<NoteLearningDashboard {...props} />)
+  await act(async () => { await Promise.resolve() })
+  workspace.error = 'temporary-read-failure'
+  view.rerender(<NoteLearningDashboard {...props} />)
+  expect(screen.getByRole('alert')).toHaveTextContent('temporary-read-failure')
+  await act(async () => { await workspace.refresh() })
+  workspace.error = null
+  workspace.clock += 60_000
+  view.rerender(<NoteLearningDashboard {...props} />)
+  await waitFor(() => expect(screen.queryByRole('alert')).not.toBeInTheDocument())
 })

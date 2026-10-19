@@ -38,13 +38,7 @@ export function NoteLearningPanel({
     client = workspace?.client
   useEffect(() => {
     if (!refresh || !client) return
-    let active = true
-    void refresh().catch((error) => {
-      if (active) setError(String(error))
-    })
-    return () => {
-      active = false
-    }
+    void refresh().catch(() => {})
   }, [path, refresh, client])
   if (!workspace) return null
   const page = workspace.pages.find((page) =>
@@ -104,14 +98,14 @@ export function NoteLearningPanel({
             )}
           </p>
         </header>
-        {error && (
+        {(error || workspace.error) && (
           <div
             role="alert"
             className="space-y-2 rounded-lg border border-destructive p-4"
           >
             <p>{t('learning.error')}</p>
             <pre className="whitespace-pre-wrap break-words text-xs">
-              {error}
+              {error || workspace.error}
             </pre>
           </div>
         )}

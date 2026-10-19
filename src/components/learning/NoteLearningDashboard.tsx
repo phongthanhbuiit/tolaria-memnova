@@ -52,16 +52,9 @@ export function NoteLearningDashboard({
   const t = (key: Parameters<typeof translate>[1]) => translate(locale, key)
   const refresh = workspace?.refresh,
     client = workspace?.client
-  const [refreshError, setRefreshError] = useState<string | null>(null)
   useEffect(() => {
     if (!refresh || !client) return
-    let active = true
-    void refresh().catch((error) => {
-      if (active) setRefreshError(String(error))
-    })
-    return () => {
-      active = false
-    }
+    void refresh().catch(() => {})
   }, [refresh, client])
   if (!workspace) return null
   const due = workspaceDue(
@@ -138,14 +131,14 @@ export function NoteLearningDashboard({
               {t('learning.study')}
             </Button>
           </header>
-          {(workspace.error || refreshError) && (
+          {workspace.error && (
             <div
               role="alert"
               className="rounded-lg border border-destructive p-4"
             >
               <p>{t('learning.error')}</p>
               <pre className="whitespace-pre-wrap break-words text-xs">
-                {workspace.error || refreshError}
+                {workspace.error}
               </pre>
               <Button
                 variant="outline"

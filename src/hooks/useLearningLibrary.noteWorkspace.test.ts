@@ -64,3 +64,30 @@ it('does not publish late workspace summaries into another Library', async () =>
   expect(result.current.notes).toEqual([])
   expect(result.current.cards.map((card) => card.id)).toEqual(['old-b'])
 })
+
+it('publishes a failed manual refresh once and clears it after a successful background snapshot', async () => {
+  const api = client('refresh')
+  vi.mocked(LearningClient.connect).mockResolvedValue(api as unknown as LearningClient)
+  const { result } = renderHook(() => useLearningLibrary('/refresh'))
+  await waitFor(() => expect(result.current.phase).toBe('ready'))
+  api.syncNoteWorkspace.mockRejectedValueOnce(Error('temporary-read-failure'))
+  await act(async () => { await expect(result.current.refresh()).rejects.toThrow('temporary-read-failure') })
+  expect(result.current.error).toContain('temporary-read-failure')
+  await act(() => result.current.refresh())
+  expect(result.current.error).toBeNull()
+})
+
+it('does not let an older failed refresh replace a newer successful snapshot', async () => {
+  const api = client('refresh')
+  vi.mocked(LearningClient.connect).mockResolvedValue(api as unknown as LearningClient)
+  const { result } = renderHook(() => useLearningLibrary('/refresh'))
+  await waitFor(() => expect(result.current.phase).toBe('ready'))
+  let rejectOld: (reason: Error) => void = () => {}
+  api.syncNoteWorkspace.mockReturnValueOnce(new Promise((_resolve, reject) => { rejectOld = reject }))
+  let older: Promise<unknown> = Promise.resolve()
+  act(() => { older = result.current.refresh().catch(() => {}) })
+  await act(() => result.current.refresh())
+  await act(async () => { rejectOld(Error('outdated failure')); await older })
+  expect(result.current.error).toBeNull()
+  expect(result.current.phase).toBe('ready')
+})
