@@ -1,5 +1,6 @@
 import type { MutableRefObject } from 'react'
 import type { useCreateBlockNote } from '@blocknote/react'
+import { HistoryExtension } from '@blocknote/core/extensions'
 import { blankParagraphBlocks } from './editorTabContent'
 import { EDITOR_CONTAINER_SELECTOR } from './editorDomSelection'
 import { resetTextSelectionBeforeContentSwap } from './editorTiptapSelection'
@@ -10,6 +11,7 @@ type EditorBlocks = unknown[]
 export type EditorContentPathRef = MutableRefObject<string | null>
 
 interface AppliedEditorContentCommit {
+  editor: ReturnType<typeof useCreateBlockNote>
   editorContentPathRef: EditorContentPathRef
   scrollTop: number
   suppressChangeRef: MutableRefObject<boolean>
@@ -17,16 +19,12 @@ interface AppliedEditorContentCommit {
 }
 
 interface ApplyBlocksToEditorOptions extends AppliedEditorContentCommit {
-  editor: ReturnType<typeof useCreateBlockNote>
   blocks: EditorBlocks
 }
 
-interface ApplyBlankStateToEditorOptions extends Omit<AppliedEditorContentCommit, 'scrollTop'> {
-  editor: ReturnType<typeof useCreateBlockNote>
-}
+type ApplyBlankStateToEditorOptions = Omit<AppliedEditorContentCommit, 'scrollTop'>
 
 interface ApplyMarkupStateToEditorOptions extends Omit<AppliedEditorContentCommit, 'scrollTop'> {
-  editor: ReturnType<typeof useCreateBlockNote>
   markup: string
 }
 
@@ -93,12 +91,25 @@ function commitAppliedEditorContent(options: AppliedEditorContentCommit) {
     targetPath,
   } = options
 
+  resetLoadedDocumentHistory(options.editor)
   requestNextFrame(() => {
     editorContentPathRef.current = targetPath
     suppressChangeRef.current = false
     const scrollEl = typeof document === 'undefined' ? null : document.querySelector(EDITOR_CONTAINER_SELECTOR)
     if (scrollEl) scrollEl.scrollTop = scrollTop
   })
+}
+
+/** A document replacement is a load boundary, never an edit of the previous note/face. */
+function resetLoadedDocumentHistory(editor: ReturnType<typeof useCreateBlockNote>) {
+  const history = editor.getExtension?.(HistoryExtension)
+  if (!history) return
+  const state = editor.prosemirrorState
+  const historyPlugins = new Set<object>(history.prosemirrorPlugins)
+  // Reconfigure only history's state field. Keep the document, selection and all other
+  // plugin states intact, and update the view once so mounted node views stay alive.
+  const withoutHistory = state.reconfigure({ plugins: state.plugins.filter((plugin: object) => !historyPlugins.has(plugin)) })
+  editor.prosemirrorView.updateState(withoutHistory.reconfigure({ plugins: state.plugins }))
 }
 
 function requestNextFrame(callback: FrameRequestCallback): void {
