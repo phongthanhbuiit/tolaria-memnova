@@ -563,7 +563,7 @@ function EditorLayout({
               onToggleDiff={handleToggleDiffExclusive}
               rawMode={rawMode}
               onToggleRaw={handleToggleRawExclusive}
-              onRawContentChange={onContentChange}
+              onRawContentChange={flashcard?.handleRawContentChange ?? onContentChange}
               onSave={onSave}
               activeStatus={activeStatus}
               showDiffToggle={showDiffToggle}
@@ -706,7 +706,7 @@ export const Editor = memo(function Editor(props: EditorProps) {
     flushPendingEditorContentRef: props.flushPendingEditorContentRef,
     rawLatestContentRef: runtime.rawLatestContentRef,
     rawMode: runtime.rawMode,
-    onContentChange: props.onContentChange,
+    onContentChange: runtime.flashcard.handleRawContentChange ?? props.onContentChange,
     flushPendingRawContentRef: props.flushPendingRawContentRef,
   })
   const rightPanel = useRightPanelExclusion(props)

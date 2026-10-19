@@ -10,14 +10,14 @@ afterEach(() => { cleanup(); disposals.splice(0).forEach(dispose => dispose()); 
 function tab(path: string, body: string) {
   return { entry: { path, title: 'Article', filename: 'article.md', type: 'Note', status: 'Active', aliases: [], isA: '' }, content: body }
 }
-function harness() {
+function harness(path = '/library/a.md', body = 'Original A') {
   const mount = document.createElement('div')
   document.body.appendChild(mount)
   const editor = BlockNoteEditor.create()
   editor.mount(mount)
   disposals.push(() => { editor.unmount(); mount.remove() })
   const onContentChange = vi.fn()
-  const initialProps = { tabs: [tab('/library/a.md', 'Original A')], activeTabPath: '/library/a.md', rawMode: false, contentIdentity: 'article' }
+  const initialProps = { tabs: [tab(path, body)], activeTabPath: path, rawMode: false, contentIdentity: 'article' }
   const hook = renderHook(props => useEditorTabSwap({ ...props, editor, vaultPath: '/library', onContentChange }), { initialProps })
   return { ...hook, editor, onContentChange, initialProps }
 }
@@ -52,4 +52,19 @@ it('isolates real history on same-path face changes and raw content replacements
   await waitFor(() => expect(editor.prosemirrorState.doc.textContent).toBe('Changed in raw mode'))
   act(() => { editor.undo() })
   expect(editor.prosemirrorState.doc.textContent).toBe('Changed in raw mode')
+})
+
+
+it('retains real text history through the existing untitled auto-rename continuity path', async () => {
+  const { editor, result, rerender, initialProps, onContentChange } = harness('/library/untitled-note-123.md', '# Fresh Title\n\nOriginal body.')
+  await waitFor(() => expect(editor.prosemirrorState.doc.textContent).toContain('Original body.'))
+  await act(() => new Promise(resolve => requestAnimationFrame(resolve)))
+  act(() => { editor.updateBlock(editor.document[1], { content: 'Edited body.' }); result.current.handleEditorChange(); result.current.flushPendingEditorChange() })
+  const saved = onContentChange.mock.calls.at(-1)?.[1] as string
+  expect(saved).toContain('Edited body.')
+  rerender({ ...initialProps, activeTabPath: '/library/fresh-title.md', tabs: [tab('/library/fresh-title.md', saved)] })
+  await act(() => new Promise(resolve => requestAnimationFrame(resolve)))
+  act(() => { expect(editor.undo()).toBe(true) })
+  expect(editor.prosemirrorState.doc.textContent).toContain('Original body.')
+  expect(editor.prosemirrorState.doc.textContent).not.toContain('Edited body.')
 })
