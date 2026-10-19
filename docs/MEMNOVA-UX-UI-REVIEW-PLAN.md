@@ -1,7 +1,7 @@
 # Memnova — rà soát sau M25 và kế hoạch UX/UI
 
 Ngày: 2026-10-19. Baseline: `77dd9d8211ebd4e8e3d385e2bf8a0670dc992cb9`.
-Phạm vi lượt này: review code/nghiệm thu, chạy kiểm chứng có chọn lọc, lập kế hoạch. **Chưa triển khai các task U00–U11.**
+Kế hoạch được chấp thuận để triển khai đầy đủ U00–U11. Bảng task là trạng thái hiện hành; findings và bằng chứng review bên dưới giữ nguyên như baseline lịch sử.
 
 ## 1. Kết luận và cách đọc báo cáo
 
@@ -107,7 +107,7 @@ Mỗi task dưới đây đủ nhỏ để model triển khai riêng. Không suy
 
 | ID | Ưu tiên | Phụ thuộc | Đầu ra | Trạng thái |
 |---|---|---|---|---|
-| U00 | P1 quy trình | — | Baseline/screenshot và trạng thái chuẩn | NOT_STARTED |
+| U00 | P1 quy trình | — | Baseline/screenshot và trạng thái chuẩn | VERIFIED_LOCAL — [baseline](baselines/2026-10-19-ux-u00.md) |
 | U01 | P2 bug | U00 | Snippet sạch payload, parity TS/Rust | NOT_STARTED |
 | U02 | P2 bug | U00 | Error refresh đúng vòng đời | NOT_STARTED |
 | U03 | P2 | U01,U02 | Control/style/icon contract dùng chung trong feature | NOT_STARTED |
