@@ -156,6 +156,29 @@ test('source toolbar follows utility type scale and coarse target size', async (
   } finally { await context.close() }
 })
 
+test('workspace tabs keep whole labels when space permits and contain both navigation levels in a narrow editor', async ({ page }) => {
+  await page.goto('/tests/fixtures/note-memory-layout.html')
+  await page.waitForFunction(() => window.setNoteLayoutCase)
+  for (const locale of ['en','vi','de-DE'] as const) for (const width of [480,200,160]) {
+    await page.evaluate(({locale,width}) => {
+      window.setNoteLayoutCase?.({surface:'tabs',locale,theme:'light'})
+      document.querySelector<HTMLElement>('[data-layout-surface]')!.style.width = `${width}px`
+    }, {locale,width})
+    await page.waitForFunction(locale => document.documentElement.dataset.layoutCase === `tabs:${locale}:light`,locale)
+    const metrics = await page.locator('.note-memory-workspace-tabs').evaluate(list => {
+      const parent = list.closest('[data-layout-surface]')!.getBoundingClientRect(), bounds = list.getBoundingClientRect()
+      return { contained: bounds.left >= parent.left && bounds.right <= parent.right, labels: [...list.querySelectorAll<HTMLElement>('[role=tab]')].map(button => {
+        const text = [...button.childNodes].find(node => node.nodeType === Node.TEXT_NODE && node.textContent?.trim())!
+        const range = document.createRange(); range.selectNodeContents(text)
+        const rectangle = button.getBoundingClientRect()
+        return { lines: range.getClientRects().length, contained: rectangle.left >= bounds.left && rectangle.right <= bounds.right && rectangle.bottom <= bounds.bottom }
+      }) }
+    })
+    expect(metrics.contained,`${locale}/${width}`).toBe(true)
+    for (const label of metrics.labels) { expect(label.contained,`${locale}/${width}`).toBe(true); if (width === 480) expect(label.lines,locale).toBe(1) }
+  }
+})
+
 test('closing the source chooser restores focus to its toolbar action', async ({ page }) => {
   await page.goto('/tests/fixtures/note-memory-layout.html')
   await page.waitForFunction(() => window.setNoteLayoutCase)
