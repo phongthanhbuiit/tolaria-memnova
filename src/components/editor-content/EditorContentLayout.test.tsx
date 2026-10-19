@@ -1,5 +1,6 @@
+import { LearningContext, type LearningWorkspace } from '../learning/LearningContext'
 import { createRef } from 'react'
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 import { EditorContentLayout } from './EditorContentLayout'
 
@@ -155,4 +156,33 @@ describe('EditorContentLayout', () => {
     expect(findScope).toHaveClass('editor-scroll-area')
     expect(rawEditor.closest('.editor-content-wrapper')).toBeNull()
   })
+})
+
+const memoryFace = (activeFace: 'front' | 'back') => ({
+  isFSRS: true, isNoteMemory: true, activeFace, hasBack: true,
+  setActiveFace: vi.fn(), handleAddBack: vi.fn(), handleEditorContentChange: vi.fn(),
+  configureBack: vi.fn(), noteMemoryPageId: 'owner', sourceBack: { kind: 'inline' }, editorContent: 'Body',
+})
+vi.mock('../learning/NoteBackSource', () => ({
+  NoteBackSourceToolbar: () => <div data-testid="source-toolbar" />,
+  LinkedNoteBackPreview: () => <div data-testid="source-preview" />,
+}))
+it('shows source controls only for the mnemonic while preserving note width on both faces', () => {
+  const { container, rerender } = render(<EditorContentLayout {...createModel({ flashcard: memoryFace('front'), noteWidth: 'wide' })} />)
+  expect(screen.queryByTestId('source-toolbar')).not.toBeInTheDocument()
+  rerender(<EditorContentLayout {...createModel({ flashcard: memoryFace('back'), noteWidth: 'wide' })} />)
+  expect(screen.getByTestId('source-toolbar')).toBeInTheDocument()
+  expect(container.firstElementChild).toHaveClass('editor-content-width--wide')
+  rerender(<EditorContentLayout {...createModel({ flashcard: memoryFace('back'), effectiveRawMode: true })} />)
+  expect(screen.queryByTestId('source-toolbar')).not.toBeInTheDocument()
+})
+it('labels note learning management separately from content and waits for the canonical flush', async () => {
+  const flush = vi.fn().mockRejectedValueOnce(Error('Save failed'))
+  const workspace = { phase: 'ready', client: { supportsNoteMemory: true }, root: '/vault', flush } as unknown as LearningWorkspace
+  render(<LearningContext.Provider value={workspace}><EditorContentLayout {...createModel({ flashcard: memoryFace('front') })} /></LearningContext.Provider>)
+  const management = screen.getByRole('tab', { name: 'Memorization', exact: true })
+  fireEvent.mouseDown(management, { button: 0, ctrlKey: false })
+  await waitFor(() => expect(flush).toHaveBeenCalledOnce())
+  expect(screen.getByRole('tab', { name: 'Content', exact: true })).toHaveAttribute('aria-selected', 'true')
+  expect(screen.getByRole('alert')).toHaveTextContent('Save failed')
 })

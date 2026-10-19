@@ -745,7 +745,7 @@
   "locale.idID": "インドネシア語",
   "decks.empty_search": "No decks match your search.",
   "decks.filter.all": "All",
-  "decks.filter.due": "Due",
+  "decks.filter.due": "復習期限",
   "decks.filter.done": "Up to date",
   "decks.search_placeholder": "Search decks…",
   "decks.total_due": "{n} due today",
@@ -980,5 +980,13 @@
   "save.close.saving": "閉じる前に保存しています…",
   "save.close.wait": "最新の変更の保存が完了するまでお待ちください。",
   "save.close.failed": "安全に閉じることができませんでした",
-  "save.close.retained": "変更内容はウィンドウに保持されています。保存エラーを解決してから再試行してください。"
+  "save.close.retained": "変更内容はウィンドウに保持されています。保存エラーを解決してから再試行してください。",
+  "learning.noteMemory.management": "暗記",
+  "learning.noteMemory.scheduled": "予定済み",
+  "learning.noteMemory.paused": "一時停止中",
+  "learning.noteMemory.pausedHelp": "記憶のヒントと復習履歴は保持されます。また学習したくなったら再開してください。",
+  "learning.noteMemory.noDue": "このフォルダーには復習期限を迎えたノートがありません。",
+  "learning.noteMemory.emptyHelp": "ノートを開いて暗記を有効にすると、ここに追加されます。",
+  "learning.errorDetails": "技術的な詳細",
+  "properties.noteMemoryHelp": "カスタムプロパティでは、このノートを習得済みにしたり復習予定を変更したりできません。"
 }

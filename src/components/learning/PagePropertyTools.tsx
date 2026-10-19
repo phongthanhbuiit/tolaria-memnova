@@ -1,3 +1,4 @@
+import { SlidersHorizontal } from '@phosphor-icons/react'
 import { useEffect, useRef, useState } from 'react'
 import { Button } from '../ui/button'
 import { PagePropertyEditor } from './PagePropertyEditor'
@@ -58,7 +59,7 @@ export function PagePropertyTools({
     }
   }
   return (
-    <div className="space-y-2 px-3 py-3">
+    <div className="note-memory-surface space-y-2 px-3 py-3">
       <Button
         variant="outline"
         size="sm"
@@ -66,8 +67,9 @@ export function PagePropertyTools({
         disabled={!ready || busy || !onUpdate || !onRemove}
         onClick={() => void show()}
       >
-        {translate(locale, 'properties.page')}
+        <SlidersHorizontal aria-hidden="true" />{translate(locale, 'properties.page')}
       </Button>
+      <p className="text-xs text-muted-foreground">{translate(locale, 'properties.noteMemoryHelp')}</p>
       {!ready && (
         <p className="text-xs text-muted-foreground">
           {translate(locale, 'properties.readyHelp')}

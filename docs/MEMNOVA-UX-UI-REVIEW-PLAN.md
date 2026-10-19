@@ -110,15 +110,15 @@ Mỗi task dưới đây đủ nhỏ để model triển khai riêng. Không suy
 | U00 | P1 quy trình | — | Baseline/screenshot và trạng thái chuẩn | VERIFIED_LOCAL — [baseline](baselines/2026-10-19-ux-u00.md) |
 | U01 | P2 bug | U00 | Snippet sạch payload, parity TS/Rust | VERIFIED_LOCAL — [evidence](baselines/2026-10-19-ux-u01.md) |
 | U02 | P2 bug | U00 | Error refresh đúng vòng đời | VERIFIED_LOCAL — [evidence](baselines/2026-10-19-ux-u02.md) |
-| U03 | P2 | U01,U02 | Control/style/icon contract dùng chung trong feature | NOT_STARTED |
-| U04 | P2 | U03 | Editor navigation, toolbar nguồn, width UX | NOT_STARTED |
-| U05 | P2 | U04 | Note learning panel theo trạng thái | NOT_STARTED |
-| U06 | P2 | U03,U05 | Dashboard rõ trạng thái/đến hạn | NOT_STARTED |
-| U07 | P2 | U03,U04 | Study dialog/action hierarchy | NOT_STARTED |
-| U08 | P2 | U03,U04 | Source/conversion/recovery dialogs | NOT_STARTED |
-| U09 | P2 | U03,U05 | Properties scope và readonly clarity | NOT_STARTED |
-| U10 | P2 | U04–U09 | Accessibility/layout/localization regression | NOT_STARTED |
-| U11 | P1 release | U01–U10 | Native/data checks, release evidence, normal push | NOT_STARTED |
+| U03 | P2 | U01,U02 | Control/style/icon contract dùng chung trong feature | VERIFIED_LOCAL — [batch evidence](baselines/2026-10-19-ux-u03-u10.md) |
+| U04 | P2 | U03 | Editor navigation, toolbar nguồn, width UX | VERIFIED_LOCAL — UI batch |
+| U05 | P2 | U04 | Note learning panel theo trạng thái | VERIFIED_LOCAL — UI batch |
+| U06 | P2 | U03,U05 | Dashboard rõ trạng thái/đến hạn | VERIFIED_LOCAL — UI batch |
+| U07 | P2 | U03,U04 | Study dialog/action hierarchy | VERIFIED_LOCAL — UI batch |
+| U08 | P2 | U03,U04 | Source/conversion/recovery dialogs | VERIFIED_LOCAL — UI batch |
+| U09 | P2 | U03,U05 | Properties scope và readonly clarity | VERIFIED_LOCAL — UI batch |
+| U10 | P2 | U04–U09 | Accessibility/layout/localization regression | VERIFIED_LOCAL — UI batch |
+| U11 | P1 release | U01–U10 | Native/data checks, release evidence, normal push | IN_PROGRESS |
 
 ### U00 — khóa baseline và trạng thái trước khi sửa
 

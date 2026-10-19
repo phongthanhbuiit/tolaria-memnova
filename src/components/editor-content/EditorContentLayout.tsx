@@ -1,3 +1,4 @@
+import { BookOpen, Brain } from '@phosphor-icons/react'
 import type React from 'react'
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { cn } from '@/lib/utils'
@@ -502,6 +503,7 @@ export function EditorContentLayout(model: EditorContentModel) {
 
   const learningWorkspace = useLearningWorkspace()
   const memoryPanelId = useId()
+  const mnemonicFocusPath = useRef<string | null>(null)
   const [learningPanel, setLearningPanel] = useState({ path: '', tab: 'content' })
   const [tabError, setTabError] = useState<string | null>(null)
   const tab = learningPanel.path === path ? learningPanel.tab : 'content'
@@ -509,6 +511,23 @@ export function EditorContentLayout(model: EditorContentModel) {
     try { await learningWorkspace?.flush(); setLearningPanel({ path, tab: value }); setTabError(null) }
     catch (error) { setTabError(String(error)) }
   }
+  const openMnemonic = async () => {
+    await learningWorkspace?.flush()
+    if (!flashcard) return
+    if (diffMode) onToggleDiff()
+    if (effectiveRawMode) model.onToggleRaw()
+    if (flashcard.hasBack) flashcard.setActiveFace('back')
+    else flashcard.handleAddBack()
+    mnemonicFocusPath.current = path
+    setLearningPanel({ path, tab: 'content' })
+    setTabError(null)
+  }
+  useEffect(() => {
+    if (mnemonicFocusPath.current === path && tab === 'content' && flashcard?.activeFace === 'back') {
+      document.getElementById(`${memoryPanelId}-back`)?.focus()
+      mnemonicFocusPath.current = null
+    }
+  }, [path, tab, flashcard?.activeFace, memoryPanelId])
   // We require the flashcard model from Editor.tsx to render the tabs
   if (!flashcard) return null
   const linkedBack=flashcard.isNoteMemory&&flashcard.activeFace==='back'&&flashcard.sourceBack?.kind==='page'&&!effectiveRawMode&&!diffMode?flashcard.sourceBack:null
@@ -535,9 +554,9 @@ export function EditorContentLayout(model: EditorContentModel) {
         isVaultLoading={isVaultLoading}
         locale={locale}
       />
-      {learningWorkspace && showActiveContent && <TabsList className="mx-3 mt-2" aria-label={translate(locale, 'learning.cards')}><TabsTrigger value="content">{translate(locale, 'learning.content')}</TabsTrigger><TabsTrigger value="cards">{translate(locale, 'learning.cards')}</TabsTrigger></TabsList>}
+      {learningWorkspace && showActiveContent && <TabsList className="note-memory-workspace-tabs mx-3 mt-2" aria-label={translate(locale, learningWorkspace.client?.supportsNoteMemory ? 'learning.noteMemory.management' : 'learning.cards')}><TabsTrigger value="content"><BookOpen aria-hidden="true" className="size-4" />{translate(locale, 'learning.content')}</TabsTrigger><TabsTrigger value="cards"><Brain aria-hidden="true" className="size-4" />{translate(locale, learningWorkspace.client?.supportsNoteMemory ? 'learning.noteMemory.management' : 'learning.cards')}</TabsTrigger></TabsList>}
       {tabError && <p role="alert" className="px-4 text-sm text-destructive">{tabError}</p>}
-      {learningWorkspace && showActiveContent && <TabsContent value="cards" className="min-h-0 flex-1"><PageFlashcards key={path} path={path} locale={locale} /></TabsContent>}
+      {learningWorkspace && showActiveContent && <TabsContent value="cards" className="min-h-0 flex-1"><PageFlashcards key={path} path={path} locale={locale} onEditMnemonic={openMnemonic} /></TabsContent>}
       <TabsContent value="content" forceMount className="flex min-h-0 flex-1 flex-col data-[state=inactive]:hidden">
       {/* Flashcard tab bar — only shown when FSRS is enabled on the active note */}
       {showActiveContent && flashcard.isFSRS && !effectiveRawMode && !diffMode && (
@@ -557,7 +576,7 @@ export function EditorContentLayout(model: EditorContentModel) {
           onAddBack={flashcard.handleAddBack}
         />
       )}
-      {showActiveContent&&flashcard.isNoteMemory&&flashcard.isFSRS&&flashcard.configureBack&&flashcard.noteMemoryPageId&&flashcard.sourceBack&&!effectiveRawMode&&!diffMode&&<NoteBackSourceToolbar back={flashcard.sourceBack} ownerPath={path} ownerPageId={flashcard.noteMemoryPageId} locale={locale} onApplyBack={flashcard.configureBack} onNavigate={onNavigateWikilink} />}
+      {showActiveContent&&flashcard.activeFace==='back'&&flashcard.isNoteMemory&&flashcard.isFSRS&&flashcard.configureBack&&flashcard.noteMemoryPageId&&flashcard.sourceBack&&!effectiveRawMode&&!diffMode&&<NoteBackSourceToolbar back={flashcard.sourceBack} ownerPath={path} ownerPageId={flashcard.noteMemoryPageId} locale={locale} onApplyBack={flashcard.configureBack} onNavigate={onNavigateWikilink} />}
       {showActiveContent && (
         <div className="flex min-h-0 flex-1 flex-col" id={memoryPanelId} role={flashcard.isNoteMemory && flashcard.isFSRS && !effectiveRawMode && !diffMode ? 'tabpanel' : undefined} aria-labelledby={flashcard.isNoteMemory && flashcard.isFSRS && !effectiveRawMode && !diffMode ? `${memoryPanelId}-${flashcard.activeFace}` : undefined}>
           <EditorChrome

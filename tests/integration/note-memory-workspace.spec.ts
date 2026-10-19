@@ -24,7 +24,7 @@ test('explicit note enable, mnemonic editing, study and pause use the default wo
       .getByTestId('note-list-container')
       .getByText('Alpha Project', { exact: true })
       .click()
-    await page.getByRole('tab', { name: 'Flashcards', exact: true }).click()
+    await page.getByRole('tab', { name: 'Memorization', exact: true }).click()
     await expect(
       page.getByRole('button', { name: 'Enable memorization', exact: true })
     ).toBeEnabled()
@@ -41,13 +41,16 @@ test('explicit note enable, mnemonic editing, study and pause use the default wo
     await expect
       .poll(() => fs.readFileSync(owner, 'utf8'))
       .toContain('_memnova_learning_enabled: true')
-    await page.getByRole('tab', { name: 'Content', exact: true }).click()
     await page
       .getByRole('button', { name: 'Add mnemonic', exact: true })
       .click()
     await expect(
       page.getByRole('tab', { name: 'Mnemonic', exact: true })
     ).toHaveAttribute('aria-selected', 'true')
+    await expect(page.getByRole('button', { name: 'Choose a source', exact: true })).toBeVisible()
+    await page.getByRole('tab', { name: 'Article', exact: true }).click()
+    await expect(page.getByRole('button', { name: 'Choose a source', exact: true })).toBeHidden()
+    await page.getByRole('tab', { name: 'Mnemonic', exact: true }).click()
     const editor = page.locator('.bn-editor [contenteditable=true]').first()
     const input = (await editor.count())
       ? editor
@@ -58,7 +61,7 @@ test('explicit note enable, mnemonic editing, study and pause use the default wo
     await expect
       .poll(() => fs.readFileSync(owner, 'utf8'))
       .toContain('A red membrane surrounds a blue nucleus.')
-    await page.getByRole('tab', { name: 'Flashcards', exact: true }).click()
+    await page.getByRole('tab', { name: 'Memorization', exact: true }).click()
     const panel = page.getByRole('region', { name: 'Note memory', exact: true })
     await expect(
       panel.getByRole('button', { name: 'Study', exact: true })
@@ -75,12 +78,13 @@ test('explicit note enable, mnemonic editing, study and pause use the default wo
     const beforeReview = fs.readFileSync(owner, 'utf8')
     await study.getByRole('button', { name: /^Good/ }).click()
     await study.getByRole('button', { name: 'Close', exact: true }).click()
+    await expect(panel.getByRole('button', { name: 'Study', exact: true })).toBeFocused()
     expect(fs.readFileSync(owner, 'utf8')).toBe(beforeReview)
     await page
       .getByRole('button', { name: 'Pause memorization', exact: true })
       .click()
     await expect(
-      page.getByRole('button', { name: 'Enable memorization', exact: true })
+      page.getByRole('button', { name: 'Resume', exact: true })
     ).toBeEnabled()
     expect(fs.readFileSync(owner, 'utf8')).toBe(
       beforeReview.replace(
@@ -117,7 +121,7 @@ test(`ordinary note editing retains a literal two-face marker without enabling l
     expect(saved).toContain('Ordinary article.')
     expect(saved).not.toContain('_memnova_learning_')
     expect(saved).not.toContain('_memnova_page_id')
-    await page.getByRole('tab', { name: 'Flashcards', exact: true }).click()
+    await page.getByRole('tab', { name: 'Memorization', exact: true }).click()
     await expect(page.getByRole('button', { name: 'Enable memorization', exact: true })).toBeEnabled()
     expect(fs.readFileSync(owner, 'utf8')).toBe(saved)
     await page.getByRole('tab', { name: 'Content', exact: true }).click()

@@ -745,7 +745,7 @@
   "locale.idID": "Інданезійская",
   "decks.empty_search": "No decks match your search.",
   "decks.filter.all": "All",
-  "decks.filter.due": "Due",
+  "decks.filter.due": "Час паўтарыць",
   "decks.filter.done": "Up to date",
   "decks.search_placeholder": "Search decks…",
   "decks.total_due": "{n} due today",
@@ -980,5 +980,13 @@
   "save.close.saving": "Захаванне перад закрыццём…",
   "save.close.wait": "Пачакайце, пакуль захаваюцца апошнія змены.",
   "save.close.failed": "Немагчыма бяспечна закрыць",
-  "save.close.retained": "Змены застаюцца ў адкрытым акне. Выпраўце памылку захавання і паспрабуйце зноў."
+  "save.close.retained": "Змены застаюцца ў адкрытым акне. Выпраўце памылку захавання і паспрабуйце зноў.",
+  "learning.noteMemory.management": "Запамінанне",
+  "learning.noteMemory.scheduled": "Запланавана",
+  "learning.noteMemory.paused": "Прыпынена",
+  "learning.noteMemory.pausedHelp": "Мнемоніка і гісторыя паўтарэнняў захаваныя. Працягніце, калі захочаце зноў вучыцца.",
+  "learning.noteMemory.noDue": "У гэтай папцы няма нататак, якія патрабуюць паўтарэння.",
+  "learning.noteMemory.emptyHelp": "Адкрыйце нататку і ўключыце запамінанне, каб дадаць яе сюды.",
+  "learning.errorDetails": "Тэхнічныя падрабязнасці",
+  "properties.noteMemoryHelp": "Карыстальніцкія ўласцівасці не пазначаюць нататку як вывучаную і не змяняюць расклад паўтарэнняў."
 }

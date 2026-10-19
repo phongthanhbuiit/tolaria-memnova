@@ -745,7 +745,7 @@
   "locale.idID": "Indonesisch",
   "decks.empty_search": "No decks match your search.",
   "decks.filter.all": "All",
-  "decks.filter.due": "Due",
+  "decks.filter.due": "Fällig",
   "decks.filter.done": "Up to date",
   "decks.search_placeholder": "Search decks…",
   "decks.total_due": "{n} due today",
@@ -980,5 +980,13 @@
   "save.close.saving": "Speichern vor dem Schließen…",
   "save.close.wait": "Bitte warte, bis deine letzten Änderungen gespeichert sind.",
   "save.close.failed": "Sicheres Schließen nicht möglich",
-  "save.close.retained": "Deine Änderungen bleiben geöffnet. Behebe den Speicherfehler und versuche es erneut."
+  "save.close.retained": "Deine Änderungen bleiben geöffnet. Behebe den Speicherfehler und versuche es erneut.",
+  "learning.noteMemory.management": "Auswendiglernen",
+  "learning.noteMemory.scheduled": "Geplant",
+  "learning.noteMemory.paused": "Pausiert",
+  "learning.noteMemory.pausedHelp": "Merkhilfe und Lernverlauf bleiben erhalten. Setze das Lernen fort, wenn du wieder üben möchtest.",
+  "learning.noteMemory.noDue": "In diesem Ordner sind keine Notizen fällig.",
+  "learning.noteMemory.emptyHelp": "Öffne eine Notiz und aktiviere das Auswendiglernen, um sie hier hinzuzufügen.",
+  "learning.errorDetails": "Technische Details",
+  "properties.noteMemoryHelp": "Benutzerdefinierte Eigenschaften markieren diese Notiz nicht als gelernt und ändern ihren Wiederholungsplan nicht."
 }

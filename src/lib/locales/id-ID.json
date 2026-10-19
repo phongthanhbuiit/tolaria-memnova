@@ -745,7 +745,7 @@
   "locale.idID": "Bahasa Indonesia",
   "decks.empty_search": "No decks match your search.",
   "decks.filter.all": "All",
-  "decks.filter.due": "Due",
+  "decks.filter.due": "Perlu diulas",
   "decks.filter.done": "Up to date",
   "decks.search_placeholder": "Search decks…",
   "decks.total_due": "{n} due today",
@@ -980,5 +980,13 @@
   "save.close.saving": "Menyimpan sebelum menutup…",
   "save.close.wait": "Tunggu hingga perubahan terbaru Anda tersimpan.",
   "save.close.failed": "Belum dapat ditutup dengan aman",
-  "save.close.retained": "Perubahan Anda tetap terbuka. Perbaiki kesalahan penyimpanan, lalu coba lagi."
+  "save.close.retained": "Perubahan Anda tetap terbuka. Perbaiki kesalahan penyimpanan, lalu coba lagi.",
+  "learning.noteMemory.management": "Hafalan",
+  "learning.noteMemory.scheduled": "Terjadwal",
+  "learning.noteMemory.paused": "Dijeda",
+  "learning.noteMemory.pausedHelp": "Petunjuk ingatan dan riwayat ulasan tetap disimpan. Lanjutkan saat Anda ingin belajar lagi.",
+  "learning.noteMemory.noDue": "Tidak ada catatan yang perlu diulas di folder ini.",
+  "learning.noteMemory.emptyHelp": "Buka catatan dan aktifkan hafalan untuk menambahkannya di sini.",
+  "learning.errorDetails": "Detail teknis",
+  "properties.noteMemoryHelp": "Properti khusus tidak menandai catatan ini sebagai sudah dipelajari atau mengubah jadwal ulasannya."
 }

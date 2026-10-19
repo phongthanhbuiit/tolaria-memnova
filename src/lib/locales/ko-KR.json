@@ -745,7 +745,7 @@
   "locale.idID": "인도네시아 공화국",
   "decks.empty_search": "No decks match your search.",
   "decks.filter.all": "All",
-  "decks.filter.due": "Due",
+  "decks.filter.due": "복습할 시간",
   "decks.filter.done": "Up to date",
   "decks.search_placeholder": "Search decks…",
   "decks.total_due": "{n} due today",
@@ -980,5 +980,13 @@
   "save.close.saving": "닫기 전에 저장 중…",
   "save.close.wait": "최근 변경 사항이 저장될 때까지 기다려 주세요.",
   "save.close.failed": "안전하게 닫을 수 없습니다",
-  "save.close.retained": "변경 사항이 창에 유지됩니다. 저장 오류를 해결한 다음 다시 시도하세요."
+  "save.close.retained": "변경 사항이 창에 유지됩니다. 저장 오류를 해결한 다음 다시 시도하세요.",
+  "learning.noteMemory.management": "암기",
+  "learning.noteMemory.scheduled": "예정됨",
+  "learning.noteMemory.paused": "일시 중지됨",
+  "learning.noteMemory.pausedHelp": "기억 단서와 복습 기록은 유지됩니다. 다시 학습하고 싶을 때 재개하세요.",
+  "learning.noteMemory.noDue": "이 폴더에는 복습할 시기가 된 노트가 없습니다.",
+  "learning.noteMemory.emptyHelp": "노트를 열고 암기를 활성화하면 여기에 추가됩니다.",
+  "learning.errorDetails": "기술 세부 정보",
+  "properties.noteMemoryHelp": "사용자 지정 속성은 이 노트를 학습 완료로 표시하거나 복습 일정을 변경하지 않습니다."
 }

@@ -745,7 +745,7 @@
   "locale.idID": "индонезийский",
   "decks.empty_search": "No decks match your search.",
   "decks.filter.all": "All",
-  "decks.filter.due": "Due",
+  "decks.filter.due": "Пора повторить",
   "decks.filter.done": "Up to date",
   "decks.search_placeholder": "Search decks…",
   "decks.total_due": "{n} due today",
@@ -980,5 +980,13 @@
   "save.close.saving": "Сохранение перед закрытием…",
   "save.close.wait": "Дождитесь сохранения последних изменений.",
   "save.close.failed": "Безопасное закрытие невозможно",
-  "save.close.retained": "Изменения остаются в открытом окне. Устраните ошибку сохранения и повторите попытку."
+  "save.close.retained": "Изменения остаются в открытом окне. Устраните ошибку сохранения и повторите попытку.",
+  "learning.noteMemory.management": "Запоминание",
+  "learning.noteMemory.scheduled": "Запланировано",
+  "learning.noteMemory.paused": "Приостановлено",
+  "learning.noteMemory.pausedHelp": "Мнемоника и история повторений сохранены. Продолжите, когда захотите снова учиться.",
+  "learning.noteMemory.noDue": "В этой папке нет заметок, требующих повторения.",
+  "learning.noteMemory.emptyHelp": "Откройте заметку и включите запоминание, чтобы добавить её сюда.",
+  "learning.errorDetails": "Технические подробности",
+  "properties.noteMemoryHelp": "Пользовательские свойства не отмечают заметку как выученную и не меняют расписание повторений."
 }

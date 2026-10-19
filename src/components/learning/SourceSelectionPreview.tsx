@@ -1,3 +1,5 @@
+import { ArrowClockwise } from '@phosphor-icons/react'
+import { LearningError } from './LearningError'
 import type { KeyboardEvent, SyntheticEvent } from 'react'
 import { BlockNoteReadOnly } from '../BlockNoteReadOnly'
 import { Button } from '../ui/button'
@@ -36,17 +38,7 @@ export function SourceSelectionPreview(props: {
       onKeyDownCapture={stopLinkKey}
     >
       {busy && <p role="status">{translate(locale, 'learning.loading')}</p>}
-      {error && (
-        <div role="alert">
-          <p>{translate(locale, 'learning.error')}</p>
-          <pre className="my-2 whitespace-pre-wrap break-words text-xs">
-            {error}
-          </pre>
-          <Button variant="outline" onClick={onRetry}>
-            {translate(locale, 'learning.noteMemory.refreshPreview')}
-          </Button>
-        </div>
-      )}
+      {error && <LearningError error={error} locale={locale}><Button variant="outline" onClick={onRetry}><ArrowClockwise aria-hidden="true" />{translate(locale, 'learning.noteMemory.refreshPreview')}</Button></LearningError>}
       {preview && (
         <>
           <p className="text-xs text-muted-foreground">

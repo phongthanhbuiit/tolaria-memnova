@@ -745,7 +745,7 @@
   "locale.idID": "Indonezyjski",
   "decks.empty_search": "No decks match your search.",
   "decks.filter.all": "All",
-  "decks.filter.due": "Due",
+  "decks.filter.due": "Do powtórki",
   "decks.filter.done": "Up to date",
   "decks.search_placeholder": "Search decks…",
   "decks.total_due": "{n} due today",
@@ -980,5 +980,13 @@
   "save.close.saving": "Zapisywanie przed zamknięciem…",
   "save.close.wait": "Poczekaj na zapisanie ostatnich zmian.",
   "save.close.failed": "Nie można bezpiecznie zamknąć",
-  "save.close.retained": "Zmiany pozostają w otwartym oknie. Usuń błąd zapisu i spróbuj ponownie."
+  "save.close.retained": "Zmiany pozostają w otwartym oknie. Usuń błąd zapisu i spróbuj ponownie.",
+  "learning.noteMemory.management": "Zapamiętywanie",
+  "learning.noteMemory.scheduled": "Zaplanowane",
+  "learning.noteMemory.paused": "Wstrzymane",
+  "learning.noteMemory.pausedHelp": "Mnemotechnika i historia powtórek są zachowane. Wznów, gdy zechcesz ponownie się uczyć.",
+  "learning.noteMemory.noDue": "W tym folderze nie ma notatek do powtórki.",
+  "learning.noteMemory.emptyHelp": "Otwórz notatkę i włącz zapamiętywanie, aby dodać ją tutaj.",
+  "learning.errorDetails": "Szczegóły techniczne",
+  "properties.noteMemoryHelp": "Własne właściwości nie oznaczają notatki jako nauczonej ani nie zmieniają harmonogramu powtórek."
 }

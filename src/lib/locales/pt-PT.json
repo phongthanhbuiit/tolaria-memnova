@@ -745,7 +745,7 @@
   "locale.idID": "Indonésio",
   "decks.empty_search": "No decks match your search.",
   "decks.filter.all": "All",
-  "decks.filter.due": "Due",
+  "decks.filter.due": "Para rever",
   "decks.filter.done": "Up to date",
   "decks.search_placeholder": "Search decks…",
   "decks.total_due": "{n} due today",
@@ -980,5 +980,13 @@
   "save.close.saving": "A guardar antes de fechar…",
   "save.close.wait": "Aguarde enquanto as últimas alterações são guardadas.",
   "save.close.failed": "Não foi possível fechar em segurança",
-  "save.close.retained": "As alterações continuam abertas. Corrija o erro ao guardar e tente novamente."
+  "save.close.retained": "As alterações continuam abertas. Corrija o erro ao guardar e tente novamente.",
+  "learning.noteMemory.management": "Memorização",
+  "learning.noteMemory.scheduled": "Agendado",
+  "learning.noteMemory.paused": "Em pausa",
+  "learning.noteMemory.pausedHelp": "A ajuda mnemónica e o histórico de revisões são mantidos. Retome quando quiser estudar novamente.",
+  "learning.noteMemory.noDue": "Não há notas para rever nesta pasta.",
+  "learning.noteMemory.emptyHelp": "Abra uma nota e ative a memorização para a adicionar aqui.",
+  "learning.errorDetails": "Detalhes técnicos",
+  "properties.noteMemoryHelp": "As propriedades personalizadas não marcam esta nota como aprendida nem alteram o seu calendário de revisão."
 }

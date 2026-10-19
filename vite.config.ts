@@ -1,4 +1,5 @@
 /// <reference types="vitest/config" />
+import { extractSnippet } from './src/utils/wikilinks'
 import type { IncomingMessage, ServerResponse } from 'http'
 import path from 'path'
 import {
@@ -345,7 +346,7 @@ function parseMarkdownFile(filePath: string): VaultEntry | null {
 
     const title = markdownTitle(content, fm, basename)
     const bodyText = markdownBodyText(content)
-    const snippet = bodyText.slice(0, 200)
+    const snippet = extractSnippet(content)
 
     return {
       path: filePath,

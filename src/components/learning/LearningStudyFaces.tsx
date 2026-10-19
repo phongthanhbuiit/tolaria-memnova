@@ -1,3 +1,4 @@
+import { ArrowClockwise, SkipForward } from '@phosphor-icons/react'
 import type { RefObject } from 'react'
 import type { useLearningStudy } from '../../hooks/useLearningStudy'
 import { translate, type AppLocale, type TranslationKey } from '../../lib/i18n'
@@ -6,6 +7,7 @@ import { BlockNoteReadOnly } from '../FlashcardStudyView'
 import { Button } from '../ui/button'
 import { SourcePagePreview } from './SourcePagePreview'
 import { VocabularyStudyDetails } from './VocabularyFields'
+import { LearningError } from './LearningError'
 import { MediaPreview } from './MediaPreview'
 import { learningMediaUrl } from '../../lib/learning/media'
 
@@ -66,7 +68,7 @@ export function LearningStudyFaces({
   const t = (key: TranslationKey) => translate(locale, key)
   return (
     <div
-      className="mx-auto max-w-2xl space-y-6"
+      className="mx-auto max-w-3xl space-y-6"
       onClickCapture={(event) => {
         if (
           isNote &&
@@ -82,7 +84,7 @@ export function LearningStudyFaces({
         hidden={isNote && revealed}
         inert={isNote && revealed}
         aria-hidden={isNote && revealed ? true : undefined}
-        className="rounded-xl border bg-card p-6 shadow-sm"
+        className="mx-auto max-w-2xl rounded-xl border bg-card p-6 shadow-sm"
       >
         <p className="mb-4 text-xs font-medium uppercase tracking-wide text-muted-foreground">
           {t(isNote ? 'learning.noteMemory.article' : 'learning.front')}
@@ -117,18 +119,14 @@ export function LearningStudyFaces({
         )}
       </div>
       {item.sourceError && (
-        <div role="alert" className="rounded-lg border border-destructive p-4">
-          <p>{t('learning.error')}</p>
-          <pre className="whitespace-pre-wrap break-words text-xs">
-            {item.sourceError}
-          </pre>
+        <LearningError error={item.sourceError} locale={locale}>
           <Button
             variant="outline"
             onClick={() => {
               void study.reload()
             }}
           >
-            {t('learning.reload')}
+            <ArrowClockwise aria-hidden="true" />{t('learning.reload')}
           </Button>
           <Button
             variant="outline"
@@ -136,9 +134,9 @@ export function LearningStudyFaces({
               void study.skip()
             }}
           >
-            {t('learning.skip')}
+            <SkipForward aria-hidden="true" />{t('learning.skip')}
           </Button>
-        </div>
+        </LearningError>
       )}
       {(isNote ? backVisited : revealed) && sourceReady && (
         <div

@@ -1,9 +1,12 @@
 import {
   Brain,
+  ArrowClockwise,
   ClockCounterClockwise,
   Play,
   Stack,
   Swap,
+  CaretDown,
+  BookOpen,
 } from '@phosphor-icons/react'
 import { useEffect, useId, useState, type ReactNode } from 'react'
 import { Button } from '../ui/button'
@@ -23,6 +26,8 @@ import {
   noteFolderScope,
   workspaceDue,
 } from '../../lib/learning/noteWorkspace'
+import { NoteMemoryList } from './NoteMemoryList'
+import { LearningError } from './LearningError'
 import { useLearningWorkspace } from './LearningContext'
 import { NoteConversionDialog } from './NoteConversionDialog'
 import { NoteRecoveryDialog } from './NoteRecoveryDialog'
@@ -42,6 +47,7 @@ export function NoteLearningDashboard({
   legacy,
 }: Props) {
   const workspace = useLearningWorkspace()
+  const [scrollParent, setScrollParent] = useState<HTMLDivElement | null>(null)
   const [lane, setLane] = useState<'notes' | 'legacy'>('notes')
   const [folder, setFolder] = useState(''),
     [recursive, setRecursive] = useState(true)
@@ -76,7 +82,7 @@ export function NoteLearningDashboard({
   )
   const selectedDue = due.notes.filter((card) => selected.has(card.pageId))
   return (
-    <div className="note-memory-surface min-h-0 overflow-y-auto">
+    <div ref={setScrollParent} className="note-memory-surface h-full min-h-0 overflow-y-auto">
       <nav
         className="flex flex-wrap items-center gap-2 border-b px-4 py-3"
         aria-label={t('learning.library')}
@@ -120,7 +126,7 @@ export function NoteLearningDashboard({
                 )}
               </h1>
               <p className="max-w-2xl text-sm text-muted-foreground">
-                {t('learning.noteMemory.ordinaryHelp')}
+                {t(rows.length ? 'learning.noteMemory.enabledHelp' : 'learning.noteMemory.ordinaryHelp')}
               </p>
             </div>
             <Button
@@ -131,25 +137,7 @@ export function NoteLearningDashboard({
               {t('learning.study')}
             </Button>
           </header>
-          {workspace.error && (
-            <div
-              role="alert"
-              className="rounded-lg border border-destructive p-4"
-            >
-              <p>{t('learning.error')}</p>
-              <pre className="whitespace-pre-wrap break-words text-xs">
-                {workspace.error}
-              </pre>
-              <Button
-                variant="outline"
-                onClick={() => {
-                  void workspace.reconnect()
-                }}
-              >
-                {t('learning.retry')}
-              </Button>
-            </div>
-          )}
+          {workspace.error && <LearningError error={workspace.error} locale={locale}><Button variant="outline" onClick={() => { void workspace.reconnect() }}><ArrowClockwise aria-hidden="true" />{t('learning.retry')}</Button></LearningError>}
           <div className="flex flex-wrap items-center gap-4">
             <Select
               value={currentFolder ? `folder:${currentFolder}` : 'root'}
@@ -188,50 +176,11 @@ export function NoteLearningDashboard({
           </div>
           {!rows.length && (
             <p className="rounded-xl border border-dashed p-6 text-sm text-muted-foreground">
-              {t('learning.noteMemory.ordinaryHelp')}
+              <BookOpen aria-hidden="true" className="mb-2 size-5" />{t('learning.noteMemory.emptyHelp')}
             </p>
           )}
-          <section
-            className="space-y-3"
-            aria-label={t('learning.noteMemory.notes')}
-          >
-            {rows.map((row) => {
-              const page = workspace.pages.find(
-                (page) => page.id === row.view.pageId
-              )
-              const status =
-                row.view.state === 'ready'
-                  ? 'learning.active'
-                  : row.view.state === 'disabled'
-                    ? 'learning.suspended'
-                    : row.view.state === 'pending'
-                      ? 'learning.noteMemory.needsRecovery'
-                      : row.view.state === 'invalid' ||
-                          row.view.state === 'deleted'
-                        ? 'learning.error'
-                        : 'learning.draft'
-              return (
-                <article
-                  key={row.view.pageId}
-                  className="space-y-2 rounded-xl border bg-card p-4"
-                >
-                  <Button
-                    variant="ghost"
-                    className="h-auto max-w-full whitespace-normal break-words text-left"
-                    disabled={!page?.available}
-                    onClick={() => {
-                      if (page) onOpenPage(page)
-                    }}
-                  >
-                    {page?.title ?? row.view.path}
-                  </Button>
-                  <p className="px-3 text-sm text-muted-foreground">
-                    {t(status)}
-                  </p>
-                </article>
-              )
-            })}
-          </section>
+          {rows.length > 0 && !selectedDue.length && <p role="status" className="text-sm text-muted-foreground">{t('learning.noteMemory.noDue')}</p>}
+          <NoteMemoryList rows={rows} pages={workspace.pages} clock={workspace.clock} locale={locale} onOpenPage={onOpenPage} scrollParent={scrollParent} />
           {mode === 'home' && workspace.stats && (
             <p className="text-sm text-muted-foreground">
               {t('home.reviewed')}: {workspace.stats.todayReviews} ·{' '}
@@ -253,7 +202,7 @@ export function NoteLearningDashboard({
               aria-expanded={advanced}
               onClick={() => setAdvanced((value) => !value)}
             >
-              {t('learning.advanced')}
+              <CaretDown aria-hidden="true" className={advanced ? 'rotate-180' : ''} />{t('learning.advanced')}
             </Button>
           </footer>
           {advanced && <BackupPanel locale={locale} />}

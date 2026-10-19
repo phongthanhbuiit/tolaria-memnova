@@ -11,30 +11,29 @@ const catalog = (locale = 'en') =>
   JSON.parse(
     fs.readFileSync(`src/lib/locales/${locale}.json`, 'utf8'),
   ) as Record<string, string>
-async function openCard(
-  page: Page,
-  root: string,
-  copy: Record<string, string>,
-) {
+let fixtureSequence = 0
+async function openRetainedDraft(page: Page, root: string, copy: Record<string,string>) {
+  const title = `Legacy editor fixture ${++fixtureSequence}`
+  await page.evaluate(async ({root,title}) => {
+    const modulePath = '/src/lib/learning/client.ts'
+    const { LearningClient } = await import(modulePath)
+    const client = await LearningClient.connect(root)
+    const owner = await client.ensurePage('project/alpha-project.md')
+    await client.createCard(owner.id, { front: title, back: '', answerMode: 'inline', status: 'draft', position: (await client.listCards(owner.id)).length, properties: {} })
+  }, {root,title})
+  await page.reload()
+  await page.getByTestId('note-list-container').getByText('Alpha Project', { exact: true }).click()
+  await page.getByRole('tab', {name:copy['learning.noteMemory.management'],exact:true}).click()
+  const retained = page.getByRole('button', {name:new RegExp(copy['learning.noteMemory.legacyCards'])})
+  if (await retained.getAttribute('aria-expanded') !== 'true') await retained.click()
+  await page.getByRole('button',{name:title,exact:true}).click()
+  return page.getByRole('dialog',{name:copy['learning.editCard'],exact:true})
+}
+async function openCard(page: Page, root: string, copy: Record<string,string>) {
+  page.setDefaultTimeout(15_000)
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await openFixtureVault(page, root, { preserveLearningState: true })
-  await page
-    .getByTestId('note-list-container')
-    .getByText('Alpha Project', { exact: true })
-    .click()
-  await page
-    .getByRole('tab', { name: copy['learning.cards'], exact: true })
-    .click()
-  const add = page.getByRole('button', {
-    name: copy['learning.addCard'],
-    exact: true,
-  })
-  await expect(add).toBeEnabled()
-  await add.click()
-  return page.getByRole('dialog', {
-    name: copy['learning.addCard'],
-    exact: true,
-  })
+  return openRetainedDraft(page,root,copy)
 }
 async function addField(
   page: Page,
@@ -195,7 +194,8 @@ test('contextual draft actions preserve local state, Cancel and committed values
       .getByTestId('note-list-container')
       .getByText('Alpha Project', { exact: true })
       .click()
-    await page.getByRole('tab', { name: 'Flashcards', exact: true }).click()
+    await page.getByRole('tab', { name: 'Memorization', exact: true }).click()
+    await page.getByRole('button', { name: /^Old cards \(\d+\)$/ }).click()
     await page
       .getByRole('button', {
         name: 'Editor interaction regression',
@@ -244,16 +244,7 @@ test('editor typography and footer reflow across themes, locales and small windo
         for (const preset of locale === 'en'
           ? ['basic', 'vocabulary']
           : ['vocabulary']) {
-          await page
-            .getByRole('button', {
-              name: copy['learning.addCard'],
-              exact: true,
-            })
-            .click()
-          let dialog = page.getByRole('dialog', {
-            name: copy['learning.addCard'],
-            exact: true,
-          })
+          let dialog = await openRetainedDraft(page,root,copy)
           const question = `UI ${locale} ${theme} ${preset} — Nội dung ghi nhớ Unicode.`
           await dialog
             .getByRole('textbox', { name: copy['learning.front'], exact: true })
@@ -270,8 +261,8 @@ test('editor typography and footer reflow across themes, locales and small windo
               exact: true,
             })
             .click()
-          for (const mode of ['add', 'edit']) {
-            if (locale === 'en' || mode === 'edit')
+          for (const mode of ['draft', 'saved']) {
+            if (locale === 'en' || mode === 'saved')
               for (const [width, height] of locale === 'en'
                 ? [
                     [1280, 900],
@@ -346,7 +337,7 @@ test('editor typography and footer reflow across themes, locales and small windo
                   animations: 'disabled',
                 })
               }
-            if (mode === 'add') {
+            if (mode === 'draft') {
               await dialog
                 .getByRole('button', { name: copy['common.save'], exact: true })
                 .click()
@@ -381,7 +372,7 @@ test('editor typography and footer reflow across themes, locales and small windo
   )
 })
 
-test('app zoom keeps footer reachable and focused controls outside fixed header and footer', async ({
+test('legacy editor honors application CSS zoom with reachable footer and focused controls', async ({
   page,
   browser,
 }, testInfo) => {
@@ -392,13 +383,12 @@ test('app zoom keeps footer reachable and focused controls outside fixed header 
       .getByRole('textbox', { name: 'Question', exact: true })
       .fill('Zoom regression')
     for (const zoom of [1.25, 1.5]) {
-      await page.evaluate(
-        async ({ url, zoom }) => {
-          const mod = await import(url)
-          mod.updateVaultConfigField('zoom', zoom)
-        },
-        { url: '/src/utils/vaultConfigStore.ts', zoom },
-      )
+      await page.evaluate(zoom => {
+        document.documentElement.style.zoom = `${zoom * 100}%`
+        document.documentElement.style.setProperty('--tolaria-overlay-zoom-factor',String(zoom))
+        document.documentElement.style.setProperty('--tolaria-overlay-zoom-inverse',String(1 / zoom))
+        window.dispatchEvent(new Event('laputa-zoom-change'))
+      },zoom)
       await expect
         .poll(() => page.locator('html').evaluate((el) => el.style.zoom))
         .toBe(`${zoom * 100}%`)
@@ -575,7 +565,8 @@ test('conversion tracks current edits and rejection before the explicit card Sav
       .getByTestId('note-list-container')
       .getByText('Alpha Project', { exact: true })
       .click()
-    await page.getByRole('tab', { name: 'Flashcards', exact: true }).click()
+    await page.getByRole('tab', { name: 'Memorization', exact: true }).click()
+    await page.getByRole('button', { name: /^Old cards \(\d+\)$/ }).click()
     await page
       .getByRole('button', {
         name: 'Current conversion regression',

@@ -47,3 +47,10 @@ Dùng **Home → Advanced → Backup history**: Create, Verify rồi Restore. Re
 Nghiệm thu dùng Library tổng hợp, không dữ liệu thật: native macOS lưu hai mặt/canvas, linked source, grade/undo, conversion/recovery và restore sang root độc lập, cùng browser/tests thực. Xem [M23](baselines/2026-10-19-note-memory-m23.md), [M24](baselines/2026-10-19-note-memory-m24.md) và báo cáo release cuối để biết command, kết quả và phần chưa chạy.
 
 Timing/heap trong Chromium không đại diện tuyệt đối cho WebKit native. Physical touch, VoiceOver, hệ điều hành khác và bản cài đặt phát hành có ký số không được suy ra từ những phép thử này. tldraw production có yêu cầu license riêng; cảnh báo license thấy trong QA không được bỏ qua hoặc né bằng bản vá cleanup.
+## Giao diện ghi nhớ sau đợt UX
+
+Trong mỗi ghi chú, **Nội dung** chứa hai mặt **Bài viết / Gợi nhớ**; tab **Ghi nhớ** quản lý bật học, tạm dừng và ôn tập. Với ghi chú đang thiếu mặt sau, bấm **Thêm gợi nhớ** để mở đúng mặt trong editor. Thanh chọn nguồn xuất hiện khi đang xem mặt gợi nhớ. Khi tạm dừng, gợi nhớ và lịch sử học vẫn được giữ; bấm **Tiếp tục** để học lại.
+
+Danh sách học hiển thị đường dẫn, trạng thái và lịch ôn. **Đến hạn** và **Đã lên lịch** giúp phân biệt nội dung cần ôn ngay với nội dung sẽ ôn sau. Với danh sách lớn, có thể dùng Tab/Shift+Tab, mũi tên hoặc Home/End để đi qua các ghi chú. Thuộc tính tùy chỉnh của file không đánh dấu đã học thuộc và không thay đổi lịch ôn. Lịch học và dữ liệu thẻ cũ vẫn có vùng chỉ đọc riêng.
+
+Thông báo lỗi giữ hướng dẫn xử lý ở bên ngoài. Mở **Chi tiết kỹ thuật** khi cần xem hoặc sao chép chẩn đoán; bản nháp phục hồi không bị xóa chỉ vì đóng dialog. Độ rộng note normal/wide, độ rộng block canvas và fullscreen là các phạm vi riêng; đổi viewport học không lưu lại camera hay sửa nội dung nguồn.

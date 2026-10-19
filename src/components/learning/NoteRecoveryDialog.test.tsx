@@ -3,6 +3,7 @@ import { expect, it, vi } from 'vitest'
 import { noteMemoryFlowFixture } from '../../test-utils/noteMemoryFlowFixture'
 import { NoteRecoveryDialog } from './NoteRecoveryDialog'
 vi.mock('../../lib/telemetry', () => ({ trackEvent: vi.fn() }))
+import { writeClipboardText } from '../../utils/clipboardText'
 vi.mock('../../utils/clipboardText', () => ({ writeClipboardText: vi.fn().mockResolvedValue(undefined) }))
 it('compares both sources before an explicit expected-hash keep-current decision', async () => {
   const { client,recovery } = noteMemoryFlowFixture()
@@ -49,4 +50,18 @@ it('explains a retry that stays pending instead of silently appearing to do noth
   expect(screen.getByRole('button', { name: 'Keep current file' })).toBeEnabled()
   expect(screen.getByText('Saved draft', { selector: 'pre' })).toBeInTheDocument()
   expect(onUpdated).not.toHaveBeenCalled()
+})
+
+it('clears clipboard-only feedback after closing and reopening recovery without deleting the draft', async () => {
+  const data = noteMemoryFlowFixture()
+  vi.mocked(writeClipboardText).mockRejectedValueOnce(Error('clipboard denied'))
+  const props = { client: data.client, locale: 'en' as const, onOpenChange: vi.fn(), onUpdated: vi.fn() }
+  const view = render(<NoteRecoveryDialog {...props} open />)
+  fireEvent.click(await screen.findByRole('button', { name: 'Copy saved draft' }))
+  await screen.findByRole('alert')
+  view.rerender(<NoteRecoveryDialog {...props} open={false} />)
+  view.rerender(<NoteRecoveryDialog {...props} open />)
+  await screen.findByText('Saved draft', { selector: 'pre' })
+  expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+  expect(data.client.resolveNoteRecovery).not.toHaveBeenCalled()
 })

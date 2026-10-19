@@ -1,4 +1,4 @@
-import { ArrowSquareOut, ArrowUUpLeft, LinkSimple } from '@phosphor-icons/react'
+import { ArrowClockwise, ArrowSquareOut, ArrowUUpLeft, LinkSimple } from '@phosphor-icons/react'
 import {
   useEffect,
   useLayoutEffect,
@@ -9,6 +9,7 @@ import {
 } from 'react'
 import { Button } from '../ui/button'
 import { createResourceLifetime } from '../editorResourceScope'
+import { LearningError } from './LearningError'
 import { SourceSelectionPreview } from './SourceSelectionPreview'
 import { NoteBackSourceDialog } from './NoteBackSourceDialog'
 import { useLearningWorkspace } from './LearningContext'
@@ -92,7 +93,7 @@ export function NoteBackSourceToolbar(props: BackToolbarProps) {
   }
   if (workspace?.phase !== 'ready')
     return (
-      <div className="px-4 py-2 text-sm">
+      <div className="note-memory-toolbar px-4 py-2 text-sm">
         {workspace?.phase === 'error' ? (
           <p role="alert">{translate(locale, 'learning.error')}</p>
         ) : (
@@ -109,7 +110,7 @@ export function NoteBackSourceToolbar(props: BackToolbarProps) {
       </div>
     )
   return (
-    <div className="border-b border-border px-3 py-2 text-sm">
+    <div className="note-memory-toolbar border-b border-border px-3 py-2 text-sm">
       <div className="flex flex-wrap items-center gap-2">
         <span className="min-w-0 flex-1 break-words text-xs text-muted-foreground">
           {back.kind === 'inline'
@@ -174,23 +175,7 @@ export function NoteBackSourceToolbar(props: BackToolbarProps) {
           {translate(locale, 'learning.loading')}
         </p>
       )}
-      {action?.error && (
-        <div role="alert" className="mt-2 space-y-2">
-          <p>{translate(locale, 'learning.error')}</p>
-          <pre className="whitespace-pre-wrap break-words text-xs">
-            {action.error}
-          </pre>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => {
-              void perform(action.kind)
-            }}
-          >
-            {translate(locale, 'learning.retry')}
-          </Button>
-        </div>
-      )}
+      {action?.error && <LearningError error={action.error} locale={locale}><Button variant="outline" size="sm" onClick={() => { void perform(action.kind) }}><ArrowClockwise aria-hidden="true" />{translate(locale, 'learning.retry')}</Button></LearningError>}
       <NoteBackSourceDialog
         open={open}
         ownerPath={ownerPath}

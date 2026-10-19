@@ -1,3 +1,6 @@
+import { useLearningDialogFocus } from './useLearningDialogFocus'
+import { LinkSimple, X } from '@phosphor-icons/react'
+import { LearningError } from './LearningError'
 import { useId, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { NoteAutocomplete } from '../NoteAutocomplete'
 import { Button } from '../ui/button'
@@ -55,6 +58,7 @@ type Action = {
 }
 
 export function NoteBackSourceDialog(props: BackSourceDialogProps) {
+  const { onOpenAutoFocus, onCloseAutoFocus } = useLearningDialogFocus()
   const { open, ownerPath, ownerPageId, locale, onOpenChange, onApplyBack } =
     props
   const workspace = useLearningWorkspace(),
@@ -194,6 +198,7 @@ export function NoteBackSourceDialog(props: BackSourceDialogProps) {
       }}
     >
       <DialogContent
+        onOpenAutoFocus={onOpenAutoFocus} onCloseAutoFocus={onCloseAutoFocus}
         className="note-memory-dialog"
         showCloseButton={false}
         onKeyDown={(event) => event.stopPropagation()}
@@ -273,26 +278,7 @@ export function NoteBackSourceDialog(props: BackSourceDialogProps) {
             error={preview.error}
             onRetry={preview.reload}
           />
-          {action?.error && (
-            <div role="alert">
-              <p>{translate(locale, 'learning.error')}</p>
-              <pre className="my-2 whitespace-pre-wrap break-words text-xs">
-                {action.error}
-              </pre>
-              {action.partial && (
-                <p>
-                  {translate(locale, 'editor.noteMemory.registrationPartial')}
-                </p>
-              )}
-              <Button
-                variant="outline"
-                disabled={Boolean(action.busy)}
-                onClick={preview.reload}
-              >
-                {translate(locale, 'learning.noteMemory.refreshPreview')}
-              </Button>
-            </div>
-          )}
+          {action?.error && <LearningError error={action.error} locale={locale}>{action.partial && <p>{translate(locale, 'editor.noteMemory.registrationPartial')}</p>}</LearningError>}
         </div>
         <div className="note-memory-footer">
           <Button
@@ -300,7 +286,7 @@ export function NoteBackSourceDialog(props: BackSourceDialogProps) {
             disabled={Boolean(action?.busy)}
             onClick={() => onOpenChange(false)}
           >
-            {translate(locale, 'common.cancel')}
+            <X aria-hidden="true" />{translate(locale, 'common.cancel')}
           </Button>
           <Button
             disabled={
@@ -313,7 +299,7 @@ export function NoteBackSourceDialog(props: BackSourceDialogProps) {
               void apply()
             }}
           >
-            {translate(
+            <LinkSimple aria-hidden="true" />{translate(
               locale,
               registration && action?.error
                 ? 'learning.retry'

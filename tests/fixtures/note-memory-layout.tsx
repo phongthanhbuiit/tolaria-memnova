@@ -1,5 +1,7 @@
+import { NoteMemoryInspector } from '../../src/components/learning/NoteMemoryInspector'
+import type { NoteLearningState } from '../../src/lib/learning/types'
 // Renderer-only layout fixture. No filesystem, SQLite, native input or review claims.
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { TooltipProvider } from '../../src/components/ui/tooltip'
 import { LearningContext, type LearningWorkspace } from '../../src/components/learning/LearningContext'
@@ -8,6 +10,7 @@ import { NoteLearningDashboard } from '../../src/components/learning/NoteLearnin
 import { NoteConversionDialog } from '../../src/components/learning/NoteConversionDialog'
 import { NoteRecoveryDialog } from '../../src/components/learning/NoteRecoveryDialog'
 import { NoteBackSourceDialog } from '../../src/components/learning/NoteBackSourceDialog'
+import { NoteBackSourceToolbar } from '../../src/components/learning/NoteBackSource'
 import { NoteMemoryEditorTabs } from '../../src/components/NoteMemoryEditorTabs'
 import { TldrawWhiteboard } from '../../src/components/TldrawWhiteboard'
 import { LearningStudyView } from '../../src/components/learning/LearningStudyView'
@@ -19,8 +22,8 @@ import '../../src/index.css'
 import '../../src/App.css'
 import '../../src/components/EditorTheme.css'
 
-type Surface = 'panel' | 'dashboard' | 'conversion' | 'recovery' | 'source' | 'tabs' | 'whiteboard' | 'study'
-interface LayoutCase { surface: Surface; locale: AppLocale; theme: 'light' | 'dark' }
+type Surface = 'panel' | 'dashboard' | 'conversion' | 'recovery' | 'source' | 'tabs' | 'whiteboard' | 'study' | 'toolbar' | 'inspector'
+interface LayoutCase { surface: Surface; locale: AppLocale; theme: 'light' | 'dark'; noteState?: NoteLearningState | 'future'; count?: number }
 declare global { interface Window { setNoteLayoutCase?: (value: LayoutCase) => void } }
 const owner = '11111111-1111-4111-8111-111111111111', target = '22222222-2222-4222-8222-222222222222'
 const schedule = { state: 'review', due: '2020-01-01T00:00:00Z', stability: 12, difficulty: 4, elapsedDays: 1, scheduledDays: 3, reps: 7, lapses: 2, lastReview: null, learningSteps: 0, engine: 'legacy-fsrs5', revision: 0 }
@@ -60,19 +63,31 @@ export function Harness() {
   useEffect(() => {
     document.documentElement.dataset.theme = value.theme
     document.documentElement.lang = value.locale
+    document.documentElement.dataset.noteState = value.noteState ?? 'ready'
     document.documentElement.dataset.layoutCase = `${value.surface}:${value.locale}:${value.theme}`
   }, [value])
   const { surface, locale } = value
+  const selectedWorkspace = useMemo(() => {
+    const state = value.noteState === 'future' ? 'ready' : value.noteState ?? 'ready'
+    const due = value.noteState === 'future' ? '2099-01-01T00:00:00Z' : schedule.due
+    const chosenSchedule = { ...schedule, due }
+    const count = value.count ?? 1
+    const chosenPages = count > 1 ? Array.from({ length: count }, (_, index) => ({ ...pages[0], id: `fixture-${index}`, path: `Biology/Note-${index}.md`, title: `Memory article ${index}` })) : pages
+    const chosenNotes = state === 'ordinary' ? [] : chosenPages.slice(0, count).map(item => ({ ...workspace.notes[0], view: { ...workspace.notes[0].view, pageId: item.id, path: item.path, state, hasBack: state !== 'draft', schedule: chosenSchedule, config: { ...config, enabled: state !== 'disabled' } }, card: { ...card, id: `card-${item.id}`, pageId: item.id, schedule: chosenSchedule } }))
+    return { ...workspace, pages: chosenPages, notes: chosenNotes, client: { ...client, readNoteMemory: async () => chosenNotes[0]?.view } } as unknown as LearningWorkspace
+  }, [value.noteState, value.count])
   const study = { open, busy: false, error: null, pendingRating: null, close: async () => setOpen(false), reload: async () => {}, rate: async () => {}, undo: async () => {}, retry: async () => {}, skip: async () => {}, start: async () => {}, session: {
     id: 'session', scope: { lane: 'notes', pageIds: [owner] }, initialCount: 1, currentIndex: 0, status: 'active', revision: 0, updatedAt: 0, waitingUntil: null, completedCount: 0, reviewCount: 0, correctCount: 0, lastReviewId: null, canUndo: false,
     current: { card, page: { id: owner, path: page.path, title, content: source.repeat(6), fingerprint: 'a'.repeat(64) }, answerPage: { id: owner, path: page.path, title, content: '```tldraw id="layout-study" height="360"\n' + JSON.stringify(snapshot) + '\n```', fingerprint: 'b'.repeat(64) }, sourceError: null, content: { kind: 'note', details: { fingerprint: 'c'.repeat(64), backSource: { pageId: owner, path: page.path, face: 'back' }, propertiesRaw: '', frontMedia: [], backMedia: [] } } },
   } } as unknown as ReturnType<typeof useLearningStudy>
-  return <TooltipProvider><LearningContext.Provider value={workspace}><div data-layout-surface={surface} style={{ height: '100dvh', width: '100%', minWidth: 0 }}>
+  return <TooltipProvider><LearningContext.Provider value={selectedWorkspace}><div data-layout-surface={surface} style={{ height: '100dvh', width: '100%', minWidth: 0 }}>
     {surface === 'panel' && <NoteLearningPanel path="/fixture/Biology/Article.md" locale={locale} />}
     {surface === 'dashboard' && <NoteLearningDashboard mode="home" locale={locale} onOpenPage={() => {}} legacy={<p>Retained legacy view</p>} />}
     {surface === 'conversion' && <NoteConversionDialog client={client} open={open} locale={locale} onOpenChange={setOpen} flush={workspace.flush} onUpdated={workspace.refresh} />}
     {surface === 'recovery' && <NoteRecoveryDialog client={client} open={open} locale={locale} onOpenChange={setOpen} onUpdated={workspace.refresh} />}
     {surface === 'source' && <NoteBackSourceDialog ownerPath="/fixture/Biology/Article.md" ownerPageId={owner} open={open} locale={locale} onOpenChange={setOpen} onApplyBack={async () => {}} />}
+    {surface === 'toolbar' && <NoteBackSourceToolbar back={{ kind: 'inline' }} ownerPath="/fixture/Biology/Article.md" ownerPageId={owner} locale={locale} onApplyBack={async () => {}} onNavigate={() => {}} />}
+    {surface === 'inspector' && <NoteMemoryInspector path="/fixture/Biology/Article.md" content={`---\n_memnova_page_id: ${owner}\n_memnova_learning_version: 1\n_memnova_learning_enabled: true\n_memnova_back_kind: inline\n---\nArticle`} locale={locale} />}
     {surface === 'tabs' && <NoteMemoryEditorTabs activeFace={face} hasBack panelId="article" locale={locale} onChangeFace={setFace} onAddBack={() => {}} />}
     {surface === 'whiteboard' && <div className="editor__blocknote-container"><TldrawWhiteboard boardId="layout" height={size.height} width={size.width} snapshot={JSON.stringify(snapshot)} onSnapshotChange={() => {}} onSizeChange={setSize} /></div>}
     {surface === 'study' && <LearningStudyView key={generation} study={study} root="/fixture" locale={locale} />}

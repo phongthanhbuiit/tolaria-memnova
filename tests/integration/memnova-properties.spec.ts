@@ -7,26 +7,14 @@ import {
 } from '../helpers/fixtureVault'
 import { test, expect, type Page, type Locator } from '@playwright/test'
 test.setTimeout(120_000)
-async function openLesson(page: Page) {
-  await page.addInitScript(() => {
-    localStorage.setItem('tolaria:ai-agents-onboarding-dismissed', '1')
-    localStorage.setItem('tolaria:claude-code-onboarding-dismissed', '1')
-  })
-  await page.goto('/')
-  const later = page.getByRole('button', { name: 'Set up later', exact: true })
-  await later
-    .or(page.getByRole('button', { name: 'Home', exact: true }))
-    .first()
-    .waitFor({ state: 'visible' })
-  if (await later.isVisible()) await later.click()
-  await page
-    .getByRole('listbox', { name: 'Notes', exact: true })
-    .getByText('Build Laputa App', { exact: true })
-    .click()
-  await page.getByRole('tab', { name: 'Flashcards', exact: true }).click()
-  await expect(
-    page.getByRole('button', { name: 'Add card', exact: true }),
-  ).toBeEnabled()
+async function openLesson(page: Page, root: string) {
+  page.setDefaultTimeout(15_000)
+  await openFixtureVault(page,root,{preserveLearningState:true})
+  await page.getByRole('button',{name:/^All Notes/}).click()
+  await page.getByTestId('note-list-container').getByText('Alpha Project',{exact:true}).click()
+  await page.getByRole('tab',{name:'Memorization',exact:true}).click()
+  const retained = page.getByRole('button',{name:/^Old cards \(\d+\)$/})
+  if (await retained.count() && await retained.getAttribute('aria-expanded') !== 'true') await retained.click()
 }
 async function addProperty(
   page: Page,
@@ -51,11 +39,24 @@ async function addProperty(
 test('linked answers and typed card drafts survive preview, save, reload, study and Undo', async ({
   page,
 }, testInfo) => {
-  await openLesson(page)
-  await page.getByRole('button', { name: 'Add card', exact: true }).click()
-  const form = page.getByRole('dialog', { name: 'Add card', exact: true })
+  const root = createFixtureVaultCopy()
+  const sourcePath = path.join(root,'grow-newsletter.md')
+  const source = '---\n_memnova_page_id: c5ea23ed-5653-468b-a90e-71f7a96edca1\n---\n# Grow Newsletter\n\nAn independent source for legacy answer preview.\n'
+  fs.writeFileSync(sourcePath,source)
+  try {
+  await openLesson(page,root)
+  await page.evaluate(async root => {
+    const modulePath = '/src/lib/learning/client.ts'
+    const {LearningClient} = await import(modulePath)
+    const client = await LearningClient.connect(root)
+    const owner = await client.ensurePage('project/alpha-project.md')
+    await client.createCard(owner.id,{front:'Legacy properties fixture',back:'',answerMode:'inline',status:'draft',position:0,properties:{}})
+  },root)
+  await openLesson(page,root)
+  await page.getByRole('button',{name:'Legacy properties fixture',exact:true}).click()
+  const form = page.getByRole('dialog', { name: 'Edit card', exact: true })
   await form
-    .getByLabel('Question', { exact: true })
+    .getByRole('textbox', { name: 'Question', exact: true })
     .fill('Explain the newsletter source')
   await form.getByRole('combobox', { name: 'Answer type' }).click()
   await page.getByRole('option', { name: 'Choose another page' }).click()
@@ -63,6 +64,7 @@ test('linked answers and typed card drafts survive preview, save, reload, study 
   await form
     .getByRole('button', { name: /Grow Newsletter.*grow-newsletter.md/ })
     .click()
+  await page.getByRole('button', { name: 'Use source', exact: true }).click()
   await form
     .getByRole('button', {
       name: 'Preview source: Grow Newsletter',
@@ -104,7 +106,7 @@ test('linked answers and typed card drafts survive preview, save, reload, study 
   await save.click()
   await expect(form).toBeHidden()
   await page.reload()
-  await openLesson(page)
+  await openLesson(page,root)
   await page
     .getByRole('button', { name: 'Explain the newsletter source', exact: true })
     .click()
@@ -120,7 +122,7 @@ test('linked answers and typed card drafts survive preview, save, reload, study 
   ).toHaveValue('Custom metadata stays private')
   await saved.getByRole('button', { name: 'Cancel', exact: true }).click()
   await page
-    .getByRole('tabpanel', { name: 'Flashcards', exact: true })
+    .getByRole('region', { name: 'Flashcards', exact: true })
     .getByRole('button', { name: 'Study', exact: true })
     .click()
   const study = page.getByRole('dialog')
@@ -145,6 +147,8 @@ test('linked answers and typed card drafts survive preview, save, reload, study 
   await expect(
     study.getByText('Explain the newsletter source', { exact: true }),
   ).toBeVisible()
+  expect(fs.readFileSync(sourcePath,'utf8')).toBe(source)
+  } finally { removeFixtureVaultCopy(root) }
 })
 
 test('page properties stay in Markdown and use the same calendar and draft controls', async ({
@@ -157,9 +161,9 @@ test('page properties stay in Markdown and use the same calendar and draft contr
       .getByTestId('note-list-container')
       .getByText('Alpha Project', { exact: true })
       .click()
-    await page.getByRole('tab', { name: 'Flashcards', exact: true }).click()
+    await page.getByRole('tab', { name: 'Memorization', exact: true }).click()
     await expect(
-      page.getByRole('button', { name: 'Add card', exact: true }),
+      page.getByRole('button', { name: 'Enable memorization', exact: true }),
     ).toBeEnabled()
     const tools = page.getByRole('button', {
       name: 'Page properties',

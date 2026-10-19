@@ -1,3 +1,4 @@
+import { useLearningDialogFocus } from './useLearningDialogFocus'
 import './noteMemory.css'
 import { useEffect, useMemo } from 'react'
 import { Button } from '../ui/button'
@@ -12,8 +13,9 @@ import type { useLearningStudy } from '../../hooks/useLearningStudy'
 import { translate, type AppLocale, type TranslationKey } from '../../lib/i18n'
 import { previewSchedule } from '../../lib/learning/scheduler'
 import type { FSRSRating } from '../../lib/fsrs'
-import { ArrowUUpLeft, Eye } from '@phosphor-icons/react'
+import { ArrowClockwise, ArrowUUpLeft, Eye, X } from '@phosphor-icons/react'
 
+import { LearningError } from './LearningError'
 import { LearningStudyFaces } from './LearningStudyFaces'
 import { useStudyFaces } from './useStudyFaces'
 
@@ -39,6 +41,7 @@ export function LearningStudyView({
   root: string
   locale: AppLocale
 }) {
+  const { onOpenAutoFocus, onCloseAutoFocus } = useLearningDialogFocus()
   const { open, busy, error, reload } = study
   const session = study.session
   const item = session?.current
@@ -130,6 +133,7 @@ export function LearningStudyView({
       }}
     >
       <DialogContent
+        onOpenAutoFocus={onOpenAutoFocus} onCloseAutoFocus={onCloseAutoFocus}
         showCloseButton={false}
         className="learning-study-dialog flex max-h-[94dvh] flex-col gap-0 overflow-hidden p-0 sm:max-w-4xl"
         onEscapeKeyDown={(event) => {
@@ -177,7 +181,7 @@ export function LearningStudyView({
                 void study.close()
               }}
             >
-              {t('learning.close')}
+              <X aria-hidden="true" />{t('learning.close')}
             </Button>
           </div>
           <DialogDescription>
@@ -208,21 +212,14 @@ export function LearningStudyView({
           className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-5 sm:p-8"
         >
           {study.error && (
-            <div
-              role="alert"
-              className="mb-5 rounded-lg border border-destructive p-4"
-            >
-              <p>{t('learning.error')}</p>
-              <pre className="my-3 whitespace-pre-wrap break-words text-xs">
-                {study.error}
-              </pre>
+            <LearningError error={study.error} locale={locale}>
               <div className="flex gap-2">
                 <Button
                   onClick={() => {
                     void study.retry()
                   }}
                 >
-                  {t('learning.retry')}
+                  <ArrowClockwise aria-hidden="true" />{t('learning.retry')}
                 </Button>
                 <Button
                   variant="outline"
@@ -230,10 +227,10 @@ export function LearningStudyView({
                     void study.reload()
                   }}
                 >
-                  {t('learning.reload')}
+                  <ArrowClockwise aria-hidden="true" />{t('learning.reload')}
                 </Button>
               </div>
-            </div>
+            </LearningError>
           )}
           {renderFailed && (
             <div
@@ -247,7 +244,7 @@ export function LearningStudyView({
                   void study.reload()
                 }}
               >
-                {t('learning.reload')}
+                <ArrowClockwise aria-hidden="true" />{t('learning.reload')}
               </Button>
             </div>
           )}
@@ -366,7 +363,7 @@ export function LearningStudyView({
                   void study.undo()
                 }}
               >
-                {t('learning.undo')}
+                <ArrowUUpLeft aria-hidden="true" />{t('learning.undo')}
               </Button>
               {study.busy && (
                 <span role="status" className="text-sm text-muted-foreground">

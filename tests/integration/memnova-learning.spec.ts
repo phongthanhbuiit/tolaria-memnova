@@ -15,7 +15,7 @@ test.afterEach(async ({ page }) => { removeFixtureVaultCopy(libraries.get(page))
 async function openLesson(page: Page) {
   await page.getByRole('button', { name: /^All Notes/ }).click()
   await page.getByTestId('note-list-container').getByText('Alpha Project', { exact: true }).click()
-  await page.getByRole('tab', { name: 'Flashcards', exact: true }).click()
+  await page.getByRole('tab', { name: 'Memorization', exact: true }).click()
   const retained = page.getByRole('button', { name: /^Old cards \(\d+\)$/ })
   if (await retained.count() && await retained.getAttribute('aria-expanded') !== 'true') await retained.click()
   await expect(page.getByRole('button', { name: 'Add card', exact: true })).toHaveCount(0)

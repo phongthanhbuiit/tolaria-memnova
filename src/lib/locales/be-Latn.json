@@ -745,7 +745,7 @@
   "locale.idID": "Indonesian",
   "decks.empty_search": "No decks match your search.",
   "decks.filter.all": "All",
-  "decks.filter.due": "Due",
+  "decks.filter.due": "Čas paŭtaryć",
   "decks.filter.done": "Up to date",
   "decks.search_placeholder": "Search decks…",
   "decks.total_due": "{n} due today",
@@ -980,5 +980,13 @@
   "save.close.saving": "Zachavańnie pierad zakryćciom…",
   "save.close.wait": "Pačakajcie, pakuĺ zachavajucca apošnija źmieny.",
   "save.close.failed": "Niemahčyma biaśpiečna zakryć",
-  "save.close.retained": "Źmieny zastajucca ŭ adkrytym aknie. Vypraŭcie pamyłku zachavańnia i pasprabujcie znoŭ."
+  "save.close.retained": "Źmieny zastajucca ŭ adkrytym aknie. Vypraŭcie pamyłku zachavańnia i pasprabujcie znoŭ.",
+  "learning.noteMemory.management": "Zapaminannie",
+  "learning.noteMemory.scheduled": "Zaplanavana",
+  "learning.noteMemory.paused": "Prypyniena",
+  "learning.noteMemory.pausedHelp": "Mnemonika i historyja paŭtarenniaŭ zachavanyja. Praciahni, kali zachočaš znoŭ vučycca.",
+  "learning.noteMemory.noDue": "U hetaj papcy niama natatak, jakija patrabujuć paŭtarennia.",
+  "learning.noteMemory.emptyHelp": "Adkryj natatku i ŭklučy zapaminannie, kab dadać jaje siudy.",
+  "learning.errorDetails": "Techničnyja padrabiaznasci",
+  "properties.noteMemoryHelp": "Karystalnickija ŭłaścivaści nie paznačajuć natatku jak vyvučanuju i nie źmianiajuć raskład paŭtarenniaŭ."
 }

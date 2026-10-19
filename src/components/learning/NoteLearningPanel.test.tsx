@@ -1,9 +1,11 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
-import { expect, it, vi } from 'vitest'
+import { beforeEach, expect, it, vi } from 'vitest'
 import { NoteLearningPanel } from './NoteLearningPanel'
 
 const workspace = {
   phase: 'ready',
+  clock: 1,
+  error: null as string | null,
   root: '/library',
   client: { vaultPath: '/library', libraryId: 'library', ensurePage: vi.fn() },
   pages: [] as { id: string; path: string }[],
@@ -62,4 +64,35 @@ it('keeps existing old-card editing behind an explicit entry', () => {
   render(<NoteLearningPanel path="/library/a.md" locale="en" />)
   fireEvent.click(screen.getByRole('button', { name: /Old cards/ }))
   expect(screen.getByText('Retained old cards')).toBeInTheDocument()
+})
+
+beforeEach(() => {
+  workspace.requestStudy.mockClear()
+  workspace.pages = []; workspace.notes = []; workspace.cards = []
+  workspace.error = null
+  workspace.setNoteEnabled.mockReset().mockResolvedValue(undefined)
+})
+it('offers a draft mnemonic action without enabling or grading any source', async () => {
+  workspace.pages = [{ id: 'a', path: 'a.md' }]
+  workspace.notes = [{ view: { pageId: 'a', state: 'draft', config: { enabled: true }, hasBack: false } }]
+  const edit = vi.fn().mockResolvedValue(undefined)
+  render(<NoteLearningPanel path="/library/a.md" locale="en" onEditMnemonic={edit} />)
+  expect(screen.getByRole('button', { name: 'Study', exact: true })).toBeDisabled()
+  fireEvent.click(screen.getByRole('button', { name: 'Add mnemonic', exact: true }))
+  await waitFor(() => expect(edit).toHaveBeenCalledOnce())
+  expect(workspace.setNoteEnabled).not.toHaveBeenCalled()
+  expect(workspace.requestStudy).not.toHaveBeenCalled()
+})
+it('labels paused notes with resume and keeps mutation errors across a successful background read', async () => {
+  workspace.pages = [{ id: 'a', path: 'a.md' }]
+  workspace.notes = [{ view: { pageId: 'a', state: 'disabled', config: { enabled: false }, hasBack: true } }]
+  workspace.setNoteEnabled.mockRejectedValueOnce(Error('write rejected'))
+  const view = render(<NoteLearningPanel path="/library/a.md" locale="en" />)
+  fireEvent.click(screen.getByRole('button', { name: 'Resume', exact: true }))
+  await screen.findByRole('alert')
+  await workspace.refresh()
+  workspace.clock++
+  view.rerender(<NoteLearningPanel path="/library/a.md" locale="en" />)
+  expect(screen.getByRole('alert')).toHaveTextContent('write rejected')
+  expect(screen.getByText('Paused')).toBeInTheDocument()
 })

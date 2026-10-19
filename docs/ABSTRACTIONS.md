@@ -1133,9 +1133,15 @@ Recovery Retry can return a nonterminal outcome without throwing. `useNoteRecove
 M24 (ADR0164) patches the installed tldraw FocusManager to bind body event handlers once and remove those exact callbacks on disposal. Application editor ownership and serialization remain unchanged. The production-renderer scale regression exercises actual editor mount/unmount across notes and Libraries; its CDP listener/heap counters complement native persistence checks and are not presented as WebKit memory measurements.
 
 M24 durable-token regression: URI encoding alone leaves Markdown delimiters in opaque payloads. Percent-escape those remaining delimiters before inline parsing; decode/serialization and persisted fences stay compatible. Real BlockNote parser tests cover shape IDs, literal asterisks/tildes and Unicode. This prevents internal token paragraphs without flattening styled text or changing user source data.
-# Snippet projection (UX U01)
+## Snippet projection (UX U01)
 
 `snippetMarkdown` / native `vault::snippet::snippet_markdown` remove only closed tldraw fence ranges from display snippets before existing Markdown stripping and heading fallback. They never write source or schedule data. Ordinary and unclosed fences keep prior semantics; outer ordinary fences protect literal nested examples. The shared `tests/fixtures/durable-snippets.json` corpus keeps frontend/dev-adapter and native results aligned.
 
 Read errors in `useLearningLibrary.load` follow the same Library generation/read sequence guard as successful snapshots. Both manual and background refresh publish through this single state; dashboard/panel do not retain duplicate read-error state. A successful current snapshot clears read errors. Panel mutation errors remain local until another explicit mutation attempt.
 
+## Note-memory presentation helpers (UX U03–U10)
+
+- `NoteMemoryStatus`: readonly state/due badge using the workspace snapshot clock, with text and icon independent of color.
+- `LearningError`: localized next-step message plus collapsible diagnostic text and clipboard feedback; no source/network mutation.
+- `useLearningDialogFocus` / `useLearningDialogDismiss`: retain the invoking DOM control and keep the current busy/owner guard available to external Escape callbacks. In-flight mutation protection remains active.
+- `NoteMemoryList`: small lists render directly; large lists reuse react-virtuoso with the dashboard scroll parent. Only mounted row controls are retained. Keyboard movement can request an offscreen index and focus it when mounted; unavailable notes remain unavailable.

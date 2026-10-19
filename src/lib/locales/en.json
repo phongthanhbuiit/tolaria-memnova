@@ -980,5 +980,13 @@
   "save.close.saving": "Saving before closing…",
   "save.close.wait": "Please wait while your latest edits are saved.",
   "save.close.failed": "Could not close safely",
-  "save.close.retained": "Your edits remain open. Fix the save error, then retry."
+  "save.close.retained": "Your edits remain open. Fix the save error, then retry.",
+  "learning.noteMemory.management": "Memorization",
+  "learning.noteMemory.scheduled": "Scheduled",
+  "learning.noteMemory.paused": "Paused",
+  "learning.noteMemory.pausedHelp": "Your mnemonic and review history are kept. Resume when you want to study again.",
+  "learning.noteMemory.noDue": "No notes are due in this folder.",
+  "learning.noteMemory.emptyHelp": "Open a note and enable memorization to add it here.",
+  "learning.errorDetails": "Technical details",
+  "properties.noteMemoryHelp": "Custom properties do not mark this note as learned or change its review schedule."
 }

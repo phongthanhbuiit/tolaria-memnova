@@ -4,9 +4,9 @@ import { LegacyPageFlashcards } from './LegacyPageFlashcards'
 import { NoteLearningPanel } from './NoteLearningPanel'
 
 export { LegacyPageFlashcards } from './LegacyPageFlashcards'
-export function PageFlashcards(props: { path: string; locale: AppLocale }) {
+export function PageFlashcards(props: { path: string; locale: AppLocale; onEditMnemonic?: () => Promise<void> }) {
   const workspace = useLearningWorkspace()
   return workspace?.client?.supportsNoteMemory && workspace.phase === 'ready'
-    ? <NoteLearningPanel key={`${workspace.client.libraryId}:${props.path}`} path={props.path} locale={props.locale} />
+    ? <NoteLearningPanel key={`${workspace.client.libraryId}:${props.path}`} path={props.path} locale={props.locale} onEditMnemonic={props.onEditMnemonic} />
     : <LegacyPageFlashcards path={props.path} locale={props.locale} />
 }

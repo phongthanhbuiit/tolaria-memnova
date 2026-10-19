@@ -122,3 +122,25 @@ it('clears an initial refresh error when the same mounted workspace publishes a 
   view.rerender(<NoteLearningDashboard {...props} />)
   await waitFor(() => expect(screen.queryByRole('alert')).not.toBeInTheDocument())
 })
+
+it('distinguishes future reviews from due notes and shows paths for matching titles', () => {
+  const original = workspace.notes
+  const future = { ...original[0], view: { ...original[0].view, pageId: 'b', path: 'Other/b.md' }, card: { ...original[0].card, pageId: 'b', schedule: { due: '2099-01-01T00:00:00Z' } } }
+  workspace.notes = [...original, future]
+  try {
+    render(<NoteLearningDashboard mode="decks" locale="en" onOpenPage={vi.fn()} legacy={null} />)
+    expect(screen.getByText('Scheduled')).toBeInTheDocument()
+    expect(screen.getByText('Due', { exact: true })).toBeInTheDocument()
+    expect(screen.getByText('Biology/a.md')).toBeInTheDocument()
+    expect(screen.getByText('Other/b.md')).toBeInTheDocument()
+  } finally { workspace.notes = original }
+})
+it('explains a folder with enabled notes but no due reviews', () => {
+  const original = workspace.notes
+  workspace.notes = [{ ...original[0], card: { ...original[0].card, schedule: { due: '2099-01-01T00:00:00Z' } } }]
+  try {
+    render(<NoteLearningDashboard mode="decks" locale="en" onOpenPage={vi.fn()} legacy={null} />)
+    expect(screen.getByRole('button', { name: 'Study', exact: true })).toBeDisabled()
+    expect(screen.getByRole('status')).toHaveTextContent('No notes are due in this folder.')
+  } finally { workspace.notes = original }
+})

@@ -30,7 +30,7 @@ export function NoteMemoryInspector({
   return (
     <section
       aria-label={t('properties.memory')}
-      className="min-w-0 space-y-3 border-t px-3 py-3 text-sm"
+      className="note-memory-surface min-w-0 space-y-3 border-t px-3 py-3 text-sm"
     >
       <h3 className="flex items-start gap-2 font-medium">
         <CalendarBlank aria-hidden="true" className="mt-0.5 size-4 shrink-0" />
@@ -59,10 +59,10 @@ export function NoteMemoryInspector({
             {dueLabel(data.view.schedule.due, locale)}
           </dd>
           <dt className="text-muted-foreground">{t('properties.reps')}</dt>
-          <dd className="text-right tabular-nums">{data.view.schedule.reps}</dd>
+          <dd className="text-right tabular-nums">{new Intl.NumberFormat(locale).format(data.view.schedule.reps)}</dd>
           <dt className="text-muted-foreground">{t('properties.lapses')}</dt>
           <dd className="text-right tabular-nums">
-            {data.view.schedule.lapses}
+            {new Intl.NumberFormat(locale).format(data.view.schedule.lapses)}
           </dd>
         </dl>
       )}

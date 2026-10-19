@@ -745,7 +745,7 @@
   "locale.idID": "Indonesiano",
   "decks.empty_search": "No decks match your search.",
   "decks.filter.all": "All",
-  "decks.filter.due": "Due",
+  "decks.filter.due": "Da ripassare",
   "decks.filter.done": "Up to date",
   "decks.search_placeholder": "Search decks…",
   "decks.total_due": "{n} due today",
@@ -980,5 +980,13 @@
   "save.close.saving": "Salvataggio prima della chiusura…",
   "save.close.wait": "Attendi il salvataggio delle ultime modifiche.",
   "save.close.failed": "Impossibile chiudere in sicurezza",
-  "save.close.retained": "Le modifiche restano aperte. Risolvi l’errore di salvataggio e riprova."
+  "save.close.retained": "Le modifiche restano aperte. Risolvi l’errore di salvataggio e riprova.",
+  "learning.noteMemory.management": "Memorizzazione",
+  "learning.noteMemory.scheduled": "Pianificato",
+  "learning.noteMemory.paused": "In pausa",
+  "learning.noteMemory.pausedHelp": "Il supporto mnemonico e la cronologia dei ripassi vengono conservati. Riprendi quando vuoi studiare di nuovo.",
+  "learning.noteMemory.noDue": "Nessuna nota da ripassare in questa cartella.",
+  "learning.noteMemory.emptyHelp": "Apri una nota e attiva la memorizzazione per aggiungerla qui.",
+  "learning.errorDetails": "Dettagli tecnici",
+  "properties.noteMemoryHelp": "Le proprietà personalizzate non contrassegnano questa nota come appresa e non ne modificano il calendario dei ripassi."
 }

@@ -3,13 +3,18 @@ import {
   ClockCounterClockwise,
   Pause,
   Play,
+  PencilSimpleLine,
+  SpinnerGap,
   Swap,
+  Stack,
 } from '@phosphor-icons/react'
 import { useEffect, useRef, useState } from 'react'
 import { Button } from '../ui/button'
 import { translate, type AppLocale } from '../../lib/i18n'
 import { trackEvent } from '../../lib/telemetry'
 import { useLearningWorkspace } from './LearningContext'
+import { NoteMemoryStatus } from './NoteMemoryStatus'
+import { LearningError } from './LearningError'
 import { LegacyPageFlashcards } from './LegacyPageFlashcards'
 import { NoteConversionDialog } from './NoteConversionDialog'
 import { NoteRecoveryDialog } from './NoteRecoveryDialog'
@@ -22,9 +27,11 @@ import {
 export function NoteLearningPanel({
   path,
   locale,
+  onEditMnemonic,
 }: {
   path: string
   locale: AppLocale
+  onEditMnemonic?: () => Promise<void>
 }) {
   const workspace = useLearningWorkspace()
   const [busy, setBusy] = useState(false),
@@ -79,6 +86,15 @@ export function NoteLearningPanel({
       setBusy(false)
     }
   }
+  const editMnemonic = async () => {
+    if (!onEditMnemonic || locked.current || outside) return
+    locked.current = true; setBusy(true); setError(null)
+    try {
+      await onEditMnemonic()
+      trackEvent('memnova_note_mnemonic_edit_requested', { has_back: view?.hasBack ? 1 : 0 })
+    } catch (error) { setError(String(error)) }
+    finally { locked.current = false; setBusy(false) }
+  }
   return (
     <section
       className="note-memory-surface h-full overflow-y-auto bg-background p-4 sm:p-8"
@@ -87,28 +103,22 @@ export function NoteLearningPanel({
       <div className="mx-auto max-w-3xl space-y-6">
         <header className="space-y-2">
           <h2 className="flex items-center gap-2 text-xl font-semibold">
-            <Brain aria-hidden="true" />
+            <Brain aria-hidden="true" className="size-6" />
             {t('learning.noteMemory.notes')}
           </h2>
+          <NoteMemoryStatus state={view?.state ?? 'ordinary'} due={view?.schedule?.due} clock={workspace.clock} locale={locale} />
           <p className="text-sm text-muted-foreground">
             {t(
-              view?.config
-                ? 'learning.noteMemory.enabledHelp'
-                : 'learning.noteMemory.ordinaryHelp'
+              view?.state === 'disabled'
+                ? 'learning.noteMemory.pausedHelp'
+                : view?.config
+                  ? 'learning.noteMemory.enabledHelp'
+                  : 'learning.noteMemory.ordinaryHelp'
             )}
           </p>
         </header>
-        {(error || workspace.error) && (
-          <div
-            role="alert"
-            className="space-y-2 rounded-lg border border-destructive p-4"
-          >
-            <p>{t('learning.error')}</p>
-            <pre className="whitespace-pre-wrap break-words text-xs">
-              {error || workspace.error}
-            </pre>
-          </div>
-        )}
+        {(error || workspace.error) && <LearningError error={error || workspace.error || ''} locale={locale} />}
+        {busy && <p role="status" className="flex items-center gap-2 text-sm text-muted-foreground"><SpinnerGap aria-hidden="true" className="size-4 animate-spin motion-reduce:animate-none" />{t('learning.saving')}</p>}
         {view?.state === 'pending' && (
           <p role="status">{t('learning.noteMemory.needsRecovery')}</p>
         )}
@@ -118,7 +128,7 @@ export function NoteLearningPanel({
         {view?.state === 'draft' && (
           <p role="status">{t('learning.noteMemory.missingMnemonic')}</p>
         )}
-        <div className="flex flex-wrap gap-2">
+        <div className="note-memory-actions">
           {needsConversion ? (
             <Button disabled={busy} onClick={() => setConversion(true)}>
               <Swap aria-hidden="true" />
@@ -139,18 +149,21 @@ export function NoteLearningPanel({
             >
               {enabled ? (
                 <Pause aria-hidden="true" />
+              ) : view?.config ? (
+                <Play aria-hidden="true" />
               ) : (
                 <Brain aria-hidden="true" />
               )}
               {t(
                 enabled
                   ? 'learning.noteMemory.disable'
-                  : 'learning.noteMemory.enable'
+                  : view?.config ? 'learning.resume' : 'learning.noteMemory.enable'
               )}
             </Button>
           )}
+          {enabled && view?.state === 'draft' && onEditMnemonic && <Button disabled={busy} onClick={() => { void editMnemonic() }}><PencilSimpleLine aria-hidden="true" />{t('editor.noteMemory.addMnemonic')}</Button>}
           <Button
-            variant="default"
+            variant={view?.state === 'ready' ? 'default' : 'outline'}
             disabled={busy || view?.state !== 'ready' || !page}
             onClick={() =>
               workspace.requestStudy(page ? [page.id] : [], 'notes')
@@ -160,7 +173,7 @@ export function NoteLearningPanel({
             {t('learning.study')}
           </Button>
           <Button
-            variant="ghost"
+            variant={view?.state === 'pending' ? 'default' : 'ghost'}
             disabled={busy}
             onClick={() => setRecovery(true)}
           >
@@ -175,7 +188,7 @@ export function NoteLearningPanel({
               aria-expanded={legacy}
               onClick={() => setLegacy((value) => !value)}
             >
-              {t('learning.noteMemory.legacyCards')} ({oldCards.length})
+              <Stack aria-hidden="true" />{t('learning.noteMemory.legacyCards')} ({oldCards.length})
             </Button>
             {legacy && <LegacyPageFlashcards path={path} locale={locale} />}
           </section>

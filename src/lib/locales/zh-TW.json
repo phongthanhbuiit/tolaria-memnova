@@ -745,7 +745,7 @@
   "locale.idID": "印尼",
   "decks.empty_search": "No decks match your search.",
   "decks.filter.all": "All",
-  "decks.filter.due": "Due",
+  "decks.filter.due": "到期",
   "decks.filter.done": "Up to date",
   "decks.search_placeholder": "Search decks…",
   "decks.total_due": "{n} due today",
@@ -980,5 +980,13 @@
   "save.close.saving": "正在儲存後關閉…",
   "save.close.wait": "請稍候，正在儲存您的最新變更。",
   "save.close.failed": "暫時無法安全關閉",
-  "save.close.retained": "您的變更仍保留在視窗中。請解決儲存錯誤後重試。"
+  "save.close.retained": "您的變更仍保留在視窗中。請解決儲存錯誤後重試。",
+  "learning.noteMemory.management": "記憶學習",
+  "learning.noteMemory.scheduled": "已排程",
+  "learning.noteMemory.paused": "已暫停",
+  "learning.noteMemory.pausedHelp": "記憶提示和複習歷史會保留。想再次學習時可繼續。",
+  "learning.noteMemory.noDue": "此資料夾中沒有到期的筆記。",
+  "learning.noteMemory.emptyHelp": "開啟一篇筆記並啟用記憶學習，即可將其新增至這裡。",
+  "learning.errorDetails": "技術詳細資料",
+  "properties.noteMemoryHelp": "自訂屬性不會將此筆記標記為已學會，也不會變更複習排程。"
 }

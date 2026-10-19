@@ -745,7 +745,7 @@
   "locale.idID": "印度尼西亚",
   "decks.empty_search": "No decks match your search.",
   "decks.filter.all": "All",
-  "decks.filter.due": "Due",
+  "decks.filter.due": "到期",
   "decks.filter.done": "Up to date",
   "decks.search_placeholder": "Search decks…",
   "decks.total_due": "{n} due today",
@@ -980,5 +980,13 @@
   "save.close.saving": "正在保存后关闭…",
   "save.close.wait": "请稍候，正在保存您的最新更改。",
   "save.close.failed": "暂时无法安全关闭",
-  "save.close.retained": "您的更改仍保留在窗口中。请解决保存错误后重试。"
+  "save.close.retained": "您的更改仍保留在窗口中。请解决保存错误后重试。",
+  "learning.noteMemory.management": "记忆学习",
+  "learning.noteMemory.scheduled": "已安排",
+  "learning.noteMemory.paused": "已暂停",
+  "learning.noteMemory.pausedHelp": "记忆提示和复习历史会保留。想再次学习时可继续。",
+  "learning.noteMemory.noDue": "此文件夹中没有到期的笔记。",
+  "learning.noteMemory.emptyHelp": "打开一篇笔记并启用记忆学习，即可将其添加到这里。",
+  "learning.errorDetails": "技术详情",
+  "properties.noteMemoryHelp": "自定义属性不会将此笔记标记为已学会，也不会更改复习计划。"
 }

@@ -745,7 +745,7 @@
   "locale.idID": "Tiếng Indonesia",
   "decks.empty_search": "No decks match your search.",
   "decks.filter.all": "All",
-  "decks.filter.due": "Due",
+  "decks.filter.due": "Đến hạn",
   "decks.filter.done": "Up to date",
   "decks.search_placeholder": "Search decks…",
   "decks.total_due": "{n} due today",
@@ -980,5 +980,13 @@
   "save.close.saving": "Đang lưu trước khi đóng…",
   "save.close.wait": "Vui lòng đợi lưu xong những thay đổi mới nhất.",
   "save.close.failed": "Chưa thể đóng an toàn",
-  "save.close.retained": "Các thay đổi vẫn được giữ trong cửa sổ. Hãy khắc phục lỗi lưu rồi thử lại."
+  "save.close.retained": "Các thay đổi vẫn được giữ trong cửa sổ. Hãy khắc phục lỗi lưu rồi thử lại.",
+  "learning.noteMemory.management": "Ghi nhớ",
+  "learning.noteMemory.scheduled": "Đã lên lịch",
+  "learning.noteMemory.paused": "Tạm dừng",
+  "learning.noteMemory.pausedHelp": "Gợi nhớ và lịch sử ôn tập vẫn được giữ. Tiếp tục khi bạn muốn học lại.",
+  "learning.noteMemory.noDue": "Không có ghi chú đến hạn trong thư mục này.",
+  "learning.noteMemory.emptyHelp": "Mở một ghi chú và bật ghi nhớ để thêm vào đây.",
+  "learning.errorDetails": "Chi tiết kỹ thuật",
+  "properties.noteMemoryHelp": "Thuộc tính tùy chỉnh không đánh dấu ghi chú đã thuộc và không thay đổi lịch ôn tập."
 }
