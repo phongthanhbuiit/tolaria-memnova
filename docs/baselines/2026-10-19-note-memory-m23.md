@@ -1,5 +1,7 @@
 # M23 — native final acceptance
 
+**Final status: DONE**, normal source push a376ee11 succeeded9m0s. Final release evidence is in [M25](2026-10-19-note-memory-m25.md); the sections below retain checkpoint history.
+
 Starting HEAD35dfa19f main, remote matched, tree/demo clean. M19–M22 DONE via normal push8m53s:4871frontend,1235Rust+1integration/3ignored,54smoke4.6m,frontend87.33%lines and hook Rust87.69%lines (existing exclusions). CodeScene before NOT RUN optional unavailable. Native QA must use freshly rebuilt backend/production renderer and isolated absolute MEMNOVA_CONFIG_HOME/identifier/incognito. No HOME changes, user Library access or fixture Git pushes.
 
 Disposable root prepared at /tmp/memnova-m23-native/library from closed M18 Ready fixture; source bytes/table snapshot captured before launch. New A4 Study and Ordinary Marker files have no owned identity/configuration. /tmp/memnova-m18-native/library-legacy-pending remains held for genuine pending recovery/conversion acceptance. All native GUI, quit/restart, grade/undo/backup/new-root verification still pending at this baseline.

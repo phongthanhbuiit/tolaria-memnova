@@ -2,9 +2,9 @@
 
 Plan: [nghiệp vụ và dữ liệu](MEMNOVA-NOTE-MEMORY-PLAN.md). Task: [M00 đến M25](MEMNOVA-NOTE-MEMORY-TASKS.md).
 
-Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. DONE bên dưới ghi checkpoint phạm vi task đã push, không có nghĩa toàn bộ nghiệp vụ đã mở cho người dùng. M23–M25 vẫn chưa hoàn tất. Các điều kiện nghiệm thu cần tích hợp lại (đặc biệt watcher M05 và inactive properties M18) được ghi trong [kiểm toán hiện tại](baselines/2026-10-19-note-memory-task-audit.md); không tính chúng là đã qua nghiệm thu toàn luồng. VERIFIED_LOCAL chưa phải hoàn tất hoặc đã phát hành.
+Ngày lập: 2026-10-18. Baseline source: `88ae677a`. **Trạng thái hiện hành: M00–M25 DONE** sau normal push `a376ee11` (9 phút). Xem [nghiệm thu cuối](baselines/2026-10-19-note-memory-m25.md). Các checkpoint/audit cũ bên dưới là lịch sử; nghiệm thu tích hợp cuối ở M23–M25 đã bao gồm watcher, inactive properties, native persistence, recovery/restore và resource cleanup. CodeScene NOT RUN, không được hiểu là đạt điểm.
 
-| Task | Trạng thái | Commit đã push | Bằng chứng và giới hạn |
+| Task | Trạng thái | Commit/checkpoint đã push | Bằng chứng và giới hạn |
 |---|---|---|---|
 | M00 | DONE | 855ea883 | Baseline122 frontend/92 Rust; fixture test, final93 learning Rust; production20 samples; Codacy0; pre-commit54 smoke/4.6m; pre-push4585 tests, frontend86.51% lines, Rust hook86.97% lines (excludes lib/main/menu),54 smoke/4.7m. Push8m40s passed, remote SHA verified. Native NOT RUN. See baseline report. |
 | M01 | DONE | 4072540b; pushed fef27504 | 50 codec tests;72 focused including legacy;144 learning tests; final types/lint/related pre-commit pass. Shared28 parse+7 patch vectors. Codacy reviewed one false Medium/one Minor, no Critical/High; ADR0147/docs. See M01 baseline. Batch push after M03. |
@@ -25,13 +25,13 @@ Ngày lập: 2026-10-18. Baseline source đối chiếu: `88ae677a`. DONE bên d
 | M16 | DONE | 81bce958,a1cededc | Read-only native source preview; explicit guarded registration/config queue. 5 real IPC cases; UI pre-commit305 tests/32files and browser9.7s; 18locales/957keys. Native checkpoint completed; normal batch push c8c71603 passed. |
 | M17 | DONE | b27e1144 | 11 native lifecycle cases,44 focused frontend; normal pre-commit4797 frontend/464files,1210Rust/3ignored, browser9.8s; normal batch push c8c71603 passed. |
 | M18 | DONE | 678c5826,c8c71603 | Canonical property writes, readonly schedule/raw metadata;4816frontend/1216Rust verified hook; actual native property/width/two-face/source Cancel/link/inline/restart proof,419 vault tests. Normal batch push c8c71603 passed. |
-| M19 | DONE | fa3934f4; pushed35dfa19f | 65module tests8.05s; normal hook305tests/39files,3browser7.1s,18locales/962keys; M22 baseline integration issue explicitly retained. Normal batch pushed35dfa19f; full gates below. |
-| M20 | DONE | d76f7d99,679f3c05,1e3514e1; pushed35dfa19f | Default note/legacy workspace, opt-in controls, scoped properties, conversion/recovery and startup backup reader implemented. Normal final hook4861frontend/481files,1228Rust/3ignored pass;274module frontend,206learning Rust,3real startup recovery,4browser12.9s pass. Normal batch pushed35dfa19f; native end-to-end M23–M25 remain. |
+| M19 | DONE | fa3934f4; pushed35dfa19f | 65module tests8.05s; normal hook305tests/39files,3browser7.1s,18locales/962keys; M22 integration regressions were resolved before final M23–M25 acceptance. Normal batch pushed35dfa19f; full gates below. |
+| M20 | DONE | d76f7d99,679f3c05,1e3514e1; pushed35dfa19f | Default note/legacy workspace, opt-in controls, scoped properties, conversion/recovery and startup backup reader implemented. Normal final hook4861frontend/481files,1228Rust/3ignored pass;274module frontend,206learning Rust,3real startup recovery,4browser12.9s pass. Normal batch pushed35dfa19f; native/end-to-end M23–M25 accepted in the final release. |
 | M21 | DONE | 9baccd37; pushed35dfa19f | Normal hook4864frontend/481files133.99s;4browser59.0s including378layout cases and canvas keyboard/fullscreen;978keys/18catalogs. CodeScene NOT RUN. Normal batch pushed35dfa19f. |
-| M22 | DONE | 98ea525d,6ea806a8; pushed35dfa19f | Final normal hook368frontend/49files26.50s,213native15.31s,12browser1.8m passed;244native learning/IPC,15integration zero retries +4file-backed browser cases,lint/types/clippy/Codacy pass. Normal batch pushed35dfa19f; M23–M25 not yet accepted. |
-| M23 | VERIFIED_LOCAL | 1c27b64b,d3445c3f,f626ba63 | Native A4/both faces/media/last-stroke quit, failed-save retry/window close, linked move/missing, grade/undo, conversion conflict/reuse/fresh, retained journal and independent-root/missing/corrupt-DB restore passed with closed SQLite/hash proofs. Final recovery hook129tests/17files; baseline m23. Normal batch push remains M25. |
-| M24 | IN_PROGRESS | M23 verified f626ba63 | Production baseline comparison and100/1000-shape resource measurements pending. |
-| M25 | NOT_STARTED | — | — |
+| M22 | DONE | 98ea525d,6ea806a8; pushed35dfa19f | Final normal hook368frontend/49files26.50s,213native15.31s,12browser1.8m passed;244native learning/IPC,15integration zero retries +4file-backed browser cases,lint/types/clippy/Codacy pass. Normal batch pushed35dfa19f; M23–M25 subsequently accepted in the final release. |
+| M23 | DONE | 1c27b64b,d3445c3f,f626ba63; pushed a376ee11 | Native A4/both faces/media/normal-close retry, linked move/missing, grade/undo, conversion/recovery and independent-root/missing/corrupt-DB restore passed with closed SQLite/hash proofs. Affected native repeated after both M24 fixes; final10shapes/front/other files/schedules/reviews preserved. Baselines M23/M24 and final M25. |
+| M24 | DONE | 66c8ed23,a376ee11 | SDK listener cleanup and opaque-token fixes have RED/GREEN regressions. Production5cases2.5min, quiet ordinary p95 under M00 budget; final dev4cases4.7min zero retries, resting listeners400→400. Verified hook4891frontend/8whiteboard/54smoke4.5min; normal pushed a376ee11. Baseline M24. |
+| M25 | DONE | source release a376ee11 | Normal push9min passed:4891frontend/486files,87.33%lines;1239Rust+1integration/3existingignored, hook87.38%lines; unexcluded86.37%lines.54smoke4.6min. Codacy no new Critical/High/security;18catalogs/982keys; CodeScene NOT RUN. See final release report and docs receipt. |
 
 Trạng thái dùng: NOT_STARTED, IN_PROGRESS, VERIFIED_LOCAL, BLOCKED_WITH_EVIDENCE, DONE. VERIFIED_LOCAL là code đã commit và test tại local, chưa phải hoàn tất hoặc releasable. Khi user giao toàn bộ đợt, dependency có thể dùng checkpoint VERIFIED_LOCAL có commit và evidence thật; chỉ đổi DONE sau normal push thành công. Khi giao một task riêng, dependency phải DONE. Không có trạng thái “DONE nhưng chưa test/push”.
 
@@ -39,7 +39,7 @@ Trạng thái dùng: NOT_STARTED, IN_PROGRESS, VERIFIED_LOCAL, BLOCKED_WITH_EVID
 
 Local HEAD `9baccd37`; remote `refs/heads/main` xác minh lại qua `git ls-remote` là `c8c71603095dbd0d322ff48a1347bd9c6cbaf655`. Năm commit M19–M21 chưa push (`fa3934f4`, `d76f7d99`, `679f3c05`, `1e3514e1`, `9baccd37`); M22 đang triển khai. Không lấy coverage/hook c8c71603 làm bằng chứng release của working tree.
 
-Bảng task ở đầu tài liệu là nguồn trạng thái hiện hành duy nhất. Các mục batch release và audit cũ bên dưới là lịch sử, không phải danh sách việc hiện còn thiếu. M19 live faces và M20 default workspace/conversion/recovery đã có code tích hợp và local tests; chúng không còn là các implementation gap như tại lần audit đầu. M22–M25 vẫn chưa nghiệm thu.
+Bảng task ở đầu tài liệu là nguồn trạng thái hiện hành duy nhất. Các mục batch release và audit cũ bên dưới là lịch sử, không phải danh sách việc hiện còn thiếu. M19 live faces và M20 default workspace/conversion/recovery đã có code tích hợp và local tests; chúng không còn là các implementation gap như tại lần audit đầu. Nghiệm thu cuối đã hoàn tất ở M23–M25; checkpoint này giữ trạng thái lịch sử.
 
 Lần kiểm tra lại phát hiện lỗi báo cáo: snapshot cũ dùng HEAD fa3934f4, một bảng audit lịch sử bị cập nhật lẫn 4/5 cột, và đoạn M19 cũ vẫn nói “chưa commit”. Đã tách lịch sử khỏi trạng thái hiện tại. Kết quả M21 và các lỗi dữ liệu nghi vấn phải được xác minh riêng, không đánh dấu DONE chỉ vì sửa sổ tiến độ.
 
@@ -123,3 +123,8 @@ M19 normal verified commit fa3934f410309f81cf1bbacaca61a0970d244237:305related f
 ## M19–M22 normal batch release
 
 Push35dfa19f succeeded8m53s:4871frontend/482files147.32s,87.33%lines/83.49%statements;1235Rustunit+1integration/3ignored;hook Rust87.69%lines with its existing exclusions.54core smoke4.6m;lint/types/build/clippy/format pass. CodeScene NOT RUN optional unavailable. Remote/localSHA match and tree/demo clean. M23 native final, M24 performance and M25 final unexcluded coverage/release remain required.
+
+
+## M23–M25 final release
+
+Normal source push a376ee116a6feb807d0c24306cba9db56b7114fa succeeded9m0s. Frontend4891tests/486files147.22s,87.33%lines/83.48%statements; Rust1239unit+1integration/3existingignored, hook87.38%lines (existing lib/main/menu exclusions). Actual unexcluded cargo llvm-cov command passes86.37%lines.54core smoke4.6min;lint/types/build/clippy/format pass. CodeScene NOT RUN optional unavailable; no threshold lowered. Final279code paths and separate3SDK files scanned; no new Critical/High/security findings, disclosed structural advisories retained.18locale catalogs/982keys validate. Main source SHA matched remote after push; only this documentation receipt remained. Demo dirt empty and owned QA servers/native processes closed. Final docs-only verified receipt publishes this ledger and report; no application source changes after release.

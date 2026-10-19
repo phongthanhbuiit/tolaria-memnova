@@ -1,5 +1,7 @@
 # M24 — production performance and resources
 
+**Final status: DONE**, normal source push a376ee11 succeeded9m0s. Final release evidence is in [M25](2026-10-19-note-memory-m25.md); the sections below retain checkpoint history.
+
 Starting main f626ba63, M23 verified local (normal push planned with M25). Source tree clean apart from acceptance docs. Final native M23 backend/production renderer acceptance has closed SQLite/hash proofs; no native process remains. CodeScene before NOT RUN optional unavailable. No algorithm/schema/dependency version/UI feature changes are authorized for this performance task; optimize production code only for a demonstrated bottleneck.
 
 Comparator: M00 same Apple M3 Pro/macOS27arm64, production-renderer/dev-file-api mode,3warmups/20samples; ordinary A4 open p95 176.82975ms, explicit-save p95 2072.345667ms. Existing runner tests/integration/memnova-note-memory-performance.spec.ts is used unchanged first. Final fixture timing must report exact counts, image/snapshot bytes and environment; browser measurements are not native SQLite/asset-protocol latency. Native20pan/read acceptance already produced byte/mtime-identical files and every table identical in the independently restored root; this supports camera/read no-write invariants, not an FPS/heap benchmark.
