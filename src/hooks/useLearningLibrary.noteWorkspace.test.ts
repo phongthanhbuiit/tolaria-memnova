@@ -91,3 +91,18 @@ it('does not let an older failed refresh replace a newer successful snapshot', a
   expect(result.current.error).toBeNull()
   expect(result.current.phase).toBe('ready')
 })
+
+it('ignores a refresh callback retained across reconnecting the same filesystem root', async () => {
+  const first = client('old-store'), second = client('restored-store')
+  vi.mocked(LearningClient.connect).mockResolvedValueOnce(first as unknown as LearningClient).mockResolvedValueOnce(second as unknown as LearningClient)
+  const { result } = renderHook(() => useLearningLibrary('/same-root'))
+  await waitFor(() => expect(result.current.client?.libraryId).toBe('old-store'))
+  const retained = result.current.refresh
+  await act(() => result.current.reconnect())
+  expect(result.current.client?.libraryId).toBe('restored-store')
+  first.syncNoteWorkspace.mockRejectedValueOnce(Error('closed old store'))
+  await act(async () => { await retained().catch(() => {}) })
+  expect(result.current.error).toBeNull()
+  expect(first.syncNoteWorkspace).toHaveBeenCalledOnce()
+  expect(result.current.client?.libraryId).toBe('restored-store')
+})

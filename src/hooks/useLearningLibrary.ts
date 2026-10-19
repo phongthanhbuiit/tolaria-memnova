@@ -15,11 +15,13 @@ export function useLearningLibrary(root: string | null | undefined) {
   const [migrationBusy, setBusy] = useState(false)
   const generation = useRef(0)
   const reads = useRef(new Map<string, number>())
+  const connections = useRef(new WeakMap<LearningClient, number>())
   const current = state.root === path ? state : initial(path)
   const migrationOpen = migrationRoot === path && migrationVisible
   const preview = migrationRoot === path ? storedPreview : null
   const busy = migrationRoot === path && migrationBusy
   const load = useCallback(async (client: LearningClient, epoch: number) => {
+    if (generation.current !== epoch) return
     const read = (reads.current.get(path) ?? 0) + 1
     reads.current.set(path, read)
     const isCurrentRead = () => generation.current === epoch && reads.current.get(path) === read
@@ -39,6 +41,7 @@ export function useLearningLibrary(root: string | null | undefined) {
       const client = await LearningClient.connect(path)
       const progress = await client.migrationStatus()
       if (generation.current !== epoch) return
+      connections.current.set(client, epoch)
       setMigrationRoot(path); setMigrationOpen(false); setBusy(false); setPreview(null)
       setState({ ...initial(path), client, phase: progress.state === 'ready' ? 'loading' : progress.state, progress })
       if (progress.state === 'ready') await load(client, epoch)
@@ -52,7 +55,8 @@ export function useLearningLibrary(root: string | null | undefined) {
   const invalidate = useCallback(() => { generation.current++ }, [])
   useEffect(() => { void connect(); return invalidate }, [connect, invalidate])
   const refresh = useCallback(async () => {
-    if (current.client && current.phase === 'ready') await load(current.client, generation.current)
+    const epoch = current.client ? connections.current.get(current.client) : undefined
+    if (current.client && current.phase === 'ready' && epoch !== undefined) await load(current.client, epoch)
   }, [current.client, current.phase, load])
   useEffect(() => {
     if (current.phase !== 'ready') return
