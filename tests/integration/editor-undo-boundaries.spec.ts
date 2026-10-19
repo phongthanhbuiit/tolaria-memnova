@@ -4,6 +4,7 @@ import { expect, test, type Page } from '@playwright/test'
 import { createNoteMemoryFixture } from '../helpers/noteMemoryFixture'
 import { openFixtureVault, removeFixtureVaultCopy } from '../helpers/fixtureVault'
 import { executeCommand, openCommandPalette } from '../smoke/helpers'
+import { triggerMenuCommand } from '../smoke/testBridge'
 
 const modifier = process.platform === 'darwin' ? 'Meta' : 'Control'
 async function openNote(page: Page, title: string) {
@@ -22,6 +23,10 @@ async function addRawMnemonic(page: Page, owner: string) {
   await expect(raw).toBeVisible()
   await raw.click(); await page.keyboard.press(`${modifier}+End`)
   await page.keyboard.insertText('\nRaw mnemonic addition.')
+  await triggerMenuCommand(page, 'edit-undo')
+  await expect(raw).not.toContainText('Raw mnemonic addition.')
+  await triggerMenuCommand(page, 'edit-redo')
+  await expect(raw).toContainText('Raw mnemonic addition.')
   await page.keyboard.press(`${modifier}+s`)
   await expect.poll(() => fs.readFileSync(owner, 'utf8')).toContain('Raw mnemonic addition.')
   await openCommandPalette(page); await executeCommand(page, 'Toggle Raw')
@@ -79,9 +84,9 @@ test('face switches and raw exit isolate history while same-face edits remain re
     await page.keyboard.press('End')
     await page.keyboard.insertText(' Front edit.')
     await expect(page.locator('.bn-editor')).toContainText('Front edit.')
-    await page.keyboard.press(`${modifier}+z`)
+    await triggerMenuCommand(page, 'edit-undo')
     await expect(page.locator('.bn-editor')).not.toContainText('Front edit.')
-    await page.keyboard.press(`${modifier}+Shift+z`)
+    await triggerMenuCommand(page, 'edit-redo')
     await expect(page.locator('.bn-editor')).toContainText('Front edit.')
     await page.getByRole('tab', { name: 'Mnemonic', exact: true }).click()
     await expect(page.locator('.bn-editor')).toContainText('Mnemonic back.')

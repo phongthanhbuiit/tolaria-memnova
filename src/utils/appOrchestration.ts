@@ -1,5 +1,6 @@
 import type { ModifiedFile, SidebarSelection } from '../types'
 import type { AiWorkspaceWindowContext } from './openAiWorkspaceWindow'
+import { isMac } from './platform'
 
 export const ACTIVE_EDITOR_SURFACE_SELECTOR = '.editor__blocknote-container, .raw-editor-codemirror'
 
@@ -20,7 +21,20 @@ export function isTextEditingElementFocused(): boolean {
 
 export function runNativeTextHistoryCommand(command: 'undo' | 'redo'): boolean {
   if (!isTextEditingElementFocused()) return false
-  return document.execCommand(command)
+  const target = document.activeElement
+  if (target instanceof HTMLElement && target.closest(ACTIVE_EDITOR_SURFACE_SELECTOR)
+    && target.closest('[contenteditable="true"]')) {
+    // Rich/CodeMirror editors own transaction history; execCommand uses the browser's
+    // separate native text stack. Dispatch the same key their history keymaps handle.
+    target.dispatchEvent(new KeyboardEvent('keydown', {
+      key: 'z', code: 'KeyZ', bubbles: true, cancelable: true,
+      metaKey: isMac(), ctrlKey: !isMac(), shiftKey: command === 'redo',
+    }))
+  } else {
+    document.execCommand(command)
+  }
+  // An empty text history must never fall through to undoing note organization, etc.
+  return true
 }
 
 function modifiedFileKey(file: ModifiedFile): string {
