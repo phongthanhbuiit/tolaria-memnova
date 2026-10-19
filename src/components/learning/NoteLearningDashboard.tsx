@@ -31,6 +31,7 @@ import { LearningError } from './LearningError'
 import { useLearningWorkspace } from './LearningContext'
 import { NoteConversionDialog } from './NoteConversionDialog'
 import { NoteRecoveryDialog } from './NoteRecoveryDialog'
+import { focusLearningDialogTrigger } from './useLearningDialogFocus'
 import { BackupPanel } from './BackupPanel'
 import { trackEvent } from '../../lib/telemetry'
 
@@ -131,6 +132,7 @@ export function NoteLearningDashboard({
             </div>
             <Button
               disabled={!selectedDue.length}
+              onClickCapture={focusLearningDialogTrigger}
               onClick={() => workspace.requestStudy(scope, 'notes')}
             >
               <Play aria-hidden="true" />
@@ -189,11 +191,11 @@ export function NoteLearningDashboard({
             </p>
           )}
           <footer className="flex flex-wrap gap-2 border-t pt-4">
-            <Button variant="outline" onClick={() => setConversion(true)}>
+            <Button variant="outline" onClickCapture={focusLearningDialogTrigger} onClick={() => setConversion(true)}>
               <Swap aria-hidden="true" />
               {t('learning.noteMemory.title')}
             </Button>
-            <Button variant="outline" onClick={() => setRecovery(true)}>
+            <Button variant="outline" onClickCapture={focusLearningDialogTrigger} onClick={() => setRecovery(true)}>
               <ClockCounterClockwise aria-hidden="true" />
               {t('learning.noteMemory.recoveryTitle')}
             </Button>

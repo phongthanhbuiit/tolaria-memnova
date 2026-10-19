@@ -1,4 +1,9 @@
-import { useCallback, useLayoutEffect, useRef } from 'react'
+import { useCallback, useLayoutEffect, useRef, type MouseEvent } from 'react'
+
+/** macOS WebKit does not focus pointer-activated buttons before a controlled dialog opens. */
+export function focusLearningDialogTrigger(event: MouseEvent<HTMLButtonElement>) {
+  event.currentTarget.focus({ preventScroll: true })
+}
 
 /** Controlled learning dialogs have no Radix Trigger; retain their real invoking control. */
 export function useLearningDialogFocus() {

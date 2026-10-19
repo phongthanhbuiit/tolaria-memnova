@@ -18,6 +18,7 @@ import { LearningError } from './LearningError'
 import { LegacyPageFlashcards } from './LegacyPageFlashcards'
 import { NoteConversionDialog } from './NoteConversionDialog'
 import { NoteRecoveryDialog } from './NoteRecoveryDialog'
+import { focusLearningDialogTrigger } from './useLearningDialogFocus'
 import {
   joinVaultPath,
   notePathsMatch,
@@ -130,7 +131,7 @@ export function NoteLearningPanel({
         )}
         <div className="note-memory-actions">
           {needsConversion ? (
-            <Button disabled={busy} onClick={() => setConversion(true)}>
+            <Button disabled={busy} onClickCapture={focusLearningDialogTrigger} onClick={() => setConversion(true)}>
               <Swap aria-hidden="true" />
               {t('learning.noteMemory.title')}
             </Button>
@@ -164,6 +165,7 @@ export function NoteLearningPanel({
           {enabled && view?.state === 'draft' && onEditMnemonic && <Button disabled={busy} onClick={() => { void editMnemonic() }}><PencilSimpleLine aria-hidden="true" />{t('editor.noteMemory.addMnemonic')}</Button>}
           <Button
             variant={view?.state === 'ready' ? 'default' : 'outline'}
+            onClickCapture={focusLearningDialogTrigger}
             disabled={busy || view?.state !== 'ready' || !page}
             onClick={() =>
               workspace.requestStudy(page ? [page.id] : [], 'notes')
@@ -174,6 +176,7 @@ export function NoteLearningPanel({
           </Button>
           <Button
             variant={view?.state === 'pending' ? 'default' : 'ghost'}
+            onClickCapture={focusLearningDialogTrigger}
             disabled={busy}
             onClick={() => setRecovery(true)}
           >

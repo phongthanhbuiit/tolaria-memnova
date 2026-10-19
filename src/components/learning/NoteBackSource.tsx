@@ -12,6 +12,7 @@ import { createResourceLifetime } from '../editorResourceScope'
 import { LearningError } from './LearningError'
 import { SourceSelectionPreview } from './SourceSelectionPreview'
 import { NoteBackSourceDialog } from './NoteBackSourceDialog'
+import { focusLearningDialogTrigger } from './useLearningDialogFocus'
 import { useLearningWorkspace } from './LearningContext'
 import { translate, type AppLocale } from '../../lib/i18n'
 import type { MemoryBack } from '../../lib/learning/noteMemoryConfig'
@@ -134,6 +135,7 @@ export function NoteBackSourceToolbar(props: BackToolbarProps) {
           variant="outline"
           size="sm"
           disabled={Boolean(action?.busy)}
+          onClickCapture={focusLearningDialogTrigger}
           onClick={() => setOpen(true)}
         >
           <LinkSimple aria-hidden="true" />

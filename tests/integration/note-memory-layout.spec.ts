@@ -161,6 +161,8 @@ test('closing the source chooser restores focus to its toolbar action', async ({
   await page.waitForFunction(() => window.setNoteLayoutCase)
   await page.evaluate(() => window.setNoteLayoutCase?.({ surface: 'toolbar', locale: 'en', theme: 'light' }))
   const trigger = page.getByRole('button', { name: 'Choose a source', exact: true })
+  // WebKit on macOS does not focus a button on pointer activation.
+  await trigger.evaluate(element => element.addEventListener('mousedown', event => event.preventDefault()))
   await trigger.click()
   await expect(page.getByRole('dialog')).toBeVisible()
   await page.keyboard.press('Escape')
@@ -174,6 +176,7 @@ for (const name of ['Convert note memory', 'Saved drafts and recovery']) {
     await page.waitForFunction(() => window.setNoteLayoutCase)
     await page.evaluate(() => window.setNoteLayoutCase?.({ surface: 'dashboard', locale: 'en', theme: 'light' }))
     const trigger = page.getByRole('button', { name, exact: true })
+    await trigger.evaluate(element => element.addEventListener('mousedown', event => event.preventDefault()))
     await trigger.click()
     await expect(page.getByRole('dialog')).toBeVisible()
     await expect(page.getByRole('dialog').getByRole('button', { name: name === 'Convert note memory' ? 'Cancel' : 'Close', exact: true })).toBeEnabled()

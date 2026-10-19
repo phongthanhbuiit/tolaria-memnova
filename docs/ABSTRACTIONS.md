@@ -1144,4 +1144,5 @@ Read errors in `useLearningLibrary.load` follow the same Library generation/read
 - `NoteMemoryStatus`: readonly state/due badge using the workspace snapshot clock, with text and icon independent of color.
 - `LearningError`: localized next-step message plus collapsible diagnostic text and clipboard feedback; no source/network mutation.
 - `useLearningDialogFocus` / `useLearningDialogDismiss`: retain the invoking DOM control and keep the current busy/owner guard available to external Escape callbacks. In-flight mutation protection remains active.
+- `focusLearningDialogTrigger`: focus only the actual learning dialog action before its click handler opens the dialog. This makes macOS WebKit pointer activation match keyboard/Chromium focus return without adding document-wide listeners or changing shadcn Dialog.
 - `NoteMemoryList`: small lists render directly; large lists reuse react-virtuoso with the dashboard scroll parent. Only mounted row controls are retained. Keyboard movement can request an offscreen index and focus it when mounted; unavailable notes remain unavailable.

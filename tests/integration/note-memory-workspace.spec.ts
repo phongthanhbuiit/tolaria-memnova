@@ -66,7 +66,9 @@ test('explicit note enable, mnemonic editing, study and pause use the default wo
     await expect(
       panel.getByRole('button', { name: 'Study', exact: true })
     ).toBeEnabled()
-    await panel.getByRole('button', { name: 'Study', exact: true }).click()
+    const studyTrigger = panel.getByRole('button', { name: 'Study', exact: true })
+    await studyTrigger.evaluate(element => element.addEventListener('mousedown', event => event.preventDefault()))
+    await studyTrigger.click()
     const study = page.getByRole('dialog')
     await study
       .getByRole('button', { name: 'Show mnemonic', exact: true })
