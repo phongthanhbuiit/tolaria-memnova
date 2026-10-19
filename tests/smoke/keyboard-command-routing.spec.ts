@@ -209,15 +209,23 @@ test.describe('keyboard command routing', () => {
     await expect(page.getByRole('button', { name: 'Set note as organized' })).toBeVisible({ timeout: 5_000 })
   })
 
-  test('app command bridge undoes and redoes organized state through action history @smoke', async ({ page }) => {
+  test('text history keeps priority while app command bridge undoes and redoes organization outside the editor @smoke', async ({ page }) => {
     await openAlphaProjectInEditor(page)
 
     await triggerMenuCommand(page, APP_COMMAND_IDS.noteToggleOrganized)
     await expect(page.getByRole('button', { name: 'Set note as not organized' })).toBeVisible({ timeout: 5_000 })
 
+    // No text undo entry exists after loading this note. Text focus must still
+    // consume Undo rather than accidentally reverting its organized state.
+    await page.locator('.bn-editor').click()
+    await dispatchAppCommand(page, APP_COMMAND_IDS.editUndo)
+    await expect(page.getByRole('button', { name: 'Set note as not organized' })).toBeVisible()
+
+    await page.getByRole('button', { name: 'Set note as not organized' }).focus()
     await dispatchAppCommand(page, APP_COMMAND_IDS.editUndo)
     await expect(page.getByRole('button', { name: 'Set note as organized' })).toBeVisible({ timeout: 5_000 })
 
+    await page.getByRole('button', { name: 'Set note as organized' }).focus()
     await dispatchAppCommand(page, APP_COMMAND_IDS.editRedo)
     await expect(page.getByRole('button', { name: 'Set note as not organized' })).toBeVisible({ timeout: 5_000 })
   })
