@@ -102,7 +102,9 @@ test.describe('keyboard command routing', () => {
     tempVaultDir = createFixtureVaultCopy()
   })
 
-  test.afterEach(() => {
+  test.afterEach(async ({ page }) => {
+    // Stop the fixture's background writers before deleting its disposable Library.
+    await page.close()
     removeFixtureVaultCopy(tempVaultDir)
   })
 
