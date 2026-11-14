@@ -1,6 +1,6 @@
 # Connect A Git Remote
 
-Connect a remote when you want backup or sync beyond the current machine.
+Connect a remote to sync Markdown notes and other Git-tracked Library files between machines. Memnova keeps learning schedules and review history in private Library data outside app Git staging. Use **Home → Advanced → Backup history** to create and verify a backup containing your notes, media, and learning data. Restore that backup to a new folder when you need to recover learning progress.
 
 ## Before You Start
 

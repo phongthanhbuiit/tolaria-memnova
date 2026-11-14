@@ -58,7 +58,16 @@ test('Getting Started template shows inline retry on clone failure and opens aft
   )
   await expect(page.getByTestId('welcome-retry-template')).toBeVisible()
 
-  await page.getByTestId('welcome-retry-template').click()
+  await page.getByTestId('welcome-create-vault').focus()
+  await page.keyboard.press('Tab')
+  await expect(page.getByTestId('welcome-retry-template')).toBeFocused()
+  await page.keyboard.press('Shift+Tab')
+  await expect(page.getByTestId('welcome-create-vault')).toBeFocused()
+  await page.getByTestId('welcome-create-new').focus()
+  await page.keyboard.press('Shift+Tab')
+  await expect(page.getByTestId('welcome-retry-template')).toBeFocused()
+
+  await page.keyboard.press('Enter')
 
   await expect(page.getByTestId('welcome-screen')).not.toBeVisible()
   await expect(page.getByText(`Getting Started vault cloned and opened at ${clonedPath}`)).toBeVisible()

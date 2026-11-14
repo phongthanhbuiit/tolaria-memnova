@@ -14,12 +14,21 @@ test('explicit note enable, mnemonic editing, study and pause use the default wo
   test.setTimeout(90_000)
   const root = createNoteMemoryFixture()
   const owner = path.join(root, 'project/alpha-project.md')
+  const latest = new Date(Date.now() + 60_000)
+  fs.utimesSync(owner, latest, latest)
   const original = fs.readFileSync(owner, 'utf8')
   const sourcePath = path.join(root, 'memory-fixtures/source.md')
   const source = fs.readFileSync(sourcePath, 'utf8')
   try {
     await openFixtureVault(page, root, { preserveLearningState: true })
+    const modifiedYear = new Date(fs.statSync(owner).mtimeMs).getFullYear().toString()
     await page.getByRole('button', { name: /^All Notes/ }).click()
+    const alphaDate = page.getByTestId('note-title-row')
+      .filter({ hasText: 'Alpha Project' })
+      .first()
+      .locator('..')
+      .getByTestId('note-date-row')
+    await expect(alphaDate).toContainText(modifiedYear)
     await page
       .getByTestId('note-list-container')
       .getByText('Alpha Project', { exact: true })
@@ -109,6 +118,8 @@ test(`ordinary note editing retains a literal two-face marker without enabling l
   const owner = path.join(root, 'project/alpha-project.md')
   const source = `# Alpha Project\n\nOrdinary article.${separator}<!-- FLASHCARD:BACK -->${separator}This marker is an ordinary note example.\n`
   fs.writeFileSync(owner, source)
+  const latest = new Date(Date.now() + 60_000)
+  fs.utimesSync(owner, latest, latest)
   try {
     await openFixtureVault(page, root, { preserveLearningState: true })
     await page.getByRole('button', { name: /^All Notes/ }).click()

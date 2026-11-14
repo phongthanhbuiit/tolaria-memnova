@@ -7,15 +7,20 @@ URL: /start/first-launch
 
 The first launch flow is designed to get you into a real vault quickly without hiding the local-first model.
 
-## What You Choose
+## Choose a Library
 
-Tolaria asks whether you want to:
+The first screen offers **Create local Library** and **Open existing Library**. A Library is a folder on this device. Creating one needs no Git or AI setup. You can open an existing folder of Markdown notes.
 
-- Create or clone the Getting Started vault.
-- Open an existing local vault.
-- Create a new empty vault.
+For an optional sample, open **Advanced** and choose **Download sample Library**. This download requires a network connection.
 
-The Getting Started vault is cloned locally and then disconnected from its remote. That keeps the sample safe to edit without accidentally pushing tutorial changes.
+## Learn from a note
+
+1. Open a Markdown note and write the material to remember on its **Content → Article** face.
+2. Open **Memorization** and choose **Enable memorization**.
+3. Choose **Add mnemonic**. Write text, add an image, or draw on the **Mnemonic** face.
+4. Save and choose **Study**. Reveal the mnemonic and grade your recall.
+
+Both faces belong to the same Markdown file. The learning schedule and review history live in the Library's private learning data. For a recoverable copy of the entire Library, open **Home → Advanced → Backup history**, then create and verify a backup. Restore a verified backup into a new folder when needed.
 
 ## What Tolaria Creates
 

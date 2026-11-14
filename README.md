@@ -1,20 +1,20 @@
-![Latest stable](https://img.shields.io/github/v/release/refactoringhq/tolaria?display_name=tag) [![CI](https://github.com/phongthanhbuiit/tolaria-memnova/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/phongthanhbuiit/tolaria-memnova/actions/workflows/ci.yml) [![Codecov](https://codecov.io/gh/refactoringhq/tolaria/graph/badge.svg?branch=main)](https://codecov.io/gh/refactoringhq/tolaria) [![CodeScene Hotspot Code Health](https://codescene.io/projects/76865/status-badges/hotspot-code-health)](https://codescene.io/projects/76865)
+![Latest stable](https://img.shields.io/github/v/release/phongthanhbuiit/tolaria-memnova?display_name=tag) [![CI](https://github.com/phongthanhbuiit/tolaria-memnova/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/phongthanhbuiit/tolaria-memnova/actions/workflows/ci.yml) [![Codecov](https://codecov.io/gh/phongthanhbuiit/tolaria-memnova/graph/badge.svg?branch=main)](https://codecov.io/gh/phongthanhbuiit/tolaria-memnova)
 
-# 💧 Tolaria
+# 💧 Memnova
 
-Tolaria is a desktop app for macOS, Windows, and Linux for managing **markdown knowledge bases**. People use it for a variety of use cases:
+Memnova is a local-first desktop app for Markdown notes and optional note-based memorization. It is built from Tolaria. macOS is the primary development target, with Windows and Linux builds in the release pipeline. People use it for a variety of use cases:
 
 * Operate second brains and personal knowledge
 * Organize company docs as context for AI
 * Store OpenClaw/assistants memory and procedures
 
-Personally, I use it to **run my life** (hey 👋 [Luca here](http://x.com/lucaronin)). I have a massive workspace of 10,000+ notes, which are the result of my [Refactoring](https://refactoring.fm/) work + a ton of personal journaling and *second braining*.
+Memnova builds on [Tolaria](https://github.com/refactoringhq/tolaria), created by Luca Rossi for the knowledge workflows behind [Refactoring](https://refactoring.fm/).
 
-<img width="1000" height="656" alt="1776506856823-CleanShot_2026-04-18_at_12 06 57_2x" src="https://github.com/user-attachments/assets/8aeafb0a-b236-43c2-a083-ec111f903c38" />
+<img width="1000" height="656" alt="Tolaria knowledge workspace" src="https://github.com/user-attachments/assets/8aeafb0a-b236-43c2-a083-ec111f903c38" />
 
-## Walkthroughs
+## Tolaria walkthroughs
 
-You can find some Loom walkthroughs below — they are short and to the point:
+These walkthroughs show the upstream Tolaria workflows. Memnova adds the local note memorization flow described below.
 - [How I Organize My Own Tolaria Workspace](https://www.loom.com/share/bb3aaffa238b4be0bd62e4464bca2528)
 - [My Inbox Workflow](https://www.loom.com/share/dffda263317b4fa8b47b59cdf9330571)
 - [How I Save Web Resources to Tolaria](https://www.loom.com/share/8a3c1776f801402ebbf4d7b0f31e9882)
@@ -22,32 +22,28 @@ You can find some Loom walkthroughs below — they are short and to the point:
 ## Principles
 
 - 📑 **Files-first** — Your notes are plain markdown files. They're portable, work with any editor, and require no export step. Your data belongs to you, not to any app.
-- 🔌 **Git-first** — Every vault is a git repository. You get full version history, the ability to use any git remote, and zero dependency on Tolaria servers.
+- 🔌 **Local Library first** — Create or open a Markdown folder without Git. Git can be enabled for note history and sync. Use Library backup and restore to preserve learning schedules and review history.
 - 🛜 **Offline-first, zero lock-in** — No accounts, no subscriptions, no cloud dependencies. Your vault works completely offline and always will. If you stop using Tolaria, you lose nothing.
-- 🔬 **Open source** — Tolaria is free and open source. I built this for [myself](https://x.com/lucaronin) and for sharing it with others.
+- 🔬 **Open source** — Memnova and its Tolaria foundation are open source.
 - 📋 **Standards-based** — Notes are markdown files with YAML frontmatter. No proprietary formats, no locked-in data. Everything works with standard tools if you decide to move away from Tolaria.
 - 🔍 **Types as lenses, not schemas** — Types in Tolaria are navigation aids, not enforcement mechanisms. There's no required fields, no validation, just helpful categories for finding notes.
 - 🪄**AI-first but not AI-only** — A vault of files works very well with AI agents, but you are free to use whatever you want. We support Claude Code, Codex CLI, and Gemini CLI setup paths, but you can edit the vault with any AI you want. We provide an AGENTS file for your agents to figure out.
 - ⌨️ **Keyboard-first** — Tolaria is designed for power-users who want to use keyboard as much as possible. A lot of how we designed the Editor and the Command Palette is based on this.
-- 💪 **Built from real use** — Tolaria was created for manage my personal vault of 10,000+ notes, and I use it every day. Every feature exists because it solved a real problem.
+- 💪 **Built from real use** — Memnova extends Tolaria's Markdown knowledge workflows with optional note memorization.
 
 ## Installation
 
 ### Homebrew
 
-Install via Homebrew on macOS:
-
-```batch
-brew install --cask tolaria
-```
+Check the [Memnova release page](https://github.com/phongthanhbuiit/tolaria-memnova/releases) for the current macOS installer and installation instructions.
 
 ### Download from releases
 
-Download the [latest release here](https://memnova.net/download/) for macOS, Windows, or Linux. Windows installers are Authenticode-signed; company-managed devices may still require IT approval of the Tolaria publisher before first install.
+Download the [latest Memnova release](https://github.com/phongthanhbuiit/tolaria-memnova/releases) for the platform you use. Check the asset name, version, and publisher on the release page.
 
 ## Getting started
 
-When you open Tolaria for the first time you get the chance of cloning the [getting started vault](https://github.com/phongthanhbuiit/tolaria-memnova-getting-started) — which gives you a walkthrough of the whole app.
+On first launch, create a local Library or open an existing Markdown folder. The sample Library is available under Advanced. To learn from a note, open Content, write the Article, then use Memorization → Enable memorization → Add mnemonic. Write the Mnemonic face and select Study. For a recoverable copy of your learning progress, use Home → Advanced → Backup history to create and verify a Library backup.
 
 The public user docs live in [`site/`](site/) and are published to GitHub Pages. Start with [Install Tolaria](site/start/install.md), then [First Launch](site/start/first-launch.md).
 

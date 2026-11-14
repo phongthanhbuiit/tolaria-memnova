@@ -290,9 +290,11 @@ function useWelcomeActionButtons({
   onCreateEmptyVault,
   onOpenFolder,
   onCreateVault,
+  onRetryCreateVault,
+  canRetryTemplate,
 }: Pick<
   WelcomeScreenProps,
-  'mode' | 'isOffline' | 'onCreateEmptyVault' | 'onOpenFolder' | 'onCreateVault'
+  'mode' | 'isOffline' | 'onCreateEmptyVault' | 'onOpenFolder' | 'onCreateVault' | 'onRetryCreateVault' | 'canRetryTemplate'
 > & {
   busy: boolean
   advanced: boolean
@@ -302,18 +304,20 @@ function useWelcomeActionButtons({
   const templateActionRef = useRef<HTMLButtonElement>(null)
   const createEmptyActionRef = useRef<HTMLButtonElement>(null)
   const openFolderActionRef = useRef<HTMLButtonElement>(null)
+  const retryActionRef = useRef<HTMLButtonElement>(null)
   const actionButtonRefs = useMemo(
-    () => [createEmptyActionRef, openFolderActionRef, advancedActionRef, ...(advanced ? [templateActionRef] : [])],
-    [advanced],
+    () => [createEmptyActionRef, openFolderActionRef, advancedActionRef, ...(advanced && !isOffline ? [templateActionRef] : []), ...(canRetryTemplate ? [retryActionRef] : [])],
+    [advanced, canRetryTemplate, isOffline],
   )
   const actions = useMemo<WelcomeAction[]>(
     () => ([
       { disabled: false, run: onCreateEmptyVault },
       { disabled: false, run: onOpenFolder },
       { disabled: false, run: onToggleAdvanced },
-      ...(advanced ? [{ disabled: isOffline, run: onCreateVault }] : []),
+      ...(advanced && !isOffline ? [{ disabled: false, run: onCreateVault }] : []),
+      ...(canRetryTemplate ? [{ disabled: false, run: onRetryCreateVault }] : []),
     ]),
-    [advanced, isOffline, onCreateEmptyVault, onCreateVault, onOpenFolder, onToggleAdvanced],
+    [advanced, canRetryTemplate, isOffline, onCreateEmptyVault, onCreateVault, onOpenFolder, onRetryCreateVault, onToggleAdvanced],
   )
 
   useEffect(() => {
@@ -352,12 +356,7 @@ function useWelcomeActionButtons({
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [actionButtonRefs, actions, busy])
 
-  return {
-    advancedActionRef,
-    templateActionRef,
-    createEmptyActionRef,
-    openFolderActionRef,
-  }
+  return { advancedActionRef, templateActionRef, createEmptyActionRef, openFolderActionRef, retryActionRef }
 }
 
 export function WelcomeScreen({
@@ -377,7 +376,7 @@ export function WelcomeScreen({
   const busy = creatingAction !== null
   const t = (key: Parameters<typeof translate>[1]) => translate(locale, key)
   const presentation = getWelcomeScreenPresentation(mode, locale)
-  const { advancedActionRef, templateActionRef, createEmptyActionRef, openFolderActionRef } = useWelcomeActionButtons({
+  const { advancedActionRef, templateActionRef, createEmptyActionRef, openFolderActionRef, retryActionRef } = useWelcomeActionButtons({
     mode,
     advanced,
     onToggleAdvanced,
@@ -386,6 +385,8 @@ export function WelcomeScreen({
     onCreateEmptyVault,
     onOpenFolder,
     onCreateVault,
+    onRetryCreateVault,
+    canRetryTemplate: Boolean(error && canRetryTemplate),
   })
 
   return (
@@ -471,6 +472,7 @@ export function WelcomeScreen({
             </p>
             {canRetryTemplate && (
               <Button
+                ref={retryActionRef}
                 type="button"
                 variant="outline"
                 style={RETRY_BUTTON_STYLE}

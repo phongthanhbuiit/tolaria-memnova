@@ -182,6 +182,12 @@ Sau A/B, có thể kiểm tra điểm onboarding với 5 người lần đầu d
 - **Số lịch sử ngày 19/10:** frontend 87,37% line coverage, Rust 86,38%, core smoke 54/54 trong 274,30 giây. Chưa chạy lại full coverage, full smoke, native, VoiceOver hay signed installer trong lượt docs-only này. Lần cuối có Codacy trên mã sửa Undo ghi nhận không có Critical/High mới. Lượt này không có mã thay đổi để quét.
 - **Phạm vi thay đổi:** bổ sung đánh giá và kế hoạch vào tài liệu này. CodeScene: not run (optional integration unavailable). Localization: no UI copy changes. PostHog: không cần event cho review. Refactor và ADR mới: không có.
 
+### Tiến độ thực hiện ngày 14/11/2026
+
+- **A, B, C đã sửa trong mã nguồn.** README và hướng dẫn công khai chỉ rõ Library cục bộ, luồng học một note, backup giữ lịch ôn và nguồn Tolaria. Vòng Tab trên màn chào đi đến Retry khi tải mẫu lỗi, rồi Enter thực hiện lại. Vite và serve-demo trả timestamp Unix giây theo hợp đồng Rust. Ca browser của B/C đã RED trước sửa và GREEN sau sửa. `pnpm docs:build`, 37 Vitest, hai ca Playwright tập trung, lint và TypeScript pass. Codacy CLI đã chạy ESLint9, Opengrep, Trivy và Lizard trên file code được chọn. Không có Critical/High mới; 5 cảnh báo Lizard mức Medium thuộc hàm WelcomeScreen đã vượt ngưỡng trước đợt này.
+- **D, E, F còn mở.** Chưa có lượt VoiceOver và ca danh sách thay đổi khi focus đang chờ. Chưa đo ba lượt core smoke theo R03. Chưa nghiệm thu installer có chữ ký và license canvas production. Cần giữ các điều kiện này trong lần đánh giá phát hành tiếp theo. Bài hướng dẫn A đã build, nhưng bước người mới tự làm và đối chiếu restore trên installer đích chưa được thực hiện.
+- **Gate cuối của đợt mã nguồn** được ghi trong commit/receipt sau khi normal push. Localization: không thêm UI copy, 18 catalog đã validate trong lượt chấm điểm. PostHog: không thêm event vì các sửa đổi khôi phục hành vi đang có và sửa adapter QA. ADR và refactor lớn: không có. CodeScene: not run (optional integration unavailable).
+
 ## Phụ lục — probe tái lập F01
 
 Tạo tạm `src/hooks/reviewUndoProbe.test.ts`, chạy `pnpm exec vitest run src/hooks/reviewUndoProbe.test.ts`. Đây là evidence RED; khi R01 bắt đầu hãy đưa vào suite regression phù hợp và sửa để GREEN, không commit một suite cố ý fail.
