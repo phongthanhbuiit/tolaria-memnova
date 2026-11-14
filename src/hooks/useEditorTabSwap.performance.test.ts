@@ -95,7 +95,7 @@ it('flushes a pending canvas document even before BlockNote emits its change eve
   const dispose = registerEditorDocumentFlush(editor,'canvas',() => {
     if (!dirty) return false
     dirty = false
-    docRef.current = [{ type: 'tldrawBlock',props: { boardId: 'canvas',height: '520',width: '',snapshot: '{"records":{"shape:last":{"text":"last stroke"}}}' },children: [] }]
+    docRef.current = [{ type: 'excalidrawBlock',props: { boardId: 'canvas',height: '520',width: '',snapshot: '{"records":{"shape:last":{"text":"last stroke"}}}' },children: [] }]
     return true
   })
   act(() => { result.current.flushPendingEditorChange() })

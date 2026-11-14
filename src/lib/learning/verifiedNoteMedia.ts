@@ -80,8 +80,7 @@ export function prepareNoteRenderBlocks(
   })
 }
 function canvasMedia(
-  snapshot: string,
-  resolve: NoteMediaResolver
+  snapshot: string
 ): RenderMedia[] {
   let parsed: Record<string, unknown> | null
   try {
@@ -89,32 +88,16 @@ function canvasMedia(
   } catch {
     return []
   }
-  const document = record(parsed?.document)
-  const store =
-    record(parsed?.store) ?? record(parsed?.records) ?? record(document?.store)
-  if (!store) return []
-  const result: RenderMedia[] = []
-  for (const value of Object.values(store)) {
-    const shape = record(value),
-      props = record(shape?.props)
-    if (shape?.typeName !== 'shape' || typeof props?.assetId !== 'string')
-      continue
-    const asset =
-      record(store[props.assetId]) ??
-      Object.values(store)
-        .map(record)
-        .find((item) => item?.id === props.assetId)
-    const assetProps = record(asset?.props)
-    if (
-      typeof assetProps?.src !== 'string' ||
-      !['image', 'video'].includes(String(asset?.type))
-    )
-      continue
-    const url = resolve(assetProps.src)
-    if (!url) throw Error('unverified-note-media')
-    result.push({ url, kind: asset?.type === 'video' ? 'video' : 'image' })
+  if (Array.isArray(parsed?.elements)) {
+    const files = record(parsed.files)
+    return parsed.elements.flatMap(element => {
+      if (element?.type !== 'image' || element.isDeleted) return []
+      const url = record(files?.[element.fileId])?.dataURL
+      if (typeof url !== 'string' || !url.startsWith('data:image/')) throw Error('unverified-note-media')
+      return [{url, kind: 'image' as const}]
+    })
   }
-  return result
+  return []
 }
 /** Only rendered block media and shape-referenced assets, never arbitrary note links/unused assets. */
 export function noteRenderMedia(
@@ -132,8 +115,8 @@ export function noteRenderMedia(
       props.url
     )
       media.push({ url: props.url, kind: value.type as RenderMedia['kind'] })
-    if (value.type === 'tldrawBlock' && typeof props?.snapshot === 'string')
-      media.push(...canvasMedia(props.snapshot, resolve))
+    if (value.type === 'excalidrawBlock' && typeof props?.snapshot === 'string')
+      media.push(...canvasMedia(props.snapshot))
     if (Array.isArray(value.children))
       media.push(...noteRenderMedia(value.children, resolve))
   }

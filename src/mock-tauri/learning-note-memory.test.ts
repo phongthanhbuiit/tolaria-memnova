@@ -79,7 +79,7 @@ it('does not persist no-op reconciliation of an ordinary or unchanged bound note
 it('reports a corrupt mnemonic even when the article is empty', async () => {
   const { root, files, call, request } = await setup()
   const path = `${root}/article.md`
-  files.set(path, files.get(path)!.replace('Article\n', '').replace('Picture', '```tldraw\n{broken\n```'))
+  files.set(path, files.get(path)!.replace('Article\n', '').replace('Picture', '```excalidraw\n{broken\n```'))
   const view = await call({ kind: 'readNoteMemory', pageId }) as { sourceHash: string }
   await call({ kind: 'configureNoteMemory', request: { ...request, expectedHash: view.sourceHash } })
   expect(await call({ kind: 'readNoteMemory', pageId })).toMatchObject({ state: 'invalid' })

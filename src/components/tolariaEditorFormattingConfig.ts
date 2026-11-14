@@ -32,7 +32,7 @@ import {
 import { trackEvent } from '../lib/telemetry'
 import { MATH_BLOCK_TYPE } from '../utils/mathMarkdown'
 import { MERMAID_BLOCK_TYPE, mermaidFenceSource } from '../utils/mermaidMarkdown'
-import { TLDRAW_BLOCK_TYPE, TLDRAW_DEFAULT_HEIGHT } from '../utils/tldrawMarkdown'
+import { EXCALIDRAW_BLOCK_TYPE, EXCALIDRAW_DEFAULT_HEIGHT } from '../utils/excalidrawMarkdown'
 
 type TolariaSlashMenuItem = DefaultReactSuggestionItem & { key: string }
 type TolariaBlockTypeSelectItem = {
@@ -135,12 +135,13 @@ function createWhiteboardSlashMenuItem(
 ): TolariaSlashMenuItem {
   return createBlockSlashMenuItem(editor, {
     key: 'whiteboard',
-    title: 'Whiteboard',
-    aliases: ['tldraw', 'drawing', 'canvas', 'sketch'],
-    type: TLDRAW_BLOCK_TYPE,
+    title: 'Excalidraw',
+    eventName: 'editor_excalidraw_inserted',
+    aliases: ['whiteboard', 'drawing', 'canvas', 'sketch'],
+    type: EXCALIDRAW_BLOCK_TYPE,
     props: {
       boardId: createBoardId(),
-      height: TLDRAW_DEFAULT_HEIGHT,
+      height: EXCALIDRAW_DEFAULT_HEIGHT,
       snapshot: '{}',
       width: '',
     },
@@ -273,7 +274,7 @@ export function getTolariaSlashMenuItems(
     [
       createMermaidSlashMenuItem(editor),
       createMathSlashMenuItem(editor, labels),
-      ...(import.meta.env.DEV ? [createWhiteboardSlashMenuItem(editor)] : []),
+      createWhiteboardSlashMenuItem(editor),
     ],
   )
 

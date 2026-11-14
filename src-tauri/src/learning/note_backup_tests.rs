@@ -19,7 +19,7 @@ fn memory_fixture() -> (tempfile::TempDir, Store) {
     let path = directory.path().join("ordinary.md");
     let source = fs::read_to_string(&path).unwrap();
     let source = patch_config(&source, &MemoryConfig::inline(true)).unwrap();
-    let source = patch_face(&source, MemoryFace::Back, "![hint](attachments/ảnh.png)\n```tldraw\n{\"store\":{\"shape:a\":{\"typeName\":\"shape\",\"type\":\"geo\",\"props\":{}}}}\n```\n", true).unwrap();
+    let source = patch_face(&source, MemoryFace::Back, "![hint](attachments/ảnh.png)\n```excalidraw\n{\"type\": \"excalidraw\", \"version\": 2, \"elements\": [{\"type\": \"rectangle\", \"id\": \"a\"}], \"files\": {}}\n```\n", true).unwrap();
     fs::write(path, source).unwrap();
     store
         .conn
@@ -364,14 +364,11 @@ fn portable_canvas_backup_restores_media_bytes_and_binding_without_original_root
     let path = directory.path().join("ordinary.md");
     let svg = b"<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"10\"><rect width=\"16\" height=\"10\" fill=\"blue\"/></svg>";
     fs::write(directory.path().join("attachments/ảnh nhớ.svg"), svg).unwrap();
-    let canvas = json!({"store": {
-        "asset:image": {"typeName":"asset","type":"image","props":{"src":"asset://memnova/attachments/%E1%BA%A3nh%20nh%E1%BB%9B.svg"}},
-        "shape:image": {"typeName":"shape","type":"image","props":{"assetId":"asset:image"}}
-    }});
+    let canvas = json!({"type":"excalidraw","version":2,"elements":[{"id":"shape","type":"image","fileId":"image"}],"files":{"image":{"dataURL":"data:image/svg+xml;base64,PHN2Zy8+"}}});
     let source = patch_face(
         &fs::read_to_string(&path).unwrap(),
         MemoryFace::Back,
-        &format!("```tldraw\n{canvas}\n```\n"),
+        &format!("```excalidraw\n{canvas}\n```\n"),
         false,
     )
     .unwrap();

@@ -5,7 +5,7 @@ import {
   preProcessMermaidMarkdown,
 } from './mermaidMarkdown'
 import { serializeDurableEditorBlocks } from './editorDurableMarkdown'
-import { TLDRAW_BLOCK_TYPE } from './tldrawMarkdown'
+import { EXCALIDRAW_BLOCK_TYPE } from './excalidrawMarkdown'
 
 describe('mermaid markdown round-trip', () => {
   it('injects fenced Mermaid source into dedicated diagram blocks', () => {
@@ -134,7 +134,7 @@ describe('mermaid markdown round-trip', () => {
     )
   })
 
-  it('serializes tldraw blocks beside Mermaid and ordinary Markdown', () => {
+  it('serializes excalidraw blocks beside Mermaid and ordinary Markdown', () => {
     const editor = {
       blocksToMarkdownLossy: vi.fn((blocks: unknown[]) => {
         return (blocks as Array<{ content?: Array<{ text?: string }> }>)
@@ -144,13 +144,13 @@ describe('mermaid markdown round-trip', () => {
     }
     const blocks = [
       { type: 'paragraph', content: [{ type: 'text', text: 'Intro' }], children: [] },
-      { type: TLDRAW_BLOCK_TYPE, props: { boardId: 'map', height: '640', snapshot: '{ "store": {} }', width: '900' }, children: [] },
+      { type: EXCALIDRAW_BLOCK_TYPE, props: { boardId: 'map', height: '640', snapshot: '{ "store": {} }', width: '900' }, children: [] },
       { type: MERMAID_BLOCK_TYPE, props: { source: '', diagram: 'flowchart LR\nA --> B' }, children: [] },
     ]
 
     expect(serializeDurableEditorBlocks(editor, blocks)).toBe([
       'Intro',
-      '```tldraw id="map" height="640" width="900"\n{ "store": {} }\n```',
+      '```excalidraw id="map" height="640" width="900"\n{ "store": {} }\n```',
       '```mermaid\nflowchart LR\nA --> B\n```',
     ].join('\n\n'))
   })

@@ -346,7 +346,7 @@ fn legacy_missing_answer_keeps_owner_context_and_pending_legacy_review_is_reject
     assert_eq!(store.get_card(&card.id).unwrap().schedule.reps, 0);
 }
 #[test]
-fn referenced_board_assets_are_hashed_but_unused_records_are_not_dependencies() {
+fn embedded_board_images_need_no_external_file_dependencies() {
     let (dir, mut store) = fixture();
     fs::create_dir(dir.path().join("attachments")).unwrap();
     fs::write(
@@ -355,17 +355,16 @@ fn referenced_board_assets_are_hashed_but_unused_records_are_not_dependencies() 
     )
     .unwrap();
     let path = dir.path().join("article.md");
-    let source=fs::read_to_string(&path).unwrap().replace("Mnemonic\n","```tldraw\n{\"store\":{\"shape:image\":{\"typeName\":\"shape\",\"type\":\"image\",\"props\":{\"assetId\":\"asset:used\"}},\"asset:used\":{\"typeName\":\"asset\",\"props\":{\"src\":\"attachments/ảnh.png\"}},\"asset:unused\":{\"typeName\":\"asset\",\"props\":{\"src\":\"attachments/missing.png\"}}}}\n```\n");
+    let source=fs::read_to_string(&path).unwrap().replace("Mnemonic\n","```excalidraw\n{\"type\": \"excalidraw\", \"version\": 2, \"elements\": [{\"type\": \"image\", \"id\": \"a\", \"fileId\": \"used\"}], \"files\": {\"used\": {\"dataURL\": \"data:image/png;base64,YQ==\"}}}\n```\n");
     fs::write(path, source).unwrap();
     let result = session(&mut store);
     let item = result.current.unwrap();
     assert!(item.source_error.is_none());
     let content = serde_json::to_value(item.content).unwrap();
-    assert_eq!(content["details"]["backMedia"].as_array().unwrap().len(), 1);
-    assert_eq!(
-        content["details"]["backMedia"][0]["path"],
-        "attachments/ảnh.png"
-    );
+    assert!(content["details"]["backMedia"]
+        .as_array()
+        .unwrap()
+        .is_empty());
 }
 #[test]
 fn missing_foreign_or_ephemeral_media_fails_closed_without_mutating_source() {

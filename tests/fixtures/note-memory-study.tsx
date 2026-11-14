@@ -22,7 +22,7 @@ const mnemonic =
   '# Visual memory\n\n' +
   (broken
     ? '![Unavailable](attachments/unverified.svg)'
-    : '```tldraw id="study-renderer" height="360"\n' +
+    : '```excalidraw id="study-renderer" height="360"\n' +
       JSON.stringify(snapshot) +
       '\n```')
 const initial: StudySession = {

@@ -49,30 +49,17 @@ it('rejects malformed native descriptors instead of guessing a basename or decod
 })
 it('maps media blocks recursively and only preloads referenced canvas media without mutating source', () => {
   const snapshot = JSON.stringify({
-    store: {
-      'asset:used': {
-        typeName: 'asset',
-        type: 'image',
-        props: { src: media[0].url },
-      },
-      'asset:unused': {
-        typeName: 'asset',
-        type: 'image',
-        props: { src: 'private.png' },
-      },
-      'shape:one': {
-        typeName: 'shape',
-        type: 'image',
-        props: { assetId: 'asset:used' },
-      },
-    },
+    type: 'excalidraw', version: 2,
+    elements: [{type:'image', id:'one', fileId:'used'}],
+    files: {used:{dataURL:'data:image/png;base64,YQ=='},unused:{dataURL:'private.png'}},
+
   })
   const blocks = [
     {
       type: 'paragraph',
       children: [{ type: 'image', props: { url: media[0].url } }],
     },
-    { type: 'tldrawBlock', props: { snapshot } },
+    { type: 'excalidrawBlock', props: { snapshot } },
   ]
   const before = JSON.stringify(blocks),
     resolve = createVerifiedNoteMedia('/library', media)
@@ -81,6 +68,7 @@ it('maps media blocks recursively and only preloads referenced canvas media with
   expect(JSON.stringify(prepared)).toContain('memnova-sha256')
   expect(noteRenderMedia(prepared, resolve)).toEqual([
     { url: resolve(media[0].url), kind: 'image' },
+    { url: 'data:image/png;base64,YQ==', kind: 'image' },
   ])
   expect(() =>
     prepareNoteRenderBlocks(

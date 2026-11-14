@@ -2,7 +2,7 @@ import { expect, it, vi } from 'vitest'
 import { flushEditorDocuments, registerEditorDocumentFlush } from './editorDocumentFlush'
 import { serializeRichEditorBodyToMarkdown } from './richEditorMarkdown'
 it('flushes before reading document blocks for Markdown serialization', () => {
-  let blocks = [{ type: 'tldrawBlock', props: { boardId: 'same', snapshot: '{}', height: '520', width: '' } }]
+  let blocks = [{ type: 'excalidrawBlock', props: { boardId: 'same', snapshot: '{}', height: '520', width: '' } }]
   const editor = { get document() { return blocks }, blocksToMarkdownLossy: vi.fn(() => '') }
   const dispose = registerEditorDocumentFlush(editor, 'block-a', () => {
     blocks = [{ ...blocks[0], props: { ...blocks[0].props, snapshot: '{"records":{"shape:last":{"text":"last stroke"}}}' } }]

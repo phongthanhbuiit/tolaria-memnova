@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import { MERMAID_BLOCK_TYPE } from '../utils/mermaidMarkdown'
-import { TLDRAW_BLOCK_TYPE } from '../utils/tldrawMarkdown'
+import { EXCALIDRAW_BLOCK_TYPE } from '../utils/excalidrawMarkdown'
 import { serializeEditorDocumentToMarkdown, syncActiveTabIntoRawBuffer } from './editorRawModeSync'
 
 describe('editorRawModeSync Mermaid serialization', () => {
@@ -35,7 +35,7 @@ describe('editorRawModeSync Mermaid serialization', () => {
     const editor = {
       document: [{
         id: 'board-1',
-        type: TLDRAW_BLOCK_TYPE,
+        type: EXCALIDRAW_BLOCK_TYPE,
         props: {
           boardId: 'planning-map',
           height: '520',
@@ -53,7 +53,7 @@ describe('editorRawModeSync Mermaid serialization', () => {
       activeTabContent: [
         '# Whiteboard Embed',
         '',
-        '```tldraw id="planning-map"',
+        '```excalidraw id="planning-map"',
         '{}',
         '```',
       ].join('\n'),
@@ -61,7 +61,7 @@ describe('editorRawModeSync Mermaid serialization', () => {
       serializeRichEditorContent: false,
     })
 
-    expect(synced).toContain('```tldraw id="planning-map" height="520"')
+    expect(synced).toContain('```excalidraw id="planning-map" height="520"')
     expect(rawLatestContentRef.current).toBe(synced)
   })
 })

@@ -119,10 +119,10 @@ fn enable_disable_reenable_keeps_one_card_and_exact_memory_and_source_bytes() {
 fn blank_invalid_and_empty_canvas_never_activate_and_valid_shapes_do() {
     for (back, expected) in [
         ("", NoteLearningState::Draft),
-        ("```tldraw\n{}\n```", NoteLearningState::Draft),
-        ("```tldraw\n{broken\n```", NoteLearningState::Invalid),
+        ("```excalidraw\n{}\n```", NoteLearningState::Draft),
+        ("```excalidraw\n{broken\n```", NoteLearningState::Invalid),
         (
-            "```tldraw\n{\"store\":{\"shape:1\":{\"typeName\":\"shape\",\"type\":\"draw\"}}}\n```",
+            "```excalidraw\n{\"type\":\"excalidraw\",\"version\":2,\"elements\":[{\"id\":\"a\",\"type\":\"freedraw\"}]}\n```",
             NoteLearningState::Ready,
         ),
     ] {

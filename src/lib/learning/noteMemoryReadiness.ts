@@ -6,9 +6,8 @@ function boardUseful(source: string): boolean {
   try { value = JSON.parse(source) } catch { throw Error('invalid-canvas') }
   if (!record(value)) throw Error('invalid-canvas')
   if (!Object.keys(value).length) return false
-  const records = value.store ?? value.records ?? (record(value.document) ? value.document.store : null)
-  if (!record(records)) throw Error('unsupported-canvas')
-  return Object.values(records).some(item => record(item) && item.typeName === 'shape')
+  if (value.type !== 'excalidraw' || value.version !== 2 || !Array.isArray(value.elements)) throw Error('unsupported-canvas')
+  return value.elements.some(item => record(item) && typeof item.type === 'string' && !item.isDeleted)
 }
 /** Shared browser QA readiness; native validation remains authoritative. */
 export function usefulMemoryContent(source: string): boolean {
@@ -27,7 +26,7 @@ export function usefulMemoryContent(source: string): boolean {
       continue
     }
     if (opensFence(candidate)) {
-      boardStart = candidate.info.trim().split(/\s+/)[0].toLowerCase() === 'tldraw' ? line.end : null
+      boardStart = candidate.info.trim().split(/\s+/)[0].toLowerCase() === 'excalidraw' ? line.end : null
       normalContent = false
       fence = candidate
     } else useful = Boolean(line.text.trim()) || useful

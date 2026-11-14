@@ -16,5 +16,5 @@ it('ignores unknown blocks and late reports after disposal', () => {
 it('acknowledges ordinary documents while retaining missing canvas identities as pending', () => {
   const changed = vi.fn(), gate = createDocumentRenderGate([],changed)
   gate.start(); expect(changed).toHaveBeenLastCalledWith('ready')
-  expect(documentCanvasIds([{ type: 'paragraph',children: [{ type: 'tldrawBlock',id: 'nested' }] },{ type: 'tldrawBlock' }])).toEqual(['nested','missing-canvas-id'])
+  expect(documentCanvasIds([{ type: 'paragraph',children: [{ type: 'excalidrawBlock',id: 'nested' }] },{ type: 'excalidrawBlock' }])).toEqual(['nested','missing-canvas-id'])
 })

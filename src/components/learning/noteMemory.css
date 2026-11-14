@@ -76,15 +76,15 @@
 :is(.note-memory-dialog, .learning-study-dialog, .whiteboard-vocab-menu) { overscroll-behavior: contain; }
 .whiteboard-vocab-menu { max-width: calc(100vw - 24px); max-height: calc(100dvh - 24px); overflow-y: auto; }
 .whiteboard-vocab-menu [data-slot='button'] { content-visibility: auto; contain-intrinsic-size: auto 36px; }
-.tldraw-whiteboard__resize-handle:focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; }
-.tldraw-whiteboard__fullscreen-button { min-width: 36px; min-height: 36px; }
+.excalidraw-whiteboard__resize-handle:focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; }
+.excalidraw-whiteboard__fullscreen-button { min-width: 36px; min-height: 36px; }
 @media (pointer: coarse) {
   :is(.note-memory-surface, .note-memory-nav, .note-memory-toolbar, .learning-study-dialog, .note-memory-dialog, .whiteboard-note-controls, .whiteboard-vocab-menu) :is([data-slot='button'],[data-slot='select-trigger']), .note-memory-portal [data-slot='select-item'] { min-height: 44px; min-width: 44px; }
   .note-memory-surface [data-slot='switch'] { width: 52px; height: 44px; padding-inline: 9px; position: relative; background: transparent; box-shadow: none; }
   .note-memory-surface [data-slot='switch']::before { content: ''; position: absolute; width: 36px; height: 20px; left: 7px; top: 11px; border-radius: 999px; background: var(--input); }
   .note-memory-surface [data-slot='switch'][aria-checked='true']::before { background: var(--primary); }
   .note-memory-surface [data-slot='switch-thumb'] { z-index: 1; }
-  .tldraw-whiteboard__fullscreen-button, .editor__blocknote-container .tldraw-whiteboard__resize-handle { min-width: 44px; min-height: 44px; }
+  .excalidraw-whiteboard__fullscreen-button, .editor__blocknote-container .excalidraw-whiteboard__resize-handle { min-width: 44px; min-height: 44px; }
 }
 @media (prefers-reduced-motion: reduce) {
   :is(.note-memory-surface, .note-memory-nav, .note-memory-toolbar, .learning-study-dialog, .whiteboard-note-controls, .whiteboard-vocab-menu), :is(.note-memory-surface, .note-memory-nav, .note-memory-toolbar, .learning-study-dialog, .whiteboard-note-controls, .whiteboard-vocab-menu) * { animation: none; transition-duration: 0s; scroll-behavior: auto; }

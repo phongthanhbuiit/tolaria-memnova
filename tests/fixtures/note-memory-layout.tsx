@@ -13,7 +13,7 @@ import { NoteRecoveryDialog } from '../../src/components/learning/NoteRecoveryDi
 import { NoteBackSourceDialog } from '../../src/components/learning/NoteBackSourceDialog'
 import { NoteBackSourceToolbar } from '../../src/components/learning/NoteBackSource'
 import { NoteMemoryEditorTabs } from '../../src/components/NoteMemoryEditorTabs'
-import { TldrawWhiteboard } from '../../src/components/TldrawWhiteboard'
+import ExcalidrawWhiteboard from '../../src/components/ExcalidrawWhiteboard'
 import { LearningStudyView } from '../../src/components/learning/LearningStudyView'
 import type { useLearningStudy } from '../../src/hooks/useLearningStudy'
 import { translate, type AppLocale } from '../../src/lib/i18n'
@@ -55,7 +55,7 @@ const workspace = {
 
 export function Harness() {
   const [value, setValue] = useState<LayoutCase>({ surface: 'panel', locale: 'en', theme: 'light' })
-  const [size, setSize] = useState({ height: '360', width: '600' })
+  const [size] = useState({ height: '360', width: '600' })
   const [open, setOpen] = useState(true), [face, setFace] = useState<'front' | 'back'>('front'), [generation, setGeneration] = useState(0)
   useEffect(() => {
     window.setNoteLayoutCase = next => { setValue(next); setOpen(true); setFace('front'); setGeneration(previous => previous + 1) }
@@ -79,7 +79,7 @@ export function Harness() {
   }, [value.noteState, value.count])
   const study = { open, busy: false, error: null, pendingRating: null, close: async () => setOpen(false), reload: async () => {}, rate: async () => {}, undo: async () => {}, retry: async () => {}, skip: async () => {}, start: async () => {}, session: {
     id: 'session', scope: { lane: 'notes', pageIds: [owner] }, initialCount: 1, currentIndex: 0, status: 'active', revision: 0, updatedAt: 0, waitingUntil: null, completedCount: 0, reviewCount: 0, correctCount: 0, lastReviewId: null, canUndo: false,
-    current: { card, page: { id: owner, path: page.path, title, content: source.repeat(6), fingerprint: 'a'.repeat(64) }, answerPage: { id: owner, path: page.path, title, content: '```tldraw id="layout-study" height="360"\n' + JSON.stringify(snapshot) + '\n```', fingerprint: 'b'.repeat(64) }, sourceError: null, content: { kind: 'note', details: { fingerprint: 'c'.repeat(64), backSource: { pageId: owner, path: page.path, face: 'back' }, propertiesRaw: '', frontMedia: [], backMedia: [] } } },
+    current: { card, page: { id: owner, path: page.path, title, content: source.repeat(6), fingerprint: 'a'.repeat(64) }, answerPage: { id: owner, path: page.path, title, content: '```excalidraw id="layout-study" height="360"\n' + JSON.stringify(snapshot) + '\n```', fingerprint: 'b'.repeat(64) }, sourceError: null, content: { kind: 'note', details: { fingerprint: 'c'.repeat(64), backSource: { pageId: owner, path: page.path, face: 'back' }, propertiesRaw: '', frontMedia: [], backMedia: [] } } },
   } } as unknown as ReturnType<typeof useLearningStudy>
   return <TooltipProvider><LearningContext.Provider value={selectedWorkspace}><div data-layout-surface={surface} style={{ height: '100dvh', width: '100%', minWidth: 0 }}>
     {surface === 'panel' && <NoteLearningPanel path="/fixture/Biology/Article.md" locale={locale} />}
@@ -90,7 +90,7 @@ export function Harness() {
     {surface === 'toolbar' && <NoteBackSourceToolbar back={{ kind: 'inline' }} ownerPath="/fixture/Biology/Article.md" ownerPageId={owner} locale={locale} onApplyBack={async () => {}} onNavigate={() => {}} />}
     {surface === 'inspector' && <NoteMemoryInspector path="/fixture/Biology/Article.md" content={`---\n_memnova_page_id: ${owner}\n_memnova_learning_version: 1\n_memnova_learning_enabled: true\n_memnova_back_kind: inline\n---\nArticle`} locale={locale} />}
     {surface === 'tabs' && <Tabs defaultValue="content"><TabsList variant="line" className="note-memory-workspace-tabs mx-3 mt-1"><TabsTrigger value="content">{translate(locale,'learning.content')}</TabsTrigger><TabsTrigger value="cards">{translate(locale,'learning.noteMemory.management')}</TabsTrigger></TabsList><TabsContent value="content"><NoteMemoryEditorTabs activeFace={face} hasBack panelId="article" locale={locale} onChangeFace={setFace} onAddBack={() => {}} /></TabsContent><TabsContent value="cards">Management</TabsContent></Tabs>}
-    {surface === 'whiteboard' && <div className="editor__blocknote-container"><TldrawWhiteboard boardId="layout" height={size.height} width={size.width} snapshot={JSON.stringify(snapshot)} onSnapshotChange={() => {}} onSizeChange={setSize} /></div>}
+    {surface === 'whiteboard' && <div className="editor__blocknote-container"><ExcalidrawWhiteboard blockId="layout" height={size.height} snapshot={JSON.stringify(snapshot)} onSnapshotChange={() => {}} /></div>}
     {surface === 'study' && <LearningStudyView key={generation} study={study} root="/fixture" locale={locale} />}
     {!open && <p role="status">Closed</p>}
   </div></LearningContext.Provider></TooltipProvider>

@@ -20,7 +20,7 @@ import { isRecoveredBlockNoteRenderError } from './components/blockNoteRenderRec
 import { isMac, shouldUseCustomWindowChrome } from './utils/platform'
 import { reloadFrontendOnceIfStartupFailed } from './utils/frontendReady'
 
-const TLDRAW_CONTEXT_MENU_SELECTOR = '.tldraw-whiteboard'
+const EXCALIDRAW_CONTEXT_MENU_SELECTOR = '.excalidraw-whiteboard'
 
 const RootApp = lazy(() => import('./App.tsx'))
 
@@ -38,12 +38,12 @@ function preventFileDropNavigation(event: DragEvent): void {
   event.preventDefault()
 }
 
-function isTldrawContextMenuTarget(target: EventTarget | null): boolean {
-  return target instanceof Element && target.closest(TLDRAW_CONTEXT_MENU_SELECTOR) !== null
+function isExcalidrawContextMenuTarget(target: EventTarget | null): boolean {
+  return target instanceof Element && target.closest(EXCALIDRAW_CONTEXT_MENU_SELECTOR) !== null
 }
 
 function preventNativeContextMenu(event: MouseEvent): void {
-  if (isTldrawContextMenuTarget(event.target)) return
+  if (isExcalidrawContextMenuTarget(event.target)) return
 
   event.preventDefault()
 }

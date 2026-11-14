@@ -296,7 +296,7 @@ it('does not acknowledge a successfully rendered answer when Markdown parsing fa
 })
 
 it('keeps the answer pending until an expected canvas actually mounts and loads', async () => {
-  parseMarkdown.mockResolvedValueOnce([{ id: 'canvas-a',type: 'tldrawBlock',props: { snapshot: '{}' } }])
+  parseMarkdown.mockResolvedValueOnce([{ id: 'canvas-a',type: 'excalidrawBlock',props: { snapshot: '{}' } }])
   const onReady = vi.fn()
   render(<BlockNoteReadOnly content="Canvas answer" preserveBody onReady={onReady} />)
   await screen.findByTestId('blocknote-view-raw')

@@ -14,11 +14,11 @@ import {
 import { literalNoteMarkerCodec, preProcessLiteralNoteMarkers } from './literalNoteMarker'
 import { serializeMathAwareBlocks } from './mathMarkdown'
 import { mermaidMarkdownCodec } from './mermaidMarkdown'
-import { tldrawMarkdownCodec } from './tldrawMarkdown'
+import { excalidrawMarkdownCodec } from './excalidrawMarkdown'
 
 const EDITOR_DURABLE_MARKDOWN_CODECS = [
   mermaidMarkdownCodec,
-  tldrawMarkdownCodec,
+  excalidrawMarkdownCodec,
   literalNoteMarkerCodec,
 ] as const
 

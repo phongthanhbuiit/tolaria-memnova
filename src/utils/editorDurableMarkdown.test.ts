@@ -5,14 +5,14 @@ import {
   serializeDurableEditorBlocks,
 } from './editorDurableMarkdown'
 import { MERMAID_BLOCK_TYPE } from './mermaidMarkdown'
-import { TLDRAW_BLOCK_TYPE } from './tldrawMarkdown'
+import { EXCALIDRAW_BLOCK_TYPE } from './excalidrawMarkdown'
 
 describe('editor durable markdown blocks', () => {
-  it('round-trips Mermaid and tldraw blocks through one durable pipeline', () => {
+  it('round-trips Mermaid and excalidraw blocks through one durable pipeline', () => {
     const markdown = [
       'Intro',
       '',
-      '```tldraw id="map" height="640" width="900"',
+      '```excalidraw id="map" height="640" width="900"',
       '{ "store": {} }',
       '```',
       '',
@@ -28,7 +28,7 @@ describe('editor durable markdown blocks', () => {
       { type: 'paragraph', content: [{ type: 'text', text: preprocessed.split('\n\n')[2], styles: {} }], children: [] },
     ]) as Array<{ type: string; props?: Record<string, string>; content?: Array<{ text?: string }> }>
 
-    expect(blocks.map(block => block.type)).toEqual(['paragraph', TLDRAW_BLOCK_TYPE, MERMAID_BLOCK_TYPE])
+    expect(blocks.map(block => block.type)).toEqual(['paragraph', EXCALIDRAW_BLOCK_TYPE, MERMAID_BLOCK_TYPE])
     expect(blocks[1].props).toMatchObject({ boardId: 'map', height: '640', snapshot: '{ "store": {} }', width: '900' })
     expect(blocks[2].props).toMatchObject({ diagram: 'flowchart LR\n  A --> B\n' })
 

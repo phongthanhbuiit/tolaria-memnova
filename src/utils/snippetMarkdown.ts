@@ -20,7 +20,7 @@ export function snippetMarkdown(content: string): string {
     let end = index + 1
     while (end < lines.length && !closes(lines[end], fence)) end++
     if (end === lines.length) break
-    if (fence.info.split(/\s+/u)[0].toLowerCase() === 'tldraw')
+    if (fence.info.split(/\s+/u)[0].toLowerCase() === 'excalidraw')
       lines.fill('', index, end + 1)
     index = end + 1
   }

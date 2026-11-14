@@ -41,6 +41,6 @@ export async function performanceResources(page: Page, session: CDPSession) {
     globalListeners[expression] = listeners.length
     await session.send('Runtime.releaseObject', { objectId: result.objectId })
   }
-  const visible = await page.evaluate(() => ({ liveElements: document.querySelectorAll('*').length, liveCanvases: document.querySelectorAll('.tl-container').length }))
+  const visible = await page.evaluate(() => ({ liveElements: document.querySelectorAll('*').length, liveCanvases: document.querySelectorAll('.excalidraw').length }))
   return { ...dom, ...handles, ...visible, globalListeners, heapBytes: heap.usedSize }
 }

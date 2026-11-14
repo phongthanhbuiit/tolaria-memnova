@@ -3,7 +3,7 @@ use std::fs;
 
 #[test]
 fn media_parser_ignores_literal_fences_inline_code_comments_and_unused_references() {
-    let body="![live](<attachments/ảnh (1).png> \"caption\")\n`![code](missing.png)`\n<!--\n```tldraw\n{broken\n```\n![comment](missing.png)\n-->\n````md\n![literal](missing.png)\n````\n![reference][my image]\n[my image]: attachments/ref.png\n[unused]: missing.png\n<audio src=\"attachments/listen.mp3\"></audio>\n[note](other.md)";
+    let body="![live](<attachments/ảnh (1).png> \"caption\")\n`![code](missing.png)`\n<!--\n```excalidraw\n{broken\n```\n![comment](missing.png)\n-->\n````md\n![literal](missing.png)\n````\n![reference][my image]\n[my image]: attachments/ref.png\n[unused]: missing.png\n<audio src=\"attachments/listen.mp3\"></audio>\n[note](other.md)";
     assert_eq!(
         media_sources(body).unwrap(),
         vec![
@@ -79,7 +79,7 @@ fn portable_canvas_asset_uri_resolves_identical_bytes_after_restoring_to_a_new_r
         )
         .unwrap();
     }
-    let source = "```tldraw\n{\"store\":{\"asset:one\":{\"typeName\":\"asset\",\"props\":{\"src\":\"asset://memnova/attachments/%E1%BA%A3nh%20nh%E1%BB%9B.png\"}},\"shape:one\":{\"typeName\":\"shape\",\"type\":\"image\",\"props\":{\"assetId\":\"asset:one\"}}}}\n```";
+    let source = "![image](asset://memnova/attachments/%E1%BA%A3nh%20nh%E1%BB%9B.png)";
     let first = MediaSnapshot::default()
         .collect(
             &original.path().canonicalize().unwrap(),

@@ -1300,3 +1300,5 @@ The Content/Memorization navigation keeps editing the two Markdown faces separat
 `NoteMemoryStatus` projects existing state/due time with text and semantic color; `LearningError` retains copyable diagnostics in a disclosure. Controlled learning dialogs preserve the invoking element and use current busy/owner guards for external Escape listeners. Source registration, conversion/CAS, recovery and schedule authority stay in their existing services. `NoteMemoryList` reuses installed react-virtuoso above 50 rows in the dashboard's existing scroll parent, with bounded row references and Tab/Arrow/Home/End access across virtual ranges.
 
 UI tokens/styles stay scoped to learning/editor utility surfaces; article typography, canvas snapshots/cameras, SQLite v5 and FSRS/XP calculations are unchanged. New adoption telemetry is `memnova_note_mnemonic_edit_requested` with only numeric `has_back`; visual changes add no noisy events.
+
+Current drawing blocks use a lazy-loaded Excalidraw editor in both development and production. The Markdown fence contains scene elements and embedded files. Study mounts the same scene in view mode. See ADR-0165.

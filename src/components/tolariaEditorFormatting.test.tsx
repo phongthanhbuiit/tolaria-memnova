@@ -143,7 +143,7 @@ describe('tolariaEditorFormatting', () => {
       {
         key: 'whiteboard',
         title: 'Whiteboard',
-        aliases: ['tldraw', 'drawing', 'canvas', 'sketch'],
+        aliases: ['excalidraw', 'drawing', 'canvas', 'sketch'],
         onItemClick: () => {},
       },
     ] satisfies TolariaSlashMenuTestItem[])
@@ -161,7 +161,7 @@ describe('tolariaEditorFormatting', () => {
     expect(items[2]).toEqual(expect.objectContaining({
       key: 'whiteboard',
       title: 'Whiteboard',
-      aliases: ['tldraw', 'drawing', 'canvas', 'sketch'],
+      aliases: ['excalidraw', 'drawing', 'canvas', 'sketch'],
     }))
     expect(items.map((item) => isValidElement(item.icon))).toEqual([true, true, true])
   })

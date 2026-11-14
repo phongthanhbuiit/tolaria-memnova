@@ -155,7 +155,7 @@ export function LearningStudyView({
             return
           if (
             (event.target as HTMLElement).closest(
-              'input,textarea,select,button,a,[role="button"],[role="combobox"],[role="textbox"],[contenteditable="true"],.tl-container,.tldraw-whiteboard'
+              'input,textarea,select,button,a,[role="button"],[role="combobox"],[role="textbox"],[contenteditable="true"],.tl-container,.excalidraw-whiteboard'
             )
           )
             return

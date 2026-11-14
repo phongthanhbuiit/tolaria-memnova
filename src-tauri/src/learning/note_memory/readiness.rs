@@ -10,15 +10,13 @@ fn board_useful(source: &str) -> Result<bool, String> {
     if object.is_empty() {
         return Ok(false);
     }
-    let records = value
-        .get("store")
-        .or_else(|| value.get("records"))
-        .or_else(|| value.pointer("/document/store"))
-        .and_then(Value::as_object)
-        .ok_or("unsupported-canvas")?;
-    Ok(records
-        .values()
-        .any(|record| record.get("typeName").and_then(Value::as_str) == Some("shape")))
+    if value["type"] != "excalidraw" || value["version"] != 2 {
+        return Err("unsupported-canvas".into());
+    }
+    let elements = value["elements"].as_array().ok_or("unsupported-canvas")?;
+    Ok(elements
+        .iter()
+        .any(|el| el["type"].is_string() && el["isDeleted"] != true))
 }
 
 /// A board's JSON is storage, not mnemonic content. A shape makes an otherwise blank board useful.
@@ -44,7 +42,9 @@ pub fn useful_content(source: &str) -> Result<bool, String> {
         }
         if let Some(opening) = lines::opens(candidate) {
             let language = opening.info.split_whitespace().next().unwrap_or("");
-            board_start = language.eq_ignore_ascii_case("tldraw").then_some(line.end);
+            board_start = language
+                .eq_ignore_ascii_case("excalidraw")
+                .then_some(line.end);
             normal_fence_has_content = false;
             fence = Some(opening);
         } else {

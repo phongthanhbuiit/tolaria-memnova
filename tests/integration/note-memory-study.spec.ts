@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-// Real BlockNote/tldraw + media decode. Component fixture, not native persistence proof.
+// Real BlockNote/excalidraw + media decode. Component fixture, not native persistence proof.
 test('note study hides the article, waits for a readonly mnemonic canvas, returns without a rating and accepts one explicit grade', async ({
   page,
 }) => {
@@ -21,25 +21,13 @@ test('note study hides the article, waits for a readonly mnemonic canvas, return
   await expect(
     dialog.getByRole('heading', { name: 'Visual memory', exact: true })
   ).toBeVisible()
-  await expect(dialog.locator('.tldraw-whiteboard')).toBeVisible()
+  await expect(dialog.locator('.excalidraw-whiteboard')).toBeVisible()
   await expect(
     dialog.getByRole('button', { name: 'Vocab Image', exact: true })
   ).toHaveCount(0)
   await expect(dialog.getByRole('button', { name: /^Good/ })).toBeEnabled()
-  await dialog.locator('.tldraw-whiteboard').scrollIntoViewIfNeeded()
-  await expect
-    .poll(() =>
-      dialog
-        .locator('.tldraw-whiteboard img.tl-image')
-        .evaluateAll(
-          (images) =>
-            images.filter(
-              (image) =>
-                image instanceof HTMLImageElement && image.naturalWidth > 0
-            ).length
-        )
-    )
-    .toBeGreaterThanOrEqual(2)
+  await dialog.locator('.excalidraw-whiteboard').scrollIntoViewIfNeeded()
+  await expect(dialog.locator('.excalidraw canvas').first()).toBeVisible()
   await page.screenshot({ path: '/tmp/memnova-m19-study-canvas.png' })
   await dialog
     .getByRole('button', { name: 'Return to article', exact: true })

@@ -1,32 +1,32 @@
 [
   {
     "name": "canvas with prose",
-    "source": "# Canvas\n\nVisible prose.\n\n```tldraw\n{\"store\":{}}\n```\n",
+    "source": "# Canvas\n\nVisible prose.\n\n```excalidraw\n{\"store\":{}}\n```\n",
     "expected": "Visible prose."
   },
   {
     "name": "canvas only",
-    "source": "# Canvas\n```tldraw\n{\"store\":{}}\n```\n",
+    "source": "# Canvas\n```excalidraw\n{\"store\":{}}\n```\n",
     "expected": ""
   },
   {
     "name": "two canvases",
-    "source": "# Canvas\nFirst.\n```tldraw id=\"one\" width=\"600\"\n{\"store\":{}}\n```\nSecond.\n~~~tldraw id=\"two\"\n{\"store\":{}}\n~~~\n",
+    "source": "# Canvas\nFirst.\n```excalidraw id=\"one\" width=\"600\"\n{\"store\":{}}\n```\nSecond.\n~~~excalidraw id=\"two\"\n{\"store\":{}}\n~~~\n",
     "expected": "First. Second."
   },
   {
     "name": "CRLF and metadata",
-    "source": "# Canvas\r\nVisible prose.\r\n   ````tldraw id=\"a\" height=\"520\"\r\n{\"store\":{}}\r\n   ````\r\n",
+    "source": "# Canvas\r\nVisible prose.\r\n   ````excalidraw id=\"a\" height=\"520\"\r\n{\"store\":{}}\r\n   ````\r\n",
     "expected": "Visible prose."
   },
   {
     "name": "heading fallback",
-    "source": "# Canvas\n## Section\n```tldraw\n## payload heading\n```\n",
+    "source": "# Canvas\n## Section\n```excalidraw\n## payload heading\n```\n",
     "expected": "Section"
   },
   {
     "name": "short fence inside payload",
-    "source": "# Canvas\n````tldraw\n```\n{\"store\":{}}\n````\nAfter.",
+    "source": "# Canvas\n````excalidraw\n```\n{\"store\":{}}\n````\nAfter.",
     "expected": "After."
   },
   {
@@ -35,18 +35,18 @@
     "expected": "{\"example\":true} After."
   },
   {
-    "name": "literal tldraw inside ordinary fence",
-    "source": "# Code\n````text\n```tldraw\nordinary example\n```\n````\nAfter.",
+    "name": "literal excalidraw inside ordinary fence",
+    "source": "# Code\n````text\n```excalidraw\nordinary example\n```\n````\nAfter.",
     "expected": "ordinary example After."
   },
   {
     "name": "unclosed fence preserves following prose",
-    "source": "# Canvas\nBefore.\n```tldraw\nUnclosed example.\nAfter.",
+    "source": "# Canvas\nBefore.\n```excalidraw\nUnclosed example.\nAfter.",
     "expected": "Before. Unclosed example. After."
   },
   {
     "name": "closer with info is not closing",
-    "source": "# Canvas\n```tldraw\n```js\n{\"store\":{}}\n```\nAfter.",
+    "source": "# Canvas\n```excalidraw\n```js\n{\"store\":{}}\n```\nAfter.",
     "expected": "After."
   }
 ]

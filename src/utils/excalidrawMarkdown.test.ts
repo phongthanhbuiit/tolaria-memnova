@@ -1,32 +1,32 @@
 import { describe, expect, it } from 'vitest'
 import {
-  TLDRAW_BLOCK_TYPE,
-  injectTldrawInBlocks,
-  preProcessTldrawMarkdown,
-  tldrawFenceSource,
-} from './tldrawMarkdown'
+  EXCALIDRAW_BLOCK_TYPE,
+  injectExcalidrawInBlocks,
+  preProcessExcalidrawMarkdown,
+  excalidrawFenceSource,
+} from './excalidrawMarkdown'
 
-describe('tldraw markdown round-trip', () => {
-  it('injects fenced tldraw source into dedicated whiteboard blocks', () => {
+describe('excalidraw markdown round-trip', () => {
+  it('injects fenced excalidraw source into dedicated whiteboard blocks', () => {
     const snapshot = '{ "store": {} }'
     const markdown = [
-      '```tldraw id="onboarding-flow"',
+      '```excalidraw id="onboarding-flow"',
       snapshot,
       '```',
     ].join('\n')
-    const preprocessed = preProcessTldrawMarkdown({ markdown })
+    const preprocessed = preProcessExcalidrawMarkdown({ markdown })
     const blocks = [{
       type: 'paragraph',
       content: [{ type: 'text', text: preprocessed, styles: {} }],
       children: [],
     }]
 
-    const [block] = injectTldrawInBlocks(blocks) as Array<{
+    const [block] = injectExcalidrawInBlocks(blocks) as Array<{
       type: string
       props: { boardId: string; height: string; snapshot: string; width: string }
     }>
 
-    expect(block.type).toBe(TLDRAW_BLOCK_TYPE)
+    expect(block.type).toBe(EXCALIDRAW_BLOCK_TYPE)
     expect(block.props.boardId).toBe('onboarding-flow')
     expect(block.props.height).toBe('520')
     expect(block.props.snapshot).toBe(snapshot)
@@ -34,15 +34,15 @@ describe('tldraw markdown round-trip', () => {
   })
 
   it('reads persisted whiteboard dimensions from fence metadata', () => {
-    const preprocessed = preProcessTldrawMarkdown({
+    const preprocessed = preProcessExcalidrawMarkdown({
       markdown: [
-        '```tldraw id="map" height="720" width="980"',
+        '```excalidraw id="map" height="720" width="980"',
         '{}',
         '```',
       ].join('\n'),
     })
 
-    const [block] = injectTldrawInBlocks([{
+    const [block] = injectExcalidrawInBlocks([{
       type: 'paragraph',
       content: [{ type: 'text', text: preprocessed, styles: {} }],
       children: [],
@@ -57,20 +57,20 @@ describe('tldraw markdown round-trip', () => {
   it('preserves ordinary and unclosed fences as normal Markdown', () => {
     const markdown = [
       '```ts',
-      'const language = "tldraw"',
+      'const language = "excalidraw"',
       '```',
       '',
-      '```tldraw',
+      '```excalidraw',
       '{ "store": {} }',
     ].join('\n')
 
-    expect(preProcessTldrawMarkdown({ markdown })).toBe(markdown)
+    expect(preProcessExcalidrawMarkdown({ markdown })).toBe(markdown)
   })
 
-  it('injects parsed tldraw code blocks into dedicated whiteboard blocks', () => {
-    const [block] = injectTldrawInBlocks([{
+  it('injects parsed excalidraw code blocks into dedicated whiteboard blocks', () => {
+    const [block] = injectExcalidrawInBlocks([{
       type: 'codeBlock',
-      props: { language: 'tldraw' },
+      props: { language: 'excalidraw' },
       content: [{ type: 'text', text: '{ "store": {} }', styles: {} }],
       children: [],
     }]) as Array<{
@@ -78,14 +78,14 @@ describe('tldraw markdown round-trip', () => {
       props: { height: string; snapshot: string; width: string }
     }>
 
-    expect(block.type).toBe(TLDRAW_BLOCK_TYPE)
+    expect(block.type).toBe(EXCALIDRAW_BLOCK_TYPE)
     expect(block.props.height).toBe('520')
     expect(block.props.snapshot).toBe('{ "store": {} }')
     expect(block.props.width).toBe('')
   })
 
   it('keeps ordinary code blocks unchanged', () => {
-    const [block] = injectTldrawInBlocks([{
+    const [block] = injectExcalidrawInBlocks([{
       type: 'codeBlock',
       props: { language: 'json' },
       content: [{ type: 'text', text: '{ "store": {} }', styles: {} }],
@@ -96,13 +96,13 @@ describe('tldraw markdown round-trip', () => {
   })
 
   it('uses a longer fence when the board JSON contains backticks', () => {
-    expect(tldrawFenceSource({
+    expect(excalidrawFenceSource({
       boardId: 'quoted',
       height: '640',
       snapshot: '{ "text": "```" }',
       width: '900',
     })).toBe([
-      '````tldraw id="quoted" height="640" width="900"',
+      '````excalidraw id="quoted" height="640" width="900"',
       '{ "text": "```" }',
       '````',
     ].join('\n'))

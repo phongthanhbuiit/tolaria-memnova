@@ -32,7 +32,7 @@ Settings control whether PDFs, images, and unsupported files appear in All Notes
 
 ## Whiteboards
 
-An existing whiteboard stays in the Markdown file alongside your writing. You can edit the surrounding text and save the note. Memnova 0.1.0 displays a notice where the drawing belongs. Viewing and editing the drawing require a compatible editor.
+Excalidraw stores shapes and embedded image files together in a Markdown fence. Saving or copying the note keeps the drawing with it.
 
 ## Git Boundary
 

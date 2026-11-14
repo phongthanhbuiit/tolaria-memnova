@@ -1,10 +1,7 @@
 use super::lines;
 use regex::Regex;
 use serde_json::Value;
-use std::{
-    collections::{BTreeMap, BTreeSet},
-    sync::OnceLock,
-};
+use std::{collections::BTreeMap, sync::OnceLock};
 
 fn masked_line(source: &str, context: &mut lines::InlineContext) -> String {
     static TOKENS: OnceLock<Regex> = OnceLock::new();
@@ -43,40 +40,21 @@ fn board_sources(source: &str) -> Result<Vec<String>, String> {
     if value.as_object().is_some_and(|object| object.is_empty()) {
         return Ok(Vec::new());
     }
-    let records = value
-        .get("store")
-        .or_else(|| value.get("records"))
-        .or_else(|| value.pointer("/document/store"))
-        .and_then(Value::as_object)
-        .ok_or("unsupported-canvas")?;
-    let mut used = BTreeSet::new();
-    for record in records
-        .values()
-        .filter(|record| record["typeName"] == "shape")
+    let elements = value["elements"].as_array().ok_or("unsupported-canvas")?;
+    for image in elements
+        .iter()
+        .filter(|el| el["type"] == "image" && el["isDeleted"] != true)
     {
-        if let Some(id) = record.pointer("/props/assetId").and_then(Value::as_str) {
-            used.insert(id);
-        } else if ["image", "video", "bookmark"]
-            .iter()
-            .any(|kind| record["type"] == *kind)
+        let id = image["fileId"].as_str().ok_or("missing-board-asset")?;
+        if !value["files"][id]["dataURL"]
+            .as_str()
+            .is_some_and(|url| url.starts_with("data:image/"))
         {
-            return Err("missing-board-asset".into());
+            return Err("missing-board-asset-source".into());
         }
     }
-    used.into_iter()
-        .map(|id| {
-            let asset = records
-                .get(id)
-                .or_else(|| records.values().find(|record| record["id"] == id))
-                .ok_or("missing-board-asset")?;
-            asset
-                .pointer("/props/src")
-                .and_then(Value::as_str)
-                .filter(|source| !source.is_empty())
-                .map(String::from)
-                .ok_or_else(|| "missing-board-asset-source".into())
-        })
-        .collect()
+    // The note fingerprint already covers the bytes embedded in its drawing.
+    Ok(Vec::new())
 }
 fn visible_source(source: &str) -> Result<(String, Vec<String>), String> {
     let mut context = lines::InlineContext::default();
@@ -108,7 +86,7 @@ fn visible_source(source: &str) -> Result<(String, Vec<String>), String> {
                     .info
                     .split_whitespace()
                     .next()
-                    .is_some_and(|language| language.eq_ignore_ascii_case("tldraw"))
+                    .is_some_and(|language| language.eq_ignore_ascii_case("excalidraw"))
                 {
                     board = Some(line.end);
                 }

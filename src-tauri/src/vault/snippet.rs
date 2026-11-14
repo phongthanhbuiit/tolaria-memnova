@@ -48,7 +48,7 @@ pub(super) fn snippet_markdown(content: &str) -> String {
             .split_whitespace()
             .next()
             .unwrap_or("")
-            .eq_ignore_ascii_case("tldraw")
+            .eq_ignore_ascii_case("excalidraw")
         {
             visible.extend_from_slice(&lines[index..=end]);
         }

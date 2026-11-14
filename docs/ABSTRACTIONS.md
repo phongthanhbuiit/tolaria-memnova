@@ -1151,3 +1151,5 @@ Read errors in `useLearningLibrary.load` follow the same Library generation/read
 - `NoteMemoryList`: small lists render directly; large lists reuse react-virtuoso with the dashboard scroll parent. Only mounted row controls are retained. Keyboard movement can request an offscreen index and focus it when mounted; unavailable notes remain unavailable.
 
 The v0.1.0 production renderer retains the Markdown whiteboard codec and replaces the drawing editor with `PreservedWhiteboard`. The placeholder reports an unavailable study face to the render gate. Only development builds import the drawing SDK and offer the whiteboard insertion command.
+
+Current drawing blocks use a lazy-loaded Excalidraw editor in both development and production. The Markdown fence contains scene elements and embedded files. Study mounts the same scene in view mode. See ADR-0165.

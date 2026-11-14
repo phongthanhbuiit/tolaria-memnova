@@ -23,8 +23,8 @@ export function createNoteMemoryFixture(): string {
     'legacy.md': owner,
     'legacy-crlf.md': owner.replaceAll(noteMemoryFixtureIds.owner, '5212bad0-5261-43a5-a679-12d5d51c238a').replaceAll('\n', '\r\n'),
     'source.md': `---\n_memnova_page_id: ${noteMemoryFixtureIds.source}\n---\n# Source note\n\nSource text is not a review.\n`,
-    'empty-board.md': '# Empty board\n\n```tldraw id="empty"\n{}\n```\n',
-    'invalid-board.md': '# Invalid board\n\n```tldraw id="invalid"\n{broken snapshot\n```\n',
+    'empty-board.md': '# Empty board\n\n```excalidraw id="empty"\n{}\n```\n',
+    'invalid-board.md': '# Invalid board\n\n```excalidraw id="invalid"\n{broken snapshot\n```\n',
     'literal-marker.md': '# Ordinary note\n\n```html\n<!-- FLASHCARD:BACK -->\n```\n',
   }
   for (const [name, content] of Object.entries(sources)) {

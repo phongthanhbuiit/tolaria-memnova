@@ -1,31 +1,31 @@
-import { TLDRAW_BLOCK_TYPE, TLDRAW_DEFAULT_HEIGHT } from '../utils/tldrawMarkdown'
+import { EXCALIDRAW_BLOCK_TYPE, EXCALIDRAW_DEFAULT_HEIGHT } from '../utils/excalidrawMarkdown'
 
-export interface TldrawBlockProps {
+export interface ExcalidrawBlockProps {
   boardId: string
   height: string
   snapshot: string
   width: string
 }
 
-export interface TldrawBlockMutationEditor {
+export interface ExcalidrawBlockMutationEditor {
   getBlock: (blockId: string) => unknown
-  updateBlock: (blockId: string, update: TldrawBlockUpdate) => unknown
+  updateBlock: (blockId: string, update: ExcalidrawBlockUpdate) => unknown
 }
 
-interface TldrawBlockUpdate {
-  props: TldrawBlockProps
-  type: typeof TLDRAW_BLOCK_TYPE
+interface ExcalidrawBlockUpdate {
+  props: ExcalidrawBlockProps
+  type: typeof EXCALIDRAW_BLOCK_TYPE
 }
 
-interface LiveTldrawBlock {
+interface LiveExcalidrawBlock {
   id: string
-  props: TldrawBlockProps
+  props: ExcalidrawBlockProps
 }
 
-interface TldrawBlockMutation {
+interface ExcalidrawBlockMutation {
   blockId: string
-  editor: TldrawBlockMutationEditor
-  nextProps: (props: TldrawBlockProps) => TldrawBlockProps
+  editor: ExcalidrawBlockMutationEditor
+  nextProps: (props: ExcalidrawBlockProps) => ExcalidrawBlockProps
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -36,23 +36,23 @@ function stringProp(value: unknown, fallback: string) {
   return typeof value === 'string' ? value : fallback
 }
 
-function tldrawBlockProps(value: unknown): TldrawBlockProps | null {
+function excalidrawBlockProps(value: unknown): ExcalidrawBlockProps | null {
   if (!isRecord(value)) return null
   if (typeof value.boardId !== 'string' || typeof value.snapshot !== 'string') return null
 
   return {
     boardId: value.boardId,
-    height: stringProp(value.height, TLDRAW_DEFAULT_HEIGHT),
+    height: stringProp(value.height, EXCALIDRAW_DEFAULT_HEIGHT),
     snapshot: value.snapshot,
     width: stringProp(value.width, ''),
   }
 }
 
-function liveTldrawBlock(value: unknown): LiveTldrawBlock | null {
+function liveExcalidrawBlock(value: unknown): LiveExcalidrawBlock | null {
   if (!isRecord(value)) return null
-  if (value.type !== TLDRAW_BLOCK_TYPE || typeof value.id !== 'string') return null
+  if (value.type !== EXCALIDRAW_BLOCK_TYPE || typeof value.id !== 'string') return null
 
-  const props = tldrawBlockProps(value.props)
+  const props = excalidrawBlockProps(value.props)
   return props ? { id: value.id, props } : null
 }
 
@@ -62,14 +62,14 @@ function isMissingBlockError(error: unknown) {
     && error.message.includes('not found')
 }
 
-export function updateTldrawBlockPropsSafely({ blockId, editor, nextProps }: TldrawBlockMutation) {
-  const liveBlock = liveTldrawBlock(editor.getBlock(blockId))
+export function updateExcalidrawBlockPropsSafely({ blockId, editor, nextProps }: ExcalidrawBlockMutation) {
+  const liveBlock = liveExcalidrawBlock(editor.getBlock(blockId))
   if (!liveBlock) return false
 
   try {
     editor.updateBlock(liveBlock.id, {
       props: nextProps(liveBlock.props),
-      type: TLDRAW_BLOCK_TYPE,
+      type: EXCALIDRAW_BLOCK_TYPE,
     })
     return true
   } catch (error) {

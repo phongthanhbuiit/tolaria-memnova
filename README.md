@@ -30,7 +30,7 @@ pnpm install --frozen-lockfile
 pnpm tauri dev
 ```
 
-For browser development with mock desktop services, run `pnpm dev` and open the URL Vite prints. The development environment includes the optional tldraw SDK under its own license. Production builds omit it.
+For browser development with mock desktop services, run `pnpm dev` and open the URL Vite prints. In the current source build, type /Excalidraw in a note to insert a drawing. Shapes and embedded images are saved in an excalidraw Markdown fence. Study opens the drawing read-only.
 
 [Development setup](docs/GETTING-STARTED.md) · [Architecture](docs/ARCHITECTURE.md) · [Report a security issue](SECURITY.md)
 
@@ -38,4 +38,4 @@ For browser development with mock desktop services, run `pnpm dev` and open the 
 
 Memnova is a fork of Tolaria, created by Luca Rossi and the Tolaria contributors. The application code is licensed under AGPL-3.0-or-later. Third-party dependencies retain their own licenses.
 
-[Upstream Tolaria](https://github.com/refactoringhq/tolaria) · [Application license](LICENSE) · [tldraw SDK license](https://github.com/tldraw/tldraw/blob/v4.5.10/LICENSE.md)
+[Upstream Tolaria](https://github.com/refactoringhq/tolaria) · [Application license](LICENSE) · [Excalidraw license](https://github.com/excalidraw/excalidraw/blob/master/LICENSE)

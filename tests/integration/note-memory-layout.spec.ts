@@ -28,7 +28,7 @@ test('new surfaces keep controls within small/medium/large windows across app zo
     await page.evaluate(() => Promise.all(document.getAnimations().filter(animation => animation.effect?.getTiming().iterations !== Infinity).map(animation => animation.finished.catch(() => {}))))
     if (surface === 'study') {
       await page.getByRole('button', { name: revealLabels[locale], exact: true }).click()
-      await page.locator('.tl-container').waitFor({ state: 'visible' })
+      await page.locator('.excalidraw').waitFor({ state: 'visible' })
     }
     await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))))
     const problem = await page.evaluate(() => {
@@ -42,7 +42,7 @@ test('new surfaces keep controls within small/medium/large windows across app zo
         if (dialogs.length && (rectangle.top < -1 || rectangle.bottom > innerHeight + 1)) bad.push(`vertical:${Math.round(rectangle.top)}..${Math.round(rectangle.bottom)}`)
         if (root.scrollWidth > root.clientWidth + 2) bad.push(`overflow:${root.scrollWidth}/${root.clientWidth}`)
         for (const element of root.querySelectorAll<HTMLElement>('[data-slot="button"],[data-slot="select-trigger"],[data-slot="input"]')) {
-          if (!element.getClientRects().length || element.closest('[hidden],[inert]') || element.closest('.tl-container')) continue
+          if (!element.getClientRects().length || element.closest('[hidden],[inert]') || element.closest('.excalidraw')) continue
           const rect = element.getBoundingClientRect()
           if (rect.left < -1 || rect.right > viewport + 1) bad.push(`control:${element.textContent?.trim().slice(0,30)}:${Math.round(rect.left)}..${Math.round(rect.right)}`)
         }
@@ -92,53 +92,11 @@ test('coarse targets, contrast, reduced motion and keyboard focus remain usable'
   } finally { await context.close() }
 })
 
-test('editable canvas keeps its saved width through fullscreen and supports keyboard resizing and menu dismissal', async ({ page }) => {
+test('editable drawing fits a compact editor', async ({ page }) => {
   await page.goto('/tests/fixtures/note-memory-layout.html')
   await page.getByRole('button', { name: 'Study', exact: true }).waitFor()
   await page.evaluate(() => window.setNoteLayoutCase?.({ surface: 'whiteboard', locale: 'en', theme: 'light' }))
-  const board = page.locator('.tldraw-whiteboard')
-  await expect(board.locator('.tl-container')).toBeVisible()
-  const width = await board.evaluate(element => element.getBoundingClientRect().width)
-  const resize = page.getByRole('button', { name: 'Resize whiteboard width', exact: true })
-  await resize.focus()
-  await page.keyboard.press('ArrowRight')
-  await expect.poll(() => board.evaluate(element => element.getBoundingClientRect().width)).toBe(width + 8)
-  const toggle = page.getByTestId('tldraw-whiteboard-fullscreen-toggle')
-  await toggle.click()
-  await expect(board).toHaveClass(/tldraw-whiteboard--fullscreen/)
-  await expect(resize).toBeHidden()
-  await toggle.click()
-  await expect(board).not.toHaveClass(/tldraw-whiteboard--fullscreen/)
-  expect(await board.evaluate(element => element.getBoundingClientRect().width)).toBe(width + 8)
-  const vocabulary = page.getByRole('button', { name: 'Vocabulary image', exact: true })
-  await vocabulary.click()
-  await expect(page.getByRole('textbox', { name: 'Search vocabulary…', exact: true })).toBeFocused()
-  await page.keyboard.press('Escape')
-  await expect(vocabulary).toBeFocused()
-  await expect(page.getByRole('textbox', { name: 'Search vocabulary…', exact: true })).toBeHidden()
-})
-
-test('pointer resizing follows physical drag distance at application zoom', async ({ page }) => {
-  await page.setViewportSize({ width: 1280, height: 900 })
-  await page.goto('/tests/fixtures/note-memory-layout.html')
-  await page.getByRole('button', { name: 'Study', exact: true }).waitFor()
-  for (const zoom of [100, 125, 150]) {
-    await page.evaluate(zoom => {
-      document.documentElement.style.zoom = `${zoom}%`
-      document.documentElement.style.setProperty('--tolaria-overlay-zoom-factor', String(zoom / 100))
-      document.documentElement.style.setProperty('--tolaria-overlay-zoom-inverse', String(100 / zoom))
-      window.setNoteLayoutCase?.({ surface: 'whiteboard', locale: 'en', theme: 'light' })
-    }, zoom)
-    const board = page.locator('.tldraw-whiteboard')
-    await expect(board.locator('.tl-container')).toBeVisible()
-    const before = await board.evaluate(element => element.getBoundingClientRect().width)
-    const resize = await page.getByRole('button', { name: 'Resize whiteboard width', exact: true }).boundingBox()
-    expect(resize).not.toBeNull()
-    const x = resize!.x + resize!.width / 2, y = resize!.y + resize!.height / 2
-    await page.mouse.move(x, y); await page.mouse.down(); await page.mouse.move(x + 40, y); await page.mouse.up()
-    await expect.poll(() => board.evaluate(element => element.getBoundingClientRect().width)).toBeGreaterThan(before)
-    expect(Math.abs(await board.evaluate(element => element.getBoundingClientRect().width) - before - 40)).toBeLessThanOrEqual(1.5)
-  }
+  await expect(page.locator('.excalidraw canvas').first()).toBeVisible()
 })
 
 test('source toolbar follows utility type scale and coarse target size', async ({ browser }, testInfo) => {

@@ -327,10 +327,10 @@
     }
   },
   {
-    "name": "tldraw json ignores marker",
-    "source": "# Board\n\n````tldraw id=\"board\"\n{\"text\":\"``` <!-- FLASHCARD:BACK -->\"}\n````\n\n<!-- FLASHCARD:BACK -->\nReal back\n",
+    "name": "excalidraw json ignores marker",
+    "source": "# Board\n\n````excalidraw id=\"board\"\n{\"text\":\"``` <!-- FLASHCARD:BACK -->\"}\n````\n\n<!-- FLASHCARD:BACK -->\nReal back\n",
     "expected": {
-      "front": "# Board\n\n````tldraw id=\"board\"\n{\"text\":\"``` <!-- FLASHCARD:BACK -->\"}\n````\n\n",
+      "front": "# Board\n\n````excalidraw id=\"board\"\n{\"text\":\"``` <!-- FLASHCARD:BACK -->\"}\n````\n\n",
       "back": "Real back\n",
       "config": null,
       "pageId": null,
@@ -338,15 +338,15 @@
       "ranges": {
         "front": {
           "start": 0,
-          "end": 76
+          "end": 80
         },
         "back": {
-          "start": 100,
-          "end": 110
+          "start": 104,
+          "end": 114
         },
         "marker": {
-          "start": 76,
-          "end": 100
+          "start": 80,
+          "end": 104
         }
       }
     }

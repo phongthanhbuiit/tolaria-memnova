@@ -1,11 +1,11 @@
 import { describe, expect, it, vi } from 'vitest'
-import { TLDRAW_BLOCK_TYPE } from '../utils/tldrawMarkdown'
+import { EXCALIDRAW_BLOCK_TYPE } from '../utils/excalidrawMarkdown'
 import {
-  updateTldrawBlockPropsSafely,
-  type TldrawBlockMutationEditor,
-} from './tldrawBlockProps'
+  updateExcalidrawBlockPropsSafely,
+  type ExcalidrawBlockMutationEditor,
+} from './excalidrawBlockProps'
 
-function tldrawBlock(props: {
+function excalidrawBlock(props: {
   boardId?: string
   height?: string
   id?: string
@@ -20,18 +20,18 @@ function tldrawBlock(props: {
       snapshot: props.snapshot ?? '{}',
       width: props.width ?? '',
     },
-    type: TLDRAW_BLOCK_TYPE,
+    type: EXCALIDRAW_BLOCK_TYPE,
   }
 }
 
-describe('tldraw block prop updates', () => {
+describe('excalidraw block prop updates', () => {
   it('ignores whiteboard callbacks after the owning BlockNote block disappears', () => {
-    const editor: TldrawBlockMutationEditor = {
+    const editor: ExcalidrawBlockMutationEditor = {
       getBlock: vi.fn(() => undefined),
       updateBlock: vi.fn(),
     }
 
-    expect(updateTldrawBlockPropsSafely({
+    expect(updateExcalidrawBlockPropsSafely({
       blockId: 'whiteboard-block',
       editor,
       nextProps: (props) => ({ ...props, snapshot: '{ "store": {} }' }),
@@ -40,8 +40,8 @@ describe('tldraw block prop updates', () => {
   })
 
   it('resolves live whiteboard props before writing a debounced snapshot', () => {
-    const editor: TldrawBlockMutationEditor = {
-      getBlock: vi.fn(() => tldrawBlock({
+    const editor: ExcalidrawBlockMutationEditor = {
+      getBlock: vi.fn(() => excalidrawBlock({
         boardId: 'fresh-board',
         height: '640',
         snapshot: '{ "store": "old" }',
@@ -50,7 +50,7 @@ describe('tldraw block prop updates', () => {
       updateBlock: vi.fn(),
     }
 
-    expect(updateTldrawBlockPropsSafely({
+    expect(updateExcalidrawBlockPropsSafely({
       blockId: 'whiteboard-block',
       editor,
       nextProps: (props) => ({ ...props, snapshot: '{ "store": "next" }' }),
@@ -62,21 +62,21 @@ describe('tldraw block prop updates', () => {
         snapshot: '{ "store": "next" }',
         width: '900',
       },
-      type: TLDRAW_BLOCK_TYPE,
+      type: EXCALIDRAW_BLOCK_TYPE,
     })
   })
 
   it('turns a final missing-block race into a no-op', () => {
     const missingBlockError = new Error('Block with ID whiteboard-block not found')
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined)
-    const editor: TldrawBlockMutationEditor = {
-      getBlock: vi.fn(() => tldrawBlock({})),
+    const editor: ExcalidrawBlockMutationEditor = {
+      getBlock: vi.fn(() => excalidrawBlock({})),
       updateBlock: vi.fn(() => {
         throw missingBlockError
       }),
     }
 
-    expect(updateTldrawBlockPropsSafely({
+    expect(updateExcalidrawBlockPropsSafely({
       blockId: 'whiteboard-block',
       editor,
       nextProps: (props) => ({ ...props, height: '720' }),

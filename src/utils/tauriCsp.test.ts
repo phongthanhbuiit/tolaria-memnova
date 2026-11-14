@@ -28,7 +28,7 @@ describe('Tauri Content Security Policy', () => {
     expect(csp['media-src']).toContain('http://asset.localhost')
   })
 
-  it('allows bundled tldraw translation JSON fetched from inlined data URLs', () => {
+  it('allows bundled excalidraw translation JSON fetched from inlined data URLs', () => {
     const config = JSON.parse(readFileSync(`${process.cwd()}/src-tauri/tauri.conf.json`, 'utf8'))
     const csp = config.app.security.csp as Record<string, string>
 

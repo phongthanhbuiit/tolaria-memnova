@@ -8,13 +8,13 @@ import {
   readInlineText,
 } from './durableMarkdownBlocks'
 
-export const TLDRAW_BLOCK_TYPE = 'tldrawBlock'
-export const TLDRAW_DEFAULT_HEIGHT = '520'
+export const EXCALIDRAW_BLOCK_TYPE = 'excalidrawBlock'
+export const EXCALIDRAW_DEFAULT_HEIGHT = '520'
 
-const TOKEN_PREFIX = '@@TOLARIA_TLDRAW_BLOCK:'
+const TOKEN_PREFIX = '@@TOLARIA_EXCALIDRAW_BLOCK:'
 const TOKEN_SUFFIX = '@@'
 
-interface TldrawPayload {
+interface ExcalidrawPayload {
   boardId: string
   height: string
   snapshot: string
@@ -38,14 +38,14 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
 }
 
-function decodeTldrawPayload(payload: unknown): TldrawPayload | null {
+function decodeExcalidrawPayload(payload: unknown): ExcalidrawPayload | null {
   if (!isRecord(payload)) return null
   if (typeof payload.boardId !== 'string') return null
   if (typeof payload.snapshot !== 'string') return null
 
   return {
     boardId: payload.boardId,
-    height: typeof payload.height === 'string' ? payload.height : TLDRAW_DEFAULT_HEIGHT,
+    height: typeof payload.height === 'string' ? payload.height : EXCALIDRAW_DEFAULT_HEIGHT,
     snapshot: payload.snapshot,
     width: typeof payload.width === 'string' ? payload.width : '',
   }
@@ -58,32 +58,32 @@ function readFenceAttribute({ info, name }: FenceAttributeRequest): string {
   return ''
 }
 
-function readFenceMetadata(info: string): Pick<TldrawPayload, 'boardId' | 'height' | 'width'> {
+function readFenceMetadata(info: string): Pick<ExcalidrawPayload, 'boardId' | 'height' | 'width'> {
   return {
     boardId: readFenceAttribute({ info, name: 'id' }),
-    height: readFenceAttribute({ info, name: 'height' }) || TLDRAW_DEFAULT_HEIGHT,
+    height: readFenceAttribute({ info, name: 'height' }) || EXCALIDRAW_DEFAULT_HEIGHT,
     width: readFenceAttribute({ info, name: 'width' }),
   }
 }
 
-function readTldrawFenceMetadata(info: string): Pick<TldrawPayload, 'boardId' | 'height' | 'width'> | null {
+function readExcalidrawFenceMetadata(info: string): Pick<ExcalidrawPayload, 'boardId' | 'height' | 'width'> | null {
   const [language = '', ...infoParts] = info.trim().split(/\s+/u)
-  if (language.toLowerCase() !== 'tldraw') return null
+  if (language.toLowerCase() !== 'excalidraw') return null
   return readFenceMetadata(infoParts.join(' '))
 }
 
-function buildTldrawPayload({ lines, start, end, metadata }: DurableFencePayloadInput): TldrawPayload {
-  const fenceMetadata = metadata as Pick<TldrawPayload, 'boardId' | 'height' | 'width'>
+function buildExcalidrawPayload({ lines, start, end, metadata }: DurableFencePayloadInput): ExcalidrawPayload {
+  const fenceMetadata = metadata as Pick<ExcalidrawPayload, 'boardId' | 'height' | 'width'>
   return {
     ...fenceMetadata,
     snapshot: lines.slice(start + 1, end).join('').trim(),
   }
 }
 
-function buildTldrawBlock(block: BlockLike, payload: TldrawPayload): BlockLike {
+function buildExcalidrawBlock(block: BlockLike, payload: ExcalidrawPayload): BlockLike {
   return {
     ...block,
-    type: TLDRAW_BLOCK_TYPE,
+    type: EXCALIDRAW_BLOCK_TYPE,
     props: {
       ...(block.props ?? {}),
       boardId: payload.boardId,
@@ -96,16 +96,16 @@ function buildTldrawBlock(block: BlockLike, payload: TldrawPayload): BlockLike {
   }
 }
 
-function readTldrawCodeBlock(block: BlockLike): TldrawPayload | null {
+function readExcalidrawCodeBlock(block: BlockLike): ExcalidrawPayload | null {
   if (block.type !== 'codeBlock') return null
-  if (readCodeBlockLanguage({ block }) !== 'tldraw') return null
+  if (readCodeBlockLanguage({ block }) !== 'excalidraw') return null
 
   const snapshot = readInlineText(block.content)
   if (snapshot === null) return null
 
   return {
     boardId: '',
-    height: TLDRAW_DEFAULT_HEIGHT,
+    height: EXCALIDRAW_DEFAULT_HEIGHT,
     snapshot: snapshot.trim(),
     width: '',
   }
@@ -120,14 +120,14 @@ function escapeFenceAttribute({ value }: FenceAttribute): string {
   return value.replace(/"/gu, '&quot;')
 }
 
-export function tldrawFenceSource({ boardId, height, snapshot, width }: TldrawPayload): string {
+export function excalidrawFenceSource({ boardId, height, snapshot, width }: ExcalidrawPayload): string {
   const fence = '`'.repeat(fenceLengthForSnapshot({ snapshot }))
-  const metadata = tldrawFenceMetadata({ boardId, height, width })
+  const metadata = excalidrawFenceMetadata({ boardId, height, width })
   const body = snapshot.endsWith('\n') ? snapshot : `${snapshot}\n`
-  return `${fence}tldraw${metadata}\n${body}${fence}`
+  return `${fence}excalidraw${metadata}\n${body}${fence}`
 }
 
-function tldrawFenceMetadata({ boardId, height, width }: Omit<TldrawPayload, 'snapshot'>): string {
+function excalidrawFenceMetadata({ boardId, height, width }: Omit<ExcalidrawPayload, 'snapshot'>): string {
   const attributes: string[] = []
   if (boardId) attributes.push(`id="${escapeFenceAttribute({ value: boardId })}"`)
   if (height) attributes.push(`height="${escapeFenceAttribute({ value: height })}"`)
@@ -135,38 +135,38 @@ function tldrawFenceMetadata({ boardId, height, width }: Omit<TldrawPayload, 'sn
   return attributes.length > 0 ? ` ${attributes.join(' ')}` : ''
 }
 
-export function isTldrawBlock(block: BlockLike): boolean {
-  return block.type === TLDRAW_BLOCK_TYPE
+export function isExcalidrawBlock(block: BlockLike): boolean {
+  return block.type === EXCALIDRAW_BLOCK_TYPE
     && typeof block.props?.snapshot === 'string'
     && typeof block.props?.boardId === 'string'
 }
 
-export function tldrawMarkdown(block: BlockLike): string {
+export function excalidrawMarkdown(block: BlockLike): string {
   const props = block.props ?? {}
-  return tldrawFenceSource({
+  return excalidrawFenceSource({
     boardId: props.boardId ?? '',
-    height: props.height ?? TLDRAW_DEFAULT_HEIGHT,
+    height: props.height ?? EXCALIDRAW_DEFAULT_HEIGHT,
     snapshot: props.snapshot ?? '{}',
     width: props.width ?? '',
   })
 }
 
-export const tldrawMarkdownCodec: DurableBlockCodec = {
+export const excalidrawMarkdownCodec: DurableBlockCodec = {
   tokenPrefix: TOKEN_PREFIX,
   tokenSuffix: TOKEN_SUFFIX,
-  readFenceMetadata: readTldrawFenceMetadata,
-  buildPayload: buildTldrawPayload,
-  decodePayload: decodeTldrawPayload,
-  buildBlock: (block, payload) => buildTldrawBlock(block, payload as TldrawPayload),
-  readCodeBlock: readTldrawCodeBlock,
-  isBlock: isTldrawBlock,
-  serializeBlock: tldrawMarkdown,
+  readFenceMetadata: readExcalidrawFenceMetadata,
+  buildPayload: buildExcalidrawPayload,
+  decodePayload: decodeExcalidrawPayload,
+  buildBlock: (block, payload) => buildExcalidrawBlock(block, payload as ExcalidrawPayload),
+  readCodeBlock: readExcalidrawCodeBlock,
+  isBlock: isExcalidrawBlock,
+  serializeBlock: excalidrawMarkdown,
 }
 
-export function preProcessTldrawMarkdown({ markdown }: { markdown: string }): string {
-  return preProcessDurableMarkdownBlocks({ markdown, codecs: [tldrawMarkdownCodec] })
+export function preProcessExcalidrawMarkdown({ markdown }: { markdown: string }): string {
+  return preProcessDurableMarkdownBlocks({ markdown, codecs: [excalidrawMarkdownCodec] })
 }
 
-export function injectTldrawInBlocks(blocks: unknown[]): unknown[] {
-  return injectDurableMarkdownBlocks({ blocks, codecs: [tldrawMarkdownCodec] })
+export function injectExcalidrawInBlocks(blocks: unknown[]): unknown[] {
+  return injectDurableMarkdownBlocks({ blocks, codecs: [excalidrawMarkdownCodec] })
 }

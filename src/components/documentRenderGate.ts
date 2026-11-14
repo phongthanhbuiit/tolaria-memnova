@@ -21,7 +21,7 @@ export function documentCanvasIds(blocks: unknown[]): string[] {
   return blocks.flatMap(block => {
     if (!block || typeof block !== 'object') return []
     const value = block as Record<string,unknown>
-    const own = value.type === 'tldrawBlock' ? [typeof value.id === 'string' ? value.id : 'missing-canvas-id'] : []
+    const own = value.type === 'excalidrawBlock' ? [typeof value.id === 'string' ? value.id : 'missing-canvas-id'] : []
     return [...own,...(Array.isArray(value.children) ? documentCanvasIds(value.children) : [])]
   })
 }

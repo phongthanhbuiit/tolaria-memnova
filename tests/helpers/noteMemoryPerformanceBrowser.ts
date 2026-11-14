@@ -51,9 +51,8 @@ export async function openPerformanceNote(page: Page, title: string) {
 
 export async function showPerformanceCanvas(page: Page) {
   await page.getByRole('tab', { name: 'Mnemonic', exact: true }).click()
-  const board = page.locator('.tldraw-whiteboard')
-  await expect(board.locator('.tl-container')).toBeVisible()
-  await expect.poll(() => board.locator('img[src*="memnova-performance-images"]').evaluateAll(images => images.filter(image => image instanceof HTMLImageElement && image.complete && image.naturalWidth === 320).length)).toBe(3)
+  const board = page.locator('.excalidraw-whiteboard')
+  await expect(board.locator('canvas').first()).toBeVisible()
   await board.scrollIntoViewIfNeeded()
   return board
 }

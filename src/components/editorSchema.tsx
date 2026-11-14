@@ -21,22 +21,22 @@ import { resolveWikilinkColor as resolveColor } from '../utils/wikilinkColors'
 import { resolveEntry } from '../utils/wikilink'
 import { MATH_BLOCK_TYPE, MATH_INLINE_TYPE, renderMathToHtml } from '../utils/mathMarkdown'
 import { MERMAID_BLOCK_TYPE, mermaidFenceSource } from '../utils/mermaidMarkdown'
-import { TLDRAW_BLOCK_TYPE, TLDRAW_DEFAULT_HEIGHT } from '../utils/tldrawMarkdown'
+import { EXCALIDRAW_BLOCK_TYPE, EXCALIDRAW_DEFAULT_HEIGHT } from '../utils/excalidrawMarkdown'
 import type { VaultEntry } from '../types'
 import { createTolariaCodeBlockOptions } from './codeBlockOptions'
 import { literalNoteMarkerBlock } from './literalNoteMarkerBlock'
 import { NoteTitleIcon } from './NoteTitleIcon'
 import { MermaidDiagram } from './MermaidDiagram'
 import { SafeHtmlSpan } from './SafeMarkup'
-import { PreservedWhiteboard } from './PreservedWhiteboard'
-import { updateTldrawBlockPropsSafely } from './tldrawBlockProps'
+import { updateExcalidrawBlockPropsSafely } from './excalidrawBlockProps'
 import { useExternalMediaPreview } from '../utils/mediaPreviewRuntime'
 import { Textarea } from './ui/textarea'
 import { dispatchRichEditorExternalChange } from './editorExternalChangeEvents'
 
-const TldrawWhiteboard = import.meta.env.DEV ? lazy(() => import('./TldrawWhiteboard').then(module => ({
-  default: module.TldrawWhiteboard,
-}))) : null
+const ExcalidrawWhiteboard = lazy(() => {
+  Object.assign(window, { EXCALIDRAW_ASSET_PATH: '/excalidraw/' })
+  return import('./ExcalidrawWhiteboard')
+})
 type AudioBlockProps = ComponentProps<typeof AudioBlock>
 type VideoBlockProps = ComponentProps<typeof VideoBlock>
 type MediaBlockPreviewProps = {
@@ -342,12 +342,12 @@ const VideoBlockSpec = createReactBlockSpec(
   }),
 )
 
-const TldrawBlock = createReactBlockSpec(
+const ExcalidrawBlock = createReactBlockSpec(
   {
-    type: TLDRAW_BLOCK_TYPE,
+    type: EXCALIDRAW_BLOCK_TYPE,
     propSchema: {
       boardId: { default: '' },
-      height: { default: TLDRAW_DEFAULT_HEIGHT },
+      height: { default: EXCALIDRAW_DEFAULT_HEIGHT },
       snapshot: { default: '{}' },
       width: { default: '' },
     },
@@ -356,18 +356,15 @@ const TldrawBlock = createReactBlockSpec(
   {
     runsBefore: ['codeBlock'],
     meta: { selectable: false },
-    render: (props) => TldrawWhiteboard ? (
-      <Suspense fallback={<div className="tldraw-whiteboard tldraw-whiteboard--loading" />}>
-        <TldrawWhiteboard
-          documentScope={props.editor}
+    render: (props) => (
+      <Suspense fallback={<div className="excalidraw-whiteboard excalidraw-whiteboard--loading" />}>
+        <ExcalidrawWhiteboard
           blockId={props.block.id}
-          boardId={props.block.props.boardId}
           height={props.block.props.height}
           snapshot={props.block.props.snapshot}
-          width={props.block.props.width}
           readOnly={!props.editor.isEditable}
           onSnapshotChange={(snapshot) => {
-            updateTldrawBlockPropsSafely({
+            updateExcalidrawBlockPropsSafely({
               blockId: props.block.id,
               editor: props.editor,
               nextProps: (currentProps) => ({
@@ -376,20 +373,9 @@ const TldrawBlock = createReactBlockSpec(
               }),
             })
           }}
-          onSizeChange={(size) => {
-            updateTldrawBlockPropsSafely({
-              blockId: props.block.id,
-              editor: props.editor,
-              nextProps: (currentProps) => ({
-                ...currentProps,
-                height: size.height,
-                width: size.width,
-              }),
-            })
-          }}
         />
       </Suspense>
-    ) : <PreservedWhiteboard blockId={props.block.id} />,
+    ),
   },
 )
 
@@ -397,7 +383,7 @@ const codeBlock = createCodeBlockSpec(createTolariaCodeBlockOptions())
 const audioBlock = AudioBlockSpec()
 const mathBlock = MathBlock()
 const mermaidBlock = MermaidBlock()
-const tldrawBlock = TldrawBlock()
+const excalidrawBlock = ExcalidrawBlock()
 const videoBlock = VideoBlockSpec()
 
 export const schema = BlockNoteSchema.create({
@@ -412,7 +398,7 @@ export const schema = BlockNoteSchema.create({
     literalNoteMarker: literalNoteMarkerBlock,
     mathBlock,
     mermaidBlock,
-    tldrawBlock,
+    excalidrawBlock,
     codeBlock,
     video: videoBlock,
   },
