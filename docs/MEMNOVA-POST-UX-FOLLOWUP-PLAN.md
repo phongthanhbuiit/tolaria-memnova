@@ -3,6 +3,8 @@
 Ngày: 2026-10-19. Baseline source/release: `504067453d124e879d99d70ae1099ba42534a199`.
 Phạm vi lượt này: review code, chạy probe và lập kế hoạch; **chưa sửa runtime**.
 
+**Cập nhật 14/11/2026.** Xem [bảng điểm và thứ tự thực hiện hiện tại](#danh-gia-2026-11-14). Phần 1–5 ghi lại đợt tháng 10.
+
 ## 1. Kết luận nghiệm thu
 
 U00–U11 đã triển khai, có commit và release receipt. Giữ nguyên trạng thái lịch sử đó; không xem DONE là chứng minh không còn defect. Mở follow-up riêng R00–R06 dưới đây. Không mở lại M00–M25 hay thiết kế storage.
@@ -134,6 +136,51 @@ Kết quả **144 tests/8files PASS,4.46s**. Log `/tmp/memnova-post-ux-focused.l
 ## 5. Prompt giao model thực hiện
 
 > Đọc AGENTS.md và docs/MEMNOVA-POST-UX-FOLLOWUP-PLAN.md. Thực hiện lần lượt R01–R06 với dependency trong ledger, không mở lại U00–U11. Ưu tiên F01; đưa probe thành regression chính thức và chạy RED trước fix. Dùng editor thật để kiểm tra history; không coi mock replaceBlocks là đủ. Giữ nguyên Markdown hai mặt/linked UUID, properties, SQLite schema5, lịch học và dữ liệu cũ. Trong vòng sửa chạy focused tests; release qua hooks bình thường, không bỏ kiểm tra. Mỗi task ghi commit, tests, native/data evidence và NOT RUN thật. Chỉ sửa UI khi có defect/tác vụ cụ thể; không tự redesign hay merge upstream. Dừng khi scope hoàn tất và report external deployment limitations riêng.
+
+<a id="danh-gia-2026-11-14"></a>
+
+## 6. Đánh giá Memnova ngày 14/11/2026
+
+**7,7/10** cho người dùng desktop muốn viết Markdown và ôn tập ngay trên ghi chú, với macOS là nền tảng chính. Trọng số ưu tiên tác vụ học và khả năng lấy lại dữ liệu. Các điểm là nhận định sản phẩm trên mã nguồn `259c6f4a`, kết quả kiểm thử bên dưới và hồ sơ nghiệm thu. Chưa có khảo sát người dùng mới hoặc tỷ lệ hoàn thành tác vụ ngoài thực tế.
+
+| Tiêu chí | Trọng số | Điểm /10 | Căn cứ và phần còn thiếu |
+|---|---:|---:|---|
+| Viết ghi chú và ôn tập | 25% | 9 | Từ ghi chú thường có thể bật ghi nhớ, viết mặt gợi nhớ, lưu, tự chấm rồi tạm dừng. Ca workspace kiểm tra cả nội dung trên đĩa và việc giữ nguyên trang nguồn. Cần đo người mới có tự tìm được luồng này hay không. |
+| Bảo toàn và khôi phục dữ liệu | 25% | 9 | 8 ca Rust kiểm tra khôi phục cả hai mặt, media và lịch sử, từ chối backup hỏng, tương thích schema cũ. Nghiệm thu native trước đây có so hash tệp và bản ghi lịch ôn sau Undo. Phạm vi đóng bình thường theo ADR-0163. |
+| Giao diện, bàn phím và khả năng tiếp cận | 15% | 7 | Nút Học nổi bật, trạng thái có chữ, kiểm tra tương phản và danh sách 1.000 mục đạt. Nút Thử lại bị bỏ qua khi Tab. VoiceOver và đổi thứ tự mục đang focus còn cần kiểm tra. |
+| Bắt đầu sử dụng và tài liệu công khai | 15% | 5 | Màn chào ưu tiên tạo/mở Library cục bộ. README và hướng dẫn công khai dẫn theo luồng Tolaria cũ. Từ trang Git, người đọc thiếu chỉ dẫn giữ lịch học khi sao lưu. |
+| Hiệu năng và độ tin cậy của kiểm thử | 10% | 8 | Có phép đo p95 và kiểm tra qua nhiều kích thước cửa sổ. Bản web dùng cho QA hiển thị sai năm. Lần chạy core gần nhất còn khoảng 26 giây trước ngưỡng 300 giây. |
+| Sẵn sàng phát hành tới người dùng mới | 10% | 6 | Có bằng chứng native macOS debug. Trong hồ sơ đã đọc, việc cài artifact có chữ ký và cấu hình tldraw production cho bản Memnova dự kiến phát hành còn mở. Cần đối chiếu kênh tải và nền tảng hứa hỗ trợ. |
+
+**Cách tính.** Tổng điểm từng hàng nhân trọng số bằng 7,70. Điểm tối đa cần cả kết quả tác vụ và bằng chứng trên môi trường đích. Chỉ có điểm phát hành phản ánh mức tin cậy vào bộ cài. CodeScene là phép đo riêng. [Hồ sơ native và release gần nhất](baselines/2026-10-19-editor-undo.md) · [Phép đo hiệu năng M24, dùng số ở mục “Final parser correction”](baselines/2026-10-19-note-memory-m24.md)
+
+### Ba phát hiện cần hành động
+
+1. **P1 · Hướng dẫn sao lưu thiếu phần lịch học.** Trang kết nối Git giới thiệu remote cho mục đích backup. Trong Memnova, thao tác Git của app loại dữ liệu học riêng tư. Người khôi phục chỉ từ Git có thể lấy lại Markdown nhưng thiếu lịch ôn và lịch sử. Đây là sai lệch hướng dẫn đã xác minh, chưa ghi nhận sự cố mất dữ liệu người dùng. Trang First Launch còn đặt mẫu Getting Started lên đầu, trong khi màn chào đặt mẫu dưới Advanced. Badge stable ở đầu README lấy phiên bản từ repo upstream. [Hướng dẫn Git](../site/guides/connect-a-git-remote.md) · [First Launch](../site/start/first-launch.md) · [README](../README.md) · [Quy tắc Git của Library](adr/0143-local-library-defaults-and-isolated-native-qa.md) · [Hướng dẫn nghiệp vụ đúng](MEMNOVA-NOTE-MEMORY-GUIDE.md)
+2. **P2 · Bàn phím bỏ qua nút Thử lại sau lỗi tải mẫu.** Dùng renderer thật với bridge Chromium giả lập lỗi tải ở lần đầu, mở Advanced → Download sample Library. Retry hiện và enabled. Từ Create, tám lần Tab lặp hai vòng Open → Advanced → Download → Create. Shift+Tab lặp ngược, cũng bỏ qua Retry. Handler chặn Tab và dùng mảng ref thiếu nút vừa hiện. Smoke hiện tại click Retry bằng chuột. Người dùng bàn phím vẫn có thể quay lại thao tác tải mẫu chính. [Handler bàn phím và mảng ref](../src/components/WelcomeScreen.tsx#L304) · [Ca hiện tại](../tests/smoke/getting-started-template.spec.ts)
+3. **P2 · Danh sách note trên bản web QA hiển thị năm 58839.** Ảnh ở cuối ca bật học → ôn → tạm dừng cho thấy ngày “November 17, 58839”. Adapter Vite trả `mtimeMs/birthtimeMs`, formatter nhận Unix giây rồi nhân 1.000. Rust trả giây. Script serve-demo cũng xuất mili giây. Lỗi quan sát trên renderer dùng Vite và fixture. Chưa thấy bằng chứng ngày sai trên native hoặc lịch FSRS bị thay đổi. [Adapter Vite](../vite.config.ts#L363) · [Adapter demo](../scripts/serve-demo.mjs#L152) · [Formatter](../src/utils/noteListHelpers.ts#L40) · [Đối chiếu Rust](../src-tauri/src/vault/file.rs#L14)
+
+### Kế hoạch triển khai bổ sung
+
+Ước lượng theo ngày công cho một người quen mã nguồn, chưa tính thời gian tuyển người dùng thử hoặc chờ bộ cài. Có thể bắt đầu A, B, C độc lập. R03–R06 giữ mã task đang dùng. F01 Undo đã sửa có bằng chứng riêng.
+
+| Thứ tự | Việc cần làm | Điều kiện nghiệm thu |
+|---|---|---|
+| A · P1 · 0,5–1 ngày | Sửa README, First Launch, trang Git và liên kết từ mục cài đặt. Dẫn từ tạo Library tới viết một note, bật ghi nhớ, thêm gợi nhớ và ôn lần đầu. Chỉ nơi tạo, kiểm tra và khôi phục backup qua Home → Advanced → Backup history. Phân biệt nguồn gốc Tolaria với phiên bản và kênh cài Memnova. | Build site thành công. Một người làm theo bản hướng dẫn trên Library dùng thử, chấm một lượt, tạo và verify backup rồi restore vào thư mục mới. Đối chiếu cả hai mặt, media, lịch sử và ngày đến hạn. Từng cam kết về bộ cài có artifact tương ứng hoặc nêu rõ trạng thái. |
+| B · P2 · 0,5 ngày | Mở rộng ca lỗi tải mẫu với Tab/Shift+Tab trước khi sửa. Ưu tiên để Tab dùng thứ tự DOM, giữ điều hướng mũi tên, Enter/Space và điểm focus ban đầu theo hành vi sản phẩm. Kiểm tra cả khi offline hoặc đang tải. | Ca ban đầu thất bại đúng ở Retry. Sau sửa, bàn phím đến được Retry từ hai hướng, Enter chỉ gửi một lần thử, chuột vẫn hoạt động. Xác nhận lại trên macOS WKWebView với Library cách ly. |
+| C · P2 · 0,5 ngày | Đối chiếu hợp đồng timestamp của VaultEntry, sửa ranh giới trả dữ liệu của Vite và demo. Thêm fixture có thời điểm cố định, gồm trường hợp thiếu ngày. | Cùng một file hiển thị cùng ngày theo locale/múi giờ đã chọn trên hai adapter và đường native. Thứ tự Modified đúng. Kiểm tra lại ảnh danh sách trong ca workspace. Giữ nguyên đơn vị của scheduler. |
+| D · R04 · 1 ngày | Kiểm tra danh sách 50/51 và 1.000 ghi chú ở ranh giới bật ảo hóa, sau lọc/xóa/đổi thứ tự và khi quay từ note. Bảng hiện dùng chỉ số cho pending focus. Chỉ thay logic sau khi tái hiện nhảy focus sai. Thực hiện lượt VoiceOver trên macOS. | Ghi item được focus và được đọc trước/sau, đường ra khỏi danh sách, focus sau đóng hộp thoại. Khắc phục lỗi tái hiện được, đính kèm ca hồi quy. [Danh sách](../src/components/learning/NoteMemoryList.tsx#L26) |
+| E · R03 · 0,5–1 ngày | Đo startup, thao tác và teardown trên cùng máy. Tối ưu phần tốn thời gian nhất. | Ba lượt core với retries=0. Báo min/median/max, mỗi lượt <300 giây, mục tiêu ≤240 giây. Giữ nguyên assertions và phạm vi core. |
+| F · R05 → R06 · 1–2 ngày kể từ khi có artifact | Trên các nền tảng thực sự dự định phân phối, đối chiếu phiên bản, nhà phát hành, chữ ký và cấu hình canvas. Cài mới và thử ghi → học → backup → restore. Tổng hợp các gate của repo theo phạm vi thay đổi. | Mỗi target có phiên bản/artifact, kết quả và lỗi mở. Xác nhận các chỉ dẫn tải của A dẫn đúng bản. Chấm lại sáu tiêu chí trên cùng trọng số sau A–F. |
+
+Sau A/B, có thể kiểm tra điểm onboarding với 5 người lần đầu dùng Memnova. Mục tiêu đề xuất là ít nhất 4/5 người tự tạo note, thêm gợi nhớ và hoàn thành lượt ôn đầu trong 5 phút. Ghi riêng bước họ cần trợ giúp và liệu họ tìm được cách giữ lịch học khi đổi máy. Đây là mục tiêu cho vòng đánh giá tiếp theo.
+
+### Bằng chứng của lượt chấm điểm
+
+- **14/11, Chromium:** `pnpm exec playwright test --config playwright.integration.config.ts tests/integration/note-memory-workspace.spec.ts tests/integration/note-memory-layout.spec.ts --retries=0` đạt **16/16** trong **1,6 phút**. Đã xem ảnh dashboard và panel trên viewport 480 px ở zoom 150% tiếng Đức, cùng ảnh workspace sau khi tạm dừng. Probe Retry riêng ghi lại thứ tự focus và ảnh `/tmp/memnova-audit-20261114-retry.png`. Bộ ảnh Playwright ở `/tmp/memnova-audit-20261114-pw/` trên máy review.
+- **14/11, logic:** 17/17 Vitest ở NoteLearningDashboard, NoteLearningPanel, useLearningDialogFocus và useLearningLibrary.noteWorkspace. `cargo test --manifest-path src-tauri/Cargo.toml --lib learning::note_backup_tests` đạt 8/8. `pnpm l10n:validate` đạt 18 catalog, 990 khóa gốc. Tài liệu Modern Web Guidance đã đối chiếu về focus, tên điều khiển và thao tác bàn phím.
+- **Số lịch sử ngày 19/10:** frontend 87,37% line coverage, Rust 86,38%, core smoke 54/54 trong 274,30 giây. Chưa chạy lại full coverage, full smoke, native, VoiceOver hay signed installer trong lượt docs-only này. Lần cuối có Codacy trên mã sửa Undo ghi nhận không có Critical/High mới. Lượt này không có mã thay đổi để quét.
+- **Phạm vi thay đổi:** bổ sung đánh giá và kế hoạch vào tài liệu này. CodeScene: not run (optional integration unavailable). Localization: no UI copy changes. PostHog: không cần event cho review. Refactor và ADR mới: không có.
 
 ## Phụ lục — probe tái lập F01
 
