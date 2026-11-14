@@ -49,7 +49,7 @@ Tolaria offers a rich editor for daily writing and a raw Markdown mode for exact
 
 ## Rich Editing
 
-The rich editor supports blocks, slash commands, wikilinks, tables, code blocks, images, Mermaid diagrams, LaTeX-style math, and markdown-backed whiteboards.
+The rich editor supports blocks, slash commands, wikilinks, tables, code blocks, images, Mermaid diagrams, and LaTeX-style math. Memnova 0.1.0 preserves existing whiteboard blocks and shows a notice in their place.
 
 Use it when you want to write and reorganize quickly without thinking about Markdown syntax.
 
@@ -103,7 +103,7 @@ Settings control whether PDFs, images, and unsupported files appear in All Notes
 
 ## Whiteboards
 
-Whiteboards use tldraw in the editor, but their durable representation stays in Markdown. That keeps them inside the vault and versioned by Git with the rest of your notes.
+An existing whiteboard stays in the Markdown file alongside your writing. You can edit the surrounding text and save the note. Memnova 0.1.0 displays a notice where the drawing belongs. Viewing and editing the drawing require a compatible editor.
 
 ## Git Boundary
 

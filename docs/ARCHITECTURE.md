@@ -856,7 +856,7 @@ The desktop MCP WebSocket bridge is intentionally local-only. `mcp-server/ws-bri
 | `trigger_menu_command` | Emit a native menu command ID for deterministic shortcut QA |
 | `update_current_window_min_size` | Update the active Tauri window's minimum size and optionally grow it to fit restored panes |
 
-`get_build_number` feeds the bottom status bar label. It preserves legacy `bNNN` date-build labels, renders local `0.1.0` / `0.0.0` builds as `dev`, formats calendar alpha builds as `Alpha YYYY.M.D.N`, strips any calendar `-stable.N` suffix back to `YYYY.M.D`, and keeps legacy semver releases readable instead of falling back to `?`.
+`get_build_number` feeds the bottom status bar label. It preserves legacy `bNNN` date-build labels, renders `0.0.0` as `dev` and the first Memnova release as `v0.1.0`, formats calendar alpha builds as `Alpha YYYY.M.D.N`, strips any calendar `-stable.N` suffix back to `YYYY.M.D`, and keeps legacy semver releases readable instead of falling back to `?`.
 
 ## Mock Layer
 

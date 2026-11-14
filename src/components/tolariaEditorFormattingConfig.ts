@@ -273,7 +273,7 @@ export function getTolariaSlashMenuItems(
     [
       createMermaidSlashMenuItem(editor),
       createMathSlashMenuItem(editor, labels),
-      createWhiteboardSlashMenuItem(editor),
+      ...(import.meta.env.DEV ? [createWhiteboardSlashMenuItem(editor)] : []),
     ],
   )
 

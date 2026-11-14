@@ -9,7 +9,7 @@ Tolaria offers a rich editor for daily writing and a raw Markdown mode for exact
 
 ## Rich Editing
 
-The rich editor supports blocks, slash commands, wikilinks, tables, code blocks, images, Mermaid diagrams, LaTeX-style math, and markdown-backed whiteboards.
+The rich editor supports blocks, slash commands, wikilinks, tables, code blocks, images, Mermaid diagrams, and LaTeX-style math. Memnova 0.1.0 preserves existing whiteboard blocks and shows a notice in their place.
 
 Use it when you want to write and reorganize quickly without thinking about Markdown syntax.
 

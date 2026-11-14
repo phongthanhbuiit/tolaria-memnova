@@ -1149,3 +1149,5 @@ Read errors in `useLearningLibrary.load` follow the same Library generation/read
 - `useLearningDialogFocus` / `useLearningDialogDismiss`: retain the invoking DOM control and keep the current busy/owner guard available to external Escape callbacks. In-flight mutation protection remains active.
 - `focusLearningDialogTrigger`: focus only the actual learning dialog action before its click handler opens the dialog. This makes macOS WebKit pointer activation match keyboard/Chromium focus return without adding document-wide listeners or changing shadcn Dialog.
 - `NoteMemoryList`: small lists render directly; large lists reuse react-virtuoso with the dashboard scroll parent. Only mounted row controls are retained. Keyboard movement can request an offscreen index and focus it when mounted; unavailable notes remain unavailable.
+
+The v0.1.0 production renderer retains the Markdown whiteboard codec and replaces the drawing editor with `PreservedWhiteboard`. The placeholder reports an unavailable study face to the render gate. Only development builds import the drawing SDK and offer the whiteboard insertion command.

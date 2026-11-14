@@ -28,14 +28,15 @@ import { literalNoteMarkerBlock } from './literalNoteMarkerBlock'
 import { NoteTitleIcon } from './NoteTitleIcon'
 import { MermaidDiagram } from './MermaidDiagram'
 import { SafeHtmlSpan } from './SafeMarkup'
+import { PreservedWhiteboard } from './PreservedWhiteboard'
 import { updateTldrawBlockPropsSafely } from './tldrawBlockProps'
 import { useExternalMediaPreview } from '../utils/mediaPreviewRuntime'
 import { Textarea } from './ui/textarea'
 import { dispatchRichEditorExternalChange } from './editorExternalChangeEvents'
 
-const TldrawWhiteboard = lazy(() => import('./TldrawWhiteboard').then(module => ({
+const TldrawWhiteboard = import.meta.env.DEV ? lazy(() => import('./TldrawWhiteboard').then(module => ({
   default: module.TldrawWhiteboard,
-})))
+}))) : null
 type AudioBlockProps = ComponentProps<typeof AudioBlock>
 type VideoBlockProps = ComponentProps<typeof VideoBlock>
 type MediaBlockPreviewProps = {
@@ -355,7 +356,7 @@ const TldrawBlock = createReactBlockSpec(
   {
     runsBefore: ['codeBlock'],
     meta: { selectable: false },
-    render: (props) => (
+    render: (props) => TldrawWhiteboard ? (
       <Suspense fallback={<div className="tldraw-whiteboard tldraw-whiteboard--loading" />}>
         <TldrawWhiteboard
           documentScope={props.editor}
@@ -388,7 +389,7 @@ const TldrawBlock = createReactBlockSpec(
           }}
         />
       </Suspense>
-    ),
+    ) : <PreservedWhiteboard blockId={props.block.id} />,
   },
 )
 

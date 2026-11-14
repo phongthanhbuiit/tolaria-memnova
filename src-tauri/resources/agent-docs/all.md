@@ -24,10 +24,12 @@ For an optional sample, open **Advanced** and choose **Download sample Library**
 
 ## Learn from a note
 
-1. Open a Markdown note and write the material to remember on its **Content → Article** face.
-2. Open **Memorization** and choose **Enable memorization**.
-3. Choose **Add mnemonic**. Write text, add an image, or draw on the **Mnemonic** face.
+1. Open a Markdown note and write the material to remember.
+2. In **Properties**, turn on **Spaced repetition**. If prompted, prepare the Library’s learning data first.
+3. Open **Memorization → Add mnemonic**. Add text or an image as a cue. Switch between the article and mnemonic in **Content**.
 4. Save and choose **Study**. Reveal the mnemonic and grade your recall.
+
+Version 0.1.0 preserves existing drawing blocks in Markdown. Drawing display and editing are unavailable in this release.
 
 Both faces belong to the same Markdown file. The learning schedule and review history live in the Library's private learning data. For a recoverable copy of the entire Library, open **Home → Advanced → Backup history**, then create and verify a backup. Restore a verified backup into a new folder when needed.
 
@@ -211,7 +213,7 @@ Tolaria offers a rich editor for daily writing and a raw Markdown mode for exact
 
 ## Rich Editing
 
-The rich editor supports blocks, slash commands, wikilinks, tables, code blocks, images, Mermaid diagrams, LaTeX-style math, and markdown-backed whiteboards.
+The rich editor supports blocks, slash commands, wikilinks, tables, code blocks, images, Mermaid diagrams, and LaTeX-style math. Memnova 0.1.0 preserves existing whiteboard blocks and shows a notice in their place.
 
 Use it when you want to write and reorganize quickly without thinking about Markdown syntax.
 
@@ -265,7 +267,7 @@ Settings control whether PDFs, images, and unsupported files appear in All Notes
 
 ## Whiteboards
 
-Whiteboards use tldraw in the editor, but their durable representation stays in Markdown. That keeps them inside the vault and versioned by Git with the rest of your notes.
+An existing whiteboard stays in the Markdown file alongside your writing. You can edit the surrounding text and save the note. Memnova 0.1.0 displays a notice where the drawing belongs. Viewing and editing the drawing require a compatible editor.
 
 ## Git Boundary
 
