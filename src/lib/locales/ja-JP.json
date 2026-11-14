@@ -988,5 +988,6 @@
   "learning.noteMemory.noDue": "このフォルダーには復習期限を迎えたノートがありません。",
   "learning.noteMemory.emptyHelp": "ノートを開いて暗記を有効にすると、ここに追加されます。",
   "learning.errorDetails": "技術的な詳細",
+  "properties.spacedRepetition": "間隔反復",
   "properties.noteMemoryHelp": "カスタムプロパティでは、このノートを習得済みにしたり復習予定を変更したりできません。"
 }

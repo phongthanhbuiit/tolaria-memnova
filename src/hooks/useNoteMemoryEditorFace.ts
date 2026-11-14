@@ -150,6 +150,7 @@ export function useNoteMemoryEditorFace(
   return {
     managed,
     isNoteMemory: true,
+    reviewsEnabled: state.reviewsEnabled,
     isFSRS: state.enabled,
     activeFace: state.face,
     hasBack: state.hasBack,

@@ -7,7 +7,7 @@ test('note controls use the system type scale and expose a primary study action'
   await expect(study).toBeEnabled()
   expect(await study.evaluate(element => getComputedStyle(element).fontSize)).toBe('13px')
   await expect(study).toHaveAttribute('data-variant', 'default')
-  await expect(page.getByRole('button', { name: 'Pause memorization', exact: true })).toHaveAttribute('data-variant', 'outline')
+  await expect(page.getByRole('button', { name: 'Saved drafts and recovery', exact: true })).toHaveCount(0)
 })
 
 test('new surfaces keep controls within small/medium/large windows across app zoom, themes and locales', async ({ page }, testInfo) => {

@@ -11,6 +11,7 @@ import { Button } from '../ui/button'
 import { translate, type AppLocale } from '../../lib/i18n'
 import { trackEvent } from '../../lib/telemetry'
 import { useLearningWorkspace } from './LearningContext'
+import { isLibraryNote, noteWorkspaceView } from './noteWorkspaceView'
 import { NoteMemoryStatus } from './NoteMemoryStatus'
 import { LearningError } from './LearningError'
 import { LegacyPageFlashcards } from './LegacyPageFlashcards'
@@ -20,7 +21,6 @@ import { focusLearningDialogTrigger } from './useLearningDialogFocus'
 import {
   joinVaultPath,
   notePathsMatch,
-  normalizeNotePathForIdentity,
 } from '../../utils/notePathIdentity'
 
 export function NoteLearningPanel({
@@ -50,41 +50,11 @@ export function NoteLearningPanel({
   const page = workspace.pages.find((page) =>
     notePathsMatch(joinVaultPath(workspace.root, page.path), path)
   )
-  const view = workspace.notes?.find(
-    (row) => row.view.pageId === page?.id
-  )?.view
-  const oldCards = workspace.cards.filter((card) => card.pageId === page?.id)
-  const outside = !normalizeNotePathForIdentity(path).startsWith(
-    `${normalizeNotePathForIdentity(workspace.root)}/`
-  )
+  const view = noteWorkspaceView(workspace, path)
+  const oldCards = workspace.cards.filter(card => card.pageId === page?.id && card.id !== view?.binding?.cardId)
+  const outside = !isLibraryNote(workspace.root, path)
   const enabled = Boolean(view?.config?.enabled)
   const needsConversion = oldCards.length > 0 && !view?.binding
-  const change = async () => {
-    if (locked.current || outside) return
-    locked.current = true
-    setBusy(true)
-    setError(null)
-    try {
-      await workspace.setNoteEnabled(path, !enabled)
-      trackEvent('memnova_note_learning_toggled', { enabled: enabled ? 0 : 1 })
-    } catch (error) {
-      if (String(error).includes('note-conversion-required'))
-        setConversion(true)
-      else if (String(error).includes('note-recovery-required'))
-        setRecovery(true)
-      trackEvent('memnova_note_learning_toggle_failed', {
-        stage: String(error).includes('note-recovery-required')
-          ? 'recovery'
-          : String(error).includes('note-conversion-required')
-            ? 'conversion'
-            : 'configure',
-      })
-      setError(String(error))
-    } finally {
-      locked.current = false
-      setBusy(false)
-    }
-  }
   const editMnemonic = async () => {
     if (!onEditMnemonic || locked.current || outside) return
     locked.current = true; setBusy(true); setError(null)
@@ -129,47 +99,25 @@ export function NoteLearningPanel({
           <p role="status">{t('learning.noteMemory.missingMnemonic')}</p>
         )}
         <div className="note-memory-actions">
-          {needsConversion ? (
-            <Button disabled={busy} onClickCapture={focusLearningDialogTrigger} onClick={() => setConversion(true)}>
-              <Swap aria-hidden="true" />
-              {t('learning.noteMemory.title')}
-            </Button>
-          ) : (
-            <Button
-              variant={enabled ? 'outline' : 'default'}
-              disabled={
-                busy ||
-                outside ||
-                view?.state === 'pending' ||
-                view?.state === 'invalid'
-              }
-              onClick={() => {
-                void change()
-              }}
-            >
-              {t(
-                enabled
-                  ? 'learning.noteMemory.disable'
-                  : view?.config ? 'learning.resume' : 'learning.noteMemory.enable'
-              )}
-            </Button>
-          )}
+          {needsConversion && <Button disabled={busy} onClickCapture={focusLearningDialogTrigger} onClick={() => setConversion(true)}>
+            <Swap aria-hidden="true" />{t('learning.noteMemory.title')}
+          </Button>}
           {enabled && view?.state === 'draft' && onEditMnemonic && <Button disabled={busy} onClick={() => { void editMnemonic() }}><PencilSimpleLine aria-hidden="true" />{t('editor.noteMemory.addMnemonic')}</Button>}
-          <Button
-            variant={view?.state === 'ready' ? 'default' : 'outline'}
+          {view?.state === 'ready' && <Button
+            variant="default"
             onClickCapture={focusLearningDialogTrigger}
-            disabled={busy || view?.state !== 'ready' || !page}
+            disabled={busy || !page}
             onClick={() =>
               workspace.requestStudy(page ? [page.id] : [], 'notes')
             }
           >
             <Play aria-hidden="true" />
             {t('learning.study')}
-          </Button>
+          </Button>}
         </div>
-        <div className="border-t border-border pt-2">
+        {view?.state === 'pending' && <div className="border-t border-border pt-2">
           <Button
-            variant={view?.state === 'pending' ? 'default' : 'ghost'}
+            variant="default"
             onClickCapture={focusLearningDialogTrigger}
             disabled={busy}
             onClick={() => setRecovery(true)}
@@ -177,7 +125,7 @@ export function NoteLearningPanel({
             <ClockCounterClockwise aria-hidden="true" />
             {t('learning.noteMemory.recoveryTitle')}
           </Button>
-        </div>
+        </div>}
         {oldCards.length > 0 && (
           <section className="space-y-4 border-t pt-4">
             <Button

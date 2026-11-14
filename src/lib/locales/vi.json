@@ -988,5 +988,6 @@
   "learning.noteMemory.noDue": "Không có ghi chú đến hạn trong thư mục này.",
   "learning.noteMemory.emptyHelp": "Mở một ghi chú và bật ghi nhớ để thêm vào đây.",
   "learning.errorDetails": "Chi tiết kỹ thuật",
+  "properties.spacedRepetition": "Ôn tập ngắt quãng",
   "properties.noteMemoryHelp": "Thuộc tính tùy chỉnh không đánh dấu ghi chú đã thuộc và không thay đổi lịch ôn tập."
 }

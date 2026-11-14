@@ -35,7 +35,6 @@ async function addCard(page: Page, question: string, wholePage = false) {
 }
 
 test('one lesson owns independent cards, a live page answer, resumable waiting and undo', async ({ page }) => {
-  await openLesson(page)
   await addCard(page, 'First independent question')
   await addCard(page, 'Recall the complete lesson', true)
   const cards = page.getByRole('region', { name: 'Flashcards', exact: true })
@@ -69,7 +68,6 @@ test('one lesson owns independent cards, a live page answer, resumable waiting a
 })
 
 test('retained clones remain editable and suspension and trash recovery preserve the lesson', async ({ page }) => {
-  await openLesson(page)
   const originalId = await addCard(page, 'Lifecycle question')
   const cards = page.getByRole('region', { name: 'Flashcards', exact: true })
   const original = cards.getByRole('article').filter({ has: page.getByRole('button', { name: 'Lifecycle question', exact: true }) }).first()
@@ -99,7 +97,6 @@ test('retained clones remain editable and suspension and trash recovery preserve
 })
 
 test('study controls remain visible and usable in a compact window', async ({ page }, testInfo) => {
-  await openLesson(page)
   await addCard(page, 'Compact study question')
   await page.getByRole('region', { name: 'Flashcards', exact: true }).getByRole('button', { name: 'Study', exact: true }).click()
   await page.setViewportSize({ width: 480, height: 800 })
@@ -120,7 +117,6 @@ test('study controls remain visible and usable in a compact window', async ({ pa
 })
 
 test('card form keeps actions visible with long vocabulary content in a compact window', async ({ page }, testInfo) => {
-  await openLesson(page)
   await addCard(page, 'Existing vocabulary question')
   await page.getByRole('button', { name: 'Existing vocabulary question', exact: true }).click()
   const dialog = page.getByRole('dialog')
@@ -148,7 +144,6 @@ test('card form keeps actions visible with long vocabulary content in a compact 
 })
 
 test('backup catalog survives reload and requires verification before restore', async ({ page }) => {
-  await openLesson(page)
   await page.getByRole('button', { name: 'Home', exact: true }).click()
   await page.getByRole('button', { name: 'Advanced', exact: true }).click()
   const panel = page.getByRole('region', { name: 'Backup history', exact: true })

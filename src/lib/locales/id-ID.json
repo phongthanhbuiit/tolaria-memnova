@@ -988,5 +988,6 @@
   "learning.noteMemory.noDue": "Tidak ada catatan yang perlu diulas di folder ini.",
   "learning.noteMemory.emptyHelp": "Buka catatan dan aktifkan hafalan untuk menambahkannya di sini.",
   "learning.errorDetails": "Detail teknis",
+  "properties.spacedRepetition": "Pengulangan berjarak",
   "properties.noteMemoryHelp": "Properti khusus tidak menandai catatan ini sebagai sudah dipelajari atau mengubah jadwal ulasannya."
 }

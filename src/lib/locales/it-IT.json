@@ -988,5 +988,6 @@
   "learning.noteMemory.noDue": "Nessuna nota da ripassare in questa cartella.",
   "learning.noteMemory.emptyHelp": "Apri una nota e attiva la memorizzazione per aggiungerla qui.",
   "learning.errorDetails": "Dettagli tecnici",
+  "properties.spacedRepetition": "Ripetizione dilazionata",
   "properties.noteMemoryHelp": "Le proprietà personalizzate non contrassegnano questa nota come appresa e non ne modificano il calendario dei ripassi."
 }

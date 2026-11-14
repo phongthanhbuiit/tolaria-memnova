@@ -17,6 +17,18 @@ describe('canonical note editor document', () => {
     doc.select('back')
     expect(doc.project()).toBe(`${header}  Mnemonic ![image](attachments/ảnh.svg)\n`)
   })
+  it('returns to the article when a review is paused on the mnemonic and keeps both faces', () => {
+    const active = source.replace('_memnova_learning_enabled: false', '_memnova_learning_enabled: true')
+    for (const external of [false, true]) {
+      const doc = make(active)
+      doc.select('back')
+      if (external) doc.receive(source)
+      else doc.stageConfiguration(active, source, parseNoteMemoryDocument(source).config!)
+      expect(doc.getSnapshot().face).toBe('front')
+      expect(doc.getSnapshot().source).toBe(source)
+      expect(doc.project()).toContain('# Article')
+    }
+  })
   it('keeps a literal marker in an ordinary note unsplit', () => {
     const doc = make('# Ordinary\n<!-- FLASHCARD:BACK -->\nExample')
     expect(doc.getSnapshot().enabled).toBe(false)

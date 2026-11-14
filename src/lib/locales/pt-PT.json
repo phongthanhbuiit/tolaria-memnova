@@ -988,5 +988,6 @@
   "learning.noteMemory.noDue": "Não há notas para rever nesta pasta.",
   "learning.noteMemory.emptyHelp": "Abra uma nota e ative a memorização para a adicionar aqui.",
   "learning.errorDetails": "Detalhes técnicos",
+  "properties.spacedRepetition": "Repetição espaçada",
   "properties.noteMemoryHelp": "As propriedades personalizadas não marcam esta nota como aprendida nem alteram o seu calendário de revisão."
 }

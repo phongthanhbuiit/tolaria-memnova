@@ -6,6 +6,7 @@ import { patchNoteMemoryConfig, patchNoteMemoryFace } from './noteMemoryPatch'
 interface EditorSnapshot {
   source: string
   face: MemoryFace
+  reviewsEnabled: boolean
   enabled: boolean
   hasBack: boolean
   linked: boolean
@@ -16,8 +17,9 @@ interface EditorSnapshot {
 function snapshot(source: string, face: MemoryFace = 'front', conflict = false, externalVersion = 0): EditorSnapshot {
   const doc = parseNoteMemoryDocument(source)
   const enabled = Boolean(doc.config && !doc.issues.length)
+  const reviewsEnabled = enabled && Boolean(doc.config?.enabled)
   const linked = enabled && doc.config?.back.kind === 'page'
-  return { source, face, enabled, hasBack: Boolean(doc.offsets.back) || linked, linked, conflict, externalVersion }
+  return { source, face, enabled, reviewsEnabled, hasBack: Boolean(doc.offsets.back) || linked, linked, conflict, externalVersion }
 }
 
 /** One complete source per editor visit; face projections never become the saved document. */
@@ -47,7 +49,7 @@ export class NoteEditorDocument {
   deactivate = (): void => { this.active = false }
 
   private publish(next: EditorSnapshot): void {
-    this.state = next
+    this.state = this.state.reviewsEnabled && !next.reviewsEnabled ? { ...next, face: 'front' } : next
     this.listeners.forEach(listener => listener())
   }
 

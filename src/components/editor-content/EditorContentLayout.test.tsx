@@ -178,11 +178,20 @@ it('shows source controls only for the mnemonic while preserving note width on b
 })
 it('labels note learning management separately from content and waits for the canonical flush', async () => {
   const flush = vi.fn().mockRejectedValueOnce(Error('Save failed'))
-  const workspace = { phase: 'ready', client: { supportsNoteMemory: true }, root: '/vault', flush } as unknown as LearningWorkspace
+  const workspace = { phase: 'ready', client: { supportsNoteMemory: true }, root: '/vault', notes: [{ view: { path: 'project/demo.md', config: { enabled: true } } }], flush } as unknown as LearningWorkspace
   render(<LearningContext.Provider value={workspace}><EditorContentLayout {...createModel({ flashcard: memoryFace('front') })} /></LearningContext.Provider>)
   const management = screen.getByRole('tab', { name: 'Memorization', exact: true })
   fireEvent.mouseDown(management, { button: 0, ctrlKey: false })
   await waitFor(() => expect(flush).toHaveBeenCalledOnce())
   expect(screen.getByRole('tab', { name: 'Content', exact: true })).toHaveAttribute('aria-selected', 'true')
   expect(screen.getByRole('alert')).toHaveTextContent('Save failed')
+})
+
+it('keeps a plain editor free of tab stops and tab panels when learning is paused', () => {
+  const workspace = { root: '/vault', phase: 'ready', client: { supportsNoteMemory: true },
+    notes: [{ view: { path: 'project/demo.md', state: 'disabled', config: { enabled: false } } }] } as unknown as LearningWorkspace
+  render(<LearningContext.Provider value={workspace}><EditorContentLayout {...createModel()} /></LearningContext.Provider>)
+  expect(screen.queryByRole('tablist')).toBeNull()
+  expect(screen.queryByRole('tabpanel')).toBeNull()
+  expect(screen.getByTestId('single-editor-view')).toBeVisible()
 })

@@ -988,5 +988,6 @@
   "learning.noteMemory.noDue": "В этой папке нет заметок, требующих повторения.",
   "learning.noteMemory.emptyHelp": "Откройте заметку и включите запоминание, чтобы добавить её сюда.",
   "learning.errorDetails": "Технические подробности",
+  "properties.spacedRepetition": "Интервальное повторение",
   "properties.noteMemoryHelp": "Пользовательские свойства не отмечают заметку как выученную и не меняют расписание повторений."
 }

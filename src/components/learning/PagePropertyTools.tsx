@@ -69,7 +69,6 @@ export function PagePropertyTools({
       >
         <SlidersHorizontal aria-hidden="true" />{translate(locale, 'properties.page')}
       </Button>
-      <p className="text-xs text-muted-foreground">{translate(locale, 'properties.noteMemoryHelp')}</p>
       {!ready && (
         <p className="text-xs text-muted-foreground">
           {translate(locale, 'properties.readyHelp')}

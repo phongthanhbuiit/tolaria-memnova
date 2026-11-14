@@ -9,6 +9,8 @@
  *  - View current FSRS scheduling state
  */
 
+import { translate, type AppLocale } from '../../lib/i18n'
+import { Label } from '../ui/label'
 import { useLearningWorkspace } from '../learning/LearningContext'
 import { useCallback, useEffect, useState } from 'react'
 import { Cards, CalendarBlank, FolderOpen, MusicNote, PlusCircle, Sparkle, TextAa, Image as ImageIcon, Tag, LinkSimple, GraduationCap } from '@phosphor-icons/react'
@@ -37,6 +39,7 @@ import { parseVocabularyLinks as parseWikilinks, stringifyVocabularyLinks as str
 type FrontmatterValue = string | number | boolean | string[] | null
 
 interface FlashcardPanelProps {
+  locale?: AppLocale
   entry: VaultEntry
   /** Active vault path — passed from Inspector so browse works even when
    *  entry.workspace is undefined (notes in the default vault). */
@@ -196,6 +199,7 @@ function resolveCardType(props: Record<string, VaultPropertyValue> | undefined):
 }
 
 export function FlashcardPanel({
+  locale = 'en',
   entry,
   vaultPath,
   onUpdateFrontmatter,
@@ -434,7 +438,7 @@ export function FlashcardPanel({
     await onUpdateFrontmatter(entry.path, 'audio', filename)
   }, [entry.path, entry.workspace, vaultPath, onUpdateFrontmatter])
 
-  if (learningWorkspace?.phase === 'ready') return null
+  if (learningWorkspace?.client?.supportsNoteMemory || learningWorkspace?.phase === 'ready' || learningWorkspace?.phase === 'loading') return null
 
   return (
     <div>
@@ -445,13 +449,12 @@ export function FlashcardPanel({
 
       {/* Spaced repetition toggle */}
       <div className="flex items-center justify-between px-1.5 py-1">
-        <span className="text-[12px] text-muted-foreground">Spaced repetition</span>
+        <Label htmlFor={`fsrs-toggle-${entry.path}`} className="text-xs text-muted-foreground">{translate(locale, 'properties.spacedRepetition')}</Label>
         <Switch
           id={`fsrs-toggle-${entry.path}`}
           checked={isEnabled}
           onCheckedChange={handleToggle}
           disabled={!onUpdateFrontmatter}
-          aria-label="Enable FSRS spaced repetition for this note"
         />
       </div>
 

@@ -1,5 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { beforeEach, expect, it, vi } from 'vitest'
+import { NoteMemorySwitch } from './NoteMemorySwitch'
 import { NoteLearningPanel } from './NoteLearningPanel'
 
 const workspace = {
@@ -7,10 +8,10 @@ const workspace = {
   clock: 1,
   error: null as string | null,
   root: '/library',
-  client: { vaultPath: '/library', libraryId: 'library', ensurePage: vi.fn() },
+  client: { supportsNoteMemory: true, vaultPath: '/library', libraryId: 'library', ensurePage: vi.fn() },
   pages: [] as { id: string; path: string }[],
   notes: [] as unknown[],
-  cards: [] as { pageId: string }[],
+  cards: [] as { id: string; pageId: string }[],
   setNoteEnabled: vi.fn().mockResolvedValue(undefined),
   requestStudy: vi.fn(),
   flush: vi.fn(),
@@ -25,9 +26,9 @@ it('keeps opening an ordinary note read-only until explicit enable', async () =>
   workspace.pages = []
   workspace.notes = []
   workspace.cards = []
-  render(<NoteLearningPanel path="/library/a.md" locale="en" />)
+  render(<><NoteMemorySwitch path="/library/a.md" locale="en" /><NoteLearningPanel path="/library/a.md" locale="en" /></>)
   expect(workspace.client.ensurePage).not.toHaveBeenCalled()
-  fireEvent.click(screen.getByRole('button', { name: 'Enable memorization' }))
+  fireEvent.click(screen.getByRole('switch', { name: 'Spaced repetition' }))
   await waitFor(() =>
     expect(workspace.setNoteEnabled).toHaveBeenCalledWith('/library/a.md', true)
   )
@@ -38,7 +39,7 @@ it('pauses an enabled note explicitly and offers only the selected note for stud
   workspace.notes = [
     {
       view: {
-        pageId: 'a',
+        path: 'a.md', pageId: 'a',
         state: 'ready',
         config: { enabled: true },
         diagnostics: [],
@@ -46,10 +47,10 @@ it('pauses an enabled note explicitly and offers only the selected note for stud
       },
     },
   ]
-  render(<NoteLearningPanel path="/library/a.md" locale="en" />)
+  render(<><NoteMemorySwitch path="/library/a.md" locale="en" /><NoteLearningPanel path="/library/a.md" locale="en" /></>)
   fireEvent.click(screen.getByRole('button', { name: 'Study' }))
   expect(workspace.requestStudy).toHaveBeenCalledWith(['a'], 'notes')
-  fireEvent.click(screen.getByRole('button', { name: 'Pause memorization' }))
+  fireEvent.click(screen.getByRole('switch', { name: 'Spaced repetition' }))
   await waitFor(() =>
     expect(workspace.setNoteEnabled).toHaveBeenCalledWith(
       '/library/a.md',
@@ -60,7 +61,7 @@ it('pauses an enabled note explicitly and offers only the selected note for stud
 it('keeps existing old-card editing behind an explicit entry', () => {
   workspace.pages = [{ id: 'a', path: 'a.md' }]
   workspace.notes = []
-  workspace.cards = [{ pageId: 'a' }]
+  workspace.cards = [{ id: 'legacy', pageId: 'a' }]
   render(<NoteLearningPanel path="/library/a.md" locale="en" />)
   fireEvent.click(screen.getByRole('button', { name: /Old cards/ }))
   expect(screen.getByText('Retained old cards')).toBeInTheDocument()
@@ -74,10 +75,10 @@ beforeEach(() => {
 })
 it('offers a draft mnemonic action without enabling or grading any source', async () => {
   workspace.pages = [{ id: 'a', path: 'a.md' }]
-  workspace.notes = [{ view: { pageId: 'a', state: 'draft', config: { enabled: true }, hasBack: false } }]
+  workspace.notes = [{ view: { path: 'a.md', pageId: 'a', state: 'draft', config: { enabled: true }, hasBack: false } }]
   const edit = vi.fn().mockResolvedValue(undefined)
   render(<NoteLearningPanel path="/library/a.md" locale="en" onEditMnemonic={edit} />)
-  expect(screen.getByRole('button', { name: 'Study', exact: true })).toBeDisabled()
+  expect(screen.queryByRole('button', { name: 'Study', exact: true })).toBeNull()
   fireEvent.click(screen.getByRole('button', { name: 'Add mnemonic', exact: true }))
   await waitFor(() => expect(edit).toHaveBeenCalledOnce())
   expect(workspace.setNoteEnabled).not.toHaveBeenCalled()
@@ -85,14 +86,15 @@ it('offers a draft mnemonic action without enabling or grading any source', asyn
 })
 it('labels paused notes with resume and keeps mutation errors across a successful background read', async () => {
   workspace.pages = [{ id: 'a', path: 'a.md' }]
-  workspace.notes = [{ view: { pageId: 'a', state: 'disabled', config: { enabled: false }, hasBack: true } }]
+  workspace.notes = [{ view: { path: 'a.md', pageId: 'a', state: 'disabled', config: { enabled: false }, hasBack: true } }]
   workspace.setNoteEnabled.mockRejectedValueOnce(Error('write rejected'))
-  const view = render(<NoteLearningPanel path="/library/a.md" locale="en" />)
-  fireEvent.click(screen.getByRole('button', { name: 'Resume', exact: true }))
+  const view = render(<NoteMemorySwitch path="/library/a.md" locale="en" />)
+  fireEvent.click(screen.getByRole('switch', { name: 'Spaced repetition' }))
   await screen.findByRole('alert')
   await workspace.refresh()
   workspace.clock++
-  view.rerender(<NoteLearningPanel path="/library/a.md" locale="en" />)
+  view.rerender(<NoteMemorySwitch path="/library/a.md" locale="en" />)
   expect(screen.getByRole('alert')).toHaveTextContent('write rejected')
-  expect(screen.getByText('Paused')).toBeInTheDocument()
+  expect(screen.getByRole('switch')).not.toBeChecked()
+  expect(screen.getByText(/review history are kept/)).toBeInTheDocument()
 })

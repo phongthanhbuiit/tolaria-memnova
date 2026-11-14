@@ -988,5 +988,6 @@
   "learning.noteMemory.noDue": "此文件夹中没有到期的笔记。",
   "learning.noteMemory.emptyHelp": "打开一篇笔记并启用记忆学习，即可将其添加到这里。",
   "learning.errorDetails": "技术详情",
+  "properties.spacedRepetition": "间隔重复",
   "properties.noteMemoryHelp": "自定义属性不会将此笔记标记为已学会，也不会更改复习计划。"
 }

@@ -44,7 +44,7 @@ test('linked answers and typed card drafts survive preview, save, reload, study 
   const source = '---\n_memnova_page_id: c5ea23ed-5653-468b-a90e-71f7a96edca1\n---\n# Grow Newsletter\n\nAn independent source for legacy answer preview.\n'
   fs.writeFileSync(sourcePath,source)
   try {
-  await openLesson(page,root)
+  await openFixtureVault(page,root,{preserveLearningState:true})
   await page.evaluate(async root => {
     const modulePath = '/src/lib/learning/client.ts'
     const {LearningClient} = await import(modulePath)
@@ -161,10 +161,7 @@ test('page properties stay in Markdown and use the same calendar and draft contr
       .getByTestId('note-list-container')
       .getByText('Alpha Project', { exact: true })
       .click()
-    await page.getByRole('tab', { name: 'Memorization', exact: true }).click()
-    await expect(
-      page.getByRole('button', { name: 'Enable memorization', exact: true }),
-    ).toBeEnabled()
+    await expect(page.getByRole('tab', { name: 'Memorization', exact: true })).toHaveCount(0)
     const tools = page.getByRole('button', {
       name: 'Page properties',
       exact: true,

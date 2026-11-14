@@ -5,6 +5,7 @@ import { Separator } from './ui/separator'
 import { parseFrontmatter, detectFrontmatterState, detectFrontmatterWarnings } from '../utils/frontmatter'
 import { pagePropertySnapshot } from '../lib/learning/pagePropertySnapshot'
 import { parseNoteMemoryDocument } from '../lib/learning/noteMemoryDocument'
+import { NoteMemorySwitch } from './learning/NoteMemorySwitch'
 import { NoteMemoryInspector } from './learning/NoteMemoryInspector'
 import { PagePropertyTools } from './learning/PagePropertyTools'
 import { DynamicPropertiesPanel } from './DynamicPropertiesPanel'
@@ -319,6 +320,7 @@ function InspectorBody({
         />
       )}
       {supportsFrontmatter(entry) && <PagePropertyTools path={entry.path} content={content} frontmatter={frontmatter} locale={locale} onUpdate={handleUpdateProperty} onRemove={handleDeleteProperty} />}
+      {supportsFrontmatter(entry) && <NoteMemorySwitch key={entry.path} path={entry.path} locale={locale} />}
       {supportsFrontmatter(entry) && <NoteMemoryInspector path={entry.path} content={content} locale={locale} />}
       {backlinks.length > 0 && <Separator />}
       <BacklinksPanel backlinks={backlinks} onNavigate={onNavigate} />
@@ -326,6 +328,7 @@ function InspectorBody({
       {supportsFrontmatter(entry) && (
         <>
           <FlashcardPanel
+            locale={locale}
             entry={entry}
             vaultPath={vaultPath}
             onUpdateFrontmatter={onUpdateFrontmatter}

@@ -33,20 +33,19 @@ test('explicit note enable, mnemonic editing, study and pause use the default wo
       .getByTestId('note-list-container')
       .getByText('Alpha Project', { exact: true })
       .click()
-    await page.getByRole('tab', { name: 'Memorization', exact: true }).click()
-    await expect(
-      page.getByRole('button', { name: 'Enable memorization', exact: true })
-    ).toBeEnabled()
+    const memory = page.getByRole('tab', { name: 'Memorization', exact: true })
+    const content = page.getByRole('tab', { name: 'Content', exact: true })
+    await expect(memory).toHaveCount(0)
+    await expect(content).toHaveCount(0)
+    const openProperties = page.getByRole('button', { name: 'Open the properties panel', exact: true })
+    if (await openProperties.isVisible()) await openProperties.click()
+    const repeat = page.getByRole('switch', { name: 'Spaced repetition', exact: true })
+    await expect(repeat).not.toBeChecked()
     expect(fs.readFileSync(owner, 'utf8')).toBe(original)
-    await expect(
-      page.getByRole('button', { name: 'Add card', exact: true })
-    ).toHaveCount(0)
-    await page
-      .getByRole('button', { name: 'Enable memorization', exact: true })
-      .click()
-    await expect(
-      page.getByRole('button', { name: 'Pause memorization', exact: true })
-    ).toBeEnabled()
+    await repeat.click()
+    await expect(repeat).toBeChecked()
+    await expect(content).toHaveAttribute('aria-selected', 'true')
+    await memory.click()
     await expect
       .poll(() => fs.readFileSync(owner, 'utf8'))
       .toContain('_memnova_learning_enabled: true')
@@ -91,12 +90,11 @@ test('explicit note enable, mnemonic editing, study and pause use the default wo
     await study.getByRole('button', { name: 'Close', exact: true }).click()
     await expect(panel.getByRole('button', { name: 'Study', exact: true })).toBeFocused()
     expect(fs.readFileSync(owner, 'utf8')).toBe(beforeReview)
-    await page
-      .getByRole('button', { name: 'Pause memorization', exact: true })
-      .click()
-    await expect(
-      page.getByRole('button', { name: 'Resume', exact: true })
-    ).toBeEnabled()
+    await repeat.click()
+    await expect(repeat).not.toBeChecked()
+    await expect(memory).toHaveCount(0)
+    await expect(content).toHaveCount(0)
+    await expect(page.locator('.bn-editor:visible')).toBeVisible()
     expect(fs.readFileSync(owner, 'utf8')).toBe(
       beforeReview.replace(
         '_memnova_learning_enabled: true',
@@ -107,6 +105,11 @@ test('explicit note enable, mnemonic editing, study and pause use the default wo
     await page.screenshot({
       path: testInfo.outputPath('note-memory-paused.png'),
     })
+    await repeat.focus()
+    await page.keyboard.press('Space')
+    await expect(content).toHaveAttribute('aria-selected', 'true')
+    await expect(repeat).toBeChecked()
+    expect(fs.readFileSync(owner, 'utf8')).toBe(beforeReview)
   } finally {
     removeFixtureVaultCopy(root)
   }
@@ -134,10 +137,8 @@ test(`ordinary note editing retains a literal two-face marker without enabling l
     expect(saved).toContain('Ordinary article.')
     expect(saved).not.toContain('_memnova_learning_')
     expect(saved).not.toContain('_memnova_page_id')
-    await page.getByRole('tab', { name: 'Memorization', exact: true }).click()
-    await expect(page.getByRole('button', { name: 'Enable memorization', exact: true })).toBeEnabled()
+    await expect(page.getByRole('tab', { name: 'Memorization', exact: true })).toHaveCount(0)
     expect(fs.readFileSync(owner, 'utf8')).toBe(saved)
-    await page.getByRole('tab', { name: 'Content', exact: true }).click()
     await openCommandPalette(page); await executeCommand(page, 'Toggle Raw')
     const raw = page.locator('.cm-content')
     await expect(raw).toContainText('<!-- FLASHCARD:BACK -->')

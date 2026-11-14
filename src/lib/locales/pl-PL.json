@@ -988,5 +988,6 @@
   "learning.noteMemory.noDue": "W tym folderze nie ma notatek do powtórki.",
   "learning.noteMemory.emptyHelp": "Otwórz notatkę i włącz zapamiętywanie, aby dodać ją tutaj.",
   "learning.errorDetails": "Szczegóły techniczne",
+  "properties.spacedRepetition": "Powtórki interwałowe",
   "properties.noteMemoryHelp": "Własne właściwości nie oznaczają notatki jako nauczonej ani nie zmieniają harmonogramu powtórek."
 }

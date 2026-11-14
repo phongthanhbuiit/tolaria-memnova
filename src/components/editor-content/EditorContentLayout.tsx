@@ -11,6 +11,7 @@ import { ConflictNoteBanner } from '../ConflictNoteBanner'
 import { RawEditorView } from '../RawEditorView'
 import { SingleEditorView } from '../SingleEditorView'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../ui/tabs'
+import { showsLearningTabs } from '../learning/noteWorkspaceView'
 import { PageFlashcards } from '../learning/PageFlashcards'
 import { useLearningWorkspace } from '../learning/LearningContext'
 import { FlashcardEditorTabs } from '../FlashcardEditorTabs'
@@ -505,7 +506,11 @@ export function EditorContentLayout(model: EditorContentModel) {
   const mnemonicFocusPath = useRef<string | null>(null)
   const [learningPanel, setLearningPanel] = useState({ path: '', tab: 'content' })
   const [tabError, setTabError] = useState<string | null>(null)
-  const tab = learningPanel.path === path ? learningPanel.tab : 'content'
+  const showLearningTabs = Boolean(activeTab && !isVaultLoading && !isDeletedPreview &&
+    (!activeTab.entry.fileKind || activeTab.entry.fileKind === 'markdown') &&
+    showsLearningTabs(learningWorkspace, path, Boolean(flashcard?.isFSRS && !flashcard.isNoteMemory)))
+  const tab = showLearningTabs && learningPanel.path === path ? learningPanel.tab : 'content'
+  if (!showLearningTabs && learningPanel.tab !== 'content') setLearningPanel({ path, tab: 'content' })
   const changeLearningTab = async (value: string) => {
     try { await learningWorkspace?.flush(); setLearningPanel({ path, tab: value }); setTabError(null) }
     catch (error) { setTabError(String(error)) }
@@ -535,6 +540,9 @@ export function EditorContentLayout(model: EditorContentModel) {
     'flex flex-1 flex-col min-w-0 min-h-0',
     noteWidth === 'wide' ? 'editor-content-width--wide' : 'editor-content-width--normal',
   )
+  const showFaceTabs = flashcard.isFSRS && !effectiveRawMode && !diffMode &&
+    (flashcard.reviewsEnabled !== false || flashcard.hasBack)
+  const facePanel = flashcard.isNoteMemory && showFaceTabs
   const chromeTab = activeTab ?? loadingTab
   const chromePath = chromeTab?.entry.path ?? path
   const chromeWordCount = activeTab ? wordCount : 0
@@ -553,12 +561,12 @@ export function EditorContentLayout(model: EditorContentModel) {
         isVaultLoading={isVaultLoading}
         locale={locale}
       />
-      {learningWorkspace && showActiveContent && <TabsList variant="line" className="note-memory-workspace-tabs mx-3 mt-1" aria-label={translate(locale, learningWorkspace.client?.supportsNoteMemory ? 'learning.noteMemory.management' : 'learning.cards')}><TabsTrigger value="content">{translate(locale, 'learning.content')}</TabsTrigger><TabsTrigger value="cards">{translate(locale, learningWorkspace.client?.supportsNoteMemory ? 'learning.noteMemory.management' : 'learning.cards')}</TabsTrigger></TabsList>}
+      {showLearningTabs && learningWorkspace && <TabsList variant="line" className="note-memory-workspace-tabs mx-3 mt-1" aria-label={translate(locale, learningWorkspace.client?.supportsNoteMemory ? 'learning.noteMemory.management' : 'learning.cards')}><TabsTrigger value="content">{translate(locale, 'learning.content')}</TabsTrigger><TabsTrigger value="cards">{translate(locale, learningWorkspace.client?.supportsNoteMemory ? 'learning.noteMemory.management' : 'learning.cards')}</TabsTrigger></TabsList>}
       {tabError && <p role="alert" className="px-4 text-sm text-destructive">{tabError}</p>}
-      {learningWorkspace && showActiveContent && <TabsContent value="cards" className="min-h-0 flex-1"><PageFlashcards key={path} path={path} locale={locale} onEditMnemonic={openMnemonic} /></TabsContent>}
-      <TabsContent value="content" forceMount className="flex min-h-0 flex-1 flex-col data-[state=inactive]:hidden">
+      {showLearningTabs && <TabsContent value="cards" className="min-h-0 flex-1"><PageFlashcards key={path} path={path} locale={locale} onEditMnemonic={openMnemonic} /></TabsContent>}
+      <TabsContent value="content" forceMount {...(!showLearningTabs && { role: undefined, 'aria-labelledby': undefined, tabIndex: undefined })} className="flex min-h-0 flex-1 flex-col data-[state=inactive]:hidden">
       {/* Flashcard tab bar — only shown when FSRS is enabled on the active note */}
-      {showActiveContent && flashcard.isFSRS && !effectiveRawMode && !diffMode && (
+      {showActiveContent && showFaceTabs && (
         flashcard.isNoteMemory ? <NoteMemoryEditorTabs
           activeFace={flashcard.activeFace}
           hasBack={flashcard.hasBack}
@@ -577,7 +585,7 @@ export function EditorContentLayout(model: EditorContentModel) {
       )}
       {showActiveContent&&flashcard.activeFace==='back'&&flashcard.isNoteMemory&&flashcard.isFSRS&&flashcard.configureBack&&flashcard.noteMemoryPageId&&flashcard.sourceBack&&!effectiveRawMode&&!diffMode&&<NoteBackSourceToolbar back={flashcard.sourceBack} ownerPath={path} ownerPageId={flashcard.noteMemoryPageId} locale={locale} onApplyBack={flashcard.configureBack} onNavigate={onNavigateWikilink} />}
       {showActiveContent && (
-        <div className="flex min-h-0 flex-1 flex-col" id={memoryPanelId} role={flashcard.isNoteMemory && flashcard.isFSRS && !effectiveRawMode && !diffMode ? 'tabpanel' : undefined} aria-labelledby={flashcard.isNoteMemory && flashcard.isFSRS && !effectiveRawMode && !diffMode ? `${memoryPanelId}-${flashcard.activeFace}` : undefined}>
+        <div className="flex min-h-0 flex-1 flex-col" id={memoryPanelId} role={facePanel ? 'tabpanel' : undefined} aria-labelledby={facePanel ? `${memoryPanelId}-${flashcard.activeFace}` : undefined}>
           <EditorChrome
             isArchived={isArchived}
             onUnarchiveNote={onUnarchiveNote}

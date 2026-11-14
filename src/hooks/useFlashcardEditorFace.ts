@@ -37,6 +37,7 @@ export interface UseFlashcardEditorFaceOptions {
 
 interface FlashcardEditorFaceState {
   isNoteMemory?: boolean
+  reviewsEnabled?: boolean
   linkedBack?: boolean
   conflict?: boolean
   viewLoading?: boolean
