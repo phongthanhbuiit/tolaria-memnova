@@ -37,7 +37,7 @@ export default defineConfig({
       {
         text: "Start Here",
         items: [
-          { text: "Install Tolaria", link: "/start/install" },
+          { text: "Install Memnova", link: "/start/install" },
           { text: "First Launch", link: "/start/first-launch" },
           { text: "Getting Started Vault", link: "/start/getting-started-vault" },
           { text: "Open Or Create A Vault", link: "/start/open-or-create-vault" },

@@ -14,7 +14,7 @@
     "headings": [
       "Choose a Library",
       "Learn from a note",
-      "What Tolaria Creates",
+      "What Memnova Creates",
       "First Commands To Try",
       "AI Setup Prompt"
     ]
@@ -32,16 +32,14 @@
     ]
   },
   {
-    "title": "Install Tolaria",
+    "title": "Install Memnova",
     "path": "pages/start/install.md",
     "url": "/start/install",
     "section": "start",
     "headings": [
       "Download",
-      "Homebrew",
-      "Platform Status",
-      "Managed Windows Devices",
-      "After Installing"
+      "Keep your learning progress",
+      "Platform status"
     ]
   },
   {

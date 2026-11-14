@@ -31,9 +31,9 @@ For an optional sample, open **Advanced** and choose **Download sample Library**
 
 Both faces belong to the same Markdown file. The learning schedule and review history live in the Library's private learning data. For a recoverable copy of the entire Library, open **Home → Advanced → Backup history**, then create and verify a backup. Restore a verified backup into a new folder when needed.
 
-## What Tolaria Creates
+## What Memnova Creates
 
-Tolaria stores app-level settings on the local machine. Your notes stay in the vault folder you choose.
+Memnova stores app-level settings on the local machine. Your notes stay in the vault folder you choose.
 
 | Data | Stored in |
 | --- | --- |
@@ -95,51 +95,30 @@ After you understand the sample, open your own vault. Tolaria does not require a
 
 ---
 
-# Install Tolaria
+# Install Memnova
 
 Source: start/install.md
 URL: /start/install
 
-# Install Tolaria
+# Install Memnova
 
-Tolaria publishes desktop builds for macOS, Windows, and Linux. macOS is the primary day-to-day development target, with Windows and Linux builds supported through the release pipeline and fixed as platform issues are found.
+Memnova builds from [Tolaria](https://github.com/refactoringhq/tolaria). macOS is the primary development target. Check the release assets for the operating system and architecture you use.
 
 ## Download
 
-Use the latest stable release unless you are intentionally testing pre-release builds:
+1. Open the [Memnova releases](https://github.com/phongthanhbuiit/tolaria-memnova/releases) page.
+2. Choose the latest release intended for your platform. Check the asset name, version and publisher before installing.
+3. Follow your operating system's normal installation prompts.
 
-- <a href="https://memnova.net/download/" target="_self">Download the latest stable build</a>
-- [Browse all GitHub releases](https://github.com/phongthanhbuiit/tolaria-memnova/releases)
-- <a href="https://memnova.net/releases/" target="_self">Read the release notes</a>
+For a new Library, continue with [First Launch](/start/first-launch). The sample Library is optional under **Advanced**.
 
-## Homebrew
+## Keep your learning progress
 
-On macOS you can install the cask:
+After you create notes and start reviewing them, use **Home → Advanced → Backup history** to create and verify a Library backup. A Git remote can sync tracked notes, while learning schedules and review history require the Library backup. Restore a verified backup into a new folder when moving or recovering a Library.
 
-```bash
-brew install --cask tolaria
-```
+## Platform status
 
-## Platform Status
-
-| Platform | Status | Notes |
-| --- | --- | --- |
-| macOS | Primary | Apple Silicon and Intel builds are published. Homebrew is available. |
-| Windows | Supported, early | NSIS installers are Authenticode-signed and updater bundles are Tauri-signed. Company-managed SmartScreen, Defender, or WDAC policies can still require IT approval of the Tolaria publisher before first install. |
-| Linux | Supported, early | AppImage, deb, and RPM artifacts are published. Desktop behavior depends on distribution WebKitGTK and input-method integration. |
-
-See [Supported Platforms](/reference/supported-platforms) for the current support policy.
-
-## Managed Windows Devices
-
-Do not disable SmartScreen or Windows Security to install Tolaria. On a managed Windows device, validate that the downloaded installer has a valid Tolaria Authenticode signature, then install it through the normal Windows prompt. If company policy still blocks the first run because reputation is not yet established, ask IT to approve the Tolaria publisher or deploy the same signed installer through the approved software portal.
-
-## After Installing
-
-1. Open Tolaria.
-2. Choose the Getting Started vault if you want a guided sample.
-3. Or open an existing folder of Markdown files as a vault.
-4. Use the command palette with `Cmd+K` on macOS or `Ctrl+K` on Linux and Windows.
+macOS is the main QA platform. Windows and Linux have release workflows, with installation checks performed per release artifact. Check the release notes for the artifact you install and [Supported Platforms](/reference/supported-platforms) for platform details.
 
 ---
 

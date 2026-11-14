@@ -14,7 +14,7 @@ When users ask how to improve a knowledge base, structure notes, choose types, m
 
 - [First Launch](pages/start/first-launch.md)
 - [Getting Started Vault](pages/start/getting-started-vault.md)
-- [Install Tolaria](pages/start/install.md)
+- [Install Memnova](pages/start/install.md)
 - [Open Or Create A Vault](pages/start/open-or-create-vault.md)
 
 ## Concepts

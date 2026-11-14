@@ -45,7 +45,7 @@ Download the [latest Memnova release](https://github.com/phongthanhbuiit/tolaria
 
 On first launch, create a local Library or open an existing Markdown folder. The sample Library is available under Advanced. To learn from a note, open Content, write the Article, then use Memorization → Enable memorization → Add mnemonic. Write the Mnemonic face and select Study. For a recoverable copy of your learning progress, use Home → Advanced → Backup history to create and verify a Library backup.
 
-The public user docs live in [`site/`](site/) and are published to GitHub Pages. Start with [Install Tolaria](site/start/install.md), then [First Launch](site/start/first-launch.md).
+The public user docs live in [`site/`](site/) and are published to GitHub Pages. Start with [Install Memnova](site/start/install.md), then [First Launch](site/start/first-launch.md).
 
 ## Open source and local setup
 

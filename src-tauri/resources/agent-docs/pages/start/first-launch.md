@@ -22,9 +22,9 @@ For an optional sample, open **Advanced** and choose **Download sample Library**
 
 Both faces belong to the same Markdown file. The learning schedule and review history live in the Library's private learning data. For a recoverable copy of the entire Library, open **Home → Advanced → Backup history**, then create and verify a backup. Restore a verified backup into a new folder when needed.
 
-## What Tolaria Creates
+## What Memnova Creates
 
-Tolaria stores app-level settings on the local machine. Your notes stay in the vault folder you choose.
+Memnova stores app-level settings on the local machine. Your notes stay in the vault folder you choose.
 
 | Data | Stored in |
 | --- | --- |
