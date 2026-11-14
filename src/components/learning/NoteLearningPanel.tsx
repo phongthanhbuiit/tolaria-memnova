@@ -1,7 +1,5 @@
 import {
-  Brain,
   ClockCounterClockwise,
-  Pause,
   Play,
   PencilSimpleLine,
   SpinnerGap,
@@ -98,17 +96,18 @@ export function NoteLearningPanel({
   }
   return (
     <section
-      className="note-memory-surface h-full overflow-y-auto bg-background p-4 sm:p-8"
+      className="note-memory-surface note-memory-panel h-full overflow-y-auto bg-background px-4 py-3"
       aria-label={t('learning.noteMemory.notes')}
     >
-      <div className="mx-auto max-w-3xl space-y-6">
-        <header className="space-y-2">
-          <h2 className="flex items-center gap-2 text-xl font-semibold">
-            <Brain aria-hidden="true" className="size-6" />
-            {t('learning.noteMemory.notes')}
-          </h2>
-          <NoteMemoryStatus state={view?.state ?? 'ordinary'} due={view?.schedule?.due} clock={workspace.clock} locale={locale} />
-          <p className="text-sm text-muted-foreground">
+      <div className="max-w-2xl space-y-3">
+        <header className="space-y-1">
+          <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+            <h2 className="text-[13px] font-semibold">
+              {t('learning.noteMemory.notes')}
+            </h2>
+            <NoteMemoryStatus state={view?.state ?? 'ordinary'} due={view?.schedule?.due} clock={workspace.clock} locale={locale} />
+          </div>
+          <p className="text-xs leading-relaxed text-muted-foreground">
             {t(
               view?.state === 'disabled'
                 ? 'learning.noteMemory.pausedHelp'
@@ -148,13 +147,6 @@ export function NoteLearningPanel({
                 void change()
               }}
             >
-              {enabled ? (
-                <Pause aria-hidden="true" />
-              ) : view?.config ? (
-                <Play aria-hidden="true" />
-              ) : (
-                <Brain aria-hidden="true" />
-              )}
               {t(
                 enabled
                   ? 'learning.noteMemory.disable'
@@ -174,6 +166,8 @@ export function NoteLearningPanel({
             <Play aria-hidden="true" />
             {t('learning.study')}
           </Button>
+        </div>
+        <div className="border-t border-border pt-2">
           <Button
             variant={view?.state === 'pending' ? 'default' : 'ghost'}
             onClickCapture={focusLearningDialogTrigger}

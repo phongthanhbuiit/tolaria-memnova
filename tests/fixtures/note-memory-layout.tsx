@@ -5,7 +5,6 @@ import { useEffect, useMemo, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { TooltipProvider } from '../../src/components/ui/tooltip'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '../../src/components/ui/tabs'
-import { BookOpen, Brain } from '@phosphor-icons/react'
 import { LearningContext, type LearningWorkspace } from '../../src/components/learning/LearningContext'
 import { NoteLearningPanel } from '../../src/components/learning/NoteLearningPanel'
 import { NoteLearningDashboard } from '../../src/components/learning/NoteLearningDashboard'
@@ -90,7 +89,7 @@ export function Harness() {
     {surface === 'source' && <NoteBackSourceDialog ownerPath="/fixture/Biology/Article.md" ownerPageId={owner} open={open} locale={locale} onOpenChange={setOpen} onApplyBack={async () => {}} />}
     {surface === 'toolbar' && <NoteBackSourceToolbar back={{ kind: 'inline' }} ownerPath="/fixture/Biology/Article.md" ownerPageId={owner} locale={locale} onApplyBack={async () => {}} onNavigate={() => {}} />}
     {surface === 'inspector' && <NoteMemoryInspector path="/fixture/Biology/Article.md" content={`---\n_memnova_page_id: ${owner}\n_memnova_learning_version: 1\n_memnova_learning_enabled: true\n_memnova_back_kind: inline\n---\nArticle`} locale={locale} />}
-    {surface === 'tabs' && <Tabs defaultValue="content"><TabsList className="note-memory-workspace-tabs mx-3 mt-2"><TabsTrigger value="content"><BookOpen className="size-4" />{translate(locale,'learning.content')}</TabsTrigger><TabsTrigger value="cards"><Brain className="size-4" />{translate(locale,'learning.noteMemory.management')}</TabsTrigger></TabsList><TabsContent value="content"><NoteMemoryEditorTabs activeFace={face} hasBack panelId="article" locale={locale} onChangeFace={setFace} onAddBack={() => {}} /></TabsContent><TabsContent value="cards">Management</TabsContent></Tabs>}
+    {surface === 'tabs' && <Tabs defaultValue="content"><TabsList variant="line" className="note-memory-workspace-tabs mx-3 mt-1"><TabsTrigger value="content">{translate(locale,'learning.content')}</TabsTrigger><TabsTrigger value="cards">{translate(locale,'learning.noteMemory.management')}</TabsTrigger></TabsList><TabsContent value="content"><NoteMemoryEditorTabs activeFace={face} hasBack panelId="article" locale={locale} onChangeFace={setFace} onAddBack={() => {}} /></TabsContent><TabsContent value="cards">Management</TabsContent></Tabs>}
     {surface === 'whiteboard' && <div className="editor__blocknote-container"><TldrawWhiteboard boardId="layout" height={size.height} width={size.width} snapshot={JSON.stringify(snapshot)} onSnapshotChange={() => {}} onSizeChange={setSize} /></div>}
     {surface === 'study' && <LearningStudyView key={generation} study={study} root="/fixture" locale={locale} />}
     {!open && <p role="status">Closed</p>}

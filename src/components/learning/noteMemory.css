@@ -116,3 +116,41 @@
 
 .note-memory-list [data-item-index] { padding-bottom: 8px; }
 .note-memory-list > .note-memory-row { margin-bottom: 8px; }
+
+/* Match the note inspector's utility rows and let long labels wrap. */
+.note-memory-workspace-tabs[data-variant='line'] { padding: 0; }
+.note-memory-workspace-tabs[data-variant='line'] [role='tab']::after { bottom: 0; height: 1px; }
+.note-memory-panel .note-memory-status { padding: 0 4px; gap: 3px; font-weight: 400; }
+.note-memory-panel .note-memory-status svg { width: 12px; height: 12px; }
+.note-memory-panel .note-memory-actions { gap: 6px; }
+.note-memory-panel [data-slot='button'][data-variant='default'] {
+  color: var(--foreground);
+  background-color: var(--muted);
+  border: 1px solid var(--border);
+  font-weight: 600;
+}
+.note-memory-panel [data-slot='button'][data-variant='default']:hover { background-color: var(--accent); }
+.note-memory-panel [data-slot='button'][data-variant='ghost'] { color: var(--note-memory-secondary); }
+
+@media (pointer: fine) {
+  :is(.note-memory-panel, .note-memory-nav, .note-memory-toolbar) [data-slot='button'],
+  .note-memory-workspace-tabs [role='tab'] {
+    min-height: 26px;
+    min-width: 24px;
+    padding: 3px 8px;
+    gap: 4px;
+    font-size: 13px;
+    line-height: 18px;
+    border-radius: 4px;
+    box-shadow: none;
+  }
+  :is(.note-memory-panel, .note-memory-nav, .note-memory-toolbar) [data-slot='button'] svg {
+    width: 13px;
+    height: 13px;
+  }
+  :is(.note-memory-panel, .note-memory-nav, .note-memory-toolbar) [data-slot='button']:focus-visible,
+  .note-memory-workspace-tabs [role='tab']:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: -2px;
+  }
+}

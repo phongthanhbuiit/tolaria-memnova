@@ -1,4 +1,3 @@
-import { BookOpen, Brain } from '@phosphor-icons/react'
 import type React from 'react'
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { cn } from '@/lib/utils'
@@ -554,7 +553,7 @@ export function EditorContentLayout(model: EditorContentModel) {
         isVaultLoading={isVaultLoading}
         locale={locale}
       />
-      {learningWorkspace && showActiveContent && <TabsList className="note-memory-workspace-tabs mx-3 mt-2" aria-label={translate(locale, learningWorkspace.client?.supportsNoteMemory ? 'learning.noteMemory.management' : 'learning.cards')}><TabsTrigger value="content"><BookOpen aria-hidden="true" className="size-4" />{translate(locale, 'learning.content')}</TabsTrigger><TabsTrigger value="cards"><Brain aria-hidden="true" className="size-4" />{translate(locale, learningWorkspace.client?.supportsNoteMemory ? 'learning.noteMemory.management' : 'learning.cards')}</TabsTrigger></TabsList>}
+      {learningWorkspace && showActiveContent && <TabsList variant="line" className="note-memory-workspace-tabs mx-3 mt-1" aria-label={translate(locale, learningWorkspace.client?.supportsNoteMemory ? 'learning.noteMemory.management' : 'learning.cards')}><TabsTrigger value="content">{translate(locale, 'learning.content')}</TabsTrigger><TabsTrigger value="cards">{translate(locale, learningWorkspace.client?.supportsNoteMemory ? 'learning.noteMemory.management' : 'learning.cards')}</TabsTrigger></TabsList>}
       {tabError && <p role="alert" className="px-4 text-sm text-destructive">{tabError}</p>}
       {learningWorkspace && showActiveContent && <TabsContent value="cards" className="min-h-0 flex-1"><PageFlashcards key={path} path={path} locale={locale} onEditMnemonic={openMnemonic} /></TabsContent>}
       <TabsContent value="content" forceMount className="flex min-h-0 flex-1 flex-col data-[state=inactive]:hidden">
