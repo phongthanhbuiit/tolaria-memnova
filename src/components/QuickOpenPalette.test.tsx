@@ -1,3 +1,4 @@
+import { useLayoutEffect } from 'react'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { QuickOpenPalette } from './QuickOpenPalette'
@@ -44,6 +45,19 @@ describe('QuickOpenPalette', () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
+  })
+
+  it('handles Enter against committed results before passive effects finish', () => {
+    function CommitProbe({ items, enter }: { items: VaultEntry[]; enter: boolean }) {
+      useLayoutEffect(() => {
+        if (enter) window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', cancelable: true }))
+      }, [enter])
+      return <QuickOpenPalette open entries={items} onSelect={onSelect} onClose={onClose} />
+    }
+    const { rerender } = render(<CommitProbe items={[entries[0]]} enter={false} />)
+    rerender(<CommitProbe items={[entries[1]]} enter />)
+    expect(onSelect).toHaveBeenCalledWith(entries[1])
+    expect(onClose).toHaveBeenCalledOnce()
   })
 
   it('renders nothing when closed', () => {

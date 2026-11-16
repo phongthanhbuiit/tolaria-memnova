@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useEffect, useLayoutEffect, useCallback } from 'react'
 import type { VaultEntry } from '../types'
 import { NoteSearchList } from './NoteSearchList'
 import { useNoteSearch } from '../hooks/useNoteSearch'
@@ -93,7 +93,7 @@ function useQuickOpenKeyboard({
   handleKeyDown: (e: KeyboardEvent) => void
   createFromQuery: () => void | Promise<void>
 }) {
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!open) return
     const handler = (e: KeyboardEvent) => {
       handleKeyDown(e)
