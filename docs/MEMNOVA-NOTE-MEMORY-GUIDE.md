@@ -38,6 +38,8 @@ Markdown/media là nguồn nội dung; SQLite schema **5** giữ binding, schedu
 
 Dùng **Home → Advanced → Backup history**: Create, Verify rồi Restore. Restore xác minh lại và tạo Library ở thư mục mới; không ghi đè Library gốc. Khi database gốc bị mất/hỏng, startup recovery vẫn cho chọn backup đã có mà không khởi tạo database rỗng. Backup chỉ có ý nghĩa đầy đủ khi chứa cả Markdown, media và learning data; giữ bản gốc để đối chiếu.
 
+Bất kỳ ai có quyền đọc thư mục sao lưu đều có thể đọc ghi chú, tệp đính kèm và lịch sử ôn tập. Bước Verify kiểm tra tính toàn vẹn của bản sao.
+
 Đổi tên/chuyển folder trong cùng Library giữ UUID và lịch. Duplicate preparation tạo UUID/lịch mới; không thêm giao diện clone file mới trong đợt này. Chuyển note đang học sang Library khác bị chặn; dùng verified Library backup/restore để dời toàn bộ cùng lịch sử. Xóa note cũng xóa mnemonic nằm trong chính file; linked source và attachment dùng chung bên ngoài phạm vi xóa không bị xóa dây chuyền.
 
 Để quay về phiên bản ứng dụng cũ, đóng app và giữ bản sao nguyên Library trước. Khôi phục backup tương thích vào thư mục riêng và dùng phiên bản app tương ứng với backup; không hạ `user_version`, sửa journal hay chỉ thay SQLite/Markdown một phía. Binary cũ không được giả định đọc được schema 5. Không có tự động downgrade hoặc chuyển lịch giữa hai Library.

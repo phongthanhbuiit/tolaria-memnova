@@ -20,6 +20,7 @@ import type { MultiSelectState } from '../../hooks/useMultiSelect'
 import { isDeletedNoteEntry, resolveHeaderTitle, type DeletedNoteEntry } from './noteListUtils'
 import { useNoteListFullTextSearch } from './noteListFullTextSearch'
 import { filterEntriesByNoteListQuery, filterGroupsByNoteListQuery } from './noteListSearch'
+import { useSavedViewStudy, type SavedViewStudy } from './useSavedViewStudy'
 import { useNoteListSearchState } from './useNoteListSearchState'
 import {
   useChangeStatusResolver,
@@ -151,6 +152,8 @@ function useFilterCounts(
 }
 
 interface UseNoteListContentParams {
+  savedViewStudy?: SavedViewStudy
+  loading: boolean
   entries: VaultEntry[]
   selection: SidebarSelection
   noteListFilter: NoteListFilter
@@ -205,6 +208,8 @@ function useFilteredNoteListSearch({
 
 function useNoteListContent({
   entries,
+  savedViewStudy,
+  loading,
   selection,
   noteListFilter,
   inboxPeriod,
@@ -286,7 +291,7 @@ function useNoteListContent({
     views,
     allNotesFileVisibility,
   })
-  const { isFullTextSearching, searched, searchedGroups } = useFilteredNoteListSearch({
+  const { isFullTextSearching, searched: matching, searchedGroups } = useFilteredNoteListSearch({
     entries,
     sortedEntries,
     sortedGroups,
@@ -295,10 +300,12 @@ function useNoteListContent({
     displayPropsOverride,
     dateDisplayFormat,
   })
+  const { entries: searched, controls: studyControls } = useSavedViewStudy(selection, matching, loading || isDebouncingSearch || isFullTextSearching, savedViewStudy)
   useVisibleNotesSync({ visibleNotesRef, isEntityView, entityEntry, searched, searchedGroups })
   useLikelyNextPreload(searched, selectedNotePath)
 
   return {
+    studyControls,
     customProperties,
     displayPropsOverride,
     entityEntry,
@@ -526,6 +533,7 @@ function useRenderItem({
 }
 
 export interface NoteListProps {
+  savedViewStudy?: SavedViewStudy
   entries: VaultEntry[]
   selection: SidebarSelection
   selectedNote: VaultEntry | null
@@ -592,6 +600,7 @@ function buildNoteListLayoutModel(params: {
   }
 }) {
   return {
+    studyControls: params.content.studyControls,
     title: resolveHeaderTitle(params.selection, params.content.typeDocument, params.views, params.locale),
     loading: params.loading,
     locale: params.locale,
@@ -658,6 +667,7 @@ function buildNoteListLayoutModel(params: {
 
 export function useNoteListModel({
   entries,
+  savedViewStudy,
   selection,
   selectedNote,
   loading = false,
@@ -703,6 +713,8 @@ export function useNoteListModel({
   const filterCounts = useFilterCounts(entries, selection, allNotesFileVisibility)
   const content = useNoteListContent({
     entries,
+    savedViewStudy,
+    loading,
     selection,
     noteListFilter,
     inboxPeriod,

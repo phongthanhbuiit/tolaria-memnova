@@ -31,6 +31,7 @@ import { useVaultLoader } from './hooks/useVaultLoader'
 import { useRecentVaultWrites, useVaultWatcher } from './hooks/useVaultWatcher'
 import { useSettings } from './hooks/useSettings'
 import { useNoteWidthMode } from './hooks/useNoteWidthMode'
+import { ExcerptCaptureDialog } from './components/ExcerptCaptureDialog'
 import { useNoteActions } from './hooks/useNoteActions'
 import { useCommitFlow } from './hooks/useCommitFlow'
 import { useGitRepositories } from './hooks/useGitRepositories'
@@ -138,15 +139,13 @@ import {
 } from './utils/appOrchestration'
 import './App.css'
 import { useLearningLibrary } from './hooks/useLearningLibrary'
-import { useLearningStudy } from './hooks/useLearningStudy'
+import { useWorkspaceStudyRequests } from './hooks/useWorkspaceStudyRequests'
 import { LearningContext } from './components/learning/LearningContext'
 import { LearningDashboard } from './components/learning/LearningDashboard'
 import { LearningMigration } from './components/learning/LearningMigration'
 import { LearningStudyView } from './components/learning/LearningStudyView'
 import { withLearningPageDates } from './lib/learning/pageDates'
 import { learningPageScope } from './lib/learning/pageScope'
-import { studyScopeForWorkspace, workspaceDue } from './lib/learning/noteWorkspace'
-import type { StudyLane } from './lib/learning/types'
 import { useNoteWorkspaceMutations } from './hooks/useNoteWorkspaceMutations'
 import { notePathsMatch, normalizeNotePathForIdentity } from './utils/notePathIdentity'
 import { applyNoteSourceRefresh, readNoteSourceRefresh } from './lib/learning/noteSourceRefresh'
@@ -207,6 +206,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
   const visibleNotesRef = useRef<VaultEntry[]>([])
   const multiSelectionCommandRef = useRef<NoteListMultiSelectionCommands | null>(null)
   const [toastMessage, setToastMessage] = useState<string | null>(null)
+  const [capturedExcerpt, setCapturedExcerpt] = useState<VaultEntry | null>(null)
   const dialogs = useDialogs()
   const { closeAIChat, openAIChat, showAIChat } = dialogs
   const [showFeedback, setShowFeedback] = useState(false)
@@ -1428,25 +1428,16 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
 
   const learning = useLearningLibrary(resolvedPath)
   const { setTabs: setLearningNoteTabs } = notes
-  const learningStudy = useLearningStudy(learning.client, learning.refresh)
-  const { phase: learningPhase, openMigration, refresh: refreshLearning } = learning
-  const { start: startLearningStudy } = learningStudy
+  const { phase: learningPhase, refresh: refreshLearning } = learning
   const { registerVaultSelection: registerLearningLibrary } = vaultSwitcher
   const scopeForPage = (pageId: string) => learningPageScope(pageId, learning.root, learning.pages, visibleEntries)
-  const noteMemorySupported = Boolean(learning.client?.supportsNoteMemory)
-  const activeStudyPath = activeTab?.entry.path
-  const requestStudy = useCallback((pageIds?: string[], lane?: StudyLane) => {
-    if (learningPhase !== 'ready') { void openMigration(); return }
-    void (async () => {
-      if (activeStudyPath) await flushEditorStateBeforeAction(activeStudyPath)
-      await refreshLearning()
-      await startLearningStudy(studyScopeForWorkspace(noteMemorySupported, pageIds, lane))
-    })().catch(error => setToastMessage(String(error)))
-  }, [learningPhase, openMigration, startLearningStudy, noteMemorySupported, activeStudyPath, flushEditorStateBeforeAction, refreshLearning])
-  const reviewCount = useMemo(() => {
-    const due = workspaceDue(learning.pages, learning.notes, learning.cards, learning.clock)
-    return noteMemorySupported ? due.notes.length : due.legacy.length
-  }, [learning.cards, learning.pages, learning.notes, learning.clock, noteMemorySupported])
+  const { study: learningStudy, requestStudy, savedViewStudy, reviewCount } = useWorkspaceStudyRequests({
+    learning,
+    activePath: activeTab?.entry.path,
+    savedViewOpen: effectiveSelection.kind === 'view',
+    flushEditor: flushEditorStateBeforeAction,
+    onError: setToastMessage,
+  })
   const flushLearning = useCallback(async () => {
     for (const tab of notes.tabs) {
       if (normalizeNotePathForIdentity(tab.entry.path).startsWith(`${normalizeNotePathForIdentity(learning.root)}/`)) await flushEditorStateBeforeAction(tab.entry.path)
@@ -1697,7 +1688,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
                     {effectiveSelection.kind === 'filter' && effectiveSelection.filter === 'pulse' ? (
                       <PulseView vaultPath={gitSurfaces.historyRepositoryPath} onOpenNote={handlePulseOpenNote} sidebarCollapsed={!sidebarVisible} onExpandSidebar={() => handleSetViewMode('all')} repositories={gitRepositories} selectedRepositoryPath={gitSurfaces.historyRepositoryPath} onRepositoryChange={gitSurfaces.setHistoryRepositoryPath} locale={appLocale} />
                     ) : (
-                      <NoteList entries={learningEntries} selection={effectiveSelection} selectedNote={activeTab?.entry ?? null} loading={isVaultContentLoading} noteListFilter={noteListFilter} onNoteListFilterChange={setNoteListFilter} inboxPeriod={inboxPeriod} modifiedFiles={noteListModifiedFiles} modifiedFilesError={noteListModifiedFilesError} gitRepositories={gitRepositories} selectedGitRepositoryPath={gitSurfaces.changesRepositoryPath} onGitRepositoryChange={gitSurfaces.setChangesRepositoryPath} getNoteStatus={vault.getNoteStatus} sidebarCollapsed={!sidebarVisible} onSelectNote={notes.handleSelectNote} onReplaceActiveTab={handleReplaceActiveTabWithQueuedDiff} onEnterNeighborhood={handleEnterNeighborhood} onCreateNote={notes.handleCreateNoteImmediate} onBulkOrganize={explicitOrganizationEnabled ? bulkActions.handleBulkOrganize : undefined} onBulkArchive={bulkActions.handleBulkArchive} onBulkDeletePermanently={deleteActions.handleBulkDeletePermanently} onUpdateTypeSort={notes.handleUpdateFrontmatter} onUpdateViewDefinition={handleUpdateViewDefinition} updateEntry={vault.updateEntry} onOpenInNewWindow={handleOpenEntryInNewWindow} onExportPdf={handleExportNotePdfFromList} onToggleFavorite={entryActions.handleToggleFavorite} onToggleOrganized={explicitOrganizationEnabled ? entryActions.handleToggleOrganized : undefined} onRevealFile={fileActions.revealFile} onCopyFilePath={fileActions.copyFilePath} onDiscardFile={handleDiscardFile} onOpenDeletedNote={handleOpenDeletedNote} allNotesNoteListProperties={vaultConfig.allNotes?.noteListProperties ?? null} onUpdateAllNotesNoteListProperties={handleUpdateAllNotesNoteListProperties} inboxNoteListProperties={vaultConfig.inbox?.noteListProperties ?? null} onUpdateInboxNoteListProperties={handleUpdateInboxNoteListProperties} views={vault.views} visibleNotesRef={visibleNotesRef} allNotesFileVisibility={allNotesFileVisibility} multiSelectionCommandRef={multiSelectionCommandRef} locale={appLocale} />
+                      <NoteList savedViewStudy={savedViewStudy} entries={learningEntries} selection={effectiveSelection} selectedNote={activeTab?.entry ?? null} loading={isVaultContentLoading} noteListFilter={noteListFilter} onNoteListFilterChange={setNoteListFilter} inboxPeriod={inboxPeriod} modifiedFiles={noteListModifiedFiles} modifiedFilesError={noteListModifiedFilesError} gitRepositories={gitRepositories} selectedGitRepositoryPath={gitSurfaces.changesRepositoryPath} onGitRepositoryChange={gitSurfaces.setChangesRepositoryPath} getNoteStatus={vault.getNoteStatus} sidebarCollapsed={!sidebarVisible} onSelectNote={notes.handleSelectNote} onReplaceActiveTab={handleReplaceActiveTabWithQueuedDiff} onEnterNeighborhood={handleEnterNeighborhood} onCreateNote={notes.handleCreateNoteImmediate} onBulkOrganize={explicitOrganizationEnabled ? bulkActions.handleBulkOrganize : undefined} onBulkArchive={bulkActions.handleBulkArchive} onBulkDeletePermanently={deleteActions.handleBulkDeletePermanently} onUpdateTypeSort={notes.handleUpdateFrontmatter} onUpdateViewDefinition={handleUpdateViewDefinition} updateEntry={vault.updateEntry} onOpenInNewWindow={handleOpenEntryInNewWindow} onExportPdf={handleExportNotePdfFromList} onToggleFavorite={entryActions.handleToggleFavorite} onToggleOrganized={explicitOrganizationEnabled ? entryActions.handleToggleOrganized : undefined} onRevealFile={fileActions.revealFile} onCopyFilePath={fileActions.copyFilePath} onDiscardFile={handleDiscardFile} onOpenDeletedNote={handleOpenDeletedNote} allNotesNoteListProperties={vaultConfig.allNotes?.noteListProperties ?? null} onUpdateAllNotesNoteListProperties={handleUpdateAllNotesNoteListProperties} inboxNoteListProperties={vaultConfig.inbox?.noteListProperties ?? null} onUpdateInboxNoteListProperties={handleUpdateInboxNoteListProperties} views={vault.views} visibleNotesRef={visibleNotesRef} allNotesFileVisibility={allNotesFileVisibility} multiSelectionCommandRef={multiSelectionCommandRef} locale={appLocale} />
                     )}
                   </div>
                   <ResizeHandle onResize={layout.handleNoteListResize} />
@@ -1802,8 +1793,18 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
         ) : null}
         <GitSetupDialog open={gitFeaturesEnabled && shouldShowGitSetupDialog} onInitGit={handleInitGitRepo} onDismiss={dismissGitSetupDialog} onNeverForVault={neverForVaultGitSetupDialog} />
         <DeleteProgressNotice count={deleteActions.pendingDeleteCount} />
-        <Toast message={toastMessage} onDismiss={() => setToastMessage(null)} />
+        <Toast message={toastMessage} onDismiss={() => setToastMessage(null)}
+          action={capturedExcerpt?.workspace?.path === activeEditorVaultPath && toastMessage === translate(appLocale, 'capture.saved') ? {
+            label: translate(appLocale, 'capture.open'), dismissLabel: translate(appLocale, 'update.dismiss'),
+            run: () => { setToastMessage(null); void notes.handleSelectNote(capturedExcerpt) },
+          } : undefined} />
         <QuickOpenPalette open={dialogs.showQuickOpen} entries={visibleEntries} isLoading={vault.isLoading} onSelect={notes.handleSelectNote} onCreateNote={(title) => notes.handleCreateNote(title, 'Note', 'quick_open')} onClose={dialogs.closeQuickOpen} locale={appLocale} />
+        <ExcerptCaptureDialog key={JSON.stringify([resolvedPath, activeEditorVaultPath, notes.activeTabPath])}
+          active={activeTabEntry} vaultPath={activeEditorVaultPath} locale={appLocale}
+          onSave={notes.handleCaptureExcerpt} onSaved={entry => {
+            setCapturedExcerpt(entry)
+            setToastMessage(translate(appLocale, 'capture.saved'))
+          }} />
         <CommandPalette
           open={dialogs.showCommandPalette}
           commands={commands}

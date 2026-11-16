@@ -336,6 +336,50 @@ describe('useNoteCreation hook', () => {
     vi.useRealTimers()
   })
 
+  it('persists a captured selection in its source Library before adding it without opening a tab', async () => {
+    vi.mocked(isTauri).mockReturnValue(true)
+    vi.mocked(invoke).mockResolvedValueOnce(undefined)
+    const source = makeEntry({ path: '/test/vault/Reading/original.md' })
+    const { result } = renderHook(() => useNoteCreation(makeConfig([source]), tabDeps))
+    await act(async () => {
+      await result.current.handleCaptureExcerpt({
+        id: 'first', text: 'First line\nSecond line', source: { kind: 'note', entry: source }, vaultPath: '/test/vault',
+      }, () => true)
+    })
+    expect(invoke).toHaveBeenCalledWith('create_note_content', expect.objectContaining({
+      vaultPath: '/test/vault',
+      content: expect.stringContaining('> First line\n> Second line\n\n[[Reading/original]]'),
+    }))
+    expect(addEntry).toHaveBeenCalledOnce()
+    expect(openTabWithContent).not.toHaveBeenCalled()
+    expect(invoke).toHaveBeenCalledTimes(1)
+  })
+
+  it('does not add a failed capture to the Library or touch the active note', async () => {
+    vi.mocked(isTauri).mockReturnValue(true)
+    vi.mocked(invoke).mockRejectedValueOnce(new Error('disk full'))
+    const { result } = renderHook(() => useNoteCreation(makeConfig(), tabDeps))
+    await expect(result.current.handleCaptureExcerpt({
+      id: 'second', text: 'Excerpt', source: { kind: 'web', url: 'https://example.org' }, vaultPath: '/test/vault',
+    }, () => true)).rejects.toThrow()
+    expect(addEntry).not.toHaveBeenCalled()
+    expect(openTabWithContent).not.toHaveBeenCalled()
+  })
+
+  it('acknowledges a capture retry only when the file matches, including native page identity insertion', async () => {
+    vi.mocked(isTauri).mockReturnValue(true)
+    const capture = { id: 'retry', text: 'Words', source: { kind: 'web' as const, url: 'https://example.org' }, vaultPath: '/test/vault' }
+    const { result } = renderHook(() => useNoteCreation(makeConfig(), tabDeps))
+    const content = '---\ntype: Note\n_memnova_page_id: 83df8ede-0b58-47b3-a370-2d0d4db8d046\n---\n\n# Words\n\n> Words\n\n<https://example.org/>\n'
+    vi.mocked(invoke).mockRejectedValueOnce(new Error('File already exists')).mockResolvedValueOnce(content)
+    await act(async () => { await result.current.handleCaptureExcerpt(capture, () => true) })
+    expect(addEntry).toHaveBeenCalledOnce()
+    vi.mocked(invoke).mockRejectedValueOnce(new Error('File already exists')).mockResolvedValueOnce(content + 'edited')
+    await expect(result.current.handleCaptureExcerpt(capture, () => true)).rejects.toThrow('already exists')
+    expect(addEntry).toHaveBeenCalledOnce()
+    expect(invoke).not.toHaveBeenCalledWith('save_note_content', expect.anything())
+  })
+
   it('handleCreateNote creates entry and opens tab', () => {
     const { result } = renderHook(() => useNoteCreation(makeConfig(), tabDeps))
     act(() => { result.current.handleCreateNote('Test Note', 'Note') })

@@ -492,10 +492,11 @@ describe('StatusBar', () => {
     expect(screen.getByRole('button', { name: 'Remove Work Vault from list' })).toBeInTheDocument()
   })
 
-  it('confirms before removing a vault from the vault menu', () => {
+  it('explains in Vietnamese that removing a Library from the list keeps its files', () => {
     const onRemoveVault = vi.fn()
     render(
       <StatusBar
+        locale="vi"
         noteCount={100}
         vaultPath="/Users/luca/Laputa"
         vaults={vaults}
@@ -504,12 +505,13 @@ describe('StatusBar', () => {
       />
     )
 
-    fireEvent.click(screen.getByRole('button', { name: 'Open existing Library' }))
-    fireEvent.click(screen.getByRole('button', { name: 'Remove Work Vault from list' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Mở thư viện có sẵn' }))
+    fireEvent.click(screen.getByTestId('vault-menu-remove-Work Vault'))
 
     expect(onRemoveVault).not.toHaveBeenCalled()
-    expect(screen.getByTestId('confirm-delete-dialog')).toBeInTheDocument()
-    fireEvent.click(screen.getByRole('button', { name: 'Remove vault' }))
+    const dialog = screen.getByRole('dialog', { name: 'Gỡ thư viện khỏi danh sách?' })
+    expect(dialog).toHaveAccessibleDescription('Work Vault sẽ được gỡ khỏi danh sách thư viện. Các tệp vẫn nằm trong thư mục trên máy.')
+    fireEvent.click(within(dialog).getByRole('button', { name: 'Gỡ khỏi danh sách' }))
 
     expect(onRemoveVault).toHaveBeenCalledWith('/Users/luca/Work')
   })

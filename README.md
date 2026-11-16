@@ -21,7 +21,7 @@ Ordinary notes open directly in the editor. Types, wikilinks and custom properti
 
 ## Back up a Library
 
-Markdown and attachments contain the notes and their media. Review schedules and history live in the Library’s private learning database. To carry both to another machine, use **Home → Advanced → Backup history**. Create and verify a backup, then restore it into a new folder. Git is optional and covers tracked files.
+Markdown and attachments contain the notes and their media. Review schedules and history live in the Library’s SQLite database. To carry both to another machine, use **Home → Advanced → Backup history**. Create and verify a backup, then restore it into a new folder. Anyone with read access to the backup can read its notes, media and learning history. Git is optional and covers tracked files.
 
 ## Run from source
 

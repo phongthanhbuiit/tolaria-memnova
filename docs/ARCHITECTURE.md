@@ -6,6 +6,10 @@ See [current product state](CURRENT-STATE.md) for the release, source version an
 
 The default workspace keeps ordinary Markdown ordinary. Explicit note-memory opt-in creates one study binding per note; Article and inline Mnemonic remain in one Markdown source, with an optional UUID-bound same-Library source face. SQLite schema 5 owns learning state and recovery, not a second authoritative article. Existing multi-card learning remains in the Legacy lane. See [the user guide](MEMNOVA-NOTE-MEMORY-GUIDE.md) and [historical M00–M25 ledger](MEMNOVA-NOTE-MEMORY-IMPLEMENTATION.md) for release status and evidence. The transition notes below retain historical context; staged checkpoints are not the current default-workspace state.
 
+## Capture and Saved View study
+
+The note capture dialog creates an ordinary Markdown note through the existing creation pipeline while keeping the source editor active. Capture content and provenance stay in Markdown. Learning activation remains explicit in Properties. Saved View study intersects the complete current filtered result set with due, ready notes owned by the active Library. Starting study flushes the editor and refreshes the learning snapshot before resolving that intersection. The existing session and scheduler implementations own grading, undo and resume.
+
 ## Earlier Memnova transition context
 
 The staged Memnova learning-storage transition is tracked in [MEMNOVA-IMPLEMENTATION.md](./MEMNOVA-IMPLEMENTATION.md). Until verified SQLite cutover, legacy FSRS fields remain in Markdown. `update_fsrs_schedule` validates the active library boundary and allowed scheduling keys, serializes schedule writes, and persists a complete patch with one synced temporary-file replacement. The frontend flushes pending lesson edits before calling it and updates the cache, tab and vault entry only after persistence succeeds. Study progress advances and gamification records only after the promise resolves; a failed write leaves the answer open for retry.
@@ -123,7 +127,7 @@ The main window starts a native watcher for the active vault through `start_vaul
 
 Vault opening is allowed to render the main app shell while the full entry scan is still in flight. `useVaultLoader` keeps `isLoading` true until entries are ready, but folders and saved views load independently so the sidebar can become useful before the note index completes. The status bar uses the vault activity badge during this initial indexing state, while command-palette and editor-shell interactions remain mounted instead of being hidden behind the full app skeleton. The full skeleton is reserved for app-level capability checks such as the initial Git-state probe.
 
-Large-vault reproduction and keyboard QA steps live in [LARGE-VAULT-LOADING-QA.md](./LARGE-VAULT-LOADING-QA.md).
+Vault-opening smoke coverage lives in [vault-loading-skeleton.spec.ts](../tests/smoke/vault-loading-skeleton.spec.ts).
 
 #### Mounted Workspaces
 

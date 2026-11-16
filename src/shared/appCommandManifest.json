@@ -534,7 +534,7 @@
       "label": "Vault",
       "items": [
         { "kind": "command", "command": "vaultOpen", "label": "Open Vault…" },
-        { "kind": "command", "command": "vaultRemove", "label": "Remove Vault from List" },
+        { "kind": "command", "command": "vaultRemove", "label": "Remove Library from List" },
         { "kind": "command", "command": "vaultRestoreGettingStarted", "label": "Restore Getting Started" },
         { "kind": "separator" },
         { "kind": "command", "command": "vaultAddRemote", "label": "Add Remote…", "enabled": false },

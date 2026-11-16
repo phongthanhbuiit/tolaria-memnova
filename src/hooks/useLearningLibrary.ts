@@ -28,7 +28,10 @@ export function useLearningLibrary(root: string | null | undefined) {
     try {
       const snapshot = client.supportsNoteMemory ? await client.syncNoteWorkspace() : { pages: await client.syncPages(), notes: [] }
       const [cards, stats] = await Promise.all([client.listCards(null, true), client.studyStats()])
-      if (isCurrentRead()) setState(previous => previous.root !== path ? previous : ({ ...previous, root: path, client, phase: 'ready', ...snapshot, cards, stats, clock: Date.now(), error: null }))
+      if (!isCurrentRead()) return
+      const data = { ...snapshot, cards, stats, clock: Date.now() }
+      setState(previous => previous.root !== path ? previous : ({ ...previous, root: path, client, phase: 'ready', ...data, error: null }))
+      return data
     } catch (error) {
       if (isCurrentRead()) setState(previous => previous.root !== path ? previous : { ...previous, error: String(error) })
       throw error
@@ -54,10 +57,11 @@ export function useLearningLibrary(root: string | null | undefined) {
   }, [path, load])
   const invalidate = useCallback(() => { generation.current++ }, [])
   useEffect(() => { void connect(); return invalidate }, [connect, invalidate])
-  const refresh = useCallback(async () => {
+  const refreshSnapshot = useCallback(async () => {
     const epoch = current.client ? connections.current.get(current.client) : undefined
-    if (current.client && current.phase === 'ready' && epoch !== undefined) await load(current.client, epoch)
+    if (current.client && current.phase === 'ready' && epoch !== undefined) return load(current.client, epoch)
   }, [current.client, current.phase, load])
+  const refresh = useCallback(async () => { await refreshSnapshot() }, [refreshSnapshot])
   useEffect(() => {
     if (current.phase !== 'ready') return
     const timer = setInterval(() => { void refresh().catch(() => {}) }, 60_000)
@@ -96,5 +100,5 @@ export function useLearningLibrary(root: string | null | undefined) {
       trackEvent('memnova_migration_failed', { stage: 'import' })
     } finally { if (generation.current === epoch) setBusy(false) }
   }, [current.client, preview, load])
-  return { ...current, refresh, reconnect: connect, migrationOpen, setMigrationOpen, openMigration, preview, busy, migrate }
+  return { ...current, refresh, refreshSnapshot, reconnect: connect, migrationOpen, setMigrationOpen, openMigration, preview, busy, migrate }
 }

@@ -1,4 +1,5 @@
 import { APP_COMMAND_IDS, getAppCommandShortcutDisplay } from '../appCommandCatalog'
+import { requestExcerptCapture } from '../../lib/excerptCapture'
 import { buildEditorFindCommands } from './editorFindCommands'
 import { translate, type AppLocale } from '../../lib/i18n'
 import type { ImmediateCreateOptions } from '../useNoteCreation'
@@ -96,6 +97,13 @@ function buildCoreNoteCommands(config: NoteCommandsConfig): CommandAction[] {
       execute: config.onCreateNote,
     }),
     buildCurrentFolderNoteCommand(config),
+    createNoteCommand({
+      id: 'capture-excerpt',
+      label: translate(config.locale ?? 'en', 'capture.action'),
+      keywords: ['capture', 'excerpt', 'quote', 'source', 'url'],
+      enabled: true,
+      execute: () => requestExcerptCapture(),
+    }),
     createNoteCommand({
       id: 'create-type',
       label: 'New Type',

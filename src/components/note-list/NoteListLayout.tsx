@@ -1,3 +1,9 @@
+import { useId } from 'react'
+import { Button } from '../ui/button'
+import { Switch } from '../ui/switch'
+import { Label } from '../ui/label'
+import { translate } from '../../lib/i18n'
+import { focusLearningDialogTrigger } from '../learning/useLearningDialogFocus'
 import { BulkActionBar } from '../BulkActionBar'
 import { FilterPills } from './FilterPills'
 import { NoteListHeader } from './NoteListHeader'
@@ -364,6 +370,23 @@ function NoteListFooter({
   )
 }
 
+function SavedViewStudyActions({ studyControls, locale }: Pick<NoteListLayoutProps, 'studyControls' | 'locale'>) {
+  const filterId = useId()
+  if (!studyControls) return null
+  const { filterOn, toggle, count, loading, start } = studyControls
+  return (
+    <div className="flex flex-wrap items-center justify-between gap-2 border-b px-3 py-2">
+      <div className="flex items-center gap-2">
+        <Switch id={filterId} checked={filterOn} onCheckedChange={toggle} />
+        <Label htmlFor={filterId}>{translate(locale, 'decks.filter.due')}</Label>
+      </div>
+      <Button size="sm" variant="outline" aria-disabled={loading || !count} className="aria-disabled:opacity-50" onClickCapture={focusLearningDialogTrigger} onClick={() => void start()}>
+        {translate(locale, 'learning.noteMemory.studyViewDue', { n: count })}
+      </Button>
+    </div>
+  )
+}
+
 export function NoteListLayout({
   noteListPanelRef,
   handleNoteListPanelBlurCapture,
@@ -379,6 +402,7 @@ export function NoteListLayout({
       onFocusCapture={handleNoteListPanelFocusCapture}
     >
       <NoteListLayoutHeader {...contentProps} />
+      <SavedViewStudyActions studyControls={contentProps.studyControls} locale={contentProps.locale} />
       <NoteListBody {...contentProps} />
       <NoteListFooter {...contentProps} />
     </div>

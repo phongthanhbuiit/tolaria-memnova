@@ -2,7 +2,7 @@ import { expect, type Page } from '@playwright/test'
 import fs from 'fs'
 import os from 'os'
 import path from 'path'
-import type { FolderNode } from '../../src/types'
+import type { FolderNode, ViewFile } from '../../src/types'
 import { installFixtureVaultDesktopBridgeInBrowser } from './fixtureVaultDesktopBridge'
 
 const FIXTURE_VAULT = path.resolve('tests/fixtures/test-vault')
@@ -14,6 +14,7 @@ type FixtureCommandArgs = Record<string, unknown> | undefined
 
 interface FixtureVaultPageArgs {
   preserveLearningState?: boolean
+  views?: ViewFile[]
   page: Page
   vaultPath: string
   isGitRepo: boolean
@@ -26,6 +27,7 @@ interface FixturePageArgs {
 
 interface FixtureVaultOptions {
   preserveLearningState?: boolean
+  views?: ViewFile[]
   isGitRepo?: boolean
   expectedReadyTitle?: string
   folders?: FolderNode[]
@@ -73,8 +75,8 @@ export function removeFixtureVaultCopy(tempVaultDir: string | null | undefined):
   removeFixtureVaultDirectory({ tempVaultDir })
 }
 
-async function installFixtureVaultInitScript({ page, vaultPath, isGitRepo, folders, preserveLearningState }: FixtureVaultPageArgs): Promise<void> {
-  await page.addInitScript(({ dismissedKey, fixtureFolders, initialIsGitRepo, resolvedVaultPath, keepLearningState }: { keepLearningState?: boolean; dismissedKey: string; fixtureFolders: FolderNode[]; initialIsGitRepo: boolean; resolvedVaultPath: string }) => {
+async function installFixtureVaultInitScript({ page, vaultPath, isGitRepo, folders, views = [], preserveLearningState }: FixtureVaultPageArgs): Promise<void> {
+  await page.addInitScript(({ dismissedKey, fixtureFolders, fixtureViews, initialIsGitRepo, resolvedVaultPath, keepLearningState }: { keepLearningState?: boolean; dismissedKey: string; fixtureFolders: FolderNode[]; fixtureViews: ViewFile[]; initialIsGitRepo: boolean; resolvedVaultPath: string }) => {
     const learningState = keepLearningState ? Object.entries(localStorage).filter(([key]) => key.startsWith('memnova:qa-learning:')) : []
     localStorage.clear()
     for (const [key, value] of learningState) localStorage.setItem(key, value)
@@ -314,7 +316,7 @@ async function installFixtureVaultInitScript({ page, vaultPath, isGitRepo, folde
       list_vault: (commandArgs?: FixtureCommandArgs) => readVaultList(commandArgs),
       reload_vault: (commandArgs?: FixtureCommandArgs) => readVaultList(commandArgs, true),
       list_vault_folders: () => fixtureFolders,
-      list_views: () => [],
+      list_views: () => fixtureViews,
       get_modified_files: () => [],
       detect_renames: () => [],
       reload_vault_entry: (commandArgs?: FixtureCommandArgs) =>
@@ -451,6 +453,7 @@ async function installFixtureVaultInitScript({ page, vaultPath, isGitRepo, folde
   }, {
     dismissedKey: CLAUDE_CODE_ONBOARDING_DISMISSED_KEY,
     fixtureFolders: folders,
+    fixtureViews: views,
     initialIsGitRepo: isGitRepo,
     resolvedVaultPath: vaultPath,
     keepLearningState: preserveLearningState,
@@ -476,6 +479,7 @@ export async function openFixtureVault(
     vaultPath,
     isGitRepo: options.isGitRepo ?? true,
     folders: options.folders ?? [],
+    views: options.views,
     preserveLearningState: options.preserveLearningState,
   })
   await waitForFixtureVaultReady({

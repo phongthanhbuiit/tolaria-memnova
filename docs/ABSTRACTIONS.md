@@ -2,6 +2,14 @@
 
 Key abstractions and domain models in Tolaria.
 
+## Excerpt capture
+
+`ExcerptCaptureDialog` holds one draft ID per dialog visit. `useNoteCreation.handleCaptureExcerpt` writes an ordinary note at a stable generated path through the existing exclusive creation operation. A repeated request only accepts an existing file whose captured content still matches. Closing or leaving the editor visit prevents a late completion from updating another note’s UI. The formatting toolbar records a selection and restores it through the same editor visit after the dialog closes. A success toast can explicitly navigate to the new note.
+
+## Saved View learning scope
+
+Saved View study computes page IDs from the complete filtered note list and the current Library’s due-note map. A deferred scope resolver reads the committed view result set after the app flushes and refreshes learning data. Leaving the view clears that visit’s result set, so an in-flight request cannot start a session for an abandoned view. The Due filter is temporary UI state, scoped by view identity and Library, and uses the same intersection as the Study action.
+
 ## Design Philosophy
 
 Tolaria's abstractions follow the **convention over configuration** principle: standard field names, types, and relationships have well-defined meanings and trigger UI behavior automatically. This makes vaults legible both to humans and to AI agents — the more a vault follows conventions, the less custom configuration an AI needs to navigate it correctly.

@@ -1,3 +1,4 @@
+import { joinVaultPath, normalizeNotePathForIdentity } from '../../utils/notePathIdentity'
 import { normalizeSessionScope } from './sessionScope'
 import type {
   LearningCard,
@@ -52,6 +53,15 @@ export function workspaceDue(
     ),
     legacy: oldCards.filter((card) => !bound.has(card.id) && due(card)),
   }
+}
+
+export type ResolveViewStudyScope = (dueByPath: ReadonlyMap<string, string>) => string[]
+
+export function dueNotePaths(root: string, pages: LearningPage[], cards: LearningCard[]): ReadonlyMap<string, string> {
+  const ids = new Set(cards.map(card => card.pageId))
+  return new Map(pages.filter(page => ids.has(page.id)).map(page =>
+    [normalizeNotePathForIdentity(joinVaultPath(root, page.path)), page.id],
+  ))
 }
 
 /** Folder scope is explicit filesystem membership, independent of article/source links. */

@@ -3,7 +3,8 @@ import { invoke } from '@tauri-apps/api/core'
 import { isTauri, addMockEntry, mockInvoke } from '../mock-tauri'
 import type { VaultEntry } from '../types'
 import { slugifyNoteStem as slugify } from '../utils/noteSlug'
-import { resolveEntry } from '../utils/wikilink'
+import { canonicalWikilinkTargetForEntry, resolveEntry } from '../utils/wikilink'
+import { excerptNoteContent, matchesCapturedNote, type ExcerptCapture } from '../lib/excerptCapture'
 import { trackEvent } from '../lib/telemetry'
 import { cacheNoteContent } from './useTabManagement'
 import {
@@ -937,6 +938,39 @@ export function useNoteCreation(config: NoteCreationConfig, tabDeps: CreationTab
     createNamedNote({ entries, vaultPath, defaultWorkspacePath, vaults, setToastMessage, persistResolvedEntry, title, type, creationPath }),
   [entries, vaultPath, defaultWorkspacePath, vaults, setToastMessage, persistResolvedEntry])
 
+  const handleCaptureExcerpt = useCallback(async (capture: ExcerptCapture, isCurrent: () => boolean) => {
+    const { title, content } = excerptNoteContent(capture)
+    const slug = `excerpt-${capture.id}`
+    const path = joinVaultPath(capture.vaultPath, `${slug}.md`)
+    const entry = {
+      ...buildNewEntry({ path, title, slug, type: 'Note', status: null }),
+      workspace: workspaceForVaultPath(capture.vaultPath, vaults, defaultWorkspacePath),
+      hasH1: true,
+      snippet: capture.text.trim().slice(0, 200),
+      outgoingLinks: capture.source.kind === 'note' ? [canonicalWikilinkTargetForEntry(capture.source.entry, capture.vaultPath)] : [],
+    }
+    const request = { path, content, vaultPath: capture.vaultPath }
+    addPendingSave?.(path)
+    try {
+      try {
+        await persistNewNote(request)
+      } catch (error) {
+        // Retry the same draft ID after a lost IPC response. Never overwrite a different file.
+        if (!isTauri() || !isAlreadyExistsError(error)) throw error
+        const previous = await invoke<string>('get_note_content', { path, vaultPath: capture.vaultPath })
+        if (!matchesCapturedNote(previous, content)) throw error
+      }
+      if (isCurrent()) {
+        addEntryWithMock(entry, content, addEntry)
+        onNewNotePersisted?.(path)
+      }
+      trackEvent('excerpt_captured', { source_kind: capture.source.kind })
+      return entry
+    } finally {
+      removePendingSave?.(path)
+    }
+  }, [addEntry, addPendingSave, defaultWorkspacePath, onNewNotePersisted, removePendingSave, vaults])
+
   const handleCreateType = useCallback((typeName: string): Promise<boolean> =>
     createTypeFromName({ entries, vaultPath, defaultWorkspacePath, vaults, setToastMessage, persistResolvedEntry, typeName }),
   [entries, vaultPath, defaultWorkspacePath, vaults, setToastMessage, persistResolvedEntry])
@@ -967,6 +1001,7 @@ export function useNoteCreation(config: NoteCreationConfig, tabDeps: CreationTab
     handleCreateNote,
     handleCreateNoteImmediate,
     handleCreateNoteForRelationship,
+    handleCaptureExcerpt,
     handleCreateType,
     createTypeEntrySilent,
   }

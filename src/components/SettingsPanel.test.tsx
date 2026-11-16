@@ -317,11 +317,11 @@ describe('SettingsPanel', () => {
       />,
     )
 
-    expect(screen.getByRole('button', { name: 'Remove vault Personal Notes' })).toBeDisabled()
-    fireEvent.click(screen.getByRole('button', { name: 'Remove vault Team Vault' }))
+    expect(screen.getByRole('button', { name: 'Remove Personal Notes from list' })).toBeDisabled()
+    fireEvent.click(screen.getByRole('button', { name: 'Remove Team Vault from list' }))
 
     expect(screen.getByTestId('confirm-delete-dialog')).toBeInTheDocument()
-    fireEvent.click(screen.getByRole('button', { name: 'Remove vault' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Remove from list' }))
 
     expect(onRemoveVault).toHaveBeenCalledWith('/team')
   })

@@ -722,6 +722,7 @@ function buildNoteActionsResult({
     ...tabMgmt,
     handleNavigateWikilink,
     handleCreateNote: creation.handleCreateNote,
+    handleCaptureExcerpt: creation.handleCaptureExcerpt,
     handleCreateNoteImmediate: creation.handleCreateNoteImmediate,
     handleCreateNoteForRelationship: creation.handleCreateNoteForRelationship,
     handleCreateType: creation.handleCreateType,

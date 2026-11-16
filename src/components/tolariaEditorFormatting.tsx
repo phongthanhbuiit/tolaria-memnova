@@ -26,6 +26,12 @@ import type {
   StyleSchema,
 } from '@blocknote/core'
 import { FormattingToolbarExtension } from '@blocknote/core/extensions'
+import { Quotes } from '@phosphor-icons/react'
+import { translate, type AppLocale } from '../lib/i18n'
+import { requestExcerptCapture } from '../lib/excerptCapture'
+import { selectedEditorRange, selectedEditorPlainText } from './editorRichCopy'
+import { useEditorResourceVisit } from './useEditorResources'
+import { Button } from './ui/button'
 import { useEditorComposing } from './useEditorComposing'
 import {
   useCallback,
@@ -673,8 +679,29 @@ function getTolariaFormattingToolbarItems(vaultPath?: string) {
   )
 }
 
-export function TolariaFormattingToolbar({ vaultPath }: { vaultPath?: string } = {}) {
-  return <FormattingToolbar>{getTolariaFormattingToolbarItems(vaultPath)}</FormattingToolbar>
+function CaptureSelectionButton({ locale }: { locale: AppLocale }) {
+  const editor = useBlockNoteEditor()
+  const visit = useEditorResourceVisit(editor)
+  const hasText = useEditorState({
+    editor, selector: ({ editor }) => !editor.prosemirrorState.selection.empty,
+  })
+  if (!visit?.notePath || !hasText) return null
+  const label = translate(locale, 'capture.action')
+  const capture = () => {
+    if (!visit.notePath || !visit.isCurrent()) return
+    const { selection, doc } = editor.prosemirrorState
+    const native = window.getSelection()
+    const range = editor.domElement && selectedEditorRange(native, editor.domElement)
+    const text = (native && range ? selectedEditorPlainText(native, range) : null) ?? doc.textBetween(selection.from, selection.to, '\n')
+    if (!text.trim()) return
+    requestExcerptCapture({ path: visit.notePath, text, isCurrent: visit.isCurrent, restoreFocus: () => editor.focus() })
+  }
+  return <Button type="button" size="icon-xs" variant="ghost" aria-label={label} title={label}
+    onMouseDown={event => event.preventDefault()} onClick={capture}><Quotes aria-hidden="true" /></Button>
+}
+
+export function TolariaFormattingToolbar({ vaultPath, locale = 'en' }: { vaultPath?: string; locale?: AppLocale } = {}) {
+  return <FormattingToolbar>{[...getTolariaFormattingToolbarItems(vaultPath), <CaptureSelectionButton key="excerpt" locale={locale} />]}</FormattingToolbar>
 }
 
 export function TolariaFormattingToolbarController(props: {
