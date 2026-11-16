@@ -24,3 +24,11 @@ Một lỗi trên WebKit khi gõ nhanh và lưu trong Tất cả ghi chú cũng 
 ```sh
 MEMNOVA_PLAYWRIGHT_WEBKIT=1 pnpm exec playwright test -c playwright.integration.config.ts tests/integration/library-entry.spec.ts --retries=0
 ```
+
+## Kiểm tra phát hành
+
+Codacy Analysis CLI 0.24.0 quét local trên các tệp thay đổi, theo exclusions của dự án. ESLint9, Opengrep, Trivy, Lizard, Jackson và Stylelint đều chạy, không có lỗi analyzer. So với `2fde4cd0`, không có Critical/High mới. Lizard vẫn báo số tham số ở EditorLayout (81 cả trước/sau). Có thêm một cảnh báo Medium về số nhánh của LegacyLearningDashboard: đây là màn tương thích gộp thống kê và các trạng thái chuẩn bị/khôi phục; rà các nhánh và kiểm tra lại đường vào backup/restore, không phát hiện lỗi bảo mật. Các cảnh báo độ dài/độ phức tạp còn lại có từ baseline. Đã tách useWritingNavigation/useNoteCatalog, giữ trách nhiệm dựng hàng bên ngoài phần tính vùng hiển thị. Demo vault không thay đổi.
+
+Bản cài local Apple Silicon: `src-tauri/target/release/deliveries/Memnova-0.1.0-199e69de-mac-arm64.dmg`, SHA-256 `1da588e6b347d67730431c99d4a5e75782ef3aba13c86a4e4b31c7a48408d43c`. Đã chạy `hdiutil verify`, mount chỉ đọc và `codesign --verify --deep --strict` trực tiếp trên app bên trong. Executable arm64, ký ad hoc, chưa notarize hay phát hành công khai. Các thao tác native mô tả ở trên được kiểm tra trên debug QA cùng frontend; không chạy bộ cài này với thư viện cá nhân.
+
+Hook trước commit chạy 4.929 test frontend, 13 ca integration, 5 ca browser liên quan và kiểm tra locale. Lượt push mã nguồn `199e69de` trên main thành công sau 8 phút 15 giây: lint, TypeScript/build, 4.929 test với coverage 87,41% dòng và 54/54 core smoke trong 4,6 phút. Lượt smoke trước đó cũng đạt 54/54 trong 4,7 phút. Tệp DMG trên được build từ chính mã nguồn này.
