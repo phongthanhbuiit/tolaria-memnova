@@ -4,6 +4,7 @@ import {
   FolderOpen,
 } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/button'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { cn } from '@/lib/utils'
 import type { FolderNode } from '../../types'
 import { useFolderRowInteractions } from './useFolderRowInteractions'
@@ -44,7 +45,7 @@ export function FolderItemRow({
   return (
     <div
       className={cn(
-        'group relative flex items-center gap-1 rounded transition-colors',
+        'group relative flex min-w-0 items-center gap-1 rounded transition-colors',
         isSelected
           ? 'bg-[var(--accent-blue-light)] text-primary'
           : 'text-foreground hover:bg-accent',
@@ -92,32 +93,38 @@ function FolderSelectButton({
   onDoubleClick: () => void
 }) {
   return (
-    <Button
-      type="button"
-      variant="ghost"
-      className={cn(
-        'h-auto flex-1 justify-start gap-2 rounded text-left text-[13px] font-medium hover:bg-transparent',
-        isSelected ? 'text-primary hover:text-primary' : 'text-foreground hover:text-foreground',
-      )}
-      style={{
-        paddingTop: 6,
-        paddingBottom: 6,
-        paddingLeft: contentInset,
-        paddingRight: 16,
-      }}
-      title={node.path || node.name}
-      aria-expanded={hasChildren ? isExpanded : undefined}
-      onClick={(event) => onClick(event.detail)}
-      onContextMenu={onContextMenu}
-      onDoubleClick={onDoubleClick}
-      data-testid={`folder-row:${node.path}`}
-    >
-      {isSelected || isExpanded ? (
-        <FolderOpen size={17} weight="fill" className="size-[17px] shrink-0" />
-      ) : (
-        <Folder size={17} className="size-[17px] shrink-0" />
-      )}
-      <span className="truncate">{node.name}</span>
-    </Button>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button
+          type="button"
+          variant="ghost"
+          className={cn(
+            'h-auto min-w-0 flex-1 justify-start gap-2 rounded text-left text-[13px] font-medium hover:bg-transparent',
+            isSelected ? 'text-primary hover:text-primary' : 'text-foreground hover:text-foreground',
+          )}
+          style={{
+            paddingTop: 6,
+            paddingBottom: 6,
+            paddingLeft: contentInset,
+            paddingRight: 16,
+          }}
+          aria-expanded={hasChildren ? isExpanded : undefined}
+          onClick={(event) => onClick(event.detail)}
+          onContextMenu={onContextMenu}
+          onDoubleClick={onDoubleClick}
+          data-testid={`folder-row:${node.path}`}
+        >
+          {isSelected || isExpanded ? (
+            <FolderOpen size={17} weight="fill" className="size-[17px] shrink-0" />
+          ) : (
+            <Folder size={17} className="size-[17px] shrink-0" />
+          )}
+          <span className="min-w-0 flex-1 truncate">{node.name}</span>
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent side="right" aria-hidden={!node.path || node.path === node.name} className="break-words">
+        {node.path || node.name}
+      </TooltipContent>
+    </Tooltip>
   )
 }

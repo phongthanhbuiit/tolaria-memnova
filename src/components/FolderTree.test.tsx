@@ -1,7 +1,12 @@
-import { useState, type ComponentProps } from 'react'
-import { act, fireEvent, render, screen, within } from '@testing-library/react'
+import { useState, type ComponentProps, type ReactElement } from 'react'
+import { act, fireEvent, render as renderWithTestingLibrary, screen, within } from '@testing-library/react'
 import { describe, it, expect, vi } from 'vitest'
 import { FolderTree } from './FolderTree'
+import { TooltipProvider } from './ui/tooltip'
+
+function render(ui: ReactElement) {
+  return renderWithTestingLibrary(ui, { wrapper: TooltipProvider })
+}
 import { FOLDER_ROW_SINGLE_CLICK_DELAY_MS } from './folder-tree/useFolderRowInteractions'
 import { FOLDER_ROW_NESTING_INDENT, getFolderConnectorLeft } from './folder-tree/folderTreeLayout'
 import { CREATE_NOTE_IN_FOLDER_EVENT } from '../hooks/noteCreationRequests'
