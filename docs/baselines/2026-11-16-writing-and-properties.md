@@ -22,3 +22,30 @@ Codacy CLI 0.24.0 so với 2e8afdef chạy ESLint9, Opengrep, Lizard, Stylelint,
 CodeScene: not run (optional integration unavailable). Hai khóa mới được dịch trực tiếp sang đủ 18 catalog vì Lara chưa được cấu hình. pnpm l10n:validate đạt 1010 khóa. Tiếng Việt sidebar dùng Ôn tập, công tắc dùng Ôn tập ghi chú này. Telemetry giữ các event bật học, sửa gợi nhớ và yêu cầu Study hiện có, metadata không chứa nội dung. Thanh cuộn là sửa hiển thị nên không thêm event. Không dependency, schema hoặc ADR mới. Tài liệu ABSTRACTIONS, hướng dẫn ghi nhớ, protocol người học mới và CURRENT-STATE được cập nhật.
 
 Nghiệm thu với năm người mới và bộ cài production vẫn cần thực hiện trong phạm vi kế hoạch sản phẩm trước đó.
+
+
+## Nghiệm thu native tại 5281fd90
+
+App debug đóng gói chạy tauri://localhost với identifier và preferences QA riêng, ký ad hoc xác minh đạt. Thư viện thử riêng có 30 thư mục dài và nhiều ghi chú. Cấu hình macOS AppleShowScrollBars=Always được giữ để quan sát trực tiếp thanh native.
+
+- Ghi chú thường mở với bytes ban đầu nguyên vẹn, không tab học. Bật học trong Properties là thao tác rõ ràng.
+- Ghi chú mới thêm gợi nhớ, paste và Cmd+S cập nhật ngay Edit mnemonic và Study trong Properties đang mở. Lỗi summary cũ phát hiện ở lượt native đầu đã được sửa bằng refresh sau receipt nội dung, với regression RED→GREEN.
+- Mouse Back to note giữ bài viết và focus Edit mnemonic. Study mở trực tiếp, Show mnemonic có nội dung vừa lưu, Close trả focus Study. Tạm dừng bỏ Study, giữ nội dung và sửa được gợi nhớ. Keyboard Return trả focus đúng.
+- Kéo sidebar 250→220px, cuộn tới thư mục cuối và ghi chú cuối. Hai cột dùng thanh mảnh, không có cuộn ngang.
+- Markdown sau tạm dừng khớp snapshot đã bật, chỉ thay enabled true thành false. SQLite integrity_check=ok, foreign_key_check rỗng. App QA đã dừng, demo sạch.
+- Ảnh gốc được lưu bằng CUA, đã xem lại trực quan.
+
+| Trạng thái | Ảnh native |
+|---|---|
+| Ghi chú thường | [ordinary](ui/2026-11-16-writing-first/ordinary.png) |
+| Đang bật học trong Properties | [enabled](ui/2026-11-16-writing-first/enabled.png) |
+| Sửa gợi nhớ và quay lại | [mnemonic](ui/2026-11-16-writing-first/mnemonic.png) |
+| Phiên ôn | [study](ui/2026-11-16-writing-first/study.png) |
+| Tạm dừng | [paused](ui/2026-11-16-writing-first/paused.png) |
+| Sidebar 220px và cuộn cuối | [scroll](ui/2026-11-16-writing-first/scroll-220.png) |
+
+Pre-commit bình thường đạt lint/types, 490 file / 4921 test frontend, 18 integration trong 1,8 phút và validation locale. Ca hook/persistence bổ sung đạt 29/29. Cargo test đạt 1240 unit, 3 ignored, và các test khác của workspace. Cargo llvm-cov --no-clean --fail-under-lines 85 đạt 86,39% lines. Một lượt cargo test ban đầu lỗi crate doctest trong lúc QA rebuild cùng target, lượt tuần tự sau đạt.
+
+Codacy bổ sung quét hook mới, layout và Properties. Hook không có finding. ESLint 0, Opengrep 1 so với 2 baseline, Lizard 6 so với 6, Trivy retry đạt 0 và không analyzer error. Không Critical/High mới. Bằng chứng scan nằm ngoài source tại /tmp/memnova-writing-first-receipt-*.
+
+Normal push `5281fd90` lên main thành công sau hook 8 phút 49 giây. pnpm test:coverage đạt 490 file / 4921 test và 87,40% line coverage. Build, lint, types, workflow checks đạt. Core smoke 54/54 trong 4,9 phút. CodeScene không chạy vì tích hợp tùy chọn chưa cấu hình. Demo-vault và demo-vault-v2 sạch. Biên bản và sáu ảnh native được đẩy qua lane docs-only sau commit mã nguồn.
