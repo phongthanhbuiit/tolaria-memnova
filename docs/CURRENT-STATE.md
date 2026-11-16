@@ -1,6 +1,6 @@
 # Memnova hiện tại
 
-**Đối chiếu ngày 16/11/2026.** Mã triển khai trích đoạn và ôn Saved View ở commit `05ae7aa3`. Các sửa đổi sau nghiệm thu nằm trên main đến `85cbb792`. Ba ảnh trạng thái ghi nhớ đầu tiên được kiểm tra tại `a69159c5` trên `main`. Các tính năng trích đoạn và ôn Saved View được bổ sung trong đợt [nghiệm thu mới](baselines/2026-11-16-capture-and-view-study.md). Bản cài đối chiếu theo tag [v0.1.0](https://github.com/phongthanhbuiit/tolaria-memnova/releases/tag/v0.1.0), commit `d0b400d5`. Trang này là điểm đọc đầu tiên khi cần biết người dùng đang thấy gì, dữ liệu nằm ở đâu và việc nào còn mở.
+**Đối chiếu ngày 16/11/2026.** Mã triển khai trích đoạn và ôn Saved View ở commit `05ae7aa3`. Các sửa đổi sau nghiệm thu nằm trên main đến `a50dc0eb`, gồm giữ focus theo định danh ghi chú khi danh sách thay đổi và sửa Enter trong Quick Open. Ba ảnh trạng thái ghi nhớ đầu tiên được kiểm tra tại `a69159c5` trên `main`. Các tính năng trích đoạn và ôn Saved View được bổ sung trong đợt [nghiệm thu mới](baselines/2026-11-16-capture-and-view-study.md). Bản cài đối chiếu theo tag [v0.1.0](https://github.com/phongthanhbuiit/tolaria-memnova/releases/tag/v0.1.0), commit `d0b400d5`. Trang này là điểm đọc đầu tiên khi cần biết người dùng đang thấy gì, dữ liệu nằm ở đâu và việc nào còn mở.
 
 ## Người dùng thấy gì khi viết và học?
 
@@ -12,7 +12,7 @@ Memnova mở hoặc tạo một thư mục Markdown trên máy, gọi là **Thư
 | Đã bật ghi nhớ | Bật công tắc để hiện **Content / Memorization**. Trong **Memorization**, chọn **Add mnemonic** nếu thiếu gợi nhớ. Sau khi thêm, **Study** mở phiên ôn. Mở đáp án rồi chọn mức nhớ để ghi nhận lượt ôn. | [Gợi nhớ đã có, ghi chú đến hạn](baselines/ui/2026-11-16-a69159c5/enabled.png) |
 | Đã ôn một lượt rồi tạm dừng | Tắt công tắc. Editor hiện lại và hai tab **Content / Memorization** biến mất. Vì note vẫn có mặt gợi nhớ, **Article / Mnemonic** còn dùng được. Properties hiển thị lịch sử ôn ở chế độ chỉ đọc. Bật lại công tắc để tiếp tục. | [Sau khi tạm dừng](baselines/ui/2026-11-16-a69159c5/paused.png) |
 
-Ba ảnh chụp ngày 16/11/2026 bằng Chromium, giao diện tiếng Anh, 1280 × 720, trên bản sao thư viện kiểm thử. Bài kiểm tra đi qua bật học, viết gợi nhớ, lưu, chấm một lượt, tạm dừng và bật lại bằng bàn phím. Các ảnh ghi đúng các bước của cùng ca kiểm thử. Lượt này chưa chạy bản cài macOS hay VoiceOver. [Ca kiểm thử](../tests/integration/note-memory-workspace.spec.ts)
+Ba ảnh chụp ngày 16/11/2026 bằng Chromium, giao diện tiếng Anh, 1280 × 720, trên bản sao thư viện kiểm thử. Bài kiểm tra đi qua bật học, viết gợi nhớ, lưu, chấm một lượt, tạm dừng và bật lại bằng bàn phím. Các ảnh ghi đúng các bước của cùng ca kiểm thử. Ba ảnh này được chụp bằng Chromium. [Ca kiểm thử](../tests/integration/note-memory-workspace.spec.ts)
 
 Ảnh QA ngày 14/11 có panel **Paused**, nút **Resume**, và năm **58839** thuộc luồng cũ. Lỗi đổi mili giây thành giây ở dữ liệu demo đã sửa trong `d538fb4b`. Kiểu điều khiển học đổi trong `a6b6fc82` và quy tắc hiện tab đổi trong `fdcc1459`. Tên file ảnh QA có thể giống nhau giữa các lần chạy.
 
@@ -41,10 +41,10 @@ Ba ảnh chụp ngày 16/11/2026 bằng Chromium, giao diện tiếng Anh, 1280 
 | Đợt | Kết quả đã kiểm tra | Điều kiện còn lại |
 |---|---|---|
 | 1. Làm rõ Thư viện và backup | Trên macOS, gỡ khỏi danh sách rồi mở lại thư mục bằng hộp chọn hệ thống. Sáu tệp Markdown và một ảnh khớp SHA-256. Lịch ôn và lượt ôn khớp từng hàng. Hướng dẫn đã mô tả ai có thể đọc backup. | Còn thuật ngữ Vault kế thừa ở một số phần của app. Các nhãn tiếng Việt ở bộ chọn, Cài đặt thư viện và bảng lệnh dùng Thư viện. |
-| 2. Lưu trích đoạn kèm nguồn | Đoạn chọn trong note hoặc văn bản dán kèm URL tạo note thường. Có thể tiếp tục đọc, mở note từ thông báo, huỷ hoặc thử lại khi ghi lỗi. Liên kết đến đúng tệp nguồn cả khi tên chứa ký tự đặc biệt hoặc có tệp trùng tên. | Kiểm tra trên bộ cài chứa tính năng trước khi công bố cho người dùng bản cài. |
-| 3. Ôn theo Saved View | Lọc đến hạn, giới hạn phạm vi theo view và thư viện đang dùng. Ca 10 ghi chú cùng chủ đề, 3 đến hạn đã đạt. Sau khi chấm một note, đóng rồi mở lại, app giữ đúng ID phiên ở 1/3 và hoàn tác về note đầu. | Cùng đợt nghiệm thu bộ cài với đợt 2. |
-| 4. Thử với người học | Đã kiểm tra bằng chuột và bàn phím trên thư viện QA. | Cần VoiceOver trên macOS và 5 người lần đầu sử dụng. Giao một đoạn đọc, yêu cầu lưu nguồn, bật học, chấm lượt đầu và tìm lại nguồn. Ghi thời gian, bước cần trợ giúp và số người tự hoàn thành trong 5 phút. Mục tiêu 4/5. |
-| 5. Chọn phần mở rộng | Các lựa chọn là PDF mở đúng trang, tiện ích trình duyệt hoặc xuất backup có mật khẩu. | Chọn một nhánh sau đợt 4 dựa trên trở ngại phổ biến. Trước khi phát hành, chạy tạo ghi chú → học → backup → restore trên bộ cài đích và đối chiếu nội dung cùng lịch sử. |
+| 2. Lưu trích đoạn kèm nguồn | Đoạn chọn trong note hoặc văn bản dán kèm URL tạo note thường. Có thể tiếp tục đọc, mở note từ thông báo, huỷ hoặc thử lại khi ghi lỗi. Liên kết đến đúng tệp nguồn cả khi tên chứa ký tự đặc biệt hoặc có tệp trùng tên. | Luồng đã đạt trên app debug đóng gói dùng tauri://localhost. Nghiệm thu bộ cài production trước khi công bố. |
+| 3. Ôn theo Saved View | Lọc đến hạn, giới hạn phạm vi theo view và thư viện đang dùng. Ca 10 ghi chú cùng chủ đề, 3 đến hạn đã đạt. Sau khi chấm một note, đóng rồi mở lại, app giữ đúng ID phiên ở 1/3 và hoàn tác về note đầu. | Luồng học và backup/restore đã đạt trên app debug đóng gói. Bộ cài production còn mở. |
+| 4. Thử với người học | Đã sửa pending focus theo ID để giữ đúng note khi danh sách đổi. 15 unit test và 2 ca Chromium về danh sách 1.000 note, bàn phím và layout đạt. [Biên bản](baselines/2026-11-16-dynamic-focus-and-packaged-qa.md). | Người dùng đã bỏ yêu cầu VoiceOver ngày 16/11/2026. Cần 5 người lần đầu sử dụng. Giao một đoạn đọc, yêu cầu lưu nguồn, bật học, chấm lượt đầu và tìm lại nguồn. Ghi thời gian, bước cần trợ giúp và số người tự hoàn thành trong 5 phút. Mục tiêu 4/5. [Bài thử và phiếu ghi](MEMNOVA-FIRST-LEARNER-TRIAL.md). |
+| 5. Chọn phần mở rộng | Các lựa chọn là PDF mở đúng trang, tiện ích trình duyệt hoặc xuất backup có mật khẩu. | Chọn một nhánh sau đợt 4 dựa trên trở ngại phổ biến. Luồng tạo ghi chú → học → backup → restore đã đạt trên artifact debug đóng gói. Trước phát hành, xác minh trên bộ cài production đích. |
 
 Hai mẫu tiếng Việt để thử (*Khái niệm*, *Trích dẫn sách*) và chuyển khoá API đã lưu sang Keychain là các đề xuất riêng trong phần so sánh ban đầu. Quyết định hiện tại vẫn là lưu ghi chú Markdown và lịch ôn SQLite có thể đọc được bởi tài khoản có quyền truy cập thư mục.
 
@@ -53,7 +53,7 @@ Hai mẫu tiếng Việt để thử (*Khái niệm*, *Trích dẫn sách*) và 
 | Trạng thái | Việc và tiêu chí |
 |---|---|
 | Đã xác minh trong mã | Sửa ngày demo, điều hướng tới Retry trên màn chào, đưa bật/tạm dừng ghi nhớ vào Properties và tích hợp Excalidraw trên main. Kiểm tra trạng thái phát hành trước khi giới thiệu Excalidraw cho người dùng bản cài. |
-| Cần bằng chứng bổ sung | Chạy VoiceOver với danh sách học thay đổi khi đang focus. Kiểm tra luồng cài → viết → học → backup → restore trên bộ cài mục tiêu. Các kết quả cũ có phạm vi và phiên bản riêng. [Biên bản theo dõi](archive/plans/MEMNOVA-POST-UX-FOLLOWUP-PLAN.md) |
+| Cần bằng chứng bổ sung | Luồng viết → học → backup → restore đã đạt trên app debug đóng gói. Còn nghiệm thu cài đặt trên bộ cài production mục tiêu. Các kết quả cũ có phạm vi và phiên bản riêng. [Biên bản theo dõi](archive/plans/MEMNOVA-POST-UX-FOLLOWUP-PLAN.md) |
 | Đã đo core smoke | Trên bản chụp cố định `bf34180f`, 3 lượt không retry đạt 54/54 mỗi lượt, thời gian 290,02 / 279,94 / 281,55 giây. Cả ba dưới 300 giây. Mục tiêu 240 giây còn thiếu 41,55 giây ở trung vị. [Số đo và điều kiện](baselines/2026-11-16-capture-and-view-study.md) |
 | Cần người tham gia | Đo với 5 người mới, mục tiêu 4 người tự viết ghi chú, thêm gợi nhớ và chấm lượt đầu trong 5 phút. Dựa trên trở ngại quan sát được để chọn thử PDF đúng trang, tiện ích trình duyệt hoặc xuất backup có mật khẩu. |
 
