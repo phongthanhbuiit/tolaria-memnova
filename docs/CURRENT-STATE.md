@@ -1,18 +1,18 @@
 # Memnova hiện tại
 
-**Đối chiếu ngày 16/11/2026.** Mã triển khai trích đoạn và ôn Saved View ở commit `05ae7aa3`. Các sửa đổi sau nghiệm thu nằm trên main đến `a50dc0eb`, gồm giữ focus theo định danh ghi chú khi danh sách thay đổi và sửa Enter trong Quick Open. Ba ảnh trạng thái ghi nhớ đầu tiên được kiểm tra tại `a69159c5` trên `main`. Các tính năng trích đoạn và ôn Saved View được bổ sung trong đợt [nghiệm thu mới](baselines/2026-11-16-capture-and-view-study.md). Bản cài đối chiếu theo tag [v0.1.0](https://github.com/phongthanhbuiit/tolaria-memnova/releases/tag/v0.1.0), commit `d0b400d5`. Trang này là điểm đọc đầu tiên khi cần biết người dùng đang thấy gì, dữ liệu nằm ở đâu và việc nào còn mở.
+**Đối chiếu ngày 16/11/2026.** Mã triển khai trích đoạn và ôn Saved View ở commit `05ae7aa3`. Điều hướng một hàng nằm ở `dbd3ee1c` và `f4a600ce`. Các sửa đổi trước gồm giữ focus theo định danh ghi chú và sửa Enter trong Quick Open. Ba ảnh trạng thái ghi nhớ đầu tiên được kiểm tra tại `a69159c5` trên `main`. Các tính năng trích đoạn và ôn Saved View được bổ sung trong đợt [nghiệm thu mới](baselines/2026-11-16-capture-and-view-study.md). Bản cài đối chiếu theo tag [v0.1.0](https://github.com/phongthanhbuiit/tolaria-memnova/releases/tag/v0.1.0), commit `d0b400d5`. Trang này là điểm đọc đầu tiên khi cần biết người dùng đang thấy gì, dữ liệu nằm ở đâu và việc nào còn mở.
 
 ## Người dùng thấy gì khi viết và học?
 
-Memnova mở hoặc tạo một thư mục Markdown trên máy, gọi là **Thư viện**. Người dùng có thể viết ngay mà không cần tài khoản, Git hay AI. Sidebar và danh sách ghi chú vẫn ở bên trái, editor ở giữa, Properties mở ở bên phải khi cần. Hai thay đổi dễ nhận ra nhất so với bản giao diện tháng 10 là cách bật học trong Properties và lúc nào thanh tab học xuất hiện.
+Memnova mở hoặc tạo một thư mục Markdown trên máy, gọi là **Thư viện**. Người dùng có thể viết ngay mà không cần tài khoản, Git hay AI. Sidebar và danh sách ghi chú vẫn ở bên trái, editor ở giữa, Properties mở ở bên phải khi cần. Ghi chú đang bật học dùng một hàng điều hướng **Ghi chú · Gợi nhớ · Ôn tập**. Mỗi mục mở trực tiếp phần tương ứng.
 
-| Trạng thái của cùng một note | Thao tác và kết quả quan sát trên main | Ảnh Chromium |
+| Trạng thái | Thao tác và kết quả quan sát trên main | Ảnh native |
 |---|---|---|
-| Ghi chú thường | Mở note vào thẳng editor. Trong **Properties**, công tắc **Spaced repetition** đang tắt. Ghi chú chưa học không có thanh tab học. | [Trước khi bật](baselines/ui/2026-11-16-a69159c5/ordinary.png) |
-| Đã bật ghi nhớ | Bật công tắc để hiện **Content / Memorization**. Trong **Memorization**, chọn **Add mnemonic** nếu thiếu gợi nhớ. Sau khi thêm, **Study** mở phiên ôn. Mở đáp án rồi chọn mức nhớ để ghi nhận lượt ôn. | [Gợi nhớ đã có, ghi chú đến hạn](baselines/ui/2026-11-16-a69159c5/enabled.png) |
-| Đã ôn một lượt rồi tạm dừng | Tắt công tắc. Editor hiện lại và hai tab **Content / Memorization** biến mất. Vì note vẫn có mặt gợi nhớ, **Article / Mnemonic** còn dùng được. Properties hiển thị lịch sử ôn ở chế độ chỉ đọc. Bật lại công tắc để tiếp tục. | [Sau khi tạm dừng](baselines/ui/2026-11-16-a69159c5/paused.png) |
+| Ghi chú thường | Mở note vào thẳng editor. Trong **Properties**, công tắc **Spaced repetition** đang tắt. Ghi chú chưa học không có thanh tab học. | [Trước khi bật](baselines/ui/2026-11-16-single-note-navigation/ordinary.png) |
+| Đã bật ghi nhớ | Bật công tắc để hiện hàng **Note / Study** và nút **Add mnemonic** khi chưa có gợi nhớ. Sau khi thêm, hàng chuyển thành **Note / Memory cue / Study**. Trong Study, bấm nút Study để mở phiên ôn. Mở đáp án rồi chọn mức nhớ để ghi nhận lượt ôn. | [Gợi nhớ đã có, ghi chú đến hạn](baselines/ui/2026-11-16-single-note-navigation/enabled.png) |
+| Đã ôn một lượt rồi tạm dừng | Tắt công tắc. Editor hiện lại và mục **Study** biến mất. Vì note vẫn có gợi nhớ, hàng **Note / Memory cue** còn dùng được. Properties hiển thị lịch sử ôn ở chế độ chỉ đọc. Bật lại công tắc để tiếp tục. | [Sau khi tạm dừng](baselines/ui/2026-11-16-single-note-navigation/paused.png) |
 
-Ba ảnh chụp ngày 16/11/2026 bằng Chromium, giao diện tiếng Anh, 1280 × 720, trên bản sao thư viện kiểm thử. Bài kiểm tra đi qua bật học, viết gợi nhớ, lưu, chấm một lượt, tạm dừng và bật lại bằng bàn phím. Các ảnh ghi đúng các bước của cùng ca kiểm thử. Ba ảnh này được chụp bằng Chromium. [Ca kiểm thử](../tests/integration/note-memory-workspace.spec.ts)
+Ba ảnh trong bảng được chụp native trên app debug đóng gói ngày 16/11/2026, tiếng Việt, với thư viện QA và preferences riêng. Bài kiểm tra đi qua chuyển hai mặt, sửa/lưu, mở và đóng phiên học, tạm dừng rồi bật lại. Bộ ảnh Chromium cũ vẫn tra được dưới `baselines/ui/2026-11-16-a69159c5/`. [Ca kiểm thử tự động](../tests/integration/note-memory-workspace.spec.ts)
 
 Ảnh QA ngày 14/11 có panel **Paused**, nút **Resume**, và năm **58839** thuộc luồng cũ. Lỗi đổi mili giây thành giây ở dữ liệu demo đã sửa trong `d538fb4b`. Kiểu điều khiển học đổi trong `a6b6fc82` và quy tắc hiện tab đổi trong `fdcc1459`. Tên file ảnh QA có thể giống nhau giữa các lần chạy.
 
