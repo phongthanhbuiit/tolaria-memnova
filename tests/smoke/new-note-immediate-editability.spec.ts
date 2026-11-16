@@ -51,6 +51,20 @@ test.afterEach(() => {
   removeFixtureVaultCopy(tempVaultDir)
 })
 
+test('the New Note command from Home opens a focused plain Markdown note', async ({ page }) => {
+  await page.getByRole('button', { name: 'Home', exact: true }).click()
+  await expect(page.locator('.app__dashboard')).toBeVisible()
+  await triggerMenuCommand(page, 'file-new-note')
+  await expect(page.locator('.bn-editor')).toBeVisible()
+  await expectEditorFocused(page)
+  await page.keyboard.type('Ordinary journal')
+  await page.keyboard.press('Enter')
+  await page.keyboard.type('Ideas from the train.')
+  const written = path.join(tempVaultDir, 'ordinary-journal.md')
+  await expect.poll(() => fs.existsSync(written) ? fs.readFileSync(written, 'utf8') : '').toContain('Ideas from the train.')
+  expect(fs.readFileSync(written, 'utf8')).not.toContain('_memnova_learning_enabled: true')
+})
+
 test('@smoke newly created notes stay editable before any reselection', async ({ page }) => {
   const title = `Immediate Editability ${Date.now()}`
   const bodyMarker = `body edit ${Date.now()}`

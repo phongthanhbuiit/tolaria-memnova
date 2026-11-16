@@ -627,13 +627,12 @@ describe('App', () => {
   it('shows keyboard shortcut hints', async () => {
     const quickOpenHint = formatShortcutDisplay({ display: '⌘P / ⌘O' })
     const newNoteHint = formatShortcutDisplay({ display: '⌘N' })
-    const { container } = render(<App />)
-    await waitFor(() => {
-      const shortcutHint = Array.from(container.querySelectorAll('span.text-xs.text-muted-foreground'))
-        .find((element) => element.textContent === `${quickOpenHint} to search · ${newNoteHint} to create`)
-
-      expect(shortcutHint).toBeInTheDocument()
-    })
+    render(<App />)
+    expect(await screen.findByRole('button', { name: 'New Note' })).toHaveTextContent(newNoteHint)
+    const open = screen.getByRole('button', { name: 'Open note' })
+    expect(open).toHaveTextContent(quickOpenHint)
+    fireEvent.click(open)
+    expect(await screen.findByTestId('quick-open-palette')).toBeInTheDocument()
   })
 
   it('registers keyboard shortcuts without error', async () => {

@@ -37,6 +37,7 @@ test('quick open creates a note when the typed title has no matches @smoke', asy
   const notePath = path.join(tempVaultDir, 'new-research-brief.md')
 
   await openFixtureVaultDesktopHarness(page, tempVaultDir)
+  await page.getByRole('button', { name: 'Home', exact: true }).click()
   await openNoteWithCmdO(page)
   await page.locator('input[placeholder="Search notes..."]').fill(title)
 
@@ -49,4 +50,15 @@ test('quick open creates a note when the typed title has no matches @smoke', asy
   const content = fs.readFileSync(notePath, 'utf8')
   expect(content).toContain(`title: ${title}`)
   expect(content).toContain('type: Note')
+})
+
+test('quick open returns from Home to an existing note even if it was the last open note', async ({ page }) => {
+  await openFixtureVaultDesktopHarness(page, tempVaultDir)
+  await page.getByTestId('note-list-container').getByText('Alpha Project', { exact: true }).click()
+  await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText('alpha-project')
+  await page.getByRole('button', { name: 'Home', exact: true }).click()
+  await openNoteWithCmdO(page)
+  await page.getByTestId('quick-open-palette').getByRole('textbox').fill('Alpha Project')
+  await page.keyboard.press('Enter')
+  await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText('alpha-project')
 })

@@ -1,4 +1,6 @@
 {
+  "learning.noteMemory.searchHint": "タイトルまたはファイルパス",
+  "learning.libraryWritingHelp": "どのノートにも自由に書き込めます。後で復習したいときは、プロパティで間隔反復をオンにしてください。",
   "capture.open": "ノートを開く",
   "capture.action": "出典と一緒に抜粋を保存",
   "capture.description": "抜粋とその出典を新しいノートに保存します。",

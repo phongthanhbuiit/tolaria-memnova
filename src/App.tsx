@@ -33,6 +33,7 @@ import { useSettings } from './hooks/useSettings'
 import { useNoteWidthMode } from './hooks/useNoteWidthMode'
 import { ExcerptCaptureDialog } from './components/ExcerptCaptureDialog'
 import { useNoteActions } from './hooks/useNoteActions'
+import { useWritingNavigation } from './hooks/useWritingNavigation'
 import { useCommitFlow } from './hooks/useCommitFlow'
 import { useGitRepositories } from './hooks/useGitRepositories'
 import { useEntryActions } from './hooks/useEntryActions'
@@ -1470,6 +1471,9 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
   }, [learningSourceIndex, learningSourceVersion, learningPhase, refreshLearning])
   useEffect(() => { startReviewRef.current = () => requestStudy() }, [requestStudy])
 
+  const writing = useWritingNavigation({ notes, selection: effectiveSelection, select: handleSetSelection,
+    noteListVisible, setViewMode: handleSetViewMode, entries: visibleEntries, root: learning.root })
+
   const commands = useAppCommands({
     activeTabPath: notes.activeTabPath, activeTabPathRef: notes.activeTabPathRef,
     entries: visibleEntries,
@@ -1483,8 +1487,8 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
     onFindInNote: findInNoteCommand,
     onReplaceInNote: activeDeletedFile ? undefined : replaceInNoteCommand,
     onPastePlainText: pastePlainTextCommand,
-    onCreateNote: notes.handleCreateNoteImmediate,
-    onCreateNoteOfType: notes.handleCreateNoteImmediate,
+    onCreateNote: writing.createInEditor,
+    onCreateNoteOfType: writing.createInEditor,
     onSave: handleTrackedSave,
     onUndo: undoCommand,
     onRedo: redoCommand,
@@ -1673,12 +1677,10 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
               <ResizeHandle onResize={layout.handleSidebarResize} />
             </>
           )}
-          {effectiveSelection.kind === 'filter' && (effectiveSelection.filter === 'home' || effectiveSelection.filter === 'decks' || effectiveSelection.filter === 'review') ? (
+          {writing.mode ? (
             <div className="app__dashboard flex-1 overflow-y-auto bg-background">
-              <LearningDashboard mode={effectiveSelection.filter === 'decks' ? 'decks' : 'home'} locale={appLocale} onOpenPage={page => {
-                const entry = visibleEntries.find(entry => entry.path === `${learning.root}/${page.path}`)
-                if (entry) { handleSetSelection({ kind: 'filter', filter: 'all' }); notes.handleSelectNote(entry) }
-              }} />
+              <LearningDashboard mode={writing.mode} locale={appLocale} onBrowseAllNotes={writing.browseAll}
+                onCreateNote={writing.createFromLibrary} onOpenPage={writing.openLearningPage} />
             </div>
           ) : (
             <>
@@ -1706,7 +1708,8 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
                   pendingCommitDiffRequest={pendingDiffRequest}
                   onPendingCommitDiffHandled={handlePendingDiffHandled}
                   getNoteStatus={vault.getNoteStatus}
-                  onCreateNote={notes.handleCreateNoteImmediate}
+                  onCreateNote={writing.createFromEmptyEditor}
+                  onQuickOpen={dialogs.openQuickOpen}
                   inspectorCollapsed={layout.inspectorCollapsed}
                   onToggleInspector={handleToggleInspector}
                   inspectorWidth={layout.inspectorWidth}
@@ -1798,7 +1801,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
             label: translate(appLocale, 'capture.open'), dismissLabel: translate(appLocale, 'update.dismiss'),
             run: () => { setToastMessage(null); void notes.handleSelectNote(capturedExcerpt) },
           } : undefined} />
-        <QuickOpenPalette open={dialogs.showQuickOpen} entries={visibleEntries} isLoading={vault.isLoading} onSelect={notes.handleSelectNote} onCreateNote={(title) => notes.handleCreateNote(title, 'Note', 'quick_open')} onClose={dialogs.closeQuickOpen} locale={appLocale} />
+        <QuickOpenPalette open={dialogs.showQuickOpen} entries={visibleEntries} isLoading={vault.isLoading} onSelect={writing.openEntry} onCreateNote={writing.createFromQuickOpen} onClose={dialogs.closeQuickOpen} locale={appLocale} />
         <ExcerptCaptureDialog key={JSON.stringify([resolvedPath, activeEditorVaultPath, notes.activeTabPath])}
           active={activeTabEntry} vaultPath={activeEditorVaultPath} locale={appLocale}
           onSave={notes.handleCaptureExcerpt} onSaved={entry => {

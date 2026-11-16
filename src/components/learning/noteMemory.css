@@ -114,8 +114,8 @@
 .learning-study-dialog [data-note-grade='3'] { --note-grade-color: var(--accent-green); }
 .learning-study-dialog [data-note-grade='4'] { --note-grade-color: var(--accent-blue); }
 
-.note-memory-list [data-item-index] { padding-bottom: 8px; }
-.note-memory-list > .note-memory-row { margin-bottom: 8px; }
+.note-memory-list .note-memory-row { contain-intrinsic-size: auto 57px; }
+.note-memory-row [data-slot='button']:focus-visible { outline: 2px solid var(--ring); outline-offset: -2px; }
 
 /* Match the note inspector's utility rows and let long labels wrap. */
 .note-memory-workspace-tabs[data-variant='line'] { padding: 0; }

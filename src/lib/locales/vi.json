@@ -1,4 +1,6 @@
 {
+  "learning.noteMemory.searchHint": "Tiêu đề hoặc đường dẫn tệp",
+  "learning.libraryWritingHelp": "Viết như bình thường. Khi muốn học một ghi chú, mở Thuộc tính và bật “Ôn tập ghi chú này”.",
   "capture.open": "Mở ghi chú",
   "capture.action": "Lưu trích đoạn kèm nguồn",
   "capture.description": "Lưu trích đoạn và nguồn vào một ghi chú mới.",

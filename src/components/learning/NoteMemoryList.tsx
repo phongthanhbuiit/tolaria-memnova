@@ -1,4 +1,4 @@
-import { useLayoutEffect, useMemo, useRef, type KeyboardEvent } from 'react'
+import { useId, useLayoutEffect, useMemo, useRef, type KeyboardEvent } from 'react'
 import { Virtuoso, type VirtuosoHandle } from 'react-virtuoso'
 import { Button } from '../ui/button'
 import { NoteMemoryStatus } from './NoteMemoryStatus'
@@ -20,6 +20,7 @@ function destination(key: string, shift: boolean, position: number, count: numbe
 
 /** Virtualize large collections in the dashboard's existing scroll area, retaining keyboard access. */
 export function NoteMemoryList({ rows, pages, clock, locale, onOpenPage, scrollParent }: Props) {
+  const listId = useId()
   const pagesById = useMemo(() => new Map(pages.map(page => [page.id, page])), [pages])
   const formatter = useMemo(() => new Intl.DateTimeFormat(locale, { dateStyle: 'medium', timeStyle: 'short' }), [locale])
   const available = useMemo(() => rows.flatMap((row,index) => pagesById.get(row.view.pageId)?.available ? [index] : []), [rows,pagesById])
@@ -57,13 +58,26 @@ export function NoteMemoryList({ rows, pages, clock, locale, onOpenPage, scrollP
     const dueAt = row.card?.schedule.due ?? row.view.schedule?.due
     const date = dueAt ? new Date(dueAt) : null
     const dueText = date && Number.isFinite(date.getTime()) ? formatter.format(date) : null
-    return <article key={row.view.pageId} role="listitem" aria-setsize={rows.length} aria-posinset={index + 1} className="note-memory-row flex flex-wrap items-start justify-between gap-3 rounded-lg border bg-card px-4 py-3">
-      <div className="min-w-0 flex-1 basis-64"><Button variant="ghost" data-memory-index={index} className="h-auto max-w-full justify-start whitespace-normal break-words px-0 text-left font-medium" disabled={!page?.available} onClick={() => { if (page) onOpenPage(page) }} ref={node => {
-        if (!node) { buttons.current.delete(row.view.pageId); return }
-        buttons.current.set(row.view.pageId,node)
-        if (pendingFocus.current === row.view.pageId && page?.available) { node.focus({ preventScroll: true }); pendingFocus.current = null }
-      }}>{page?.title ?? row.view.path}</Button><p className="break-words text-xs text-muted-foreground">{row.view.path}</p></div>
-      <div className="min-w-0 space-y-1 sm:max-w-64"><NoteMemoryStatus state={row.view.state} due={dueAt} clock={clock} locale={locale} />{dueText && <p className="break-words text-xs tabular-nums text-muted-foreground">{translate(locale,'properties.due')}: <time dateTime={dueAt}>{dueText}</time></p>}</div>
+    const labelId = `${listId}-title-${index}`
+    const detailId = `${listId}-detail-${index}`
+    const statusId = `${listId}-status-${index}`
+    return <article key={row.view.pageId} role="listitem" aria-setsize={rows.length} aria-posinset={index + 1} className="note-memory-row border-b border-border">
+      <Button variant="ghost" data-memory-index={index} className="w-full flex-wrap justify-between gap-x-4 gap-y-1 rounded-none px-2 py-2 text-left"
+        disabled={!page?.available} aria-labelledby={labelId} aria-describedby={`${detailId} ${statusId}`}
+        onClick={() => { if (page) onOpenPage(page) }} ref={node => {
+          if (!node) { buttons.current.delete(row.view.pageId); return }
+          buttons.current.set(row.view.pageId,node)
+          if (pendingFocus.current === row.view.pageId && page?.available) { node.focus({ preventScroll: true }); pendingFocus.current = null }
+        }}>
+        <span className="min-w-0 flex-[1_1_12rem]">
+          <span id={labelId} className="block font-medium">{page?.title ?? row.view.path}</span>
+          <span id={detailId} className="block text-xs font-normal text-muted-foreground">{row.view.path}</span>
+        </span>
+        <span id={statusId} className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 font-normal">
+          <NoteMemoryStatus state={row.view.state} due={dueAt} clock={clock} locale={locale} />
+          {dueText && <time dateTime={dueAt} className="text-xs tabular-nums text-muted-foreground"><span className="sr-only">{translate(locale,'properties.due')}: </span>{dueText}</time>}
+        </span>
+      </Button>
     </article>
   }
   return <section role="list" className="note-memory-list" aria-label={translate(locale,'learning.noteMemory.notes')} onKeyDown={navigate} onBlurCapture={event => {

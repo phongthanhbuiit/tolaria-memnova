@@ -61,12 +61,12 @@ it('defaults to note learning, exposes old cards explicitly and never mixes the 
       legacy={<p>Old dashboard</p>}
     />
   )
-  fireEvent.click(screen.getByRole('button', { name: 'Study' }))
+  fireEvent.click(screen.getByRole('button', { name: 'Study due notes (1)' }))
   expect(workspace.requestStudy).toHaveBeenCalledWith(['a', 'b'], 'notes')
   fireEvent.click(screen.getByRole('button', { name: /Old cards/ }))
   expect(screen.getByText('Old dashboard')).toBeInTheDocument()
 })
-it('connects conversion and recovery entries instead of leaving dialogs unreachable', () => {
+it('discloses conversion and recovery above the notes', () => {
   render(
     <NoteLearningDashboard
       mode="decks"
@@ -75,6 +75,13 @@ it('connects conversion and recovery entries instead of leaving dialogs unreacha
       legacy={null}
     />
   )
+  const advanced = screen.getByRole('button', { name: 'Advanced' })
+  expect(advanced).toHaveAttribute('aria-expanded', 'false')
+  expect(screen.queryByRole('button', { name: 'Convert note memory' })).not.toBeInTheDocument()
+  const list = screen.getByRole('list')
+  expect(advanced.compareDocumentPosition(list) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
+  fireEvent.click(advanced)
+  expect(advanced).toHaveAttribute('aria-expanded', 'true')
   fireEvent.click(screen.getByRole('button', { name: 'Convert note memory' }))
   expect(screen.getByText('Conversion opened')).toBeInTheDocument()
   fireEvent.click(
@@ -130,7 +137,7 @@ it('distinguishes future reviews from due notes and shows paths for matching tit
   try {
     render(<NoteLearningDashboard mode="decks" locale="en" onOpenPage={vi.fn()} legacy={null} />)
     expect(screen.getByText('Scheduled')).toBeInTheDocument()
-    expect(screen.getByText('Due', { exact: true })).toBeInTheDocument()
+    expect(screen.getByText('Due', { selector: '.note-memory-status' })).toBeInTheDocument()
     expect(screen.getByText('Biology/a.md')).toBeInTheDocument()
     expect(screen.getByText('Other/b.md')).toBeInTheDocument()
   } finally { workspace.notes = original }
@@ -140,7 +147,63 @@ it('explains a folder with enabled notes but no due reviews', () => {
   workspace.notes = [{ ...original[0], card: { ...original[0].card, schedule: { due: '2099-01-01T00:00:00Z' } } }]
   try {
     render(<NoteLearningDashboard mode="decks" locale="en" onOpenPage={vi.fn()} legacy={null} />)
-    expect(screen.getByRole('button', { name: 'Study', exact: true })).toBeDisabled()
+    expect(screen.getByRole('button', { name: 'Study due notes (0)', exact: true })).toBeDisabled()
     expect(screen.getByRole('status')).toHaveTextContent('No notes are due in this folder.')
+  } finally { workspace.notes = original }
+})
+
+it('finds learning notes by title or relative path and limits study to matching notes', () => {
+  const original = workspace.notes
+  workspace.notes = [...original, {
+    view: { ...original[0].view, pageId: 'b', path: 'Other/b.md' },
+    card: { ...original[0].card, pageId: 'b' },
+  }]
+  try {
+    const openPage = vi.fn()
+    render(<NoteLearningDashboard mode="home" locale="en" onOpenPage={openPage} legacy={null} />)
+    const search = screen.getByRole('searchbox', { name: 'Search notes' })
+    const study = screen.getByRole('button', { name: /^Study/ })
+    fireEvent.change(search, { target: { value: '  ARTICLE ' } })
+    expect(screen.queryByRole('button', { name: 'Another note' })).not.toBeInTheDocument()
+    fireEvent.click(study)
+    expect(workspace.requestStudy).toHaveBeenLastCalledWith(['a'], 'notes')
+    fireEvent.change(search, { target: { value: 'other/B.MD' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Another note' }))
+    expect(openPage).toHaveBeenCalledWith(workspace.pages[1])
+    fireEvent.change(search, { target: { value: 'missing' } })
+    expect(study).toBeDisabled()
+    expect(screen.getByRole('status')).toHaveTextContent('No matching notes')
+    fireEvent.click(screen.getByRole('button', { name: 'Clear search' }))
+    expect(search).toHaveFocus()
+    expect(screen.getByRole('button', { name: 'A4 article' })).toBeInTheDocument()
+  } finally { workspace.notes = original }
+})
+
+it('shows only due rows on demand while retaining scheduled matches in the resumable study scope', () => {
+  const original = workspace.notes
+  workspace.notes = [...original, {
+    view: { ...original[0].view, pageId: 'b', path: 'Other/b.md' },
+    card: { ...original[0].card, pageId: 'b', schedule: { due: '2099-01-01T00:00:00Z' } },
+  }]
+  try {
+    render(<NoteLearningDashboard mode="decks" locale="en" onOpenPage={vi.fn()} legacy={null} />)
+    fireEvent.click(screen.getByRole('switch', { name: 'Due' }))
+    expect(screen.queryByRole('button', { name: 'Another note' })).not.toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: /^Study/ }))
+    expect(workspace.requestStudy).toHaveBeenLastCalledWith(['a', 'b'], 'notes')
+    fireEvent.change(screen.getByRole('searchbox'), { target: { value: 'Other' } })
+    expect(screen.getByRole('button', { name: /^Study/ })).toBeDisabled()
+    fireEvent.click(screen.getByRole('switch', { name: 'Due' }))
+    expect(screen.getByRole('button', { name: 'Another note' })).toBeInTheDocument()
+  } finally { workspace.notes = original }
+})
+
+it('keeps the learning filters out of an ordinary writing-only Library', () => {
+  const original = workspace.notes
+  workspace.notes = []
+  try {
+    render(<NoteLearningDashboard mode="home" locale="en" onOpenPage={vi.fn()} legacy={null} />)
+    expect(screen.queryByRole('searchbox')).not.toBeInTheDocument()
+    expect(screen.getByText('Open a note and enable memorization to add it here.')).toBeVisible()
   } finally { workspace.notes = original }
 })

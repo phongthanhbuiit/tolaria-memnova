@@ -1,4 +1,6 @@
 {
+  "learning.noteMemory.searchHint": "Titre ou chemin du fichier",
+  "learning.libraryWritingHelp": "Écrivez dans la note de votre choix. Pour la réviser plus tard, activez la répétition espacée dans ses propriétés.",
   "capture.open": "Ouvrir la note",
   "capture.action": "Enregistrer l’extrait avec sa source",
   "capture.description": "Enregistrez cet extrait et sa source dans une nouvelle note.",

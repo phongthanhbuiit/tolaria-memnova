@@ -1,4 +1,6 @@
 {
+  "learning.noteMemory.searchHint": "Titel oder Dateipfad",
+  "learning.libraryWritingHelp": "Schreibe in jeder beliebigen Notiz. Zum späteren Lernen aktiviere die verteilte Wiederholung in den Eigenschaften.",
   "capture.open": "Notiz öffnen",
   "capture.action": "Auszug mit Quelle speichern",
   "capture.description": "Diesen Auszug zusammen mit seiner Quelle in einer neuen Notiz speichern.",

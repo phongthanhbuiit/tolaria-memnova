@@ -1,4 +1,6 @@
 {
+  "learning.noteMemory.searchHint": "Título o ruta del archivo",
+  "learning.libraryWritingHelp": "Escribe en cualquier nota. Para repasarla más tarde, activa la repetición espaciada en sus propiedades.",
   "capture.open": "Abrir nota",
   "capture.action": "Guardar fragmento con su fuente",
   "capture.description": "Guarda este fragmento y su fuente en una nota nueva.",

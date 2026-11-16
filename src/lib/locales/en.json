@@ -1,4 +1,5 @@
 {
+  "learning.libraryWritingHelp": "Write in any note. To study it later, turn on spaced repetition in Properties.",
   "capture.open": "Open note",
   "capture.action": "Save excerpt with source",
   "capture.description": "Save this excerpt and its source in a new note.",
@@ -984,6 +985,7 @@
   "learning.noteMemory.disable": "Pause memorization",
   "learning.noteMemory.ordinaryHelp": "This stays a normal note until you enable memorization.",
   "learning.noteMemory.enabledHelp": "The article is the front. Add text or images to the mnemonic.",
+  "learning.noteMemory.searchHint": "Title or file path",
   "learning.noteMemory.folder": "Folder",
   "learning.noteMemory.includeSubfolders": "Include subfolders",
   "learning.noteMemory.prepareNote": "Prepare this note",

@@ -1,4 +1,6 @@
 {
+  "learning.noteMemory.searchHint": "Titolo o percorso del file",
+  "learning.libraryWritingHelp": "Scrivi in qualsiasi nota. Per ripassarla più tardi, attiva la ripetizione dilazionata nelle proprietà.",
   "capture.open": "Apri nota",
   "capture.action": "Salva estratto con la fonte",
   "capture.description": "Salva questo estratto e la sua fonte in una nuova nota.",

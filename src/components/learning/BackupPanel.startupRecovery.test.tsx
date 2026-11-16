@@ -43,7 +43,7 @@ it('offers verified fresh-folder restore from the error screen without initializ
   api.restoreBackup.mockResolvedValue({
     path: '/recovery/.memnova/restores/fresh',
   })
-  render(<LearningDashboard mode="home" locale="en" onOpenPage={vi.fn()} />)
+  render(<LearningDashboard onBrowseAllNotes={vi.fn()} onCreateNote={vi.fn()} mode="home" locale="en" onOpenPage={vi.fn()} />)
   await screen.findByRole('combobox', { name: 'Backup history' })
   expect(
     screen.queryByRole('button', { name: 'Create backup', exact: true })

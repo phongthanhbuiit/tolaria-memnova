@@ -19,7 +19,8 @@ import { useLearningWorkspace } from './learning/LearningContext'
 import { useRegisterEditorResources } from './useEditorResources'
 import { useFlashcardEditorFace } from '../hooks/useFlashcardEditorFace'
 import { useDragRegion } from '../hooks/useDragRegion'
-import { formatShortcutDisplay } from '../hooks/appCommandCatalog'
+import { APP_COMMAND_IDS, getAppCommandShortcutDisplay } from '../hooks/appCommandCatalog'
+import { Button } from './ui/button'
 import { EditorRightPanel } from './EditorRightPanel'
 import { EditorContent } from './EditorContent'
 import { EditorMemoryProbe } from './EditorMemoryProbe'
@@ -67,6 +68,7 @@ interface EditorProps {
   onPendingCommitDiffHandled?: (requestId: number) => void
   getNoteStatus?: (path: string) => NoteStatus
   onCreateNote?: () => void
+  onQuickOpen?: () => void
   inspectorCollapsed: boolean
   onToggleInspector: () => void
   inspectorWidth: number
@@ -180,11 +182,9 @@ function useEditorModeExclusion({
   return { handleToggleDiffExclusive, handleToggleRawExclusive }
 }
 
-function EditorEmptyState({ locale = 'en' }: { locale?: AppLocale }) {
+function EditorEmptyState({ locale = 'en', onCreateNote, onQuickOpen }: Pick<EditorProps, 'locale' | 'onCreateNote' | 'onQuickOpen'>) {
   const breadcrumbBarHeight = 52
   const { onMouseDown } = useDragRegion()
-  const quickOpenShortcut = formatShortcutDisplay({ display: '⌘P / ⌘O' })
-  const newNoteShortcut = formatShortcutDisplay({ display: '⌘N' })
 
   return (
     <div className="flex flex-1 flex-col overflow-hidden">
@@ -196,9 +196,22 @@ function EditorEmptyState({ locale = 'en' }: { locale?: AppLocale }) {
         onMouseDown={onMouseDown}
         style={{ height: breadcrumbBarHeight }}
       />
-      <div className="flex flex-1 flex-col items-center justify-center gap-2 text-center text-muted-foreground">
-        <p className="m-0 text-[15px]">{translate(locale, 'editor.empty.selectNote')}</p>
-        <span className="text-xs text-muted-foreground">{translate(locale, 'editor.empty.shortcuts', { quickOpen: quickOpenShortcut, newNote: newNoteShortcut })}</span>
+      <div className="flex flex-1 flex-col items-center justify-center gap-3 px-4 text-center">
+        <p className="m-0 text-[15px] text-muted-foreground">{translate(locale, 'editor.empty.selectNote')}</p>
+        <div className="flex flex-wrap items-center justify-center gap-2">
+          {onCreateNote && (
+            <Button type="button" size="sm" onClick={() => onCreateNote()}>
+              {translate(locale, 'command.note.newNote')}
+              <kbd aria-hidden="true" className="font-sans text-xs">{getAppCommandShortcutDisplay(APP_COMMAND_IDS.fileNewNote)}</kbd>
+            </Button>
+          )}
+          {onQuickOpen && (
+            <Button type="button" size="sm" variant="outline" onClick={() => onQuickOpen()}>
+              {translate(locale, 'capture.open')}
+              <kbd aria-hidden="true" className="font-sans text-xs text-muted-foreground">{getAppCommandShortcutDisplay(APP_COMMAND_IDS.fileQuickOpen)}</kbd>
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   )
@@ -369,7 +382,7 @@ function useEditorFindCommand({
 }
 
 function EditorLayout({
-  tabs,
+  emptyState,
   activeTabPath,
   activeTab,
   isLoadingNewTab,
@@ -450,7 +463,7 @@ function EditorLayout({
   onUpdateNoteContent,
   flashcard,
 }: {
-  tabs: Tab[]
+  emptyState: ReactNode
   activeTabPath: string | null
   activeTab: Tab | null
   isLoadingNewTab: boolean
@@ -532,14 +545,11 @@ function EditorLayout({
   flashcard?: ReturnType<typeof useFlashcardEditorFace>
 }) {
   const activeBinaryTab = activeTab?.entry.fileKind === 'binary' ? activeTab : null
-  const showEmptyState = tabs.length === 0 && activeTabPath === null && !isVaultLoading
 
   return (
     <div className="editor flex flex-col min-h-0 overflow-hidden bg-background text-foreground">
       <div className="relative flex flex-1 min-h-0">
-        {showEmptyState
-          ? <EditorEmptyState locale={locale} />
-          : activeBinaryTab
+        {emptyState ?? (activeBinaryTab
             ? (
                 <FilePreview
                   entry={activeBinaryTab.entry}
@@ -602,7 +612,7 @@ function EditorLayout({
               fsrsDueDate={fsrsDueDate}
               locale={locale}
               flashcard={flashcard}
-            />
+            />)
         }
         {(showTableOfContents || !inspectorCollapsed) && <ResizeHandle onResize={onInspectorResize} />}
         <EditorRightPanel
@@ -663,6 +673,9 @@ function buildEditorLayoutProps(
   return {
     ...props,
     ...runtime,
+    emptyState: props.tabs.length === 0 && props.activeTabPath === null && !props.isVaultLoading
+      ? <EditorEmptyState locale={props.locale} onCreateNote={props.onCreateNote} onQuickOpen={props.onQuickOpen} />
+      : null,
     activeTabPath: props.activeTabPath,
     defaultAiAgent: props.defaultAiAgent ?? DEFAULT_AI_AGENT,
     defaultAiAgentReady: props.defaultAiAgentReady ?? true,

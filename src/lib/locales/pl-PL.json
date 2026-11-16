@@ -1,4 +1,6 @@
 {
+  "learning.noteMemory.searchHint": "Tytuł lub ścieżka pliku",
+  "learning.libraryWritingHelp": "Pisz w dowolnej notatce. Aby później ją powtarzać, włącz powtórki w odstępach czasu we właściwościach.",
   "capture.open": "Otwórz notatkę",
   "capture.action": "Zapisz fragment ze źródłem",
   "capture.description": "Zapisz ten fragment i jego źródło w nowej notatce.",

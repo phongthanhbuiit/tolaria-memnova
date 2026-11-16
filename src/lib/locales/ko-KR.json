@@ -1,4 +1,6 @@
 {
+  "learning.noteMemory.searchHint": "제목 또는 파일 경로",
+  "learning.libraryWritingHelp": "어떤 노트에든 자유롭게 작성하세요. 나중에 복습하려면 속성에서 간격 반복을 켜세요.",
   "capture.open": "노트 열기",
   "capture.action": "출처와 함께 발췌문 저장",
   "capture.description": "이 발췌문과 출처를 새 노트에 저장합니다.",

@@ -1,4 +1,6 @@
 {
+  "learning.noteMemory.searchHint": "标题或文件路径",
+  "learning.libraryWritingHelp": "你可以在任意笔记中写作。想要稍后复习时，在笔记属性中开启间隔重复。",
   "capture.open": "打开笔记",
   "capture.action": "保存摘录及来源",
   "capture.description": "将这段摘录及其来源保存到新笔记中。",

@@ -1,4 +1,6 @@
 {
+  "learning.noteMemory.searchHint": "標題或檔案路徑",
+  "learning.libraryWritingHelp": "你可以在任何筆記中寫作。想要稍後複習時，在筆記屬性中開啟間隔重複。",
   "capture.open": "開啟筆記",
   "capture.action": "儲存摘錄與來源",
   "capture.description": "將這段摘錄及其來源儲存到新筆記。",

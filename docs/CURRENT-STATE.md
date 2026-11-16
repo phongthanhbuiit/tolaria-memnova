@@ -2,6 +2,12 @@
 
 **Đối chiếu ngày 16/11/2026.** Bộ cài release local Apple Silicon từ `8e99c7f0` đã được build và kiểm tra, gồm bản sửa backup sau khi rời editor. [Bộ cài và phạm vi nghiệm thu](baselines/2026-11-16-release-build.md). Luồng viết trước và thao tác học trong Properties nằm ở commit `5281fd90`, thay thế hàng tab `dbd3ee1c` / `f4a600ce`. Hoàn thiện nhãn ôn và thanh cuộn Properties nằm ở `e23d721d`. Sidebar, danh sách và Properties dùng cùng kiểu thanh cuộn mảnh. Nút mở phiên ghi rõ **Review this note / Ôn ghi chú này**. [Nghiệm thu chỉnh sửa cuối](baselines/2026-11-16-properties-polish.md). [Nghiệm thu và ảnh native mới](baselines/2026-11-16-writing-and-properties.md). Trích đoạn và ôn Saved View có từ `05ae7aa3`. Bản cài công khai đối chiếu theo tag v0.1.0, commit `d0b400d5`. Trang này là điểm đọc đầu tiên để xác định giao diện, dữ liệu và việc còn mở.
 
+## Thư viện: viết hoặc học
+
+Trên mã nguồn mới, **Trang chủ → Tất cả ghi chú** mở danh sách tệp của thư viện, kể cả Markdown chưa bật học. **Ghi chú mới** mở thẳng editor. Ghi chú vẫn là Markdown thường cho tới khi bạn bật **Ôn tập ghi chú này** trong Thuộc tính.
+
+Trong danh sách học, tìm theo tiêu đề hoặc đường dẫn (ví dụ `Vật lý/` nếu hai môn có bài trùng tên), chọn thư mục và bật **Đến hạn** khi cần. Số trên nút ôn là số ghi chú đến hạn khớp với phạm vi đang chọn. Thư viện chưa có ghi chú học sẽ hiện hướng dẫn bắt đầu thay cho bộ lọc. [Ảnh và phạm vi kiểm tra](baselines/2026-11-16-library-writing.md).
+
 ## Người dùng thấy gì khi viết và học?
 
 Memnova mở hoặc tạo một thư mục Markdown trên máy, gọi là **Thư viện**. Người dùng có thể viết ngay mà không cần tài khoản, Git hay AI. Sidebar và danh sách ghi chú vẫn ở bên trái, editor ở giữa, Properties mở ở bên phải khi cần. Ghi chú mở vào bài viết. Các thao tác bật học, thêm/sửa gợi nhớ và bắt đầu ôn nằm trong Properties. Khi sửa gợi nhớ, editor có nút quay lại ghi chú. Luồng này thay thế hàng tab học của mốc trước.

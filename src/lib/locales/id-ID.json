@@ -1,4 +1,6 @@
 {
+  "learning.noteMemory.searchHint": "Judul atau lokasi berkas",
+  "learning.libraryWritingHelp": "Tulis di catatan mana pun. Untuk mengulasnya nanti, aktifkan pengulangan berjarak di properti catatan.",
   "capture.open": "Buka catatan",
   "capture.action": "Simpan kutipan beserta sumbernya",
   "capture.description": "Simpan kutipan ini beserta sumbernya dalam catatan baru.",

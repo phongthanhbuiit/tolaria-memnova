@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Files, NotePencil } from '@phosphor-icons/react'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
@@ -9,15 +10,40 @@ import { calcLevel } from '../../hooks/useStats'
 import { BackupPanel } from './BackupPanel'
 import { NoteLearningDashboard } from './NoteLearningDashboard'
 
-export function LearningDashboard({ mode, locale, onOpenPage }: { mode: 'home' | 'decks'; locale: AppLocale; onOpenPage: (page: LearningPage) => void }) {
-  const workspace = useLearningWorkspace()
-  const legacy = <LegacyLearningDashboard mode={mode} locale={locale} onOpenPage={onOpenPage} />
-  return workspace?.client?.supportsNoteMemory && workspace.phase === 'ready'
-    ? <NoteLearningDashboard key={`${workspace.root}:${workspace.client.libraryId}`} mode={mode} locale={locale} onOpenPage={onOpenPage} legacy={legacy} />
-    : legacy
+interface DashboardProps {
+  mode: 'home' | 'decks'
+  locale: AppLocale
+  onOpenPage: (page: LearningPage) => void
 }
 
-function LegacyLearningDashboard({ mode, locale, onOpenPage }: { mode: 'home' | 'decks'; locale: AppLocale; onOpenPage: (page: LearningPage) => void }) {
+type LibraryActions = { onBrowseAllNotes: () => void; onCreateNote: () => void }
+
+function LibraryHeader({ locale, studyReady, onBrowseAllNotes, onCreateNote }: LibraryActions & { locale: AppLocale; studyReady: boolean }) {
+  return <header className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 pb-5 pt-6 sm:px-8 sm:pt-8">
+    <div className="min-w-0 max-w-prose space-y-1">
+      <h1 className="text-2xl font-semibold tracking-tight">{translate(locale, 'learning.library')}</h1>
+      {studyReady && <p className="text-sm text-muted-foreground">{translate(locale, 'learning.libraryWritingHelp')}</p>}
+    </div>
+    <div className="flex flex-wrap gap-2">
+      <Button variant="outline" onClick={onBrowseAllNotes}><Files aria-hidden="true" />{translate(locale, 'sidebar.nav.allNotes')}</Button>
+      <Button onClick={onCreateNote}><NotePencil aria-hidden="true" />{translate(locale, 'command.note.newNote')}</Button>
+    </div>
+  </header>
+}
+
+export function LearningDashboard({ mode, locale, onOpenPage, onBrowseAllNotes, onCreateNote }: DashboardProps & LibraryActions) {
+  const workspace = useLearningWorkspace()
+  const client = workspace?.client
+  const studyReady = client?.supportsNoteMemory && workspace?.phase === 'ready'
+  const libraryHeader = mode === 'home' && <LibraryHeader locale={locale} studyReady={Boolean(studyReady)} onBrowseAllNotes={onBrowseAllNotes} onCreateNote={onCreateNote} />
+  const legacy = <LegacyLearningDashboard mode={mode} locale={locale} onOpenPage={onOpenPage} />
+  return studyReady
+    ? <NoteLearningDashboard key={`${workspace.root}:${client.libraryId}`} mode={mode} locale={locale} onOpenPage={onOpenPage} libraryHeader={libraryHeader} legacy={legacy} />
+    : <>{libraryHeader}{legacy}</>
+}
+
+function LegacyLearningDashboard({ mode, locale, onOpenPage }: DashboardProps) {
+  const Heading = mode === 'home' ? 'h2' : 'h1'
   const workspace = useLearningWorkspace()
   const [search, setSearch] = useState('')
   const [goal, setGoal] = useState<string | null>(null)
@@ -40,7 +66,7 @@ function LegacyLearningDashboard({ mode, locale, onOpenPage }: { mode: 'home' | 
     finally { setBusy(false) }
   }
   return <main className="mx-auto max-w-5xl space-y-8 p-5 sm:p-10">
-    <header className="flex flex-wrap items-center justify-between gap-4"><div><p className="mb-2 text-xs font-medium uppercase tracking-widest text-muted-foreground">Memnova</p><h1 className="text-3xl font-semibold tracking-tight">{translate(locale, mode === 'home' ? 'learning.library' : 'decks.title')}</h1><p className="mt-2 text-muted-foreground">{translate(locale, 'learning.questionHelp')}</p></div><Button disabled={workspace.phase === 'loading' || (workspace.phase === 'ready' && !due.length)} onClick={() => { if (workspace.phase === 'error') void workspace.reconnect(); else workspace.requestStudy(undefined, 'legacy') }}>{translate(locale, workspace.phase === 'error' ? 'learning.retry' : workspace.phase === 'ready' ? 'home.start_review' : 'learning.prepare')}</Button></header>
+    <header className="flex flex-wrap items-center justify-between gap-4"><div><p className="mb-2 text-xs font-medium uppercase tracking-widest text-muted-foreground">Memnova</p><Heading className="text-2xl font-semibold">{translate(locale, mode === 'home' ? 'learning.study' : 'decks.title')}</Heading><p className="mt-2 text-muted-foreground">{translate(locale, 'learning.questionHelp')}</p></div><Button disabled={workspace.phase === 'loading' || (workspace.phase === 'ready' && !due.length)} onClick={() => { if (workspace.phase === 'error') void workspace.reconnect(); else workspace.requestStudy(undefined, 'legacy') }}>{translate(locale, workspace.phase === 'error' ? 'learning.retry' : workspace.phase === 'ready' ? 'home.start_review' : 'learning.prepare')}</Button></header>
     {(workspace.error || error) && <div role="alert" className="rounded-lg border border-destructive p-4"><p>{translate(locale, 'learning.error')}</p><pre className="my-3 whitespace-pre-wrap break-words text-xs">{error || workspace.error}</pre><Button variant="outline" onClick={() => { void workspace.reconnect() }}>{translate(locale, 'learning.retry')}</Button></div>}
     {workspace.phase === 'loading' && <p role="status">{translate(locale, 'learning.loading')}</p>}
     {workspace.phase === 'error' && <BackupPanel locale={locale} />}

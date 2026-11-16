@@ -648,6 +648,8 @@ interface ImmediateCreateDeps {
 }
 
 type ImmediateCreationPath =
+  | 'library'
+  | 'empty_editor'
   | 'cmd_n'
   | 'folder_command_palette'
   | 'folder_context_menu'
