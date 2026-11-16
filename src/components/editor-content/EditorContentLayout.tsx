@@ -560,7 +560,7 @@ export function EditorContentLayout(model: EditorContentModel) {
   const breadcrumbActions = buildBreadcrumbActions(model)
 
   return (
-    <Tabs value={selectedTab} activationMode="manual" onValueChange={value => { void changeLearningTab(value) }} className={rootClassName}>
+    <Tabs value={selectedTab} activationMode={noteNavigation ? 'manual' : 'automatic'} onValueChange={value => { void changeLearningTab(value) }} className={rootClassName}>
       <EditorBreadcrumbArea
         actions={breadcrumbActions}
         barRef={breadcrumbBarRef}

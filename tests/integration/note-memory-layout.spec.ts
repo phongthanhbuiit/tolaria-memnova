@@ -79,6 +79,7 @@ test('coarse targets, contrast, reduced motion and keyboard focus remain usable'
     await page.getByRole('tab', { name: 'Note', exact: true }).focus()
     await page.keyboard.press('ArrowRight')
     const mnemonic = page.getByRole('tab', { name: 'Memory cue', exact: true })
+    await expect(mnemonic).toBeFocused()
     await expect(mnemonic).toHaveAttribute('aria-selected','false')
     await page.keyboard.press('Enter')
     await expect(mnemonic).toHaveAttribute('aria-selected','true')
