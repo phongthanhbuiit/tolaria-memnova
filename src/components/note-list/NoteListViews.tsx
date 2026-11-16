@@ -1,3 +1,4 @@
+import { createContext, memo, useContext } from 'react'
 import { Virtuoso, type VirtuosoHandle } from 'react-virtuoso'
 import type { VaultEntry } from '../../types'
 import type { SortOption, SortDirection, SortConfig, RelationshipGroup } from '../../utils/noteListHelpers'
@@ -48,10 +49,40 @@ export function EntityView({ entity, groups, query, collapsedGroups, sortPrefs, 
   )
 }
 
+type NoteRenderer = (entry: VaultEntry) => React.ReactNode
+const NoteRendererContext = createContext<NoteRenderer>(() => null)
+
+function NoteRow({ entry }: { entry: VaultEntry }) {
+  const renderItem = useContext(NoteRendererContext)
+  return renderItem(entry)
+}
+
+function renderNoteRow(_index: number, entry: VaultEntry) {
+  return <NoteRow entry={entry} />
+}
+
+// An editor change can update row selections or callbacks. Only a changed
+// list needs to republish data to Virtuoso's synchronous layout subscriptions.
+const VirtualNoteList = memo(function VirtualNoteList({ entries, virtuosoRef }: {
+  entries: VaultEntry[]
+  virtuosoRef?: React.RefObject<VirtuosoHandle | null>
+}) {
+  return (
+    <Virtuoso
+      ref={virtuosoRef}
+      className="app-scrollbar"
+      style={{ height: '100%' }}
+      data={entries}
+      overscan={200}
+      itemContent={renderNoteRow}
+    />
+  )
+})
+
 export function ListView({ isArchivedView, isChangesView, isInboxView, changesError, searched, query, renderItem, virtuosoRef, locale = 'en' }: {
   isArchivedView?: boolean; isChangesView?: boolean; isInboxView?: boolean; changesError?: string | null
   searched: VaultEntry[]; query: string
-  renderItem: (entry: VaultEntry) => React.ReactNode
+  renderItem: NoteRenderer
   virtuosoRef?: React.RefObject<VirtuosoHandle | null>
   locale?: AppLocale
 }) {
@@ -73,13 +104,8 @@ export function ListView({ isArchivedView, isChangesView, isInboxView, changesEr
   }
 
   return (
-    <Virtuoso
-      ref={virtuosoRef}
-      className="app-scrollbar"
-      style={{ height: '100%' }}
-      data={searched}
-      overscan={200}
-      itemContent={(_index, entry) => renderItem(entry)}
-    />
+    <NoteRendererContext.Provider value={renderItem}>
+      <VirtualNoteList entries={searched} virtuosoRef={virtuosoRef} />
+    </NoteRendererContext.Provider>
   )
 }

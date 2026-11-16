@@ -18,3 +18,9 @@ Ba phần được rà riêng: màn học khi nhiều tệp, việc ghi chép h�
 Ảnh native cuối, app debug Tauri/macOS tiếng Việt, thư viện thử có 85 ghi chú trước khi tạo: [Trang chủ](ui/2026-11-16-library-writing/home.png), [danh sách đã lọc](ui/2026-11-16-library-writing/filter.png), [editor trống](ui/2026-11-16-library-writing/empty.png), [ghi chú đã lưu](ui/2026-11-16-library-writing/writing.png).
 
 Lỗi con trỏ tái hiện trên native: cập nhật ID trang ở phần đầu file sau khi tạo note từng dựng lại tiêu đề trống và đẩy con trỏ xuống thân bài. Test dùng BlockNote thật kiểm tra con trỏ, tiêu đề và ID ở lần lưu tiếp theo. Trên app QA, sau 9 giây chờ, phím gõ thật vẫn vào tiêu đề. Ghi chú `Pomodoro` lưu thành `pomodoro.md` với nội dung tiếng Việt, không còn tệp untitled trùng. SQLite integrity OK và vẫn đúng 5 liên kết lịch học.
+
+Một lỗi trên WebKit khi gõ nhanh và lưu trong Tất cả ghi chú cũng tái hiện trên mã gốc. Trên bản sửa, bộ dựng hàng cập nhật riêng với danh sách ảo. Ca Trang chủ → mở tệp → ghi chú mới → gõ → lưu đạt 4/4 lần trên WebKit, không retry. Ca bàn phím với 700 tệp đi xuống 40 hàng rồi Enter mở đúng note, dưới 100 hàng trong DOM. Có thể chạy lại từ gốc repo với WebKit của Playwright đã cài:
+
+```sh
+MEMNOVA_PLAYWRIGHT_WEBKIT=1 pnpm exec playwright test -c playwright.integration.config.ts tests/integration/library-entry.spec.ts --retries=0
+```
