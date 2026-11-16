@@ -6,6 +6,10 @@ Key abstractions and domain models in Tolaria.
 
 `ExcerptCaptureDialog` holds one draft ID per dialog visit. `useNoteCreation.handleCaptureExcerpt` writes an ordinary note at a stable generated path through the existing exclusive creation operation. A repeated request only accepts an existing file whose captured content still matches. Closing or leaving the editor visit prevents a late completion from updating another note’s UI. The formatting toolbar records a selection and restores it through the same editor visit after the dialog closes. A success toast can explicitly navigate to the new note. When a short wikilink would be ambiguous or the filename contains wiki syntax, capture writes a Markdown link with a percent-encoded relative path. The rich editor keeps that destination through edits and resolves it from the excerpt’s folder.
 
+## Note editor navigation
+
+Note-memory editing uses one shadcn tablist for the note, its memory cue and its study panel. Switching a face reuses the canonical editor document and save pipeline. Manual keyboard activation lets arrow keys move between controls before Enter or Space commits a switch that flushes pending edits. Ordinary notes have no navigation until note-memory controls are needed.
+
 ## Saved View learning scope
 
 After flushing the editor, Saved View study resolves all ready, available and active owner notes in the complete filtered view against a fresh snapshot of the current Library. Concurrent reads for the same connection follow the newest snapshot. A Library switch invalidates the old read. The Due switch and action count use the currently due subset. At least one matching due note enables starting study. The scheduler receives the eligible page IDs as a stable session scope and chooses the due queue, so grading one note preserves the session ID and its undo history when the user returns. Leaving the view invalidates its deferred scope resolver.

@@ -154,3 +154,10 @@
     outline-offset: -2px;
   }
 }
+
+/* Note and cue share one navigation row; horizontal overflow preserves tab order. */
+.note-memory-editor-navigation { overflow-x: auto; }
+.note-memory-editor-tabs { flex: 0 0 auto; height: auto; padding: 0; }
+.note-memory-editor-tabs [role='tab'] { flex: 0 0 auto; min-height: 36px; font-size: 13px; line-height: 20px; white-space: nowrap; }
+.note-memory-editor-tabs [role='tab']::after { bottom: 0; height: 0; border-bottom: 2px solid currentColor; }
+@media (pointer: coarse) { .note-memory-editor-tabs [role='tab'] { min-height: 44px; min-width: 44px; } }

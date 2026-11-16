@@ -6,7 +6,7 @@ Xem [hiện trạng và ảnh giao diện](CURRENT-STATE.md) để đối chiế
 
 Mở hoặc tạo `.md` rồi viết như ứng dụng ghi chú bình thường. Chỉ khi bật **Properties → Spaced repetition**, trang đó mới có một mục học riêng. Không phải mọi Markdown, wikilink hoặc trang nguồn được liên kết đều trở thành flashcard.
 
-Trong **Content**, **Article** là bài cần thuộc (có thể là cả trang A4). Mở **Memorization → Add mnemonic** để tạo mặt **Mnemonic**. Mặt sau có thể chứa chữ, ảnh và, trên main từ a69159c5, hình vẽ qua lệnh `/Excalidraw`; không bắt buộc dùng canvas. Hai mặt lưu trong cùng `.md`, phân cách bằng `<!-- FLASHCARD:BACK -->`. Cây thư mục chỉ có một file; không tạo thư mục canvas ẩn hoặc một bản bài học độc lập trong SQLite.
+Trong hàng điều hướng duy nhất, **Note / Ghi chú** mở bài cần thuộc (có thể là cả trang A4). Chọn **Add mnemonic / Thêm gợi nhớ** để tạo phần **Memory cue / Gợi nhớ**. **Study / Ôn tập** mở trạng thái và hành động học của ghi chú. Mặt sau có thể chứa chữ, ảnh và, trên main từ a69159c5, hình vẽ qua lệnh `/Excalidraw`; không bắt buộc dùng canvas. Hai mặt lưu trong cùng `.md`, phân cách bằng `<!-- FLASHCARD:BACK -->`. Cây thư mục chỉ có một file; không tạo thư mục canvas ẩn hoặc một bản bài học độc lập trong SQLite.
 
 Dùng thiết lập chiều rộng note sẵn có cho cả hai mặt; whiteboard có thể mở rộng bằng điều khiển của nó. Đổi mặt, chuyển note và đóng ứng dụng bình thường đều đi qua hàng đợi lưu chung. Khi lưu thất bại, ứng dụng giữ bản đang sửa và cho Retry/Cancel. Cơ chế đóng bình thường không bảo đảm trước force-kill, crash hoặc updater restart.
 
@@ -52,7 +52,7 @@ Timing/heap trong Chromium không đại diện tuyệt đối cho WebKit native
 
 ## Giao diện ghi nhớ sau đợt UX
 
-Sau khi bật học trong Properties, **Nội dung** chứa hai mặt **Bài viết / Gợi nhớ** và tab **Ghi nhớ** cho phép ôn tập. Với ghi chú đang thiếu mặt sau, bấm **Thêm gợi nhớ** để mở đúng mặt trong editor. Thanh chọn nguồn xuất hiện khi đang xem mặt gợi nhớ. Khi tạm dừng, gợi nhớ và lịch sử học vẫn được giữ; bật lại **Properties → Spaced repetition** để tiếp tục học.
+Sau khi bật học trong Properties, một hàng **Ghi chú / Gợi nhớ / Ôn tập** cho phép chọn trực tiếp phần đang làm việc. Với ghi chú đang thiếu mặt sau, bấm **Thêm gợi nhớ** để mở đúng mặt trong editor. Thanh chọn nguồn xuất hiện khi đang xem mặt gợi nhớ. Khi tạm dừng, gợi nhớ và lịch sử học vẫn được giữ; bật lại **Properties → Spaced repetition** để tiếp tục học.
 
 Danh sách học hiển thị đường dẫn, trạng thái và lịch ôn. **Đến hạn** và **Đã lên lịch** giúp phân biệt nội dung cần ôn ngay với nội dung sẽ ôn sau. Với danh sách lớn, có thể dùng Tab/Shift+Tab, mũi tên hoặc Home/End để đi qua các ghi chú. Thuộc tính tùy chỉnh của file không đánh dấu đã học thuộc và không thay đổi lịch ôn. Lịch học và dữ liệu thẻ cũ vẫn có vùng chỉ đọc riêng.
 

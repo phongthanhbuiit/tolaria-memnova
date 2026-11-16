@@ -1,29 +1,34 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
+import { Tabs } from './ui/tabs'
 import { NoteMemoryEditorTabs } from './NoteMemoryEditorTabs'
 
-describe('note memory face tabs', () => {
-  it('names article and mnemonic separately and keeps only the selected tab in the tab order', () => {
-    render(<NoteMemoryEditorTabs activeFace="front" hasBack panelId="memory-panel" locale="vi" onChangeFace={vi.fn()} onAddBack={vi.fn()} />)
-    expect(screen.getByRole('tab', { name: 'Bài viết' })).toHaveAttribute('aria-selected', 'true')
-    expect(screen.getByRole('tab', { name: 'Gợi nhớ' })).toHaveAttribute('tabindex', '-1')
-    expect(screen.getByRole('tab', { name: 'Bài viết' })).toHaveAttribute('aria-controls', 'memory-panel')
+describe('note navigation tabs', () => {
+  it('shows one row for note, cue and Study with only the selected tab in tab order', () => {
+    render(<Tabs defaultValue="front" activationMode="manual"><NoteMemoryEditorTabs hasBack showFaces showStudy panelId="memory-panel" locale="vi" onAddBack={vi.fn()} /></Tabs>)
+    expect(screen.getAllByRole('tablist')).toHaveLength(1)
+    expect(screen.getByRole('tab', { name: 'Ghi chú' })).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByRole('tab', { name: 'Gợi nhớ' })).toHaveAttribute('aria-selected', 'false')
+    expect(screen.getByRole('tab', { name: 'Ôn tập' })).toHaveAttribute('aria-selected', 'false')
   })
-  it('supports arrow-key switching and focus without inserting content', () => {
-    const change = vi.fn(), add = vi.fn()
-    render(<NoteMemoryEditorTabs activeFace="front" hasBack panelId="memory-panel" locale="en" onChangeFace={change} onAddBack={add} />)
-    const article = screen.getByRole('tab', { name: 'Article' })
+  it('moves keyboard focus without changing panels until Enter activates a tab', async () => {
+    const change = vi.fn()
+    render(<Tabs defaultValue="front" activationMode="manual" onValueChange={change}><NoteMemoryEditorTabs hasBack showFaces showStudy panelId="memory-panel" locale="en" onAddBack={vi.fn()} /></Tabs>)
+    const article = screen.getByRole('tab', { name: 'Note' })
     article.focus()
     fireEvent.keyDown(article, { key: 'ArrowRight' })
+    await vi.waitFor(() => expect(screen.getByRole('tab', { name: 'Memory cue' })).toHaveFocus())
+    expect(change).not.toHaveBeenCalled()
+    fireEvent.keyDown(screen.getByRole('tab', { name: 'Memory cue' }), { key: 'Enter' })
     expect(change).toHaveBeenCalledWith('back')
-    expect(screen.getByRole('tab', { name: 'Mnemonic' })).toHaveFocus()
-    expect(add).not.toHaveBeenCalled()
   })
-  it('offers explicit mnemonic creation for a configured note without a back', () => {
+  it('keeps explicit cue creation outside the tablist when the note has no cue', () => {
     const add = vi.fn()
-    render(<NoteMemoryEditorTabs activeFace="front" hasBack={false} panelId="memory-panel" locale="en" onChangeFace={vi.fn()} onAddBack={add} />)
-    expect(screen.queryByRole('tab', { name: 'Mnemonic' })).not.toBeInTheDocument()
-    fireEvent.click(screen.getByRole('button', { name: 'Add mnemonic' }))
+    render(<Tabs defaultValue="front"><NoteMemoryEditorTabs hasBack={false} showFaces showStudy panelId="memory-panel" locale="en" onAddBack={add} /></Tabs>)
+    expect(screen.queryByRole('tab', { name: 'Memory cue' })).not.toBeInTheDocument()
+    const action = screen.getByRole('button', { name: 'Add mnemonic' })
+    expect(action.closest('[role="tablist"]')).toBeNull()
+    fireEvent.click(action)
     expect(add).toHaveBeenCalledOnce()
   })
 })

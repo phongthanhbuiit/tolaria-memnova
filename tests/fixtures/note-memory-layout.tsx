@@ -4,7 +4,7 @@ import type { NoteLearningState } from '../../src/lib/learning/types'
 import { useEffect, useMemo, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { TooltipProvider } from '../../src/components/ui/tooltip'
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '../../src/components/ui/tabs'
+import { Tabs, TabsContent } from '../../src/components/ui/tabs'
 import { LearningContext, type LearningWorkspace } from '../../src/components/learning/LearningContext'
 import { NoteLearningPanel } from '../../src/components/learning/NoteLearningPanel'
 import { NoteLearningDashboard } from '../../src/components/learning/NoteLearningDashboard'
@@ -16,7 +16,7 @@ import { NoteMemoryEditorTabs } from '../../src/components/NoteMemoryEditorTabs'
 import ExcalidrawWhiteboard from '../../src/components/ExcalidrawWhiteboard'
 import { LearningStudyView } from '../../src/components/learning/LearningStudyView'
 import type { useLearningStudy } from '../../src/hooks/useLearningStudy'
-import { translate, type AppLocale } from '../../src/lib/i18n'
+import { type AppLocale } from '../../src/lib/i18n'
 import type { LearningClient } from '../../src/lib/learning/client'
 import snapshot from './note-memory-study-canvas.json'
 import '../../src/index.css'
@@ -56,7 +56,7 @@ const workspace = {
 export function Harness() {
   const [value, setValue] = useState<LayoutCase>({ surface: 'panel', locale: 'en', theme: 'light' })
   const [size] = useState({ height: '360', width: '600' })
-  const [open, setOpen] = useState(true), [face, setFace] = useState<'front' | 'back'>('front'), [generation, setGeneration] = useState(0)
+  const [open, setOpen] = useState(true), [face, setFace] = useState<'front' | 'back' | 'cards'>('front'), [generation, setGeneration] = useState(0)
   useEffect(() => {
     window.setNoteLayoutCase = next => { setValue(next); setOpen(true); setFace('front'); setGeneration(previous => previous + 1) }
     return () => { delete window.setNoteLayoutCase }
@@ -89,7 +89,7 @@ export function Harness() {
     {surface === 'source' && <NoteBackSourceDialog ownerPath="/fixture/Biology/Article.md" ownerPageId={owner} open={open} locale={locale} onOpenChange={setOpen} onApplyBack={async () => {}} />}
     {surface === 'toolbar' && <NoteBackSourceToolbar back={{ kind: 'inline' }} ownerPath="/fixture/Biology/Article.md" ownerPageId={owner} locale={locale} onApplyBack={async () => {}} onNavigate={() => {}} />}
     {surface === 'inspector' && <NoteMemoryInspector path="/fixture/Biology/Article.md" content={`---\n_memnova_page_id: ${owner}\n_memnova_learning_version: 1\n_memnova_learning_enabled: true\n_memnova_back_kind: inline\n---\nArticle`} locale={locale} />}
-    {surface === 'tabs' && <Tabs defaultValue="content"><TabsList variant="line" className="note-memory-workspace-tabs mx-3 mt-1"><TabsTrigger value="content">{translate(locale,'learning.content')}</TabsTrigger><TabsTrigger value="cards">{translate(locale,'learning.noteMemory.management')}</TabsTrigger></TabsList><TabsContent value="content"><NoteMemoryEditorTabs activeFace={face} hasBack panelId="article" locale={locale} onChangeFace={setFace} onAddBack={() => {}} /></TabsContent><TabsContent value="cards">Management</TabsContent></Tabs>}
+    {surface === 'tabs' && <Tabs value={face} activationMode="manual" onValueChange={value => { if (value === 'front' || value === 'back' || value === 'cards') setFace(value) }}><NoteMemoryEditorTabs hasBack showFaces showStudy panelId="article" locale={locale} onAddBack={() => {}} /><TabsContent id="article" aria-labelledby={`article-${face}`} value={face === 'cards' ? 'front' : face}>Editor</TabsContent><TabsContent value="cards">Management</TabsContent></Tabs>}
     {surface === 'whiteboard' && <div className="editor__blocknote-container"><ExcalidrawWhiteboard blockId="layout" height={size.height} snapshot={JSON.stringify(snapshot)} onSnapshotChange={() => {}} /></div>}
     {surface === 'study' && <LearningStudyView key={generation} study={study} root="/fixture" locale={locale} />}
     {!open && <p role="status">Closed</p>}

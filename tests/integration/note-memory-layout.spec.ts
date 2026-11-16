@@ -76,9 +76,11 @@ test('coarse targets, contrast, reduced motion and keyboard focus remain usable'
     }
     for (const metric of metrics) { expect(metric.coarse).toBe(true); expect(metric.primaryContrast).toBeGreaterThanOrEqual(4.5); expect(metric.captionContrast).toBeGreaterThanOrEqual(4.5); for (const control of metric.controls) { expect(control.height).toBeGreaterThanOrEqual(44); expect(control.font).toBe('13px') } }
     await page.evaluate(() => window.setNoteLayoutCase?.({ surface: 'tabs', locale: 'en', theme: 'light' }))
-    await page.getByRole('tab', { name: 'Article', exact: true }).focus()
+    await page.getByRole('tab', { name: 'Note', exact: true }).focus()
     await page.keyboard.press('ArrowRight')
-    const mnemonic = page.getByRole('tab', { name: 'Mnemonic', exact: true })
+    const mnemonic = page.getByRole('tab', { name: 'Memory cue', exact: true })
+    await expect(mnemonic).toHaveAttribute('aria-selected','false')
+    await page.keyboard.press('Enter')
     await expect(mnemonic).toHaveAttribute('aria-selected','true')
     await expect(mnemonic).toBeFocused()
     expect(await mnemonic.evaluate(element => ({ focus: element.matches(':focus-visible'), shadow: getComputedStyle(element).boxShadow }))).toMatchObject({ focus: true, shadow: expect.not.stringMatching(/^none$/) })
@@ -114,7 +116,7 @@ test('source toolbar follows utility type scale and coarse target size', async (
   } finally { await context.close() }
 })
 
-test('workspace tabs keep whole labels when space permits and contain both navigation levels in a narrow editor', async ({ page }) => {
+test('note navigation stays in one horizontally scrollable row in a narrow editor', async ({ page }) => {
   await page.goto('/tests/fixtures/note-memory-layout.html')
   await page.waitForFunction(() => window.setNoteLayoutCase)
   for (const locale of ['en','vi','de-DE'] as const) for (const width of [480,200,160]) {
@@ -123,17 +125,13 @@ test('workspace tabs keep whole labels when space permits and contain both navig
       document.querySelector<HTMLElement>('[data-layout-surface]')!.style.width = `${width}px`
     }, {locale,width})
     await page.waitForFunction(locale => document.documentElement.dataset.layoutCase === `tabs:${locale}:light`,locale)
-    const metrics = await page.locator('.note-memory-workspace-tabs').evaluate(list => {
-      const parent = list.closest('[data-layout-surface]')!.getBoundingClientRect(), bounds = list.getBoundingClientRect()
-      return { contained: bounds.left >= parent.left && bounds.right <= parent.right, labels: [...list.querySelectorAll<HTMLElement>('[role=tab]')].map(button => {
-        const text = [...button.childNodes].find(node => node.nodeType === Node.TEXT_NODE && node.textContent?.trim())!
-        const range = document.createRange(); range.selectNodeContents(text)
-        const rectangle = button.getBoundingClientRect()
-        return { lines: range.getClientRects().length, contained: rectangle.left >= bounds.left && rectangle.right <= bounds.right && rectangle.bottom <= bounds.bottom }
-      }) }
+    await expect(page.getByRole('tablist')).toHaveCount(1)
+    const metrics = await page.locator('.note-memory-editor-navigation').evaluate(scroller => {
+      const parent = scroller.closest('[data-layout-surface]')!.getBoundingClientRect(), bounds = scroller.getBoundingClientRect()
+      const tabs = [...scroller.querySelectorAll<HTMLElement>('[role=tab]')].map(tab => tab.getBoundingClientRect())
+      return { contained: bounds.left >= parent.left && bounds.right <= parent.right, sameRow: tabs.every(tab => tab.top === tabs[0].top && tab.height === tabs[0].height), scrollable: getComputedStyle(scroller).overflowX === 'auto' }
     })
-    expect(metrics.contained,`${locale}/${width}`).toBe(true)
-    for (const label of metrics.labels) { expect(label.contained,`${locale}/${width}`).toBe(true); if (width === 480) expect(label.lines,locale).toBe(1) }
+    expect(metrics,`${locale}/${width}`).toEqual({ contained: true, sameRow: true, scrollable: true })
   }
 })
 

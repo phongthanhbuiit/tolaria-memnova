@@ -10,6 +10,10 @@ The default workspace keeps ordinary Markdown ordinary. Explicit note-memory opt
 
 The note capture dialog creates an ordinary Markdown note through the existing creation pipeline while keeping the source editor active. Capture content and provenance stay in Markdown. Learning activation remains explicit in Properties. The Saved View action counts due notes after intersecting the complete view with ready notes owned by the active Library. Starting study flushes the editor and refreshes the learning snapshot. The eligible notes in that view form the session scope. The scheduler selects the due queue and preserves progress and undo across closing and reopening the same scope.
 
+## Note editor navigation
+
+The note-memory workspace presents one navigation row for Note, Memory cue and Study. The canonical editor remains mounted for content editing, and the study panel uses the existing session actions. Legacy card clients retain their own card workflow.
+
 ## Earlier Memnova transition context
 
 The staged Memnova learning-storage transition is tracked in [MEMNOVA-IMPLEMENTATION.md](./MEMNOVA-IMPLEMENTATION.md). Until verified SQLite cutover, legacy FSRS fields remain in Markdown. `update_fsrs_schedule` validates the active library boundary and allowed scheduling keys, serializes schedule writes, and persists a complete patch with one synced temporary-file replacement. The frontend flushes pending lesson edits before calling it and updates the cache, tab and vault entry only after persistence succeeds. Study progress advances and gamification records only after the promise resolves; a failed write leaves the answer open for retry.

@@ -33,8 +33,8 @@ test('explicit note enable, mnemonic editing, study and pause use the default wo
       .getByTestId('note-list-container')
       .getByText('Alpha Project', { exact: true })
       .click()
-    const memory = page.getByRole('tab', { name: 'Memorization', exact: true })
-    const content = page.getByRole('tab', { name: 'Content', exact: true })
+    const memory = page.getByRole('tab', { name: 'Study', exact: true })
+    const content = page.getByRole('tab', { name: 'Note', exact: true })
     await expect(memory).toHaveCount(0)
     await expect(content).toHaveCount(0)
     const openProperties = page.getByRole('button', { name: 'Open the properties panel', exact: true })
@@ -53,12 +53,12 @@ test('explicit note enable, mnemonic editing, study and pause use the default wo
       .getByRole('button', { name: 'Add mnemonic', exact: true })
       .click()
     await expect(
-      page.getByRole('tab', { name: 'Mnemonic', exact: true })
+      page.getByRole('tab', { name: 'Memory cue', exact: true })
     ).toHaveAttribute('aria-selected', 'true')
     await expect(page.getByRole('button', { name: 'Choose a source', exact: true })).toBeVisible()
-    await page.getByRole('tab', { name: 'Article', exact: true }).click()
+    await page.getByRole('tab', { name: 'Note', exact: true }).click()
     await expect(page.getByRole('button', { name: 'Choose a source', exact: true })).toBeHidden()
-    await page.getByRole('tab', { name: 'Mnemonic', exact: true }).click()
+    await page.getByRole('tab', { name: 'Memory cue', exact: true }).click()
     const editor = page.locator('.bn-editor [contenteditable=true]').first()
     const input = (await editor.count())
       ? editor
@@ -69,7 +69,7 @@ test('explicit note enable, mnemonic editing, study and pause use the default wo
     await expect
       .poll(() => fs.readFileSync(owner, 'utf8'))
       .toContain('A red membrane surrounds a blue nucleus.')
-    await page.getByRole('tab', { name: 'Memorization', exact: true }).click()
+    await page.getByRole('tab', { name: 'Study', exact: true }).click()
     const panel = page.getByRole('region', { name: 'Note memory', exact: true })
     await expect(
       panel.getByRole('button', { name: 'Study', exact: true })
@@ -93,7 +93,8 @@ test('explicit note enable, mnemonic editing, study and pause use the default wo
     await repeat.click()
     await expect(repeat).not.toBeChecked()
     await expect(memory).toHaveCount(0)
-    await expect(content).toHaveCount(0)
+    await expect(content).toHaveAttribute('aria-selected', 'true')
+    await expect(page.getByRole('tablist')).toHaveCount(1)
     await expect(page.locator('.bn-editor:visible')).toBeVisible()
     expect(fs.readFileSync(owner, 'utf8')).toBe(
       beforeReview.replace(
@@ -127,7 +128,7 @@ test(`ordinary note editing retains a literal two-face marker without enabling l
     await openFixtureVault(page, root, { preserveLearningState: true })
     await page.getByRole('button', { name: /^All Notes/ }).click()
     await page.getByTestId('note-list-container').getByText('Alpha Project', { exact: true }).click()
-    await expect(page.getByRole('tab', { name: 'Mnemonic', exact: true })).toHaveCount(0)
+    await expect(page.getByRole('tab', { name: 'Memory cue', exact: true })).toHaveCount(0)
     await expect(page.locator('.bn-editor')).not.toContainText('@@MEMNOVA_LITERAL_NOTE_MARKER:')
     const paragraph = page.locator('.bn-editor [data-content-type="paragraph"]').last()
     await paragraph.click(); await page.keyboard.press('End'); await page.keyboard.insertText(' Added ordinary text.'); await page.keyboard.press('Meta+s')
@@ -137,7 +138,7 @@ test(`ordinary note editing retains a literal two-face marker without enabling l
     expect(saved).toContain('Ordinary article.')
     expect(saved).not.toContain('_memnova_learning_')
     expect(saved).not.toContain('_memnova_page_id')
-    await expect(page.getByRole('tab', { name: 'Memorization', exact: true })).toHaveCount(0)
+    await expect(page.getByRole('tab', { name: 'Study', exact: true })).toHaveCount(0)
     expect(fs.readFileSync(owner, 'utf8')).toBe(saved)
     await openCommandPalette(page); await executeCommand(page, 'Toggle Raw')
     const raw = page.locator('.cm-content')
