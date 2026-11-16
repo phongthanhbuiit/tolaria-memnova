@@ -1,6 +1,6 @@
 # Properties and answer sources implementation ledger
 
-Plan: [N00–N17](./MEMNOVA-PROPERTIES-AND-SOURCES-PLAN.md). Starting checkout: `89fd0465` on main, clean. User authorized the full ordered implementation on 2026-10-18; the per-task stop instruction in the handoff prompt does not apply to this full run. A task is released only after its verified normal push. In this authorized full run, implementation dependencies are checked against local committed code and test evidence; normal pushes group related checkpoints. Pending tasks are not marked DONE before their checkpoint is pushed.
+Plan: [N00–N17](archive/plans/MEMNOVA-PROPERTIES-AND-SOURCES-PLAN.md). Starting checkout: `89fd0465` on main, clean. User authorized the full ordered implementation on 2026-10-18; the per-task stop instruction in the handoff prompt does not apply to this full run. A task is released only after its verified normal push. In this authorized full run, implementation dependencies are checked against local committed code and test evidence; normal pushes group related checkpoints. Pending tasks are not marked DONE before their checkpoint is pushed.
 
 | Task | State | Evidence / commit |
 |---|---|---|

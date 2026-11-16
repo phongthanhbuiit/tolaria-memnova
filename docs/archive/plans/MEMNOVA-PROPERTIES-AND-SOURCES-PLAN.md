@@ -1,5 +1,7 @@
 # Kế hoạch properties và liên kết bài nguồn Memnova
 
+> Tài liệu lịch sử. Xem [hiện trạng Memnova](../../CURRENT-STATE.md) để đối chiếu giao diện, bản phát hành và công việc còn mở.
+
 Ngày: 2026-10-18. Trạng thái: kế hoạch để triển khai, chưa phải tính năng đã hoàn thành.
 Baseline đã push: `3a64cca0`. Kế hoạch này bổ sung cho A01–G02, không mở lại hoặc tự đánh dấu hoàn thành các task cũ. Đọc cùng `AGENTS.md`, ADR-0138/0140/0141/0142/0144 và `docs/MEMNOVA-IMPLEMENTATION.md`.
 

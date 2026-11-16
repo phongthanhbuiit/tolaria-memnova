@@ -1,10 +1,12 @@
 # Memnova kế hoạch học thuộc trang ghi chú bằng mặt gợi nhớ
 
+> Tài liệu lịch sử. Xem [hiện trạng Memnova](../../CURRENT-STATE.md) để đối chiếu giao diện, bản phát hành và công việc còn mở.
+
 Ngày: 2026-10-18. Trạng thái: **thiết kế để triển khai, chưa thay đổi ứng dụng hoặc dữ liệu**. Source được đối chiếu tại `88ae677a` trên `main`.
 
 Mục tiêu: app vẫn là ứng dụng ghi chú. Người dùng viết một bài, có thể dài một trang A4, trong một `.md`; chỉ khi chọn học thuộc thì trang đó trở thành một đơn vị học. Mặt trước là bài viết. Mặt sau chứa hình ảnh, chữ hoặc whiteboard để gợi nhớ bài viết, hoặc lấy nội dung từ một trang khác. Cây thư mục vẫn chỉ có một mục cho trang đó.
 
-Đọc cùng [task chi tiết](MEMNOVA-NOTE-MEMORY-TASKS.md) và [sổ triển khai](MEMNOVA-NOTE-MEMORY-IMPLEMENTATION.md). Model thực thi phải đọc cả ba trước khi code. Plan này thay thế định hướng sản phẩm “trang chứa nhiều card mới” cho luồng mặc định sắp triển khai; không tuyên bố schema/ADR cũ đã được thay đổi, không vô hiệu hợp đồng bảo toàn dữ liệu cũ. Chỉ task tương ứng mới được sửa code. Các card SQLite hiện có phải tiếp tục truy cập được.
+Đọc cùng [task chi tiết](MEMNOVA-NOTE-MEMORY-TASKS.md) và [sổ triển khai](../../MEMNOVA-NOTE-MEMORY-IMPLEMENTATION.md). Model thực thi phải đọc cả ba trước khi code. Plan này thay thế định hướng sản phẩm “trang chứa nhiều card mới” cho luồng mặc định sắp triển khai; không tuyên bố schema/ADR cũ đã được thay đổi, không vô hiệu hợp đồng bảo toàn dữ liệu cũ. Chỉ task tương ứng mới được sửa code. Các card SQLite hiện có phải tiếp tục truy cập được.
 
 ## 1. Phạm vi đã chốt
 
@@ -248,7 +250,7 @@ Keyboard tabs/focus/ARIA, Escape/fullscreen, Cmd+S, source dialog focus return; 
 
 ## 8. Tiêu chí hoàn thành và bằng chứng
 
-Phải hoàn tất tất cả M00–M25 trong [task chi tiết](MEMNOVA-NOTE-MEMORY-TASKS.md), mỗi task có evidence và commit trong [ledger](MEMNOVA-NOTE-MEMORY-IMPLEMENTATION.md). Không đánh dấu DONE dựa trên “code có vẻ đúng”.
+Phải hoàn tất tất cả M00–M25 trong [task chi tiết](MEMNOVA-NOTE-MEMORY-TASKS.md), mỗi task có evidence và commit trong [ledger](../../MEMNOVA-NOTE-MEMORY-IMPLEMENTATION.md). Không đánh dấu DONE dựa trên “code có vẻ đúng”.
 
 Acceptance trọng tâm:
 

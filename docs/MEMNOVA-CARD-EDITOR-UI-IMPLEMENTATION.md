@@ -1,6 +1,6 @@
 # Card editor UI implementation ledger
 
-Plan: MEMNOVA-CARD-EDITOR-UI-PLAN.md. Starting commit: 9ac824b8, main clean. User authorized the complete U00–U08 run. Dependencies may use committed locally verified checkpoints during this full run; All checkpoints were included in the successful normal main push through 2d46c7ae; the final docs-only push records U08 evidence. No subagents, schema/API/scheduler/dependency changes.
+Plan: [archived card editor design](archive/plans/MEMNOVA-CARD-EDITOR-UI-PLAN.md). Starting commit: 9ac824b8, main clean. User authorized the complete U00–U08 run. Dependencies may use committed locally verified checkpoints during this full run; All checkpoints were included in the successful normal main push through 2d46c7ae; the final docs-only push records U08 evidence. No subagents, schema/API/scheduler/dependency changes.
 
 | Task | Status | Evidence |
 |---|---|---|

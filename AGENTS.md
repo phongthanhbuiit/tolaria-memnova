@@ -4,6 +4,8 @@
 
 ### Start working on a task
 
+Start with [the current product state](docs/CURRENT-STATE.md) for versioned UI screenshots, release differences and open work. When a change affects those facts, update the corresponding entry.
+
 Before editing, inspect `git status`, read the relevant architecture/ADR documents, and review the latest baseline under `docs/baselines/`. Run focused tests for the behavior being changed, then the mandatory local release checks before pushing. Preserve existing user changes and distinguish pre-existing failures from regressions.
 
 CodeScene is optional for this fork (ADR-0137). Use it when authenticated access is already configured. Missing CodeScene tools, licensing, or tokens must not block implementation or cause repeated credential/approval requests. Record it as **not run**, never as passing. Local lint, types, tests, coverage, security analysis, data-preservation checks, and verified Git hooks remain mandatory.

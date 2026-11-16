@@ -1,6 +1,6 @@
 # Memnova sổ triển khai học thuộc trang ghi chú
 
-Plan: [nghiệp vụ và dữ liệu](MEMNOVA-NOTE-MEMORY-PLAN.md). Task: [M00 đến M25](MEMNOVA-NOTE-MEMORY-TASKS.md).
+Plan: [nghiệp vụ và dữ liệu](archive/plans/MEMNOVA-NOTE-MEMORY-PLAN.md). Task: [M00 đến M25](archive/plans/MEMNOVA-NOTE-MEMORY-TASKS.md).
 
 Ngày lập: 2026-10-18. Baseline source: `88ae677a`. **Trạng thái hiện hành: M00–M25 DONE** sau normal push `a376ee11` (9 phút). Xem [nghiệm thu cuối](baselines/2026-10-19-note-memory-m25.md). Các checkpoint/audit cũ bên dưới là lịch sử; nghiệm thu tích hợp cuối ở M23–M25 đã bao gồm watcher, inactive properties, native persistence, recovery/restore và resource cleanup. CodeScene NOT RUN, không được hiểu là đạt điểm.
 

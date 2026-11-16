@@ -1,5 +1,7 @@
 # Memnova V1 implementation and release evidence
 
+> Historical report for A01–G02. See [current Memnova behavior and release status](CURRENT-STATE.md).
+
 The A01–G02 plan is implemented. One Markdown lesson owns multiple independent flashcards. A card can reveal its own answer or the current complete lesson. SQLite is the authority for cards, memory, reviews, sessions and learning statistics; lessons and attachments remain ordinary files. Git and AI are optional advanced integrations, disabled unless explicitly enabled.
 
 ## Delivered behavior

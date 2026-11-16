@@ -1,8 +1,10 @@
 # Architecture
 
+See [current product state](CURRENT-STATE.md) for the release, source version and verified UI.
+
 ## Current note-memory architecture
 
-The default workspace keeps ordinary Markdown ordinary. Explicit note-memory opt-in creates one study binding per note; Article and inline Mnemonic remain in one Markdown source, with an optional UUID-bound same-Library source face. SQLite schema 5 owns learning state and recovery, not a second authoritative article. Existing multi-card learning remains in the Legacy lane. See [the user guide](MEMNOVA-NOTE-MEMORY-GUIDE.md) and [current M00–M25 ledger](MEMNOVA-NOTE-MEMORY-IMPLEMENTATION.md) for release status and evidence. The transition notes below retain historical context; staged checkpoints are not the current default-workspace state.
+The default workspace keeps ordinary Markdown ordinary. Explicit note-memory opt-in creates one study binding per note; Article and inline Mnemonic remain in one Markdown source, with an optional UUID-bound same-Library source face. SQLite schema 5 owns learning state and recovery, not a second authoritative article. Existing multi-card learning remains in the Legacy lane. See [the user guide](MEMNOVA-NOTE-MEMORY-GUIDE.md) and [historical M00–M25 ledger](MEMNOVA-NOTE-MEMORY-IMPLEMENTATION.md) for release status and evidence. The transition notes below retain historical context; staged checkpoints are not the current default-workspace state.
 
 ## Earlier Memnova transition context
 

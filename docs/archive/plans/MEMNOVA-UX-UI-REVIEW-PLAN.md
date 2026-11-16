@@ -1,5 +1,7 @@
 # Memnova — rà soát sau M25 và kế hoạch UX/UI
 
+> Tài liệu lịch sử. Xem [hiện trạng Memnova](../../CURRENT-STATE.md) để đối chiếu giao diện, bản phát hành và công việc còn mở.
+
 Ngày: 2026-10-19. Baseline: `77dd9d8211ebd4e8e3d385e2bf8a0670dc992cb9`.
 Kế hoạch được chấp thuận để triển khai đầy đủ U00–U11. Bảng task là trạng thái hiện hành; findings và bằng chứng review bên dưới giữ nguyên như baseline lịch sử.
 
@@ -75,7 +77,7 @@ Vitest gồm: NoteLearningPanel, NoteLearningDashboard, NoteBackSource, NoteReco
 
 Probe là test tạm phục vụ audit, đã xóa sau chạy; không để suite fail trong repository. Log: `/tmp/memnova-ux-review-probes.log` (artifact tạm, không bảo đảm tồn tại trên máy khác). U01/U02 phải đưa regression tương đương vào suite chính, chạy RED lại trước fix.
 
-Số 4891 frontend /1239 Rust, coverage 87.33%/86.37% và 54 smoke là **bằng chứng lịch sử M25**, không phải lần chạy mới. Xem [M25](baselines/2026-10-19-note-memory-m25.md) và [ledger cũ](MEMNOVA-NOTE-MEMORY-IMPLEMENTATION.md).
+Số 4891 frontend /1239 Rust, coverage 87.33%/86.37% và 54 smoke là **bằng chứng lịch sử M25**, không phải lần chạy mới. Xem [M25](../../baselines/2026-10-19-note-memory-m25.md) và [ledger cũ](../../MEMNOVA-NOTE-MEMORY-IMPLEMENTATION.md).
 
 Giữ nguyên các giới hạn M25: license production tldraw chưa xác minh cấu hình, non-macOS/signed installer/VoiceOver chưa nghiệm thu; force-kill không thuộc bảo đảm normal-close. U11 phải báo đúng các mục này, không xem thêm icon là đã giải quyết license.
 
@@ -107,10 +109,10 @@ Mỗi task dưới đây đủ nhỏ để model triển khai riêng. Không suy
 
 | ID | Ưu tiên | Phụ thuộc | Đầu ra | Trạng thái |
 |---|---|---|---|---|
-| U00 | P1 quy trình | — | Baseline/screenshot và trạng thái chuẩn | DONE — [baseline](baselines/2026-10-19-ux-u00.md) |
-| U01 | P2 bug | U00 | Snippet sạch payload, parity TS/Rust | DONE — [evidence](baselines/2026-10-19-ux-u01.md) |
-| U02 | P2 bug | U00 | Error refresh đúng vòng đời | DONE — [evidence](baselines/2026-10-19-ux-u02.md) |
-| U03 | P2 | U01,U02 | Control/style/icon contract dùng chung trong feature | DONE — [batch evidence](baselines/2026-10-19-ux-u03-u10.md) |
+| U00 | P1 quy trình | — | Baseline/screenshot và trạng thái chuẩn | DONE — [baseline](../../baselines/2026-10-19-ux-u00.md) |
+| U01 | P2 bug | U00 | Snippet sạch payload, parity TS/Rust | DONE — [evidence](../../baselines/2026-10-19-ux-u01.md) |
+| U02 | P2 bug | U00 | Error refresh đúng vòng đời | DONE — [evidence](../../baselines/2026-10-19-ux-u02.md) |
+| U03 | P2 | U01,U02 | Control/style/icon contract dùng chung trong feature | DONE — [batch evidence](../../baselines/2026-10-19-ux-u03-u10.md) |
 | U04 | P2 | U03 | Editor navigation, toolbar nguồn, width UX | DONE — UI batch |
 | U05 | P2 | U04 | Note learning panel theo trạng thái | DONE — UI batch |
 | U06 | P2 | U03,U05 | Dashboard rõ trạng thái/đến hạn | DONE — UI batch |
@@ -118,7 +120,7 @@ Mỗi task dưới đây đủ nhỏ để model triển khai riêng. Không suy
 | U08 | P2 | U03,U04 | Source/conversion/recovery dialogs | DONE — UI batch |
 | U09 | P2 | U03,U05 | Properties scope và readonly clarity | DONE — UI batch |
 | U10 | P2 | U04–U09 | Accessibility/layout/localization regression | DONE — UI batch |
-| U11 | P1 release | U01–U10 | Native/data checks, release evidence, normal push | DONE — [release receipt](baselines/2026-10-19-ux-u11.md), source/test `003e92a1` |
+| U11 | P1 release | U01–U10 | Native/data checks, release evidence, normal push | DONE — [release receipt](../../baselines/2026-10-19-ux-u11.md), source/test `003e92a1` |
 
 ### U00 — khóa baseline và trạng thái trước khi sửa
 

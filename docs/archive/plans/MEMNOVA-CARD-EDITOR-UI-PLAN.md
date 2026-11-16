@@ -1,5 +1,7 @@
 # Memnova — kế hoạch thống nhất giao diện Add/Edit Card
 
+> Tài liệu lịch sử. Xem [hiện trạng Memnova](../../CURRENT-STATE.md) để đối chiếu giao diện, bản phát hành và công việc còn mở.
+
 Trạng thái: **kế hoạch, chưa triển khai UI**. Điểm bắt đầu được đọc: `01db799b` trên main, working tree sạch. Kế hoạch N00–N17 đã hoàn thành; đây là đợt UI riêng, không mở lại schema/nghiệp vụ của đợt đó.
 
 ## 1. Kết quả rà soát

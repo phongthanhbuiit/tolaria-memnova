@@ -2,6 +2,8 @@
 
 Memnova is a local-first desktop app for writing Markdown notes and reviewing the ones you want to remember. A Library is a folder on your computer. You can open an existing folder, keep editing it with other tools, and use Memnova without an account.
 
+[Current product state, UI screenshots and release differences](docs/CURRENT-STATE.md)
+
 ## Install 0.1.0
 
 The first desktop release targets **macOS on Apple Silicon** (M-series Macs). Open the disk image and drag `tolaria-memnova.app` to Applications. The release includes a SHA-256 checksum. This build is ad-hoc signed and has no Apple notarization. Gatekeeper may block a downloaded copy. Updates for this version are available through GitHub Releases.

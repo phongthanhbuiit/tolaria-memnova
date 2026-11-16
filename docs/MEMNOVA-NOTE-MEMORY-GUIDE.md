@@ -1,12 +1,12 @@
 # Memnova: ghi nhớ một trang Markdown
 
-Đây là hướng dẫn cho nghiệp vụ note-memory hiện hành. Các tài liệu multi-card trước đây mô tả luồng Legacy, không phải mặc định của note mới. Trạng thái triển khai và bằng chứng ở [sổ task M00–M25](MEMNOVA-NOTE-MEMORY-IMPLEMENTATION.md).
+Xem [hiện trạng và ảnh giao diện](CURRENT-STATE.md) để đối chiếu phiên bản. Hướng dẫn này mô tả nghiệp vụ note-memory. Các tài liệu multi-card trước đây mô tả luồng Legacy, không phải mặc định của note mới. Trạng thái triển khai và bằng chứng ở [sổ task M00–M25](MEMNOVA-NOTE-MEMORY-IMPLEMENTATION.md).
 
 ## Ghi chú thường và trang cần học
 
-Mở hoặc tạo `.md` rồi viết như ứng dụng ghi chú bình thường. Chỉ khi chọn **Flashcards → Enable memorization**, trang đó mới có một mục học riêng. Không phải mọi Markdown, wikilink hoặc trang nguồn được liên kết đều trở thành flashcard.
+Mở hoặc tạo `.md` rồi viết như ứng dụng ghi chú bình thường. Chỉ khi bật **Properties → Spaced repetition**, trang đó mới có một mục học riêng. Không phải mọi Markdown, wikilink hoặc trang nguồn được liên kết đều trở thành flashcard.
 
-Trong **Content**, **Article** là bài cần thuộc (có thể là cả trang A4). Chọn **Add mnemonic** để tạo mặt **Mnemonic**. Mặt sau có thể chứa chữ, ảnh và whiteboard qua công cụ editor hiện có; không bắt buộc dùng canvas. Hai mặt lưu trong cùng `.md`, phân cách bằng `<!-- FLASHCARD:BACK -->`. Cây thư mục chỉ có một file; không tạo thư mục canvas ẩn hoặc một bản bài học độc lập trong SQLite.
+Trong **Content**, **Article** là bài cần thuộc (có thể là cả trang A4). Mở **Memorization → Add mnemonic** để tạo mặt **Mnemonic**. Mặt sau có thể chứa chữ, ảnh và, trên main từ a69159c5, hình vẽ qua lệnh `/Excalidraw`; không bắt buộc dùng canvas. Hai mặt lưu trong cùng `.md`, phân cách bằng `<!-- FLASHCARD:BACK -->`. Cây thư mục chỉ có một file; không tạo thư mục canvas ẩn hoặc một bản bài học độc lập trong SQLite.
 
 Dùng thiết lập chiều rộng note sẵn có cho cả hai mặt; whiteboard có thể mở rộng bằng điều khiển của nó. Đổi mặt, chuyển note và đóng ứng dụng bình thường đều đi qua hàng đợi lưu chung. Khi lưu thất bại, ứng dụng giữ bản đang sửa và cho Retry/Cancel. Cơ chế đóng bình thường không bảo đảm trước force-kill, crash hoặc updater restart.
 
@@ -16,13 +16,13 @@ Từ thanh điều khiển hai mặt, chọn source và xem preview. Chọn rõ 
 
 Mặt sau liên kết chỉ đọc. **Open source** lưu trang hiện tại trước khi mở nơi sửa thật. **Use local mnemonic** quay về mặt sau cục bộ được giữ lại. Di chuyển source trong cùng Library vẫn tìm theo UUID. Source bị mất/trùng UUID hoặc không còn mặt hợp lệ sẽ chặn ôn cho tới khi sửa; không dùng nội dung SQLite cũ để giả là nguồn còn tồn tại. Không hỗ trợ chuỗi back-of-linked-back.
 
-Học trang A không tự học hoặc chấm điểm trang B mà A liên kết. Nếu bật học B riêng, B có lịch riêng. Nếu đã thuộc B và muốn ngừng ôn B, chọn Pause memorization trên B; liên kết từ A vẫn đọc nội dung B. Mở wikilink và đọc trang không tạo lượt review.
+Học trang A không tự học hoặc chấm điểm trang B mà A liên kết. Nếu bật học B riêng, B có lịch riêng. Nếu đã thuộc B và muốn ngừng ôn B, tắt **Spaced repetition** trong Properties của B; liên kết từ A vẫn đọc nội dung B. Mở wikilink và đọc trang không tạo lượt review.
 
 ## Thuộc bài, lịch ôn và properties
 
 Chọn **Study**, tự nhớ Article, rồi **Show mnemonic** để đối chiếu gợi ý. Chọn Again/Hard/Good/Easy theo mức nhớ thực tế. Đánh giá cập nhật lịch; **Undo** hoàn lại lượt hợp lệ gần nhất. Đóng phiên sẽ giữ trạng thái để tiếp tục đúng phạm vi. Home thống kê các lượt đã commit.
 
-“Đã thuộc” không phải một trạng thái vĩnh viễn do đọc hoặc tick property. Nếu muốn ngừng ôn hẳn, dùng **Pause memorization**; nội dung hai mặt và lịch sử vẫn giữ. Bật lại không tạo lịch mới. Có thể tự thêm property `Status: Completed` để tổ chức ghi chú, nhưng property đó không tự chấm điểm hoặc dừng lịch.
+“Đã thuộc” không phải một trạng thái vĩnh viễn do đọc hoặc tick property. Nếu muốn ngừng ôn hẳn, tắt **Properties → Spaced repetition**; nội dung hai mặt và lịch sử vẫn giữ. Bật lại không tạo lịch mới. Có thể tự thêm property `Status: Completed` để tổ chức ghi chú, nhưng property đó không tự chấm điểm hoặc dừng lịch.
 
 **Page properties** là frontmatter của file `.md`; user được chỉnh giá trị nghiệp vụ được hỗ trợ. Khối YAML phức tạp/không hỗ trợ được giữ nguyên và hiển thị bảo vệ. Các field `_memnova_*`, lịch ôn và ID nội bộ do hệ thống quản lý. Properties của card cũ thuộc dữ liệu Legacy độc lập; sau conversion, bản cũ chỉ để giữ lịch sử, không phải một bộ properties trang đang hoạt động thứ hai.
 
@@ -46,10 +46,11 @@ Dùng **Home → Advanced → Backup history**: Create, Verify rồi Restore. Re
 
 Nghiệm thu dùng Library tổng hợp, không dữ liệu thật: native macOS lưu hai mặt/canvas, linked source, grade/undo, conversion/recovery và restore sang root độc lập, cùng browser/tests thực. Xem [M23](baselines/2026-10-19-note-memory-m23.md), [M24](baselines/2026-10-19-note-memory-m24.md) và báo cáo release cuối để biết command, kết quả và phần chưa chạy.
 
-Timing/heap trong Chromium không đại diện tuyệt đối cho WebKit native. Physical touch, VoiceOver, hệ điều hành khác và bản cài đặt phát hành có ký số không được suy ra từ những phép thử này. tldraw production có yêu cầu license riêng; cảnh báo license thấy trong QA không được bỏ qua hoặc né bằng bản vá cleanup.
+Timing/heap trong Chromium không đại diện tuyệt đối cho WebKit native. Physical touch, VoiceOver, hệ điều hành khác và bản cài đặt phát hành có ký số không được suy ra từ những phép thử này. Các lần kiểm tra canvas ở M23/M24 dùng tldraw. Mã nguồn hiện dùng [Excalidraw](adr/0165-excalidraw-note-drawings.md).
+
 ## Giao diện ghi nhớ sau đợt UX
 
-Trong mỗi ghi chú, **Nội dung** chứa hai mặt **Bài viết / Gợi nhớ**; tab **Ghi nhớ** quản lý bật học, tạm dừng và ôn tập. Với ghi chú đang thiếu mặt sau, bấm **Thêm gợi nhớ** để mở đúng mặt trong editor. Thanh chọn nguồn xuất hiện khi đang xem mặt gợi nhớ. Khi tạm dừng, gợi nhớ và lịch sử học vẫn được giữ; bấm **Tiếp tục** để học lại.
+Sau khi bật học trong Properties, **Nội dung** chứa hai mặt **Bài viết / Gợi nhớ** và tab **Ghi nhớ** cho phép ôn tập. Với ghi chú đang thiếu mặt sau, bấm **Thêm gợi nhớ** để mở đúng mặt trong editor. Thanh chọn nguồn xuất hiện khi đang xem mặt gợi nhớ. Khi tạm dừng, gợi nhớ và lịch sử học vẫn được giữ; bật lại **Properties → Spaced repetition** để tiếp tục học.
 
 Danh sách học hiển thị đường dẫn, trạng thái và lịch ôn. **Đến hạn** và **Đã lên lịch** giúp phân biệt nội dung cần ôn ngay với nội dung sẽ ôn sau. Với danh sách lớn, có thể dùng Tab/Shift+Tab, mũi tên hoặc Home/End để đi qua các ghi chú. Thuộc tính tùy chỉnh của file không đánh dấu đã học thuộc và không thay đổi lịch ôn. Lịch học và dữ liệu thẻ cũ vẫn có vùng chỉ đọc riêng.
 
