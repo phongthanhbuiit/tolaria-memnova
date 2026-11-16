@@ -1,10 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { renderHook, act } from '@testing-library/react'
-import { useSaveNote } from './useSaveNote'
+import { persistContent, useSaveNote } from './useSaveNote'
 import { NoteEditorPersistence, registerNoteEditorPersistence } from '../lib/learning/noteEditorPersistence'
 import type { NoteMemoryView, NoteWriteRequest } from '../lib/learning/types'
 
-const mockInvokeFn = vi.fn<(cmd: string, args?: Record<string, unknown>) => Promise<null>>(() => Promise.resolve(null))
+const mockInvokeFn = vi.fn<(cmd: string, args?: Record<string, unknown>) => Promise<string | null>>(() => Promise.resolve(null))
 
 vi.mock('@tauri-apps/api/core', () => ({
   invoke: vi.fn(),
@@ -79,5 +79,27 @@ describe('useSaveNote', () => {
       expect(mockInvokeFn).not.toHaveBeenCalled()
       expect(updateContent).toHaveBeenCalledWith('/test/a.md', 'After')
     } finally { dispose() }
+  })
+})
+
+describe('inactive managed note flush', () => {
+  const content = '---\n_memnova_learning_version: 1\n_memnova_learning_enabled: false\n---\nArticle\n<!-- FLASHCARD:BACK -->\nMnemonic\n'
+  beforeEach(() => mockInvokeFn.mockReset())
+
+  it('accepts an already committed source after its mounted editor is gone', async () => {
+    mockInvokeFn.mockResolvedValueOnce(content)
+    await expect(persistContent('/test/paused.md', content)).resolves.toBeUndefined()
+    expect(mockInvokeFn.mock.calls).toEqual([['get_note_content', { path: '/test/paused.md' }]])
+  })
+
+  it('keeps genuine unsaved content blocked without its canonical writer', async () => {
+    mockInvokeFn.mockResolvedValueOnce(content)
+    await expect(persistContent('/test/paused.md', content + 'Unsaved stroke')).rejects.toThrow('note-editor-persistence-unavailable')
+    expect(mockInvokeFn.mock.calls).toEqual([['get_note_content', { path: '/test/paused.md' }]])
+  })
+
+  it('propagates disk read errors instead of treating a missing writer as saved', async () => {
+    mockInvokeFn.mockRejectedValueOnce(Error('Read failed'))
+    await expect(persistContent('/test/paused.md', content)).rejects.toThrow('Read failed')
   })
 })

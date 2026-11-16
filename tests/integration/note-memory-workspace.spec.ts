@@ -158,3 +158,42 @@ test(`ordinary note editing retains a literal two-face marker without enabling l
   } finally { removeFixtureVaultCopy(root) }
 })
 }
+
+test('Home creates and verifies a backup after editing a managed note', async ({ page }) => {
+  const root = createNoteMemoryFixture()
+  const owner = path.join(root, 'project/alpha-project.md')
+  const latest = new Date(Date.now() + 60_000)
+  fs.utimesSync(owner, latest, latest)
+  try {
+    await openFixtureVault(page, root, { preserveLearningState: true })
+    await page.getByRole('button', { name: /^All Notes/ }).click()
+    await page.getByTestId('note-list-container').getByText('Alpha Project', { exact: true }).click()
+    const properties = page.getByRole('button', { name: 'Open the properties panel', exact: true })
+    if (await properties.isVisible()) await properties.click()
+    await page.getByRole('switch', { name: 'Spaced repetition', exact: true }).click()
+    await page.getByRole('button', { name: 'Add mnemonic', exact: true }).click()
+    const editor = page.locator('.bn-editor [contenteditable=true]').first()
+    const input = await editor.count() ? editor : page.locator('.bn-editor[contenteditable=true]').first()
+    await input.click()
+    await page.keyboard.insertText('A blue bookmark recalls the complete article.')
+    await page.keyboard.press('Meta+s')
+    await expect.poll(() => fs.readFileSync(owner, 'utf8')).toContain('A blue bookmark recalls the complete article.')
+    await page.getByRole('button', { name: 'Back to note', exact: true }).click()
+    const saved = fs.readFileSync(owner, 'utf8')
+    await page.getByRole('button', { name: 'Home', exact: true }).click()
+    await expect(page.locator('.bn-editor')).toHaveCount(0)
+    await page.getByRole('button', { name: 'Advanced', exact: true }).click()
+    const backup = page.getByRole('region', { name: 'Backup history', exact: true })
+    const selection = backup.getByRole('combobox', { name: 'Backup history', exact: true })
+    const previous = await selection.count() ? await selection.innerText() : ''
+    await backup.getByRole('button', { name: 'Create backup', exact: true }).click()
+    await expect(selection).not.toHaveText(previous)
+    await expect(backup).not.toContainText('note-editor-persistence-unavailable')
+    await backup.getByRole('button', { name: 'Verify backup', exact: true }).click()
+    await expect(backup).toContainText('Backup verified')
+    expect(fs.readFileSync(owner, 'utf8')).toBe(saved)
+  } finally {
+    await page.close()
+    removeFixtureVaultCopy(root)
+  }
+})

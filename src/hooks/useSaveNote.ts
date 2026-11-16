@@ -6,7 +6,16 @@ import { saveThroughNoteEditor } from '../lib/learning/noteEditorPersistence'
 
 export async function persistContent(path: string, content: string): Promise<void> {
   if (await saveThroughNoteEditor(path, content)) return
-  if (/(?:^|\n)_memnova_learning_/.test(content)) throw Error('note-editor-persistence-unavailable')
+  if (/(?:^|\n)_memnova_learning_/.test(content)) {
+    // Configuration receipts can leave an already committed source queued when
+    // navigation unmounts its canonical writer. Only exact disk equality makes
+    // that retry a no-op. A genuine draft still requires the scoped writer.
+    const saved = isTauri()
+      ? await invoke<string>('get_note_content', { path })
+      : await mockInvoke<string>('get_note_content', { path })
+    if (saved === content) return
+    throw Error('note-editor-persistence-unavailable')
+  }
   if (isTauri()) {
     await invoke('save_note_content', { path, content })
   } else {
