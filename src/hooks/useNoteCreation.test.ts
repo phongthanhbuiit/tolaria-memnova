@@ -355,6 +355,22 @@ describe('useNoteCreation hook', () => {
     expect(invoke).toHaveBeenCalledTimes(1)
   })
 
+  it('uses an explicit local source when a shorter wikilink would open another note', async () => {
+    vi.mocked(isTauri).mockReturnValue(true)
+    vi.mocked(invoke).mockResolvedValueOnce(undefined)
+    const source = makeEntry({ path: '/test/vault/reference.md', filename: 'reference.md', title: 'Right file' })
+    const other = makeEntry({ path: '/test/vault/archive/reference.md', filename: 'reference.md' })
+    const { result } = renderHook(() => useNoteCreation(makeConfig([other, source]), tabDeps))
+    await act(async () => {
+      await result.current.handleCaptureExcerpt({
+        id: 'duplicate', text: 'Words', source: { kind: 'note', entry: source }, vaultPath: '/test/vault',
+      }, () => true)
+    })
+    expect(invoke).toHaveBeenCalledWith('create_note_content', expect.objectContaining({
+      content: expect.stringContaining('[Right file](<./reference.md>)'),
+    }))
+  })
+
   it('does not add a failed capture to the Library or touch the active note', async () => {
     vi.mocked(isTauri).mockReturnValue(true)
     vi.mocked(invoke).mockRejectedValueOnce(new Error('disk full'))

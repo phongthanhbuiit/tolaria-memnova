@@ -1,3 +1,4 @@
+import { decodeRelativePath, isSafePathSegment } from './relativeNoteLinks'
 import type { VaultEntry } from '../types'
 import { joinVaultPath, normalizeNotePathForCollision, normalizeNotePathForIdentity, normalizeNotePathSeparators } from './notePathIdentity'
 import { workspaceAliasFromOption } from './workspaces'
@@ -118,36 +119,8 @@ function encodeRelativePath({ path }: VaultRelativePathInput): string {
     .join('/')
 }
 
-function decodeRelativePath({ path }: VaultRelativePathInput): string | null {
-  const pathname = path
-  const encodedPath = pathname.replace(/^\/+/u, '')
-  if (!encodedPath) return null
-
-  const segments = encodedPath.split('/')
-  const decodedSegments: string[] = []
-  for (const segment of segments) {
-    if (!segment) return null
-    try {
-      const decoded = decodeURIComponent(segment)
-      if (!isSafePathSegment({ segment: decoded })) return null
-      decodedSegments.push(decoded)
-    } catch {
-      return null
-    }
-  }
-  return decodedSegments.join('/')
-}
-
 function rawPathnameForTolariaUrl({ rawUrl }: TolariaDeepLinkInput): string | null {
   return rawUrl.match(/^tolaria:\/\/[^/?#]+(\/[^?#]*)/iu)?.[1] ?? null
-}
-
-function isSafePathSegment({ segment }: { segment: string }): boolean {
-  return segment.length > 0
-    && segment !== '.'
-    && segment !== '..'
-    && !segment.includes('/')
-    && !segment.includes('\\')
 }
 
 export function isSafeVaultRelativePath({ path }: VaultRelativePathInput): boolean {

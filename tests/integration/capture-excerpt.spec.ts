@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync } from 'node:fs'
+import { readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { test, expect, type Page } from '@playwright/test'
 import { createFixtureVaultCopy, openFixtureVaultTauri, removeFixtureVaultCopy } from '../helpers/fixtureVault'
@@ -73,4 +73,44 @@ test('save a selection from the formatting toolbar without modifying or leaving 
   await expect.poll(() => page.evaluate(() => window.getSelection()?.toString())).toBe(sourceSelection)
   await page.getByRole('button', { name: 'Open note', exact: true }).click()
   await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText(files()[0].replace(/\.md$/, ''))
+  await page.locator('.bn-editor .wikilink[data-target="note/note-b"]').click({ modifiers: ['Meta'] })
+  await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText('note-b')
 })
+
+for (const legacy of [false, true]) {
+  test(`a ${legacy ? 'previously saved' : 'new'} excerpt returns to its exact source after editing around duplicate filenames with wiki delimiters`, async ({ page }) => {
+    const filename = 'C# [map] | 100%.md'
+    const sourceText = 'Only the original contains this full sentence.'
+    const source = join(root, 'note', filename)
+    const original = `---\ntype: Note\n---\n\n# Original reference\n\n${sourceText}\n`
+    writeFileSync(source, original)
+    writeFileSync(join(root, filename), '---\ntype: Note\n---\n\n# Different reference\n\nWrong note.\n')
+    if (legacy) {
+      const href = 'note/C%23%20%5Bmap%5D%20%7C%20100%25.md'
+      writeFileSync(join(root, 'excerpt-old.md'), `---\ntype: Note\n---\n\n# Old excerpt\n\n> Some words\n\n[Original reference](<${href}>)\n`)
+    }
+    await page.reload()
+    if (legacy) {
+      await page.getByTestId('note-list-container').getByText('Old excerpt', { exact: true }).click()
+    } else {
+      await page.getByTestId('note-list-container').getByText('Original reference', { exact: true }).click()
+      await page.locator('.bn-editor').getByText(sourceText, { exact: true }).click({ clickCount: 3 })
+      await page.getByRole('button', { name: action, exact: true }).click()
+      await page.getByRole('dialog').getByRole('button', { name: 'Save', exact: true }).click()
+      await page.getByRole('button', { name: 'Open note', exact: true }).click()
+    }
+    const link = page.locator('.bn-editor').getByRole('link', { name: 'Original reference' })
+    await expect(link).toBeVisible()
+    await page.locator('.bn-editor blockquote').click()
+    await page.keyboard.press('End')
+    await page.keyboard.type(' Edited.')
+    await page.keyboard.press('Meta+s')
+    const captured = join(root, files()[0])
+    await expect.poll(() => readFileSync(captured, 'utf8')).toContain('Edited.')
+    expect(readFileSync(captured, 'utf8')).toContain('note/C%23%20%5Bmap%5D%20%7C%20100%25.md')
+    await link.click({ modifiers: ['Meta'] })
+    await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText('C# [map] | 100%')
+    await expect(page.locator('.bn-editor').getByText('Original reference', { exact: true })).toBeVisible()
+    expect(readFileSync(source, 'utf8')).toBe(original)
+  })
+}

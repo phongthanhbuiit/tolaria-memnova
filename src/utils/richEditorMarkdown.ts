@@ -4,15 +4,14 @@ import { compactMarkdown } from './compact-markdown'
 import { serializeDurableEditorBlocks } from './editorDurableMarkdown'
 import { portableFileAttachmentUrls } from './fileAttachmentMarkdown'
 import { portableImageUrls } from './vaultImages'
-import { restoreWikilinksInBlocks, splitFrontmatter } from './wikilinks'
+import { splitFrontmatter } from './wikilinks'
 
 export function serializeRichEditorBodyToMarkdown(
   editor: ReturnType<typeof useCreateBlockNote>,
   vaultPath?: string,
 ): string {
   flushEditorDocuments(editor)
-  const restored = restoreWikilinksInBlocks(editor.document)
-  return compactMarkdown(serializeDurableEditorBlocks(editor, restored, vaultPath))
+  return compactMarkdown(serializeDurableEditorBlocks(editor, editor.document, vaultPath))
 }
 
 export function serializeRichEditorDocumentToMarkdown(

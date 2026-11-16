@@ -4,7 +4,7 @@ Key abstractions and domain models in Tolaria.
 
 ## Excerpt capture
 
-`ExcerptCaptureDialog` holds one draft ID per dialog visit. `useNoteCreation.handleCaptureExcerpt` writes an ordinary note at a stable generated path through the existing exclusive creation operation. A repeated request only accepts an existing file whose captured content still matches. Closing or leaving the editor visit prevents a late completion from updating another note’s UI. The formatting toolbar records a selection and restores it through the same editor visit after the dialog closes. A success toast can explicitly navigate to the new note.
+`ExcerptCaptureDialog` holds one draft ID per dialog visit. `useNoteCreation.handleCaptureExcerpt` writes an ordinary note at a stable generated path through the existing exclusive creation operation. A repeated request only accepts an existing file whose captured content still matches. Closing or leaving the editor visit prevents a late completion from updating another note’s UI. The formatting toolbar records a selection and restores it through the same editor visit after the dialog closes. A success toast can explicitly navigate to the new note. When a short wikilink would be ambiguous or the filename contains wiki syntax, capture writes a Markdown link with a percent-encoded relative path. The rich editor keeps that destination through edits and resolves it from the excerpt’s folder.
 
 ## Saved View learning scope
 

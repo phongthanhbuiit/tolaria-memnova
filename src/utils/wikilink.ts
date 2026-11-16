@@ -1,6 +1,8 @@
 /** Utility functions for parsing wikilink syntax: [[target|display]] */
 
 import type { VaultEntry } from '../types'
+import { relativeMarkdownNotePath } from './relativeNoteLinks'
+import { findByNotePath, normalizeNotePathForIdentity } from './notePathIdentity'
 import { slugifyNoteStem } from './noteSlug'
 import { workspaceForEntry, workspacePathForEntry } from './workspaces'
 
@@ -188,6 +190,13 @@ function findEntryByHumanizedTitle(entries: VaultEntry[], resolutionKey: Resolut
  *   5. Humanized title match (kebab-case → words)
  */
 export function resolveEntry(entries: VaultEntry[], rawTarget: WikilinkTarget, sourceEntry?: VaultEntry): VaultEntry | undefined {
+  const explicitPath = wikilinkTarget(rawTarget)
+  if (explicitPath.startsWith('./') && /\.md$/iu.test(explicitPath)) {
+    const path = relativeMarkdownNotePath(explicitPath)
+    if (!path || !sourceEntry) return undefined
+    const directory = normalizeNotePathForIdentity(sourceEntry.path).replace(/[^/]+$/u, '')
+    return findByNotePath(entries, directory + path)
+  }
   const workspaceAliases = new Set(entries.map((entry) => workspaceForEntry(entry)?.alias.toLowerCase()).filter((alias): alias is string => !!alias))
   const resolutionKey = buildResolutionKey(rawTarget, workspaceAliases)
   const workspaceScopedEntries = filterEntriesByWorkspace(entries, resolutionKey.workspaceAlias)

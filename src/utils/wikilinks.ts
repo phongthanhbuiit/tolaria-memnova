@@ -1,3 +1,4 @@
+import { markdownNoteLink, relativeMarkdownNotePath } from './relativeNoteLinks'
 import { snippetMarkdown } from './snippetMarkdown'
 
 // Wikilink placeholder tokens for markdown round-trip
@@ -261,8 +262,8 @@ export function injectWikilinks(blocks: unknown[]): unknown[] {
  * This is the reverse of injectWikilinks — used before blocksToMarkdownLossy
  * so that wikilinks survive the markdown round-trip.
  */
-export function restoreWikilinksInBlocks(blocks: unknown[]): unknown[] {
-  return walkBlocks(blocks, collapseWikilinksInContent, true)
+export function restoreWikilinksInBlocks(blocks: unknown[], sourceLinks?: Map<string, string>): unknown[] {
+  return walkBlocks(blocks, content => collapseWikilinksInContent(content, sourceLinks), true)
 }
 
 function expandWikilinksInContent(content: InlineItem[]): InlineItem[] {
@@ -290,10 +291,16 @@ function expandWikilinksInItem(item: InlineItem): InlineItem[] {
   return result
 }
 
-function collapseWikilinksInContent(content: InlineItem[]): InlineItem[] {
+function collapseWikilinksInContent(content: InlineItem[], sourceLinks?: Map<string, string>): InlineItem[] {
   const result: InlineItem[] = []
   for (const item of content) {
-    if (item.type === 'wikilink' && item.props?.target) {
+    if (sourceLinks && item.type === 'wikilink' && item.props?.markdownHref && relativeMarkdownNotePath(item.props.markdownHref)) {
+      // BlockNote strips relative hrefs during lossy export. Restore only tokens issued by this serialization.
+      const token = `TOLARIANOTELINK${crypto.randomUUID().replaceAll('-', '')}`
+      const label = item.props.target.slice(item.props.target.indexOf('|') + 1)
+      sourceLinks.set(token, markdownNoteLink(label, item.props.markdownHref))
+      result.push({ type: 'text', text: token })
+    } else if (item.type === 'wikilink' && item.props?.target) {
       result.push({ type: 'text', text: `[[${item.props.target}]]` })
     } else {
       result.push(item)

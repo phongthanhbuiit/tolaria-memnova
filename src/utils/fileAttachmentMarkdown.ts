@@ -9,6 +9,8 @@ import {
   portableAttachmentPathFromCurrentVaultPath,
 } from './vaultAttachments'
 
+import { relativeMarkdownNotePath } from './relativeNoteLinks'
+
 interface FileAttachmentPayload {
   name: string
   url: string
@@ -130,6 +132,10 @@ function readAttachmentUrl(value: unknown): AttachmentUrl | null {
   return url && isVaultAttachmentUrl({ url }) ? url : null
 }
 
+function readStandaloneLinkUrl(value: unknown): AttachmentUrl | null {
+  return typeof value === 'string' && relativeMarkdownNotePath(value) ? value : readAttachmentUrl(value)
+}
+
 function readAnyLinkUrl(value: unknown): AttachmentUrl | null {
   return readNonEmptyText(value)
 }
@@ -151,7 +157,7 @@ function fileAttachmentPayload(payload: FileAttachmentPayload): FileAttachmentPa
 function normalizePayload(value: unknown): FileAttachmentPayload | null {
   if (!isRecord(value)) return null
 
-  const url = readAttachmentUrl(value.url)
+  const url = readStandaloneLinkUrl(value.url)
   if (!url) return null
 
   return fileAttachmentPayload({
@@ -187,7 +193,8 @@ function readStandaloneFileAttachmentLink(
   const url = readUrl(unescapeMarkdownDestination(match[3] ?? ''))
   if (!url) return null
 
-  const name = unescapeMarkdownText(match[2] ?? '') || fileNameFromUrl(url)
+  const label = match[2] ?? ''
+  const name = (relativeMarkdownNotePath(url) ? label.replace(/\\([!-/:-@[-`{-~])/gu, '$1') : unescapeMarkdownText(label)) || fileNameFromUrl(url)
   const caption = match[4] ? unescapeMarkdownText(match[4]) : undefined
   return fileAttachmentPayload({ name, url, caption })
 }
@@ -256,7 +263,7 @@ function transformLine(options: TransformLineOptions): TransformedLine {
 function transformStandaloneFileAttachmentLinks(options: TransformFileAttachmentLinksOptions): Markdown {
   const lines: MarkdownLine[] = []
   let fence: MarkdownFence | null = null
-  const readUrl = options.readUrl ?? readAttachmentUrl
+  const readUrl = options.readUrl ?? readStandaloneLinkUrl
 
   for (const line of splitMarkdownLines(options.markdown)) {
     const transformed = transformLine({ line, fence, readUrl, transform: options.transform })
@@ -294,6 +301,13 @@ function buildFileAttachmentBlock(block: BlockLike, payload: FileAttachmentPaylo
 
 function injectFileAttachmentBlock(block: BlockLike): BlockLike {
   const payload = readTokenPayload(block)
+  if (payload && relativeMarkdownNotePath(payload.url)) {
+    const path = payload.url.replace(/^\.\//u, '')
+    return {
+      ...block,
+      content: [{ type: 'wikilink', props: { target: `./${path}|${payload.name}`, markdownHref: payload.url } }],
+    }
+  }
   if (payload) return buildFileAttachmentBlock(block, payload)
 
   const children = Array.isArray(block.children)

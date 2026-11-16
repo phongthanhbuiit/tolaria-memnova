@@ -3,7 +3,8 @@ import { invoke } from '@tauri-apps/api/core'
 import { isTauri, addMockEntry, mockInvoke } from '../mock-tauri'
 import type { VaultEntry } from '../types'
 import { slugifyNoteStem as slugify } from '../utils/noteSlug'
-import { canonicalWikilinkTargetForEntry, resolveEntry } from '../utils/wikilink'
+import { resolveEntry } from '../utils/wikilink'
+import { extractOutgoingLinks } from '../utils/wikilinks'
 import { excerptNoteContent, matchesCapturedNote, type ExcerptCapture } from '../lib/excerptCapture'
 import { trackEvent } from '../lib/telemetry'
 import { cacheNoteContent } from './useTabManagement'
@@ -939,7 +940,7 @@ export function useNoteCreation(config: NoteCreationConfig, tabDeps: CreationTab
   [entries, vaultPath, defaultWorkspacePath, vaults, setToastMessage, persistResolvedEntry])
 
   const handleCaptureExcerpt = useCallback(async (capture: ExcerptCapture, isCurrent: () => boolean) => {
-    const { title, content } = excerptNoteContent(capture)
+    const { title, content } = excerptNoteContent(capture, entries)
     const slug = `excerpt-${capture.id}`
     const path = joinVaultPath(capture.vaultPath, `${slug}.md`)
     const entry = {
@@ -947,7 +948,7 @@ export function useNoteCreation(config: NoteCreationConfig, tabDeps: CreationTab
       workspace: workspaceForVaultPath(capture.vaultPath, vaults, defaultWorkspacePath),
       hasH1: true,
       snippet: capture.text.trim().slice(0, 200),
-      outgoingLinks: capture.source.kind === 'note' ? [canonicalWikilinkTargetForEntry(capture.source.entry, capture.vaultPath)] : [],
+      outgoingLinks: extractOutgoingLinks(content),
     }
     const request = { path, content, vaultPath: capture.vaultPath }
     addPendingSave?.(path)
@@ -969,7 +970,7 @@ export function useNoteCreation(config: NoteCreationConfig, tabDeps: CreationTab
     } finally {
       removePendingSave?.(path)
     }
-  }, [addEntry, addPendingSave, defaultWorkspacePath, onNewNotePersisted, removePendingSave, vaults])
+  }, [addEntry, addPendingSave, defaultWorkspacePath, entries, onNewNotePersisted, removePendingSave, vaults])
 
   const handleCreateType = useCallback((typeName: string): Promise<boolean> =>
     createTypeFromName({ entries, vaultPath, defaultWorkspacePath, vaults, setToastMessage, persistResolvedEntry, typeName }),

@@ -18,6 +18,7 @@ import {
 } from '@blocknote/react'
 import { lazy, Suspense, useEffect, useRef, useState, type ComponentProps, type KeyboardEvent } from 'react'
 import { resolveWikilinkColor as resolveColor } from '../utils/wikilinkColors'
+import { relativeMarkdownNotePath } from '../utils/relativeNoteLinks'
 import { resolveEntry } from '../utils/wikilink'
 import { MATH_BLOCK_TYPE, MATH_INLINE_TYPE, renderMathToHtml } from '../utils/mathMarkdown'
 import { MERMAID_BLOCK_TYPE, mermaidFenceSource } from '../utils/mermaidMarkdown'
@@ -76,12 +77,19 @@ export const WikiLink = createReactInlineContentSpec(
     type: "wikilink" as const,
     propSchema: {
       target: { default: "" },
+      markdownHref: { default: "" },
     },
     content: "none",
   },
   {
     render: (props) => {
       const target = props.inlineContent.props.target
+      const { markdownHref } = props.inlineContent.props
+      if (markdownHref && relativeMarkdownNotePath(markdownHref)) {
+        return <a className="wikilink" data-target={target} href={`./${markdownHref.replace(/^\.\//u, '')}`}>
+          {target.slice(target.indexOf('|') + 1)}
+        </a>
+      }
       const { color, isBroken } = resolveWikilinkColor(target)
       const { text, icon } = resolveDisplayInfo(target)
       return (

@@ -1,4 +1,7 @@
-import { canonicalWikilinkTargetForEntry } from '../utils/wikilink'
+import { markdownNoteLink } from '../utils/relativeNoteLinks'
+import { relativePathForVaultItem } from '../utils/deepLinks'
+import { notePathsMatch } from '../utils/notePathIdentity'
+import { canonicalWikilinkTargetForEntry, resolveEntry } from '../utils/wikilink'
 import type { VaultEntry } from '../types'
 
 export type ExcerptSource = { kind: 'note'; entry: VaultEntry } | { kind: 'web'; url: string }
@@ -44,17 +47,23 @@ export function matchesCapturedNote(stored: string, requested: string) {
   return stored === requested || stored.replace(generatedPageIdentity, '$1') === requested
 }
 
-export function excerptNoteContent({ text, source, vaultPath }: ExcerptCapture) {
+function excerptNoteLink(entry: VaultEntry, vaultPath: string, entries: VaultEntry[]): string {
+  const target = canonicalWikilinkTargetForEntry(entry, vaultPath)
+  const resolved = resolveEntry(entries, target, entry)
+  if (!/[|[\]#\r\n]/u.test(target) && (!resolved || notePathsMatch(resolved.path, entry.path))) return `[[${target}]]`
+
+  const path = relativePathForVaultItem({ itemPath: entry.path, vaultPath })
+  if (!path) throw new Error('Excerpt source is outside its Library')
+  return markdownNoteLink(entry.title, `./${path.split('/').map(encodeURIComponent).join('/')}`)
+}
+
+export function excerptNoteContent({ text, source, vaultPath }: ExcerptCapture, entries: VaultEntry[]) {
   const lines = text.trim().split(/\r\n?|\n/u)
   const title = Array.from(lines[0]).slice(0, 72).join('')
   const quote = lines.map(line => `> ${literalMarkdown(line)}`).join('\n')
   let link: string
   if (source.kind === 'note') {
-    const target = canonicalWikilinkTargetForEntry(source.entry, vaultPath)
-    // An ordinary Markdown link also supports filenames containing wiki delimiters.
-    link = /[|[\]#\r\n]/u.test(target)
-      ? `[${literalMarkdown(source.entry.title)}](<${target.split('/').map(encodeURIComponent).join('/')}.md>)`
-      : `[[${target}]]`
+    link = excerptNoteLink(source.entry, vaultPath, entries)
   } else {
     const url = excerptSourceUrl(source.url)
     if (!url) throw new Error('Invalid excerpt source URL')

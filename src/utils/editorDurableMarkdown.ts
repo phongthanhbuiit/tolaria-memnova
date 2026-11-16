@@ -12,6 +12,7 @@ import {
   serializeFileAttachmentBlocks,
 } from './fileAttachmentMarkdown'
 import { literalNoteMarkerCodec, preProcessLiteralNoteMarkers } from './literalNoteMarker'
+import { restoreWikilinksInBlocks } from './wikilinks'
 import { serializeMathAwareBlocks } from './mathMarkdown'
 import { mermaidMarkdownCodec } from './mermaidMarkdown'
 import { excalidrawMarkdownCodec } from './excalidrawMarkdown'
@@ -43,8 +44,9 @@ export function serializeDurableEditorBlocks(
   blocks: unknown[],
   vaultPath?: string,
 ): string {
-  return serializeFileAttachmentBlocks({
-    blocks,
+  const sourceLinks = new Map<string, string>()
+  const markdown = serializeFileAttachmentBlocks({
+    blocks: restoreWikilinksInBlocks(blocks, sourceLinks),
     vaultPath,
     serializeOrdinaryBlocks: ordinaryBlocks => serializeDurableMarkdownBlocks({
       blocks: ordinaryBlocks,
@@ -52,6 +54,7 @@ export function serializeDurableEditorBlocks(
       serializeOrdinaryBlocks: durableOrdinaryBlocks => serializeMathAwareBlocks(editor, durableOrdinaryBlocks),
     }),
   })
+  return sourceLinks.size ? markdown.replace(/TOLARIANOTELINK[a-f0-9]{32}/gu, token => sourceLinks.get(token) ?? token) : markdown
 }
 
 export function hasDurableEditorBlocks(blocks: unknown[]): boolean {
