@@ -1,6 +1,6 @@
 # Memnova hiện tại
 
-**Đối chiếu ngày 16/11/2026.** Mã triển khai trích đoạn và ôn Saved View ở commit `05ae7aa3`. Ba ảnh trạng thái ghi nhớ đầu tiên được kiểm tra tại `a69159c5` trên `main`. Các tính năng trích đoạn và ôn Saved View được bổ sung trong đợt [nghiệm thu mới](baselines/2026-11-16-capture-and-view-study.md). Bản cài đối chiếu theo tag [v0.1.0](https://github.com/phongthanhbuiit/tolaria-memnova/releases/tag/v0.1.0), commit `d0b400d5`. Trang này là điểm đọc đầu tiên khi cần biết người dùng đang thấy gì, dữ liệu nằm ở đâu và việc nào còn mở.
+**Đối chiếu ngày 16/11/2026.** Mã triển khai trích đoạn và ôn Saved View ở commit `05ae7aa3`. Các sửa đổi sau nghiệm thu nằm trên main đến `85cbb792`. Ba ảnh trạng thái ghi nhớ đầu tiên được kiểm tra tại `a69159c5` trên `main`. Các tính năng trích đoạn và ôn Saved View được bổ sung trong đợt [nghiệm thu mới](baselines/2026-11-16-capture-and-view-study.md). Bản cài đối chiếu theo tag [v0.1.0](https://github.com/phongthanhbuiit/tolaria-memnova/releases/tag/v0.1.0), commit `d0b400d5`. Trang này là điểm đọc đầu tiên khi cần biết người dùng đang thấy gì, dữ liệu nằm ở đâu và việc nào còn mở.
 
 ## Người dùng thấy gì khi viết và học?
 
@@ -21,7 +21,8 @@ Ba ảnh chụp ngày 16/11/2026 bằng Chromium, giao diện tiếng Anh, 1280 
 | Phạm vi | Đã có |
 |---|---|
 | **v0.1.0 cho Mac Apple Silicon** | Bản ký ad hoc. Viết Markdown, wikilink, thuộc tính tùy chỉnh, Inbox, Saved Views và ôn ghi chú. Bản cài giữ nội dung hình vẽ cũ trong Markdown nhưng chưa hiển thị hay sửa hình. [Tải và cài đặt](../README.md) |
-| **main tại a69159c5** | Gõ `/Excalidraw` trong editor để thêm hình mới. Dữ liệu hình và ảnh nhúng lưu trong khối Markdown. Study hiển thị hình ở chế độ chỉ xem. Chưa có chuyển đổi tự động từ tldraw. [Quyết định về Excalidraw](adr/0165-excalidraw-note-drawings.md) |
+| **main từ 05ae7aa3** | Lưu trích đoạn từ editor hoặc URL và ôn theo Saved View. Hai tính năng này có trong mã nguồn sau tag v0.1.0. |
+| **main từ a69159c5** | Gõ `/Excalidraw` trong editor để thêm hình mới. Dữ liệu hình và ảnh nhúng lưu trong khối Markdown. Study hiển thị hình ở chế độ chỉ xem. Chưa có chuyển đổi tự động từ tldraw. [Quyết định về Excalidraw](adr/0165-excalidraw-note-drawings.md) |
 
 ## Nội dung, lịch học và sao lưu
 
@@ -35,12 +36,25 @@ Ba ảnh chụp ngày 16/11/2026 bằng Chromium, giao diện tiếng Anh, 1280 
 - Chọn chữ trong editor rồi bấm **Lưu trích đoạn kèm nguồn** trên thanh định dạng. Lưu tạo ghi chú thường có wikilink nguồn và trả về vùng chọn đang đọc. Bấm **Mở ghi chú** trong thông báo khi muốn chuyển sang bản vừa lưu. Có thể mở cùng lệnh từ bảng lệnh để nhập văn bản và URL web. Khi lưu lỗi, bản nháp vẫn nằm trong hộp thoại để thử lại. [Ảnh native sau khi lưu](baselines/ui/2026-11-16-capture-study/capture-native.png)
 - Chọn một Saved View. Bật **Đến hạn** để xem các ghi chú cần ôn trong kết quả của view, rồi chọn **Ôn ghi chú đến hạn (n)**. App lưu nội dung đang sửa và làm mới lịch trước khi mở phiên. Sau khi chấm, số đến hạn cập nhật và focus quay về nút ôn. Bộ lọc Đến hạn được giữ tạm theo view trong phiên làm việc. [Ảnh native sau khi ôn](baselines/ui/2026-11-16-capture-study/study-native.png)
 
+## Nghiệm thu kế hoạch cải tiến từ Obsidian
+
+| Đợt | Kết quả đã kiểm tra | Điều kiện còn lại |
+|---|---|---|
+| 1. Làm rõ Thư viện và backup | Trên macOS, gỡ khỏi danh sách rồi mở lại thư mục bằng hộp chọn hệ thống. Sáu tệp Markdown và một ảnh khớp SHA-256. Lịch ôn và lượt ôn khớp từng hàng. Hướng dẫn đã mô tả ai có thể đọc backup. | Còn thuật ngữ Vault kế thừa ở một số phần của app. Các nhãn tiếng Việt ở bộ chọn, Cài đặt thư viện và bảng lệnh dùng Thư viện. |
+| 2. Lưu trích đoạn kèm nguồn | Đoạn chọn trong note hoặc văn bản dán kèm URL tạo note thường. Có thể tiếp tục đọc, mở note từ thông báo, huỷ hoặc thử lại khi ghi lỗi. Liên kết đến đúng tệp nguồn cả khi tên chứa ký tự đặc biệt hoặc có tệp trùng tên. | Kiểm tra trên bộ cài chứa tính năng trước khi công bố cho người dùng bản cài. |
+| 3. Ôn theo Saved View | Lọc đến hạn, giới hạn phạm vi theo view và thư viện đang dùng. Ca 10 ghi chú cùng chủ đề, 3 đến hạn đã đạt. Sau khi chấm một note, đóng rồi mở lại, app giữ đúng ID phiên ở 1/3 và hoàn tác về note đầu. | Cùng đợt nghiệm thu bộ cài với đợt 2. |
+| 4. Thử với người học | Đã kiểm tra bằng chuột và bàn phím trên thư viện QA. | Cần VoiceOver trên macOS và 5 người lần đầu sử dụng. Giao một đoạn đọc, yêu cầu lưu nguồn, bật học, chấm lượt đầu và tìm lại nguồn. Ghi thời gian, bước cần trợ giúp và số người tự hoàn thành trong 5 phút. Mục tiêu 4/5. |
+| 5. Chọn phần mở rộng | Các lựa chọn là PDF mở đúng trang, tiện ích trình duyệt hoặc xuất backup có mật khẩu. | Chọn một nhánh sau đợt 4 dựa trên trở ngại phổ biến. Trước khi phát hành, chạy tạo ghi chú → học → backup → restore trên bộ cài đích và đối chiếu nội dung cùng lịch sử. |
+
+Hai mẫu tiếng Việt để thử (*Khái niệm*, *Trích dẫn sách*) và chuyển khoá API đã lưu sang Keychain là các đề xuất riêng trong phần so sánh ban đầu. Quyết định hiện tại vẫn là lưu ghi chú Markdown và lịch ôn SQLite có thể đọc được bởi tài khoản có quyền truy cập thư mục.
+
 ## Công việc sau mốc này
 
 | Trạng thái | Việc và tiêu chí |
 |---|---|
 | Đã xác minh trong mã | Sửa ngày demo, điều hướng tới Retry trên màn chào, đưa bật/tạm dừng ghi nhớ vào Properties và tích hợp Excalidraw trên main. Kiểm tra trạng thái phát hành trước khi giới thiệu Excalidraw cho người dùng bản cài. |
-| Cần bằng chứng bổ sung | Chạy VoiceOver với danh sách học thay đổi khi đang focus. Đo ba lượt core smoke không retry theo ngân sách 5 phút. Kiểm tra luồng cài → viết → học → backup → restore trên bộ cài mục tiêu. Các kết quả cũ có phạm vi và phiên bản riêng. [Biên bản theo dõi](archive/plans/MEMNOVA-POST-UX-FOLLOWUP-PLAN.md) |
+| Cần bằng chứng bổ sung | Chạy VoiceOver với danh sách học thay đổi khi đang focus. Kiểm tra luồng cài → viết → học → backup → restore trên bộ cài mục tiêu. Các kết quả cũ có phạm vi và phiên bản riêng. [Biên bản theo dõi](archive/plans/MEMNOVA-POST-UX-FOLLOWUP-PLAN.md) |
+| Đã đo core smoke | Trên bản chụp cố định `bf34180f`, 3 lượt không retry đạt 54/54 mỗi lượt, thời gian 290,02 / 279,94 / 281,55 giây. Cả ba dưới 300 giây. Mục tiêu 240 giây còn thiếu 41,55 giây ở trung vị. [Số đo và điều kiện](baselines/2026-11-16-capture-and-view-study.md) |
 | Cần người tham gia | Đo với 5 người mới, mục tiêu 4 người tự viết ghi chú, thêm gợi nhớ và chấm lượt đầu trong 5 phút. Dựa trên trở ngại quan sát được để chọn thử PDF đúng trang, tiện ích trình duyệt hoặc xuất backup có mật khẩu. |
 
 ## Cách cập nhật khi sản phẩm đổi
