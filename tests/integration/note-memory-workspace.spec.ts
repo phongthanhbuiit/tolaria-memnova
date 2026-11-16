@@ -44,21 +44,19 @@ test('explicit note enable, mnemonic editing, study and pause use the default wo
     expect(fs.readFileSync(owner, 'utf8')).toBe(original)
     await repeat.click()
     await expect(repeat).toBeChecked()
-    await expect(content).toHaveAttribute('aria-selected', 'true')
-    await memory.click()
+    await expect(page.getByRole('tablist')).toHaveCount(0)
     await expect
       .poll(() => fs.readFileSync(owner, 'utf8'))
       .toContain('_memnova_learning_enabled: true')
     await page
       .getByRole('button', { name: 'Add mnemonic', exact: true })
       .click()
-    await expect(
-      page.getByRole('tab', { name: 'Memory cue', exact: true })
-    ).toHaveAttribute('aria-selected', 'true')
+    const backToNote = page.getByRole('button', { name: 'Back to note', exact: true })
+    await expect(backToNote).toBeVisible()
     await expect(page.getByRole('button', { name: 'Choose a source', exact: true })).toBeVisible()
-    await page.getByRole('tab', { name: 'Note', exact: true }).click()
+    await backToNote.click()
     await expect(page.getByRole('button', { name: 'Choose a source', exact: true })).toBeHidden()
-    await page.getByRole('tab', { name: 'Memory cue', exact: true }).click()
+    await page.getByRole('button', { name: 'Edit mnemonic', exact: true }).click()
     const editor = page.locator('.bn-editor [contenteditable=true]').first()
     const input = (await editor.count())
       ? editor
@@ -69,7 +67,6 @@ test('explicit note enable, mnemonic editing, study and pause use the default wo
     await expect
       .poll(() => fs.readFileSync(owner, 'utf8'))
       .toContain('A red membrane surrounds a blue nucleus.')
-    await page.getByRole('tab', { name: 'Study', exact: true }).click()
     const panel = page.getByRole('region', { name: 'Note memory', exact: true })
     await expect(
       panel.getByRole('button', { name: 'Study', exact: true })
@@ -78,6 +75,7 @@ test('explicit note enable, mnemonic editing, study and pause use the default wo
     await studyTrigger.evaluate(element => element.addEventListener('mousedown', event => event.preventDefault()))
     await studyTrigger.click()
     const study = page.getByRole('dialog')
+    await expect(study).toBeVisible()
     await study
       .getByRole('button', { name: 'Show mnemonic', exact: true })
       .click()
@@ -88,13 +86,14 @@ test('explicit note enable, mnemonic editing, study and pause use the default wo
     const beforeReview = fs.readFileSync(owner, 'utf8')
     await study.getByRole('button', { name: /^Good/ }).click()
     await study.getByRole('button', { name: 'Close', exact: true }).click()
-    await expect(panel.getByRole('button', { name: 'Study', exact: true })).toBeFocused()
+    await expect(studyTrigger).toBeFocused()
     expect(fs.readFileSync(owner, 'utf8')).toBe(beforeReview)
     await repeat.click()
     await expect(repeat).not.toBeChecked()
     await expect(memory).toHaveCount(0)
-    await expect(content).toHaveAttribute('aria-selected', 'true')
-    await expect(page.getByRole('tablist')).toHaveCount(1)
+    await expect(backToNote).toBeHidden()
+    await expect(page.getByRole('tablist')).toHaveCount(0)
+    await expect(page.getByRole('button', { name: 'Edit mnemonic', exact: true })).toBeVisible()
     await expect(page.locator('.bn-editor:visible')).toBeVisible()
     expect(fs.readFileSync(owner, 'utf8')).toBe(
       beforeReview.replace(
@@ -108,7 +107,7 @@ test('explicit note enable, mnemonic editing, study and pause use the default wo
     })
     await repeat.focus()
     await page.keyboard.press('Space')
-    await expect(content).toHaveAttribute('aria-selected', 'true')
+    await expect(page.getByRole('tablist')).toHaveCount(0)
     await expect(repeat).toBeChecked()
     expect(fs.readFileSync(owner, 'utf8')).toBe(beforeReview)
   } finally {

@@ -1006,5 +1006,7 @@
   "learning.noteMemory.emptyHelp": "ノートを開いて暗記を有効にすると、ここに追加されます。",
   "learning.errorDetails": "技術的な詳細",
   "properties.spacedRepetition": "間隔反復",
-  "properties.noteMemoryHelp": "カスタムプロパティでは、このノートを習得済みにしたり復習予定を変更したりできません。"
+  "properties.noteMemoryHelp": "カスタムプロパティでは、このノートを習得済みにしたり復習予定を変更したりできません。",
+  "editor.noteMemory.backToNote": "ノートに戻る",
+  "editor.noteMemory.editMnemonic": "記憶のヒントを編集"
 }

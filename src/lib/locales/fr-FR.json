@@ -1006,5 +1006,7 @@
   "learning.noteMemory.emptyHelp": "Ouvrez une note et activez la mémorisation pour l’ajouter ici.",
   "learning.errorDetails": "Détails techniques",
   "properties.spacedRepetition": "Répétition espacée",
-  "properties.noteMemoryHelp": "Les propriétés personnalisées ne marquent pas cette note comme apprise et ne modifient pas son calendrier de révision."
+  "properties.noteMemoryHelp": "Les propriétés personnalisées ne marquent pas cette note comme apprise et ne modifient pas son calendrier de révision.",
+  "editor.noteMemory.backToNote": "Revenir à la note",
+  "editor.noteMemory.editMnemonic": "Modifier le moyen mnémotechnique"
 }

@@ -1,6 +1,7 @@
 import { LearningContext, type LearningWorkspace } from '../learning/LearningContext'
 import { createRef } from 'react'
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { requestNoteMnemonicEditor } from '../learning/noteMemoryEditorActions'
+import { act, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 import { EditorContentLayout } from './EditorContentLayout'
 
@@ -176,17 +177,12 @@ it('shows source controls only for the mnemonic while preserving note width on b
   rerender(<EditorContentLayout {...createModel({ flashcard: memoryFace('back'), effectiveRawMode: true })} />)
   expect(screen.queryByTestId('source-toolbar')).not.toBeInTheDocument()
 })
-it('uses one note navigation row and retains the selected note when saving before Study fails', async () => {
-  const flush = vi.fn().mockRejectedValueOnce(Error('Save failed'))
-  const workspace = { phase: 'ready', client: { supportsNoteMemory: true }, root: '/vault', notes: [{ view: { path: 'project/demo.md', config: { enabled: true } } }], flush } as unknown as LearningWorkspace
+it('keeps an enabled note in the writing editor without learning tabs', () => {
+  const workspace = { phase: 'ready', client: { supportsNoteMemory: true }, root: '/vault', notes: [{ view: { path: 'project/demo.md', config: { enabled: true } } }] } as unknown as LearningWorkspace
   render(<LearningContext.Provider value={workspace}><EditorContentLayout {...createModel({ flashcard: memoryFace('front') })} /></LearningContext.Provider>)
-  expect(screen.getAllByRole('tablist')).toHaveLength(1)
-  expect(screen.getAllByRole('tab').map(tab => tab.textContent)).toEqual(['Note', 'Memory cue', 'Study'])
-  const management = screen.getByRole('tab', { name: 'Study', exact: true })
-  fireEvent.mouseDown(management, { button: 0, ctrlKey: false })
-  await waitFor(() => expect(flush).toHaveBeenCalledOnce())
-  expect(screen.getByRole('tab', { name: 'Note', exact: true })).toHaveAttribute('aria-selected', 'true')
-  expect(screen.getByRole('alert')).toHaveTextContent('Save failed')
+  expect(screen.queryByRole('tablist')).toBeNull()
+  expect(screen.queryByRole('tabpanel')).toBeNull()
+  expect(screen.getByTestId('single-editor-view')).toBeVisible()
 })
 
 it('keeps a plain editor free of tab stops and tab panels when learning is paused', () => {
@@ -196,4 +192,40 @@ it('keeps a plain editor free of tab stops and tab panels when learning is pause
   expect(screen.queryByRole('tablist')).toBeNull()
   expect(screen.queryByRole('tabpanel')).toBeNull()
   expect(screen.getByTestId('single-editor-view')).toBeVisible()
+})
+
+
+it('uses the registered editor save path before switching to the mnemonic', async () => {
+  const flush = vi.fn().mockResolvedValue(undefined)
+  const face = memoryFace('front')
+  const workspace = { root: '/vault', flush } as unknown as LearningWorkspace
+  render(<LearningContext.Provider value={workspace}><EditorContentLayout {...createModel({ flashcard: face })} /></LearningContext.Provider>)
+  await act(async () => { await requestNoteMnemonicEditor('/vault', '/vault/project/demo.md') })
+  expect(flush).toHaveBeenCalledOnce()
+  expect(face.setActiveFace).toHaveBeenCalledWith('back')
+  expect(face.handleAddBack).not.toHaveBeenCalled()
+})
+
+it('preserves the writing face when saving a Properties mnemonic request fails', async () => {
+  const flush = vi.fn().mockRejectedValue(Error('Save failed'))
+  const face = memoryFace('front')
+  const workspace = { root: '/vault', flush } as unknown as LearningWorkspace
+  render(<LearningContext.Provider value={workspace}><EditorContentLayout {...createModel({ flashcard: face })} /></LearningContext.Provider>)
+  await act(async () => { await expect(requestNoteMnemonicEditor('/vault', '/vault/project/demo.md')).rejects.toThrow('Save failed') })
+  expect(face.setActiveFace).not.toHaveBeenCalled()
+  expect(face.handleAddBack).not.toHaveBeenCalled()
+  expect(screen.getByTestId('single-editor-view')).toBeVisible()
+})
+
+it('does not apply a mnemonic request after the mounted editor changes notes during save', async () => {
+  let finishSave: () => void = () => {}
+  const flush = vi.fn(() => new Promise<void>(resolve => { finishSave = resolve }))
+  const face = memoryFace('front')
+  const workspace = { root: '/vault', flush } as unknown as LearningWorkspace
+  const rendered = render(<LearningContext.Provider value={workspace}><EditorContentLayout {...createModel({ flashcard: face })} /></LearningContext.Provider>)
+  const request = requestNoteMnemonicEditor('/vault', '/vault/project/demo.md')
+  rendered.rerender(<LearningContext.Provider value={workspace}><EditorContentLayout {...createModel({ path: '/vault/other.md', flashcard: memoryFace('front') })} /></LearningContext.Provider>)
+  await act(async () => { finishSave(); await request })
+  expect(face.setActiveFace).not.toHaveBeenCalled()
+  await expect(requestNoteMnemonicEditor('/vault', '/vault/project/demo.md')).rejects.toThrow('note-editor-unavailable')
 })

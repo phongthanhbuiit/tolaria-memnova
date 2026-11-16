@@ -763,7 +763,7 @@
   "decks.search_placeholder": "Search decks…",
   "decks.total_due": "{n} due today",
   "sidebar.nav.home": "Trang chủ",
-  "sidebar.nav.decks": "Bộ thẻ",
+  "sidebar.nav.decks": "Ôn tập",
   "home.greeting_morning": "Chào buổi sáng",
   "home.greeting_afternoon": "Chào buổi chiều",
   "home.greeting_evening": "Chào buổi tối",
@@ -1005,6 +1005,8 @@
   "learning.noteMemory.noDue": "Không có ghi chú đến hạn trong thư mục này.",
   "learning.noteMemory.emptyHelp": "Mở một ghi chú và bật ghi nhớ để thêm vào đây.",
   "learning.errorDetails": "Chi tiết kỹ thuật",
-  "properties.spacedRepetition": "Ôn tập ngắt quãng",
-  "properties.noteMemoryHelp": "Thuộc tính tùy chỉnh không đánh dấu ghi chú đã thuộc và không thay đổi lịch ôn tập."
+  "properties.spacedRepetition": "Ôn tập ghi chú này",
+  "properties.noteMemoryHelp": "Thuộc tính tùy chỉnh không đánh dấu ghi chú đã thuộc và không thay đổi lịch ôn tập.",
+  "editor.noteMemory.backToNote": "Quay lại ghi chú",
+  "editor.noteMemory.editMnemonic": "Sửa gợi nhớ"
 }

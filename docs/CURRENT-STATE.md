@@ -4,19 +4,19 @@
 
 ## Người dùng thấy gì khi viết và học?
 
-Memnova mở hoặc tạo một thư mục Markdown trên máy, gọi là **Thư viện**. Người dùng có thể viết ngay mà không cần tài khoản, Git hay AI. Sidebar và danh sách ghi chú vẫn ở bên trái, editor ở giữa, Properties mở ở bên phải khi cần. Ghi chú đang bật học dùng một hàng điều hướng **Ghi chú · Gợi nhớ · Ôn tập**. Mỗi mục mở trực tiếp phần tương ứng.
+Memnova mở hoặc tạo một thư mục Markdown trên máy, gọi là **Thư viện**. Người dùng có thể viết ngay mà không cần tài khoản, Git hay AI. Sidebar và danh sách ghi chú vẫn ở bên trái, editor ở giữa, Properties mở ở bên phải khi cần. Ghi chú mở vào bài viết. Các thao tác bật học, thêm/sửa gợi nhớ và bắt đầu ôn nằm trong Properties. Khi sửa gợi nhớ, editor có nút quay lại ghi chú. Luồng này thay thế hàng tab học của mốc trước.
 
 | Trạng thái | Thao tác và kết quả quan sát trên main | Ảnh native |
 |---|---|---|
 | Ghi chú thường | Mở note vào thẳng editor. Trong **Properties**, công tắc **Spaced repetition** đang tắt. Ghi chú chưa học không có thanh tab học. | [Trước khi bật](baselines/ui/2026-11-16-single-note-navigation/ordinary.png) |
-| Đã bật ghi nhớ | Bật công tắc để hiện hàng **Note / Study** và nút **Add mnemonic** khi chưa có gợi nhớ. Sau khi thêm, hàng chuyển thành **Note / Memory cue / Study**. Trong Study, bấm nút Study để mở phiên ôn. Mở đáp án rồi chọn mức nhớ để ghi nhận lượt ôn. | [Gợi nhớ đã có, ghi chú đến hạn](baselines/ui/2026-11-16-single-note-navigation/enabled.png) |
-| Đã ôn một lượt rồi tạm dừng | Tắt công tắc. Editor hiện lại và mục **Study** biến mất. Vì note vẫn có gợi nhớ, hàng **Note / Memory cue** còn dùng được. Properties hiển thị lịch sử ôn ở chế độ chỉ đọc. Bật lại công tắc để tiếp tục. | [Sau khi tạm dừng](baselines/ui/2026-11-16-single-note-navigation/paused.png) |
+| Đã bật ghi nhớ | Bật công tắc trong Properties. Chọn **Add mnemonic** để viết gợi nhớ, hoặc **Edit mnemonic** để sửa. **Study** trong Properties mở thẳng phiên ôn. Mở đáp án rồi chọn mức nhớ để ghi nhận lượt ôn. | [Gợi nhớ đã có, ghi chú đến hạn](baselines/ui/2026-11-16-single-note-navigation/enabled.png) |
+| Đã ôn một lượt rồi tạm dừng | Tắt công tắc. Editor hiện bài viết. Properties giữ thao tác sửa gợi nhớ, lịch sử và công tắc bật lại. Properties hiển thị lịch sử ôn ở chế độ chỉ đọc. Bật lại công tắc để tiếp tục. | [Sau khi tạm dừng](baselines/ui/2026-11-16-single-note-navigation/paused.png) |
 
-Ba ảnh trong bảng được chụp native trên app debug đóng gói ngày 16/11/2026, tiếng Việt, với thư viện QA và preferences riêng. Bài kiểm tra đi qua chuyển hai mặt, sửa/lưu, mở và đóng phiên học, tạm dừng rồi bật lại. Bộ ảnh Chromium cũ vẫn tra được dưới `baselines/ui/2026-11-16-a69159c5/`. [Ca kiểm thử tự động](../tests/integration/note-memory-workspace.spec.ts)
+Ba ảnh trong bảng ghi lại luồng tab trước đợt đưa điều khiển học vào Properties. Ảnh được chụp native trên app debug đóng gói ngày 16/11/2026, tiếng Việt, với thư viện QA và preferences riêng. Bài kiểm tra đi qua chuyển hai mặt, sửa/lưu, mở và đóng phiên học, tạm dừng rồi bật lại. Bộ ảnh Chromium cũ vẫn tra được dưới `baselines/ui/2026-11-16-a69159c5/`. [Ca kiểm thử tự động](../tests/integration/note-memory-workspace.spec.ts)
 
 Ảnh QA ngày 14/11 có panel **Paused**, nút **Resume**, và năm **58839** thuộc luồng cũ. Lỗi đổi mili giây thành giây ở dữ liệu demo đã sửa trong `d538fb4b`. Kiểu điều khiển học đổi trong `a6b6fc82` và quy tắc hiện tab đổi trong `fdcc1459`. Tên file ảnh QA có thể giống nhau giữa các lần chạy.
 
-Sidebar rút gọn tên thư mục dài bằng dấu ba chấm và giữ hàng trong chiều rộng cột. Hover hoặc focus xem đường dẫn đầy đủ. [Nghiệm thu tên dài](baselines/2026-11-16-sidebar-folder-overflow.md).
+Sidebar và danh sách ghi chú dùng cùng kiểu thanh cuộn native mảnh, theo token theme và ưu tiên tương phản cao. Sidebar rút gọn tên thư mục dài bằng dấu ba chấm và giữ hàng trong chiều rộng cột. Hover hoặc focus xem đường dẫn đầy đủ. [Nghiệm thu tên dài](baselines/2026-11-16-sidebar-folder-overflow.md).
 
 ## Bản cài và mã nguồn
 

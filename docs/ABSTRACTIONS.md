@@ -1165,3 +1165,5 @@ Read errors in `useLearningLibrary.load` follow the same Library generation/read
 The v0.1.0 production renderer retains the Markdown whiteboard codec and replaces the drawing editor with `PreservedWhiteboard`. The placeholder reports an unavailable study face to the render gate. Only development builds import the drawing SDK and offer the whiteboard insertion command.
 
 Current drawing blocks use a lazy-loaded Excalidraw editor in both development and production. The Markdown fence contains scene elements and embedded files. Study mounts the same scene in view mode. See ADR-0165.
+
+The Properties learning controls reuse NoteLearningPanel in compact mode. noteMemoryEditorActions registers the mounted note editor by normalized Library and note identity, so Properties invokes the existing flush-and-switch path. Cleanup checks handler identity, and the layout checks active identity again after a pending flush. A failed save retains the current face. The optional mnemonic editor exposes a return action, while article editing has no learning tablist.

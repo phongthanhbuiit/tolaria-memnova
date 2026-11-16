@@ -98,3 +98,30 @@ it('labels paused notes with resume and keeps mutation errors across a successfu
   expect(screen.getByRole('switch')).not.toBeChecked()
   expect(screen.getByText(/review history are kept/)).toBeInTheDocument()
 })
+
+it('shows no learning actions in compact Properties for an ordinary Markdown note', () => {
+  render(<NoteLearningPanel path="/library/a.md" locale="en" compact />)
+  expect(screen.queryByRole('region')).toBeNull()
+  expect(workspace.client.ensurePage).not.toHaveBeenCalled()
+})
+
+it('allows editing a retained mnemonic while paused without restarting learning', async () => {
+  workspace.pages = [{ id: 'a', path: 'a.md' }]
+  workspace.notes = [{ view: { path: 'a.md', pageId: 'a', state: 'disabled', config: { enabled: false }, hasBack: true } }]
+  const edit = vi.fn().mockResolvedValue(undefined)
+  render(<NoteLearningPanel path="/library/a.md" locale="en" compact onEditMnemonic={edit} />)
+  fireEvent.click(screen.getByRole('button', { name: 'Edit mnemonic', exact: true }))
+  await waitFor(() => expect(edit).toHaveBeenCalledOnce())
+  expect(screen.queryByRole('button', { name: 'Study', exact: true })).toBeNull()
+  expect(workspace.setNoteEnabled).not.toHaveBeenCalled()
+})
+
+it('keeps save errors visible when Properties cannot switch the mounted editor', async () => {
+  workspace.pages = [{ id: 'a', path: 'a.md' }]
+  workspace.notes = [{ view: { path: 'a.md', pageId: 'a', state: 'ready', config: { enabled: true }, hasBack: true } }]
+  render(<NoteLearningPanel path="/library/a.md" locale="en" compact onEditMnemonic={async () => { throw Error('Save failed') }} />)
+  fireEvent.click(screen.getByRole('button', { name: 'Edit mnemonic', exact: true }))
+  expect(await screen.findByRole('alert')).toHaveTextContent('Save failed')
+  expect(workspace.setNoteEnabled).not.toHaveBeenCalled()
+  expect(workspace.requestStudy).not.toHaveBeenCalled()
+})

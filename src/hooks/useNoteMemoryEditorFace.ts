@@ -48,6 +48,8 @@ export function useNoteMemoryEditorFace(
   const pageId = baseline.pageId ?? parseNoteMemoryDocument(state.source).pageId
   const parsed = parseNoteMemoryDocument(state.source)
   const sourceBack = parsed.config?.back ?? null
+  const refreshRef = useRef(refresh)
+  useLayoutEffect(() => { refreshRef.current = refresh }, [refresh])
   const onContentChangeRef = useRef(onContentChange)
   useLayoutEffect(() => {
     onContentChangeRef.current = onContentChange
@@ -73,7 +75,15 @@ export function useNoteMemoryEditorFace(
       pageId,
       path,
       source: document.getBaseline(),
-      onSaved: (source) => document.markSaved(source),
+      onSaved: (source) => {
+        const before = parseNoteMemoryDocument(document.getBaseline())
+        const after = parseNoteMemoryDocument(source)
+        document.markSaved(source)
+        // Configuration changes refresh through configureBack. Content receipts
+        // must also update the mounted Properties actions and learning readiness.
+        const contentChanged = before.front !== after.front || before.back !== after.back || Boolean(before.ranges.back) !== Boolean(after.ranges.back)
+        if (contentChanged && document.isActive()) void refreshRef.current?.().catch(() => {})
+      },
       getCurrentSource: () => document.getSnapshot().source,
       onPropertyDraft: draft => {
         const next = document.stageProperty(draft.beforeSource, draft.afterSource, draft.key, draft.value, draft.rememberOnly)

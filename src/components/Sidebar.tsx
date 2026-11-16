@@ -457,7 +457,7 @@ function SidebarViewAndTypeNavigation(props: SidebarNavigationProps) {
 
 function SidebarNavigation(props: SidebarNavigationProps) {
   return (
-    <nav className="flex-1 overflow-y-auto">
+    <nav className="app-scrollbar flex-1 overflow-y-auto">
       <SidebarTopNavigation {...props} />
       <SidebarViewAndTypeNavigation {...props} />
       <SidebarFoldersNavigation

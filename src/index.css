@@ -1,6 +1,54 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* Shared native scrolling for the adjacent Library navigation and note list. */
+.app-scrollbar {
+  --scrollbar-thumb: var(--text-secondary);
+  --scrollbar-track: transparent;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+/* Older WKWebView versions need the WebKit selectors for the same treatment. */
+@supports not (scrollbar-color: auto) {
+  .app-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .app-scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: var(--scrollbar-thumb);
+  }
+
+  .app-scrollbar::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+  }
+}
+
+@media (prefers-contrast: more) {
+  .app-scrollbar {
+    --scrollbar-thumb: var(--text-primary);
+    scrollbar-width: auto;
+  }
+
+  @supports not (scrollbar-color: auto) {
+    .app-scrollbar::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+    }
+  }
+}
+
+@media (forced-colors: active) {
+  .app-scrollbar {
+    --scrollbar-thumb: CanvasText;
+    --scrollbar-track: Canvas;
+    scrollbar-color: auto;
+    scrollbar-width: auto;
+  }
+}
+
 /* ============================================================
    Theme Variables — app-owned light/dark contract
    ============================================================ */

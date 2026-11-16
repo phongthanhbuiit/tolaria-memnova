@@ -76,15 +76,12 @@ test('coarse targets, contrast, reduced motion and keyboard focus remain usable'
     }
     for (const metric of metrics) { expect(metric.coarse).toBe(true); expect(metric.primaryContrast).toBeGreaterThanOrEqual(4.5); expect(metric.captionContrast).toBeGreaterThanOrEqual(4.5); for (const control of metric.controls) { expect(control.height).toBeGreaterThanOrEqual(44); expect(control.font).toBe('13px') } }
     await page.evaluate(() => window.setNoteLayoutCase?.({ surface: 'tabs', locale: 'en', theme: 'light' }))
-    await page.getByRole('tab', { name: 'Note', exact: true }).focus()
-    await page.keyboard.press('ArrowRight')
-    const mnemonic = page.getByRole('tab', { name: 'Memory cue', exact: true })
-    await expect(mnemonic).toBeFocused()
-    await expect(mnemonic).toHaveAttribute('aria-selected','false')
+    const back = page.getByRole('button', { name: 'Back to note', exact: true })
+    await back.focus()
+    await expect(back).toBeFocused()
+    expect(await back.evaluate(element => element.matches(':focus-visible'))).toBe(true)
     await page.keyboard.press('Enter')
-    await expect(mnemonic).toHaveAttribute('aria-selected','true')
-    await expect(mnemonic).toBeFocused()
-    expect(await mnemonic.evaluate(element => ({ focus: element.matches(':focus-visible'), shadow: getComputedStyle(element).boxShadow }))).toMatchObject({ focus: true, shadow: expect.not.stringMatching(/^none$/) })
+    await expect(back).toBeHidden()
     await page.evaluate(() => window.setNoteLayoutCase?.({ surface: 'source', locale: 'en', theme: 'light' }))
     const dialog = page.getByRole('dialog')
     await expect(dialog).toBeVisible()
@@ -117,7 +114,7 @@ test('source toolbar follows utility type scale and coarse target size', async (
   } finally { await context.close() }
 })
 
-test('note navigation stays in one horizontally scrollable row in a narrow editor', async ({ page }) => {
+test('mnemonic return control stays within a narrow editor without learning tabs', async ({ page }) => {
   await page.goto('/tests/fixtures/note-memory-layout.html')
   await page.waitForFunction(() => window.setNoteLayoutCase)
   for (const locale of ['en','vi','de-DE'] as const) for (const width of [480,200,160]) {
@@ -126,13 +123,15 @@ test('note navigation stays in one horizontally scrollable row in a narrow edito
       document.querySelector<HTMLElement>('[data-layout-surface]')!.style.width = `${width}px`
     }, {locale,width})
     await page.waitForFunction(locale => document.documentElement.dataset.layoutCase === `tabs:${locale}:light`,locale)
-    await expect(page.getByRole('tablist')).toHaveCount(1)
-    const metrics = await page.locator('.note-memory-editor-navigation').evaluate(scroller => {
-      const parent = scroller.closest('[data-layout-surface]')!.getBoundingClientRect(), bounds = scroller.getBoundingClientRect()
-      const tabs = [...scroller.querySelectorAll<HTMLElement>('[role=tab]')].map(tab => tab.getBoundingClientRect())
-      return { contained: bounds.left >= parent.left && bounds.right <= parent.right, sameRow: tabs.every(tab => tab.top === tabs[0].top && tab.height === tabs[0].height), scrollable: getComputedStyle(scroller).overflowX === 'auto' }
+    await expect(page.getByRole('tablist')).toHaveCount(0)
+    const action = page.locator('[data-layout-surface] button')
+    await expect(action).toBeVisible()
+    const contained = await action.evaluate(element => {
+      const parent = element.closest('[data-layout-surface]')!.getBoundingClientRect()
+      const bounds = element.getBoundingClientRect()
+      return bounds.left >= parent.left - 1 && bounds.right <= parent.right + 1
     })
-    expect(metrics,`${locale}/${width}`).toEqual({ contained: true, sameRow: true, scrollable: true })
+    expect(contained,`${locale}/${width}`).toBe(true)
   }
 })
 

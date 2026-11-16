@@ -149,3 +149,25 @@ it('keeps a newer article stroke while its own configuration commits through the
     source: latest,
   })
 })
+
+it('refreshes the open Properties summary after a newly written mnemonic is saved', async () => {
+  const initial = source.replace('_memnova_learning_enabled: false', '_memnova_learning_enabled: true').replace('<!-- FLASHCARD:BACK -->\nRetained local mnemonic\n', '')
+  let currentSource = initial
+  const refresh = vi.fn().mockResolvedValue(undefined)
+  const client = {
+    vaultPath: '/library', libraryId: 'library',
+    readNoteMemory: async () => ({ pageId, path: 'a.md', binding: { pageId, cardId: 'card', sourceHash: await hash(currentSource), revision: 1 } }),
+    saveNoteMemory: async (request: NoteWriteRequest) => {
+      currentSource = request.source
+      return { operationId: request.operationId, pageId, status: 'committed' as const, sourceHash: await hash(currentSource), revision: 2, problem: null }
+    },
+  }
+  const workspace = { root: '/library', phase: 'ready', client, refresh } as unknown as LearningWorkspace
+  const wrapper = ({ children }: { children: ReactNode }) => <LearningContext.Provider value={workspace}>{children}</LearningContext.Provider>
+  const { result } = renderHook(() => useFlashcardEditorFace({ disableLegacy: true, entry: { path, properties: {} } as VaultEntry, fullContent: initial, onContentChange: vi.fn() }), { wrapper })
+  act(() => result.current.handleAddBack())
+  act(() => result.current.handleEditorContentChange(path, 'A useful first mnemonic'))
+  await act(async () => { await saveThroughNoteEditor(path, result.current.getCanonicalDocument!()) })
+  expect(parseNoteMemoryDocument(currentSource).back).toContain('A useful first mnemonic')
+  expect(refresh).toHaveBeenCalledOnce()
+})

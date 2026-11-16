@@ -1006,5 +1006,7 @@
   "learning.noteMemory.emptyHelp": "Otwórz notatkę i włącz zapamiętywanie, aby dodać ją tutaj.",
   "learning.errorDetails": "Szczegóły techniczne",
   "properties.spacedRepetition": "Powtórki interwałowe",
-  "properties.noteMemoryHelp": "Własne właściwości nie oznaczają notatki jako nauczonej ani nie zmieniają harmonogramu powtórek."
+  "properties.noteMemoryHelp": "Własne właściwości nie oznaczają notatki jako nauczonej ani nie zmieniają harmonogramu powtórek.",
+  "editor.noteMemory.backToNote": "Wróć do notatki",
+  "editor.noteMemory.editMnemonic": "Edytuj mnemotechnikę"
 }

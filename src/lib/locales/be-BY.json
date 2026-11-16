@@ -1006,5 +1006,7 @@
   "learning.noteMemory.emptyHelp": "Адкрыйце нататку і ўключыце запамінанне, каб дадаць яе сюды.",
   "learning.errorDetails": "Тэхнічныя падрабязнасці",
   "properties.spacedRepetition": "Інтэрвальнае паўтарэнне",
-  "properties.noteMemoryHelp": "Карыстальніцкія ўласцівасці не пазначаюць нататку як вывучаную і не змяняюць расклад паўтарэнняў."
+  "properties.noteMemoryHelp": "Карыстальніцкія ўласцівасці не пазначаюць нататку як вывучаную і не змяняюць расклад паўтарэнняў.",
+  "editor.noteMemory.backToNote": "Вярнуцца да нататкі",
+  "editor.noteMemory.editMnemonic": "Змяніць мнемоніку"
 }

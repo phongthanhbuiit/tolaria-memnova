@@ -1006,5 +1006,7 @@
   "learning.noteMemory.emptyHelp": "노트를 열고 암기를 활성화하면 여기에 추가됩니다.",
   "learning.errorDetails": "기술 세부 정보",
   "properties.spacedRepetition": "간격 반복",
-  "properties.noteMemoryHelp": "사용자 지정 속성은 이 노트를 학습 완료로 표시하거나 복습 일정을 변경하지 않습니다."
+  "properties.noteMemoryHelp": "사용자 지정 속성은 이 노트를 학습 완료로 표시하거나 복습 일정을 변경하지 않습니다.",
+  "editor.noteMemory.backToNote": "노트로 돌아가기",
+  "editor.noteMemory.editMnemonic": "암기 힌트 편집"
 }

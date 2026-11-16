@@ -1006,5 +1006,7 @@
   "learning.noteMemory.emptyHelp": "Open a note and enable memorization to add it here.",
   "learning.errorDetails": "Technical details",
   "properties.spacedRepetition": "Spaced repetition",
-  "properties.noteMemoryHelp": "Custom properties do not mark this note as learned or change its review schedule."
+  "properties.noteMemoryHelp": "Custom properties do not mark this note as learned or change its review schedule.",
+  "editor.noteMemory.backToNote": "Back to note",
+  "editor.noteMemory.editMnemonic": "Edit mnemonic"
 }

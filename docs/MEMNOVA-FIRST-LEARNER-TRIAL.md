@@ -23,7 +23,7 @@ Chọn 5 người chưa từng dùng Memnova. Ghi mã P01–P05, ngôn ngữ gia
 1. Chọn một đoạn trong *Đọc thử*, dùng hành động lưu trích đoạn trên thanh định dạng.
 2. Lưu, kiểm tra vẫn ở vị trí đọc và mở ghi chú mới từ thông báo.
 3. Trong Properties, bật Spaced repetition và thêm Mnemonic.
-4. Mở Study, xem gợi nhớ và tự chấm.
+4. Bấm Study trong Properties, xem gợi nhớ và tự chấm.
 5. Trở lại ghi chú đã lưu, theo liên kết nguồn để mở đúng *Đọc thử*.
 
 Có thể hoàn thành bằng một đường khác nếu kết quả đúng. Ghi đường đi thực tế và cách người tham gia hiểu các nhãn. Kiểm tra trên đĩa rằng ghi chú nguồn còn nguyên, trích đoạn giữ nguồn và lượt ôn đã được lưu.

@@ -17,6 +17,25 @@ test('long folder names fit the sidebar while vertical scrolling and selection r
     await openFixtureVaultDesktopHarness(page, root, { folders })
     const sidebar = page.getByRole('complementary').first()
     const nav = sidebar.locator('nav').first()
+    await page.getByRole('button', { name: /^All Notes/ }).click()
+    const noteList = page.locator('[data-virtuoso-scroller="true"]')
+    await expect(noteList).toBeVisible()
+    for (const scroller of [nav, noteList]) {
+      await expect(scroller).toHaveCSS('scrollbar-width', 'thin')
+      await expect(scroller).toHaveCSS('scrollbar-color', 'rgb(120, 119, 116) rgba(0, 0, 0, 0)')
+    }
+    await page.emulateMedia({ contrast: 'more' })
+    await expect(nav).toHaveCSS('scrollbar-width', 'auto')
+    await expect(noteList).toHaveCSS('scrollbar-color', 'rgb(55, 53, 47) rgba(0, 0, 0, 0)')
+    await page.emulateMedia({ contrast: 'no-preference', forcedColors: 'active' })
+    await expect(nav).toHaveCSS('scrollbar-color', 'auto')
+    await expect(noteList).toHaveCSS('scrollbar-width', 'auto')
+    await page.emulateMedia({ forcedColors: 'none' })
+    await page.evaluate(() => { document.documentElement.dataset.theme = 'dark' })
+    for (const scroller of [nav, noteList]) {
+      await expect(scroller).toHaveCSS('scrollbar-color', 'rgb(184, 177, 166) rgba(0, 0, 0, 0)')
+    }
+    await page.evaluate(() => { document.documentElement.dataset.theme = 'light' })
     const rootRow = page.getByTestId('folder-row:')
     const child = page.getByTestId('folder-row:folder-0')
     await expect(child).toBeAttached()

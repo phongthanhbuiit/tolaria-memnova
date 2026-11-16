@@ -36,7 +36,7 @@ export function EntityView({ entity, groups, query, collapsedGroups, sortPrefs, 
   locale?: AppLocale
 }) {
   return (
-    <div className="h-full overflow-y-auto">
+    <div className="app-scrollbar h-full overflow-y-auto">
       <PinnedCard entry={entity} renderItem={renderItem} />
       {groups.length === 0
         ? <EmptyMessage text={query ? translate(locale, 'noteList.empty.noMatchingItems') : translate(locale, 'noteList.empty.noRelatedItems')} />
@@ -66,7 +66,7 @@ export function ListView({ isArchivedView, isChangesView, isInboxView, changesEr
 
   if (searched.length === 0) {
     return (
-      <div className="h-full overflow-y-auto">
+      <div className="app-scrollbar h-full overflow-y-auto">
         <EmptyMessage text={emptyText} />
       </div>
     )
@@ -75,6 +75,7 @@ export function ListView({ isArchivedView, isChangesView, isInboxView, changesEr
   return (
     <Virtuoso
       ref={virtuosoRef}
+      className="app-scrollbar"
       style={{ height: '100%' }}
       data={searched}
       overscan={200}

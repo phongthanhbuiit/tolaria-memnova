@@ -4,7 +4,6 @@ import type { NoteLearningState } from '../../src/lib/learning/types'
 import { useEffect, useMemo, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { TooltipProvider } from '../../src/components/ui/tooltip'
-import { Tabs, TabsContent } from '../../src/components/ui/tabs'
 import { LearningContext, type LearningWorkspace } from '../../src/components/learning/LearningContext'
 import { NoteLearningPanel } from '../../src/components/learning/NoteLearningPanel'
 import { NoteLearningDashboard } from '../../src/components/learning/NoteLearningDashboard'
@@ -56,9 +55,9 @@ const workspace = {
 export function Harness() {
   const [value, setValue] = useState<LayoutCase>({ surface: 'panel', locale: 'en', theme: 'light' })
   const [size] = useState({ height: '360', width: '600' })
-  const [open, setOpen] = useState(true), [face, setFace] = useState<'front' | 'back' | 'cards'>('front'), [generation, setGeneration] = useState(0)
+  const [open, setOpen] = useState(true), [face, setFace] = useState<'front' | 'back'>('back'), [generation, setGeneration] = useState(0)
   useEffect(() => {
-    window.setNoteLayoutCase = next => { setValue(next); setOpen(true); setFace('front'); setGeneration(previous => previous + 1) }
+    window.setNoteLayoutCase = next => { setValue(next); setOpen(true); setFace('back'); setGeneration(previous => previous + 1) }
     return () => { delete window.setNoteLayoutCase }
   }, [])
   useEffect(() => {
@@ -89,7 +88,7 @@ export function Harness() {
     {surface === 'source' && <NoteBackSourceDialog ownerPath="/fixture/Biology/Article.md" ownerPageId={owner} open={open} locale={locale} onOpenChange={setOpen} onApplyBack={async () => {}} />}
     {surface === 'toolbar' && <NoteBackSourceToolbar back={{ kind: 'inline' }} ownerPath="/fixture/Biology/Article.md" ownerPageId={owner} locale={locale} onApplyBack={async () => {}} onNavigate={() => {}} />}
     {surface === 'inspector' && <NoteMemoryInspector path="/fixture/Biology/Article.md" content={`---\n_memnova_page_id: ${owner}\n_memnova_learning_version: 1\n_memnova_learning_enabled: true\n_memnova_back_kind: inline\n---\nArticle`} locale={locale} />}
-    {surface === 'tabs' && <Tabs value={face} activationMode="manual" onValueChange={value => { if (value === 'front' || value === 'back' || value === 'cards') setFace(value) }}><NoteMemoryEditorTabs hasBack showFaces showStudy panelId="article" locale={locale} onAddBack={() => {}} /><TabsContent id="article" aria-labelledby={`article-${face}`} value={face === 'cards' ? 'front' : face}>Editor</TabsContent><TabsContent value="cards">Management</TabsContent></Tabs>}
+    {surface === 'tabs' && face === 'back' && <NoteMemoryEditorTabs panelId="article" locale={locale} onReturn={() => setFace('front')} />}
     {surface === 'whiteboard' && <div className="editor__blocknote-container"><ExcalidrawWhiteboard blockId="layout" height={size.height} snapshot={JSON.stringify(snapshot)} onSnapshotChange={() => {}} /></div>}
     {surface === 'study' && <LearningStudyView key={generation} study={study} root="/fixture" locale={locale} />}
     {!open && <p role="status">Closed</p>}
