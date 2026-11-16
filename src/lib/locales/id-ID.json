@@ -1008,5 +1008,6 @@
   "properties.spacedRepetition": "Pengulangan berjarak",
   "properties.noteMemoryHelp": "Properti khusus tidak menandai catatan ini sebagai sudah dipelajari atau mengubah jadwal ulasannya.",
   "editor.noteMemory.backToNote": "Kembali ke catatan",
-  "editor.noteMemory.editMnemonic": "Edit mnemonik"
+  "editor.noteMemory.editMnemonic": "Edit mnemonik",
+  "learning.noteMemory.studyThisNote": "Ulangi catatan ini"
 }

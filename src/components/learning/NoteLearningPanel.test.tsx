@@ -48,7 +48,7 @@ it('pauses an enabled note explicitly and offers only the selected note for stud
     },
   ]
   render(<><NoteMemorySwitch path="/library/a.md" locale="en" /><NoteLearningPanel path="/library/a.md" locale="en" /></>)
-  fireEvent.click(screen.getByRole('button', { name: 'Study' }))
+  fireEvent.click(screen.getByRole('button', { name: 'Review this note' }))
   expect(workspace.requestStudy).toHaveBeenCalledWith(['a'], 'notes')
   fireEvent.click(screen.getByRole('switch', { name: 'Spaced repetition' }))
   await waitFor(() =>
@@ -78,7 +78,7 @@ it('offers a draft mnemonic action without enabling or grading any source', asyn
   workspace.notes = [{ view: { path: 'a.md', pageId: 'a', state: 'draft', config: { enabled: true }, hasBack: false } }]
   const edit = vi.fn().mockResolvedValue(undefined)
   render(<NoteLearningPanel path="/library/a.md" locale="en" onEditMnemonic={edit} />)
-  expect(screen.queryByRole('button', { name: 'Study', exact: true })).toBeNull()
+  expect(screen.queryByRole('button', { name: 'Review this note', exact: true })).toBeNull()
   fireEvent.click(screen.getByRole('button', { name: 'Add mnemonic', exact: true }))
   await waitFor(() => expect(edit).toHaveBeenCalledOnce())
   expect(workspace.setNoteEnabled).not.toHaveBeenCalled()
@@ -112,7 +112,7 @@ it('allows editing a retained mnemonic while paused without restarting learning'
   render(<NoteLearningPanel path="/library/a.md" locale="en" compact onEditMnemonic={edit} />)
   fireEvent.click(screen.getByRole('button', { name: 'Edit mnemonic', exact: true }))
   await waitFor(() => expect(edit).toHaveBeenCalledOnce())
-  expect(screen.queryByRole('button', { name: 'Study', exact: true })).toBeNull()
+  expect(screen.queryByRole('button', { name: 'Review this note', exact: true })).toBeNull()
   expect(workspace.setNoteEnabled).not.toHaveBeenCalled()
 })
 

@@ -1008,5 +1008,6 @@
   "properties.spacedRepetition": "Ôn tập ghi chú này",
   "properties.noteMemoryHelp": "Thuộc tính tùy chỉnh không đánh dấu ghi chú đã thuộc và không thay đổi lịch ôn tập.",
   "editor.noteMemory.backToNote": "Quay lại ghi chú",
-  "editor.noteMemory.editMnemonic": "Sửa gợi nhớ"
+  "editor.noteMemory.editMnemonic": "Sửa gợi nhớ",
+  "learning.noteMemory.studyThisNote": "Ôn ghi chú này"
 }

@@ -1008,5 +1008,6 @@
   "properties.spacedRepetition": "Powtórki interwałowe",
   "properties.noteMemoryHelp": "Własne właściwości nie oznaczają notatki jako nauczonej ani nie zmieniają harmonogramu powtórek.",
   "editor.noteMemory.backToNote": "Wróć do notatki",
-  "editor.noteMemory.editMnemonic": "Edytuj mnemotechnikę"
+  "editor.noteMemory.editMnemonic": "Edytuj mnemotechnikę",
+  "learning.noteMemory.studyThisNote": "Powtórz tę notatkę"
 }

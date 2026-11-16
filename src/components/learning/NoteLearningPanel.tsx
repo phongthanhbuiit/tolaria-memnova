@@ -117,7 +117,7 @@ export function NoteLearningPanel({
             }
           >
             <Play aria-hidden="true" />
-            {t('learning.study')}
+            {t('learning.noteMemory.studyThisNote')}
           </Button>}
         </div>
         {view?.state === 'pending' && <div className="border-t border-border pt-2">

@@ -366,7 +366,7 @@ export function Inspector({ collapsed, onToggle, ...bodyProps }: InspectorProps)
         onOpenRawEditor={bodyProps.onToggleRawEditor}
       />
       {!collapsed && (
-        <div className="flex flex-1 flex-col gap-4 overflow-y-auto p-3">
+        <div className="flex flex-1 flex-col gap-4 overflow-y-auto app-scrollbar p-3">
           <InspectorBody {...bodyProps} />
         </div>
       )}

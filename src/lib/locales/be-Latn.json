@@ -1008,5 +1008,6 @@
   "properties.spacedRepetition": "Intervalnaje paŭtareńnie",
   "properties.noteMemoryHelp": "Karystalnickija ŭłaścivaści nie paznačajuć natatku jak vyvučanuju i nie źmianiajuć raskład paŭtarenniaŭ.",
   "editor.noteMemory.backToNote": "Viarnucca da natatki",
-  "editor.noteMemory.editMnemonic": "Źmianić mniemoniku"
+  "editor.noteMemory.editMnemonic": "Źmianić mniemoniku",
+  "learning.noteMemory.studyThisNote": "Paŭtaryć hetu natatku"
 }

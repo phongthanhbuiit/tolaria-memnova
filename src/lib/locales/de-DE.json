@@ -1008,5 +1008,6 @@
   "properties.spacedRepetition": "Verteiltes Wiederholen",
   "properties.noteMemoryHelp": "Benutzerdefinierte Eigenschaften markieren diese Notiz nicht als gelernt und ändern ihren Wiederholungsplan nicht.",
   "editor.noteMemory.backToNote": "Zurück zur Notiz",
-  "editor.noteMemory.editMnemonic": "Merkhilfe bearbeiten"
+  "editor.noteMemory.editMnemonic": "Merkhilfe bearbeiten",
+  "learning.noteMemory.studyThisNote": "Diese Notiz wiederholen"
 }

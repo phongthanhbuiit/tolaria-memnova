@@ -1008,5 +1008,6 @@
   "properties.spacedRepetition": "Repetición espaciada",
   "properties.noteMemoryHelp": "Las propiedades personalizadas no marcan esta nota como aprendida ni cambian su calendario de repaso.",
   "editor.noteMemory.backToNote": "Volver a la nota",
-  "editor.noteMemory.editMnemonic": "Editar recurso mnemotécnico"
+  "editor.noteMemory.editMnemonic": "Editar recurso mnemotécnico",
+  "learning.noteMemory.studyThisNote": "Repasar esta nota"
 }

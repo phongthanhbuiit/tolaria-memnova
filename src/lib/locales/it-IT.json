@@ -1008,5 +1008,6 @@
   "properties.spacedRepetition": "Ripetizione dilazionata",
   "properties.noteMemoryHelp": "Le proprietà personalizzate non contrassegnano questa nota come appresa e non ne modificano il calendario dei ripassi.",
   "editor.noteMemory.backToNote": "Torna alla nota",
-  "editor.noteMemory.editMnemonic": "Modifica il suggerimento mnemonico"
+  "editor.noteMemory.editMnemonic": "Modifica il suggerimento mnemonico",
+  "learning.noteMemory.studyThisNote": "Ripassa questa nota"
 }

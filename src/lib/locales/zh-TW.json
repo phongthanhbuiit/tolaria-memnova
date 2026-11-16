@@ -1008,5 +1008,6 @@
   "properties.spacedRepetition": "間隔重複",
   "properties.noteMemoryHelp": "自訂屬性不會將此筆記標記為已學會，也不會變更複習排程。",
   "editor.noteMemory.backToNote": "返回筆記",
-  "editor.noteMemory.editMnemonic": "編輯記憶提示"
+  "editor.noteMemory.editMnemonic": "編輯記憶提示",
+  "learning.noteMemory.studyThisNote": "複習此筆記"
 }

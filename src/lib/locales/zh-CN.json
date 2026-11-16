@@ -1008,5 +1008,6 @@
   "properties.spacedRepetition": "间隔重复",
   "properties.noteMemoryHelp": "自定义属性不会将此笔记标记为已学会，也不会更改复习计划。",
   "editor.noteMemory.backToNote": "返回笔记",
-  "editor.noteMemory.editMnemonic": "编辑记忆提示"
+  "editor.noteMemory.editMnemonic": "编辑记忆提示",
+  "learning.noteMemory.studyThisNote": "复习此笔记"
 }

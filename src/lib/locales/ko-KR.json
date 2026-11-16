@@ -1008,5 +1008,6 @@
   "properties.spacedRepetition": "간격 반복",
   "properties.noteMemoryHelp": "사용자 지정 속성은 이 노트를 학습 완료로 표시하거나 복습 일정을 변경하지 않습니다.",
   "editor.noteMemory.backToNote": "노트로 돌아가기",
-  "editor.noteMemory.editMnemonic": "암기 힌트 편집"
+  "editor.noteMemory.editMnemonic": "암기 힌트 편집",
+  "learning.noteMemory.studyThisNote": "이 노트 복습"
 }

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-/* Shared native scrolling for the adjacent Library navigation and note list. */
+/* Shared native scrolling for the Library navigation, note list and Properties. */
 .app-scrollbar {
   --scrollbar-thumb: var(--text-secondary);
   --scrollbar-track: transparent;

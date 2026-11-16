@@ -1008,5 +1008,6 @@
   "properties.spacedRepetition": "Интервальное повторение",
   "properties.noteMemoryHelp": "Пользовательские свойства не отмечают заметку как выученную и не меняют расписание повторений.",
   "editor.noteMemory.backToNote": "Вернуться к заметке",
-  "editor.noteMemory.editMnemonic": "Изменить мнемонику"
+  "editor.noteMemory.editMnemonic": "Изменить мнемонику",
+  "learning.noteMemory.studyThisNote": "Повторить эту заметку"
 }
