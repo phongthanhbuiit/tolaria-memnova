@@ -9,9 +9,9 @@ export interface SavedViewStudy {
   start: (resolveScope: ResolveViewStudyScope) => void | Promise<void>
 }
 
-function dueId(entry: VaultEntry, root: string, dueByPath: ReadonlyMap<string, string>) {
+function pageIdForEntry(entry: VaultEntry, root: string, pagesByPath: ReadonlyMap<string, string>) {
   if (entry.workspace && !notePathsMatch(entry.workspace.path, root)) return undefined
-  return dueByPath.get(normalizeNotePathForIdentity(entry.path))
+  return pagesByPath.get(normalizeNotePathForIdentity(entry.path))
 }
 
 export function useSavedViewStudy(
@@ -35,14 +35,14 @@ export function useSavedViewStudy(
     if (current.current) current.current.entries = loading ? [] : entries
   }, [visit, entries, loading])
   const due = useMemo(() => key && study
-    ? entries.filter(entry => dueId(entry, study.root, study.dueByPath))
+    ? entries.filter(entry => pageIdForEntry(entry, study.root, study.dueByPath))
     : [], [entries, key, study])
 
   if (!key || !study) return { entries, controls: null }
-  const resolveScope: ResolveViewStudyScope = freshDue => {
+  const resolveScope: ResolveViewStudyScope = readyByPath => {
     if (current.current?.visit !== visit) return []
     const ids = current.current.entries.flatMap(entry => {
-      const id = dueId(entry, study.root, freshDue)
+      const id = pageIdForEntry(entry, study.root, readyByPath)
       return id ? [id] : []
     })
     return [...new Set(ids)]

@@ -45,14 +45,19 @@ it('defaults a compatible workspace to notes while preserving explicit old-card 
   expect(studyScopeForWorkspace(false)).toEqual({ pageIds: null })
 })
 it('counts only ready note cards, independently from old cards, without duplication', () => {
+  const next = note('ready', 'future', 'b')
+  const now = Date.now()
+  next.card!.schedule.due = new Date(now + 60_000).toISOString()
   const notes = [
     note('ready', 'n'),
+    next,
     note('disabled', 'disabled'),
     note('invalid', 'invalid'),
     note('pending', 'pending'),
     note('ready', 'gone', 'missing'),
   ]
-  const due = workspaceDue(pages, notes, [card('old'), card('n')], Date.now())
+  const due = workspaceDue(pages, notes, [card('old'), card('n')], now)
+  expect(due.readyNotes.map((value) => value.id)).toEqual(['n', 'future'])
   expect(due.notes.map((value) => value.id)).toEqual(['n'])
   expect(due.legacy.map((value) => value.id)).toEqual(['old'])
 })

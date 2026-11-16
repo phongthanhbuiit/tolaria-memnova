@@ -8,7 +8,7 @@ Key abstractions and domain models in Tolaria.
 
 ## Saved View learning scope
 
-Saved View study computes page IDs from the complete filtered note list and the current Library’s due-note map. A deferred scope resolver reads the committed view result set after the app flushes and refreshes learning data. Leaving the view clears that visit’s result set, so an in-flight request cannot start a session for an abandoned view. The Due filter is temporary UI state, scoped by view identity and Library, and uses the same intersection as the Study action.
+After flushing the editor, Saved View study resolves all ready, available and active owner notes in the complete filtered view against a fresh snapshot of the current Library. Concurrent reads for the same connection follow the newest snapshot. A Library switch invalidates the old read. The Due switch and action count use the currently due subset. At least one matching due note enables starting study. The scheduler receives the eligible page IDs as a stable session scope and chooses the due queue, so grading one note preserves the session ID and its undo history when the user returns. Leaving the view invalidates its deferred scope resolver.
 
 ## Design Philosophy
 

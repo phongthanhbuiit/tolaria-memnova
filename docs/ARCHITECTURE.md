@@ -8,7 +8,7 @@ The default workspace keeps ordinary Markdown ordinary. Explicit note-memory opt
 
 ## Capture and Saved View study
 
-The note capture dialog creates an ordinary Markdown note through the existing creation pipeline while keeping the source editor active. Capture content and provenance stay in Markdown. Learning activation remains explicit in Properties. Saved View study intersects the complete current filtered result set with due, ready notes owned by the active Library. Starting study flushes the editor and refreshes the learning snapshot before resolving that intersection. The existing session and scheduler implementations own grading, undo and resume.
+The note capture dialog creates an ordinary Markdown note through the existing creation pipeline while keeping the source editor active. Capture content and provenance stay in Markdown. Learning activation remains explicit in Properties. The Saved View action counts due notes after intersecting the complete view with ready notes owned by the active Library. Starting study flushes the editor and refreshes the learning snapshot. The eligible notes in that view form the session scope. The scheduler selects the due queue and preserves progress and undo across closing and reopening the same scope.
 
 ## Earlier Memnova transition context
 

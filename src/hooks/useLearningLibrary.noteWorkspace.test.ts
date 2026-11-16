@@ -77,6 +77,43 @@ it('publishes a failed manual refresh once and clears it after a successful back
   expect(result.current.error).toBeNull()
 })
 
+it.each(['complete', 'fail'])('returns the newest same-library snapshot to Study when the superseded read can %s', async outcome => {
+  const api = client('study')
+  vi.mocked(LearningClient.connect).mockResolvedValue(api as unknown as LearningClient)
+  const { result } = renderHook(() => useLearningLibrary('/study'))
+  await waitFor(() => expect(result.current.phase).toBe('ready'))
+  let finish!: () => void
+  api.syncNoteWorkspace.mockReturnValueOnce(new Promise((resolve, reject) => {
+    finish = () => outcome === 'complete' ? resolve({ pages: [], notes: [] }) : reject(Error('old read failed'))
+  }))
+  const study = result.current.refreshSnapshot()
+  api.syncNoteWorkspace.mockResolvedValueOnce({ pages: [{ id: 'fresh' }], notes: [] })
+  await act(() => result.current.refresh())
+  await act(async () => {
+    finish()
+    expect((await study)?.pages.map(page => page.id)).toEqual(['fresh'])
+  })
+})
+
+it('discards a study snapshot if its client reconnects before the read finishes', async () => {
+  const old = client('old'), restored = client('restored')
+  vi.mocked(LearningClient.connect)
+    .mockResolvedValueOnce(old as unknown as LearningClient)
+    .mockResolvedValueOnce(restored as unknown as LearningClient)
+  const { result } = renderHook(() => useLearningLibrary('/study'))
+  await waitFor(() => expect(result.current.phase).toBe('ready'))
+  let finish!: () => void
+  old.syncNoteWorkspace.mockReturnValueOnce(new Promise(resolve => {
+    finish = () => resolve({ pages: [{ id: 'old' }], notes: [] })
+  }))
+  const study = result.current.refreshSnapshot()
+  await act(() => result.current.reconnect())
+  await act(async () => {
+    finish()
+    await expect(study).resolves.toBeUndefined()
+  })
+})
+
 it('does not let an older failed refresh replace a newer successful snapshot', async () => {
   const api = client('refresh')
   vi.mocked(LearningClient.connect).mockResolvedValue(api as unknown as LearningClient)

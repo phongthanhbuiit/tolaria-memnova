@@ -43,21 +43,21 @@ export function workspaceDue(
       row.view.binding ? [row.view.binding.cardId] : []
     )
   )
-  const due = (card: LearningCard) =>
-    available.has(card.pageId) &&
-    card.status === 'active' &&
-    Date.parse(card.schedule.due) <= clock
+  const active = (card: LearningCard) => available.has(card.pageId) && card.status === 'active'
+  const due = (card: LearningCard) => Date.parse(card.schedule.due) <= clock
+  const readyNotes = summaries.flatMap(row =>
+    row.view.state === 'ready' && row.card && active(row.card) ? [row.card] : [],
+  )
   return {
-    notes: summaries.flatMap((row) =>
-      row.view.state === 'ready' && row.card && due(row.card) ? [row.card] : []
-    ),
-    legacy: oldCards.filter((card) => !bound.has(card.id) && due(card)),
+    readyNotes,
+    notes: readyNotes.filter(due),
+    legacy: oldCards.filter((card) => !bound.has(card.id) && active(card) && due(card)),
   }
 }
 
-export type ResolveViewStudyScope = (dueByPath: ReadonlyMap<string, string>) => string[]
+export type ResolveViewStudyScope = (readyByPath: ReadonlyMap<string, string>) => string[]
 
-export function dueNotePaths(root: string, pages: LearningPage[], cards: LearningCard[]): ReadonlyMap<string, string> {
+export function notePathsForCards(root: string, pages: LearningPage[], cards: LearningCard[]): ReadonlyMap<string, string> {
   const ids = new Set(cards.map(card => card.pageId))
   return new Map(pages.filter(page => ids.has(page.id)).map(page =>
     [normalizeNotePathForIdentity(joinVaultPath(root, page.path)), page.id],

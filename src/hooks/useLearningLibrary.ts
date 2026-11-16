@@ -6,6 +6,14 @@ import { trackEvent } from '../lib/telemetry'
 
 type LibraryState = { clock: number; root: string; client: LearningClient | null; phase: 'loading' | 'legacy' | 'migrating' | 'ready' | 'error'; pages: LearningPage[]; cards: LearningCard[]; notes: NoteLearningSummary[]; stats: StudyStats | null; error: string | null; progress: MigrationProgress | null }
 const initial = (root: string): LibraryState => ({ clock: 0, root, client: null, phase: 'loading', pages: [], cards: [], notes: [], stats: null, error: null, progress: null })
+
+async function readSnapshot(client: LearningClient) {
+  const workspace = client.supportsNoteMemory ? await client.syncNoteWorkspace() : { pages: await client.syncPages(), notes: [] }
+  const [cards, stats] = await Promise.all([client.listCards(null, true), client.studyStats()])
+  return { ...workspace, cards, stats, clock: Date.now() }
+}
+type Snapshot = Awaited<ReturnType<typeof readSnapshot>>
+
 export function useLearningLibrary(root: string | null | undefined) {
   const path = root?.replace(/\/$/, '') ?? ''
   const [state, setState] = useState(() => initial(path))
@@ -14,28 +22,31 @@ export function useLearningLibrary(root: string | null | undefined) {
   const [storedPreview, setPreview] = useState<MigrationPreview | null>(null)
   const [migrationBusy, setBusy] = useState(false)
   const generation = useRef(0)
-  const reads = useRef(new Map<string, number>())
+  const latestRead = useRef<Promise<Snapshot | undefined> | undefined>(undefined)
   const connections = useRef(new WeakMap<LearningClient, number>())
   const current = state.root === path ? state : initial(path)
   const migrationOpen = migrationRoot === path && migrationVisible
   const preview = migrationRoot === path ? storedPreview : null
   const busy = migrationRoot === path && migrationBusy
-  const load = useCallback(async (client: LearningClient, epoch: number) => {
+  const load = useCallback((client: LearningClient, epoch: number) => {
     if (generation.current !== epoch) return
-    const read = (reads.current.get(path) ?? 0) + 1
-    reads.current.set(path, read)
-    const isCurrentRead = () => generation.current === epoch && reads.current.get(path) === read
-    try {
-      const snapshot = client.supportsNoteMemory ? await client.syncNoteWorkspace() : { pages: await client.syncPages(), notes: [] }
-      const [cards, stats] = await Promise.all([client.listCards(null, true), client.studyStats()])
-      if (!isCurrentRead()) return
-      const data = { ...snapshot, cards, stats, clock: Date.now() }
-      setState(previous => previous.root !== path ? previous : ({ ...previous, root: path, client, phase: 'ready', ...data, error: null }))
-      return data
-    } catch (error) {
-      if (isCurrentRead()) setState(previous => previous.root !== path ? previous : { ...previous, error: String(error) })
-      throw error
+    const settle = (publish: () => Snapshot) => {
+      if (generation.current !== epoch) return
+      // Readers waiting to start Study follow the same authoritative read as the UI.
+      return latestRead.current === read ? publish() : latestRead.current
     }
+    const read: Promise<Snapshot | undefined> = readSnapshot(client).then(
+      data => settle(() => {
+        setState(previous => previous.root !== path ? previous : ({ ...previous, root: path, client, phase: 'ready', ...data, error: null }))
+        return data
+      }),
+      error => settle(() => {
+        setState(previous => previous.root !== path ? previous : { ...previous, error: String(error) })
+        throw error
+      }),
+    )
+    latestRead.current = read
+    return read
   }, [path])
   const connect = useCallback(async () => {
     const epoch = ++generation.current

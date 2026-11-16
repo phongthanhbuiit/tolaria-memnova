@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react'
-import { dueNotePaths, studyScopeForWorkspace, workspaceDue, type ResolveViewStudyScope } from '../lib/learning/noteWorkspace'
+import { notePathsForCards, studyScopeForWorkspace, workspaceDue, type ResolveViewStudyScope } from '../lib/learning/noteWorkspace'
 import type { StudyLane } from '../lib/learning/types'
 import { trackEvent } from '../lib/telemetry'
 import type { useLearningLibrary } from './useLearningLibrary'
@@ -27,9 +27,12 @@ export function useWorkspaceStudyRequests({ learning, activePath, savedViewOpen,
         const snapshot = await refreshSnapshot()
         if (!snapshot) return
         const due = workspaceDue(snapshot.pages, snapshot.notes, snapshot.cards, snapshot.clock)
-        pageIds = scope(dueNotePaths(root, snapshot.pages, due.notes))
-        if (!pageIds.length) return
-        trackEvent('memnova_saved_view_study_requested', { due_count: pageIds.length })
+        // The scheduler selects due cards. Keep its scope stable as grading moves due dates.
+        pageIds = scope(notePathsForCards(root, snapshot.pages, due.readyNotes))
+        const dueIds = new Set(due.notes.map(card => card.pageId))
+        const dueCount = pageIds.filter(id => dueIds.has(id)).length
+        if (!dueCount) return
+        trackEvent('memnova_saved_view_study_requested', { due_count: dueCount })
       } else {
         await refresh()
         pageIds = scope
@@ -45,7 +48,7 @@ export function useWorkspaceStudyRequests({ learning, activePath, savedViewOpen,
     if (!savedViewOpen || phase !== 'ready' || !supportsNotes) return undefined
     return {
       root,
-      dueByPath: dueNotePaths(root, pages, due.notes),
+      dueByPath: notePathsForCards(root, pages, due.notes),
       start: (resolve: ResolveViewStudyScope) => requestStudy(resolve, 'notes'),
     }
   }, [savedViewOpen, phase, supportsNotes, root, pages, due.notes, requestStudy])
