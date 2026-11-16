@@ -1,6 +1,6 @@
 # Memnova hiện tại
 
-**Đối chiếu ngày 16/11/2026.** Luồng viết trước và thao tác học trong Properties nằm ở commit `5281fd90`, thay thế hàng tab `dbd3ee1c` / `f4a600ce`. Sidebar và danh sách dùng cùng kiểu thanh cuộn mảnh. [Nghiệm thu và ảnh native mới](baselines/2026-11-16-writing-and-properties.md). Trích đoạn và ôn Saved View có từ `05ae7aa3`. Bản cài công khai đối chiếu theo tag v0.1.0, commit `d0b400d5`. Trang này là điểm đọc đầu tiên để xác định giao diện, dữ liệu và việc còn mở.
+**Đối chiếu ngày 16/11/2026.** Luồng viết trước và thao tác học trong Properties nằm ở commit `5281fd90`, thay thế hàng tab `dbd3ee1c` / `f4a600ce`. Hoàn thiện nhãn ôn và thanh cuộn Properties nằm ở `e23d721d`. Sidebar, danh sách và Properties dùng cùng kiểu thanh cuộn mảnh. Nút mở phiên ghi rõ **Review this note / Ôn ghi chú này**. [Nghiệm thu chỉnh sửa cuối](baselines/2026-11-16-properties-polish.md). [Nghiệm thu và ảnh native mới](baselines/2026-11-16-writing-and-properties.md). Trích đoạn và ôn Saved View có từ `05ae7aa3`. Bản cài công khai đối chiếu theo tag v0.1.0, commit `d0b400d5`. Trang này là điểm đọc đầu tiên để xác định giao diện, dữ liệu và việc còn mở.
 
 ## Người dùng thấy gì khi viết và học?
 
@@ -9,14 +9,14 @@ Memnova mở hoặc tạo một thư mục Markdown trên máy, gọi là **Thư
 | Trạng thái | Thao tác và kết quả quan sát trên main | Ảnh native |
 |---|---|---|
 | Ghi chú thường | Mở note vào thẳng editor. Trong **Properties**, công tắc **Spaced repetition** đang tắt. Ghi chú chưa học không có thanh tab học. | [Trước khi bật](baselines/ui/2026-11-16-writing-first/ordinary.png) |
-| Đã bật ghi nhớ | Bật công tắc trong Properties. Chọn **Add mnemonic** để viết gợi nhớ, hoặc **Edit mnemonic** để sửa. **Study** trong Properties mở thẳng phiên ôn. Mở đáp án rồi chọn mức nhớ để ghi nhận lượt ôn. | [Gợi nhớ đã có, ghi chú đến hạn](baselines/ui/2026-11-16-writing-first/enabled.png) |
+| Đã bật ghi nhớ | Bật công tắc trong Properties. Chọn **Add mnemonic** để viết gợi nhớ, hoặc **Edit mnemonic** để sửa. **Review this note / Ôn ghi chú này** trong Properties mở thẳng phiên ôn. Mở đáp án rồi chọn mức nhớ để ghi nhận lượt ôn. | [Gợi nhớ đã có, ghi chú đến hạn](baselines/ui/2026-11-16-writing-first/enabled.png) |
 | Đã ôn một lượt rồi tạm dừng | Tắt công tắc. Editor hiện bài viết. Properties giữ thao tác sửa gợi nhớ, lịch sử và công tắc bật lại. Properties hiển thị lịch sử ôn ở chế độ chỉ đọc. Bật lại công tắc để tiếp tục. | [Sau khi tạm dừng](baselines/ui/2026-11-16-writing-first/paused.png) |
 
 Ba ảnh trong bảng được chụp native trên app QA đóng gói tại `5281fd90`, tiếng Việt, Library và preferences riêng. Đã kiểm tra ghi chú mới, bật học, sửa/lưu gợi nhớ, nút học trực tiếp, đóng phiên, tạm dừng, bàn phím và focus. [Ảnh editor gợi nhớ](baselines/ui/2026-11-16-writing-first/mnemonic.png). Các ảnh hàng tab cũ được giữ theo mốc lịch sử tại `baselines/ui/2026-11-16-single-note-navigation/`.
 
 Ảnh QA ngày 14/11 có panel **Paused**, nút **Resume**, và năm **58839** thuộc luồng cũ. Lỗi đổi mili giây thành giây ở dữ liệu demo đã sửa trong `d538fb4b`. Kiểu điều khiển học đổi trong `a6b6fc82` và quy tắc hiện tab đổi trong `fdcc1459`. Tên file ảnh QA có thể giống nhau giữa các lần chạy.
 
-Sidebar và danh sách ghi chú dùng cùng kiểu thanh cuộn native mảnh, theo token theme và ưu tiên tương phản cao. Sidebar rút gọn tên thư mục dài bằng dấu ba chấm và giữ hàng trong chiều rộng cột. Hover hoặc focus xem đường dẫn đầy đủ. [Nghiệm thu tên dài](baselines/2026-11-16-sidebar-folder-overflow.md).
+Sidebar, danh sách ghi chú và Properties dùng cùng kiểu thanh cuộn native mảnh, theo token theme và ưu tiên tương phản cao. Sidebar rút gọn tên thư mục dài bằng dấu ba chấm và giữ hàng trong chiều rộng cột. Hover hoặc focus xem đường dẫn đầy đủ. [Nghiệm thu tên dài](baselines/2026-11-16-sidebar-folder-overflow.md).
 
 ## Bản cài và mã nguồn
 

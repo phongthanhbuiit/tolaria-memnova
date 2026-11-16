@@ -6,7 +6,7 @@ Xem [hiện trạng và ảnh giao diện](CURRENT-STATE.md) để đối chiế
 
 Mở hoặc tạo `.md` rồi viết như ứng dụng ghi chú bình thường. Chỉ khi bật **Properties → Spaced repetition**, trang đó mới có một mục học riêng. Không phải mọi Markdown, wikilink hoặc trang nguồn được liên kết đều trở thành flashcard.
 
-Ghi chú mở vào bài viết. Trong **Properties / Thuộc tính**, bật học rồi chọn **Add mnemonic / Thêm gợi nhớ**. Khi đã có gợi nhớ, chọn **Edit mnemonic / Sửa gợi nhớ**. Nút **Back to note / Quay lại ghi chú** trở về bài viết sau khi lưu. **Study / Ôn tập** trong Properties mở trực tiếp phiên ôn. Mặt sau có thể chứa chữ, ảnh và, trên main từ a69159c5, hình vẽ qua lệnh `/Excalidraw`; không bắt buộc dùng canvas. Hai mặt lưu trong cùng `.md`, phân cách bằng `<!-- FLASHCARD:BACK -->`. Cây thư mục chỉ có một file; không tạo thư mục canvas ẩn hoặc một bản bài học độc lập trong SQLite.
+Ghi chú mở vào bài viết. Trong **Properties / Thuộc tính**, bật học rồi chọn **Add mnemonic / Thêm gợi nhớ**. Khi đã có gợi nhớ, chọn **Edit mnemonic / Sửa gợi nhớ**. Nút **Back to note / Quay lại ghi chú** trở về bài viết sau khi lưu. **Review this note / Ôn ghi chú này** trong Properties mở trực tiếp phiên ôn. Mặt sau có thể chứa chữ, ảnh và, trên main từ a69159c5, hình vẽ qua lệnh `/Excalidraw`; không bắt buộc dùng canvas. Hai mặt lưu trong cùng `.md`, phân cách bằng `<!-- FLASHCARD:BACK -->`. Cây thư mục chỉ có một file; không tạo thư mục canvas ẩn hoặc một bản bài học độc lập trong SQLite.
 
 Dùng thiết lập chiều rộng note sẵn có cho cả hai mặt; whiteboard có thể mở rộng bằng điều khiển của nó. Đổi mặt, chuyển note và đóng ứng dụng bình thường đều đi qua hàng đợi lưu chung. Khi lưu thất bại, ứng dụng giữ bản đang sửa và cho Retry/Cancel. Cơ chế đóng bình thường không bảo đảm trước force-kill, crash hoặc updater restart.
 
@@ -20,7 +20,7 @@ Học trang A không tự học hoặc chấm điểm trang B mà A liên kết.
 
 ## Thuộc bài, lịch ôn và properties
 
-Chọn **Study**, tự nhớ Article, rồi **Show mnemonic** để đối chiếu gợi ý. Chọn Again/Hard/Good/Easy theo mức nhớ thực tế. Đánh giá cập nhật lịch; **Undo** hoàn lại lượt hợp lệ gần nhất. Đóng phiên sẽ giữ trạng thái để tiếp tục đúng phạm vi. Home thống kê các lượt đã commit.
+Chọn **Review this note / Ôn ghi chú này** trong Properties, tự nhớ Article, rồi **Show mnemonic** để đối chiếu gợi ý. Chọn Again/Hard/Good/Easy theo mức nhớ thực tế. Đánh giá cập nhật lịch; **Undo** hoàn lại lượt hợp lệ gần nhất. Đóng phiên sẽ giữ trạng thái để tiếp tục đúng phạm vi. Home thống kê các lượt đã commit.
 
 “Đã thuộc” không phải một trạng thái vĩnh viễn do đọc hoặc tick property. Nếu muốn ngừng ôn hẳn, tắt **Properties → Spaced repetition**; nội dung hai mặt và lịch sử vẫn giữ. Bật lại không tạo lịch mới. Có thể tự thêm property `Status: Completed` để tổ chức ghi chú, nhưng property đó không tự chấm điểm hoặc dừng lịch.
 
