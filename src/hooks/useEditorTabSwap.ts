@@ -4,6 +4,7 @@ import type { VaultEntry } from '../types'
 import { flushEditorDocuments } from '../utils/editorDocumentFlush'
 import { useEditorProjection } from './useEditorProjection'
 import { compactMarkdown } from '../utils/compact-markdown'
+import { splitFrontmatter } from '../utils/wikilinks'
 import { failNoteOpenTrace, finishNoteOpenTrace } from '../utils/noteOpenPerformance'
 import {
   serializeRichEditorBodyToMarkdown,
@@ -33,7 +34,6 @@ import { clearEditorDomSelection, EDITOR_CONTAINER_SELECTOR } from './editorDomS
 import { editorDocumentSignature, isBlankEditorDocument } from './editorDocumentState'
 import {
   cacheEditorState,
-  cacheParsedEditorState,
   cacheResolvedEditorState,
   isBlankBodyContent,
   resolveBlocksForTarget,
@@ -545,7 +545,10 @@ function shouldRefreshStableActivePath(options: {
 
   if (!activeTabPath || !activeTab) return false
   const cachedState = cache.get(activeTabPath)
-  return !cachedState || cachedState.sourceContent !== activeTab.content
+  if (!cachedState) return true
+  // A Library refresh may add a page ID while someone is already writing.
+  const previous = cachedState.sourceContent
+  return previous !== activeTab.content && splitFrontmatter(previous)[1] !== splitFrontmatter(activeTab.content)[1]
 }
 
 function shouldClearDomSelectionForScheduledSwap(options: {
@@ -706,7 +709,8 @@ function editorChangedDuringUntitledEmptyHeadingParse(
     && !isBlankEditorDocument(editor.document)
 }
 
-function scheduleEmptyHeadingSwap(options: {
+interface ParsedTabSwapOptions {
+  cache: Map<string, CachedTabState>
   editor: ReturnType<typeof useCreateBlockNote>
   targetPath: string
   content: string
@@ -717,7 +721,9 @@ function scheduleEmptyHeadingSwap(options: {
   tabsRef: MutableRefObject<Tab[]>
   token: SwapToken
   vaultPath?: string
-}) {
+}
+
+function scheduleEmptyHeadingSwap(options: ParsedTabSwapOptions) {
   const {
     editor,
     targetPath,
@@ -742,7 +748,7 @@ function scheduleEmptyHeadingSwap(options: {
         suppressChangeRef.current = false
         return
       }
-      cacheParsedEditorState(targetPath, { blocks, scrollTop: 0, sourceContent: content }, vaultPath)
+      cacheResolvedEditorState(options.cache, targetPath, { blocks, scrollTop: 0, sourceContent: content }, vaultPath)
       if (!applyBlocksToEditor({ editor, blocks, scrollTop: 0, suppressChangeRef, editorContentPathRef, targetPath })) return
       signalTabSwap({ path: targetPath })
     })
@@ -755,19 +761,7 @@ function scheduleEmptyHeadingSwap(options: {
   return true
 }
 
-function scheduleParsedBlockSwap(options: {
-  editor: ReturnType<typeof useCreateBlockNote>
-  cache: Map<string, CachedTabState>
-  targetPath: string
-  content: string
-  prevActivePathRef: MutableRefObject<string | null>
-  suppressChangeRef: MutableRefObject<boolean>
-  editorContentPathRef: EditorContentPathRef
-  swapSeqRef: MutableRefObject<number>
-  tabsRef: MutableRefObject<Tab[]>
-  token: SwapToken
-  vaultPath?: string
-}) {
+function scheduleParsedBlockSwap(options: ParsedTabSwapOptions) {
   const {
     editor,
     cache,
@@ -847,34 +841,11 @@ function scheduleTabSwap(options: {
       return
     }
 
-    if (scheduleEmptyHeadingSwap({
-      editor,
-      targetPath,
-      content: activeTab.content,
-      prevActivePathRef,
-      suppressChangeRef,
-      editorContentPathRef,
-      swapSeqRef,
-      tabsRef,
-      token,
-      vaultPath,
-    })) {
-      return
+    const parsedSwap = {
+      editor, cache, targetPath, content: activeTab.content, prevActivePathRef,
+      suppressChangeRef, editorContentPathRef, swapSeqRef, tabsRef, token, vaultPath,
     }
-
-    scheduleParsedBlockSwap({
-      editor,
-      cache,
-      targetPath,
-      content: activeTab.content,
-      prevActivePathRef,
-      suppressChangeRef,
-      editorContentPathRef,
-      swapSeqRef,
-      tabsRef,
-      token,
-      vaultPath,
-    })
+    if (!scheduleEmptyHeadingSwap(parsedSwap)) scheduleParsedBlockSwap(parsedSwap)
   }
 
   if (editor.prosemirrorView) {

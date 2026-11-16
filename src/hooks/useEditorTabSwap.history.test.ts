@@ -68,3 +68,26 @@ it('retains real text history through the existing untitled auto-rename continui
   expect(editor.prosemirrorState.doc.textContent).toContain('Original body.')
   expect(editor.prosemirrorState.doc.textContent).not.toContain('Edited body.')
 })
+
+it('keeps the title caret when the Library assigns an ID to a fresh note', async () => {
+  const path = '/library/untitled-note-123.md'
+  const initial = '---\ntype: Note\n---\n\n# \n\n'
+  const withPageId = initial.replace('type: Note', 'type: Note\n_memnova_page_id: 386841fd-9951-4c68-a373-0360550ec99c')
+  const { editor, result, onContentChange, rerender, initialProps } = harness(path, initial)
+  await waitFor(() => expect(editor.document[0]?.type).toBe('heading'))
+  await act(() => new Promise(resolve => requestAnimationFrame(resolve)))
+  const heading = editor.document[0]
+  act(() => editor.setTextCursorPosition(heading, 'start'))
+  rerender({ ...initialProps, tabs: [tab(path, withPageId)] })
+  // The tab swap applies its document after paint.
+  await act(() => new Promise(resolve => requestAnimationFrame(() => setTimeout(resolve, 0))))
+  expect(editor.getTextCursorPosition().block.id).toBe(heading.id)
+  act(() => {
+    editor.insertInlineContent('Journal entry')
+    result.current.handleEditorChange()
+    result.current.flushPendingEditorChange()
+  })
+  const saved = onContentChange.mock.lastCall?.[1]
+  expect(saved).toContain('_memnova_page_id: 386841fd-9951-4c68-a373-0360550ec99c')
+  expect(saved).toContain('# Journal entry')
+})
