@@ -33,3 +33,12 @@ Buổi thử với 5 người dùng mới cần người tham gia thực tế. T
 - Codacy CLI 0.24.0 đã chạy ESLint9, Opengrep, Trivy và Lizard trên nhãn/menu/bảng lệnh. Chưa kết luận scan toàn bộ tính năng từ kết quả phần này.
 
 CodeScene: not run (optional integration unavailable).
+
+
+## Cổng phát hành
+
+Mã tính năng ở `05ae7aa3`. Normal pre-commit đạt lint, types, 1.089 test liên quan, 3/3 ca tích hợp mới, 54/54 core smoke trong 4,7 phút và validator 18 catalog/1.003 khóa. Một lượt trước bị huỷ sau khi phát hiện shared mock ảnh hưởng fixture cũ, đã giới hạn mock vào riêng spec Saved View. Lượt khác thất bại/trở nên flaky lúc máy ngủ. Log macOS xác nhận hai lần sleep trùng ca lỗi. Ca roundtrip chạy riêng đạt 2/2 trên commit gốc và 2/2 trên mã mới, không retry. Giữ máy thức bằng tiến trình caffeinate chỉ trong các gate kế tiếp.
+
+Normal pre-push đã đạt lint, TypeScript/Vite build và `pnpm test:coverage`: **488 file, 4.899 tests đạt, 87,37% lines**. Rust coverage riêng đã đạt 86,39%. Codacy CLI cuối exit 1 vì cảnh báo Medium, không có analyzer error. CodeScene before/after/project không đo được do optional integration unavailable.
+
+Thư viện demo sạch. Các app/server QA sở hữu bởi task đã dừng sau kiểm tra. Normal `git push origin main` đã thành công, hook 8 phút. Core smoke đạt **54/54 trong 4,6 phút**, toàn bộ cổng trước push đạt. Remote xác nhận `05ae7aa3af813cf92f51527214e4e379a14631a3`. Receipt này cập nhật sau push mã nguồn qua lane docs-only bình thường. Tiến trình giữ máy thức tạm thời được dừng khi kết thúc.

@@ -1,6 +1,6 @@
 # Memnova hiện tại
 
-**Đối chiếu ngày 16/11/2026.** Ba ảnh trạng thái ghi nhớ đầu tiên được kiểm tra tại `a69159c5` trên `main`. Các tính năng trích đoạn và ôn Saved View được bổ sung trong đợt [nghiệm thu mới](baselines/2026-11-16-capture-and-view-study.md). Bản cài đối chiếu theo tag [v0.1.0](https://github.com/phongthanhbuiit/tolaria-memnova/releases/tag/v0.1.0), commit `d0b400d5`. Trang này là điểm đọc đầu tiên khi cần biết người dùng đang thấy gì, dữ liệu nằm ở đâu và việc nào còn mở.
+**Đối chiếu ngày 16/11/2026.** Mã triển khai trích đoạn và ôn Saved View ở commit `05ae7aa3`. Ba ảnh trạng thái ghi nhớ đầu tiên được kiểm tra tại `a69159c5` trên `main`. Các tính năng trích đoạn và ôn Saved View được bổ sung trong đợt [nghiệm thu mới](baselines/2026-11-16-capture-and-view-study.md). Bản cài đối chiếu theo tag [v0.1.0](https://github.com/phongthanhbuiit/tolaria-memnova/releases/tag/v0.1.0), commit `d0b400d5`. Trang này là điểm đọc đầu tiên khi cần biết người dùng đang thấy gì, dữ liệu nằm ở đâu và việc nào còn mở.
 
 ## Người dùng thấy gì khi viết và học?
 
