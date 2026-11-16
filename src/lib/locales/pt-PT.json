@@ -649,6 +649,8 @@
   "status.vault.reloadingTooltip": "A recarregar o cofre a partir do disco",
   "status.vault.remove": "Remover {label} da lista",
   "status.vault.removeConfirmTitle": "Remover a biblioteca da lista?",
+  "status.vault.openedLibrary": "A biblioteca «{label}» foi aberta.",
+  "status.vault.removedFromList": "«{label}» foi removida da lista de bibliotecas.",
   "status.vault.removeConfirmMessage": "A biblioteca {label} será removida da lista. Os ficheiros permanecerão na pasta de origem neste dispositivo.",
   "status.vault.removeConfirmAction": "Remover da lista",
   "workspace.manager.title": "Gerir bibliotecas",

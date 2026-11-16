@@ -649,6 +649,8 @@
   "status.vault.reloadingTooltip": "Rechargement du coffre à partir du disque",
   "status.vault.remove": "Retirer {label} de la liste",
   "status.vault.removeConfirmTitle": "Retirer la bibliothèque de la liste ?",
+  "status.vault.openedLibrary": "Bibliothèque « {label} » ouverte.",
+  "status.vault.removedFromList": "« {label} » a été retirée de la liste des bibliothèques.",
   "status.vault.removeConfirmMessage": "La bibliothèque {label} sera retirée de la liste. Ses fichiers resteront dans leur dossier sur cet appareil.",
   "status.vault.removeConfirmAction": "Retirer de la liste",
   "workspace.manager.title": "Gérer les bibliothèques",

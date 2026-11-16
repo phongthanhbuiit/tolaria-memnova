@@ -650,6 +650,8 @@
   "status.vault.reloadingTooltip": "Pierazahruzka schovišča z dyska",
   "status.vault.remove": "Prybrać {label} sa spisa",
   "status.vault.removeConfirmTitle": "Prybrać biblijateku sa spisa?",
+  "status.vault.openedLibrary": "Biblijateka «{label}» adkryta.",
+  "status.vault.removedFromList": "«{label}» prybrana sa spisa biblijatek.",
   "status.vault.removeConfirmMessage": "Biblijateka {label} zniknie sa spisa. Jaje fajly zastanucca ŭ svajoj papcy na hetaj pryładzie.",
   "status.vault.removeConfirmAction": "Prybrać sa spisa",
   "workspace.manager.title": "Kiravannie biblijatekami",

@@ -649,6 +649,8 @@
   "status.vault.reloadingTooltip": "正在从磁盘重新加载 Vault",
   "status.vault.remove": "从列表中移除“{label}”",
   "status.vault.removeConfirmTitle": "从列表中移除资料库？",
+  "status.vault.openedLibrary": "已打开资料库“{label}”。",
+  "status.vault.removedFromList": "已从资料库列表中移除“{label}”。",
   "status.vault.removeConfirmMessage": "“{label}”将从资料库列表中移除。文件仍会保留在此设备的原文件夹中。",
   "status.vault.removeConfirmAction": "从列表中移除",
   "workspace.manager.title": "管理资料库",

@@ -649,6 +649,8 @@
   "status.vault.reloadingTooltip": "Volviendo a cargar el repositorio desde el disco",
   "status.vault.remove": "Quitar {label} de la lista",
   "status.vault.removeConfirmTitle": "¿Quitar la biblioteca de la lista?",
+  "status.vault.openedLibrary": "Se abrió la biblioteca «{label}».",
+  "status.vault.removedFromList": "Se quitó «{label}» de la lista de bibliotecas.",
   "status.vault.removeConfirmMessage": "Se quitará {label} de la lista de bibliotecas. Sus archivos seguirán en su carpeta en este dispositivo.",
   "status.vault.removeConfirmAction": "Quitar de la lista",
   "workspace.manager.title": "Gestionar bibliotecas",

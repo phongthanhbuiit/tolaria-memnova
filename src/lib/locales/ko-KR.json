@@ -649,6 +649,8 @@
   "status.vault.reloadingTooltip": "디스크에서 Vault 다시 로드 중",
   "status.vault.remove": "목록에서 {label} 제거",
   "status.vault.removeConfirmTitle": "목록에서 라이브러리를 제거할까요?",
+  "status.vault.openedLibrary": "‘{label}’ 라이브러리를 열었습니다.",
+  "status.vault.removedFromList": "라이브러리 목록에서 ‘{label}’을(를) 제거했습니다.",
   "status.vault.removeConfirmMessage": "라이브러리 목록에서 {label} 항목을 제거합니다. 파일은 이 기기의 원래 폴더에 그대로 남습니다.",
   "status.vault.removeConfirmAction": "목록에서 제거",
   "workspace.manager.title": "라이브러리 관리",

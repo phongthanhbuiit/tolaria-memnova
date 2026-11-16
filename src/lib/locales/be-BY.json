@@ -649,6 +649,8 @@
   "status.vault.reloadingTooltip": "Перазагрузка сховішча з дыска",
   "status.vault.remove": "Прыбраць {label} са спіса",
   "status.vault.removeConfirmTitle": "Прыбраць бібліятэку са спіса?",
+  "status.vault.openedLibrary": "Бібліятэка «{label}» адкрыта.",
+  "status.vault.removedFromList": "«{label}» прыбрана са спіса бібліятэк.",
   "status.vault.removeConfirmMessage": "Бібліятэка {label} знікне са спіса. Яе файлы застануцца ў сваёй папцы на гэтай прыладзе.",
   "status.vault.removeConfirmAction": "Прыбраць са спіса",
   "workspace.manager.title": "Кіраванне бібліятэкамі",

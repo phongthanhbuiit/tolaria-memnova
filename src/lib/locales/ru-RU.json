@@ -649,6 +649,8 @@
   "status.vault.reloadingTooltip": "Перезагрузка хранилища с диска",
   "status.vault.remove": "Убрать {label} из списка",
   "status.vault.removeConfirmTitle": "Убрать библиотеку из списка?",
+  "status.vault.openedLibrary": "Библиотека «{label}» открыта.",
+  "status.vault.removedFromList": "«{label}» убрана из списка библиотек.",
   "status.vault.removeConfirmMessage": "Библиотека {label} исчезнет из списка. Её файлы останутся в своей папке на этом устройстве.",
   "status.vault.removeConfirmAction": "Убрать из списка",
   "workspace.manager.title": "Управление библиотеками",

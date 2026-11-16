@@ -649,6 +649,8 @@
   "status.vault.reloadingTooltip": "Ricaricamento del vault dal disco in corso...",
   "status.vault.remove": "Rimuovi {label} dall’elenco",
   "status.vault.removeConfirmTitle": "Rimuovere la libreria dall’elenco?",
+  "status.vault.openedLibrary": "Libreria «{label}» aperta.",
+  "status.vault.removedFromList": "«{label}» è stata rimossa dall’elenco delle librerie.",
   "status.vault.removeConfirmMessage": "{label} verrà rimossa dall’elenco delle librerie. I file rimarranno nella loro cartella su questo dispositivo.",
   "status.vault.removeConfirmAction": "Rimuovi dall’elenco",
   "workspace.manager.title": "Gestisci librerie",

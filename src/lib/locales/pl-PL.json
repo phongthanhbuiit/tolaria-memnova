@@ -649,6 +649,8 @@
   "status.vault.reloadingTooltip": "Przeładowywanie sejfu z dysku",
   "status.vault.remove": "Usuń {label} z listy",
   "status.vault.removeConfirmTitle": "Usunąć bibliotekę z listy?",
+  "status.vault.openedLibrary": "Otwarto bibliotekę „{label}”.",
+  "status.vault.removedFromList": "Usunięto „{label}” z listy bibliotek.",
   "status.vault.removeConfirmMessage": "Biblioteka {label} zniknie z listy. Jej pliki pozostaną w swoim folderze na tym urządzeniu.",
   "status.vault.removeConfirmAction": "Usuń z listy",
   "workspace.manager.title": "Zarządzaj bibliotekami",

@@ -695,6 +695,8 @@
   "status.vault.reloadingTooltip": "Reloading vault from disk",
   "status.vault.remove": "Remove {label} from list",
   "status.vault.removeConfirmTitle": "Remove Library from list?",
+  "status.vault.openedLibrary": "Opened Library “{label}”.",
+  "status.vault.removedFromList": "Removed “{label}” from the Library list.",
   "status.vault.removeConfirmMessage": "{label} will be removed from your list of Libraries. Its files will stay in their folder on this device.",
   "status.vault.removeConfirmAction": "Remove from list",
   "workspace.manager.title": "Manage Libraries",

@@ -649,6 +649,8 @@
   "status.vault.reloadingTooltip": "Memuat ulang brankas dari disk",
   "status.vault.remove": "Hapus {label} dari daftar",
   "status.vault.removeConfirmTitle": "Hapus pustaka dari daftar?",
+  "status.vault.openedLibrary": "Pustaka “{label}” telah dibuka.",
+  "status.vault.removedFromList": "“{label}” telah dihapus dari daftar pustaka.",
   "status.vault.removeConfirmMessage": "Pustaka {label} akan dihapus dari daftar. Berkasnya tetap tersimpan di folder asal pada perangkat ini.",
   "status.vault.removeConfirmAction": "Hapus dari daftar",
   "workspace.manager.title": "Kelola pustaka",

@@ -430,7 +430,8 @@ describe('useVaultSwitcher', () => {
     })
 
     expect(result.current.allVaults.some(v => v.path === '/Users/luca/MyVault')).toBe(true)
-    expect(onToast).toHaveBeenCalledWith('Vault "MyVault" opened')
+    expect(pickFolder).toHaveBeenCalledWith('Open local folder')
+    expect(onToast).toHaveBeenCalledWith('Opened Library “MyVault”.')
   })
 
   it('shows a clear toast when folder picking is blocked until restart', async () => {
@@ -502,7 +503,7 @@ describe('useVaultSwitcher', () => {
       })
 
       expect(result.current.allVaults.some(v => v.path === '/work/vault')).toBe(false)
-      expect(onToast).toHaveBeenCalledWith('Vault "Work" removed from list')
+      expect(onToast).toHaveBeenCalledWith('Removed “Work” from the Library list.')
     })
 
     it('hides a default vault instead of deleting it', async () => {
@@ -540,7 +541,7 @@ describe('useVaultSwitcher', () => {
       expect(result.current.vaultPath).toBe(DEFAULT_VAULTS[0].path)
     })
 
-    it('shows toast when vault is removed', async () => {
+    it('confirms removal in the current interface language', async () => {
       mockVaultListStore = {
         vaults: [{ label: 'Docs', path: '/docs/vault' }],
         active_vault: null,
@@ -550,11 +551,14 @@ describe('useVaultSwitcher', () => {
       const { result } = renderHook(() => useVaultSwitcher({ onSwitch, onToast, mcpBridgeEnabled: true }))
       await waitFor(() => { expect(result.current.loaded).toBe(true) })
 
-      act(() => {
-        result.current.removeVault('/docs/vault')
-      })
-
-      expect(onToast).toHaveBeenCalledWith('Vault "Docs" removed from list')
+      const previousLanguage = document.documentElement.lang
+      document.documentElement.lang = 'vi'
+      try {
+        act(() => { result.current.removeVault('/docs/vault') })
+        expect(onToast).toHaveBeenCalledWith('Đã gỡ “Docs” khỏi danh sách thư viện.')
+      } finally {
+        document.documentElement.lang = previousLanguage
+      }
     })
 
     it('persists hidden_defaults when removing a default vault', async () => {

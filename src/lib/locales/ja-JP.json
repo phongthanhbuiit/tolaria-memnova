@@ -649,6 +649,8 @@
   "status.vault.reloadingTooltip": "ディスクから Vault を再読み込み中",
   "status.vault.remove": "「{label}」を一覧から外す",
   "status.vault.removeConfirmTitle": "ライブラリを一覧から外しますか？",
+  "status.vault.openedLibrary": "ライブラリ「{label}」を開きました。",
+  "status.vault.removedFromList": "ライブラリ一覧から「{label}」を外しました。",
   "status.vault.removeConfirmMessage": "「{label}」をライブラリの一覧から外します。ファイルはこの端末の元のフォルダーに残ります。",
   "status.vault.removeConfirmAction": "一覧から外す",
   "workspace.manager.title": "ライブラリを管理",

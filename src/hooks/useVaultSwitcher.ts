@@ -5,6 +5,7 @@ import { isTauri, mockInvoke } from '../mock-tauri'
 import { formatFolderPickerActionError, pickFolder } from '../utils/vault-dialog'
 import { loadVaultList, saveVaultList } from '../utils/vaultListStore'
 import type { VaultOption } from '../components/StatusBar'
+import { createTranslator, resolveEffectiveLocale } from '../lib/i18n'
 import { trackEvent } from '../lib/telemetry'
 import { buildAllVaults } from '../utils/vaultCollections'
 import { useVaultReorderAction } from './useVaultReorderAction'
@@ -989,9 +990,10 @@ function useOpenLocalFolderAction(
   onToastRef: MutableRefObject<(msg: string) => void>,
 ) {
   return useCallback(async () => {
+    const t = createTranslator(resolveEffectiveLocale(document.documentElement.lang))
     let path: string | null
     try {
-      path = await pickFolder('Open vault folder')
+      path = await pickFolder(t('status.vault.openLocal'))
     } catch (err) {
       onToastRef.current(formatFolderPickerActionError('Could not open vault folder', err))
       return
@@ -1001,7 +1003,7 @@ function useOpenLocalFolderAction(
 
     const label = labelFromPath({ path })
     addAndSwitch(path, label)
-    onToastRef.current(`Vault "${label}" opened`)
+    onToastRef.current(t('status.vault.openedLibrary', { label }))
   }, [addAndSwitch, onToastRef])
 }
 
@@ -1064,7 +1066,9 @@ function useRemoveVaultAction({
       selectedVaultPath,
       vaultPath,
     })
-    onToastRef.current(`Vault "${getRemovedVaultLabel({ path, defaultVaults, extraVaults })}" removed from list`)
+    const label = getRemovedVaultLabel({ path, defaultVaults, extraVaults })
+    const t = createTranslator(resolveEffectiveLocale(document.documentElement.lang))
+    onToastRef.current(t('status.vault.removedFromList', { label }))
   }, [
     defaultWorkspacePath,
     defaultVaults,

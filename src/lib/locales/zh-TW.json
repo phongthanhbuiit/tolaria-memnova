@@ -649,6 +649,8 @@
   "status.vault.reloadingTooltip": "正在從磁碟重新載入 Vault",
   "status.vault.remove": "從清單中移除「{label}」",
   "status.vault.removeConfirmTitle": "從清單中移除資料庫？",
+  "status.vault.openedLibrary": "已開啟資料庫「{label}」。",
+  "status.vault.removedFromList": "已從資料庫清單中移除「{label}」。",
   "status.vault.removeConfirmMessage": "「{label}」將從資料庫清單中移除。檔案仍會保留在此裝置的原始資料夾中。",
   "status.vault.removeConfirmAction": "從清單中移除",
   "workspace.manager.title": "管理資料庫",

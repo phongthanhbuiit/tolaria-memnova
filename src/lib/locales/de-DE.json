@@ -649,6 +649,8 @@
   "status.vault.reloadingTooltip": "Vault von der Festplatte neu laden",
   "status.vault.remove": "{label} aus der Liste entfernen",
   "status.vault.removeConfirmTitle": "Bibliothek aus der Liste entfernen?",
+  "status.vault.openedLibrary": "Bibliothek „{label}“ geöffnet.",
+  "status.vault.removedFromList": "„{label}“ wurde aus der Bibliotheksliste entfernt.",
   "status.vault.removeConfirmMessage": "{label} wird aus deiner Bibliotheksliste entfernt. Die Dateien bleiben in ihrem Ordner auf diesem Gerät.",
   "status.vault.removeConfirmAction": "Aus Liste entfernen",
   "workspace.manager.title": "Bibliotheken verwalten",
