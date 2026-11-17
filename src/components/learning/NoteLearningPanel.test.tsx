@@ -125,3 +125,18 @@ it('keeps save errors visible when Properties cannot switch the mounted editor',
   expect(workspace.setNoteEnabled).not.toHaveBeenCalled()
   expect(workspace.requestStudy).not.toHaveBeenCalled()
 })
+
+
+it.each([
+  ['1970-01-01T00:00:00Z', 'default'],
+  ['2099-01-01T00:00:00Z', 'outline'],
+])('uses due emphasis for %s without changing the selected study scope', (due, variant) => {
+  workspace.pages = [{ id: 'a', path: 'a.md' }]
+  workspace.notes = [{ view: { path: 'a.md', pageId: 'a', state: 'ready', config: { enabled: true }, hasBack: true, schedule: { due } } }]
+  render(<NoteLearningPanel path="/library/a.md" locale="en" compact />)
+  const review = screen.getByRole('button', { name: 'Review this note' })
+  expect(review).toHaveAttribute('data-variant', variant)
+  expect(review).toBeEnabled()
+  fireEvent.click(review)
+  expect(workspace.requestStudy).toHaveBeenCalledWith(['a'], 'notes')
+})

@@ -57,6 +57,7 @@ export function NoteLearningPanel({
   const oldCards = workspace.cards.filter(card => card.pageId === page?.id && card.id !== view?.binding?.cardId)
   const outside = !isLibraryNote(workspace.root, path)
   const enabled = Boolean(view?.config?.enabled)
+  const scheduledAhead = Date.parse(view?.schedule?.due ?? '') > workspace.clock
   const needsConversion = oldCards.length > 0 && !view?.binding
   const editMnemonic = async () => {
     if (locked.current || outside) return
@@ -70,18 +71,18 @@ export function NoteLearningPanel({
   if (compact && (!workspace.client?.supportsNoteMemory || outside || (!view?.config && !needsConversion && view?.state !== 'pending' && view?.state !== 'invalid'))) return null
   return (
     <section
-      className={compact ? "note-memory-surface note-memory-panel px-3 pb-3" : "note-memory-surface note-memory-panel h-full overflow-y-auto bg-background px-4 py-3"}
+      className={compact ? "note-memory-surface note-memory-panel px-0 pb-3" : "note-memory-surface note-memory-panel h-full overflow-y-auto bg-background px-4 py-3"}
       aria-label={t('learning.noteMemory.notes')}
     >
       <div className="max-w-2xl space-y-3">
         {!compact && <header className="space-y-1">
           <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-            <h2 className="text-[13px] font-semibold">
+            <h2 className="text-body font-medium">
               {t('learning.noteMemory.notes')}
             </h2>
             <NoteMemoryStatus state={view?.state ?? 'ordinary'} due={view?.schedule?.due} clock={workspace.clock} locale={locale} />
           </div>
-          <p className="text-xs leading-relaxed text-muted-foreground">
+          <p className="text-small leading-relaxed text-muted-foreground">
             {t(
               view?.state === 'disabled'
                 ? 'learning.noteMemory.pausedHelp'
@@ -92,7 +93,7 @@ export function NoteLearningPanel({
           </p>
         </header>}
         {(error || workspace.error) && <LearningError error={error || workspace.error || ''} locale={locale} />}
-        {busy && <p role="status" className="flex items-center gap-2 text-sm text-muted-foreground"><SpinnerGap aria-hidden="true" className="size-4 animate-spin motion-reduce:animate-none" />{t('learning.saving')}</p>}
+        {busy && <p role="status" className="flex items-center gap-2 text-body text-text-secondary"><SpinnerGap aria-hidden="true" className="size-4 animate-spin motion-reduce:animate-none" />{t('learning.saving')}</p>}
         {view?.state === 'pending' && (
           <p role="status">{t('learning.noteMemory.needsRecovery')}</p>
         )}
@@ -108,7 +109,7 @@ export function NoteLearningPanel({
           </Button>}
           {((enabled && view?.state === 'draft') || (view?.hasBack && (view.state === 'ready' || view.state === 'disabled'))) && <Button layout="responsive" variant="ghost" size="sm" disabled={busy} onClickCapture={focusLearningDialogTrigger} onClick={() => { void editMnemonic() }}><PencilSimpleLine aria-hidden="true" />{t(view?.hasBack ? 'editor.noteMemory.editMnemonic' : 'editor.noteMemory.addMnemonic')}</Button>}
           {view?.state === 'ready' && <Button layout="responsive"
-            variant="default"
+            variant={scheduledAhead ? 'outline' : 'default'}
             size="sm"
             onClickCapture={focusLearningDialogTrigger}
             disabled={busy || !page}
