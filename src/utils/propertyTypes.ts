@@ -4,6 +4,7 @@ import { getAppStorageItem } from '../constants/appStorage'
 import { isValidCssColor, isColorKeyName } from './colorUtils'
 import { dateFromParts, parseDashDateParts, parseSlashDateParts, type DateParts } from './dateStringParts'
 import { DEFAULT_DATE_DISPLAY_FORMAT, formatDateValueForDisplay, type DateDisplayFormat } from './dateDisplay'
+import type { AppLocale } from '../lib/i18n'
 import { updateVaultConfigField } from './vaultConfigStore'
 import { canonicalSystemMetadataKey } from './systemMetadata'
 
@@ -139,9 +140,10 @@ function resolveDateFromValue(value: PropertyValueText): Date | null {
 export function formatDateValue(
   value: PropertyValueText,
   dateDisplayFormat: DateDisplayFormat = DEFAULT_DATE_DISPLAY_FORMAT,
+  locale: AppLocale = 'en',
 ): PropertyValueText {
   return resolveDateFromValue(value)
-    ? formatDateValueForDisplay(value, dateDisplayFormat)
+    ? formatDateValueForDisplay(value, dateDisplayFormat, locale)
     : value
 }
 

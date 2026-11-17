@@ -18,6 +18,7 @@ import { evaluateView } from './viewFilters'
 import { viewMatchesSelection } from './viewIdentity'
 import { wikilinkTarget, resolveEntry } from './wikilink'
 import { buildTypeVisibilityLookup, isSectionEntryVisibleForType } from './typeVisibility'
+import { getLocaleDateLocale, translate, type AppLocale } from '../lib/i18n'
 
 export type NoteListFilter = 'open' | 'archived'
 
@@ -32,20 +33,20 @@ export interface RelationshipGroup {
   entries: VaultEntry[]
 }
 
-export function relativeDate(ts: number | null): string {
+export function relativeDate(ts: number | null, locale: AppLocale = 'en'): string {
   if (!ts) return ''
   const now = Math.floor(Date.now() / 1000)
   const diff = now - ts
   if (diff < 0) {
     const date = new Date(ts * 1000)
-    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+    return date.toLocaleDateString(getLocaleDateLocale(locale), { month: 'short', day: 'numeric' })
   }
   if (diff < 60) return 'just now'
   if (diff < 3600) return `${Math.floor(diff / 60)}m ago`
   if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`
   if (diff < 604800) return `${Math.floor(diff / 86400)}d ago`
   const date = new Date(ts * 1000)
-  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+  return date.toLocaleDateString(getLocaleDateLocale(locale), { month: 'short', day: 'numeric' })
 }
 
 export function getDisplayDate(entry: VaultEntry): number | null {
@@ -55,10 +56,11 @@ export function getDisplayDate(entry: VaultEntry): number | null {
 export function formatSubtitle(
   entry: VaultEntry,
   dateDisplayFormat: DateDisplayFormat = DEFAULT_DATE_DISPLAY_FORMAT,
+  locale: AppLocale = 'en',
 ): string {
   const parts: string[] = []
   const date = getDisplayDate(entry)
-  if (date) parts.push(formatTimestampForDateDisplay(date, dateDisplayFormat))
+  if (date) parts.push(formatTimestampForDateDisplay(date, dateDisplayFormat, locale))
   if (entry.wordCount > 0) {
     parts.push(`${entry.wordCount.toLocaleString('en-US')} words`)
   } else {
@@ -77,13 +79,14 @@ function wasCreatedBeforeLastModification(entry: VaultEntry): boolean {
 export function formatSearchSubtitle(
   entry: VaultEntry,
   dateDisplayFormat: DateDisplayFormat = DEFAULT_DATE_DISPLAY_FORMAT,
+  locale: AppLocale = 'en',
 ): string {
   const parts: string[] = []
   const modified = entry.modifiedAt ?? entry.createdAt
-  if (modified) parts.push(formatTimestampForDateDisplay(modified, dateDisplayFormat))
+  if (modified) parts.push(formatTimestampForDateDisplay(modified, dateDisplayFormat, locale))
   const created = entry.createdAt
   if (created && wasCreatedBeforeLastModification(entry)) {
-    parts.push(`Created ${formatTimestampForDateDisplay(created, dateDisplayFormat)}`)
+    parts.push(`${translate(locale, 'noteList.sort.created')} ${formatTimestampForDateDisplay(created, dateDisplayFormat, locale)}`)
   }
   if (entry.wordCount > 0) {
     parts.push(`${entry.wordCount.toLocaleString('en-US')} words`)

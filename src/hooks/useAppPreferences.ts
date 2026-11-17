@@ -7,6 +7,7 @@ import {
   resolveEffectiveLocale,
   serializeUiLanguagePreference,
   type UiLanguagePreference,
+  type AppLocale,
 } from '../lib/i18n'
 import { DEFAULT_DATE_DISPLAY_FORMAT, normalizeDateDisplayFormat, type DateDisplayFormat } from '../utils/dateDisplay'
 import { resolveAllNotesFileVisibility } from '../utils/allNotesFileVisibility'
@@ -26,10 +27,12 @@ interface AppPreferencesConfig {
 
 interface AppPreferenceValues {
   dateDisplayFormat: DateDisplayFormat
+  locale: AppLocale
 }
 
 const DEFAULT_APP_PREFERENCES: AppPreferenceValues = {
   dateDisplayFormat: DEFAULT_DATE_DISPLAY_FORMAT,
+  locale: 'en',
 }
 
 const AppPreferencesContext = createContext<AppPreferenceValues>(DEFAULT_APP_PREFERENCES)
@@ -37,16 +40,22 @@ const AppPreferencesContext = createContext<AppPreferenceValues>(DEFAULT_APP_PRE
 export function AppPreferencesProvider({
   children,
   dateDisplayFormat = DEFAULT_DATE_DISPLAY_FORMAT,
+  locale = 'en',
 }: {
   children: ReactNode
   dateDisplayFormat?: DateDisplayFormat
+  locale?: AppLocale
 }) {
-  const value = useMemo(() => ({ dateDisplayFormat }), [dateDisplayFormat])
+  const value = useMemo(() => ({ dateDisplayFormat, locale }), [dateDisplayFormat, locale])
   return createElement(AppPreferencesContext.Provider, { value }, children)
 }
 
 export function useDateDisplayFormat(): DateDisplayFormat {
   return useContext(AppPreferencesContext).dateDisplayFormat
+}
+
+export function useAppLocale(): AppLocale {
+  return useContext(AppPreferencesContext).locale
 }
 
 export function useAppPreferences({

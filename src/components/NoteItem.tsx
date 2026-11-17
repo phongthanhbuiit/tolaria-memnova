@@ -16,7 +16,8 @@ import { PropertyChips } from './note-item/PropertyChips'
 import { ChangeNoteContent } from './note-item/ChangeNoteContent'
 import { workspaceForEntry } from '../utils/workspaces'
 import { WorkspaceInitialsBadge } from './WorkspaceInitialsBadge'
-import { useDateDisplayFormat } from '../hooks/useAppPreferences'
+import { useAppLocale, useDateDisplayFormat } from '../hooks/useAppPreferences'
+import { translate } from '../lib/i18n'
 
 const TYPE_ICON_MAP: Record<string, ComponentType<SVGAttributes<SVGSVGElement>>> = {
   Project: Wrench,
@@ -315,8 +316,9 @@ function NoteDateRow({
   allEntries: VaultEntry[]
 }) {
   const dateDisplayFormat = useDateDisplayFormat()
-  const modifiedLabel = formatTimestampForDateDisplay(getDisplayDate(entry), dateDisplayFormat)
-  const createdLabel = entry.createdAt ? `Created ${formatTimestampForDateDisplay(entry.createdAt, dateDisplayFormat)}` : null
+  const locale = useAppLocale()
+  const modifiedLabel = formatTimestampForDateDisplay(getDisplayDate(entry), dateDisplayFormat, locale)
+  const createdLabel = entry.createdAt ? `${translate(locale, 'noteList.sort.created')} ${formatTimestampForDateDisplay(entry.createdAt, dateDisplayFormat, locale)}` : null
 
   if (!modifiedLabel && !createdLabel) return null
 

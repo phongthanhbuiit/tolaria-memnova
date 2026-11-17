@@ -1,5 +1,7 @@
 # Memnova hiện tại
 
+**17/11/2026 — F-002, ngày theo ngôn ngữ giao diện:** ngày thân thiện và nhãn “Đã tạo” trong danh sách ghi chú/tìm kiếm, chip ngày và thông tin ghi chú theo locale đang chọn. Các định dạng số và giá trị ISO khi nhập/lưu giữ nguyên. [Ảnh native sáng/tối và kết quả kiểm tra](audits/F-002-LOCALIZED-DATES.md). Đây là thay đổi mã nguồn local, chưa phải bản cài phát hành mới.
+
 **17/11/2026 — nền tảng UI bước A:** bổ sung thang chữ chrome, kích thước điều khiển và bo góc trong token/components dùng chung; nâng tương phản màu chữ. Không chỉnh mã màn hình hoặc typography editor. [Phạm vi, số đếm SPEC §8 và ảnh QA sáng/tối](audits/STEP-A-FOUNDATION.md).
 
 **17/11/2026 — màn ôn bước B:** dialog 640px, một bề mặt gợi nhớ 18/28, nút chấm trung tính dùng chung với Legacy và trạng thái hoàn thành theo SPEC §6. Giữ hành vi, phím tắt và lịch ôn. [Ảnh sáng/tối, số đo và kết quả kiểm tra](audits/STEP-B-STUDY.md).

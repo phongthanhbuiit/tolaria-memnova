@@ -9,7 +9,8 @@ import { scrollSelectedHTMLChildIntoView } from '../utils/domScroll'
 import { getTypeIcon } from './NoteItem'
 import { NoteTitleIcon } from './NoteTitleIcon'
 import { WorkspaceInitialsBadge } from './WorkspaceInitialsBadge'
-import { useDateDisplayFormat } from '../hooks/useAppPreferences'
+import { useAppLocale, useDateDisplayFormat } from '../hooks/useAppPreferences'
+import type { AppLocale } from '../lib/i18n'
 
 interface SearchPanelProps {
   open: boolean
@@ -468,7 +469,7 @@ function resolveSearchResultPresentation({
   typeEntryMap,
   showWorkspace,
   dateDisplayFormat,
-}: Pick<SearchResultRowProps, 'result' | 'entry' | 'typeEntryMap' | 'showWorkspace' | 'dateDisplayFormat'>): SearchResultPresentation {
+}: Pick<SearchResultRowProps, 'result' | 'entry' | 'typeEntryMap' | 'showWorkspace' | 'dateDisplayFormat'>, locale: AppLocale): SearchResultPresentation {
   const isA = entry?.isA ?? result.noteType
   const noteType = isA || null
   const typeEntry = typeEntryMap[isA ?? '']
@@ -477,7 +478,7 @@ function resolveSearchResultPresentation({
     TypeIcon: getTypeIcon(isA ?? null, typeEntry?.icon),
     icon: entry?.icon,
     noteType,
-    subtitle: entry ? formatSearchSubtitle(entry, dateDisplayFormat) : null,
+    subtitle: entry ? formatSearchSubtitle(entry, dateDisplayFormat, locale) : null,
     title: entry?.title ?? result.title,
     typeColor: resolveSearchResultTypeColor(noteType, isA, typeEntry),
     workspace: resolveSearchResultWorkspace(showWorkspace, entry),
@@ -499,13 +500,14 @@ function resolveSearchResultWorkspace(showWorkspace: boolean, entry: VaultEntry 
 function SearchResultRow({
   result, entry, selected, index, typeEntryMap, showWorkspace, dateDisplayFormat, onSelect, onHover,
 }: SearchResultRowProps) {
+  const locale = useAppLocale()
   const presentation = resolveSearchResultPresentation({
     result,
     entry,
     typeEntryMap,
     showWorkspace,
     dateDisplayFormat,
-  })
+  }, locale)
 
   return (
     <div

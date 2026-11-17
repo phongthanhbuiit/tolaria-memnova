@@ -1,0 +1,70 @@
+{
+  "baseline": "38c00bb5",
+  "scope": "F-002 only",
+  "frontend": {
+    "lint": 0,
+    "types": 0,
+    "tests": 4946,
+    "testFiles": 492,
+    "testExitCode": 0,
+    "coverageExitCode": 0,
+    "coverageLines": 87.42,
+    "coverageStatements": 83.65,
+    "coverageBranches": 75.66,
+    "coverageFunctions": 85.24,
+    "build": 0
+  },
+  "focusedTests": 150,
+  "timezoneTests": {
+    "America/Los_Angeles": 4,
+    "Asia/Ho_Chi_Minh": 4
+  },
+  "rust": {
+    "tests": 1240,
+    "ignored": 3,
+    "testExitCode": 0,
+    "coverageExitCode": 0,
+    "coverageLines": 86.4
+  },
+  "localization": {
+    "catalogs": 18,
+    "keys": 1013,
+    "validationExitCode": 0,
+    "method": "Reuse existing translations; no key/catalog changes"
+  },
+  "grepBefore": [
+    232,
+    0
+  ],
+  "grepAfter": [
+    232,
+    0
+  ],
+  "codeScene": "not run (optional integration unavailable)",
+  "nativeUiQa": true,
+  "headedBrowserQa": "Closed per user preference; no browser UI result claimed",
+  "push": {
+    "command": "git push origin main",
+    "testedCommit": "f7658a05",
+    "exitCode": 1,
+    "lint": 0,
+    "build": 0,
+    "frontendTests": 4946,
+    "coverageLines": 87.42,
+    "smokePassed": 53,
+    "smokeFailed": 1,
+    "smokeFlaky": 0,
+    "smokeMinutes": 5.5,
+    "blockingFinding": "F-039 (existing baseline)",
+    "originUpdated": false,
+    "hooksBypassed": false
+  },
+  "preCommit": {
+    "exitCode": 0,
+    "relatedFiles": 94,
+    "relatedTests": 1207,
+    "lint": 0,
+    "types": 0
+  },
+  "sourceTree": "178d62a9b44d7041e71381f2ccd75b87c352fda4"
+}

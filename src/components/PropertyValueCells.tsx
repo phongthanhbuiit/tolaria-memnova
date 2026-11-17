@@ -286,7 +286,7 @@ function DateValue({ value, onSave, locale = 'en', autoOpen = false, onCancel }:
 }) {
   const dateDisplayFormat = useDateDisplayFormat()
   const [open, setOpen] = useState(autoOpen)
-  const formatted = formatDateValue(value, dateDisplayFormat)
+  const formatted = formatDateValue(value, dateDisplayFormat, locale)
   const pickDateLabel = translate(locale, 'inspector.properties.pickDate')
   const selectedDate = parseDateValue(value)
   const selectedIso = selectedDate ? dateToISO(selectedDate) : ''

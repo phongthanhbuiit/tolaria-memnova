@@ -1,0 +1,88 @@
+{
+  "base": [
+    {
+      "tool": "Semgrep",
+      "issues": 6,
+      "levels": {
+        "warning": 6
+      },
+      "rules": {
+        "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading": 6
+      }
+    },
+    {
+      "tool": "Lizard",
+      "issues": 16,
+      "levels": {
+        "warning": 16
+      },
+      "rules": {
+        "Lizard_nloc-medium": 4,
+        "Lizard_ccn-medium": 4,
+        "Lizard_parameter-count-medium": 7,
+        "Lizard_file-nloc-medium": 1
+      }
+    }
+  ],
+  "final": [
+    {
+      "tool": "Semgrep",
+      "issues": 6,
+      "levels": {
+        "warning": 6
+      },
+      "rules": {
+        "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading": 6
+      }
+    },
+    {
+      "tool": "Lizard",
+      "issues": 16,
+      "levels": {
+        "warning": 16
+      },
+      "rules": {
+        "Lizard_nloc-medium": 4,
+        "Lizard_ccn-medium": 4,
+        "Lizard_parameter-count-medium": 7,
+        "Lizard_file-nloc-medium": 1
+      }
+    }
+  ],
+  "projectExclusionsRetained": [
+    "tests/**",
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ],
+  "note": "Local Analysis CLI 0.24.0, project auto-configuration, 14 touched production files; excluded tests verified by project runners. No source/results upload.",
+  "analyzerErrors": {
+    "base": [
+      {
+        "toolId": "Semgrep",
+        "phase": "toolInvoke",
+        "kind": "Syntax error",
+        "message": "Syntax error `import { useState, useEffect, useCallback, useRef, memo, typ…`${year}-${month}-${day}`} function groupCommitsByDay(commits: PulseCommit[]): Map<st…`${dateKey}T00:00:00`) const dateLocale…",
+        "level": "warning",
+        "filePath": "src/components/PulseView.tsx",
+        "fileNotAnalyzed": true
+      }
+    ],
+    "final": [
+      {
+        "toolId": "Semgrep",
+        "phase": "toolInvoke",
+        "kind": "Syntax error",
+        "message": "Syntax error `import { useState, useEffect, useCallback, useRef, memo, typ…`${year}-${month}-${day}`} function groupCommitsByDay(commits: PulseCommit[]): Map<st…`${dateKey}T00:00:00`) const dateLocale…",
+        "level": "warning",
+        "filePath": "src/components/PulseView.tsx",
+        "fileNotAnalyzed": true
+      }
+    ]
+  },
+  "zeroIssueTools": [
+    "ESLint9",
+    "Trivy"
+  ],
+  "newCriticalHighObserved": 0,
+  "limit": "Opengrep 1.26.0 cannot parse the existing PulseView.tsx on both baseline and current. That file was not analyzed by Opengrep; changed locale argument manually reviewed and covered by types/lint/tests. Do not report a fully clean security scan."
+}

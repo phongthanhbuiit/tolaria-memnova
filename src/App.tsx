@@ -1655,7 +1655,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
 
   if (aiWorkspaceWindow) {
     return (
-      <AppPreferencesProvider dateDisplayFormat={dateDisplayFormat}>
+      <AppPreferencesProvider dateDisplayFormat={dateDisplayFormat} locale={appLocale}>
         {aiWorkspaceSurface}
       </AppPreferencesProvider>
     )
@@ -1666,7 +1666,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
 
   return (
     <LearningContext.Provider value={learningWorkspace}>
-    <AppPreferencesProvider dateDisplayFormat={dateDisplayFormat}>
+    <AppPreferencesProvider dateDisplayFormat={dateDisplayFormat} locale={appLocale}>
       <div className="app-shell">
         <div className="app">
           {sidebarVisible && (

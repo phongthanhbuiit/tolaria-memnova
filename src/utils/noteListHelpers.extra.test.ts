@@ -77,6 +77,20 @@ describe('noteListHelpers extra coverage', () => {
     expect(formatSearchSubtitle(modifiedEntry)).toBe('April 21, 2026 · Created April 19, 2026 · 1,200 words · 2 links')
   })
 
+  it('uses the selected locale for search dates, the Created label and older/future dates', () => {
+    const entry = makeEntry({
+      modifiedAt: new Date(2026, 10, 16).getTime() / 1000,
+      createdAt: new Date(2026, 10, 15).getTime() / 1000,
+    })
+    const subtitle = formatSearchSubtitle(entry, 'friendly', 'vi')
+    expect(subtitle).toContain('16 tháng 11, 2026')
+    expect(subtitle).toContain('Đã tạo 15 tháng 11, 2026')
+    expect(subtitle).not.toMatch(/Created|November/)
+    expect(formatSearchSubtitle(entry, 'iso', 'vi')).toContain('2026-11-16 · Đã tạo 2026-11-15')
+    expect(relativeDate(entry.createdAt, 'vi')).not.toContain('Nov')
+    expect(relativeDate(new Date(2025, 10, 15).getTime() / 1000, 'vi')).not.toContain('Nov')
+  })
+
   it('keeps note subtitle counts stable under non-English default number formatting', () => {
     const originalToLocaleString = Number.prototype.toLocaleString
     vi.spyOn(Number.prototype, 'toLocaleString').mockImplementation(function (

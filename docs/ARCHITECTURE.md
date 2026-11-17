@@ -531,6 +531,8 @@ Tolaria's app chrome uses an app-owned localization runtime in `src/lib/i18n.ts`
 
 `App.tsx` also resolves the installation-local date display format from `settings.date_display_format` and publishes it through `AppPreferencesProvider` in `src/hooks/useAppPreferences.ts`. Note rows, note-list property chips, inspector property cells, note info, table-of-contents metadata, and search result subtitles read that shared preference and render dates through `src/utils/dateDisplay.ts` so the visible style stays consistent. Date picker text entry remains ISO (`YYYY-MM-DD`) to preserve predictable manual input and frontmatter storage.
 
+The same provider publishes the effective UI locale, including in the AI workspace window. Friendly date formatting uses cached native Intl.DateTimeFormat instances per supported locale, while explicit US/European/ISO formats retain their chosen numeric order. Timestamps retain their local calendar day; parsed date-only values are formatted from calendar parts in UTC so locale changes cannot shift them across a time-zone boundary. Created labels reuse the existing translated note-list label. Locale changes affect presentation only, not Markdown, learning schedules or timestamp storage (audit F-002).
+
 ## Vault Management
 
 ### Vault List

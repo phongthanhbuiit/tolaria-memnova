@@ -15,7 +15,7 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 | ID | Mức | Mục | Tóm tắt | Chắc | Trạng thái |
 |---|---|---|---|---|---|
 | F-001 | P1 | C2 | File nội bộ `.memnova/retired/<uuid>.md` lộ ra danh sách Thư viện | ảnh | open |
-| F-002 | P1 | C4 | Ngày trong danh sách ghi chú là tiếng Anh khi UI tiếng Việt | ảnh | open |
+| F-002 | P1 | C4 | Ngày trong danh sách ghi chú là tiếng Anh khi UI tiếng Việt | ảnh | fixed (commit `fix: localize note dates for selected UI language`; xem biên bản) |
 | F-003 | P1 | C4 | Nhãn Properties tiếng Anh lẫn trong UI tiếng Việt | ảnh | open |
 | F-004 | P1 | C4 | Công tắc "Ôn tập ghi chú này" và nút "Ôn ghi chú này" gần như trùng tên | ảnh | open |
 | F-005 | P1 | C5 | Nút chỉ có icon thiếu `aria-label` (~58 chỗ) | mã | open |
@@ -51,6 +51,7 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 - Mong đợi: một hàm định dạng ngày dùng chung, theo locale đang chọn; chữ "Created" lấy từ `en.json`.
 - Bắt đầu tìm: component hàng danh sách ghi chú; grep `Created` và `toLocaleDateString`/`Intl.DateTimeFormat`.
 - Chấp nhận: đổi ngôn ngữ sang vi → không còn tên tháng tiếng Anh ở bất kỳ bề mặt nào; test với locale vi.
+- Sửa: truyền locale hiện có vào formatter dùng chung cho ngày hiển thị; thay bảng tháng tiếng Anh bằng Intl, giữ US/European/ISO và ngày lịch gốc. “Created” lấy từ key đã dịch `noteList.sort.created`. Regression test chuyển locale ngay trên cùng hàng ghi chú; QA native đối chiếu Anh ↔ Việt và hai theme. [Biên bản, ảnh và giới hạn kiểm tra](F-002-LOCALIZED-DATES.md).
 
 ### F-003 — Nhãn Properties tiếng Anh
 - Thực tế (`PROPS`): "Type, Status, Date, URL, Icon, Belongs to, Related to, Has" cạnh "Thuộc tính", "Thêm thuộc tính".

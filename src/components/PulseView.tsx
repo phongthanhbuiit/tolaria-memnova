@@ -171,7 +171,7 @@ function CommitCard({
               <span className="truncate text-[13px] font-medium text-foreground">{commit.message}</span>
             </div>
             <div className="flex items-center" style={{ gap: 8 }}>
-              <span className="text-[11px] text-muted-foreground">{relativeDate(commit.date)}</span>
+              <span className="text-[11px] text-muted-foreground">{relativeDate(commit.date, locale)}</span>
               {!commitUrl && (
                 <span className="text-[11px] font-mono text-muted-foreground">{commit.shortHash}</span>
               )}
