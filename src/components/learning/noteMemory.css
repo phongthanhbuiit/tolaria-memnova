@@ -53,8 +53,6 @@
   transition-property: color, background-color, border-color, box-shadow;
   touch-action: manipulation;
 }
-.learning-study-dialog [data-note-grade] { min-height: 64px; }
-@media (max-width: 640px) { .learning-study-dialog [data-note-grade] { min-height: 52px; } }
 :is(.note-memory-surface, .note-memory-nav, .note-memory-toolbar) :is([data-slot='input'], [data-slot='select-trigger'], [data-slot='label']), .note-memory-portal [data-slot='select-item'], .whiteboard-vocab-menu [data-slot='input'] {
   font-size: 13px;
   line-height: 20px;
@@ -97,12 +95,6 @@
 .note-memory-workspace-tabs [data-slot='tabs-trigger'] { flex: 0 0 auto; max-width: 100%; height: auto; min-height: 36px; gap: 6px; font-size: 13px; line-height: 20px; white-space: normal; overflow-wrap: anywhere; }
 @media (pointer: coarse) { .note-memory-workspace-tabs [data-slot='tabs-trigger'] { min-height: 44px; min-width: 44px; } }
 
-.learning-study-dialog [data-note-grade] { border-color: color-mix(in srgb, var(--note-grade-color) 70%, var(--foreground)); background: color-mix(in srgb, var(--note-grade-color) 7%, var(--background)); color: var(--foreground); }
-.learning-study-dialog [data-note-grade]:hover:not(:disabled) { background: color-mix(in srgb, var(--note-grade-color) 14%, var(--background)); }
-.learning-study-dialog [data-note-grade='1'] { --note-grade-color: var(--accent-red); }
-.learning-study-dialog [data-note-grade='2'] { --note-grade-color: var(--accent-orange); }
-.learning-study-dialog [data-note-grade='3'] { --note-grade-color: var(--accent-green); }
-.learning-study-dialog [data-note-grade='4'] { --note-grade-color: var(--accent-blue); }
 
 .note-memory-list .note-memory-row { contain-intrinsic-size: auto 57px; }
 .note-memory-row [data-slot='button']:focus-visible { outline: 2px solid var(--ring); outline-offset: -2px; }

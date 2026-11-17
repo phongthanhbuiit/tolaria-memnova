@@ -1,0 +1,25 @@
+.study-grade-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.study-grade {
+  /* A neutral control border with >=3:1 contrast in both themes.
+     The quieter surface border alone cannot identify an enabled control. */
+  --border: color-mix(in srgb, var(--text-secondary) 70%, var(--background));
+  border-color: var(--border);
+  background: var(--background);
+}
+.study-grade[data-note-grade='1'] { --note-grade-color: var(--accent-red); }
+.study-grade[data-note-grade='2'] { --note-grade-color: var(--accent-orange); }
+.study-grade[data-note-grade='3'] { --note-grade-color: var(--accent-green); }
+.study-grade[data-note-grade='4'] { --note-grade-color: var(--accent-blue); }
+.study-grade-heading { display: flex; align-items: center; gap: 6px; }
+.study-grade-dot { width: 8px; height: 8px; flex-shrink: 0; border-radius: 50%; background: var(--note-grade-color); }
+.study-grade:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--note-grade-color) 8%, var(--background));
+  border-color: color-mix(in srgb, var(--note-grade-color) 40%, var(--border));
+}
+.study-grade:focus-visible { border-color: var(--ring); }
+@media (max-width: 519px) { .study-grade-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (prefers-reduced-motion: reduce) { .study-grade { transition: none; } }
+@media (forced-colors: active) {
+  .study-grade { border-color: ButtonText; background: ButtonFace; }
+  .study-grade:focus-visible { outline-color: Highlight; }
+}
