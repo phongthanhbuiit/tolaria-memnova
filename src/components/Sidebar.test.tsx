@@ -1140,8 +1140,9 @@ describe('Sidebar', () => {
       expect(favoriteRow).toHaveClass('rounded-md')
       expect(typeRow).toHaveClass('rounded-md')
       expect(favoriteRow.className).toContain('w-full')
-      expect(favoriteRow.style.padding).toBe(typeRow.style.padding)
-      expect(favoriteRow.style.gap).toBe(typeRow.style.gap)
+      expect(favoriteRow.style.padding).toBe('calc(var(--spacing)) calc(var(--spacing) * 2) calc(var(--spacing)) calc(var(--spacing) * 3)')
+      expect(typeRow).toHaveClass('py-1', 'pr-2', 'pl-3', 'gap-[4px]')
+      expect(favoriteRow.style.gap).toBe('4px')
       expect(favoriteLabel).toHaveClass('text-body-lg', 'font-medium')
       expect(typeLabel).toHaveClass('text-body-lg', 'font-medium')
       expect(favoriteLabel.className).toContain('truncate')
@@ -1190,9 +1191,9 @@ describe('Sidebar', () => {
       const countChip = within(favoritesHeader).getByTestId('sidebar-count-chip')
 
       expect(favoritesHeader).toHaveStyle({ padding: 'calc(var(--spacing) * 2) calc(var(--spacing) * 2) calc(var(--spacing) * 2) calc(var(--spacing) * 3)' })
+      expect(countChip).toHaveClass('py-0', 'px-2', 'tabular-nums')
       expect(countChip).toHaveStyle({
         background: 'var(--muted)',
-        padding: '0 calc(var(--spacing) * 2)',
       })
     })
 
@@ -1460,9 +1461,9 @@ describe('Sidebar', () => {
       const countChip = within(navItem).getByTestId('view-count-chip')
 
       expect(navItem).toHaveStyle({ padding: 'calc(var(--spacing)) calc(var(--spacing) * 2) calc(var(--spacing)) calc(var(--spacing) * 3)' })
+      expect(countChip).toHaveClass('py-0', 'px-2', 'tabular-nums')
       expect(countChip).toHaveStyle({
         background: 'var(--muted)',
-        padding: '0 calc(var(--spacing) * 2)',
       })
       expect(countChip.className).toContain('text-muted-foreground')
     })
@@ -1479,13 +1480,13 @@ describe('Sidebar', () => {
 
       expect(topNavItem).toHaveStyle({ padding: 'calc(var(--spacing)) calc(var(--spacing) * 2) calc(var(--spacing)) calc(var(--spacing) * 3)' })
       expect(viewItem).toHaveStyle({ padding: 'calc(var(--spacing)) calc(var(--spacing) * 2) calc(var(--spacing)) calc(var(--spacing) * 3)' })
+      expect(topNavCount).toHaveClass('py-0', 'px-2', 'tabular-nums')
       expect(topNavCount).toHaveStyle({
         background: 'var(--muted)',
-        padding: '0 calc(var(--spacing) * 2)',
       })
+      expect(viewCount).toHaveClass('py-0', 'px-2', 'tabular-nums')
       expect(viewCount).toHaveStyle({
         background: 'var(--muted)',
-        padding: '0 calc(var(--spacing) * 2)',
       })
     })
 

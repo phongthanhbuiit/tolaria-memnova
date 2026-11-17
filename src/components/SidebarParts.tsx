@@ -15,11 +15,6 @@ import {
   findTypeDefinitionForWorkspace,
 } from '../utils/typeVisibility'
 
-const SIDEBAR_COUNT_PILL_STYLE = {
-  padding: '0 calc(var(--spacing) * 2)',
-  fontVariantNumeric: 'tabular-nums',
-} as const
-
 export interface SectionGroup {
   label: string
   type: string
@@ -114,8 +109,8 @@ export function SidebarCountPill({
   return (
     <span
       data-testid={testId}
-      className={cn("flex items-center justify-center rounded-full text-caption font-medium", className)}
-      style={{ ...SIDEBAR_COUNT_PILL_STYLE, ...style }}
+      className={cn("flex items-center justify-center rounded-full text-caption font-medium py-0 px-2 tabular-nums", className)}
+      style={style}
     >
       {count}
     </span>
@@ -177,7 +172,7 @@ function DisabledNavItem({
   padding: ReturnType<typeof getNavItemPadding>
 }) {
   return (
-    <div className="flex select-none items-center gap-2 rounded-md text-foreground" style={{ padding, opacity: 0.4, cursor: 'not-allowed' }} title={disabledTooltip ?? "Coming soon"}>
+    <div className="flex select-none items-center gap-2 rounded-md text-foreground opacity-40 cursor-not-allowed" style={{ padding }} title={disabledTooltip ?? "Coming soon"}>
       <SidebarNavIcon Icon={Icon} emoji={emoji} iconSize={getNavItemIconSize(compact)} />
       <NavItemLabel label={label} compact={compact} />
     </div>
@@ -441,8 +436,7 @@ function SectionHeaderLabel({
   return (
     <Button variant="toolbar" size="toolbar"
       type="button"
-      className={cn("min-w-0 truncate border-0 bg-transparent p-0 text-left text-body-lg font-medium", isActive ? "text-primary" : "text-foreground")}
-      style={{ marginLeft: 4 }}
+      className={cn("min-w-0 truncate border-0 bg-transparent p-0 text-left text-body-lg font-medium", isActive ? "text-primary" : "text-foreground", 'ml-[4px]')}
       onDoubleClick={(event) => {
         event.stopPropagation()
         onStartRename?.()
@@ -464,8 +458,7 @@ function SectionHeaderCountPill({
   return (
     <SidebarCountPill
       count={itemCount}
-      className="text-muted-foreground"
-      style={{ background: 'var(--muted)' }}
+      className="text-muted-foreground bg-muted"
     />
   )
 }
@@ -506,12 +499,11 @@ function SectionHeader({ label, type, Icon, sectionColor, itemCount, isActive, o
   return (
     <div
       ref={headerRef}
-      className={cn("group/section flex cursor-pointer select-none items-center justify-between rounded-md transition-colors", isActive ? "bg-primary/10 text-primary" : "text-foreground hover:bg-accent")}
-      style={{ padding: SIDEBAR_ITEM_PADDING.withCount, gap: 4 }}
+      className={cn("group/section flex cursor-pointer select-none items-center justify-between rounded-md transition-colors", isActive ? "bg-primary/10 text-primary" : "text-foreground hover:bg-accent", 'py-1 pr-2 pl-3 gap-[4px]')}
       {...dragHandleProps}
     >
-      <div className="flex min-w-0 flex-1 items-center" style={{ gap: 4 }}>
-        <Icon size={16} weight={getSectionHeaderIconWeight(isActive)} style={{ color: isActive ? 'var(--primary)' : sectionColor, flexShrink: 0 }} />
+      <div className="flex min-w-0 flex-1 items-center gap-[4px]">
+        <Icon className="shrink-0" size={16} weight={getSectionHeaderIconWeight(isActive)} style={{ color: isActive ? 'var(--primary)' : sectionColor }} />
         <SectionHeaderLabel
           type={type}
           label={label}
@@ -692,10 +684,9 @@ export function VisibilityPopover({ entries, sections, isSectionVisible, onToggl
 
   return (
     <div
-      className="rounded-lg border border-border bg-popover text-popover-foreground"
-      style={{ position: 'absolute', top: '100%', left: 6, right: 6, zIndex: 50, padding: '8px 0', boxShadow: '0 4px 12px var(--shadow-dialog)' }}
+      className="rounded-lg border border-border bg-popover text-popover-foreground absolute top-[100%] left-[6px] right-[6px] z-[50] p-[8px_0] [box-shadow:0_4px_12px_var(--shadow-dialog)]"
     >
-      <div className="text-small font-semibold text-muted-foreground" style={{ padding: '0 12px 4px' }}>{translate(locale, 'sidebar.section.showInSidebar')}</div>
+      <div className="text-small font-semibold text-muted-foreground p-[0_12px_4px]">{translate(locale, 'sidebar.section.showInSidebar')}</div>
       {showMatrix ? (
         <VisibilityMatrixPopover
           entries={entries}
