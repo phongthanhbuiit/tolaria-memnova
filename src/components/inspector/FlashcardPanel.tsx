@@ -1,3 +1,4 @@
+import { useAppLocale } from '../../hooks/useAppPreferences'
 /**
  * FlashcardPanel.tsx
  *
@@ -121,6 +122,7 @@ function VocabField({
   onCommit: (v: string) => void
   onBrowse?: () => void
 }) {
+  const locale = useAppLocale()
   const [draft, setDraft] = useState(value)
 
   useEffect(() => {
@@ -171,7 +173,8 @@ function VocabField({
             size="icon-sm"
             variant="outline"
             onClick={onBrowse}
-            title="Browse audio file"
+            title={translate(locale, 'a11y.browseAudio')}
+            aria-label={translate(locale, 'a11y.browseAudio')}
             className="shrink-0 border-border bg-muted"
           >
             <FolderOpen size={16} />

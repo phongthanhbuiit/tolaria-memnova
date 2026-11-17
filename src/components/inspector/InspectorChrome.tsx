@@ -6,7 +6,7 @@ import { translate, type AppLocale } from '../../lib/i18n'
 import { hasFrontmatterWarnings, type FrontmatterWarnings } from '../../utils/frontmatter'
 
 function FrontmatterWarningsButton({ locale, onOpenRawEditor }: { locale: AppLocale; onOpenRawEditor: () => void }) {
-  const label = translate(locale, 'inspector.title.collidingProperties')
+  const label = translate(locale, 'inspector.title.collidingPropertiesAria')
   return (
     <ActionTooltip copy={{ label }} side="bottom">
       <Button
@@ -14,7 +14,7 @@ function FrontmatterWarningsButton({ locale, onOpenRawEditor }: { locale: AppLoc
         variant="ghost"
         size="icon-sm"
         className="shrink-0 rounded-md border border-[var(--feedback-warning-border)] bg-[var(--feedback-warning-bg)] p-0 text-[var(--feedback-warning-text)] shadow-none hover:brightness-95"
-        aria-label={translate(locale, 'inspector.title.collidingPropertiesAria')}
+        aria-label={label}
         data-testid="frontmatter-warnings-button"
         onMouseDown={(event) => event.stopPropagation()}
         onClick={onOpenRawEditor}

@@ -414,6 +414,7 @@ function EditableTypeSelector({
                 variant="ghost"
                 size="sm"
                 role="combobox"
+                aria-label={translate(locale, 'inspector.propertyLabel.type')}
                 aria-controls={listboxId}
                 aria-expanded={open}
                 aria-haspopup="listbox"

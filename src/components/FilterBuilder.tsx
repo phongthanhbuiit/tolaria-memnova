@@ -1,3 +1,5 @@
+import { translate } from '../lib/i18n'
+import { useAppLocale } from '../hooks/useAppPreferences'
 import { Plus, X, WarningCircle } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -56,11 +58,13 @@ function OperatorSelect({ value, onChange }: {
   value: FilterOp
   onChange: (v: FilterOp) => void
 }) {
+  const locale = useAppLocale()
   return (
     <Select value={value} onValueChange={(v) => onChange(v as FilterOp)}>
       <SelectTrigger
         size="sm"
         className="h-8 shrink-0 gap-1 border-input bg-background px-2 text-sm shadow-none"
+        aria-label={translate(locale, 'a11y.filterOperator')}
         style={{ minWidth: 120 }}
       >
         <SelectValue />
@@ -82,6 +86,7 @@ function TextValueInput({ value, onChange, regexEnabled, regexSupported, invalid
   invalidRegex: boolean
   onToggleRegex: () => void
 }) {
+  const locale = useAppLocale()
   return (
     <div className="flex flex-1 min-w-0 items-center gap-1">
       <div className="relative min-w-0 flex-1">
@@ -117,7 +122,8 @@ function TextValueInput({ value, onChange, regexEnabled, regexSupported, invalid
           onClick={onToggleRegex}
           aria-pressed={regexEnabled}
           data-testid="filter-regex-toggle"
-          title="Treat value as regex"
+          title={translate(locale, 'a11y.regexValue')}
+          aria-label={translate(locale, 'a11y.regexValue')}
         >
           .*
         </Button>
@@ -132,6 +138,7 @@ function FilterRow({ condition, fields, onUpdate, onRemove }: {
   onUpdate: (c: FilterCondition) => void
   onRemove: () => void
 }) {
+  const locale = useAppLocale()
   const isDateOp = DATE_OPS.has(condition.op)
   const regexSupported = supportsRegex(condition.op)
   const regexEnabled = regexSupported && condition.regex === true
@@ -167,7 +174,8 @@ function FilterRow({ condition, fields, onUpdate, onRemove }: {
         size="sm"
         className="h-8 w-8 shrink-0 p-0 text-muted-foreground hover:text-foreground"
         onClick={onRemove}
-        title="Remove filter"
+        title={translate(locale, 'a11y.removeFilter')}
+        aria-label={translate(locale, 'a11y.removeFilter')}
       >
         <X size={14} />
       </Button>
@@ -182,6 +190,7 @@ function FilterGroupView({ group, fields, depth, onChange, onRemove }: {
   onChange: (g: FilterGroup) => void
   onRemove?: () => void
 }) {
+  const locale = useAppLocale()
   const mode = getGroupMode(group)
   const children = getGroupChildren(group)
 
@@ -232,7 +241,8 @@ function FilterGroupView({ group, fields, depth, onChange, onRemove }: {
             size="sm"
             className="ml-auto h-6 w-6 p-0 text-muted-foreground hover:text-foreground"
             onClick={onRemove}
-            title="Remove group"
+            title={translate(locale, 'a11y.removeGroup')}
+            aria-label={translate(locale, 'a11y.removeGroup')}
           >
             <X size={12} />
           </Button>

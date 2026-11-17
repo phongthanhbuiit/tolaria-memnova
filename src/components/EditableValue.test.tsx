@@ -95,18 +95,18 @@ describe('TagPillList', () => {
 
   it('shows add button with + text', () => {
     render(<TagPillList items={['A']} onSave={onSave} label="Tags" />)
-    expect(screen.getByTitle('Add tags')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Add tags', exact: true })).toBeInTheDocument()
   })
 
   it('shows add input when + button is clicked', () => {
     render(<TagPillList items={[]} onSave={onSave} label="Tags" />)
-    fireEvent.click(screen.getByTitle('Add tags'))
+    fireEvent.click(screen.getByRole('button', { name: 'Add tags', exact: true }))
     expect(screen.getByPlaceholderText('Tags...')).toBeInTheDocument()
   })
 
   it('adds new item on Enter in add input', () => {
     render(<TagPillList items={['A']} onSave={onSave} label="Tags" />)
-    fireEvent.click(screen.getByTitle('Add tags'))
+    fireEvent.click(screen.getByRole('button', { name: 'Add tags', exact: true }))
     const input = screen.getByPlaceholderText('Tags...')
     fireEvent.change(input, { target: { value: 'NewTag' } })
     fireEvent.keyDown(input, { key: 'Enter' })
@@ -115,18 +115,17 @@ describe('TagPillList', () => {
 
   it('cancels add on Escape', () => {
     render(<TagPillList items={['A']} onSave={onSave} label="Tags" />)
-    fireEvent.click(screen.getByTitle('Add tags'))
+    fireEvent.click(screen.getByRole('button', { name: 'Add tags', exact: true }))
     const input = screen.getByPlaceholderText('Tags...')
     fireEvent.keyDown(input, { key: 'Escape' })
     expect(onSave).not.toHaveBeenCalled()
     // Add button should reappear
-    expect(screen.getByTitle('Add tags')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Add tags', exact: true })).toBeInTheDocument()
   })
 
   it('deletes item when X button is clicked', () => {
     render(<TagPillList items={['A', 'B', 'C']} onSave={onSave} label="Tags" />)
-    const removeButtons = screen.getAllByTitle('Remove')
-    fireEvent.click(removeButtons[1]) // Remove B
+    fireEvent.click(screen.getByRole('button', { name: 'Remove B', exact: true }))
     expect(onSave).toHaveBeenCalledWith(['A', 'C'])
   })
 
@@ -166,7 +165,7 @@ describe('TagPillList', () => {
 
   it('adds item on blur when input has value', () => {
     render(<TagPillList items={[]} onSave={onSave} label="Tags" />)
-    fireEvent.click(screen.getByTitle('Add tags'))
+    fireEvent.click(screen.getByRole('button', { name: 'Add tags', exact: true }))
     const input = screen.getByPlaceholderText('Tags...')
     fireEvent.change(input, { target: { value: 'BlurAdd' } })
     fireEvent.blur(input)
@@ -175,7 +174,7 @@ describe('TagPillList', () => {
 
   it('cancels add on blur when input is empty', () => {
     render(<TagPillList items={[]} onSave={onSave} label="Tags" />)
-    fireEvent.click(screen.getByTitle('Add tags'))
+    fireEvent.click(screen.getByRole('button', { name: 'Add tags', exact: true }))
     const input = screen.getByPlaceholderText('Tags...')
     fireEvent.blur(input)
     expect(onSave).not.toHaveBeenCalled()

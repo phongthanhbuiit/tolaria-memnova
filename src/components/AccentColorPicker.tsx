@@ -1,3 +1,5 @@
+import { accentColorLabel } from '../utils/accentColorLabels'
+import { useAppLocale } from '../hooks/useAppPreferences'
 import type { MouseEvent } from 'react'
 import { Check } from '@phosphor-icons/react'
 import { Button } from './ui/button'
@@ -36,6 +38,7 @@ export function AccentColorPicker({
   size = DEFAULT_SWATCH_SIZE,
   stopPropagation = false,
 }: AccentColorPickerProps) {
+  const locale = useAppLocale()
   const handleSelect = (event: MouseEvent<HTMLButtonElement>, key: string) => {
     if (stopPropagation) event.stopPropagation()
     if (!disabled) onSelectColor(key)
@@ -62,8 +65,8 @@ export function AccentColorPicker({
               backgroundColor: color.css,
               border: selectedBorder(indicator, selected),
             }}
-            title={color.label}
-            aria-label={color.label}
+            title={accentColorLabel(color.key, locale)}
+            aria-label={accentColorLabel(color.key, locale)}
             data-testid={getOptionTestId?.(color.key)}
             disabled={disabled}
             onClick={(event) => handleSelect(event, color.key)}

@@ -27,6 +27,7 @@ import type { VaultEntry } from '../types'
 import { _wikilinkEntriesRef, _activeVaultPathRef } from './editorSchema'
 import { resolveFlashcardAudioUrl } from '../utils/flashcardAudio'
 import { vaultAttachmentAssetUrl } from '../utils/vaultAttachments'
+import { useAppLocale } from '../hooks/useAppPreferences'
 import { translate, type AppLocale } from '../lib/i18n'
 import { BlockNoteReadOnly } from './BlockNoteReadOnly'
 
@@ -330,7 +331,8 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
           variant="ghost"
           onClick={onClose}
           className="rounded-md p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors shrink-0 h-auto w-auto"
-          aria-label="End session"
+          aria-label={translate(locale, 'a11y.endSession')}
+          title={translate(locale, 'a11y.endSession')}
         >
           <X size={18} />
         </Button>
@@ -588,8 +590,8 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
                         type="button"
                         onClick={handlePlayAudio}
                         className="flex items-center gap-1.5 px-3 py-1 rounded-lg h-auto text-xs font-semibold bg-[var(--accent-green-light)] text-[var(--accent-green)] hover:bg-[var(--accent-green)]/20 transition-colors"
-                        aria-label="Play pronunciation audio"
-                        title="Play pronunciation"
+                        aria-label={translate(locale, 'a11y.playPronunciation')}
+                        title={translate(locale, 'a11y.playPronunciation')}
                       >
                         <SpeakerHigh size={14} weight="fill" />
                         Play
@@ -652,6 +654,7 @@ interface ImageLightboxProps {
 }
 
 function ImageLightbox({ src, onClose }: ImageLightboxProps) {
+  const locale = useAppLocale()
   const [scale, setScale] = useState(1)
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const [isDragging, setIsDragging] = useState(false)
@@ -719,7 +722,7 @@ function ImageLightbox({ src, onClose }: ImageLightboxProps) {
           <Button variant="ghost" size="sm" onClick={handleZoomOut} className="text-white hover:bg-white/10 h-8 px-3 text-xs">Zoom Out</Button>
           <Button variant="ghost" size="sm" onClick={handleReset} className="text-white hover:bg-white/10 h-8 px-3 text-xs font-mono">{Math.round(scale * 100)}%</Button>
           <Button variant="ghost" size="sm" onClick={handleZoomIn} className="text-white hover:bg-white/10 h-8 px-3 text-xs">Zoom In</Button>
-          <Button variant="ghost" size="icon" onClick={onClose} aria-label="Close" className="text-white hover:bg-white/10 rounded-full h-8 w-8 ml-2 flex items-center justify-center">
+          <Button variant="ghost" size="icon" onClick={onClose} aria-label={translate(locale, 'window.close')} title={translate(locale, 'window.close')} className="text-white hover:bg-white/10 rounded-full h-8 w-8 ml-2 flex items-center justify-center">
             <X size={18} />
           </Button>
         </div>

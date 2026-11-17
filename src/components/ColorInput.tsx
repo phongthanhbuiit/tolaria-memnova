@@ -1,3 +1,5 @@
+import { translate } from '../lib/i18n'
+import { useAppLocale } from '../hooks/useAppPreferences'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { useState, useRef, useCallback, useEffect } from 'react'
@@ -11,6 +13,7 @@ export function ColorSwatch({ color, onChange }: {
   color: string
   onChange?: (hex: string) => void
 }) {
+  const locale = useAppLocale()
   const hex = toHexColor(color) ?? '#000000'
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -37,8 +40,8 @@ export function ColorSwatch({ color, onChange }: {
         style={{ background: color }}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
-        title="Open color picker"
-        aria-label={`Color: ${color}. Click to open color picker`}
+        title={translate(locale, 'a11y.colorPicker', { color })}
+        aria-label={translate(locale, 'a11y.colorPicker', { color })}
         data-testid="color-swatch"
       >
         <Input controlSize="sm"

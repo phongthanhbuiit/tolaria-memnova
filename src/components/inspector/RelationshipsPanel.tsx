@@ -428,6 +428,8 @@ function InlineAddNote({ entries, sourceEntry, vaultPath, locale, onAdd, onCreat
         <Button variant="ghost" size="icon-sm" type="button"
           className="absolute right-1 top-1/2 -translate-y-1/2 border-none bg-transparent p-0.5 text-text-secondary opacity-0 transition-opacity hover:text-foreground group-hover/add:opacity-100 focus-visible:opacity-100"
           onClick={dismiss}
+          aria-label={translate(locale, 'common.cancel')}
+          title={translate(locale, 'common.cancel')}
         >
           <X size={16} />
         </Button>

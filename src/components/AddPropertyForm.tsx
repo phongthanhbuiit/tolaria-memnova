@@ -190,6 +190,7 @@ export function AddPropertyForm({ onAdd, onCancel, vaultStatuses, locale = 'en' 
         <SelectTrigger
           size="sm"
           className="w-[72px] shrink-0 gap-[6px] border-border bg-muted px-2 py-0 shadow-none"
+          aria-label={translate(locale, 'properties.type')}
           data-testid="add-property-type-trigger"
         >
           <SelectValue />
@@ -209,12 +210,12 @@ export function AddPropertyForm({ onAdd, onCancel, vaultStatuses, locale = 'en' 
       <AddPropertyValueInput displayMode={displayMode} value={newValue} onChange={setNewValue} onKeyDown={handleKeyDown} vaultStatuses={vaultStatuses} locale={locale} />
       <Button
         variant="outline" size="icon-sm" onClick={() => onAdd(newKey, newValue, displayMode)}
-        disabled={!canSubmit} title={translate(locale, 'inspector.properties.addProperty')}
+        disabled={!canSubmit} aria-label={translate(locale, 'inspector.properties.addProperty')} title={translate(locale, 'inspector.properties.addProperty')}
         data-testid="add-property-confirm"
       >
         <Check className="size-[16px]" />
       </Button>
-      <Button size="icon-sm" variant="ghost" onClick={onCancel} title={translate(locale, 'common.cancel')} data-testid="add-property-cancel">
+      <Button size="icon-sm" variant="ghost" onClick={onCancel} aria-label={translate(locale, 'common.cancel')} title={translate(locale, 'common.cancel')} data-testid="add-property-cancel">
         <X className="size-[16px]" />
       </Button>
     </div>

@@ -1,3 +1,5 @@
+import { translate } from '../lib/i18n'
+import { useAppLocale } from '../hooks/useAppPreferences'
 import { invoke } from '@tauri-apps/api/core'
 import { getCurrentWindow } from '@tauri-apps/api/window'
 import { APP_COMMAND_MENU_SECTIONS } from '../hooks/appCommandCatalog'
@@ -99,6 +101,7 @@ function HamburgerIcon() {
 }
 
 function AppMenuButton() {
+  const locale = useAppLocale()
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -106,7 +109,7 @@ function AppMenuButton() {
           type="button"
           variant="ghost"
           size="icon"
-          aria-label="Application menu"
+          aria-label={translate(locale, 'a11y.applicationMenu')} title={translate(locale, 'a11y.applicationMenu')}
           className="h-full w-[38px] rounded-none text-foreground/70 hover:bg-foreground/10 hover:text-foreground"
           data-no-drag
         >

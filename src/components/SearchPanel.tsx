@@ -10,7 +10,7 @@ import { getTypeIcon } from './NoteItem'
 import { NoteTitleIcon } from './NoteTitleIcon'
 import { WorkspaceInitialsBadge } from './WorkspaceInitialsBadge'
 import { useAppLocale, useDateDisplayFormat } from '../hooks/useAppPreferences'
-import type { AppLocale } from '../lib/i18n'
+import { translate, type AppLocale } from '../lib/i18n'
 
 interface SearchPanelProps {
   open: boolean
@@ -312,6 +312,7 @@ export function SearchPanel({
   onSelectNote,
   onClose,
 }: SearchPanelProps) {
+  const locale = useAppLocale()
   const dateDisplayFormat = useDateDisplayFormat()
   const rootRef = useRef<HTMLDivElement>(null)
   const {
@@ -355,7 +356,7 @@ export function SearchPanel({
     >
       <button
         type="button"
-        aria-label="Close search"
+        aria-label={translate(locale, 'a11y.closeSearch')}
         className="absolute inset-0 z-0 cursor-default border-0 bg-transparent p-0"
         onClick={onClose}
       />

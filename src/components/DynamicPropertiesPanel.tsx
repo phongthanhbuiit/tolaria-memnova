@@ -50,7 +50,7 @@ function PropertyRow({ propKey, value, editingKey, displayMode, autoMode, vaultS
         <DisplayModeSelector propKey={propKey} currentMode={displayMode} autoMode={autoMode} onSelect={onDisplayModeChange} />
         <span className="min-w-0 flex-1 truncate">{propertyDisplayLabel(propKey, locale)}</span>
         {onDelete && (
-          <Button variant="ghost" size="icon-sm" type="button" className="border-none bg-transparent p-0 text-body leading-none text-text-secondary opacity-0 transition-all hover:text-destructive group-hover/prop:opacity-100 focus-visible:opacity-100" onClick={() => onDelete(propKey)} title={translate(locale, 'inspector.properties.deleteProperty')}>&times;</Button>
+          <Button variant="ghost" size="icon-sm" type="button" className="border-none bg-transparent p-0 text-body leading-none text-text-secondary opacity-0 transition-all hover:text-destructive group-hover/prop:opacity-100 focus-visible:opacity-100" onClick={() => onDelete(propKey)} aria-label={translate(locale, 'inspector.properties.deleteProperty')} title={translate(locale, 'inspector.properties.deleteProperty')}>&times;</Button>
         )}
       </span>
       <div className="min-w-0">

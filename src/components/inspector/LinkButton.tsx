@@ -1,3 +1,5 @@
+import { translate } from '../../lib/i18n'
+import { useAppLocale } from '../../hooks/useAppPreferences'
 import { Button } from '@/components/ui/button'
 import type { ComponentType, SVGAttributes } from 'react'
 import { X } from '@phosphor-icons/react'
@@ -19,6 +21,7 @@ export function LinkButton({ label, noteIcon, typeColor, bgColor, isArchived, on
   title?: string
   TypeIcon: ComponentType<SVGAttributes<SVGSVGElement>>
 }) {
+  const locale = useAppLocale()
   const isDimmed = isArchived
   const color = isDimmed ? 'var(--muted-foreground)' : typeColor
   return (
@@ -45,7 +48,8 @@ export function LinkButton({ label, noteIcon, typeColor, bgColor, isArchived, on
             type="button"
             className="flex items-center border-0 bg-transparent p-0 text-body opacity-0 transition-opacity group-hover/link:opacity-100 focus-visible:opacity-100"
             onClick={onRemove}
-            title="Remove from relation"
+            title={translate(locale, 'a11y.removeRelation')}
+            aria-label={translate(locale, 'a11y.removeRelation')}
             data-testid="remove-relation-ref"
           >
             <X size={16} />

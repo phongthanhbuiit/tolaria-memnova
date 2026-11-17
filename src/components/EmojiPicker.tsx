@@ -1,3 +1,5 @@
+import { translate } from '../lib/i18n'
+import { useAppLocale } from '../hooks/useAppPreferences'
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { Input } from '@/components/ui/input'
 import { EMOJI_GROUPS, EMOJIS_BY_GROUP, GROUP_SHORT_LABELS, searchEmojis, type EmojiEntry } from '../utils/emoji'
@@ -8,13 +10,15 @@ interface EmojiPickerProps {
 }
 
 function EmojiOptionButton({ entry, onSelect }: { entry: EmojiEntry; onSelect: (emoji: string) => void }) {
+  const locale = useAppLocale()
   return (
     <button
       type="button"
       key={entry.emoji}
       className="flex h-8 w-8 items-center justify-center rounded text-xl transition-colors hover:bg-accent"
       onClick={() => onSelect(entry.emoji)}
-      title={entry.name}
+      title={translate(locale, 'a11y.chooseEmoji', { emoji: entry.emoji })}
+      aria-label={translate(locale, 'a11y.chooseEmoji', { emoji: entry.emoji })}
       data-testid="emoji-option"
     >
       {entry.emoji}

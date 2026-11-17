@@ -71,7 +71,7 @@ describe('property chip sizing', () => {
     const dateChip = screen.getByTestId('date-display')
     const genericChip = screen.getByText('Alpha').parentElement
     const tagsAddButton = screen.getByTestId('tags-add-button')
-    const genericAddButton = screen.getByTitle('Add people')
+    const genericAddButton = screen.getByRole('button', { name: 'Add people', exact: true })
 
     expectSharedChipSize(typeChip)
     expectSharedChipSize(statusChip)

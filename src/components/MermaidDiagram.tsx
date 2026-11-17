@@ -1,3 +1,5 @@
+import { translate } from '../lib/i18n'
+import { useAppLocale } from '../hooks/useAppPreferences'
 import { ArrowsOut as Maximize2 } from '@phosphor-icons/react'
 import { useEffect, useId, useMemo, useState, type SyntheticEvent } from 'react'
 import { Button } from '@/components/ui/button'
@@ -128,14 +130,15 @@ function stopMermaidViewportEvent(event: SyntheticEvent): void {
 }
 
 function MermaidLightbox({ svg }: { svg: string }) {
+  const locale = useAppLocale()
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Button
-          aria-label="Open Mermaid diagram"
+          aria-label={translate(locale, 'a11y.openDiagram')}
           className="mermaid-diagram__expand-button"
           size="icon-sm"
-          title="Open diagram"
+          title={translate(locale, 'a11y.openDiagram')}
           type="button"
           variant="outline"
         >

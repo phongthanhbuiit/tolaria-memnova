@@ -1,3 +1,5 @@
+import { translate } from '../lib/i18n'
+import { useAppLocale } from '../hooks/useAppPreferences'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { useState, useRef, useCallback, useMemo } from 'react'
@@ -57,6 +59,7 @@ function TagOption({
   colorEditing: boolean
   onToggleColor: (tag: string) => void; onColorChange: (tag: string, colorKey: string) => void
 }) {
+  const locale = useAppLocale()
   const style = getTagStyle(tag)
   return (
     <>
@@ -80,7 +83,8 @@ function TagOption({
           style={{ backgroundColor: style.color }}
           onClick={() => onToggleColor(tag)}
           onMouseEnter={onMouseEnter}
-          title="Change color"
+          title={translate(locale, 'a11y.changeColor')}
+          aria-label={translate(locale, 'a11y.changeColor')}
           data-testid={`tag-color-swatch-${tag}`}
         />
       </div>
@@ -191,6 +195,7 @@ export function TagsDropdown({
   selectedTags: string[]; vaultTags: string[]
   onToggle: (tag: string) => void; onClose: () => void
 }) {
+  const locale = useAppLocale()
   const [query, setQuery] = useState('')
   const [colorEditingTag, setColorEditingTag] = useState<string | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -238,7 +243,7 @@ export function TagsDropdown({
         <>
           <Button variant="ghost" size="sm"
             type="button"
-            aria-label="Close tags menu"
+            aria-label={translate(locale, 'a11y.closeTagsMenu')}
             className="fixed inset-0 z-[12000] cursor-default border-0 bg-transparent p-0"
             onClick={onClose}
             data-testid="tags-dropdown-backdrop"

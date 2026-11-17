@@ -1,3 +1,5 @@
+import { translate } from '../lib/i18n'
+import { useAppLocale } from '../hooks/useAppPreferences'
 import { useState, useCallback, useEffect, useRef, type ComponentProps } from 'react'
 import { normalizeUrl, openExternalUrl } from '../utils/url'
 import { getTagStyle } from '../utils/tagStyles'
@@ -28,6 +30,7 @@ export function UrlValue({
   isEditing: boolean
   onStartEdit: () => void
 }) {
+  const locale = useAppLocale()
   const [editValue, setEditValue] = useState(value)
   const openingRef = useRef(false)
 
@@ -89,7 +92,8 @@ export function UrlValue({
       <Button variant="ghost" size="sm" type="button"
         className="shrink-0 border-none bg-transparent p-0 text-body leading-none text-text-secondary opacity-0 transition-all hover:text-foreground group-hover/url:opacity-100 focus-visible:opacity-100"
         onClick={handleEditClick}
-        title="Edit URL"
+        title={translate(locale, 'a11y.editUrl')}
+        aria-label={translate(locale, 'a11y.editUrl')}
         data-testid="url-edit-btn"
       >
         &#9998;
@@ -156,6 +160,7 @@ export function TagPillList({
   onSave: (newItems: string[]) => void
   label: string
 }) {
+  const locale = useAppLocale()
   const [editingIndex, setEditingIndex] = useState<number | null>(null)
   const [editValue, setEditValue] = useState('')
   const [isAddingNew, setIsAddingNew] = useState(false)
@@ -246,7 +251,8 @@ export function TagPillList({
                 e.stopPropagation()
                 handleDeleteItem(idx)
               }}
-              title="Remove"
+              title={translate(locale, 'a11y.removeValue', { value: item })}
+              aria-label={translate(locale, 'a11y.removeValue', { value: item })}
             >
               &times;
             </Button>
@@ -272,7 +278,8 @@ export function TagPillList({
           className="inline-flex items-center justify-center border-none bg-muted leading-none text-text-secondary transition-colors hover:bg-accent hover:text-foreground"
           style={PROPERTY_CHIP_STYLE}
           onClick={() => setIsAddingNew(true)}
-          title={`Add ${label.toLowerCase()}`}
+          title={translate(locale, 'a11y.addValue', { property: label.toLowerCase() })}
+          aria-label={translate(locale, 'a11y.addValue', { property: label.toLowerCase() })}
         >
           +
         </Button>

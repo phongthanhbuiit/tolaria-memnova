@@ -1,3 +1,6 @@
+import { accentColorLabel } from '../utils/accentColorLabels'
+import { translate } from '../lib/i18n'
+import { useAppLocale } from '../hooks/useAppPreferences'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { useState, useRef, useCallback, useMemo } from 'react'
@@ -33,6 +36,7 @@ export function StatusPill({ status, className }: { status: string; className?: 
 }
 
 function ColorPickerRow({ status, onColorChange }: { status: string; onColorChange: (status: string, colorKey: string) => void }) {
+  const locale = useAppLocale()
   const currentKey = getStatusColorKey(status)
   return (
     <div className="flex flex-wrap items-center gap-1 px-3 py-2" data-testid={`color-picker-${status}`}>
@@ -42,7 +46,8 @@ function ColorPickerRow({ status, onColorChange }: { status: string; onColorChan
           className="flex shrink-0 items-center justify-center rounded-md border-none p-0 transition-transform hover:scale-125"
           style={{ backgroundColor: c.css }}
           onClick={(e) => { e.stopPropagation(); onColorChange(status, c.key) }}
-          title={c.label}
+          title={accentColorLabel(c.key, locale)}
+          aria-label={accentColorLabel(c.key, locale)}
           data-testid={`color-option-${c.key}`}
         >
           {currentKey === c.key && (
@@ -71,6 +76,7 @@ function StatusOption({
   onToggleColor: (status: string) => void
   onColorChange: (status: string, colorKey: string) => void
 }) {
+  const locale = useAppLocale()
   const style = getStatusStyle(status)
   return (
     <>
@@ -94,7 +100,8 @@ function StatusOption({
           style={{ backgroundColor: style.color }}
           onClick={() => onToggleColor(status)}
           onMouseEnter={onMouseEnter}
-          title="Change color"
+          title={translate(locale, 'a11y.changeColor')}
+          aria-label={translate(locale, 'a11y.changeColor')}
           data-testid={`status-color-swatch-${status}`}
         />
       </div>
@@ -244,6 +251,7 @@ export function StatusDropdown({
   onSave: (newValue: string) => void
   onCancel: () => void
 }) {
+  const locale = useAppLocale()
   const [query, setQuery] = useState('')
   const [colorEditingStatus, setColorEditingStatus] = useState<string | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -299,7 +307,7 @@ export function StatusDropdown({
         <>
           <Button variant="ghost" size="sm"
             type="button"
-            aria-label="Close status menu"
+            aria-label={translate(locale, 'a11y.closeStatusMenu')}
             className="fixed inset-0 z-[12000] cursor-default border-0 bg-transparent p-0"
             onClick={onCancel}
             data-testid="status-dropdown-backdrop"

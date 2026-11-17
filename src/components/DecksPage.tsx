@@ -186,7 +186,8 @@ export function DecksPage({
                 type="button"
                 onClick={() => setSearch('')}
                 className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                aria-label="Clear search"
+                aria-label={translate(locale, 'noteList.clearSearch')}
+                title={translate(locale, 'noteList.clearSearch')}
               >
                 <X size={12} />
               </button>

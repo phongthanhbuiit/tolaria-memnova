@@ -8,7 +8,7 @@ import type { CommandAction, CommandGroup } from '../hooks/useCommandRegistry'
 import { groupSortKey } from '../hooks/useCommandRegistry'
 import { localizeCommandGroup } from '../hooks/commands/localizeCommands'
 import { rememberFeedbackDialogOpener } from '../lib/feedbackDialogOpener'
-import { createTranslator, type AppLocale } from '../lib/i18n'
+import { translate, createTranslator, type AppLocale } from '../lib/i18n'
 import { formatDroppedPathList } from './inlineWikilinkDropText'
 import { CommandPaletteAiMode } from './CommandPaletteAiMode'
 import { Input } from './ui/input'
@@ -421,7 +421,7 @@ function OpenCommandPalette({
     >
       <button
         type="button"
-        aria-label="Close command palette"
+        aria-label={translate(locale, 'a11y.closeCommandPalette')}
         className="absolute inset-0 z-0 cursor-default border-0 bg-transparent p-0"
         onClick={onClose}
       />

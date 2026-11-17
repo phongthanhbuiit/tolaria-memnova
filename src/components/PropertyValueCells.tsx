@@ -1,3 +1,5 @@
+import { useAppLocale } from '../hooks/useAppPreferences'
+import { propertyDisplayLabel } from '../utils/propertyLabels'
 import { Checkbox } from './ui/checkbox'
 import { ArrowUpRight, X as XIcon } from '@phosphor-icons/react'
 import { useState, useCallback, useRef, type ReactNode, type RefObject } from 'react'
@@ -133,6 +135,7 @@ function TagsValue({ propKey, value, isEditing, vaultTags, onSave, onStartEdit }
   propKey: string; value: string[]; isEditing: boolean; vaultTags: string[]
   onSave: (key: string, items: string[]) => void; onStartEdit: (key: string | null) => void
 }) {
+  const locale = useAppLocale()
   const handleToggle = useCallback((tag: string) => {
     const idx = value.indexOf(tag)
     const next = idx >= 0 ? value.filter((_, i) => i !== idx) : [...value, tag]
@@ -167,7 +170,8 @@ function TagsValue({ propKey, value, isEditing, vaultTags, onSave, onStartEdit }
               className="ml-1 overflow-hidden border-none bg-transparent p-0 leading-none opacity-0 transition-all duration-150 group-hover/tag:opacity-100 focus-visible:opacity-100"
               style={{ color: style.color, flexShrink: 0 }}
               onClick={() => handleRemove(tag)}
-              title={`Remove ${tag}`}
+              title={translate(locale, 'a11y.removeValue', { value: tag })}
+              aria-label={translate(locale, 'a11y.removeValue', { value: tag })}
             >
               &times;
             </Button>
@@ -178,7 +182,8 @@ function TagsValue({ propKey, value, isEditing, vaultTags, onSave, onStartEdit }
         className="inline-flex shrink-0 items-center justify-center border-none bg-muted text-text-secondary transition-colors hover:bg-accent hover:text-foreground"
         style={PROPERTY_CHIP_STYLE}
         onClick={() => onStartEdit(propKey)}
-        title="Add tag"
+        title={translate(locale, 'a11y.addTag')}
+        aria-label={translate(locale, 'a11y.addTag')}
         data-testid="tags-add-button"
       >+</Button>
       {isEditing && (
@@ -429,6 +434,7 @@ export function DisplayModeSelector({ propKey, currentMode, autoMode, onSelect }
   propKey: string; currentMode: PropertyDisplayMode; autoMode: PropertyDisplayMode
   onSelect: (key: string, mode: PropertyDisplayMode | null) => void
 }) {
+  const locale = useAppLocale()
   const [open, setOpen] = useState(false)
   const triggerRef = useRef<HTMLButtonElement>(null)
   const CurrentIcon = Reflect.get(DISPLAY_MODE_ICONS, currentMode) as typeof DISPLAY_MODE_ICONS.text
@@ -446,8 +452,8 @@ export function DisplayModeSelector({ propKey, currentMode, autoMode, onSelect }
         type="button"
         className="inline-flex shrink-0 items-center justify-center rounded-md border-none bg-transparent p-0 text-text-secondary transition-colors hover:bg-background hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary"
         onClick={() => setOpen(!open)}
-        title={`Change ${propKey} type`}
-        aria-label={`Change ${propKey} type`}
+        title={translate(locale, 'a11y.changePropertyType', { property: propertyDisplayLabel(propKey, locale) })}
+        aria-label={translate(locale, 'a11y.changePropertyType', { property: propertyDisplayLabel(propKey, locale) })}
         data-testid="display-mode-trigger"
       >
         {showRelationshipIcon ? (
