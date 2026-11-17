@@ -32,7 +32,7 @@ export function containsWikilinks(value: FrontmatterValue): boolean {
   return false
 }
 
-const PROPERTY_ROW_CLASS_NAME = 'group/prop grid min-h-7 min-w-0 grid-cols-2 items-center gap-2 rounded px-1.5 outline-none transition-colors hover:bg-muted focus:bg-muted focus:ring-1 focus:ring-primary'
+const PROPERTY_ROW_CLASS_NAME = 'group/prop grid min-h-(--control-sm) min-w-0 grid-cols-2 items-center gap-2 rounded-md px-2 outline-none transition-colors hover:bg-muted focus:bg-muted focus:ring-1 focus:ring-primary'
 
 function PropertyRow({ propKey, value, editingKey, displayMode, autoMode, vaultStatuses, vaultTags, locale, onStartEdit, onSave, onSaveList, onUpdate, onDelete, onDisplayModeChange }: {
   propKey: string; value: FrontmatterValue; editingKey: string | null
@@ -50,7 +50,7 @@ function PropertyRow({ propKey, value, editingKey, displayMode, autoMode, vaultS
         <DisplayModeSelector propKey={propKey} currentMode={displayMode} autoMode={autoMode} onSelect={onDisplayModeChange} />
         <span className="min-w-0 flex-1 truncate">{humanizePropertyKey(propKey)}</span>
         {onDelete && (
-          <button type="button" className="border-none bg-transparent p-0 text-sm leading-none text-muted-foreground opacity-0 transition-all hover:text-destructive group-hover/prop:opacity-100" onClick={() => onDelete(propKey)} title={translate(locale, 'inspector.properties.deleteProperty')}>&times;</button>
+          <Button variant="ghost" size="icon-sm" type="button" className="border-none bg-transparent p-0 text-body leading-none text-text-secondary opacity-0 transition-all hover:text-destructive group-hover/prop:opacity-100 focus-visible:opacity-100" onClick={() => onDelete(propKey)} title={translate(locale, 'inspector.properties.deleteProperty')}>&times;</Button>
         )}
       </span>
       <div className="min-w-0">
@@ -72,16 +72,16 @@ function AddPropertyButton({ locale, onClick, disabled }: { locale: AppLocale; o
       disabled={disabled}
       data-testid="add-property-row"
     >
-      <span className={PROPERTY_PANEL_PLACEHOLDER_LABEL_CLASS_NAME}>
+      <span className={`${PROPERTY_PANEL_PLACEHOLDER_LABEL_CLASS_NAME} col-span-full`}>
         <span
           className={PROPERTY_PANEL_LABEL_ICON_SLOT_CLASS_NAME}
           data-testid="add-property-icon-slot"
         >
-          <Plus className="size-3.5" aria-hidden="true" />
+          <Plus className="size-[16px]" aria-hidden="true" />
         </span>
-        <span className="min-w-0 truncate">{translate(locale, 'inspector.properties.addProperty')}</span>
+        <span className="min-w-0 whitespace-normal break-words">{translate(locale, 'inspector.properties.addProperty')}</span>
       </span>
-      <span aria-hidden="true" className={PROPERTY_PANEL_PLACEHOLDER_VALUE_CLASS_NAME} />
+      <span aria-hidden="true" className={`${PROPERTY_PANEL_PLACEHOLDER_VALUE_CLASS_NAME} hidden`} />
     </Button>
   )
 }
@@ -122,8 +122,7 @@ function SuggestedPropertySlot({ label, displayMode, onAdd }: {
       type="button"
       variant="ghost"
       size="sm"
-      className={PROPERTY_PANEL_INTERACTIVE_ROW_CLASS_NAME}
-      style={PROPERTY_PANEL_ROW_STYLE}
+      className={`${PROPERTY_PANEL_INTERACTIVE_ROW_CLASS_NAME} grid-cols-[minmax(0,1fr)_auto]`}
       onClick={onAdd}
       data-testid="suggested-property"
     >
@@ -133,11 +132,11 @@ function SuggestedPropertySlot({ label, displayMode, onAdd }: {
           data-testid="suggested-property-icon-slot"
         >
           <SuggestedIcon
-            className="size-3.5 shrink-0 text-muted-foreground/40"
+            className="size-[16px] shrink-0 text-text-secondary"
             data-testid={`suggested-property-icon-${displayMode}`}
           />
         </span>
-        <span className="min-w-0 truncate">{label}</span>
+        <span className="min-w-0 whitespace-normal break-words">{label}</span>
       </span>
       <span className={PROPERTY_PANEL_PLACEHOLDER_VALUE_CLASS_NAME}>{'\u2014'}</span>
     </Button>
@@ -210,11 +209,11 @@ function TypeDerivedPropertySlot({
           data-testid="type-derived-property-icon-slot"
         >
           <PlaceholderIcon
-            className="size-3.5 shrink-0 text-muted-foreground/40"
+            className="size-[16px] shrink-0 text-text-secondary"
             data-testid={`type-derived-property-icon-${displayMode}`}
           />
         </span>
-        <span className="min-w-0 truncate text-muted-foreground/40">{humanizePropertyKey(propKey)}</span>
+        <span className="min-w-0 truncate text-text-secondary">{humanizePropertyKey(propKey)}</span>
       </span>
       <span className={PROPERTY_PANEL_PLACEHOLDER_VALUE_CLASS_NAME}>{'\u2014'}</span>
     </Button>
@@ -417,7 +416,7 @@ function SuggestedPropertyRows({
   onAdd: (key: string) => void
 }) {
   return (
-    <>
+    <div className="col-span-full grid min-w-0 grid-cols-[repeat(auto-fit,minmax(min(100%,7rem),1fr))] gap-2">
       {properties.map(({ key, label }) => (
         <SuggestedPropertySlot
           key={key}
@@ -426,7 +425,7 @@ function SuggestedPropertyRows({
           onAdd={() => onAdd(key)}
         />
       ))}
-    </>
+    </div>
   )
 }
 

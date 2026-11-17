@@ -205,7 +205,7 @@ describe('DynamicPropertiesPanel', () => {
     })
 
     const placeholder = screen.getByTestId('type-derived-property')
-    expect(within(placeholder).getByText('Start date')).toHaveClass('text-muted-foreground/40')
+    expect(within(placeholder).getByText('Start date')).toHaveClass('text-text-secondary')
     fireEvent.click(placeholder)
     const input = screen.getByDisplayValue('')
     fireEvent.change(input, { target: { value: '2026-05-04' } })

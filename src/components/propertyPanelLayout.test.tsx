@@ -95,7 +95,7 @@ describe('property panel shared grid layout', () => {
     })
   })
 
-  it('keeps suggested and add-property rows on the shared grid', () => {
+  it('groups suggested actions compactly while keeping the add-property row on the shared grid', () => {
     renderPropertiesPanel({
       entry,
       frontmatter: {},
@@ -103,8 +103,8 @@ describe('property panel shared grid layout', () => {
     })
 
     screen.getAllByTestId('suggested-property').forEach((row) => {
-      expect(row.style.gridTemplateColumns).toBe('subgrid')
-      expect(row.style.gridColumn).toBe('1 / -1')
+      expect(row.parentElement).toHaveClass('grid-cols-[repeat(auto-fit,minmax(min(100%,7rem),1fr))]', 'col-span-full')
+      expect(row).toHaveAttribute('data-size', 'sm')
     })
 
     const row = screen.getByTestId('add-property-row')
