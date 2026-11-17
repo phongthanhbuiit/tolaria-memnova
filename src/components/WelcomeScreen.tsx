@@ -115,7 +115,6 @@ const BRAND_ICON_STYLE: React.CSSProperties = {
 }
 
 const TITLE_STYLE: React.CSSProperties = {
-  fontSize: 28,
   fontWeight: 700,
   letterSpacing: -0.5,
   color: 'var(--foreground)',
@@ -124,8 +123,6 @@ const TITLE_STYLE: React.CSSProperties = {
 }
 
 const SUBTITLE_STYLE: React.CSSProperties = {
-  fontSize: 14,
-  lineHeight: 1.6,
   color: 'var(--muted-foreground)',
   textAlign: 'center',
   margin: 0,
@@ -162,28 +159,24 @@ const OPTION_ICON_STYLE: React.CSSProperties = {
 }
 
 const OPTION_LABEL_STYLE: React.CSSProperties = {
-  fontSize: 14,
   fontWeight: 600,
   color: 'var(--foreground)',
   margin: 0,
 }
 
 const OPTION_DESC_STYLE: React.CSSProperties = {
-  fontSize: 12,
   color: 'var(--muted-foreground)',
   margin: 0,
   marginTop: 2,
 }
 
 const ERROR_STYLE: React.CSSProperties = {
-  fontSize: 13,
   color: 'var(--destructive)',
   textAlign: 'center',
   margin: 0,
 }
 
 const STATUS_STYLE: React.CSSProperties = {
-  fontSize: 13,
   color: 'var(--muted-foreground)',
   textAlign: 'center',
   margin: 0,
@@ -204,7 +197,6 @@ const RETRY_BUTTON_STYLE: React.CSSProperties = {
   color: 'var(--foreground)',
   cursor: 'pointer',
   padding: '8px 12px',
-  fontSize: 13,
   fontWeight: 600,
 }
 
@@ -262,8 +254,8 @@ function OptionButton({
         {loading ? <Loader2 size={18} className="animate-spin" style={{ color: 'var(--muted-foreground)' }} /> : icon}
       </div>
       <div>
-        <p style={OPTION_LABEL_STYLE}>{loading ? (loadingLabel ?? label) : label}</p>
-        <p style={OPTION_DESC_STYLE}>{loading ? (loadingDescription ?? description) : description}</p>
+        <p className="text-(length:--text-body-lg) leading-(--text-body-lg--line-height)" style={OPTION_LABEL_STYLE}>{loading ? (loadingLabel ?? label) : label}</p>
+        <p className="text-(length:--text-small) leading-(--text-small--line-height)" style={OPTION_DESC_STYLE}>{loading ? (loadingDescription ?? description) : description}</p>
       </div>
     </Button>
   )
@@ -406,8 +398,8 @@ export function WelcomeScreen({
         </div>
 
         <div style={{ textAlign: 'center' }}>
-          <h1 style={TITLE_STYLE}>{presentation.title}</h1>
-          <p style={{ ...SUBTITLE_STYLE, marginTop: 8 }}>
+          <h1 className="text-(length:--text-display) leading-(--text-display--line-height)" style={TITLE_STYLE}>{presentation.title}</h1>
+          <p className="text-(length:--text-body-lg) leading-(--text-body-lg--line-height)" style={{ ...SUBTITLE_STYLE, marginTop: 8 }}>
             {presentation.subtitle}
           </p>
         </div>
@@ -460,14 +452,14 @@ export function WelcomeScreen({
         </div>
 
         {creatingAction === 'template' && (
-          <p style={STATUS_STYLE} data-testid="welcome-status" role="status" aria-live="polite">
+          <p className="text-(length:--text-body) leading-(--text-body--line-height)" style={STATUS_STYLE} data-testid="welcome-status" role="status" aria-live="polite">
             {t('welcome.downloading')}
           </p>
         )}
 
         {error && (
           <div style={ERROR_BLOCK_STYLE}>
-            <p style={ERROR_STYLE} data-testid="welcome-error" role="alert" aria-live="assertive">
+            <p className="text-(length:--text-body) leading-(--text-body--line-height)" style={ERROR_STYLE} data-testid="welcome-error" role="alert" aria-live="assertive">
               {error}
             </p>
             {canRetryTemplate && (
@@ -478,7 +470,7 @@ export function WelcomeScreen({
                 style={RETRY_BUTTON_STYLE}
                 onClick={onRetryCreateVault}
                 data-testid="welcome-retry-template"
-                className="shadow-none"
+                className="shadow-none text-(length:--text-body) leading-(--text-body--line-height)"
               >
                 {t('learning.retry')}
               </Button>

@@ -17,7 +17,7 @@ export function SettingsFooter({
       className="flex items-center justify-between shrink-0"
       style={{ height: 56, padding: '0 24px', borderTop: '1px solid var(--border)' }}
     >
-      <span style={{ fontSize: 11, color: 'var(--muted-foreground)' }}>{t('settings.footerShortcut')}</span>
+      <span className="text-(length:--text-caption) leading-(--text-caption--line-height)" style={{ color: 'var(--muted-foreground)' }}>{t('settings.footerShortcut')}</span>
       <div className="flex gap-2">
         <Button variant="outline" size="sm" onClick={onClose}>
           {t('settings.cancel')}

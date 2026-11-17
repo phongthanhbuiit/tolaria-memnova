@@ -489,7 +489,7 @@ function SettingsHeader({ onClose, t }: { onClose: () => void; t: Translate }) {
       className="flex items-center justify-between shrink-0"
       style={{ height: 56, padding: '0 24px', borderBottom: '1px solid var(--border)' }}
     >
-      <span style={{ fontSize: 16, fontWeight: 600, color: 'var(--foreground)' }}>{t('settings.title')}</span>
+      <span className="text-(length:--text-title) leading-(--text-title--line-height)" style={{ fontWeight: 600, color: 'var(--foreground)' }}>{t('settings.title')}</span>
       <Button
         variant="ghost"
         size="icon-sm"

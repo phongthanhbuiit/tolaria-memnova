@@ -45,9 +45,8 @@ export function SectionHeading({
   return (
     <div className="flex items-center gap-2">
       {icon ? <span className="flex size-5 items-center justify-center text-muted-foreground">{icon}</span> : null}
-      <div
+      <div className="text-(length:--text-body-lg) leading-(--text-body-lg--line-height)"
         style={{
-          fontSize: 14,
           fontWeight: 600,
           color: 'var(--foreground)',
         }}
@@ -210,7 +209,7 @@ export function LabeledSelect({
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-      <label htmlFor={triggerId} style={{ fontSize: 12, fontWeight: 500, color: 'var(--foreground)' }}>{label}</label>
+      <label className="text-(length:--text-small) leading-(--text-small--line-height)" htmlFor={triggerId} style={{ fontWeight: 500, color: 'var(--foreground)' }}>{label}</label>
       <SelectControl
         id={triggerId}
         value={value}
@@ -239,7 +238,7 @@ export function LabeledNumberInput({
 }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-      <label style={{ fontSize: 12, fontWeight: 500, color: 'var(--foreground)' }} htmlFor={testId}>{label}</label>
+      <label className="text-(length:--text-small) leading-(--text-small--line-height)" style={{ fontWeight: 500, color: 'var(--foreground)' }} htmlFor={testId}>{label}</label>
       <NumberInputControl
         value={value}
         onValueChange={onValueChange}

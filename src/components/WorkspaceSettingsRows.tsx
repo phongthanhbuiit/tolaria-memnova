@@ -42,7 +42,7 @@ function WorkspaceFieldLabel({
 }) {
   return (
     <div className="flex min-w-0 items-center gap-1">
-      <label className="truncate text-[11px] font-medium text-muted-foreground" htmlFor={htmlFor}>
+      <label className="truncate text-(length:--text-caption) leading-(--text-caption--line-height) font-medium text-muted-foreground" htmlFor={htmlFor}>
         {label}
       </label>
       <Tooltip>
@@ -226,7 +226,7 @@ function WorkspaceSettingsRow({
       <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
         <div className="min-w-[220px] flex-1">
           <div className="truncate text-sm font-medium text-foreground">{workspace.label}</div>
-          <div className="truncate text-[11px] text-muted-foreground">{workspace.path}</div>
+          <div className="truncate text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground">{workspace.path}</div>
         </div>
         <WorkspaceRowActions
           canEdit={canEdit}
