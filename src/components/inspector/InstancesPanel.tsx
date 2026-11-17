@@ -27,7 +27,7 @@ export function InstancesPanel({ entry, entries, typeEntryMap, onNavigate }: {
 
   return (
     <div>
-      <span className="font-mono-overline mb-1 block text-muted-foreground">
+      <span className="text-caption font-medium tracking-wide mb-1 block text-text-secondary">
         Instances ({total})
       </span>
       <div className="flex flex-col gap-0.5">
@@ -48,7 +48,7 @@ export function InstancesPanel({ entry, entries, typeEntryMap, onNavigate }: {
         })}
       </div>
       {total > MAX_DISPLAY && (
-        <span className="mt-1 block text-[11px] text-muted-foreground">
+        <span className="mt-1 block text-caption text-text-secondary">
           showing {MAX_DISPLAY} of {total}
         </span>
       )}
