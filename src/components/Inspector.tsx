@@ -357,7 +357,7 @@ export function Inspector({ collapsed, onToggle, ...bodyProps }: InspectorProps)
   )
 
   return (
-    <aside className={cn('flex flex-1 flex-col overflow-hidden border-l border-border bg-background text-foreground transition-[width] duration-200', collapsed && '!w-10 !min-w-10')}>
+    <aside className={cn('flex flex-1 flex-col overflow-hidden border-l border-border bg-background text-body text-foreground transition-[width] duration-200', collapsed && '!w-10 !min-w-10')}>
       <InspectorHeader
         collapsed={collapsed}
         frontmatterWarnings={frontmatterWarnings}
@@ -366,7 +366,7 @@ export function Inspector({ collapsed, onToggle, ...bodyProps }: InspectorProps)
         onOpenRawEditor={bodyProps.onToggleRawEditor}
       />
       {!collapsed && (
-        <div className="flex flex-1 flex-col gap-4 overflow-y-auto app-scrollbar p-3">
+        <div className="flex flex-1 flex-col gap-[12px] overflow-y-auto app-scrollbar p-[16px]">
           <InspectorBody {...bodyProps} />
         </div>
       )}
