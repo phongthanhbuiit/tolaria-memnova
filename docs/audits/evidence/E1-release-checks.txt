@@ -1,0 +1,38 @@
+Node: 24.12.0
+
+Manual pnpm test: exit 0
+
+ Test Files  504 passed (504)
+      Tests  5018 passed (5018)
+   Start at  04:43:41
+   Duration  243.50s (transform 12.72s, setup 27.23s, import 560.87s, tests 113.18s, environment 213.13s)
+
+
+Full cargo llvm-cov (no filename exclusions): exit 0
+TOTAL                                            57165              8414    85.28%        4809              1112    76.88%       35111              4771    86.41%           0                 0         -
+
+
+> tolaria-memnova@0.1.0 l10n:validate /Users/thompson/Documents/tolaria-memnova
+> node scripts/validate-locales.mjs
+
+Validated 18 locale catalog(s) against 1061 English keys.
+
+SPEC §8
+{
+  "before": [
+    1,
+    0
+  ],
+  "after": [
+    1,
+    0
+  ]
+}
+Codacy
+{
+  "baseline": 19,
+  "final": 19,
+  "new": 0,
+  "resolved": 0,
+  "notes": "ESLint9 and Trivy: 0. Semgrep: 2 props-spreading warnings. Lizard: 17 complexity warnings; all pre-existing. CLI exit 1 denotes findings, not analyzer failure."
+}

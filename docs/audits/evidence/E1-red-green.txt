@@ -1,0 +1,196 @@
+## F001-red
+ ❯ src/lib/learning/noteWorkspace.test.ts (5 tests | 1 failed) 5ms
+ ❯ src/components/learning/NoteLearningDashboard.test.tsx (11 tests | 2 failed) 436ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  src/lib/learning/noteWorkspace.test.ts > excludes metadata paths from due counts and study scopes without changing source records
+AssertionError: expected [ 'a', 'b', 'c', 'retired' ] to deeply equal [ 'a', 'b', 'c' ]
+ ❯ src/lib/learning/noteWorkspace.test.ts:75:39
+ FAIL  src/components/learning/NoteLearningDashboard.test.tsx > excludes retired records from catalog, search, count and study scope (available=false)
+expected document not to contain element, found <span
+ ❯ src/components/learning/NoteLearningDashboard.test.tsx:229:42
+ FAIL  src/components/learning/NoteLearningDashboard.test.tsx > excludes retired records from catalog, search, count and study scope (available=true)
+expected document not to contain element, found <span
+ ❯ src/components/learning/NoteLearningDashboard.test.tsx:229:42
+ Test Files  2 failed (2)
+      Tests  3 failed | 13 passed (16)
+   Duration  2.76s (transform 366ms, setup 175ms, import 1.71s, tests 441ms, environment 944ms)
+
+## F001-green
+ ✓ src/lib/learning/noteWorkspace.test.ts (5 tests) 3ms
+ ✓ src/components/learning/NoteLearningDashboard.test.tsx (11 tests) 467ms
+ Test Files  2 passed (2)
+      Tests  16 passed (16)
+   Duration  2.39s (transform 341ms, setup 130ms, import 1.47s, tests 469ms, environment 691ms)
+
+## F003-red
+ ❯ src/components/DynamicPropertiesPanel.test.tsx (94 tests | 1 failed) 913ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  src/components/DynamicPropertiesPanel.test.tsx > localizes system property labels while preserving raw custom keys and save identity
+ ❯ src/components/DynamicPropertiesPanel.test.tsx:973:95
+ Test Files  1 failed (1)
+      Tests  1 failed | 93 passed (94)
+   Duration  4.45s (transform 496ms, setup 46ms, import 3.18s, tests 913ms, environment 243ms)
+
+## F003-green
+ ✓ src/components/TypeSelector.test.tsx (6 tests) 236ms
+ ✓ src/components/DynamicPropertiesPanel.test.tsx (94 tests) 860ms
+ Test Files  2 passed (2)
+      Tests  100 passed (100)
+   Duration  4.79s (transform 580ms, setup 121ms, import 5.57s, tests 1.10s, environment 770ms)
+
+## F017-red
+ ❯ src/components/Sidebar.test.ts (15 tests | 1 failed) 6ms
+ ✓ src/components/FolderTree.test.tsx (31 tests) 440ms
+ ✓ src/components/Sidebar.test.tsx (75 tests) 773ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  src/components/Sidebar.test.ts > localizes built-in section display names without changing section identity or custom labels
+ ❯ src/components/Sidebar.test.ts:166:10
+ Test Files  1 failed | 2 passed (3)
+      Tests  1 failed | 120 passed (121)
+   Duration  4.40s (transform 1.25s, setup 175ms, import 8.30s, tests 1.22s, environment 931ms)
+
+## F017-green
+ ✓ src/components/Sidebar.test.ts (15 tests) 4ms
+ ✓ src/components/FolderTree.test.tsx (31 tests) 370ms
+ ✓ src/components/Sidebar.test.tsx (75 tests) 683ms
+ Test Files  3 passed (3)
+      Tests  121 passed (121)
+   Duration  4.09s (transform 1.07s, setup 225ms, import 7.20s, tests 1.06s, environment 1.40s)
+
+## F017-heading-red
+ ❯ src/components/Sidebar.test.ts (16 tests | 1 failed) 11ms
+ ✓ src/components/Sidebar.test.tsx (75 tests) 1108ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  src/components/Sidebar.test.ts > uses the same Vietnamese Inbox name in navigation and the selected list heading
+ ❯ src/components/Sidebar.test.ts:176:51
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 90 passed (91)
+   Duration  6.35s (transform 1.20s, setup 165ms, import 7.99s, tests 1.12s, environment 936ms)
+
+## F017-heading-green
+ ✓ src/components/Sidebar.test.ts (16 tests) 5ms
+ ✓ src/components/Sidebar.test.tsx (75 tests) 1084ms
+ Test Files  2 passed (2)
+      Tests  91 passed (91)
+   Duration  7.57s (transform 2.00s, setup 441ms, import 9.18s, tests 1.09s, environment 1.75s)
+
+## F004-red
+ ❯ src/components/learning/NoteLearningPanel.test.tsx (11 tests | 1 failed) 202ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  src/components/learning/NoteLearningPanel.test.tsx > distinguishes scheduling from immediate review in Vietnamese without changing actions
+ ❯ src/components/learning/NoteLearningPanel.test.tsx:148:27
+ Test Files  1 failed (1)
+      Tests  1 failed | 10 passed (11)
+   Duration  2.78s (transform 437ms, setup 67ms, import 1.99s, tests 202ms, environment 408ms)
+
+## F004-green
+ ✓ src/components/learning/NoteLearningPanel.test.tsx (11 tests) 181ms
+ Test Files  1 passed (1)
+      Tests  11 passed (11)
+   Duration  2.31s (transform 356ms, setup 61ms, import 1.62s, tests 181ms, environment 364ms)
+
+## F022-red
+ ❯ src/components/learning/PagePropertyTools.test.tsx (2 tests | 1 failed) 84ms
+ ❯ src/components/learning/NoteMemoryInspector.test.tsx (5 tests | 1 failed) 1127ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  src/components/learning/NoteMemoryInspector.test.tsx > uses the review schedule heading without internal read-only terminology in Vietnamese
+ ❯ src/components/learning/NoteMemoryInspector.test.tsx:152:30
+ FAIL  src/components/learning/PagePropertyTools.test.tsx > names the property editor action clearly in Vietnamese and opens the same editor
+ ❯ src/components/learning/PagePropertyTools.test.tsx:80:26
+ Test Files  2 failed (2)
+      Tests  2 failed | 5 passed (7)
+   Duration  3.15s (transform 345ms, setup 127ms, import 2.98s, tests 1.21s, environment 778ms)
+
+## F022-green
+ ✓ src/components/learning/PagePropertyTools.test.tsx (2 tests) 95ms
+ ✓ src/components/learning/NoteMemoryInspector.test.tsx (5 tests) 135ms
+ ✓ src/components/learning/PageFlashcards.properties.test.tsx (4 tests) 779ms
+ Test Files  3 passed (3)
+      Tests  11 passed (11)
+   Duration  5.76s (transform 923ms, setup 207ms, import 7.40s, tests 1.01s, environment 1.37s)
+
+## R01-red
+ ❯ src/components/inspector/GitHistoryPanel.locale.test.tsx (5 tests | 1 failed) 144ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL  src/components/inspector/GitHistoryPanel.locale.test.tsx > localizes the history heading and diff tooltip while retaining the commit target
+ ❯ src/components/inspector/GitHistoryPanel.locale.test.tsx:34:17
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 passed (5)
+   Duration  1.82s (transform 270ms, setup 46ms, import 1.33s, tests 144ms, environment 219ms)
+
+## R01-green
+ ✓ src/components/inspector/GitHistoryPanel.locale.test.tsx (5 tests) 133ms
+ ✓ src/utils/noteListHelpers.test.ts (27 tests) 10ms
+ Test Files  2 passed (2)
+      Tests  32 passed (32)
+   Duration  2.44s (transform 516ms, setup 123ms, import 3.32s, tests 143ms, environment 783ms)
+
+## F001-rust
+test vault::tests::scan_and_file_access::retired_metadata_is_not_indexed_and_remains_byte_identical ... ok
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 1243 filtered out; finished in 0.00s
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+## F001-quickopen
+ ✓ src/components/QuickOpenPalette.test.tsx (15 tests) 57ms
+ Test Files  1 passed (1)
+      Tests  15 passed (15)
+   Duration  2.48s (transform 355ms, setup 56ms, import 1.96s, tests 57ms, environment 332ms)
+
+## R12-baseline-red
+[WebServer] (node:85851) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:85867) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:85888) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:85888) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [chromium] › tests/smoke/note-memory-properties.spec.ts:11:1 › page properties keep both faces and opaque YAML through the next mnemonic save (20.0s)
+
+
+  1) [chromium] › tests/smoke/note-memory-properties.spec.ts:11:1 › page properties keep both faces and opaque YAML through the next mnemonic save
+
+    Test timeout of 20000ms exceeded.
+
+    Error: locator.click: Test timeout of 20000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: 'Switch to wide note width', exact: true })
+
+
+      66 |     await page
+      67 |       .getByRole('button', { name: 'Switch to wide note width', exact: true })
+    > 68 |       .click()
+         |        ^
+      69 |     await expect
+      70 |       .poll(() => fs.readFileSync(note, 'utf8'))
+      71 |       .toContain('_width: "wide"')
+        at /private/tmp/memnova-e1/baseline/tests/smoke/note-memory-properties.spec.ts:68:8
+
+    Error Context: test-results/note-memory-properties-pag-9d299-ough-the-next-mnemonic-save-chromium/error-context.md
+
+  1 failed
+    [chromium] › tests/smoke/note-memory-properties.spec.ts:11:1 › page properties keep both faces and opaque YAML through the next mnemonic save
+
+
+## R12-green
+[WebServer] (node:86227) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:86243) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:86251) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:86251) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/smoke/note-memory-properties.spec.ts:11:1 › page properties keep both faces and opaque YAML through the next mnemonic save (6.1s)
+
+  1 passed (8.7s)
+
+
+Final fixture correction: FolderTree localization regression uses SidebarSelection {kind: filter, filter: all}; assertions unchanged; covered by normal F-017 pre-commit and final full coverage suite.

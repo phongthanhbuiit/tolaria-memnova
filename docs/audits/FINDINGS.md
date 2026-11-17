@@ -14,10 +14,10 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 
 | ID | Mức | Mục | Tóm tắt | Chắc | Trạng thái |
 |---|---|---|---|---|---|
-| F-001 | P1 | C2 | File nội bộ `.memnova/retired/<uuid>.md` lộ ra danh sách Thư viện | ảnh | open |
+| F-001 | P1 | C2 | File nội bộ `.memnova/retired/<uuid>.md` lộ ra danh sách Thư viện | ảnh | fixed (`3ce2c128`) |
 | F-002 | P1 | C4 | Ngày trong danh sách ghi chú là tiếng Anh khi UI tiếng Việt | ảnh | fixed (9c951e78) |
-| F-003 | P1 | C4 | Nhãn Properties tiếng Anh lẫn trong UI tiếng Việt | ảnh | open |
-| F-004 | P1 | C4 | Công tắc "Ôn tập ghi chú này" và nút "Ôn ghi chú này" gần như trùng tên | ảnh | open |
+| F-003 | P1 | C4 | Nhãn Properties tiếng Anh lẫn trong UI tiếng Việt | ảnh | fixed (`1a262b64`) |
+| F-004 | P1 | C4 | Công tắc "Ôn tập ghi chú này" và nút "Ôn ghi chú này" gần như trùng tên | ảnh | fixed (`e8dfc0c2`) |
 | F-005 | P1 | C5 | Nút chỉ có icon thiếu `aria-label` (~58 chỗ) | mã | open |
 | F-006 | P1 | C3 | 38 phần tử form HTML thô ngoài `ui/` (vi phạm AGENTS.md) | mã | open |
 | F-007 | P2 | C4 | Thuật ngữ học tập không nhất quán (trang/ghi chú, ghi nhớ/ôn/gợi nhớ) | ảnh | open |
@@ -30,23 +30,25 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 | F-014 | P2 | C3 | Nút ôn chính trong Properties trông như nút phụ/vô hiệu | ảnh | fixed (7be04257; D1) |
 | F-015 | P2 | C3 | Màn ôn: 4 nút chấm điểm viền màu dày lạc khỏi ngôn ngữ thị giác của app | ảnh | fixed (87129845, superseded by F-028) |
 | F-016 | P2 | C4 | Màn ôn: "0/1 · 0 reviews", "in 1 min." khó hiểu | ảnh | fixed (60445d20) |
-| F-017 | P2 | C4 | "Hộp thư đến", "Library", "Notes", thư mục `views` trong sidebar tiếng Việt | ảnh | open |
+| F-017 | P2 | C4 | "Hộp thư đến", "Library", "Notes", thư mục `views` trong sidebar tiếng Việt | ảnh | fixed (`5ef69069`) |
 | F-018 | P2 | C5 | Thanh công cụ editor 10 icon không nhãn | ảnh | fixed (`247911cc`) |
 | F-019 | P2 | C5 | 27 chỗ `outline-none`, có thể mất vòng focus | mã | open |
 | F-020 | P2 | C1 | "Trang chủ" và "Ôn tập" trên sidebar: không rõ khác nhau thế nào | nghi ngờ | open |
 | F-021 | P2 | C9 | 8 component > 850 dòng (App.tsx 1886) | mã | open |
-| F-022 | P3 | C4 | Chữ nội bộ lộ ra: "Lịch ôn · chỉ đọc", "Thuộc tính của trang" trong panel "Thuộc tính" | ảnh | open |
+| F-022 | P3 | C4 | Chữ nội bộ lộ ra: "Lịch ôn · chỉ đọc", "Thuộc tính của trang" trong panel "Thuộc tính" | ảnh | fixed (`b8351fef`) |
 
 ## Chi tiết
 
 ### F-001 — File nội bộ lộ ra danh sách Thư viện
+- **E1 — fixed (`3ce2c128`), 18/11/2026:** Ẩn metadata ở catalog/index/số đếm/scope dẫn xuất, giữ nguyên storage và file retired. Native baseline 6→5 hàng; search/Quick Open/content search không trả sentinel; 259 Markdown giữ hash. [Biên bản và bằng chứng](STEP-E1-FUNCTION-COPY.md).
 - Thực tế (`HOME`): 4+ hàng "Untitled Note 17948260xx" với đường dẫn `.memnova/retired/e79dab74-….md`, làm "Ghi chú · 12" lệch với "4 đến hạn".
 - Mong đợi: người dùng không bao giờ thấy đường dẫn `.memnova/` hay UUID.
 - Bắt đầu tìm: nơi dựng danh sách học của Trang chủ (grep `retired` trong `src-tauri/` và module learning; `src/` chỉ có ở mock).
-- Cần quyết định sản phẩm trước khi sửa: ẩn hẳn, hay gom vào một mục "Cần xử lý (n)" riêng có giải thích. **Dừng hỏi chủ dự án.**
+- Quyết định E1 của người dùng: chỉ ẩn khi hiển thị/đánh chỉ mục; tuyệt đối không sửa/xóa/di chuyển file retired. Đề xuất hỏi/đưa vào mục riêng trước đây không còn áp dụng.
 - Chấp nhận: danh sách không chứa mục nào có đường dẫn bắt đầu bằng `.memnova/`; số đếm khớp số hàng; có test.
 
 ### F-002 — Ngày tiếng Anh trong UI tiếng Việt
+- **E1 — bổ sung R-01 (`ebec147f`):** History/tooltip đã i18n, bỏ default locale en ở relativeDate/formatSubtitle/formatSearchSubtitle, giữ parser/sort/dữ liệu. Regression RED→GREEN và native AX/ảnh sáng/tối trong [biên bản E1](STEP-E1-FUNCTION-COPY.md).
 - **R-01 hoàn tất — fixed (`9c951e78`):** sáu commit riêng; bỏ locale mặc định, Calendar/tháng/thứ/aria theo app, bộ lọc ngày, Git/Pulse relative time, subtitle/Search với số nhiều và số đếm theo locale. 4.974 unit pass; 32 test ở mỗi TZ Los Angeles/TP.HCM; native en↔vi sáng/tối, dữ liệu giữ nguyên; coverage frontend 87,46%, Rust 86,40%; l10n 18 catalog/1.028 key. [Bảng commit, RED/GREEN, ảnh và giới hạn](R-01-F-002-COMPLETION.md). Push mã thành công bằng hook hiện có, ca F-039 còn flaky/pass retry; không sửa finding đó.
 - **R-01 — reopened (17/11/2026):** review độc lập FAIL. Còn sót: formatter `dateDisplay.ts:39,58,68,83` mặc định en; Calendar chưa nhận locale app (Properties/AddPropertyForm/learning/DateValueInput); preview/title/aria bộ lọc ngày format cứng tiếng Anh; Git history today/yesterday/Nd/Nmo ago; note list relativeDate just now/Nm/Nh/Nd ago; subtitle/Search N words/Empty/link(s), số đếm en-US và thiếu plural theo locale. Giữ nguyên dữ liệu lưu, parser, ISO nhập, sort và lịch ôn. Chỉ đổi fixed sau khi đủ tiêu chí R-01 và có báo cáo [R-01](R-01-F-002-COMPLETION.md).
 - Thực tế (`WRITE`): "November 16, 2026", "Created November 16, 2026". Trong khi Properties (`PROPS`) hiện "16:14 ngày 16 thg 11, 2026".
@@ -56,11 +58,13 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 - Sửa: truyền locale hiện có vào formatter dùng chung cho ngày hiển thị; thay bảng tháng tiếng Anh bằng Intl, giữ US/European/ISO và ngày lịch gốc. “Created” lấy từ key đã dịch `noteList.sort.created`. Regression test chuyển locale ngay trên cùng hàng ghi chú; QA native đối chiếu Anh ↔ Việt và hai theme. [Biên bản, ảnh và giới hạn kiểm tra](F-002-LOCALIZED-DATES.md).
 
 ### F-003 — Nhãn Properties tiếng Anh
+- **E1 — fixed (`1a262b64`), 18/11/2026:** Dịch nhãn hệ thống và placeholder Properties/Type/Relationships trong đủ locale; giữ khóa/giá trị, tên tùy chỉnh và dữ liệu. [Biên bản và bằng chứng](STEP-E1-FUNCTION-COPY.md).
 - Thực tế (`PROPS`): "Type, Status, Date, URL, Icon, Belongs to, Related to, Has" cạnh "Thuộc tính", "Thêm thuộc tính".
 - Lưu ý: đây có thể là tên khoá frontmatter. Khoá trong file giữ nguyên; chỉ dịch **nhãn hiển thị** của các khoá hệ thống. Khoá do người dùng tự tạo hiển thị nguyên văn.
 - Chấp nhận: các khoá hệ thống có nhãn dịch trong mọi locale; file Markdown không đổi một byte.
 
 ### F-004 — Hai điều khiển gần trùng tên
+- **E1 — fixed (`e8dfc0c2`), 18/11/2026:** Công tắc Đưa vào lịch ôn / nút Ôn ngay; help Home khớp nhãn. Test giữ callback và native mở đúng UX verification 1/1, không chấm điểm. [Biên bản và bằng chứng](STEP-E1-FUNCTION-COPY.md).
 - Thực tế (`PROPS`): công tắc "Ôn tập ghi chú này" (bật/tắt lịch) ngay trên nút "Ôn ghi chú này" (mở phiên ôn).
 - Đề xuất: công tắc → "Đưa vào lịch ôn"; nút → "Ôn ngay". Cập nhật luôn câu hướng dẫn ở Trang chủ đang trích tên công tắc.
 - Chấp nhận: hai nhãn không dùng chung động từ; mọi locale được cập nhật; `pnpm l10n:validate` pass.
@@ -125,6 +129,7 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 - Sửa: "Ghi chú 1/1 · chưa ôn lần nào"; "sau 1 phút"; "Quay lại ghi chú".
 
 ### F-017 — Sidebar lẫn ngôn ngữ và thư mục nội bộ
+- **E1 — fixed (`5ef69069`), 18/11/2026:** Dịch section loại mặc định sau sort, giữ ID/custom sidebarLabel/tùy chọn tên chính xác; Inbox vi thống nhất Chưa sắp xếp. Giữ nguyên thư mục thật Library và views theo chỉ dẫn người dùng. [Biên bản và bằng chứng](STEP-E1-FUNCTION-COPY.md).
 - Thực tế (`HOME`): "Hộp thư đến" (nghĩa hộp thư email), gốc thư mục "Library" dù tiêu đề là "Thư viện", loại "Notes", thư mục `views` (chứa Saved View) hiện như thư mục môn học.
 - Sửa: "Hộp thư đến" → "Chưa sắp xếp"; dịch nhãn gốc và loại mặc định; ẩn `views` khỏi cây thư mục (xác nhận đó là thư mục hệ thống trước).
 
@@ -146,6 +151,7 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 - Chỉ tách khi một finding khác buộc phải sửa file đó. Không refactor hàng loạt.
 
 ### F-022 — Chữ nội bộ
+- **E1 — fixed (`b8351fef`), 18/11/2026:** Lịch ôn / Chỉnh sửa thuộc tính, giữ schedule readonly và đích editor. Ảnh native sáng/tối và TDD đạt. [Biên bản và bằng chứng](STEP-E1-FUNCTION-COPY.md).
 - "Lịch ôn · chỉ đọc" → "Lịch ôn". Nút "Thuộc tính của trang" trong panel "Thuộc tính" → đổi tên theo đúng thứ nó mở.
 
 ## Đợt 1 — hệ thống thị giác (17/11/2026)
@@ -303,3 +309,16 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 - P3 · **open** · có sẵn ở baseline, ngoài thay cỡ chữ F-024; không sửa bố cục trong D4A.
 - Native QA macOS1440×900, vi, sáng/tối: mô tả của nút tạo Library chạy vượt đường viền bên phải. Còn đọc được nhưng không nằm trong vùng hiển thị nút. [Baseline sáng](evidence/D4A-welcome-before-light.png), [đối chiếu tối](evidence/D4A-welcome-compare-dark.png). Hiện tượng có cả trước/sau thay token.
 - Tái hiện: mở app QA với preferences rỗng và ngôn ngữ vi → xem Welcome → quan sát dòng phụ nút tạo Library. Chấp nhận: mô tả nằm trong bề rộng nút, xuống dòng phù hợp, giữ luồng kích hoạt/focus. Cần thay bố cục/nowrap nên để bước riêng.
+
+## R-11 — Copy English còn ngoài các nhãn E1 được chỉ định
+
+- P2 · C4 · **open**, có sẵn ở baseline. Không tuyên bố toàn app đã sạch English sau E1.
+- Native vi: editor thuộc tính còn nút “Save” (`src/lib/locales/vi.json`, khóa `common.save`); Quick Open còn accessible name “Close quick open” (`src/components/QuickOpenPalette.tsx:160`). [Ảnh editor vi](evidence/F-022-editor-after.png); Quick Open AX đã được quan sát khi kiểm sentinel.
+- Tái hiện: chọn vi → mở Properties → Chỉnh sửa thuộc tính → xem nút Save; hoặc ⌘P → đọc accessible name nút đóng. Chấp nhận: đưa mọi nhãn vào source catalog/đủ bản dịch, giữ save/close handlers và phím tắt. Không đổi tên dữ liệu/thư mục thật. Để bước copy riêng, không mở rộng finding hệ thống Type/Status/quan hệ của F-003.
+
+## R-12 — Precondition cũ trong smoke thuộc tính chặn commit E1
+
+- P2 · test-only · **fixed (`e2721566`)** theo ngoại lệ gate của luật chạy đêm, tương tự R-06.
+- Baseline độc lập `286fffae`, retries=0: `note-memory-properties.spec.ts:68` tìm button đổi độ rộng trong toolbar khi 1280×800/Properties mở; action đã ở overflow menu. Tab Mnemonic cũ cũng không còn là đường sửa gợi nhớ hiện hành. [Baseline RED / GREEN](evidence/E1-red-green.txt).
+- Test đi qua More note actions → menuitem Switch to wide note width, rồi button Edit mnemonic. Giữ nguyên mọi assertion Markdown, opaque YAML, width, hai mặt và save; không sửa app hoặc tăng timeout/retry/skip.
+- GREEN tường minh 1/1, 8,7s, --retries=0; hook thường sau sửa pass ngay lần đầu. Hook cũ trước sửa đã tự dùng hai retry theo config có sẵn và vẫn fail; không thêm retry và không gọi lượt cũ là pass.

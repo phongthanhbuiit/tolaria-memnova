@@ -1,0 +1,96 @@
+{
+  "file_count_before": 262,
+  "file_count_after": 262,
+  "changed_files": {
+    ".memnova/learning.sqlite3": [
+      "c5185214119c0dfbb51168e54c77511716343a2987bf653b0bac95d0ddf77b69",
+      "c724b2b5c98919da42b6ca98da12338f42fecaf0db5a185d4a14b345061c12e0"
+    ]
+  },
+  "learning_tables_unchanged": {
+    "cards": true,
+    "schedules": true,
+    "reviews": true,
+    "page_property_definitions": true,
+    "card_property_definitions": true,
+    "note_card_bindings": true
+  },
+  "retired": {
+    ".memnova/retired/e9a408d0-65fe-4d8e-b6fb-9c3457996834.md": "e8a49f0aa03e41beffe94c40f9f088a6646aee9f22353cf8c063629b64a0e1a4"
+  },
+  "all_tables": {
+    "pages": {
+      "before": 11,
+      "after": 12,
+      "same": false
+    },
+    "cards": {
+      "before": 5,
+      "after": 5,
+      "same": true
+    },
+    "schedules": {
+      "before": 5,
+      "after": 5,
+      "same": true
+    },
+    "sessions": {
+      "before": 5,
+      "after": 5,
+      "same": false
+    },
+    "reviews": {
+      "before": 4,
+      "after": 4,
+      "same": true
+    },
+    "decks": {
+      "before": 0,
+      "after": 0,
+      "same": true
+    },
+    "deck_pages": {
+      "before": 0,
+      "after": 0,
+      "same": true
+    },
+    "imports": {
+      "before": 0,
+      "after": 0,
+      "same": true
+    },
+    "library_metadata": {
+      "before": 18,
+      "after": 18,
+      "same": true
+    },
+    "page_property_definitions": {
+      "before": 0,
+      "after": 0,
+      "same": true
+    },
+    "card_property_definitions": {
+      "before": 0,
+      "after": 0,
+      "same": true
+    },
+    "note_card_bindings": {
+      "before": 5,
+      "after": 5,
+      "same": true
+    },
+    "note_learning_operations": {
+      "before": 23,
+      "after": 23,
+      "same": true
+    }
+  },
+  "retired_page_rows_after": [
+    [
+      "e9a408d0-65fe-4d8e-b6fb-9c3457996834",
+      ".memnova/retired/e9a408d0-65fe-4d8e-b6fb-9c3457996834.md",
+      "E1 retired sentinel",
+      1
+    ]
+  ]
+}

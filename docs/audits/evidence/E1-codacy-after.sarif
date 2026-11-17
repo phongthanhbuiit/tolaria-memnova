@@ -1,0 +1,511 @@
+{
+  "$schema": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/errata01/os/schemas/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Semgrep",
+          "version": "0.0.1",
+          "rules": [
+            {
+              "id": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+              "shortDescription": {
+                "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/TypeSelector.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 270,
+                  "startColumn": 36,
+                  "endColumn": 41
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/inspector/RelationshipsPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 467,
+                  "startColumn": 19,
+                  "endColumn": 24
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tool": {
+        "driver": {
+          "name": "Lizard",
+          "version": "0.0.1",
+          "rules": [
+            {
+              "id": "Lizard_parameter-count-medium",
+              "shortDescription": {
+                "text": "PropertyRow has a parameter count of 14 (threshold: 8)"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "Lizard_nloc-medium",
+              "shortDescription": {
+                "text": "resolveMissingTypeName has a NLOC of 67 (threshold: 50)"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "Lizard_ccn-medium",
+              "shortDescription": {
+                "text": "handleSearchKeyDown has a cyclomatic complexity of 18 (threshold: 15)"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "Lizard_file-nloc-medium",
+              "shortDescription": {
+                "text": "File has 889 lines of code (threshold: 730)"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "PropertyRow has a parameter count of 14 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/DynamicPropertiesPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 37,
+                  "startColumn": 1,
+                  "endLine": 41
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "TypeDerivedPropertySlot has a parameter count of 13 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/DynamicPropertiesPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 145,
+                  "startColumn": 1,
+                  "endLine": 166
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_nloc-medium",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "resolveMissingTypeName has a NLOC of 67 (threshold: 50)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/DynamicPropertiesPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 106,
+                  "startColumn": 1,
+                  "endLine": 265
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "PropertyEntryRows has a parameter count of 15 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/DynamicPropertiesPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 298,
+                  "startColumn": 1,
+                  "endLine": 321
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "PendingSuggestedPropertyRow has a parameter count of 10 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/DynamicPropertiesPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 364,
+                  "startColumn": 1,
+                  "endLine": 381
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "DynamicPropertiesPanelContent has a parameter count of 18 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/DynamicPropertiesPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 486,
+                  "startColumn": 1,
+                  "endLine": 512
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_nloc-medium",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "DynamicPropertiesPanel has a NLOC of 53 (threshold: 50)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/DynamicPropertiesPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 617,
+                  "startColumn": 1,
+                  "endLine": 673
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "DynamicPropertiesPanel has a parameter count of 13 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/DynamicPropertiesPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 617,
+                  "startColumn": 1,
+                  "endLine": 673
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "EditableTypeSelector has a parameter count of 11 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/TypeSelector.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 272,
+                  "startColumn": 1,
+                  "endLine": 284
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_nloc-medium",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "handleSearchKeyDown has a NLOC of 127 (threshold: 50)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/TypeSelector.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 376,
+                  "startColumn": 1,
+                  "endLine": 503
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_ccn-medium",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "handleSearchKeyDown has a cyclomatic complexity of 18 (threshold: 15)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/TypeSelector.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 376,
+                  "startColumn": 1,
+                  "endLine": 503
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "confirmRelationshipSelection has a parameter count of 9 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/inspector/RelationshipsPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 132,
+                  "startColumn": 1,
+                  "endLine": 148
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "RelationshipGroup has a parameter count of 11 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/inspector/RelationshipsPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 449,
+                  "startColumn": 1,
+                  "endLine": 453
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "NoteTargetInput has a parameter count of 9 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/inspector/RelationshipsPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 550,
+                  "startColumn": 1,
+                  "endLine": 554
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "DynamicRelationshipsPanel has a parameter count of 11 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/inspector/RelationshipsPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 908,
+                  "startColumn": 1,
+                  "endLine": 911
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_ccn-medium",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "(anonymous) has a cyclomatic complexity of 24 (threshold: 15)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/utils/noteListHelpers.ts",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 221,
+                  "startColumn": 1,
+                  "endLine": 228
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_file-nloc-medium",
+          "ruleIndex": 3,
+          "level": "warning",
+          "message": {
+            "text": "File has 889 lines of code (threshold: 730)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/inspector/RelationshipsPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

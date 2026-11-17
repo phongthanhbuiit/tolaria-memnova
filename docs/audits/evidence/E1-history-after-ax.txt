@@ -1,0 +1,181 @@
+Window: "Memnova D2 1440 QA", App: Memnova D4B QA.
+0 standard window Memnova D2 1440 QA, Secondary Actions: Raise
+	1 scroll area
+		2 HTML content Description: Memnova, URL: localhost:5201/
+			3 container
+				4 button Thu gọn thanh bên, Help: Thu gọn thanh bên (⌘2)
+				5 button (disabled) Quay lại, Help: Quay lại (⌘←)
+				6 button (disabled) Tiếp theo, Help: Tiếp theo (⌘→)
+				7 container
+					8 button Trang chủ
+					9 button Chưa sắp xếp 85
+					10 button Tất cả ghi chú 89
+					11 button Ôn tập
+					12 button Kho lưu trữ
+				13 button CHẾ ĐỘ XEM
+				14 button Tạo chế độ xem
+				15 sortable Capture QA 89
+				16 button LOẠI
+				17 button Tùy chỉnh các mục
+				18 button Tạo loại mới
+				19 sortable Ghi chú
+6
+				20 sortable Trách nhiệm
+2
+				21 button THƯ MỤC
+				22 button Tạo thư mục
+				23 button (expanded) Library, Secondary Actions: Collapse
+				24 button 00 Research folder with a long title
+				25 button 01 Research folder with a long title
+				26 button 02 Research folder with a long title
+				27 button 03 Research folder with a long title
+				28 button 04 Research folder with a long title
+				29 button 05 Research folder with a long title
+				30 button 06 Research folder with a long title
+				31 button 07 Research folder with a long title
+				32 button 08 Research folder with a long title
+				33 button 09 Research folder with a long title
+				34 button 10 Research folder with a long title
+				35 button 11 Research folder with a long title
+				36 button 12 Research folder with a long title
+				37 button 13 Research folder with a long title
+				38 button 14 Research folder with a long title
+				39 button 15 Research folder with a long title
+				40 button 16 Research folder with a long title
+				41 button 17 Research folder with a long title
+				42 button 18 Research folder with a long title
+				43 button 19 Research folder with a long title
+				44 button 20 Research folder with a long title
+				45 button 21 Research folder with a long title
+				46 button 22 Research folder with a long title
+				47 button 23 Research folder with a long title
+				48 button 24 Research folder with a long title
+				49 button 25 Research folder with a long title
+				50 button 26 Research folder with a long title
+				51 button 27 Research folder with a long title
+				52 button 28 Research folder with a long title
+				53 button 29 Research folder with a long title
+				54 button views
+			55 heading Chưa sắp xếp, Value: 3
+				56 text Chưa sắp xếp
+			57 pop up button Đã sửa đổi, Help: Sắp xếp theo Đã sửa đổi
+			58 button Tìm ghi chú
+			59 pop up button Tùy chỉnh các cột của mục Chưa sắp xếp
+			60 button Tạo ghi chú mới
+			61 container (settable) Notes
+				62 container
+					63 text Empty Title D3 ngày 18 tháng 11, 2026
+					64 text An Explicit Display Title — D3 A paragraph for checking editor chrome without changing its content.
+ngày 18 tháng 11, 2026
+					65 text Grow Newsletter Build a sustainable audience through high-quality weekly essays. manage-sponsorships
+ngày 17 tháng 11, 2026
+					66 text Manage Sponsorships Revenue stream from newsletter sponsorships. Matteo Cellini handles day-to-day operations. Inbound leads via sponsorship page Qualification call Proposal and ne...
+ngày 17 tháng 11, 2026
+					67 text (selected) UX verification An ordinary document for writing and reference. A small blue bookmark recalls this document.
+ngày 17 tháng 11, 2026
+					68 text Reading 13 Reference material for ordinary writing. Native mnemonic preserves the reading context.
+ngày 16 tháng 11, 2026
+					69 text Reading 2 Reference material for ordinary writing.
+ngày 16 tháng 11, 2026
+					70 text Reading 27 Reference material for ordinary writing.
+ngày 16 tháng 11, 2026
+					71 text Reading 28 Reference material for ordinary writing.
+ngày 16 tháng 11, 2026
+					72 text Reading 25 Reference material for ordinary writing.
+ngày 16 tháng 11, 2026
+			73 text Note
+			74 button UX verification
+			75 text Tên tệp UX verification. Nhấn Enter để đổi tên
+			76 button Đổi tên tệp cho khớp với tiêu đề
+			77 container Ghi chú
+				78 button Thêm vào mục yêu thích
+				79 button Đặt ghi chú là đã sắp xếp
+			80 container Giao diện
+				81 button Mở vùng lân cận của ghi chú
+				82 button Mở trình soạn thảo thô
+				83 button Chuyển sang độ rộng ghi chú rộng
+				84 button Mở mục lục
+			85 container Thao tác tệp
+				86 button Hiển thị trong Finder
+				87 button Sao chép đường dẫn tệp
+			88 pop up button Thêm hành động ghi chú
+			89 container Rich text editor
+				90 text entry area (settable) **UX verification**
+An ordinary document for writing and reference.
+
+
+					91 heading (settable, integer) UX verification, Value: 1
+						92 text (settable) UX verification
+					93 text (settable) An ordinary document for writing and reference.
+			94 container
+				95 text Thuộc tính
+				96 button Đóng thuộc tính (⌘⇧I)
+				97 text Loại
+				98 combo box (collapsed, settable) Value: Không có, Secondary Actions: Expand
+					99 text Không có
+				100 button Trạng thái —
+				101 button Ngày —
+				102 button URL —
+				103 button Biểu tượng —
+				104 button Thêm thuộc tính
+				105 text Thuộc về
+				106 button Thêm
+				107 text Liên quan đến
+				108 button Thêm
+				109 text Có
+				110 button Thêm
+				111 button + Thêm mối quan hệ
+				112 button Chỉnh sửa thuộc tính
+				113 text Đưa vào lịch ôn
+				114 switch (settable, boolean) Đưa vào lịch ôn, Value: on
+				115 container Ghi nhớ trang
+					116 button Sửa gợi nhớ
+					117 button Ôn ngay
+				118 container Lịch ôn
+					119 heading Lịch ôn, Value: 3
+						120 text Lịch ôn
+					121 description list
+						122 text Lần ôn tiếp theo
+						123 text 16:14 ngày 16 thg 11, 2026
+						124 text Lượt ôn
+						125 text 0
+						126 text Lần quên
+						127 text 0
+				128 heading Thông tin, Value: 4
+					129 text Thông tin
+				130 text Đã sửa đổi ngày 17 tháng 11, 2026 Đã tạo ngày 16 tháng 11, 2026 Số từ 16 Dung lượng 288 B
+				131 heading Lịch sử, Value: 4
+					132 text Lịch sử
+				133 button 9a53468 · Date localization QA fixture, Help: Xem thay đổi của 9a53468
+				134 text Hôm kia
+			135 container
+				136 button Mở thư viện có sẵn
+				137 text |
+				138 button Kiểm tra cập nhật
+				139 text |
+				140 button Thêm remote cho kho này
+				141 text |
+				142 button Xem các thay đổi đang chờ
+				143 text |
+				144 button Commit các thay đổi cục bộ
+				145 button Đồng bộ ngay
+				146 text |
+				147 button Mở lịch sử thay đổi
+				148 button Đóng góp cho Tolaria
+				149 button Mở tài liệu Tolaria
+				150 button Chuyển sang giao diện sáng
+				151 button Mở cài đặt
+	152 close button
+	153 full screen button Help: this button also has an action to zoom the window, Secondary Actions: zoom the window
+	154 minimize button
+155 menu bar
+	156 Memnova E1 QA
+	157 File
+	158 Edit
+	159 View
+	160 Go
+	161 Note
+	162 Vault
+	163 Window
+
+The focused UI element is 2 HTML content Description: Memnova, URL: localhost:5201/

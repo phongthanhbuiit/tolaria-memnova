@@ -1,0 +1,7 @@
+{
+  "baseline": 19,
+  "final": 19,
+  "new": 0,
+  "resolved": 0,
+  "notes": "ESLint9 and Trivy: 0. Semgrep: 2 props-spreading warnings. Lizard: 17 complexity warnings; all pre-existing. CLI exit 1 denotes findings, not analyzer failure."
+}
