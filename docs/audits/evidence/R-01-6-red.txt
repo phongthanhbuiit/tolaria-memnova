@@ -1,0 +1,106 @@
+
+ RUN  v4.0.18 /Users/thompson/Documents/tolaria-memnova
+
+ ❯ src/utils/noteListHelpers.counts.test.ts (8 tests | 8 failed) 16ms
+     × en uses grammatical plurals and localized grouping 12ms
+     × vi uses grammatical plurals and localized grouping 1ms
+     × ru-RU uses grammatical plurals and localized grouping 0ms
+     × pl-PL uses grammatical plurals and localized grouping 0ms
+     × en uses grammatical plurals and localized grouping 0ms
+     × vi uses grammatical plurals and localized grouping 0ms
+     × ru-RU uses grammatical plurals and localized grouping 0ms
+     × pl-PL uses grammatical plurals and localized grouping 0ms
+ ❯ src/components/localizedDates.sweep.test.tsx (1 test | 1 failed) 867ms
+   × R-01 sweeps real Vietnamese date surfaces, including their accessible labels 866ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 9 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/components/localizedDates.sweep.test.tsx > R-01 sweeps real Vietnamese date surfaces, including their accessible labels
+AssertionError: expected '1 result · 1msTư liệu17 tháng 11, 202…' not to match /\b(January|February|March|April|May|…/i
+
+- Expected: 
+/\b(January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|Jun|Jul|Aug|Sep|Oct|Nov|Dec|ago|just now|words|today|yesterday)\b/i
+
++ Received: 
+"1 result · 1msTư liệu17 tháng 11, 2026 · Đã tạo 16 tháng 11, 2026 · 1,234 words · 1 link Close search     Search in all notes... Search results  "
+
+ ❯ scan src/components/localizedDates.sweep.test.tsx:34:24
+
+ ❯ src/components/localizedDates.sweep.test.tsx:73:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/9]⎯
+
+ FAIL  src/utils/noteListHelpers.counts.test.ts > R-01 localized subtitle counts > en uses grammatical plurals and localized grouping
+ FAIL  src/utils/noteListHelpers.counts.test.ts > R-01 localized subtitle counts > en uses grammatical plurals and localized grouping
+AssertionError: expected '1 words · 1 link' to be '1 word · 1 link' // Object.is equality
+
+Expected: "1 word · 1 link"
+Received: "1 words · 1 link"
+
+ ❯ src/utils/noteListHelpers.counts.test.ts:16:51
+     14|         const entry = makeEntry({ createdAt: null, modifiedAt: null, w…
+     15|         const original = JSON.stringify(entry)
+     16|         expect(format(entry, 'friendly', locale)).toBe(expected[i])
+       |                                                   ^
+     17|         expect(JSON.stringify(entry)).toBe(original)
+     18|       }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/9]⎯
+
+ FAIL  src/utils/noteListHelpers.counts.test.ts > R-01 localized subtitle counts > vi uses grammatical plurals and localized grouping
+ FAIL  src/utils/noteListHelpers.counts.test.ts > R-01 localized subtitle counts > vi uses grammatical plurals and localized grouping
+AssertionError: expected '1 words · 1 link' to be '1 từ · 1 liên kết' // Object.is equality
+
+Expected: "1 từ · 1 liên kết"
+Received: "1 words · 1 link"
+
+ ❯ src/utils/noteListHelpers.counts.test.ts:16:51
+     14|         const entry = makeEntry({ createdAt: null, modifiedAt: null, w…
+     15|         const original = JSON.stringify(entry)
+     16|         expect(format(entry, 'friendly', locale)).toBe(expected[i])
+       |                                                   ^
+     17|         expect(JSON.stringify(entry)).toBe(original)
+     18|       }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/9]⎯
+
+ FAIL  src/utils/noteListHelpers.counts.test.ts > R-01 localized subtitle counts > ru-RU uses grammatical plurals and localized grouping
+ FAIL  src/utils/noteListHelpers.counts.test.ts > R-01 localized subtitle counts > ru-RU uses grammatical plurals and localized grouping
+AssertionError: expected '1 words · 1 link' to be '1 слово · 1 ссылка' // Object.is equality
+
+Expected: "1 слово · 1 ссылка"
+Received: "1 words · 1 link"
+
+ ❯ src/utils/noteListHelpers.counts.test.ts:16:51
+     14|         const entry = makeEntry({ createdAt: null, modifiedAt: null, w…
+     15|         const original = JSON.stringify(entry)
+     16|         expect(format(entry, 'friendly', locale)).toBe(expected[i])
+       |                                                   ^
+     17|         expect(JSON.stringify(entry)).toBe(original)
+     18|       }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/9]⎯
+
+ FAIL  src/utils/noteListHelpers.counts.test.ts > R-01 localized subtitle counts > pl-PL uses grammatical plurals and localized grouping
+ FAIL  src/utils/noteListHelpers.counts.test.ts > R-01 localized subtitle counts > pl-PL uses grammatical plurals and localized grouping
+AssertionError: expected '1 words · 1 link' to be '1 słowo · 1 link' // Object.is equality
+
+Expected: "1 słowo · 1 link"
+Received: "1 words · 1 link"
+
+ ❯ src/utils/noteListHelpers.counts.test.ts:16:51
+     14|         const entry = makeEntry({ createdAt: null, modifiedAt: null, w…
+     15|         const original = JSON.stringify(entry)
+     16|         expect(format(entry, 'friendly', locale)).toBe(expected[i])
+       |                                                   ^
+     17|         expect(JSON.stringify(entry)).toBe(original)
+     18|       }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/9]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  9 failed (9)
+   Start at  17:27:55
+   Duration  5.38s (transform 1.07s, setup 114ms, import 6.49s, tests 883ms, environment 493ms)
+

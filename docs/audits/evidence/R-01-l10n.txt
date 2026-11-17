@@ -1,0 +1,5 @@
+
+> tolaria-memnova@0.1.0 l10n:validate /Users/thompson/Documents/tolaria-memnova
+> node scripts/validate-locales.mjs
+
+Validated 18 locale catalog(s) against 1027 English keys.

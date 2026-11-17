@@ -1,0 +1,12 @@
+
+ RUN  v4.0.18 /Users/thompson/Documents/tolaria-memnova
+
+ ✓ src/components/filter-builder/DateValueInput.test.tsx (2 tests) 72ms
+ ✓ src/components/filter-builder/DateValueInput.locale.test.tsx (4 tests) 861ms
+     ✓ localizes preview, title and aria in en, saves the same ISO day  497ms
+
+ Test Files  2 passed (2)
+      Tests  6 passed (6)
+   Start at  17:00:27
+   Duration  10.40s (transform 748ms, setup 206ms, import 16.94s, tests 933ms, environment 1.30s)
+

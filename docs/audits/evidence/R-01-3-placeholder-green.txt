@@ -1,0 +1,13 @@
+
+ RUN  v4.0.18 /Users/thompson/Documents/tolaria-memnova
+
+ ✓ src/components/filter-builder/DateValueInput.locale.test.tsx (4 tests) 718ms
+     ✓ localizes preview, title and aria in en, saves the same ISO day  429ms
+ ✓ src/components/localizedDates.sweep.test.tsx (1 test) 854ms
+   ✓ R-01 sweeps real Vietnamese date surfaces, including their accessible labels  854ms
+
+ Test Files  2 passed (2)
+      Tests  5 passed (5)
+   Start at  17:23:34
+   Duration  8.64s (transform 1.41s, setup 252ms, import 12.52s, tests 1.57s, environment 1.26s)
+

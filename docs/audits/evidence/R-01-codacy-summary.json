@@ -1,0 +1,53 @@
+{
+  "cliVersion": "0.24.0",
+  "commandsExit": {
+    "init": 0,
+    "baseline": 1,
+    "current": 1
+  },
+  "baseline": "7fb7dc5a",
+  "current": "9c951e7865eb52bb8d75012674bb1b9bb55228c9",
+  "tools": [
+    "ESLint9",
+    "Semgrep/Opengrep",
+    "Lizard",
+    "Trivy"
+  ],
+  "analyzerErrors": {
+    "baseline": 0,
+    "current": 0
+  },
+  "newCriticalHigh": 0,
+  "runs": {
+    "base": {
+      "Semgrep": {
+        "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading": 13
+      },
+      "Lizard": {
+        "Lizard_nloc-medium": 3,
+        "Lizard_ccn-medium": 1
+      }
+    },
+    "final": {
+      "Semgrep": {
+        "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading": 13
+      },
+      "Lizard": {
+        "Lizard_nloc-medium": 3,
+        "Lizard_ccn-medium": 1
+      }
+    }
+  },
+  "filesSha256": {
+    "src/utils/dateDisplay.ts": "9fb1b6a3a2ddd5078dfb5726dc25d02618fe453003336f414f6890968720a9e9",
+    "src/lib/calendarLocale.ts": "657c537c1c0fe30ab96d6e3cd3ecbbe1105c12767f42e2cd3cdc3e2cda034cff",
+    "src/components/ui/calendar.tsx": "a289f7ebc00ae2fdafcd68e6cc094672e7878dcb40c800573f24794abd82b33f",
+    "src/components/PropertyValueCells.tsx": "91ca7ebd3d1773a380c7b4c5d27ea56c9e8b356757399cde316f9494fc091193",
+    "src/components/AddPropertyForm.tsx": "67c1b369799c3e803460bc1946f790e0f93d68e10387973eb911127234766f89",
+    "src/components/learning/PropertyValueEditor.tsx": "3a3da900ad1dcd1bc899b64c32c69d80e82adf706bd32b434fb1c5f0f217a0df",
+    "src/components/filter-builder/DateValueInput.tsx": "18fbaea518211072e63af6d16dfb5ecca5857b189d55b94a4519e3ae2f2f1884",
+    "src/components/inspector/GitHistoryPanel.tsx": "07a347e83f58d45db050c35fbaa6f44b7ce2b37fda6e8fdf614d20e1409f3210",
+    "src/utils/noteListHelpers.ts": "44caa5644a3044c899306614ab2bd913ecc4e3f912c15a1d08fa7e34b9e20b50"
+  },
+  "review": "13 existing React props-spreading warnings plus 3 existing NLOC Medium and 1 existing CCN Medium; same rules/counts as baseline. No analyzer error or new Critical/High. New calendar locale map and localized formatting branches reviewed; no new security-sensitive input/storage paths."
+}

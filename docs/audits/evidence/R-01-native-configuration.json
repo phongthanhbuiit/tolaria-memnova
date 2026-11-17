@@ -1,0 +1,63 @@
+{
+  "bundleIdentifier": "net.memnova.qa.r01",
+  "compiledQaIdentifier": "net.memnova.qa.foundation",
+  "inheritedConfig": {
+    "identifier": "net.memnova.qa.foundation",
+    "productName": "Memnova Foundation QA",
+    "build": {
+      "beforeDevCommand": "",
+      "devUrl": "http://localhost:5201"
+    },
+    "app": {
+      "windows": [
+        {
+          "title": "Memnova Foundation QA",
+          "width": 1100,
+          "height": 720,
+          "minWidth": 480,
+          "minHeight": 400,
+          "resizable": true,
+          "fullscreen": false,
+          "titleBarStyle": "Overlay",
+          "trafficLightPosition": {
+            "x": 18,
+            "y": 24
+          },
+          "hiddenTitle": true,
+          "backgroundColor": "#F7F6F3",
+          "dragDropEnabled": false,
+          "incognito": true
+        }
+      ],
+      "security": {
+        "devCsp": "default-src 'self' ipc: http://ipc.localhost http://localhost:5201 http://127.0.0.1:5201 asset: http://asset.localhost data: blob: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' http://localhost:5201 http://127.0.0.1:5201 https://us.i.posthog.com https://eu.i.posthog.com https://us-assets.i.posthog.com https://eu-assets.i.posthog.com; connect-src 'self' ipc: http://ipc.localhost http://localhost:5201 http://127.0.0.1:5201 data: ws://localhost:5201 ws://127.0.0.1:5201 ws://localhost:9710 ws://127.0.0.1:9710 ws://localhost:9711 ws://127.0.0.1:9711 https:; img-src 'self' asset: http://asset.localhost data: blob: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; style-src-elem 'self' 'unsafe-inline' 'nonce-tolaria-runtime-style' https://fonts.googleapis.com; style-src-attr 'unsafe-inline'; font-src 'self' data: https://fonts.gstatic.com; media-src 'self' asset: http://asset.localhost data: blob: https:; object-src 'self' asset: http://asset.localhost"
+      }
+    }
+  },
+  "allTextSectionsEqual": true,
+  "textSectionHashes": [
+    {
+      "__text": "eba14761e6acdf6952a636b1ac6984848a8dc402d38396db6b97d49b8122c2ba",
+      "__stubs": "67999f0f726a37e59cc6fb3046bcebc0d007ab57489f17eee3cb2e50f0d57c8e",
+      "__stub_helper": "e316724534a9b7850ff9aba248d33f1ee559034a2586e6f9c8c0ca97946148d7",
+      "__gcc_except_tab": "a36739bc617f5be35e34e91f254b74d00edcd91cc125cbd878b509ba957cb573",
+      "__const": "bc89876434528b97aa63ff59529b92f49cd354f06fff8628ac79e2605ca4c79d",
+      "__cstring": "072685dd5d6216e4e62196186390c2398e1b516115b1979061a28974ee0b5a79",
+      "__info_plist": "494fc6bc0cf0bd11d08330a96434d6ca6ad88d595b295f06dc8101e4c5bcc0d1",
+      "__unwind_info": "c829483d4f3009a8c08c1a026cb3b687bccbfbffe4c5061a7e72edfd385c32c2",
+      "__eh_frame": "8a61d983ba9faa215166f45cf58121878df86d128ef55eda705395ca5fb003e9"
+    },
+    {
+      "__text": "eba14761e6acdf6952a636b1ac6984848a8dc402d38396db6b97d49b8122c2ba",
+      "__stubs": "67999f0f726a37e59cc6fb3046bcebc0d007ab57489f17eee3cb2e50f0d57c8e",
+      "__stub_helper": "e316724534a9b7850ff9aba248d33f1ee559034a2586e6f9c8c0ca97946148d7",
+      "__gcc_except_tab": "a36739bc617f5be35e34e91f254b74d00edcd91cc125cbd878b509ba957cb573",
+      "__const": "bc89876434528b97aa63ff59529b92f49cd354f06fff8628ac79e2605ca4c79d",
+      "__cstring": "072685dd5d6216e4e62196186390c2398e1b516115b1979061a28974ee0b5a79",
+      "__info_plist": "494fc6bc0cf0bd11d08330a96434d6ca6ad88d595b295f06dc8101e4c5bcc0d1",
+      "__unwind_info": "c829483d4f3009a8c08c1a026cb3b687bccbfbffe4c5061a7e72edfd385c32c2",
+      "__eh_frame": "8a61d983ba9faa215166f45cf58121878df86d128ef55eda705395ca5fb003e9"
+    }
+  ],
+  "note": "All compiled __TEXT sections match the original Foundation QA binary/config (including incognito:true). Ad-hoc code signing changes signature/load metadata; the signed binaries need not have identical whole-file hashes."
+}

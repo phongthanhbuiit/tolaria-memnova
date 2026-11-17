@@ -1,0 +1,81 @@
+
+ RUN  v4.0.18 /Users/thompson/Documents/tolaria-memnova
+
+ ❯ src/utils/noteListHelpers.relative.test.ts (4 tests | 4 failed) 7ms
+     × formats relative and absolute branches in en 5ms
+     × formats relative and absolute branches in vi 1ms
+     × formats relative and absolute branches in ru-RU 0ms
+     × keeps the existing minute/hour/day thresholds 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/utils/noteListHelpers.relative.test.ts > R-01 note list relative dates > formats relative and absolute branches in en
+AssertionError: expected 'just now' to be 'now' // Object.is equality
+
+Expected: "now"
+Received: "just now"
+
+ ❯ src/utils/noteListHelpers.relative.test.ts:14:51
+     12|     const now = Date.now() / 1000
+     13|     for (const [index, seconds] of [30, 60, 120, 300, 7200, 259200].en…
+     14|       expect(relativeDate(now - seconds, locale)).toBe(expected[index])
+       |                                                   ^
+     15|     }
+     16|     expect(relativeDate(now - 10 * 86400, locale)).toBe(oldDate)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  src/utils/noteListHelpers.relative.test.ts > R-01 note list relative dates > formats relative and absolute branches in vi
+AssertionError: expected 'just now' to be 'bây giờ' // Object.is equality
+
+Expected: "bây giờ"
+Received: "just now"
+
+ ❯ src/utils/noteListHelpers.relative.test.ts:14:51
+     12|     const now = Date.now() / 1000
+     13|     for (const [index, seconds] of [30, 60, 120, 300, 7200, 259200].en…
+     14|       expect(relativeDate(now - seconds, locale)).toBe(expected[index])
+       |                                                   ^
+     15|     }
+     16|     expect(relativeDate(now - 10 * 86400, locale)).toBe(oldDate)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  src/utils/noteListHelpers.relative.test.ts > R-01 note list relative dates > formats relative and absolute branches in ru-RU
+AssertionError: expected 'just now' to be 'сейчас' // Object.is equality
+
+Expected: "сейчас"
+Received: "just now"
+
+ ❯ src/utils/noteListHelpers.relative.test.ts:14:51
+     12|     const now = Date.now() / 1000
+     13|     for (const [index, seconds] of [30, 60, 120, 300, 7200, 259200].en…
+     14|       expect(relativeDate(now - seconds, locale)).toBe(expected[index])
+       |                                                   ^
+     15|     }
+     16|     expect(relativeDate(now - 10 * 86400, locale)).toBe(oldDate)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  src/utils/noteListHelpers.relative.test.ts > R-01 note list relative dates > keeps the existing minute/hour/day thresholds
+AssertionError: expected 'just now' to be 'now' // Object.is equality
+
+Expected: "now"
+Received: "just now"
+
+ ❯ src/utils/noteListHelpers.relative.test.ts:22:42
+     20|   it('keeps the existing minute/hour/day thresholds', () => {
+     21|     const now = Date.now() / 1000
+     22|     expect(relativeDate(now - 59, 'en')).toBe('now')
+       |                                          ^
+     23|     expect(relativeDate(now - 60, 'en')).toBe('1 minute ago')
+     24|     expect(relativeDate(now - 3599, 'en')).toBe('59 minutes ago')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed (4)
+   Start at  17:06:23
+   Duration  1.05s (transform 176ms, setup 47ms, import 715ms, tests 7ms, environment 211ms)
+

@@ -1,0 +1,46 @@
+  Pipeline started
+  Starting tool execution
+  Starting analysis (ESLint9, 8 files)
+  Using project ESLint (ESLint9, v9.39.2)
+  Analysis complete (ESLint9, 0 issues, 1.2s)
+  Starting analysis (Semgrep, 8 files)
+  Analysis complete (Semgrep, 13 issues, 3.0s)
+  Starting analysis (Lizard, 8 files)
+  Analysis complete (Lizard, 4 issues, 0.1s)
+  Starting analysis (Trivy, 8 files)
+  Analysis complete (Trivy, 0 issues, 0.6s)
+  Pipeline complete (17 issues, 6.8s)
+
+Analysis complete: 17 issues found
+4 tools ran in 6s 850ms
+
+[90m┌──────────[39m[90m┬─────────[39m[90m┬─────────[39m[90m┬────────────────────[39m[90m┬───────[39m[90m┬────────[39m[90m┬──────────┐[39m
+[90m│[39m[37m[1m Tool     [22m[39m[90m│[39m[37m[1m Version [22m[39m[90m│[39m[37m[1m Install [22m[39m[90m│[39m[37m[1m Configuration      [22m[39m[90m│[39m[37m[1m Files [22m[39m[90m│[39m[37m[1m Issues [22m[39m[90m│[39m[37m[1m Duration [22m[39m[90m│[39m
+[90m├──────────[39m[90m┼─────────[39m[90m┼─────────[39m[90m┼────────────────────[39m[90m┼───────[39m[90m┼────────[39m[90m┼──────────┤[39m
+[90m│[39m ESLint 9 [90m│[39m 9.39.5  [90m│[39m bundled [90m│[39m ./eslint.config.js [90m│[39m 8     [90m│[39m 0      [90m│[39m 1s 203ms [90m│[39m
+[90m├──────────[39m[90m┼─────────[39m[90m┼─────────[39m[90m┼────────────────────[39m[90m┼───────[39m[90m┼────────[39m[90m┼──────────┤[39m
+[90m│[39m Lizard   [90m│[39m 1.23.0  [90m│[39m codacy  [90m│[39m Codacy             [90m│[39m 8     [90m│[39m 4      [90m│[39m 86ms     [90m│[39m
+[90m├──────────[39m[90m┼─────────[39m[90m┼─────────[39m[90m┼────────────────────[39m[90m┼───────[39m[90m┼────────[39m[90m┼──────────┤[39m
+[90m│[39m Opengrep [90m│[39m 1.26.0  [90m│[39m codacy  [90m│[39m Codacy             [90m│[39m 8     [90m│[39m 13     [90m│[39m 2s 966ms [90m│[39m
+[90m├──────────[39m[90m┼─────────[39m[90m┼─────────[39m[90m┼────────────────────[39m[90m┼───────[39m[90m┼────────[39m[90m┼──────────┤[39m
+[90m│[39m Trivy    [90m│[39m 0.72.0  [90m│[39m codacy  [90m│[39m Codacy             [90m│[39m 8     [90m│[39m 0      [90m│[39m 589ms    [90m│[39m
+[90m└──────────[39m[90m┴─────────[39m[90m┴─────────[39m[90m┴────────────────────[39m[90m┴───────[39m[90m┴────────[39m[90m┴──────────┘[39m
+
+Pipeline timing:
+  Availability checks    1s 929ms
+  File discovery         37ms
+  File routing & config  1ms
+  Tool execution         4s 845ms
+
+Pattern Summary
+───────────────
+
+WARNING — Best Practice
+  Avoid React Props Spreading (Opengrep)                  13 issues  in 2 files
+
+WARNING — Complexity
+  Limit Function Length (Medium) (Lizard)                  3 issues  in 2 files
+  Limit Function Cyclomatic Complexity (Medium) (Lizard)    1 issue  in 1 file
+
+
+Analysis results stored in /tmp/R-01-base.sarif

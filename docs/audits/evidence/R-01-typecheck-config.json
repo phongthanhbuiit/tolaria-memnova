@@ -1,0 +1,1 @@
+{"extends": "/Users/thompson/Documents/tolaria-memnova/tsconfig.app.json", "include": ["/Users/thompson/Documents/tolaria-memnova/src/utils/dateDisplay.test-d.ts"], "exclude": [], "compilerOptions": {"incremental": false, "types": ["/Users/thompson/Documents/tolaria-memnova/node_modules/vite/client"]}}

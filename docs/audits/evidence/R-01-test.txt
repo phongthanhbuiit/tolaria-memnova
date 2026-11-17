@@ -1,0 +1,2331 @@
+
+> tolaria-memnova@0.1.0 test /Users/thompson/Documents/tolaria-memnova
+> vitest run
+
+
+ RUN  v4.0.18 /Users/thompson/Documents/tolaria-memnova
+
+ ✓ src/components/SettingsPanel.test.tsx (53 tests) 3935ms
+     ✓ separates local agents, local models, and API models in AI settings  421ms
+stdout | src/components/NoteList.rendering.test.tsx > NoteList rendering > keeps the note-list search input full width and shows inline search controls while loading
+[mock-tauri] Vault API available: false
+
+ ✓ src/components/NoteList.rendering.test.tsx (58 tests) 4891ms
+     ✓ filters by a case-insensitive search query  313ms
+     ✓ filters by snippet text when the title does not match  315ms
+     ✓ filters by full note content when the title and snippet do not match  308ms
+     ✓ ignores stale full-content results when the query changes before a slow search returns  608ms
+     ✓ ignores full-content matches that only appear in hidden frontmatter  302ms
+     ✓ runs full-content note-list search across visible workspaces  302ms
+     ✓ filters by visible property values and ignores hidden properties  615ms
+     ✓ uses the active all-notes columns when filtering by visible property values  613ms
+     ✓ keeps existing neighborhood groups visible at zero after search filters them out  334ms
+stdout | src/App.test.tsx > App > renders the four-panel layout
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > renders the four-panel layout
+Vault scan complete: 2 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > loads entries on mount
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > loads entries on mount
+Vault scan complete: 1 entries found
+
+stdout | src/App.test.tsx > App > renders the four-panel layout
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > renders the four-panel layout
+Vault scan complete: 2 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > normalizes missing entry and view string metadata from vault load
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > normalizes missing entry and view string metadata from vault load
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > reports initial vault loading until the note scan resolves
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > reports initial vault loading until the note scan resolves
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > loads folders while the initial note scan is still pending
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > creates custom views with a portable fallback filename for symbol-only names
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > creates custom views with a portable fallback filename for symbol-only names
+Vault scan complete: 2 entries found
+
+ ✓ src/main.test.ts (10 tests) 2092ms
+     ✓ captures React root errors through Sentry with component stack context  1889ms
+stdout | src/App.test.tsx > App > creates custom views with a portable fallback filename for symbol-only names
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > creates custom views with a portable fallback filename for symbol-only names
+Vault scan complete: 2 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > loads folders while the initial note scan is still pending
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > loads modified files on mount
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > loads modified files on mount
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > loads initial vault entries from a fresh reload in Tauri mode
+Vault scan complete: 2 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > uses cached initial vault entries in Tauri note-window mode
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > freshly reloads the active mounted workspace on startup in Tauri mode
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > marks the vault unavailable when the initial load finds a missing active vault
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > loads and displays vault entries in sidebar
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > loads and displays vault entries in sidebar
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > loads and displays vault entries in sidebar
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > loads and displays vault entries in sidebar
+Vault scan complete: 2 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > ignores stale reload_vault results after the vault path changes
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > ignores stale reload_vault results after the vault path changes
+Vault scan complete: 2 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > addEntry > prepends new entry
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > addEntry > prepends new entry
+Vault scan complete: 1 entries found
+
+stdout | src/App.test.tsx > App > keeps the app shell usable while the vault note scan is pending
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > addEntry > ignores duplicate entry with same path
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > addEntry > ignores duplicate entry with same path
+Vault scan complete: 1 entries found
+
+stdout | src/App.test.tsx > App > keeps the app shell usable while the vault note scan is pending
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > keeps the app shell usable while the vault note scan is pending
+Vault scan complete: 2 entries found
+Vault scan complete: 2 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > removeEntry > removes entry by path
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > removeEntry > removes entry by path
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > removeEntry > is a no-op for non-existent paths
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > removeEntry > is a no-op for non-existent paths
+Vault scan complete: 1 entries found
+
+stdout | src/App.test.tsx > App > shows empty state in editor when no note is selected
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > shows empty state in editor when no note is selected
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > shows empty state in editor when no note is selected
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > shows empty state in editor when no note is selected
+Vault scan complete: 2 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > removeEntries > removes multiple entries in one state update
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > removeEntries > removes multiple entries in one state update
+Vault scan complete: 1 entries found
+
+stdout | src/App.test.tsx > App > opens a note window after loading the active vault graph
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > opens a note window after loading the active vault graph
+Vault scan complete: 2 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > updateEntry > patches an existing entry by path
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > updateEntry > patches an existing entry by path
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > updateEntry > preserves entries reference when path does not exist (no-op)
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > updateEntry > preserves entries reference when path does not exist (no-op)
+Vault scan complete: 1 entries found
+
+stdout | src/App.test.tsx > App > shows keyboard shortcut hints
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > shows keyboard shortcut hints
+Vault scan complete: 2 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > updateEntry > keeps entry metadata safe when a stale reload patch has undefined fields
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > updateEntry > keeps entry metadata safe when a stale reload patch has undefined fields
+Vault scan complete: 1 entries found
+
+ ✓ src/components/SearchPanel.test.tsx (26 tests) 6475ms
+     ✓ performs keyword search  329ms
+     ✓ shows note title from VaultEntry instead of filename from search result  308ms
+     ✓ navigates results with arrow keys  313ms
+     ✓ moves down one result when ArrowDown is pressed in the input  313ms
+     ✓ ignores duplicate native ArrowDown keydown events for one press  320ms
+     ✓ ignores a native ArrowDown duplicate bridged through an immediate keyup  314ms
+     ✓ allows a second ArrowDown press after the native duplicate window  831ms
+     ✓ keeps keyboard selection when a stationary mousemove lands on another row  310ms
+     ✓ still opens clicked search results  307ms
+     ✓ selects result on Enter and calls onSelectNote  308ms
+     ✓ shows result count and elapsed time  307ms
+     ✓ displays note type badge from vault entries  308ms
+     ✓ shows workspace initials at the far right instead of prefixing result titles  307ms
+     ✓ shows metadata subtitle with word count and links  308ms
+     ✓ omits links from subtitle when entry has zero outgoing links  307ms
+     ✓ shows loading spinner while searching  310ms
+     ✓ discards stale results when query changes rapidly  309ms
+     ✓ deduplicates results when backend returns same note twice  309ms
+     ✓ cancels inflight searches when panel closes  307ms
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > getNoteStatus > returns modified for git-modified files
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > getNoteStatus > returns modified for git-modified files
+Vault scan complete: 1 entries found
+
+stdout | src/App.test.tsx > App > shows keyboard shortcut hints
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > shows keyboard shortcut hints
+Vault scan complete: 2 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > getNoteStatus > returns new for freshly added entries
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > getNoteStatus > returns new for freshly added entries
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > getNoteStatus > 'returns new for git-untracked files (…'
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > getNoteStatus > 'returns new for git-untracked files (…'
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > getNoteStatus > 'returns new for git-added files (stag…'
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > getNoteStatus > 'returns new for git-added files (stag…'
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > getNoteStatus > 'treats untracked files as new (green …'
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > getNoteStatus > 'treats untracked files as new (green …'
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > getNoteStatus > new status takes priority over git modified
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > getNoteStatus > new status takes priority over git modified
+Vault scan complete: 1 entries found
+
+stdout | src/App.test.tsx > App > registers keyboard shortcuts without error
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > registers keyboard shortcuts without error
+Vault scan complete: 2 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > getNoteStatus > returns unsaved for paths in unsavedPaths
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > getNoteStatus > returns unsaved for paths in unsavedPaths
+Vault scan complete: 1 entries found
+
+stdout | src/App.test.tsx > App > registers keyboard shortcuts without error
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > registers keyboard shortcuts without error
+Vault scan complete: 2 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > getNoteStatus > unsaved has higher priority than new
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > getNoteStatus > unsaved has higher priority than new
+Vault scan complete: 1 entries found
+
+stdout | src/App.test.tsx > App > persists a Cmd+N note before opening it in the editor
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > persists a Cmd+N note before opening it in the editor
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > persists a Cmd+N note before opening it in the editor
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > persists a Cmd+N note before opening it in the editor
+Vault scan complete: 2 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > getNoteStatus > clearUnsaved transitions from unsaved to new
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > getNoteStatus > clearUnsaved transitions from unsaved to new
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > getNoteStatus > tracks and clears pendingSave states separately from unsaved/new markers
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > getNoteStatus > tracks and clears pendingSave states separately from unsaved/new markers
+Vault scan complete: 1 entries found
+
+stdout | src/App.test.tsx > App > shows visible feedback when a manual update check finds an update
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > shows visible feedback when a manual update check finds an update
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > shows visible feedback when a manual update check finds an update
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > shows visible feedback when a manual update check finds an update
+Vault scan complete: 2 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > loadGitHistory > returns git commits for a file
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > loadGitHistory > returns git commits for a file
+Vault scan complete: 1 entries found
+
+stdout | src/App.test.tsx > App > shows visible feedback when a menu-driven update check finds no eligible update
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > shows visible feedback when a menu-driven update check finds no eligible update
+Vault scan complete: 2 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > loadGitHistory > returns empty array on error
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > loadGitHistory > returns empty array on error
+Vault scan complete: 0 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > loadDiff > returns diff string for a file
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > loadDiff > returns diff string for a file
+Vault scan complete: 1 entries found
+
+stdout | src/App.test.tsx > App > shows visible feedback when a menu-driven update check finds no eligible update
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > shows visible feedback when a menu-driven update check finds no eligible update
+Vault scan complete: 2 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > loadDiffAtCommit > returns diff for a specific commit
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > loadDiffAtCommit > returns diff for a specific commit
+Vault scan complete: 1 entries found
+
+stdout | src/App.test.tsx > App > shows immediate feedback while a menu-driven update check is pending
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > shows immediate feedback while a menu-driven update check is pending
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > shows immediate feedback while a menu-driven update check is pending
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > shows immediate feedback while a menu-driven update check is pending
+Vault scan complete: 2 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > commitAndPush > commits and pushes in mock mode
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > commitAndPush > commits and pushes in mock mode
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > commitAndPush > commits and pushes through the Tauri invoke path
+Vault scan complete: 1 entries found
+
+stdout | src/App.test.tsx > App > shows the external AI setup dialog from the menu when AI onboarding is active
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > shows the external AI setup dialog from the menu when AI onboarding is active
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > shows the external AI setup dialog from the menu when AI onboarding is active
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > shows the external AI setup dialog from the menu when AI onboarding is active
+Vault scan complete: 2 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > commitAndPush > 'returns rejected status when push is …'
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > commitAndPush > 'returns rejected status when push is …'
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > commitAndPush > 'returns network error status on netwo…'
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > commitAndPush > 'returns network error status on netwo…'
+Vault scan complete: 1 entries found
+
+stdout | src/App.test.tsx > App > routes right-panel AI chat messages to the selected default agent
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > routes right-panel AI chat messages to the selected default agent
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > routes right-panel AI chat messages to the selected default agent
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > routes right-panel AI chat messages to the selected default agent
+Vault scan complete: 2 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > reloadFolders > refreshes folder tree from backend
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > reloadFolders > refreshes folder tree from backend
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > reloadFolders > returns an empty folder list when the refresh fails
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > reloadFolders > returns an empty folder list when the refresh fails
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > loadModifiedFiles > coalesces overlapping modified-file refreshes while git status is in flight
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > loadModifiedFiles > coalesces overlapping modified-file refreshes while git status is in flight
+Vault scan complete: 1 entries found
+
+stdout | src/App.test.tsx > App > waits for saved AI agent settings before sending right-panel messages
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > waits for saved AI agent settings before sending right-panel messages
+Vault scan complete: 2 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > loadModifiedFiles > refreshes modified files list
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > loadModifiedFiles > refreshes modified files list
+Vault scan complete: 1 entries found
+
+stdout | src/App.test.tsx > App > waits for saved AI agent settings before sending right-panel messages
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > waits for saved AI agent settings before sending right-panel messages
+Vault scan complete: 2 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > loadModifiedFiles > captures backend errors when modified files cannot be loaded
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > loadModifiedFiles > captures backend errors when modified files cannot be loaded
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > replaceEntry > replaces an entry path and metadata in place
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > replaceEntry > replaces an entry path and metadata in place
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > replaceEntry > normalizes stale replacement metadata during reload-heavy note switching
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > replaceEntry > normalizes stale replacement metadata during reload-heavy note switching
+Vault scan complete: 1 entries found
+
+stdout | src/App.test.tsx > App > shows onboarding after telemetry consent when no active vault is configured
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > shows onboarding after telemetry consent when no active vault is configured
+Vault scan complete: 2 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > reloadVault > reports reload progress while reload_vault is pending
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > reloadVault > reports reload progress while reload_vault is pending
+Vault scan complete: 1 entries found
+
+stdout | src/App.test.tsx > App > ignores a remembered default vault after telemetry-accept when onboarding was never completed
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > ignores a remembered default vault after telemetry-accept when onboarding was never completed
+Vault scan complete: 2 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > reloadVault > serializes overlapping vault reloads and runs one trailing reload
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > reloadVault > serializes overlapping vault reloads and runs one trailing reload
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > reloadVault > refreshes entries from reload_vault and reloads modified files
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > reloadVault > refreshes entries from reload_vault and reloads modified files
+Vault scan complete: 1 entries found
+
+stdout | src/App.test.tsx > App > ignores a remembered default vault after telemetry-decline when onboarding was never completed
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > ignores a remembered default vault after telemetry-decline when onboarding was never completed
+Vault scan complete: 2 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > reloadVault > returns an empty list when reloading the vault fails
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > reloadVault > returns an empty list when reloading the vault fails
+Vault scan complete: 1 entries found
+
+stdout | src/App.test.tsx > App > uses the app shell loading state while the last vault is still resolving
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > uses the app shell loading state while the last vault is still resolving
+Vault scan complete: 2 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > reloadVault > clears stale entries and marks the vault unavailable when the active vault disappears
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > reloadVault > clears stale entries and marks the vault unavailable when the active vault disappears
+Vault scan complete: 1 entries found
+
+stdout | src/App.test.tsx > App > uses the app shell loading state while the last vault is still resolving
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > uses the app shell loading state while the last vault is still resolving
+Vault scan complete: 2 entries found
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > reloadViews > refreshes views and falls back to an empty array when they are unavailable
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.test.ts > useVaultLoader > reloadViews > refreshes views and falls back to an empty array when they are unavailable
+Vault scan complete: 1 entries found
+
+stdout | src/App.test.tsx > App > shows the missing-vault screen once the resolved active vault is confirmed missing
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > shows the missing-vault screen once the resolved active vault is confirmed missing
+Vault scan complete: 2 entries found
+
+ ✓ src/hooks/useVaultLoader.test.ts (65 tests) 2459ms
+stdout | src/App.test.tsx > App > shows the missing-vault screen once the resolved active vault is confirmed missing
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > shows the missing-vault screen once the resolved active vault is confirmed missing
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > shows welcome instead of vault-missing when the missing path was not a persisted active vault
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > shows welcome instead of vault-missing when the missing path was not a persisted active vault
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > persists and opens an existing vault chosen from onboarding
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > persists and opens an existing vault chosen from onboarding
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > persists and opens an existing vault chosen from onboarding
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > persists and opens an existing vault chosen from onboarding
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > persists and opens the onboarding template vault after cloning
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > persists and opens the onboarding template vault after cloning
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > renders sidebar with correct default selection (All Notes)
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > renders sidebar with correct default selection (All Notes)
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > renders sidebar with correct default selection (All Notes)
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > renders sidebar with correct default selection (All Notes)
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > pressing Escape in Neighborhood mode blurs the editor before unwinding note-list history
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > pressing Escape in Neighborhood mode blurs the editor before unwinding note-list history
+Vault scan complete: 3 entries found
+
+stdout | src/App.test.tsx > App > pressing Escape in Neighborhood mode blurs the editor before unwinding note-list history
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > pressing Escape in Neighborhood mode blurs the editor before unwinding note-list history
+Vault scan complete: 3 entries found
+
+stderr | src/App.test.tsx > App > pressing Escape in Neighborhood mode blurs the editor before unwinding note-list history
+An update to NoteListInner inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to MainApp inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ ✓ src/mock-tauri/learning-note-memory.test.ts (7 tests) 2009ms
+   ✓ registers existing source UUIDs during browser sync without rewriting Markdown  1991ms
+stdout | src/App.test.tsx > App > opens favorites directly into Neighborhood mode
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > opens favorites directly into Neighborhood mode
+Vault scan complete: 3 entries found
+
+stdout | src/App.test.tsx > App > opens favorites directly into Neighborhood mode
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > opens favorites directly into Neighborhood mode
+Vault scan complete: 3 entries found
+
+stdout | src/App.test.tsx > App > defaults to All Notes when explicit organization is disabled in vault config
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > defaults to All Notes when explicit organization is disabled in vault config
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > defaults to All Notes when explicit organization is disabled in vault config
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > defaults to All Notes when explicit organization is disabled in vault config
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > auto-advances to the next inbox item after organizing when the setting is enabled
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > auto-advances to the next inbox item after organizing when the setting is enabled
+Vault scan complete: 3 entries found
+
+stdout | src/App.test.tsx > App > auto-advances to the next inbox item after organizing when the setting is enabled
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > auto-advances to the next inbox item after organizing when the setting is enabled
+Vault scan complete: 3 entries found
+
+stdout | src/App.test.tsx > App > keeps the manually selected note after organizing finishes later
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > keeps the manually selected note after organizing finishes later
+Vault scan complete: 3 entries found
+
+stdout | src/App.test.tsx > App > keeps the manually selected note after organizing finishes later
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > keeps the manually selected note after organizing finishes later
+Vault scan complete: 3 entries found
+
+stdout | src/App.test.tsx > App > renders status bar
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > renders status bar
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > switches vaults from the bottom bar after onboarding is ready
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > switches vaults from the bottom bar after onboarding is ready
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > switches vaults from the bottom bar after onboarding is ready
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > switches vaults from the bottom bar after onboarding is ready
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > clears the Git setup dialog when switching to a Git-enabled vault
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > clears the Git setup dialog when switching to a Git-enabled vault
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > clears the Git setup dialog when switching to a Git-enabled vault
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > clears the Git setup dialog when switching to a Git-enabled vault
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > Cmd+1 hides sidebar and note list (editor-only mode)
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > Cmd+1 hides sidebar and note list (editor-only mode)
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > Cmd+1 hides sidebar and note list (editor-only mode)
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > Cmd+1 hides sidebar and note list (editor-only mode)
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > Cmd+2 shows editor + note list (sidebar hidden)
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > Cmd+2 shows editor + note list (sidebar hidden)
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > Cmd+2 shows editor + note list (sidebar hidden)
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > Cmd+2 shows editor + note list (sidebar hidden)
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > Cmd+3 restores all panels after Cmd+1
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > Cmd+3 restores all panels after Cmd+1
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > Cmd+3 restores all panels after Cmd+1
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > Cmd+3 restores all panels after Cmd+1
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > updates the main-window size constraints when the view mode changes
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > updates the main-window size constraints when the view mode changes
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > updates the main-window size constraints when the view mode changes
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > updates the main-window size constraints when the view mode changes
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > does not ask Windows to grow the native window when toggling Properties
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > does not ask Windows to grow the native window when toggling Properties
+Vault scan complete: 2 entries found
+
+stdout | src/App.test.tsx > App > does not ask Windows to grow the native window when toggling Properties
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.test.tsx > App > does not ask Windows to grow the native window when toggling Properties
+Vault scan complete: 2 entries found
+
+ ✓ src/components/ui/calendar.locale.test.tsx (4 tests) 739ms
+     ✓ localizes visible and accessible date labels in en  343ms
+ ✓ src/App.test.tsx (37 tests) 5058ms
+     ✓ shows keyboard shortcut hints  401ms
+     ✓ pressing Escape in Neighborhood mode blurs the editor before unwinding note-list history  301ms
+     ✓ keeps the manually selected note after organizing finishes later  372ms
+ ✓ src/hooks/useVaultSwitcher.test.ts (36 tests) 1907ms
+stderr | src/components/StatusBar.test.tsx > StatusBar > opens Git setup from the missing-Git warning with mouse and keyboard
+An update to Tooltip inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to Presence inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to Portal inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to PopperContent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to DismissableLayer inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to Presence inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to Presence inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to PopperContent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to PopperContent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to PopperContent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to Popper inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to Presence inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to PopperContent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to PopperContent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to DismissableLayer inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | src/components/StatusBar.test.tsx > StatusBar > activates the Commit button with the keyboard
+An update to Tooltip inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to Presence inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to Portal inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to PopperContent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to DismissableLayer inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to Presence inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to Presence inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to PopperContent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to PopperContent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to PopperContent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to Popper inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to Presence inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to PopperContent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to PopperContent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to DismissableLayer inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ ✓ src/components/StatusBar.test.tsx (69 tests) 1195ms
+ ✓ src/components/BreadcrumbBar.test.tsx (59 tests) 1311ms
+ ✓ src/components/learning/PropertyEditor.test.tsx (8 tests) 1970ms
+   ✓ edits falsy values, renames and removes only explicitly while preserving opaque data  476ms
+   ✓ keeps intermediate numbers, rename text and unapplied type previews across section collapse  419ms
+stderr | src/components/Editor.test.tsx > Editor > shows a graceful fallback when an image preview fails to render
+An update to FilePreview inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | src/components/Editor.test.tsx > Editor > applies parsed content blocks after deferred swap work (regression: flushSync-in-lifecycle)
+An update to BreadcrumbBar2 inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | src/components/Editor.test.tsx > Editor > applies parsed content blocks after deferred swap work (regression: flushSync-in-lifecycle)
+An update to BreadcrumbBar2 inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | src/components/Editor.test.tsx > Editor > does not apply note A raw content to note B when raw mode closes during note B load
+An update to EditorRightPanel inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to Editor2 inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | src/components/Editor.test.tsx > Editor > updates the open raw editor when tab content changes externally
+An update to EditorRightPanel inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to Editor2 inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to Presence inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to Presence inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | src/components/Editor.test.tsx > Editor > opens raw mode from unchanged rich content without rewriting pasted markdown source
+An update to EditorRightPanel inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to Editor2 inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to Presence inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to Presence inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ ✓ src/components/TypeCustomizePopover.test.tsx (25 tests) 1004ms
+ ✓ src/components/Editor.test.tsx (45 tests) 2014ms
+ ✓ src/components/DynamicPropertiesPanel.test.tsx (93 tests) 1461ms
+ ✓ src/components/learning/PageFlashcards.properties.test.tsx (4 tests) 1201ms
+   ✓ keeps custom fields in one draft and preserves memory and opaque metadata on save  620ms
+   ✓ does not persist a custom-field draft when cancelling or switching preset  353ms
+ ✓ src/components/TableOfContentsPanel.test.tsx (8 tests) 1063ms
+     ✓ updates from source content even when the editor document is stale  394ms
+ ✓ src/hooks/useOnboarding.test.ts (18 tests) 1002ms
+ ✓ src/components/AiWorkspace.test.tsx (18 tests) 760ms
+ ✓ src/hooks/useAutoSync.test.ts (28 tests) 966ms
+ ✓ src/components/localizedDates.sweep.test.tsx (1 test) 957ms
+   ✓ R-01 sweeps real Vietnamese date surfaces, including their accessible labels  956ms
+ ✓ src/components/WelcomeScreen.test.tsx (26 tests) 476ms
+ ✓ src/components/Sidebar.test.tsx (75 tests) 839ms
+ ✓ src/utils/ai-chat.test.ts (19 tests) 809ms
+     ✓ returns mock session in non-Tauri environment  403ms
+     ✓ mock detects conversation history in message  402ms
+ ✓ src/components/NoteList.behavior.test.tsx (34 tests) 805ms
+stdout | src/hooks/useVaultLoader.workspaces.test.ts > useVaultLoader workspaces > loads entries from every mounted workspace and annotates provenance
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.workspaces.test.ts > useVaultLoader workspaces > loads entries from every mounted workspace and annotates provenance
+Vault scan complete: 1 entries found
+
+ ✓ src/components/filter-builder/DateValueInput.locale.test.tsx (4 tests) 706ms
+     ✓ localizes preview, title and aria in en, saves the same ISO day  402ms
+stdout | src/hooks/useVaultLoader.workspaces.test.ts > useVaultLoader workspaces > loads one folder root per mounted workspace when folder vaults are provided
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.workspaces.test.ts > useVaultLoader workspaces > loads one folder root per mounted workspace when folder vaults are provided
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.workspaces.test.ts > useVaultLoader workspaces > keeps the active vault folder root visible when it is absent from mounted folder vaults
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.workspaces.test.ts > useVaultLoader workspaces > keeps the active vault folder root visible when it is absent from mounted folder vaults
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.workspaces.test.ts > useVaultLoader workspaces > updates workspace default metadata without reloading vault contents
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.workspaces.test.ts > useVaultLoader workspaces > updates workspace default metadata without reloading vault contents
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.workspaces.test.ts > useVaultLoader workspaces > loads a newly added workspace incrementally without clearing existing entries
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.workspaces.test.ts > useVaultLoader workspaces > loads a newly added workspace incrementally without clearing existing entries
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.workspaces.test.ts > useVaultLoader workspaces > keeps preloaded workspace entries mounted when switching the visible vault
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.workspaces.test.ts > useVaultLoader workspaces > keeps preloaded workspace entries mounted when switching the visible vault
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.workspaces.test.ts > useVaultLoader workspaces > reloads scoped folder roots when another mounted workspace is added
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.workspaces.test.ts > useVaultLoader workspaces > reloads scoped folder roots when another mounted workspace is added
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.workspaces.test.ts > useVaultLoader workspaces > adds each mounted workspace as soon as that workspace finishes loading
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.workspaces.test.ts > useVaultLoader workspaces > adds each mounted workspace as soon as that workspace finishes loading
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.workspaces.test.ts > useVaultLoader workspaces > preserves mounted workspace entries that arrive while the active vault scan is pending
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.workspaces.test.ts > useVaultLoader workspaces > preserves mounted workspace entries that arrive while the active vault scan is pending
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.workspaces.test.ts > useVaultLoader workspaces > uses cached vault listing for background workspace loads in Tauri mode
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.workspaces.test.ts > useVaultLoader workspaces > clears stale views immediately when switching to another preloaded workspace
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.workspaces.test.ts > useVaultLoader workspaces > clears stale views immediately when switching to another preloaded workspace
+Vault scan complete: 1 entries found
+
+ ✓ src/hooks/useVaultLoader.workspaces.test.ts (11 tests) 772ms
+ ✓ src/hooks/useSettings.test.ts (15 tests) 759ms
+ ✓ src/components/inspector/FlashcardPanel.test.tsx (40 tests) 576ms
+ ✓ src/components/learning/PageFlashcards.recovery.test.tsx (3 tests) 879ms
+   ✓ can save edits after a successful write followed by a failed refresh  402ms
+ ✓ src/components/LinuxMenuButton.test.tsx (3 tests) 599ms
+     ✓ dispatches shared menu commands from the Linux menu  362ms
+ ✓ src/components/learning/NoteConversionDialog.test.tsx (4 tests) 549ms
+   ✓ requires visible face/history choices and same-goal confirmation before applying  380ms
+stderr | src/components/learning/NoteLearningDashboard.test.tsx > defaults to note learning, exposes old cards explicitly and never mixes the lanes
+The tag <search> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.
+
+ ✓ src/components/learning/NoteLearningDashboard.test.tsx (9 tests) 570ms
+ ✓ src/components/learning/PageFlashcards.sources.test.tsx (1 test) 797ms
+   ✓ chooses a duplicate-title source by path and previews it without losing the card draft  797ms
+ ✓ src/components/learning/LearningStudyView.test.tsx (12 tests) 661ms
+ ✓ src/components/Inspector.test.tsx (41 tests) 678ms
+ ✓ src/hooks/useLearningLibrary.test.ts (5 tests) 600ms
+ ✓ src/components/learning/PageVocabulary.test.tsx (2 tests) 784ms
+   ✓ edits imported vocabulary and reuses the lesson picker while preserving memory and unrelated metadata  565ms
+ ✓ src/components/FeedbackDialog.test.tsx (8 tests) 410ms
+ ✓ src/components/FolderTree.test.tsx (30 tests) 483ms
+ ✓ src/components/status-bar/AiAgentsBadge.test.tsx (6 tests) 440ms
+stderr | src/components/InspectorPanels.test.tsx > DynamicRelationshipsPanel > create & open from inline add > calls onCreateAndOpenNote and adds wikilink when "Create & open" clicked
+An update to InlineAddNote inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to InlineAddNote inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | src/components/InspectorPanels.test.tsx > DynamicRelationshipsPanel > create & open from inline add > calls onCreateAndOpenNote and adds wikilink when "Create & open" clicked
+An update to InlineAddNote inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | src/components/InspectorPanels.test.tsx > DynamicRelationshipsPanel > create & open from AddRelationshipForm > creates note and adds relationship via form
+An update to AddRelationshipForm inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to AddRelationshipForm inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to AddRelationshipForm inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to AddRelationshipForm inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ ✓ src/components/InspectorPanels.test.tsx (65 tests) 551ms
+ ✓ src/components/CreateViewDialog.test.tsx (7 tests) 349ms
+ ✓ src/hooks/useMcpStatus.test.ts (9 tests) 493ms
+ ✓ src/hooks/useLearningLibrary.noteWorkspace.test.ts (8 tests) 495ms
+ ✓ src/components/learning/NoteMemoryList.test.tsx (9 tests) 356ms
+ ✓ src/components/learning/PageVocabulary.arrays.test.tsx (2 tests) 520ms
+   ✓ review: imported relation arrays remain visible  310ms
+ ✓ src/components/learning/NoteBackSourceDialog.test.tsx (4 tests) 432ms
+ ✓ src/components/learning/NoteRecoveryDialog.test.tsx (5 tests) 370ms
+ ✓ src/components/FilterBuilder.test.tsx (17 tests) 493ms
+ ✓ src/hooks/useEditorTabSwap.history.test.ts (4 tests) 395ms
+ ✓ src/components/NoteList.sorting.test.tsx (27 tests) 369ms
+ ✓ src/components/AiPanel.test.tsx (29 tests) 393ms
+stdout | src/hooks/useVaultLoader.extra.test.ts > useVaultLoader extra > uses native commit and push commands when Tauri mode is active
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.extra.test.ts > useVaultLoader extra > tracks pending saves and replaces entries in place
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.extra.test.ts > useVaultLoader extra > tracks pending saves and replaces entries in place
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.extra.test.ts > useVaultLoader extra > surfaces modified-file refresh failures with an empty fallback list
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.extra.test.ts > useVaultLoader extra > surfaces modified-file refresh failures with an empty fallback list
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.extra.test.ts > useVaultLoader extra > reloads the vault, refreshes modified files, and clears the prefetch cache
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.extra.test.ts > useVaultLoader extra > reloads the vault, refreshes modified files, and clears the prefetch cache
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.extra.test.ts > useVaultLoader extra > returns an empty list when vault reload fails
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.extra.test.ts > useVaultLoader extra > returns an empty list when vault reload fails
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.extra.test.ts > useVaultLoader extra > reloads views when the backend succeeds
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.extra.test.ts > useVaultLoader extra > reloads views when the backend succeeds
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.extra.test.ts > useVaultLoader extra > returns empty arrays when folder or view reloads fail
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/hooks/useVaultLoader.extra.test.ts > useVaultLoader extra > returns empty arrays when folder or view reloads fail
+Vault scan complete: 1 entries found
+
+ ✓ src/hooks/useVaultLoader.extra.test.ts (9 tests) 395ms
+ ✓ src/components/NoteList.changes.test.tsx (20 tests) 389ms
+stdout | src/components/note-list/NoteListSearchKeyboard.test.tsx > NoteList search keyboard behavior > debounces note-list filtering and shows loading feedback while waiting
+[mock-tauri] Vault API available: false
+
+ ✓ src/components/note-list/NoteListSearchKeyboard.test.tsx (3 tests) 370ms
+ ✓ src/hooks/useImageDrop.test.ts (13 tests) 345ms
+ ✓ src/components/PulseView.test.tsx (20 tests) 342ms
+ ✓ src/components/CommitDialog.test.tsx (16 tests) 333ms
+ ✓ src/components/CreateTypeDialog.test.tsx (11 tests) 315ms
+ ✓ src/components/TypeSelector.test.tsx (6 tests) 346ms
+stdout | src/components/NoteList.keyboard.test.tsx > NoteList keyboard activation > focuses the list on click and continues arrow navigation from the clicked note
+[mock-tauri] Vault API available: false
+
+stdout | src/components/NoteList.keyboard.test.tsx > NoteList keyboard activation > navigates from global arrow keys when the editor is not focused
+[mock-tauri] Vault API available: false
+
+stdout | src/components/NoteList.keyboard.test.tsx > NoteList keyboard activation > supports Cmd+Enter to pivot the highlighted note into Neighborhood mode
+[mock-tauri] Vault API available: false
+
+ ✓ src/components/NoteList.keyboard.test.tsx (5 tests) 311ms
+ ✓ src/components/learning/PagePropertyEditor.test.tsx (3 tests) 431ms
+   ✓ retries only hints after values saved and a hint failure, without writing Markdown twice  306ms
+ ✓ src/components/NoteList.savedViewStudy.test.tsx (2 tests) 328ms
+   ✓ filters and studies every matching due note, rechecking membership when the session starts  313ms
+ ✓ src/components/CreateNoteDialog.test.tsx (11 tests) 237ms
+ ✓ src/components/ConflictResolverModal.test.tsx (16 tests) 264ms
+ ✓ src/components/SingleEditorView.test.tsx (37 tests) 263ms
+ ✓ src/components/WorkspaceSelector.test.tsx (4 tests) 264ms
+ ✓ src/components/learning/CardMediaFields.test.tsx (5 tests) 225ms
+stderr | src/components/FlashcardStudyView.test.tsx > FlashcardStudyView > waits for saving and does not skip the next card when the due index refreshes
+An update to BlockNoteReadOnly inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+An update to BlockNoteReadOnly inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ ✓ src/hooks/useCodeMirror.test.ts (10 tests) 255ms
+stderr | src/components/FlashcardStudyView.test.tsx > shows the original answer if rich Markdown rendering fails
+[Flashcard] Failed to parse markdown or replace blocks in BlockNoteReadOnly: Error: Parser failed
+    at /Users/thompson/Documents/tolaria-memnova/src/components/FlashcardStudyView.test.tsx:285:39
+    at file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+runner@4.0.18/node_modules/@vitest/runner/dist/index.js:145:11
+    at file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+runner@4.0.18/node_modules/@vitest/runner/dist/index.js:915:26
+    at file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+runner@4.0.18/node_modules/@vitest/runner/dist/index.js:1243:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+runner@4.0.18/node_modules/@vitest/runner/dist/index.js:1209:10)
+    at file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+runner@4.0.18/node_modules/@vitest/runner/dist/index.js:1653:37
+    at Traces.$ (file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/vitest@4.0.18_@opentelemetry+api@1.9.0_@types+node@24.10.13_jiti@2.6.1_jsdom@28.0.0_lightningcss@1.30.2_yaml@2.8.3/node_modules/vitest/dist/chunks/traces.CCmnQaNT.js:142:27)
+    at trace (file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/vitest@4.0.18_@opentelemetry+api@1.9.0_@types+node@24.10.13_jiti@2.6.1_jsdom@28.0.0_lightningcss@1.30.2_yaml@2.8.3/node_modules/vitest/dist/chunks/test.B8ej_ZHS.js:239:21)
+    at runTest (file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+runner@4.0.18/node_modules/@vitest/runner/dist/index.js:1653:12)
+
+stderr | src/components/FlashcardStudyView.test.tsx > does not acknowledge a successfully rendered answer when Markdown parsing failed
+[Flashcard] Failed to parse markdown or replace blocks in BlockNoteReadOnly: Error: Parser failed
+    at /Users/thompson/Documents/tolaria-memnova/src/components/FlashcardStudyView.test.tsx:291:39
+    at file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+runner@4.0.18/node_modules/@vitest/runner/dist/index.js:145:11
+    at file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+runner@4.0.18/node_modules/@vitest/runner/dist/index.js:915:26
+    at file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+runner@4.0.18/node_modules/@vitest/runner/dist/index.js:1243:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+runner@4.0.18/node_modules/@vitest/runner/dist/index.js:1209:10)
+    at file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+runner@4.0.18/node_modules/@vitest/runner/dist/index.js:1653:37
+    at Traces.$ (file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/vitest@4.0.18_@opentelemetry+api@1.9.0_@types+node@24.10.13_jiti@2.6.1_jsdom@28.0.0_lightningcss@1.30.2_yaml@2.8.3/node_modules/vitest/dist/chunks/traces.CCmnQaNT.js:142:27)
+    at trace (file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/vitest@4.0.18_@opentelemetry+api@1.9.0_@types+node@24.10.13_jiti@2.6.1_jsdom@28.0.0_lightningcss@1.30.2_yaml@2.8.3/node_modules/vitest/dist/chunks/test.B8ej_ZHS.js:239:21)
+    at runTest (file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+runner@4.0.18/node_modules/@vitest/runner/dist/index.js:1653:12)
+
+ ✓ src/components/FlashcardStudyView.test.tsx (10 tests) 332ms
+ ✓ src/components/learning/BackupPanel.test.tsx (3 tests) 290ms
+ ✓ src/hooks/useAutoSync.extra.test.ts (5 tests) 283ms
+ ✓ src/components/learning/useNoteConversion.test.ts (4 tests) 278ms
+stderr | src/components/MermaidDiagram.test.tsx > MermaidDiagram > keeps rendered SVG pointer events inside the Mermaid block
+In HTML, <button> cannot be a descendant of <button>.
+This will cause a hydration error.
+
+> <button type="button" onClick={function Mock} onMouseDown={function Mock}>
+    <MermaidDiagram diagram={"flowchar..."} source={"```merma..."}>
+      <figure className="mermaid-di..." data-testid="mermaid-di...">
+        <MermaidLightbox svg="">
+          <Dialog>
+            <Dialog data-slot="dialog">
+              <DialogProvider scope={undefined} triggerRef={{current:null}} contentRef={{current:null}} ...>
+                <DialogTrigger asChild={true}>
+                  <DialogTrigger data-slot="dialog-tri..." asChild={true}>
+                    <Primitive.button type="button" aria-haspopup="dialog" aria-expanded={false} ...>
+                      <Primitive.button.Slot type="button" aria-haspopup="dialog" aria-expanded={false} ...>
+                        <Button aria-label="Open Merma..." className="mermaid-di..." size="icon-sm" title="Open diagram" ...>
+>                         <button
+>                           data-slot="dialog-trigger"
+>                           data-variant="outline"
+>                           data-size="icon-sm"
+>                           className={"inline-flex items-center justify-center gap-[6px] whitespace-nowrap rounded-m..."}
+>                           aria-label="Open Mermaid diagram"
+>                           title="Open diagram"
+>                           type="button"
+>                           aria-haspopup="dialog"
+>                           aria-expanded={false}
+>                           aria-controls={undefined}
+>                           data-state="closed"
+>                           onClick={function handleEvent}
+>                           ref={function}
+>                         >
+                ...
+        ...
+
+<button> cannot contain a nested <button>.
+See this log for the ancestor stack trace.
+
+ ✓ src/components/WikilinkChatInput.test.tsx (32 tests) 259ms
+ ✓ src/components/MermaidDiagram.test.tsx (7 tests) 190ms
+ ✓ src/components/Sidebar.typeActions.test.tsx (8 tests) 286ms
+ ✓ src/components/learning/SourcePagePicker.test.tsx (2 tests) 251ms
+ ✓ src/components/GitRequiredModal.test.tsx (8 tests) 305ms
+ ✓ src/components/inspector/relationshipDisplayLabels.test.tsx (6 tests) 151ms
+ ✓ src/components/ConfirmDeleteDialog.test.tsx (9 tests) 186ms
+ ✓ src/components/learning/PageFlashcards.trash.test.tsx (1 test) 235ms
+ ✓ src/components/learning/GradeButtons.test.tsx (3 tests) 131ms
+ ✓ src/components/dateDisplayPreferenceFlow.test.tsx (4 tests) 166ms
+ ✓ src/components/learning/NoteLearningPanel.test.tsx (10 tests) 177ms
+ ✓ src/components/ui/overlayPresence.test.tsx (4 tests) 143ms
+ ✓ src/components/CloneVaultModal.test.tsx (8 tests) 189ms
+ ✓ src/components/RawEditorView.test.tsx (9 tests) 197ms
+ ✓ src/components/AiMessage.test.tsx (20 tests) 157ms
+stderr | src/components/tolariaBlockNoteSideMenu.test.tsx > TolariaSideMenu > replaces BlockNote block colors with markdown-safe drag-handle items
+In HTML, <button> cannot be a descendant of <button>.
+This will cause a hydration error.
+
+  <TolariaSideMenu>
+    <SideMenu>
+      <div data-testid="side-menu">
+        <TolariaAddBlockButton>
+        <TolariaDragHandleButton dragHandleMenu={function TolariaDragHandleMenu}>
+          <Root onOpenChange={function onOpenChange} position="left">
+>           <button type="button" data-testid="menu-root" onClick={function onClick}>
+              <Trigger>
+                <div>
+                  <span className="tolaria-bl..." onPointerDown={function} onClickCapture={function}>
+                    <Button label="Drag block" draggable={false} onDragStart={function onDragStart} ...>
+>                     <button
+>                       type="button"
+>                       draggable={false}
+>                       onClick={undefined}
+>                       onDragEnd={function Mock}
+>                       onDragStart={function onDragStart}
+>                     >
+              ...
+
+<button> cannot contain a nested <button>.
+See this log for the ancestor stack trace.
+
+stderr | src/components/tolariaBlockNoteSideMenu.test.tsx > TolariaSideMenu > hides table header actions when the live block lookup throws after reload churn
+[editor] Ignored stale block side-menu lookup: Error: Block with ID table-block not found
+    at staleBlockError (/Users/thompson/Documents/tolaria-memnova/src/components/tolariaBlockNoteSideMenu.test.tsx:76:10)
+    at Object.<anonymous> (/Users/thompson/Documents/tolaria-memnova/src/components/tolariaBlockNoteSideMenu.test.tsx:383:13)
+    at Object.Mock [as getBlock] (file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+spy@4.0.18/node_modules/@vitest/spy/dist/index.js:285:34)
+    at liveSideMenuBlock (/Users/thompson/Documents/tolaria-memnova/src/components/tolariaBlockNoteSideMenu.tsx:88:19)
+    at TolariaTableHeaderItem (/Users/thompson/Documents/tolaria-memnova/src/components/tolariaBlockNoteSideMenu.tsx:758:21)
+    at Object.react_stack_bottom_frame (/Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/react-dom@19.2.4_react@19.2.4/node_modules/react-dom/cjs/react-dom-client.development.js:25904:20)
+    at renderWithHooks (/Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/react-dom@19.2.4_react@19.2.4/node_modules/react-dom/cjs/react-dom-client.development.js:7662:22)
+    at updateFunctionComponent (/Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/react-dom@19.2.4_react@19.2.4/node_modules/react-dom/cjs/react-dom-client.development.js:10166:19)
+    at beginWork (/Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/react-dom@19.2.4_react@19.2.4/node_modules/react-dom/cjs/react-dom-client.development.js:11778:18)
+    at runWithFiberInDEV (/Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/react-dom@19.2.4_react@19.2.4/node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+[editor] Ignored stale block side-menu lookup: Error: Block with ID table-block not found
+    at staleBlockError (/Users/thompson/Documents/tolaria-memnova/src/components/tolariaBlockNoteSideMenu.test.tsx:76:10)
+    at Object.<anonymous> (/Users/thompson/Documents/tolaria-memnova/src/components/tolariaBlockNoteSideMenu.test.tsx:383:13)
+    at Object.Mock [as getBlock] (file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+spy@4.0.18/node_modules/@vitest/spy/dist/index.js:285:34)
+    at liveSideMenuBlock (/Users/thompson/Documents/tolaria-memnova/src/components/tolariaBlockNoteSideMenu.tsx:88:19)
+    at TolariaTableHeaderItem (/Users/thompson/Documents/tolaria-memnova/src/components/tolariaBlockNoteSideMenu.tsx:758:21)
+    at Object.react_stack_bottom_frame (/Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/react-dom@19.2.4_react@19.2.4/node_modules/react-dom/cjs/react-dom-client.development.js:25904:20)
+    at renderWithHooks (/Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/react-dom@19.2.4_react@19.2.4/node_modules/react-dom/cjs/react-dom-client.development.js:7662:22)
+    at updateFunctionComponent (/Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/react-dom@19.2.4_react@19.2.4/node_modules/react-dom/cjs/react-dom-client.development.js:10166:19)
+    at beginWork (/Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/react-dom@19.2.4_react@19.2.4/node_modules/react-dom/cjs/react-dom-client.development.js:11778:18)
+    at runWithFiberInDEV (/Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/react-dom@19.2.4_react@19.2.4/node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+
+stderr | src/components/tolariaBlockNoteSideMenu.test.tsx > TolariaSideMenu > ignores pointer reorders when a target block lookup throws after reload churn
+[editor] Ignored stale block side-menu lookup: Error: Block with ID target-block not found
+    at staleBlockError (/Users/thompson/Documents/tolaria-memnova/src/components/tolariaBlockNoteSideMenu.test.tsx:76:10)
+    at Object.<anonymous> (/Users/thompson/Documents/tolaria-memnova/src/components/tolariaBlockNoteSideMenu.test.tsx:412:40)
+    at Object.Mock [as getBlock] (file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+spy@4.0.18/node_modules/@vitest/spy/dist/index.js:285:34)
+    at liveSideMenuBlock (/Users/thompson/Documents/tolaria-memnova/src/components/tolariaBlockNoteSideMenu.tsx:88:19)
+    at validDropTarget (/Users/thompson/Documents/tolaria-memnova/src/components/tolariaBlockNoteSideMenu.tsx:474:23)
+    at Document.handlePointerMove (/Users/thompson/Documents/tolaria-memnova/src/components/tolariaBlockNoteSideMenu.tsx:647:32)
+    at Document.callTheUserObjectsOperation (/Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/jsdom@28.0.0/node_modules/jsdom/lib/jsdom/living/generated/EventListener.js:26:30)
+    at innerInvokeEventListeners (/Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/jsdom@28.0.0/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:360:16)
+    at invokeEventListeners (/Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/jsdom@28.0.0/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:296:3)
+    at DocumentImpl._dispatch (/Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/jsdom@28.0.0/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:227:9)
+[editor] Ignored stale block side-menu lookup: Error: Block with ID target-block not found
+    at staleBlockError (/Users/thompson/Documents/tolaria-memnova/src/components/tolariaBlockNoteSideMenu.test.tsx:76:10)
+    at Object.<anonymous> (/Users/thompson/Documents/tolaria-memnova/src/components/tolariaBlockNoteSideMenu.test.tsx:412:40)
+    at Object.Mock [as getBlock] (file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+spy@4.0.18/node_modules/@vitest/spy/dist/index.js:285:34)
+    at liveSideMenuBlock (/Users/thompson/Documents/tolaria-memnova/src/components/tolariaBlockNoteSideMenu.tsx:88:19)
+    at validDropTarget (/Users/thompson/Documents/tolaria-memnova/src/components/tolariaBlockNoteSideMenu.tsx:474:23)
+    at /Users/thompson/Documents/tolaria-memnova/src/components/tolariaBlockNoteSideMenu.tsx:599:48
+    at Document.handlePointerUp (/Users/thompson/Documents/tolaria-memnova/src/components/tolariaBlockNoteSideMenu.tsx:656:62)
+    at Document.callTheUserObjectsOperation (/Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/jsdom@28.0.0/node_modules/jsdom/lib/jsdom/living/generated/EventListener.js:26:30)
+    at innerInvokeEventListeners (/Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/jsdom@28.0.0/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:360:16)
+    at invokeEventListeners (/Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/jsdom@28.0.0/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:296:3)
+
+ ✓ src/components/tolariaBlockNoteSideMenu.test.tsx (12 tests) 195ms
+ ✓ src/hooks/editorContentSwapApply.test.ts (7 tests) 150ms
+stderr | src/components/tolariaEditorFormatting.behavior.test.tsx > tolariaEditorFormatting behavior > renders toolbar controls, inserts the inline code button, and updates block types
+React does not recognize the `leftSection` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `leftsection` instead. If you accidentally passed it from a parent component, remove it from the DOM element.
+React does not recognize the `rightSection` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `rightsection` instead. If you accidentally passed it from a parent component, remove it from the DOM element.
+
+stderr | src/components/tolariaEditorFormatting.behavior.test.tsx > tolariaEditorFormatting behavior > ignores stale block-type clicks when the selected block disappeared before the action
+[editor] Recovered rich-editor transform error: Error: Block with ID file-block not found
+    at Object.<anonymous> (/Users/thompson/Documents/tolaria-memnova/src/components/tolariaEditorFormatting.behavior.test.tsx:205:13)
+    at Object.Mock [as getBlock] (file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+spy@4.0.18/node_modules/@vitest/spy/dist/index.js:285:34)
+    at liveSelectedBlock (/Users/thompson/Documents/tolaria-memnova/src/components/tolariaEditorFormatting.tsx:420:19)
+    at liveSelectedBlocks (/Users/thompson/Documents/tolaria-memnova/src/components/tolariaEditorFormatting.tsx:437:23)
+    at updateSelectedBlocksToType (/Users/thompson/Documents/tolaria-memnova/src/components/tolariaEditorFormatting.tsx:469:18)
+    at onClick (/Users/thompson/Documents/tolaria-memnova/src/components/tolariaEditorFormatting.tsx:585:15)
+    at executeDispatch (/Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/react-dom@19.2.4_react@19.2.4/node_modules/react-dom/cjs/react-dom-client.development.js:19116:9)
+    at runWithFiberInDEV (/Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/react-dom@19.2.4_react@19.2.4/node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+    at processDispatchQueue (/Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/react-dom@19.2.4_react@19.2.4/node_modules/react-dom/cjs/react-dom-client.development.js:19166:19)
+    at /Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/react-dom@19.2.4_react@19.2.4/node_modules/react-dom/cjs/react-dom-client.development.js:19767:9
+
+ ✓ src/components/tolariaEditorFormatting.behavior.test.tsx (16 tests) 173ms
+ ✓ src/components/AiWorkspaceFloatingButton.test.tsx (5 tests) 124ms
+ ✓ src/components/CommandPalette.test.tsx (30 tests) 186ms
+ ✓ src/components/LinuxTitlebar.test.tsx (4 tests) 166ms
+ ✓ src/components/ExcerptCaptureDialog.test.tsx (2 tests) 177ms
+ ✓ src/components/filter-builder/FilterFieldCombobox.test.tsx (3 tests) 151ms
+ ✓ src/components/McpSetupDialog.test.tsx (5 tests) 225ms
+ ✓ src/components/NoteList.contextMenu.test.tsx (2 tests) 221ms
+ ✓ src/hooks/useCodeMirror.arrowLigatures.test.ts (4 tests) 154ms
+ ✓ src/components/learning/PageFlashcards.test.tsx (2 tests) 183ms
+ ✓ src/components/editor-content/EditorContentLayout.test.tsx (11 tests) 161ms
+ ✓ src/components/editorSchema.math.test.tsx (4 tests) 158ms
+ ✓ src/components/learning/BackupPanel.startupRecovery.test.tsx (2 tests) 239ms
+ ✓ src/components/AddRemoteModal.test.tsx (3 tests) 156ms
+ ✓ src/components/IconEditableValue.test.tsx (6 tests) 178ms
+stdout | src/App.note-window-properties.test.tsx > App note windows > loads the active vault graph in note windows while opening the requested note
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.note-window-properties.test.tsx > App note windows > loads the active vault graph in note windows while opening the requested note
+Vault scan complete: 3 entries found
+
+stdout | src/App.note-window-properties.test.tsx > App note windows > opens repeated note windows through the full app vault loader
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.note-window-properties.test.tsx > App note windows > opens repeated note windows through the full app vault loader
+Vault scan complete: 3 entries found
+
+stdout | src/App.note-window-properties.test.tsx > App note windows > opens repeated note windows through the full app vault loader
+[mock] Using mock Tauri data for browser testing
+
+stdout | src/App.note-window-properties.test.tsx > App note windows > opens repeated note windows through the full app vault loader
+Vault scan complete: 3 entries found
+
+ ✓ src/App.note-window-properties.test.tsx (2 tests) 204ms
+ ✓ src/components/learning/PropertyValueEditor.test.tsx (2 tests) 154ms
+ ✓ src/components/PropertyValueCells.extra.test.tsx (6 tests) 159ms
+ ✓ src/components/learning/useSourcePreview.test.tsx (3 tests) 174ms
+ ✓ src/components/NoteItem.test.tsx (22 tests) 174ms
+ ✓ src/components/FilePreview.test.tsx (9 tests) 170ms
+ ✓ src/components/learning/LearningError.test.tsx (2 tests) 135ms
+ ✓ src/components/RawEditorFindBar.test.tsx (3 tests) 155ms
+ ✓ src/components/inspector/GitHistoryPanel.locale.test.tsx (4 tests) 191ms
+ ✓ src/components/MarkdownContent.webkit.test.tsx (1 test) 170ms
+stderr | src/components/editorSchema.webkit.test.ts > editor schema code block highlighting > loads the elixir Shiki grammar for code blocks
+[Shiki] 10 instances have been created. Shiki is supposed to be used as a singleton, consider refactoring your code to cache your highlighter instance; Or call `highlighter.dispose()` to release unused instances.
+
+ ✓ src/hooks/useGitSetupState.test.tsx (3 tests) 169ms
+stderr | src/components/editorSchema.webkit.test.ts > editor schema code block highlighting > loads the diff Shiki grammar for code blocks
+[Shiki] 20 instances have been created. Shiki is supposed to be used as a singleton, consider refactoring your code to cache your highlighter instance; Or call `highlighter.dispose()` to release unused instances.
+
+ ✓ src/components/editorSchema.webkit.test.ts (29 tests) 163ms
+ ✓ src/components/ImageLightbox.test.tsx (3 tests) 134ms
+ ✓ src/hooks/useClaudeCodeStatus.test.ts (3 tests) 171ms
+ ✓ src/components/EditableValue.test.tsx (42 tests) 108ms
+ ✓ src/components/learning/NoteMemoryInspector.test.tsx (4 tests) 152ms
+ ✓ src/extensions/zoomCursorFix.extra.test.ts (3 tests) 171ms
+ ✓ src/hooks/useEditorTabSwap.test.ts (31 tests) 234ms
+ ✓ src/lib/noteCloseSession.test.ts (5 tests) 159ms
+ ✓ src/components/PropertyValueCells.test.tsx (5 tests) 161ms
+ ✓ src/components/Sidebar.typeVisibilityWorkspaces.test.tsx (3 tests) 171ms
+ ✓ src/components/StatusDropdown.test.tsx (18 tests) 132ms
+ ✓ src/components/status-bar/StatusBarBadges.extra.test.tsx (5 tests) 111ms
+ ✓ src/components/BreadcrumbBar.visibility.test.tsx (5 tests) 129ms
+ ✓ src/components/BulkActionBar.test.tsx (6 tests) 141ms
+ ✓ src/extensions/markdownHighlight.test.ts (5 tests) 134ms
+ ✓ src/components/learning/CardEditorSection.test.tsx (1 test) 116ms
+ ✓ src/components/ConflictResolverModal.keyboard.test.tsx (3 tests) 122ms
+ ✓ src/components/ConflictResolverModal.extra.test.tsx (2 tests) 323ms
+ ✓ src/components/propertyPanelLayout.test.tsx (7 tests) 205ms
+ ✓ src/hooks/useTabManagement.test.ts (49 tests) 77ms
+ ✓ src/components/NoteMemoryEditorTabs.test.tsx (3 tests) 111ms
+ ✓ src/lib/learning/noteEditorPersistence.test.ts (20 tests) 117ms
+ ✓ src/components/useNoteListSort.test.tsx (8 tests) 100ms
+ ✓ src/hooks/useBuildNumber.test.ts (3 tests) 115ms
+ ✓ src/components/learning/NoteBackSource.test.tsx (3 tests) 116ms
+ ✓ src/hooks/useAiAgentsStatus.test.ts (6 tests) 122ms
+ ✓ src/components/sidebar/SidebarTitleBar.test.tsx (2 tests) 91ms
+ ✓ src/components/RawEditorView.coverage.test.tsx (3 tests) 82ms
+ ✓ src/components/editorRichCopy.test.ts (2 tests) 84ms
+stdout | src/hooks/useVaultLoader.empty-cache.test.ts > useVaultLoader empty cache recovery > keeps mounted workspace entries visible while a newly active empty workspace loads
+Vault scan complete: 1 entries found
+
+stdout | src/hooks/useVaultLoader.empty-cache.test.ts > useVaultLoader empty cache recovery > keeps mounted workspace entries visible while a newly active empty workspace loads
+Vault scan complete: 0 entries found
+
+stdout | src/hooks/useVaultLoader.empty-cache.test.ts > useVaultLoader empty cache recovery > reloads a background workspace when its cached startup listing is empty in Tauri mode
+Vault scan complete: 1 entries found
+
+ ✓ src/hooks/useVaultLoader.empty-cache.test.ts (2 tests) 119ms
+ ✓ src/components/MarkdownContent.test.tsx (22 tests) 86ms
+stdout | src/hooks/useVaultLoader.startup.test.ts > useVaultLoader startup recovery > freshly reloads the active workspace when persisted metadata follows an empty startup scan
+Vault scan complete: 0 entries found
+
+stdout | src/hooks/useVaultLoader.startup.test.ts > useVaultLoader startup recovery > freshly reloads the active workspace when persisted metadata follows an empty startup scan
+Vault scan complete: 1 entries found
+
+ ✓ src/hooks/useVaultLoader.startup.test.ts (1 test) 116ms
+ ✓ src/hooks/useDragRegion.test.tsx (6 tests) 100ms
+ ✓ src/components/note-list/NoteListHeader.expand.test.tsx (2 tests) 101ms
+ ✓ src/components/AiPanelChrome.performance.test.tsx (1 test) 78ms
+ ✓ src/components/learning/PagePropertyTools.test.tsx (1 test) 81ms
+ ✓ src/extensions/frontmatterHighlight.test.ts (6 tests) 96ms
+ ✓ src/components/TagsDropdown.test.tsx (19 tests) 86ms
+ ✓ src/utils/appOrchestration.textHistory.test.ts (4 tests) 68ms
+ ✓ src/components/AiAgentsOnboardingPrompt.test.tsx (5 tests) 74ms
+ ✓ src/components/NoteAutocomplete.test.tsx (13 tests) 66ms
+ ✓ src/extensions/zoomCursorFix.behavior.test.ts (4 tests) 57ms
+ ✓ src/lib/blockNoteSuggestionWrapper.regression.test.tsx (1 test) 83ms
+stderr | src/components/RawEditorView.behavior.test.tsx > RawEditorView behavior coverage > clears autocomplete when the query is too short and reports escape handling while open
+An update to RawEditorView inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ ✓ src/components/RawEditorView.behavior.test.tsx (4 tests) 89ms
+ ✓ src/components/ui/tooltip.ref.test.tsx (1 test) 80ms
+ ✓ src/mock-tauri/mock-handlers.coverage.test.ts (7 tests) 92ms
+ ✓ src/components/propertyChipStyles.test.tsx (1 test) 122ms
+ ✓ src/components/StatusDropdown.extra.test.tsx (2 tests) 91ms
+ ✓ src/components/QuickOpenPalette.test.tsx (15 tests) 102ms
+ ✓ src/mock-tauri/mock-handlers.more.test.ts (6 tests) 92ms
+ ✓ src/hooks/useNoteMemoryEditorFace.test.tsx (4 tests) 69ms
+ ✓ src/components/inspector/relationshipLayoutRegression.test.tsx (2 tests) 79ms
+ ✓ src/hooks/useCommitFlow.test.ts (16 tests) 75ms
+ ✓ src/hooks/useCommandRegistry.test.ts (77 tests) 50ms
+ ✓ src/components/DynamicPropertiesPanel.systemMetadata.test.tsx (4 tests) 67ms
+ ✓ src/hooks/useMenuEvents.editorFind.test.ts (2 tests) 72ms
+ ✓ src/hooks/useNoteActions.hook.test.ts (41 tests) 70ms
+ ✓ src/hooks/useNativeNoteClose.test.ts (3 tests) 70ms
+ ✓ src/components/UpdateBanner.test.tsx (12 tests) 51ms
+ ✓ src/hooks/useMenuEvents.noteListSearch.test.ts (2 tests) 66ms
+ ✓ src/extensions/zoomCursorFix.test.ts (10 tests) 54ms
+ ✓ src/hooks/useDocumentThemeMode.test.ts (2 tests) 63ms
+ ✓ src/components/propertyTypeIconControl.test.tsx (4 tests) 66ms
+ ✓ src/hooks/useVaultAiGuidanceStatus.test.ts (2 tests) 63ms
+ ✓ src/components/EditorRightPanel.test.tsx (1 test) 78ms
+ ✓ src/utils/durableMarkdownTokens.integration.test.ts (4 tests) 37ms
+ ✓ src/components/ColorInput.test.tsx (13 tests) 56ms
+ ✓ src/components/useEditorLinkActivation.test.tsx (10 tests) 26ms
+ ✓ src/components/TelemetryConsentDialog.test.tsx (6 tests) 48ms
+ ✓ src/components/AiActionCard.test.tsx (22 tests) 55ms
+ ✓ src/lib/aiWorkspaceSessionStore.test.ts (3 tests) 52ms
+ ✓ src/components/editorSchema.codeBlockLanguages.test.ts (5 tests) 55ms
+ ✓ src/components/inspector/NoteInfoPanel.test.tsx (9 tests) 43ms
+ ✓ src/hooks/useAppSave.test.ts (32 tests) 44ms
+ ✓ src/hooks/useEditorFocus.test.ts (15 tests) 31ms
+ ✓ src/hooks/useAppKeyboard.test.ts (55 tests) 62ms
+ ✓ src/hooks/useEntryActions.test.ts (36 tests) 34ms
+ ✓ src/hooks/useNoteCreation.test.ts (65 tests) 43ms
+ ✓ src/components/NoteSearchList.test.tsx (13 tests) 42ms
+ ✓ src/hooks/useEditorTabSwap.rename.test.ts (5 tests) 52ms
+ ✓ src/hooks/useZoom.test.ts (17 tests) 19ms
+ ✓ src/components/SafeMarkup.test.tsx (2 tests) 44ms
+ ✓ src/components/filter-builder/DateValueInput.test.tsx (2 tests) 44ms
+ ✓ src/components/ConflictNoteBanner.test.tsx (4 tests) 34ms
+ ✓ src/components/NoteIcon.test.tsx (9 tests) 34ms
+ ✓ src/components/DiffView.test.tsx (8 tests) 29ms
+ ✓ src/lib/blockNoteCopyCompatibility.regression.test.ts (1 test) 26ms
+ ✓ src/hooks/useEditorSave.test.ts (26 tests) 28ms
+ ✓ src/components/note-list/noteListHooks.extra.test.tsx (13 tests) 27ms
+ ✓ src/components/ClaudeCodeOnboardingPrompt.test.tsx (5 tests) 33ms
+ ✓ src/components/blockNoteFormattingToolbarHoverGuard.extra.test.ts (3 tests) 23ms
+ ✓ src/components/NoteTitleIcon.test.tsx (4 tests) 27ms
+ ✓ src/components/blockNoteFormattingToolbarHoverGuard.test.ts (8 tests) 25ms
+ ✓ src/components/ArchivedNoteBanner.test.tsx (3 tests) 31ms
+ ✓ src/hooks/useDiffMode.test.ts (14 tests) 29ms
+ ✓ src/hooks/useEditorTabSwap.selection.test.ts (1 test) 26ms
+ ✓ src/hooks/useConflictResolver.test.ts (10 tests) 20ms
+ ✓ src/components/RenameDetectedBanner.test.tsx (5 tests) 23ms
+ ✓ src/hooks/useMenuEvents.test.ts (51 tests) 27ms
+ ✓ src/hooks/useLearningStudy.recovery.test.ts (6 tests) 16ms
+ ✓ src/hooks/useNoteActions.missing-path.test.ts (5 tests) 18ms
+ ✓ src/hooks/useNoteSearch.test.ts (26 tests) 22ms
+ ✓ src/components/WikilinkSuggestionMenu.test.tsx (3 tests) 24ms
+ ✓ src/hooks/useVaultWatcher.test.ts (16 tests) 24ms
+ ✓ src/hooks/useEditorTabSwap.performance.test.ts (2 tests) 25ms
+ ✓ src/hooks/useNoteListKeyboard.test.ts (18 tests) 25ms
+ ✓ src/mock-tauri/learning-note-study.test.ts (4 tests) 24ms
+ ✓ src/hooks/useCliAiAgent.test.ts (9 tests) 20ms
+ ✓ src/hooks/useNoteActions.typeSync.test.tsx (3 tests) 14ms
+ ✓ src/components/learning/NoteMemoryStatus.test.tsx (2 tests) 19ms
+ ✓ src/components/editorSchema.mermaid.test.ts (1 test) 21ms
+ ✓ src/components/note-list/RelationshipGroupSection.test.tsx (1 test) 24ms
+ ✓ src/hooks/useGitRepositories.test.ts (4 tests) 20ms
+ ✓ src/hooks/useUpdater.test.ts (13 tests) 23ms
+ ✓ src/hooks/useAiActivity.test.ts (15 tests) 19ms
+stderr | src/hooks/useRawMode.test.ts > useRawMode > toggles raw mode on
+An update to TestComponent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | src/hooks/useRawMode.test.ts > useRawMode > flushes pending edits when activating raw mode
+An update to TestComponent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | src/hooks/useRawMode.test.ts > useRawMode > does not flush pending edits when deactivating raw mode
+An update to TestComponent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | src/hooks/useRawMode.test.ts > useRawMode > toggles raw mode off when already on
+An update to TestComponent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | src/hooks/useRawMode.test.ts > useRawMode > persists raw mode across tab switches
+An update to TestComponent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | src/hooks/useRawMode.test.ts > useRawMode > works without onFlushPending callback
+An update to TestComponent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | src/hooks/useRawMode.test.ts > useRawMode > does not activate raw mode when activeTabPath is null
+An update to TestComponent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | src/hooks/useRawMode.test.ts > useRawMode > calls onBeforeRawEnd when deactivating raw mode
+An update to TestComponent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | src/hooks/useRawMode.test.ts > useRawMode > does not call onBeforeRawEnd when activating raw mode
+An update to TestComponent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | src/hooks/useRawMode.test.ts > useRawMode > persists editor_mode to vault config on toggle
+An update to TestComponent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | src/hooks/useRawMode.test.ts > useRawMode > restores raw mode from vault config on init
+An update to TestComponent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ ✓ src/hooks/useRawMode.test.ts (12 tests) 21ms
+ ✓ src/hooks/useAutoGit.test.ts (5 tests) 18ms
+ ✓ src/hooks/useVaultBridge.test.ts (11 tests) 20ms
+stderr | src/hooks/useNoteRename.test.ts > useNoteRename hook > handleRenameNote shows error toast on failure
+Failed to rename note: Error: fail
+    at /Users/thompson/Documents/tolaria-memnova/src/hooks/useNoteRename.test.ts:246:49
+    at file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+runner@4.0.18/node_modules/@vitest/runner/dist/index.js:145:11
+    at file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+runner@4.0.18/node_modules/@vitest/runner/dist/index.js:915:26
+    at file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+runner@4.0.18/node_modules/@vitest/runner/dist/index.js:1243:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+runner@4.0.18/node_modules/@vitest/runner/dist/index.js:1209:10)
+    at file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+runner@4.0.18/node_modules/@vitest/runner/dist/index.js:1653:37
+    at Traces.$ (file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/vitest@4.0.18_@opentelemetry+api@1.9.0_@types+node@24.10.13_jiti@2.6.1_jsdom@28.0.0_lightningcss@1.30.2_yaml@2.8.3/node_modules/vitest/dist/chunks/traces.CCmnQaNT.js:142:27)
+    at trace (file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/vitest@4.0.18_@opentelemetry+api@1.9.0_@types+node@24.10.13_jiti@2.6.1_jsdom@28.0.0_lightningcss@1.30.2_yaml@2.8.3/node_modules/vitest/dist/chunks/test.B8ej_ZHS.js:239:21)
+    at runTest (file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+runner@4.0.18/node_modules/@vitest/runner/dist/index.js:1653:12)
+
+stderr | src/hooks/useNoteRename.test.ts > useNoteRename hook > handleRenameFilename surfaces backend conflict errors
+Failed to rename note filename: Error: A note with that name already exists
+    at /Users/thompson/Documents/tolaria-memnova/src/hooks/useNoteRename.test.ts:362:49
+    at file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+runner@4.0.18/node_modules/@vitest/runner/dist/index.js:145:11
+    at file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+runner@4.0.18/node_modules/@vitest/runner/dist/index.js:915:26
+    at file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+runner@4.0.18/node_modules/@vitest/runner/dist/index.js:1243:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+runner@4.0.18/node_modules/@vitest/runner/dist/index.js:1209:10)
+    at file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+runner@4.0.18/node_modules/@vitest/runner/dist/index.js:1653:37
+    at Traces.$ (file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/vitest@4.0.18_@opentelemetry+api@1.9.0_@types+node@24.10.13_jiti@2.6.1_jsdom@28.0.0_lightningcss@1.30.2_yaml@2.8.3/node_modules/vitest/dist/chunks/traces.CCmnQaNT.js:142:27)
+    at trace (file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/vitest@4.0.18_@opentelemetry+api@1.9.0_@types+node@24.10.13_jiti@2.6.1_jsdom@28.0.0_lightningcss@1.30.2_yaml@2.8.3/node_modules/vitest/dist/chunks/test.B8ej_ZHS.js:239:21)
+    at runTest (file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+runner@4.0.18/node_modules/@vitest/runner/dist/index.js:1653:12)
+
+ ✓ src/hooks/useNoteRename.test.ts (25 tests) 25ms
+ ✓ src/hooks/useEditorSaveWithLinks.test.ts (16 tests) 28ms
+ ✓ src/components/DeleteProgressNotice.test.tsx (3 tests) 19ms
+ ✓ src/hooks/useFlashcardSession.test.ts (6 tests) 16ms
+ ✓ src/utils/noteListHelpers.extra.test.ts (9 tests) 18ms
+ ✓ src/hooks/useImageLightbox.test.tsx (5 tests) 19ms
+ ✓ src/hooks/useStatusBarAddRemote.test.ts (6 tests) 19ms
+ ✓ src/components/ResizeHandle.test.tsx (7 tests) 19ms
+ ✓ src/components/useEditorModePositionSync.test.tsx (3 tests) 18ms
+ ✓ src/hooks/useDeleteActions.test.ts (13 tests) 20ms
+ ✓ src/components/richEditorTransformErrorRecoveryExtension.test.ts (18 tests) 10ms
+ ✓ src/hooks/useNeighborhoodSelection.test.ts (4 tests) 19ms
+ ✓ src/components/ui/textControls.test.tsx (2 tests) 18ms
+ ✓ src/hooks/useNavigationHistory.test.ts (16 tests) 17ms
+ ✓ src/hooks/useMainWindowSizeConstraints.test.ts (11 tests) 21ms
+ ✓ src/hooks/useNoteRetargeting.test.ts (3 tests) 20ms
+ ✓ src/hooks/useConflictFlow.test.ts (9 tests) 15ms
+ ✓ src/mock-tauri/learning-note-conversion.test.ts (7 tests) 17ms
+ ✓ src/hooks/useLayoutPanels.test.ts (15 tests) 15ms
+ ✓ src/hooks/useEntryActions.history.test.ts (4 tests) 13ms
+ ✓ src/hooks/usePropertyPanelState.extra.test.ts (3 tests) 19ms
+ ✓ src/hooks/useTelemetry.test.ts (8 tests) 14ms
+ ✓ src/hooks/useFolderActions.test.ts (4 tests) 14ms
+ ✓ src/hooks/useSaveNote.test.ts (7 tests) 13ms
+ ✓ src/hooks/useKeyboardNavigation.test.ts (10 tests) 15ms
+ ✓ src/mock-tauri/learning-persistence.test.ts (2 tests) 15ms
+ ✓ src/hooks/usePropertyPanelState.test.ts (4 tests) 18ms
+ ✓ src/hooks/useNoteActions.persistence.test.ts (4 tests) 20ms
+stderr | src/components/useRawModeWithFlush.test.tsx > useRawModeWithFlush > enters raw mode using the complete canonical document after flushing a projected face
+An update to TestComponent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+stderr | src/components/useRawModeWithFlush.test.tsx > useRawModeWithFlush > re-enters raw mode with pending raw edits while tab state is still stale
+An update to TestComponent inside a test was not wrapped in act(...).
+
+When testing, code that causes React state updates should be wrapped into act(...):
+
+act(() => {
+  /* fire events that update state */
+});
+/* assert on the output */
+
+This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+ ✓ src/components/useRawModeWithFlush.test.tsx (2 tests) 15ms
+ ✓ src/hooks/useGitHistory.test.ts (4 tests) 13ms
+ ✓ src/components/useFilenameAutolinkGuard.test.tsx (3 tests) 11ms
+ ✓ src/hooks/editorChangeDebounce.test.ts (2 tests) 9ms
+ ✓ src/hooks/useNoteActions.rename-guard.test.ts (2 tests) 19ms
+ ✓ src/utils/propertyTypes.test.ts (36 tests) 15ms
+ ✓ src/hooks/useFeatureFlag.test.ts (5 tests) 11ms
+ ✓ src/hooks/useBulkActions.test.ts (9 tests) 14ms
+ ✓ src/utils/neighborhoodHistory.test.ts (7 tests) 11ms
+ ✓ src/hooks/useActionHistory.test.ts (3 tests) 13ms
+ ✓ src/hooks/useRenameVaultRefresh.test.ts (2 tests) 13ms
+ ✓ src/hooks/useFlashcardEditorFace.test.tsx (5 tests) 16ms
+ ✓ src/components/mathInputExtension.test.ts (10 tests) 12ms
+ ✓ src/hooks/useGettingStartedClone.test.ts (4 tests) 12ms
+ ✓ src/hooks/editorFocusUtils.extra.test.ts (3 tests) 12ms
+ ✓ src/hooks/useAppNavigation.test.ts (5 tests) 13ms
+ ✓ src/components/editorAttachmentActions.test.ts (4 tests) 11ms
+ ✓ src/hooks/useInboxOrganizeAdvance.test.ts (2 tests) 9ms
+ ✓ src/components/editorModePosition.test.ts (6 tests) 12ms
+ ✓ src/hooks/editorParsedBlockPreload.test.tsx (4 tests) 12ms
+ ✓ src/hooks/useCommandRegistry.editorFind.test.ts (3 tests) 12ms
+ ✓ src/utils/noteListHelpers.relative.test.ts (4 tests) 13ms
+ ✓ src/hooks/useViewMode.test.ts (7 tests) 13ms
+ ✓ src/hooks/useSavedViewOrdering.test.ts (3 tests) 12ms
+ ✓ src/hooks/useNoteCreation.extra.test.ts (45 tests) 6ms
+ ✓ src/lib/blockNoteChecklist.regression.test.ts (2 tests) 8ms
+ ✓ src/hooks/useLearningStudy.test.ts (2 tests) 12ms
+ ✓ src/hooks/useThemeMode.test.ts (5 tests) 13ms
+ ✓ src/hooks/useNoteLayout.test.ts (4 tests) 11ms
+ ✓ src/utils/noteListHelpers.counts.test.ts (8 tests) 14ms
+ ✓ src/lib/blockNoteSideMenu.regression.test.ts (1 test) 9ms
+ ✓ src/utils/dateDisplay.test.ts (7 tests) 13ms
+ ✓ src/utils/imageLightboxTarget.test.ts (9 tests) 13ms
+ ✓ src/hooks/useNetworkStatus.test.ts (2 tests) 9ms
+ ✓ src/hooks/useEntryActions.actionHistory.test.ts (3 tests) 11ms
+ ✓ src/utils/plainTextPaste.test.ts (4 tests) 10ms
+ ✓ src/components/useFilenameAutolinkGuard.extra.test.tsx (3 tests) 10ms
+ ✓ src/utils/releaseHistoryPage.test.ts (6 tests) 13ms
+ ✓ src/lib/learning/noteWorkspaceMutations.test.ts (5 tests) 10ms
+ ✓ src/hooks/useAiAgentPreferences.test.ts (4 tests) 11ms
+ ✓ src/lib/blockNoteLinkClick.regression.test.ts (1 test) 10ms
+ ✓ src/hooks/useStats.test.ts (8 tests) 11ms
+ ✓ src/hooks/useClaudeCodeOnboarding.test.ts (4 tests) 10ms
+ ✓ src/mock-tauri/learning-source-preview.test.ts (4 tests) 8ms
+ ✓ src/components/useEditorResources.test.tsx (1 test) 9ms
+ ✓ src/components/learning/useLearningDialogFocus.test.ts (1 test) 12ms
+ ✓ src/hooks/useEntryActions.typeVisibility.test.ts (2 tests) 10ms
+ ✓ src/lib/blockNoteCodeBlockControl.regression.test.ts (2 tests) 9ms
+ ✓ src/hooks/useEntryActions.auto-create.test.ts (1 test) 8ms
+ ✓ src/utils/wikilinks.test.ts (93 tests) 8ms
+ ✓ src/utils/streamAiAgent.test.ts (6 tests) 9ms
+ ✓ src/lib/blockNoteTableHandles.regression.test.ts (6 tests) 7ms
+ ✓ src/hooks/frontmatterOps.noteMemory.test.ts (1 test) 5ms
+ ✓ src/mock-tauri/learning-backup-recovery.test.ts (2 tests) 4ms
+ ✓ src/utils/noteListHelpers.test.ts (27 tests) 11ms
+ ✓ src/lib/learning/noteEditorDocument.test.ts (16 tests) 7ms
+ ✓ src/hooks/useTheme.test.ts (1 test) 8ms
+ ✓ src/components/blockNoteSideMenuHoverGuard.test.ts (6 tests) 9ms
+ ✓ src/lib/learning/noteMemoryDocument.test.ts (52 tests) 7ms
+ ✓ src/lib/themeMode.test.ts (6 tests) 4ms
+ ✓ src/hooks/commands/settingsCommands.test.ts (11 tests) 5ms
+ ✓ src/hooks/appKeyboardShortcuts.editorFind.test.ts (2 tests) 7ms
+ ✓ src/utils/excalidrawMarkdown.test.ts (6 tests) 3ms
+ ✓ src/utils/rawEditorUtils.test.ts (18 tests) 5ms
+ ✓ src/components/Editor.raw-mode-sync.test.ts (9 tests) 8ms
+stdout | src/mock-tauri/vault-api.test.ts > tryVaultApi > retries vault API discovery after an unavailable response
+[mock-tauri] Vault API available: false
+
+stdout | src/mock-tauri/vault-api.test.ts > tryVaultApi > retries vault API discovery after an unavailable response
+[mock-tauri] Vault API available: true
+
+stdout | src/mock-tauri/vault-api.test.ts > tryVaultApi > unwraps note content responses from the vault API
+[mock-tauri] Vault API available: true
+
+stdout | src/mock-tauri/vault-api.test.ts > tryVaultApi > validates cached note content through the vault API
+[mock-tauri] Vault API available: true
+
+stdout | src/mock-tauri/vault-api.test.ts > tryVaultApi > accepts nested Tauri command args when routing browser vault API writes
+[mock-tauri] Vault API available: true
+
+ ✓ src/mock-tauri/vault-api.test.ts (4 tests) 8ms
+ ✓ src/hooks/appCommandDispatcher.test.ts (25 tests) 7ms
+ ✓ src/utils/notePdfExport.test.ts (7 tests) 6ms
+ ✓ src/components/inspector/useInspectorPropertyActions.options.test.ts (1 test) 9ms
+ ✓ src/lib/aiAgentStreamCallbacks.test.ts (8 tests) 4ms
+ ✓ src/lib/aiAgentSession.test.ts (4 tests) 4ms
+ ✓ src/utils/viewFilters.test.ts (31 tests) 6ms
+ ✓ src/utils/mermaidMarkdown.test.ts (8 tests) 4ms
+ ✓ src/utils/openAiWorkspaceWindow.test.ts (12 tests) 6ms
+ ✓ src/components/inlineWikilinkDom.test.ts (4 tests) 7ms
+ ✓ src/utils/aiConversationTitle.test.ts (7 tests) 5ms
+ ✓ src/utils/ai-context.test.ts (40 tests) 6ms
+ ✓ src/utils/wikilinkSuggestions.test.ts (22 tests) 6ms
+ ✓ src/utils/codeBlockLanguage.test.ts (6 tests) 3ms
+ ✓ src/utils/openNoteWindow.test.ts (5 tests) 8ms
+ ✓ src/lib/learning/pagePropertyDraft.test.ts (3 tests) 4ms
+ ✓ src/components/inlineWikilinkSuggestions.test.ts (1 test) 8ms
+ ✓ src/components/editorRawModeSync.images.test.ts (2 tests) 3ms
+ ✓ src/utils/filterDates.test.ts (6 tests) 3ms
+ ✓ src/components/tolariaEditorFormatting.test.tsx (8 tests) 4ms
+ ✓ src/components/arrowLigaturesExtension.test.ts (7 tests) 5ms
+ ✓ src/utils/wikilink.test.ts (35 tests) 5ms
+ ✓ src/lib/aiWorkspaceWindowSharedContext.test.ts (1 test) 4ms
+ ✓ src/lib/telemetry.test.ts (14 tests) 5ms
+ ✓ src/utils/vault-dialog.test.ts (8 tests) 4ms
+ ✓ src/lib/utils.test.ts (7 tests) 5ms
+ ✓ src/utils/mathMarkdown.test.ts (10 tests) 6ms
+ ✓ src/utils/releaseDownloadPage.test.ts (9 tests) 5ms
+ ✓ src/lib/aiAgentConversation.test.ts (10 tests) 6ms
+ ✓ src/lib/learning/noteClient.test.ts (5 tests) 4ms
+ ✓ src/utils/frontendReady.test.ts (3 tests) 3ms
+ ✓ src/hooks/frontmatterOps.test.ts (49 tests) 7ms
+ ✓ src/indexBootDiagnostics.test.ts (3 tests) 5ms
+ ✓ src/components/imeCompositionKeyGuardExtension.test.ts (8 tests) 23ms
+ ✓ src/utils/pulledVaultRefresh.test.ts (11 tests) 6ms
+ ✓ src/utils/configMigration.test.ts (22 tests) 6ms
+ ✓ src/mock-tauri/learning-note-workspace.test.ts (1 test) 8ms
+ ✓ src/utils/url.test.ts (9 tests) 4ms
+ ✓ src/utils/editorDurableMarkdown.test.ts (4 tests) 7ms
+ ✓ src/utils/fileAttachmentMarkdown.test.ts (4 tests) 5ms
+ ✓ src/utils/viewFilters.relativeDates.test.ts (3 tests) 4ms
+ ✓ src/components/anchoredDropdown.test.ts (4 tests) 2ms
+ ✓ src/lib/learning/client.test.ts (14 tests) 5ms
+ ✓ src/lib/aiAgentFileOperations.test.ts (9 tests) 5ms
+ ✓ src/utils/tableOfContents.test.ts (3 tests) 2ms
+ ✓ src/utils/vaultImages.test.ts (28 tests) 4ms
+ ✓ src/utils/windowMode.test.ts (19 tests) 4ms
+ ✓ src/utils/tauriCsp.test.ts (5 tests) 2ms
+ ✓ src/hooks/mockFrontmatterHelpers.test.ts (22 tests) 5ms
+ ✓ src/hooks/editorTabContent.test.ts (29 tests) 6ms
+ ✓ src/lib/fsrsVaultEntry.test.ts (25 tests) 7ms
+ ✓ src/lib/telemetryConfig.test.ts (14 tests) 4ms
+ ✓ src/lib/learning/scheduler.test.ts (4 tests) 5ms
+ ✓ src/utils/colorUtils.test.ts (20 tests) 3ms
+ ✓ src/utils/__tests__/emoji.test.ts (16 tests) 5ms
+ ✓ src/lib/learning/pagePropertySnapshot.test.ts (5 tests) 4ms
+ ✓ src/components/note-list/noteListUtils.test.ts (10 tests) 4ms
+ ✓ src/lib/learning/backupRecoveryClient.test.ts (2 tests) 2ms
+ ✓ src/utils/suggestionEnrichment.test.ts (13 tests) 4ms
+ ✓ src/lib/learning/noteMediaReadiness.test.ts (2 tests) 4ms
+ ✓ src/utils/autoSave.test.ts (7 tests) 4ms
+ ✓ src/utils/deepLinks.test.ts (8 tests) 4ms
+ ✓ src/utils/canvasMedia.test.ts (13 tests) 3ms
+ ✓ src/lib/learning/noteSourceRefresh.test.ts (2 tests) 3ms
+ ✓ src/utils/autoGitWork.test.ts (4 tests) 2ms
+ ✓ src/components/editorRawModeSync.arrowLigatures.test.ts (4 tests) 4ms
+ ✓ src/hooks/frontmatterOps.systemMetadata.test.ts (10 tests) 3ms
+ ✓ src/lib/blockNotePopover.regression.test.ts (1 test) 2ms
+ ✓ src/lib/i18n.test.ts (8 tests) 3ms
+ ✓ src/components/learning/noteMemoryEditorActions.test.ts (2 tests) 4ms
+ ✓ src/hooks/vaultLoaderCommands.views.test.ts (5 tests) 5ms
+ ✓ src/lib/crossWindowPersistedStore.test.ts (3 tests) 4ms
+ ✓ src/utils/streamAiModel.test.ts (1 test) 3ms
+ ✓ src/lib/learning/sourceSelection.test.ts (4 tests) 3ms
+ ✓ src/lib/vaultAiGuidance.test.ts (5 tests) 2ms
+ ✓ src/lib/learning/noteMemoryReadiness.test.ts (12 tests) 3ms
+ ✓ src/lib/learning/propertyValues.test.ts (7 tests) 4ms
+ ✓ src/lib/aiTargets.test.ts (6 tests) 3ms
+ ✓ src/lib/learning/pageScope.test.ts (1 test) 2ms
+ ✓ src/utils/frontmatter.test.ts (28 tests) 4ms
+ ✓ src/mock-tauri/learning-root.test.ts (1 test) 3ms
+ ✓ src/components/editorSchema.media.test.ts (2 tests) 2ms
+ ✓ src/components/Sidebar.test.ts (14 tests) 4ms
+ ✓ src/utils/vaultAttachments.test.ts (13 tests) 3ms
+ ✓ src/utils/flashcardMarkdown.test.ts (15 tests) 3ms
+ ✓ src/utils/editorDocumentFlush.test.ts (4 tests) 3ms
+ ✓ src/utils/editorFind.test.ts (5 tests) 3ms
+ ✓ src/utils/wikilinkColors.test.ts (23 tests) 3ms
+ ✓ src/utils/clipboardText.test.ts (4 tests) 4ms
+ ✓ src/utils/commitEntryAction.test.ts (2 tests) 2ms
+ ✓ src/components/editor-content/editorContentState.test.ts (5 tests) 2ms
+ ✓ src/utils/flashcardAudio.test.ts (15 tests) 3ms
+ ✓ src/lib/learning/verifiedNoteMedia.test.ts (4 tests) 3ms
+ ✓ src/utils/typeColors.test.ts (17 tests) 3ms
+ ✓ src/utils/personMentionSuggestions.test.ts (8 tests) 2ms
+ ✓ src/constants/appStorage.test.ts (3 tests) 4ms
+ ✓ src/utils/noteOpenPerformance.extra.test.ts (3 tests) 2ms
+ ✓ src/lib/learning/notePropertyPatch.test.ts (8 tests) 3ms
+ ✓ src/utils/compact-markdown.test.ts (29 tests) 5ms
+ ✓ src/components/status-bar/VaultMenu.applyMountedChange.test.ts (6 tests) 3ms
+ ✓ src/lib/appIconTheme.test.ts (2 tests) 4ms
+ ✓ src/utils/viewOrdering.test.ts (6 tests) 2ms
+ ✓ src/utils/noteTitle.test.ts (14 tests) 3ms
+ ✓ src/utils/workspaces.test.ts (16 tests) 4ms
+ ✓ src/components/excalidrawBlockProps.test.ts (3 tests) 6ms
+ ✓ src/utils/tagStyles.test.ts (9 tests) 3ms
+ ✓ src/lib/fsrs.test.ts (20 tests) 3ms
+ ✓ src/utils/editorLinkAutolink.test.ts (7 tests) 3ms
+ ✓ src/components/editorRawModeSync.mermaid.test.ts (2 tests) 2ms
+ ✓ src/lib/noteCloseFlush.test.ts (4 tests) 2ms
+ ✓ src/hooks/editorMarkdownParseFallback.test.ts (2 tests) 2ms
+ ✓ src/utils/statusStyles.test.ts (9 tests) 3ms
+ ✓ src/utils/noteOpenPerformance.test.ts (3 tests) 5ms
+ ✓ src/utils/notePathIdentity.test.ts (5 tests) 2ms
+ ✓ src/utils/viewFilename.test.ts (4 tests) 3ms
+ ✓ src/utils/wikilinks.table.test.ts (1 test) 3ms
+ ✓ src/components/inspector/useInspectorData.test.ts (2 tests) 2ms
+ ✓ src/utils/vaultMetadataNormalization.test.ts (2 tests) 4ms
+ ✓ src/lib/feedbackDiagnostics.test.ts (2 tests) 2ms
+ ✓ src/lib/learning/noteWorkspace.test.ts (4 tests) 3ms
+ ✓ src/lib/blockNoteSuggestionMenu.regression.test.ts (2 tests) 2ms
+ ✓ src/lib/releaseChannel.test.ts (4 tests) 2ms
+ ✓ src/utils/initializeNoteProperties.test.ts (1 test) 2ms
+ ✓ src/utils/frontmatter.bom.test.ts (1 test) 2ms
+ ✓ src/utils/appOrchestration.test.ts (5 tests) 2ms
+ ✓ src/lib/aiAgents.test.ts (4 tests) 2ms
+ ✓ src/utils/commitMessage.test.ts (12 tests) 2ms
+ ✓ src/utils/fuzzyMatch.test.ts (23 tests) 2ms
+ ✓ src/hooks/editorBlockRepair.test.ts (3 tests) 2ms
+ ✓ src/utils/organizationWorkflow.test.ts (6 tests) 3ms
+ ✓ src/components/documentRenderGate.test.ts (3 tests) 2ms
+ ✓ src/utils/vaultOrdering.test.ts (7 tests) 2ms
+ ✓ src/test/setup.test.ts (2 tests) 2ms
+ ✓ src/lib/learning/noteWorkspacePropertyWriter.test.ts (1 test) 3ms
+ ✓ src/hooks/commands/aiAgentCommands.test.ts (2 tests) 2ms
+ ✓ src/utils/noteSlug.test.ts (3 tests) 2ms
+ ✓ src/utils/gitRepositories.test.ts (7 tests) 3ms
+ ✓ src/utils/platform.test.ts (4 tests) 2ms
+ ✓ src/components/excalidrawScene.test.ts (1 test) 2ms
+ ✓ src/utils/gettingStartedVault.test.ts (8 tests) 2ms
+ ✓ src/lib/learning/vocabulary.test.ts (2 tests) 2ms
+ ✓ src/mock-tauri/mock-handlers.test.ts (2 tests) 2ms
+ ✓ src/utils/noteWidth.test.ts (4 tests) 2ms
+ ✓ src/utils/ai-agent.test.ts (7 tests) 2ms
+ ✓ src/lib/learning/cardPropertyPreset.test.ts (1 test) 2ms
+ ✓ src/utils/vaultConfigStore.test.ts (2 tests) 2ms
+ ✓ src/utils/tauriWindowControlPermissions.test.ts (2 tests) 2ms
+ ✓ src/utils/arrowLigatures.test.ts (9 tests) 2ms
+ ✓ src/components/blockNoteRenderRecovery.test.ts (4 tests) 2ms
+ ✓ src/utils/viewFilters.arrayProperties.test.ts (2 tests) 2ms
+ ✓ src/hooks/appCommandCatalog.test.ts (1 test) 2ms
+ ✓ src/lib/aiAgentPermissionMode.test.ts (3 tests) 2ms
+ ✓ src/components/inlineWikilinkPasteRecovery.test.ts (2 tests) 2ms
+ ✓ src/utils/noteListHelpers.view-workspaces.test.ts (1 test) 3ms
+ ✓ src/utils/vaultCollections.test.ts (3 tests) 2ms
+ ✓ src/lib/learning/media.test.ts (1 test) 2ms
+ ✓ src/utils/iconRegistry.test.ts (5 tests) 2ms
+ ✓ src/utils/calendarVersion.test.ts (2 tests) 1ms
+ ✓ src/utils/frontmatter.properties.test.ts (1 test) 2ms
+ ✓ src/lib/learning/pageDates.test.ts (1 test) 2ms
+ ✓ src/utils/vaultPathContainment.test.ts (2 tests) 1ms
+ ✓ src/utils/automaticCommitMessage.test.ts (3 tests) 1ms
+ ✓ src/lib/aiFeatures.test.ts (1 test) 1ms
+ ✓ src/mock-tauri/index.test.ts (3 tests) 1ms
+ ✓ src/utils/viewTargetVault.test.ts (3 tests) 2ms
+ ✓ src/utils/propertyLabels.test.ts (3 tests) 2ms
+ ✓ src/utils/tauriDragDropConfig.test.ts (1 test) 2ms
+ ✓ src/components/propertyDropdownUtils.test.ts (2 tests) 2ms
+ ✓ src/lib/gitSettings.test.ts (1 test) 1ms
+ ✓ src/components/inspector/shared.test.ts (2 tests) 2ms
+
+ Test Files  498 passed (498)
+      Tests  4974 passed (4974)
+   Start at  17:31:30
+   Duration  161.35s (transform 8.51s, setup 16.70s, import 364.38s, tests 87.65s, environment 133.12s)
+

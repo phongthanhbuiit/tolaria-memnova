@@ -1,6 +1,6 @@
 # Memnova hiện tại
 
-**17/11/2026 — F-002, ngày theo ngôn ngữ giao diện:** ngày thân thiện và nhãn “Đã tạo” trong danh sách ghi chú/tìm kiếm, chip ngày và thông tin ghi chú theo locale đang chọn. Các định dạng số và giá trị ISO khi nhập/lưu giữ nguyên. [Ảnh native sáng/tối và kết quả kiểm tra](audits/F-002-LOCALIZED-DATES.md). Đây là thay đổi mã nguồn local, chưa phải bản cài phát hành mới.
+**17/11/2026 — R-01/F-002, ngày và số theo ngôn ngữ giao diện:** bổ sung locale bắt buộc cho formatter, Calendar có tháng/thứ/aria đã dịch, bộ lọc ngày, thời gian tương đối Git/Pulse và số từ/liên kết theo locale/số nhiều. Sáu commit sửa kết thúc tại `9c951e78`; QA native Anh/Việt sáng/tối và test hai múi giờ trong [biên bản R-01](audits/R-01-F-002-COMPLETION.md). ISO nhập/lưu, parser, sort và lịch ôn giữ nguyên. Mã đã push qua hook hiện có, nhưng core smoke còn F-039 pass nhờ retry; đây chưa phải bản cài phát hành mới.
 
 **17/11/2026 — nền tảng UI bước A:** bổ sung thang chữ chrome, kích thước điều khiển và bo góc trong token/components dùng chung; nâng tương phản màu chữ. Không chỉnh mã màn hình hoặc typography editor. [Phạm vi, số đếm SPEC §8 và ảnh QA sáng/tối](audits/STEP-A-FOUNDATION.md).
 

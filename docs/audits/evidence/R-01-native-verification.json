@@ -1,0 +1,29 @@
+{
+  "bundleIdentifier": "net.memnova.qa.r01",
+  "compiledQaIdentifier": "net.memnova.qa.foundation",
+  "configHome": "/var/folders/9w/6hcy1rks4gg3yc1kxk2txjlr0000gn/T/memnova-R-01-native-crmxmdrl/prefs",
+  "library": "/var/folders/9w/6hcy1rks4gg3yc1kxk2txjlr0000gn/T/memnova-R-01-native-crmxmdrl/Library",
+  "markdownBefore": 254,
+  "markdownAfter": 254,
+  "markdownHashesEqual": true,
+  "qaOwnedViewEditsRestored": [
+    "views/capture-qa.yml"
+  ],
+  "viewsEqual": true,
+  "learningRowsEqual": {
+    "sessions": true,
+    "reviews": true,
+    "schedules": true
+  },
+  "learningCounts": {
+    "sessions": 5,
+    "reviews": 4,
+    "schedules": 5
+  },
+  "integrityCheck": [
+    [
+      "ok"
+    ]
+  ],
+  "foreignKeyCheck": []
+}

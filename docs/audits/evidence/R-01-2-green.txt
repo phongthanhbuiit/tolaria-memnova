@@ -1,0 +1,11 @@
+
+ RUN  v4.0.18 /Users/thompson/Documents/tolaria-memnova
+
+ ✓ src/components/ui/calendar.locale.test.tsx (4 tests) 613ms
+     ✓ localizes visible and accessible date labels in en  312ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  16:58:26
+   Duration  4.26s (transform 281ms, setup 48ms, import 3.27s, tests 613ms, environment 237ms)
+

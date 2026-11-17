@@ -1,0 +1,450 @@
+
+ RUN  v4.0.18 /Users/thompson/Documents/tolaria-memnova
+
+ ❯ src/components/inspector/GitHistoryPanel.locale.test.tsx (4 tests | 4 failed) 68ms
+     × formats days/months with native plural rules in en 50ms
+     × formats days/months with native plural rules in vi 8ms
+     × formats days/months with native plural rules in ru-RU 5ms
+     × updates existing history when the language changes 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/components/inspector/GitHistoryPanel.locale.test.tsx > R-01 Git history relative dates > formats days/months with native plural rules in en
+TestingLibraryElementError: Unable to find an element with the text: 2 days ago. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div>[39m
+      [36m<h4[39m
+        [33mclass[39m=[32m"text-caption font-medium tracking-wide mb-2 flex items-center gap-1 text-text-secondary"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33mclass[39m=[32m"shrink-0"[39m
+          [33mfill[39m=[32m"currentColor"[39m
+          [33mheight[39m=[32m"12"[39m
+          [33mviewBox[39m=[32m"0 0 256 256"[39m
+          [33mwidth[39m=[32m"12"[39m
+          [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M224,128a96,96,0,0,1-94.71,96H128A95.38,95.38,0,0,1,62.1,197.8a8,8,0,0,1,11-11.63A80,80,0,1,0,71.43,71.39a3.07,3.07,0,0,1-.26.25L44.59,96H72a8,8,0,0,1,0,16H24a8,8,0,0,1-8-8V56a8,8,0,0,1,16,0V85.8L60.25,60A96,96,0,0,1,224,128Z"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [0mHistory[0m
+      [36m</h4>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex flex-col gap-2.5"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mstyle[39m=[32m"border-left: 2px solid var(--border); padding-left: 10px;"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"inline-flex items-center gap-[6px] whitespace-nowrap rounded-md font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-[16px] shrink-0 [&_svg]:shrink-0 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 min-h-(--control-sm) has-[>svg]:px-2.5 mb-0.5 w-full justify-start cursor-pointer truncate border-none bg-transparent p-0 text-left text-body text-primary hover:underline"[39m
+            [33mdata-size[39m=[32m"sm"[39m
+            [33mdata-slot[39m=[32m"button"[39m
+            [33mdata-variant[39m=[32m"ghost"[39m
+            [33mtitle[39m=[32m"View diff for 0"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"font-mono text-caption"[39m
+            [36m>[39m
+              [0m0[0m
+            [36m</span>[39m
+            [0m · [0m
+            [0mrevision 0[0m
+          [36m</button>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"text-small text-text-secondary"[39m
+          [36m>[39m
+            [0mtoday[0m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mstyle[39m=[32m"border-left: 2px solid var(--border); padding-left: 10px;"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"inline-flex items-center gap-[6px] whitespace-nowrap rounded-md font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-[16px] shrink-0 [&_svg]:shrink-0 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 min-h-(--control-sm) has-[>svg]:px-2.5 mb-0.5 w-full justify-start cursor-pointer truncate border-none bg-transparent p-0 text-left text-body text-primary hover:underline"[39m
+            [33mdata-size[39m=[32m"sm"[39m
+            [33mdata-slot[39m=[32m"button"[39m
+            [33mdata-variant[39m=[32m"ghost"[39m
+            [33mtitle[39m=[32m"View diff for 1"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"font-mono text-caption"[39m
+            [36m>[39m
+              [0m1[0m
+            [36m</span>[39m
+            [0m · [0m
+            [0mrevision 1[0m
+          [36m</button>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"text-small text-text-secondary"[39m
+          [36m>[39m
+            [0myesterday[0m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mstyle[39m=[32m"border-left: 2px solid var(--border); padding-left: 10px;"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"inline-flex items-center gap-[6px] whitespace-nowrap rounded-md font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-[16px] shrink-0 [&_svg]:shrink-0 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 min-h-(--control-sm) has-[>svg]:px-2.5 mb-0.5 w-full justify-start cursor-pointer truncate border-none bg-transparent p-0 text-left text-body text-primary hover:underline"[39m
+            [33mdata-size[39m=[32m"sm"[39m
+            [33mdata-slot[39m=[32m"button"[39m
+            [33mdata-variant[39m=[32m"ghost"[39m
+            [33mtitle[39m=[32m"View diff for 2"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"font-mono text-caption"[39m
+            [36m>[39m
+              [0m2[0m
+            [36m</span>[39m
+            [0m · [0m
+            [0mrevision 2[0m
+          [36m</button>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"text-small text-text-secondary"[39m
+          [36m>[39m
+            [0m2d ago[0m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mstyle[39m=[32m"border-left: 2px solid var(--border); padding-left: 10px;"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"inline-flex items-center gap-[6px] whitespace-nowrap rounded-md font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-[16px] shrink-0 [&_svg]:shrink-0 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 min-h-(--control-sm) has-[>svg]:px-2.5 mb-0.5 w-full justif...
+ ❯ Object.getElementError node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/components/inspector/GitHistoryPanel.locale.test.tsx:18:48
+     16|     const onViewCommitDiff = vi.fn()
+     17|     render(<AppPreferencesProvider locale={locale}><GitHistoryPanel co…
+     18|     for (const text of expected) expect(screen.getByText(text)).toBeIn…
+       |                                                ^
+     19|     fireEvent.click(screen.getByRole('button', { name: /revision 2/ }))
+     20|     expect(onViewCommitDiff).toHaveBeenCalledWith('2')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  src/components/inspector/GitHistoryPanel.locale.test.tsx > R-01 Git history relative dates > formats days/months with native plural rules in vi
+TestingLibraryElementError: Unable to find an element with the text: Hôm nay. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div>[39m
+      [36m<h4[39m
+        [33mclass[39m=[32m"text-caption font-medium tracking-wide mb-2 flex items-center gap-1 text-text-secondary"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33mclass[39m=[32m"shrink-0"[39m
+          [33mfill[39m=[32m"currentColor"[39m
+          [33mheight[39m=[32m"12"[39m
+          [33mviewBox[39m=[32m"0 0 256 256"[39m
+          [33mwidth[39m=[32m"12"[39m
+          [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M224,128a96,96,0,0,1-94.71,96H128A95.38,95.38,0,0,1,62.1,197.8a8,8,0,0,1,11-11.63A80,80,0,1,0,71.43,71.39a3.07,3.07,0,0,1-.26.25L44.59,96H72a8,8,0,0,1,0,16H24a8,8,0,0,1-8-8V56a8,8,0,0,1,16,0V85.8L60.25,60A96,96,0,0,1,224,128Z"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [0mHistory[0m
+      [36m</h4>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex flex-col gap-2.5"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mstyle[39m=[32m"border-left: 2px solid var(--border); padding-left: 10px;"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"inline-flex items-center gap-[6px] whitespace-nowrap rounded-md font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-[16px] shrink-0 [&_svg]:shrink-0 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 min-h-(--control-sm) has-[>svg]:px-2.5 mb-0.5 w-full justify-start cursor-pointer truncate border-none bg-transparent p-0 text-left text-body text-primary hover:underline"[39m
+            [33mdata-size[39m=[32m"sm"[39m
+            [33mdata-slot[39m=[32m"button"[39m
+            [33mdata-variant[39m=[32m"ghost"[39m
+            [33mtitle[39m=[32m"View diff for 0"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"font-mono text-caption"[39m
+            [36m>[39m
+              [0m0[0m
+            [36m</span>[39m
+            [0m · [0m
+            [0mrevision 0[0m
+          [36m</button>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"text-small text-text-secondary"[39m
+          [36m>[39m
+            [0mtoday[0m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mstyle[39m=[32m"border-left: 2px solid var(--border); padding-left: 10px;"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"inline-flex items-center gap-[6px] whitespace-nowrap rounded-md font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-[16px] shrink-0 [&_svg]:shrink-0 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 min-h-(--control-sm) has-[>svg]:px-2.5 mb-0.5 w-full justify-start cursor-pointer truncate border-none bg-transparent p-0 text-left text-body text-primary hover:underline"[39m
+            [33mdata-size[39m=[32m"sm"[39m
+            [33mdata-slot[39m=[32m"button"[39m
+            [33mdata-variant[39m=[32m"ghost"[39m
+            [33mtitle[39m=[32m"View diff for 1"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"font-mono text-caption"[39m
+            [36m>[39m
+              [0m1[0m
+            [36m</span>[39m
+            [0m · [0m
+            [0mrevision 1[0m
+          [36m</button>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"text-small text-text-secondary"[39m
+          [36m>[39m
+            [0myesterday[0m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mstyle[39m=[32m"border-left: 2px solid var(--border); padding-left: 10px;"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"inline-flex items-center gap-[6px] whitespace-nowrap rounded-md font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-[16px] shrink-0 [&_svg]:shrink-0 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 min-h-(--control-sm) has-[>svg]:px-2.5 mb-0.5 w-full justify-start cursor-pointer truncate border-none bg-transparent p-0 text-left text-body text-primary hover:underline"[39m
+            [33mdata-size[39m=[32m"sm"[39m
+            [33mdata-slot[39m=[32m"button"[39m
+            [33mdata-variant[39m=[32m"ghost"[39m
+            [33mtitle[39m=[32m"View diff for 2"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"font-mono text-caption"[39m
+            [36m>[39m
+              [0m2[0m
+            [36m</span>[39m
+            [0m · [0m
+            [0mrevision 2[0m
+          [36m</button>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"text-small text-text-secondary"[39m
+          [36m>[39m
+            [0m2d ago[0m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mstyle[39m=[32m"border-left: 2px solid var(--border); padding-left: 10px;"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"inline-flex items-center gap-[6px] whitespace-nowrap rounded-md font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-[16px] shrink-0 [&_svg]:shrink-0 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 min-h-(--control-sm) has-[>svg]:px-2.5 mb-0.5 w-full justif...
+ ❯ Object.getElementError node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/components/inspector/GitHistoryPanel.locale.test.tsx:18:48
+     16|     const onViewCommitDiff = vi.fn()
+     17|     render(<AppPreferencesProvider locale={locale}><GitHistoryPanel co…
+     18|     for (const text of expected) expect(screen.getByText(text)).toBeIn…
+       |                                                ^
+     19|     fireEvent.click(screen.getByRole('button', { name: /revision 2/ }))
+     20|     expect(onViewCommitDiff).toHaveBeenCalledWith('2')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  src/components/inspector/GitHistoryPanel.locale.test.tsx > R-01 Git history relative dates > formats days/months with native plural rules in ru-RU
+TestingLibraryElementError: Unable to find an element with the text: сегодня. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div>[39m
+      [36m<h4[39m
+        [33mclass[39m=[32m"text-caption font-medium tracking-wide mb-2 flex items-center gap-1 text-text-secondary"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33mclass[39m=[32m"shrink-0"[39m
+          [33mfill[39m=[32m"currentColor"[39m
+          [33mheight[39m=[32m"12"[39m
+          [33mviewBox[39m=[32m"0 0 256 256"[39m
+          [33mwidth[39m=[32m"12"[39m
+          [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M224,128a96,96,0,0,1-94.71,96H128A95.38,95.38,0,0,1,62.1,197.8a8,8,0,0,1,11-11.63A80,80,0,1,0,71.43,71.39a3.07,3.07,0,0,1-.26.25L44.59,96H72a8,8,0,0,1,0,16H24a8,8,0,0,1-8-8V56a8,8,0,0,1,16,0V85.8L60.25,60A96,96,0,0,1,224,128Z"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [0mHistory[0m
+      [36m</h4>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex flex-col gap-2.5"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mstyle[39m=[32m"border-left: 2px solid var(--border); padding-left: 10px;"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"inline-flex items-center gap-[6px] whitespace-nowrap rounded-md font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-[16px] shrink-0 [&_svg]:shrink-0 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 min-h-(--control-sm) has-[>svg]:px-2.5 mb-0.5 w-full justify-start cursor-pointer truncate border-none bg-transparent p-0 text-left text-body text-primary hover:underline"[39m
+            [33mdata-size[39m=[32m"sm"[39m
+            [33mdata-slot[39m=[32m"button"[39m
+            [33mdata-variant[39m=[32m"ghost"[39m
+            [33mtitle[39m=[32m"View diff for 0"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"font-mono text-caption"[39m
+            [36m>[39m
+              [0m0[0m
+            [36m</span>[39m
+            [0m · [0m
+            [0mrevision 0[0m
+          [36m</button>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"text-small text-text-secondary"[39m
+          [36m>[39m
+            [0mtoday[0m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mstyle[39m=[32m"border-left: 2px solid var(--border); padding-left: 10px;"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"inline-flex items-center gap-[6px] whitespace-nowrap rounded-md font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-[16px] shrink-0 [&_svg]:shrink-0 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 min-h-(--control-sm) has-[>svg]:px-2.5 mb-0.5 w-full justify-start cursor-pointer truncate border-none bg-transparent p-0 text-left text-body text-primary hover:underline"[39m
+            [33mdata-size[39m=[32m"sm"[39m
+            [33mdata-slot[39m=[32m"button"[39m
+            [33mdata-variant[39m=[32m"ghost"[39m
+            [33mtitle[39m=[32m"View diff for 1"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"font-mono text-caption"[39m
+            [36m>[39m
+              [0m1[0m
+            [36m</span>[39m
+            [0m · [0m
+            [0mrevision 1[0m
+          [36m</button>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"text-small text-text-secondary"[39m
+          [36m>[39m
+            [0myesterday[0m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mstyle[39m=[32m"border-left: 2px solid var(--border); padding-left: 10px;"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"inline-flex items-center gap-[6px] whitespace-nowrap rounded-md font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-[16px] shrink-0 [&_svg]:shrink-0 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 min-h-(--control-sm) has-[>svg]:px-2.5 mb-0.5 w-full justify-start cursor-pointer truncate border-none bg-transparent p-0 text-left text-body text-primary hover:underline"[39m
+            [33mdata-size[39m=[32m"sm"[39m
+            [33mdata-slot[39m=[32m"button"[39m
+            [33mdata-variant[39m=[32m"ghost"[39m
+            [33mtitle[39m=[32m"View diff for 2"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"font-mono text-caption"[39m
+            [36m>[39m
+              [0m2[0m
+            [36m</span>[39m
+            [0m · [0m
+            [0mrevision 2[0m
+          [36m</button>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"text-small text-text-secondary"[39m
+          [36m>[39m
+            [0m2d ago[0m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mstyle[39m=[32m"border-left: 2px solid var(--border); padding-left: 10px;"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"inline-flex items-center gap-[6px] whitespace-nowrap rounded-md font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-[16px] shrink-0 [&_svg]:shrink-0 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 min-h-(--control-sm) has-[>svg]:px-2.5 mb-0.5 w-full justif...
+ ❯ Object.getElementError node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/components/inspector/GitHistoryPanel.locale.test.tsx:18:48
+     16|     const onViewCommitDiff = vi.fn()
+     17|     render(<AppPreferencesProvider locale={locale}><GitHistoryPanel co…
+     18|     for (const text of expected) expect(screen.getByText(text)).toBeIn…
+       |                                                ^
+     19|     fireEvent.click(screen.getByRole('button', { name: /revision 2/ }))
+     20|     expect(onViewCommitDiff).toHaveBeenCalledWith('2')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  src/components/inspector/GitHistoryPanel.locale.test.tsx > R-01 Git history relative dates > updates existing history when the language changes
+TestingLibraryElementError: Unable to find an element with the text: Hôm nay. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div>[39m
+      [36m<h4[39m
+        [33mclass[39m=[32m"text-caption font-medium tracking-wide mb-2 flex items-center gap-1 text-text-secondary"[39m
+      [36m>[39m
+        [36m<svg[39m
+          [33mclass[39m=[32m"shrink-0"[39m
+          [33mfill[39m=[32m"currentColor"[39m
+          [33mheight[39m=[32m"12"[39m
+          [33mviewBox[39m=[32m"0 0 256 256"[39m
+          [33mwidth[39m=[32m"12"[39m
+          [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33md[39m=[32m"M224,128a96,96,0,0,1-94.71,96H128A95.38,95.38,0,0,1,62.1,197.8a8,8,0,0,1,11-11.63A80,80,0,1,0,71.43,71.39a3.07,3.07,0,0,1-.26.25L44.59,96H72a8,8,0,0,1,0,16H24a8,8,0,0,1-8-8V56a8,8,0,0,1,16,0V85.8L60.25,60A96,96,0,0,1,224,128Z"[39m
+          [36m/>[39m
+        [36m</svg>[39m
+        [0mHistory[0m
+      [36m</h4>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"flex flex-col gap-2.5"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mstyle[39m=[32m"border-left: 2px solid var(--border); padding-left: 10px;"[39m
+        [36m>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"inline-flex items-center gap-[6px] whitespace-nowrap rounded-md font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-[16px] shrink-0 [&_svg]:shrink-0 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 min-h-(--control-sm) has-[>svg]:px-2.5 mb-0.5 w-full justify-start cursor-pointer truncate border-none bg-transparent p-0 text-left text-body text-primary hover:underline"[39m
+            [33mdata-size[39m=[32m"sm"[39m
+            [33mdata-slot[39m=[32m"button"[39m
+            [33mdata-variant[39m=[32m"ghost"[39m
+            [33mtitle[39m=[32m"View diff for 1"[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"font-mono text-caption"[39m
+            [36m>[39m
+              [0m1[0m
+            [36m</span>[39m
+            [0m · [0m
+            [0mrevision[0m
+          [36m</button>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"text-small text-text-secondary"[39m
+          [36m>[39m
+            [0mtoday[0m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</div>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/components/inspector/GitHistoryPanel.locale.test.tsx:27:19
+     25|     expect(screen.getByText('today')).toBeInTheDocument()
+     26|     view.rerender(<AppPreferencesProvider locale="vi">{panel}</AppPref…
+     27|     expect(screen.getByText('Hôm nay')).toBeInTheDocument()
+       |                   ^
+     28|   })
+     29| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed (4)
+   Start at  17:01:03
+   Duration  3.40s (transform 582ms, setup 128ms, import 2.66s, tests 68ms, environment 420ms)
+

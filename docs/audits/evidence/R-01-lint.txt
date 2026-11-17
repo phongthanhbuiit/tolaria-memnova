@@ -1,0 +1,4 @@
+
+> tolaria-memnova@0.1.0 lint /Users/thompson/Documents/tolaria-memnova
+> eslint . --max-warnings=0
+

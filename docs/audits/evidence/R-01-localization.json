@@ -1,0 +1,43 @@
+{
+  "method": "manual (Lara credentials unavailable)",
+  "catalogs": [
+    "be-BY",
+    "be-Latn",
+    "de-DE",
+    "en",
+    "es-419",
+    "es-ES",
+    "fr-FR",
+    "id-ID",
+    "it-IT",
+    "ja-JP",
+    "ko-KR",
+    "pl-PL",
+    "pt-BR",
+    "pt-PT",
+    "ru-RU",
+    "vi",
+    "zh-CN",
+    "zh-TW"
+  ],
+  "keys": [
+    "filters.date.pickDate",
+    "filters.date.openPicker",
+    "filters.date.openPickerForDate",
+    "filters.date.resolvesTo",
+    "filters.date.unrecognized",
+    "noteList.subtitle.empty",
+    "noteList.subtitle.words.one",
+    "noteList.subtitle.words.few",
+    "noteList.subtitle.words.many",
+    "noteList.subtitle.words.other",
+    "noteList.subtitle.links.one",
+    "noteList.subtitle.links.few",
+    "noteList.subtitle.links.many",
+    "noteList.subtitle.links.other",
+    "filters.date.inputPlaceholder"
+  ],
+  "newKeyCount": 15,
+  "placeholderParity": true,
+  "validateExit": 0
+}

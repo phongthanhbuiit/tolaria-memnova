@@ -1,0 +1,13 @@
+
+ RUN  v4.0.18 /Users/thompson/Documents/tolaria-memnova
+
+ ✓ src/utils/noteListHelpers.counts.test.ts (8 tests) 15ms
+ ✓ src/utils/noteListHelpers.extra.test.ts (9 tests) 20ms
+ ✓ src/components/localizedDates.sweep.test.tsx (1 test) 879ms
+   ✓ R-01 sweeps real Vietnamese date surfaces, including their accessible labels  878ms
+
+ Test Files  3 passed (3)
+      Tests  18 passed (18)
+   Start at  17:28:01
+   Duration  5.55s (transform 1.24s, setup 160ms, import 9.08s, tests 913ms, environment 797ms)
+

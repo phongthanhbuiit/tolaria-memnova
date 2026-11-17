@@ -1,0 +1,19 @@
+
+ RUN  v4.0.18 /Users/thompson/Documents/tolaria-memnova
+
+ ✓ src/components/ui/calendar.locale.test.tsx (4 tests) 733ms
+     ✓ localizes visible and accessible date labels in en  329ms
+ ✓ src/components/localizedDates.sweep.test.tsx (1 test) 975ms
+   ✓ R-01 sweeps real Vietnamese date surfaces, including their accessible labels  974ms
+ ✓ src/components/filter-builder/DateValueInput.locale.test.tsx (4 tests) 629ms
+     ✓ localizes preview, title and aria in en, saves the same ISO day  338ms
+ ✓ src/components/inspector/GitHistoryPanel.locale.test.tsx (4 tests) 189ms
+ ✓ src/utils/noteListHelpers.relative.test.ts (4 tests) 14ms
+ ✓ src/utils/noteListHelpers.counts.test.ts (8 tests) 12ms
+ ✓ src/utils/dateDisplay.test.ts (7 tests) 12ms
+
+ Test Files  7 passed (7)
+      Tests  32 passed (32)
+   Start at  02:33:51
+   Duration  21.11s (transform 1.28s, setup 242ms, import 15.91s, tests 2.56s, environment 1.82s)
+

@@ -1,0 +1,9 @@
+Discovering repository stack...
+  Languages: CSS, HTML, JSON, Javascript, Markdown, Powershell, Rust, SQL, Shell, TypeScript, XML, YAML
+  Frameworks: GitHub Actions, React, React DOM, Tauri
+  Libraries: date-fns, esbuild, ESLint, Playwright, reqwest, Serde, Tailwind CSS, Testing Library, Tokio, TypeScript, Vite, Vitest
+
+Selected 16 tools (1 cloud-only) for 12 language(s)
+590 patterns enabled, tailored to this repository's stack
+  Applied exclude paths from .codacy.yaml
+Created /tmp/R-01-codacy.json

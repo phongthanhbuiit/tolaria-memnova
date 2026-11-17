@@ -1,0 +1,156 @@
+{
+  "node": "24.19.0",
+  "pnpm": "10.27.0",
+  "sourceCommit": "9c951e78",
+  "commands": [
+    {
+      "command": "pnpm exec vitest run --typecheck.only --typecheck.tsconfig /tmp/R-01-typecheck.json src/utils/dateDisplay.test-d.ts",
+      "exit": 1,
+      "phase": "red",
+      "item": 1
+    },
+    {
+      "command": "pnpm exec vitest run --typecheck.only --typecheck.tsconfig /tmp/R-01-typecheck.json src/utils/dateDisplay.test-d.ts",
+      "exit": 0,
+      "phase": "green",
+      "item": 1
+    },
+    {
+      "command": "pnpm exec vitest run src/components/ui/calendar.locale.test.tsx",
+      "exit": 1,
+      "phase": "red",
+      "item": 2
+    },
+    {
+      "command": "pnpm exec vitest run src/components/ui/calendar.locale.test.tsx",
+      "exit": 0,
+      "phase": "green",
+      "item": 2
+    },
+    {
+      "command": "pnpm exec vitest run src/components/filter-builder/DateValueInput.locale.test.tsx",
+      "exit": 1,
+      "phase": "red",
+      "item": 3
+    },
+    {
+      "command": "pnpm exec vitest run src/components/filter-builder/DateValueInput.locale.test.tsx src/components/filter-builder/DateValueInput.test.tsx",
+      "exit": 0,
+      "phase": "green",
+      "item": 3
+    },
+    {
+      "command": "pnpm exec vitest run src/components/inspector/GitHistoryPanel.locale.test.tsx",
+      "exit": 1,
+      "phase": "red",
+      "item": 4
+    },
+    {
+      "command": "pnpm exec vitest run src/components/inspector/GitHistoryPanel.locale.test.tsx src/components/InspectorPanels.test.tsx",
+      "exit": 0,
+      "phase": "green",
+      "item": 4
+    },
+    {
+      "command": "pnpm exec vitest run src/utils/noteListHelpers.relative.test.ts",
+      "exit": 1,
+      "phase": "red",
+      "item": 5
+    },
+    {
+      "command": "pnpm exec vitest run src/utils/noteListHelpers.relative.test.ts src/utils/noteListHelpers.extra.test.ts",
+      "exit": 0,
+      "phase": "green",
+      "item": 5
+    },
+    {
+      "command": "pnpm exec vitest run src/utils/noteListHelpers.counts.test.ts src/components/localizedDates.sweep.test.tsx",
+      "exit": 1,
+      "phase": "red",
+      "item": 6
+    },
+    {
+      "command": "pnpm exec vitest run src/utils/noteListHelpers.counts.test.ts src/components/localizedDates.sweep.test.tsx src/utils/noteListHelpers.extra.test.ts",
+      "exit": 0,
+      "phase": "green",
+      "item": 6
+    },
+    {
+      "command": "pnpm exec vitest run src/components/localizedDates.sweep.test.tsx",
+      "exit": 1,
+      "phase": "red",
+      "item": "3 placeholder"
+    },
+    {
+      "command": "pnpm exec vitest run src/components/filter-builder/DateValueInput.locale.test.tsx src/components/localizedDates.sweep.test.tsx",
+      "exit": 0,
+      "phase": "green",
+      "item": "3 placeholder"
+    },
+    {
+      "command": "TZ=America/Los_Angeles pnpm exec vitest run --maxWorkers=1 src/utils/dateDisplay.test.ts src/components/ui/calendar.locale.test.tsx src/components/filter-builder/DateValueInput.locale.test.tsx src/components/inspector/GitHistoryPanel.locale.test.tsx src/utils/noteListHelpers.relative.test.ts src/utils/noteListHelpers.counts.test.ts src/components/localizedDates.sweep.test.tsx",
+      "exit": 0
+    },
+    {
+      "command": "TZ=Asia/Ho_Chi_Minh pnpm exec vitest run --maxWorkers=1 src/utils/dateDisplay.test.ts src/components/ui/calendar.locale.test.tsx src/components/filter-builder/DateValueInput.locale.test.tsx src/components/inspector/GitHistoryPanel.locale.test.tsx src/utils/noteListHelpers.relative.test.ts src/utils/noteListHelpers.counts.test.ts src/components/localizedDates.sweep.test.tsx",
+      "exit": 0
+    },
+    {
+      "command": "pnpm lint",
+      "exit": 0
+    },
+    {
+      "command": "pnpm exec tsc -b",
+      "exit": 0
+    },
+    {
+      "command": "pnpm test",
+      "exit": 0
+    },
+    {
+      "command": "pnpm test:coverage",
+      "exit": 0
+    },
+    {
+      "command": "cargo test --manifest-path src-tauri/Cargo.toml -- --test-threads=1",
+      "exit": 0
+    },
+    {
+      "command": "cargo llvm-cov --manifest-path src-tauri/Cargo.toml --no-clean --fail-under-lines 85 -- --test-threads=1",
+      "exit": 0
+    },
+    {
+      "command": "pnpm l10n:validate",
+      "exit": 0
+    },
+    {
+      "command": "pnpm dlx @codacy/analysis-cli@0.24.0 init --auto --config-file /tmp/R-01-codacy.json",
+      "exit": 0
+    },
+    {
+      "command": "git status --short -- demo-vault demo-vault-v2",
+      "exit": 0
+    },
+    {
+      "command": "pnpm dlx @codacy/analysis-cli@0.24.0 analyze /tmp/R-01-base --config-file /tmp/R-01-codacy.json --files src/utils/dateDisplay.ts src/components/ui/calendar.tsx src/components/PropertyValueCells.tsx src/components/AddPropertyForm.tsx src/components/learning/PropertyValueEditor.tsx src/components/filter-builder/DateValueInput.tsx src/components/inspector/GitHistoryPanel.tsx src/utils/noteListHelpers.ts --tool ESLint9 --tool Semgrep --tool Lizard --tool Trivy --output-format sarif --output /tmp/R-01-base.sarif",
+      "exit": 1,
+      "reason": "existing warnings; no analyzer error"
+    },
+    {
+      "command": "pnpm dlx @codacy/analysis-cli@0.24.0 analyze . --config-file /tmp/R-01-codacy.json --files src/utils/dateDisplay.ts src/lib/calendarLocale.ts src/components/ui/calendar.tsx src/components/PropertyValueCells.tsx src/components/AddPropertyForm.tsx src/components/learning/PropertyValueEditor.tsx src/components/filter-builder/DateValueInput.tsx src/components/inspector/GitHistoryPanel.tsx src/utils/noteListHelpers.ts --tool ESLint9 --tool Semgrep --tool Lizard --tool Trivy --output-format sarif --output /tmp/R-01-final.sarif",
+      "exit": 1,
+      "reason": "existing warnings; no analyzer error"
+    },
+    {
+      "command": "git push origin main",
+      "exit": 0,
+      "sourceCommit": "9c951e78",
+      "smoke": {
+        "passed": 53,
+        "flaky": 1,
+        "minutes": 4.9
+      },
+      "note": "F-039 failed first attempt, passed existing retry; no hook/test change or bypass"
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+
+ RUN  v4.0.18 /Users/thompson/Documents/tolaria-memnova
+
+ ❯ src/components/filter-builder/DateValueInput.locale.test.tsx (4 tests | 4 failed) 40ms
+     × localizes preview, title and aria in en, saves the same ISO day 28ms
+     × localizes preview, title and aria in vi, saves the same ISO day 5ms
+     × localizes preview, title and aria in ru-RU, saves the same ISO day 4ms
+     × updates empty-picker labels in-session 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/components/filter-builder/DateValueInput.locale.test.tsx > R-01 date filter > localizes preview, title and aria in en, saves the same ISO day
+Error: expect(element).toHaveAttribute("title", "November 16, 2026") // element.getAttribute("title") === "November 16, 2026"
+
+Expected the element to have attribute:
+  title="November 16, 2026"
+Received:
+  title="Nov 16, 2026"
+ ❯ src/components/filter-builder/DateValueInput.locale.test.tsx:17:21
+     15|     render(<AppPreferencesProvider locale={locale}><DateValueInput val…
+     16|     const trigger = screen.getByTestId('date-picker-trigger')
+     17|     expect(trigger).toHaveAttribute('title', date)
+       |                     ^
+     18|     expect(trigger).toHaveAccessibleName(`${label} (${date})`)
+     19|     fireEvent.focus(screen.getByTestId('date-value-input'))
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  src/components/filter-builder/DateValueInput.locale.test.tsx > R-01 date filter > localizes preview, title and aria in vi, saves the same ISO day
+Error: expect(element).toHaveAttribute("title", "16 tháng 11, 2026") // element.getAttribute("title") === "16 tháng 11, 2026"
+
+Expected the element to have attribute:
+  title="16 tháng 11, 2026"
+Received:
+  title="Nov 16, 2026"
+ ❯ src/components/filter-builder/DateValueInput.locale.test.tsx:17:21
+     15|     render(<AppPreferencesProvider locale={locale}><DateValueInput val…
+     16|     const trigger = screen.getByTestId('date-picker-trigger')
+     17|     expect(trigger).toHaveAttribute('title', date)
+       |                     ^
+     18|     expect(trigger).toHaveAccessibleName(`${label} (${date})`)
+     19|     fireEvent.focus(screen.getByTestId('date-value-input'))
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  src/components/filter-builder/DateValueInput.locale.test.tsx > R-01 date filter > localizes preview, title and aria in ru-RU, saves the same ISO day
+Error: expect(element).toHaveAttribute("title", "16 ноября 2026 г.") // element.getAttribute("title") === "16 ноября 2026 г."
+
+Expected the element to have attribute:
+  title="16 ноября 2026 г."
+Received:
+  title="Nov 16, 2026"
+ ❯ src/components/filter-builder/DateValueInput.locale.test.tsx:17:21
+     15|     render(<AppPreferencesProvider locale={locale}><DateValueInput val…
+     16|     const trigger = screen.getByTestId('date-picker-trigger')
+     17|     expect(trigger).toHaveAttribute('title', date)
+       |                     ^
+     18|     expect(trigger).toHaveAccessibleName(`${label} (${date})`)
+     19|     fireEvent.focus(screen.getByTestId('date-value-input'))
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  src/components/filter-builder/DateValueInput.locale.test.tsx > R-01 date filter > updates empty-picker labels in-session
+Error: expect(element).toHaveAttribute("title", "Chọn ngày") // element.getAttribute("title") === "Chọn ngày"
+
+Expected the element to have attribute:
+  title="Chọn ngày"
+Received:
+  title="Pick a date"
+ ❯ src/components/filter-builder/DateValueInput.locale.test.tsx:30:55
+     28|     expect(screen.getByTestId('date-picker-trigger')).toHaveAttribute(…
+     29|     view.rerender(<AppPreferencesProvider locale="vi">{field}</AppPref…
+     30|     expect(screen.getByTestId('date-picker-trigger')).toHaveAttribute(…
+       |                                                       ^
+     31|     expect(screen.getByTestId('date-picker-trigger')).toHaveAccessible…
+     32|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed (4)
+   Start at  16:59:20
+   Duration  4.67s (transform 336ms, setup 75ms, import 4.03s, tests 40ms, environment 427ms)
+
