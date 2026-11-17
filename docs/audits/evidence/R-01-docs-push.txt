@@ -1,0 +1,28 @@
+  → Changed-file lint
+  → Rust
+✔ a leaf frontend change uses related tests without full coverage (1.228458ms)
+✔ global dependencies and shared test setup require the full frontend suite (0.168166ms)
+✔ removed frontend modules fall back to full tests (0.075375ms)
+✔ learning Rust changes test their module without unrelated frontend tests (0.104875ms)
+✔ IPC changes include frontend tests because import graphs cannot see Tauri strings (0.09425ms)
+✔ docs do not trigger application tests, while site changes build documentation (0.475833ms)
+✔ filenames with spaces remain separate arguments; failure stops subsequent checks (0.570667ms)
+✔ changed browser tests select their file and shared browser fixtures use smoke (0.054875ms)
+✔ Rust checks do not inherit commit-hook author identity into temporary test repositories (0.200166ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 50.377292
+
+🚀 Pre-push checks (replaces CI — do not skip)
+================================================
+
+⏭️  App checks skipped (docs/workflow/hooks only)
+
+✅ Pre-push passed in 0s
+To https://github.com/phongthanhbuiit/tolaria-memnova.git
+   9c951e78..f6a6282f  main -> main

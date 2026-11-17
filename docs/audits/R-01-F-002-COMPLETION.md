@@ -39,6 +39,7 @@ Các lệnh frontend/Git/Codacy chạy với `PATH` ưu tiên Node **24.19.0**, 
 | Hai grep SPEC §8 | 0 / 0 | **232 → 232**, **0 → 0** trên cả sáu commit; không thêm typography, token, cỡ điều khiển, bố cục hoặc CSS data-slot. |
 | `git status --short -- demo-vault demo-vault-v2` | 0 | Output rỗng; không dùng Library cá nhân. |
 | `git push origin main` (mã `9c951e78`) | 0 | [Log đầy đủ](evidence/R-01-pre-push.txt): lint/build/coverage pass, **53 passed / 1 flaky**, 4,9 phút core smoke; tổng hook 8 phút 18 giây. F-039 fail lượt đầu, pass retry cấu hình sẵn. Remote đã nhận `f78b8fb9..9c951e78`. |
+| `git push origin main` (tài liệu `f6a6282f`) | 0 | [Hook docs-only nguyên trạng, 9 workflow test pass](evidence/R-01-docs-push.txt); không bypass. |
 
 Danh sách test đầy đủ dùng trong hai lệnh TZ:
 
@@ -76,7 +77,7 @@ ESLint9 và Trivy: 0 issue. Opengrep/Semgrep: 13 warning props-spreading; Lizard
 
 Đã chạy `git push origin main` trên Node 24, **exit 0**. Khác dự đoán ban đầu, hook hiện có cho qua khi ca F-039 pass ở retry: lượt đầu Cmd+click còn ở H1 “Grow Newsletter”; retry pass. Không đổi cấu hình retry, assertion, timeout hoặc hook; không dùng `--no-verify`. Vì vậy đây là **push thành công có flaky**, không phải bằng chứng F-039 đã được sửa hoặc core smoke ổn định không retry. F-039/F-040/F-041 giữ nguyên kết luận trong FINDINGS. Các gate frontend và Rust ở bảng trên đã chạy riêng với exit 0; hook còn chạy lại frontend build/coverage. Rust trong hook được bỏ qua theo cơ chế change detection vì Rust không đổi, không thay thế hai lệnh Rust đã chạy riêng.
 
-Báo cáo/bằng chứng và trạng thái finding được commit sau lượt push mã nguồn để ghi kết quả thực tế. Push tài liệu cuối được ghi trong `R-01-docs-push.txt`; hook docs-only nguyên trạng vẫn được thực thi.
+Báo cáo/bằng chứng và trạng thái finding được commit sau lượt push mã nguồn để ghi kết quả thực tế. Push tài liệu `f6a6282f` thành công, **exit 0**, [log](evidence/R-01-docs-push.txt); hook docs-only nguyên trạng chạy 9 workflow test rồi tự bỏ qua app checks vì toàn bộ mã đã có trên origin/main. Commit biên nhận sau đó chỉ bổ sung log này.
 
 ## QA native: chuột trước, bàn phím sau
 

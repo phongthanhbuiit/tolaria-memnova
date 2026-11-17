@@ -151,6 +151,12 @@
         "minutes": 4.9
       },
       "note": "F-039 failed first attempt, passed existing retry; no hook/test change or bypass"
+    },
+    {
+      "command": "git push origin main",
+      "exit": 0,
+      "documentationCommit": "f6a6282f",
+      "hook": "docs-only selected by unchanged hook; 9 workflow tests pass"
     }
   ]
 }
