@@ -76,23 +76,23 @@ function formatDueDate(due: string | undefined): string {
 function StateChip({ state }: { state: string | undefined }) {
   if (!state || state === 'new') {
     return (
-      <span className="inline-flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded-full bg-[var(--accent-green-light)] text-[var(--accent-green)]">
-        <Sparkle size={9} weight="fill" />
+      <span className="inline-flex items-center gap-1 text-caption px-1.5 py-0.5 rounded-sm bg-[var(--accent-green-light)] text-[var(--accent-green)]">
+        <Sparkle size={16} weight="fill" />
         New
       </span>
     )
   }
   if (state === 'learning' || state === 'relearning') {
     return (
-      <span className="inline-flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded-full bg-[var(--accent-blue-light)] text-[var(--accent-blue)]">
-        <Cards size={9} weight="duotone" />
+      <span className="inline-flex items-center gap-1 text-caption px-1.5 py-0.5 rounded-sm bg-[var(--accent-blue-light)] text-[var(--accent-blue)]">
+        <Cards size={16} weight="duotone" />
         Learning
       </span>
     )
   }
   return (
-    <span className="inline-flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded-full bg-[var(--accent-purple-light)] text-[var(--accent-purple)]">
-      <CalendarBlank size={9} weight="fill" />
+    <span className="inline-flex items-center gap-1 text-caption px-1.5 py-0.5 rounded-sm bg-[var(--accent-purple-light)] text-[var(--accent-purple)]">
+      <CalendarBlank size={16} weight="fill" />
       Review
     </span>
   )
@@ -147,16 +147,16 @@ function VocabField({
     <div className="flex flex-col gap-0.5">
       <label
         htmlFor={id}
-        className="flex items-center gap-1 text-[10px] uppercase tracking-wide text-muted-foreground"
+        className="flex items-center gap-1 text-caption uppercase tracking-wide text-text-secondary"
       >
-        <Icon size={9} />
+        <Icon size={16} />
         {label}
       </label>
       <div className="flex gap-1">
-        <Input
+        <Input controlSize="sm"
           id={id}
           className={cn(
-            'h-[26px] flex-1 rounded border-border bg-muted px-1.5 text-[12px] text-foreground',
+            'flex-1 rounded-md border-border bg-muted px-1.5 text-body text-foreground',
             'focus-visible:border-primary focus-visible:ring-0',
             mono && 'font-mono',
           )}
@@ -168,13 +168,13 @@ function VocabField({
         />
         {onBrowse && (
           <Button
-            size="icon-xs"
+            size="icon-sm"
             variant="outline"
             onClick={onBrowse}
             title="Browse audio file"
-            className="h-[26px] w-[26px] shrink-0 border-border bg-muted"
+            className="shrink-0 border-border bg-muted"
           >
-            <FolderOpen size={12} />
+            <FolderOpen size={16} />
           </Button>
         )}
       </div>
@@ -442,14 +442,14 @@ export function FlashcardPanel({
 
   return (
     <div>
-      <h4 className="font-mono-overline mb-2 flex items-center gap-1 text-muted-foreground">
-        <Cards size={12} weight="duotone" className="shrink-0" />
+      <h4 className="text-body font-medium mb-2 flex items-center gap-1 text-text-secondary">
+        <Cards size={16} weight="duotone" className="shrink-0" />
         Flashcard
       </h4>
 
       {/* Spaced repetition toggle */}
       <div className="flex items-center justify-between px-1.5 py-1">
-        <Label htmlFor={`fsrs-toggle-${entry.path}`} className="text-xs text-muted-foreground">{translate(locale, 'properties.spacedRepetition')}</Label>
+        <Label htmlFor={`fsrs-toggle-${entry.path}`} className="text-body text-text-secondary">{translate(locale, 'properties.spacedRepetition')}</Label>
         <Switch
           id={`fsrs-toggle-${entry.path}`}
           checked={isEnabled}
@@ -461,16 +461,15 @@ export function FlashcardPanel({
       {/* Card type selector — only visible when FSRS is on */}
       {isEnabled && (
         <div className="flex items-center justify-between px-1.5 py-1">
-          <span className="text-[12px] text-muted-foreground">Card type</span>
+          <span className="text-body text-text-secondary">Card type</span>
           <Select
             value={cardType}
             onValueChange={handleCardTypeChange}
             disabled={!onUpdateFrontmatter}
           >
-            <SelectTrigger
+            <SelectTrigger size="sm"
               id={`fsrs-card-type-${entry.path}`}
-              className="h-[22px] w-[100px] border-border bg-muted px-1.5 py-0 text-[11px] shadow-none"
-              style={{ borderRadius: 4 }}
+              className="w-[100px] border-border bg-muted px-2 py-0 text-body shadow-none"
             >
               <SelectValue />
             </SelectTrigger>
@@ -576,7 +575,7 @@ export function FlashcardPanel({
             onRemove={handleSuffixRemove}
             onNavigate={onNavigate}
           />
-          <p className="text-[10px] text-muted-foreground/70 leading-relaxed">
+          <p className="text-caption text-text-secondary leading-relaxed">
             Drag an audio/image file into the editor — Tolaria copies it to{' '}
             <span className="font-mono">attachments/</span>. Then type the filename above.
           </p>
@@ -589,20 +588,21 @@ export function FlashcardPanel({
           <Button
             type="button"
             variant="outline"
+            size="sm"
             disabled={isAppending}
             onClick={handleAddBackFace}
             className={cn(
-              'w-full h-[28px] gap-1.5 text-[11px] font-medium border-dashed',
+              'w-full gap-[6px] text-caption font-medium border-dashed',
               'border-[var(--accent-blue)]/40 text-[var(--accent-blue)] hover:bg-[var(--accent-blue-light)] hover:border-[var(--accent-blue)]',
               'disabled:opacity-50 disabled:cursor-not-allowed transition-colors',
             )}
             aria-label="Add back face to this flashcard"
             data-testid="flashcard-add-back-face"
           >
-            <PlusCircle size={12} weight="bold" />
+            <PlusCircle size={16} weight="bold" />
             {isAppending ? 'Adding…' : 'Add Back Face'}
           </Button>
-          <p className="mt-1 text-[10px] text-muted-foreground/60 leading-relaxed px-0.5">
+          <p className="mt-1 text-caption text-text-secondary leading-relaxed px-0.5">
             Adds a divider — type the answer below it in the editor.
           </p>
         </div>
@@ -617,19 +617,19 @@ export function FlashcardPanel({
           )}
         >
           <div className="flex items-center justify-between">
-            <span className="text-[11px] text-muted-foreground">Next review</span>
-            <span className="text-[11px] font-medium">{formatDueDate(entry.fsrsDue)}</span>
+            <span className="text-small text-text-secondary">Next review</span>
+            <span className="text-small font-medium">{formatDueDate(entry.fsrsDue)}</span>
           </div>
           {entry.fsrsState && (
             <div className="flex items-center justify-between">
-              <span className="text-[11px] text-muted-foreground">State</span>
+              <span className="text-small text-text-secondary">State</span>
               <StateChip state={entry.fsrsState} />
             </div>
           )}
           {entry.fsrsReps != null && entry.fsrsReps > 0 && (
             <div className="flex items-center justify-between">
-              <span className="text-[11px] text-muted-foreground">Reviews</span>
-              <span className="text-[11px] font-medium tabular-nums">{entry.fsrsReps}</span>
+              <span className="text-small text-text-secondary">Reviews</span>
+              <span className="text-small font-medium tabular-nums">{entry.fsrsReps}</span>
             </div>
           )}
         </div>
