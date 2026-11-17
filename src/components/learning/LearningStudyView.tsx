@@ -16,22 +16,10 @@ import type { FSRSRating } from '../../lib/fsrs'
 import { ArrowClockwise, ArrowUUpLeft, Eye, X } from '@phosphor-icons/react'
 
 import { LearningError } from './LearningError'
+import { GradeButtons } from './GradeButtons'
 import { LearningStudyFaces } from './LearningStudyFaces'
 import { useStudyFaces } from './useStudyFaces'
 
-const ratings = [1, 2, 3, 4] as const
-const labels: Record<FSRSRating, TranslationKey> = {
-  1: 'learning.again',
-  2: 'learning.hard',
-  3: 'learning.good',
-  4: 'learning.easy',
-}
-const colors = [
-  'border-[var(--accent-red)]',
-  'border-[var(--accent-orange)]',
-  'border-[var(--accent-green)]',
-  'border-[var(--accent-blue)]',
-]
 export function LearningStudyView({
   study,
   root,
@@ -323,36 +311,12 @@ export function LearningStudyView({
               </Button>
             )}
             {item?.page && revealed && (
-              <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-                {ratings.map((rating) => (
-                  <Button
-                    key={rating}
-                    variant="outline"
-                    data-note-grade={rating}
-                    className={`h-auto min-h-16 flex-col gap-1 whitespace-normal border-2 ${colors[rating - 1]}`}
-                    disabled={
-                      study.busy ||
-                      study.hasPending ||
-                      !!study.error ||
-                      !preview ||
-                      !sourceReady ||
-                      !questionReady ||
-                      !answerReady
-                    }
-                    onClick={() => {
-                      void study.rate(rating)
-                    }}
-                  >
-                    <span>
-                      {t(labels[rating])}{' '}
-                      <kbd className="ml-1 opacity-50">{rating}</kbd>
-                    </span>
-                    <span className="text-xs font-normal text-muted-foreground">
-                      {interval(rating)}
-                    </span>
-                  </Button>
-                ))}
-              </div>
+              <GradeButtons
+                locale={locale}
+                interval={interval}
+                disabled={study.busy || study.hasPending || !!study.error || !preview || !sourceReady || !questionReady || !answerReady}
+                onGrade={rating => { void study.rate(rating) }}
+              />
             )}
             <div className="flex items-center justify-between">
               <Button

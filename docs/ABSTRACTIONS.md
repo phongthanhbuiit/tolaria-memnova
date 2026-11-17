@@ -1114,6 +1114,8 @@ LearningClient's conversion apply/resume/details/compatibility methods retain th
 
 ### Note-memory property boundaries
 
+`learning/GradeButtons` is a presentational control shared by note study and legacy flashcard study. It receives rendered intervals, disabled state and a rating callback; scheduling, persistence, keyboard handling and pointer-based XP animation remain in their existing owners.
+
 - notePropertyPatch uses the note codec's header/line boundaries plus existing property-key aliases. It formats only an explicit supported scalar/string-list update; untouched YAML, comments, aliases, large raw numbers, BOM and both bodies are retained. It is not a YAML object/schema builder.
 - NoteEditorPersistence.property and propertyThroughNoteEditor serialize properties through the registered canonical note writer. Early onPropertyDraft/onConfigurationDraft staging updates local metadata before any following autosave; rememberOnly completion callbacks track the eventual persisted echo without overwriting newer edits. A failed draft callback prevents its queued write.
 - In a note-memory Library, the Properties inspector owns the per-note Spaced repetition switch. It uses the canonical configuration writer and the reconciled workspace snapshot. The Content and Memorization tabs appear for enabled notes, retained cards, conversion, or recovery. Pausing returns to Content and preserves access to existing mnemonic material. Custom property kinds and Type defaults describe content independently of review enrollment.

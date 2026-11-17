@@ -514,6 +514,8 @@ flowchart TD
 
 ## Styling
 
+Study rating controls share `learning/GradeButtons`: it renders the four grades, interval text and existing button attributes for `LearningStudyView` and `FlashcardStudyView`. Each owner retains preview calculations, readiness/pending guards, keyboard routing, rating locks and XP handling; the shared control only forwards the rating and pointer event.
+
 The app uses internal app-owned light and dark themes with an optional System preference (see [ADR-0081](adr/0081-internal-light-dark-theme-runtime.md) and [ADR-0112](adr/0112-system-theme-mode.md)). This is not the old vault-authored theming system from ADR-0013: users choose a mode, but themes are owned by the app.
 
 1. **Global CSS variables** (`src/index.css`): Semantic app colors, borders, surfaces, and interaction states. Bridged to Tailwind v4 via `@theme inline`.

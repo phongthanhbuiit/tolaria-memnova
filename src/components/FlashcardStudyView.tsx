@@ -14,6 +14,7 @@ import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from '
 import { createPortal } from 'react-dom'
 import { invoke } from '@tauri-apps/api/core'
 import { Books, CalendarBlank, Confetti, SpeakerHigh, Sparkle, X } from '@phosphor-icons/react'
+import { GradeButtons } from './learning/GradeButtons'
 import { Button } from '@/components/ui/button'
 import './EditorTheme.css'
 import { cn } from '@/lib/utils'
@@ -47,14 +48,7 @@ export interface FlashcardStudyViewProps {
   locale?: AppLocale
 }
 
-type RatingLabel = { label: string; color: string; key: string; xp: number }
-
-const RATING_CONFIG: Record<FSRSRating, RatingLabel> = {
-  1: { label: 'Again', color: 'bg-[var(--accent-red-light)] text-[var(--accent-red)] border-[var(--accent-red)]/30 hover:bg-[var(--accent-red)]/20', key: '1', xp: 0 },
-  2: { label: 'Hard', color: 'bg-[var(--accent-orange-light)] text-[var(--accent-orange)] border-[var(--accent-orange)]/30 hover:bg-[var(--accent-orange)]/20', key: '2', xp: 3 },
-  3: { label: 'Good', color: 'bg-[var(--accent-green-light)] text-[var(--accent-green)] border-[var(--accent-green)]/30 hover:bg-[var(--accent-green)]/20', key: '3', xp: 5 },
-  4: { label: 'Easy', color: 'bg-[var(--accent-blue-light)] text-[var(--accent-blue)] border-[var(--accent-blue)]/30 hover:bg-[var(--accent-blue)]/20', key: '4', xp: 7 },
-}
+const RATING_XP: Record<FSRSRating, number> = { 1: 0, 2: 3, 3: 5, 4: 7 }
 
 // ---------------------------------------------------------------------------
 // Read-only BlockNote view (pixel-perfect match with the main editor)
@@ -267,7 +261,7 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
       await onRate(entry, rating, duration)
 
       // XP float animation
-      const xp = RATING_CONFIG[rating].xp
+      const xp = RATING_XP[rating]
       if (xp > 0 && event) {
         const id = xpFloatIdRef.current++
         const { clientX, clientY } = event
@@ -605,33 +599,17 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
 
                 {saveError && <p role="alert" className="text-sm text-destructive">{saveError}</p>}
                 {/* Rating buttons */}
-                <div className="grid grid-cols-4 gap-3" role="group" aria-label="Rate your recall">
-                  {([1, 2, 3, 4] as FSRSRating[]).map((r) => {
-                    const cfg = RATING_CONFIG[r]
-                    const interval = intervals ? formatInterval(intervals[r]) : '…'
-                    return (
-                      <Button
-                        key={r}
-                        type="button"
-                        onClick={(e) => handleRate(r, e)}
-                        disabled={isRating}
-                        className={cn(
-                          'flex flex-col items-center gap-0.5 py-2 px-1 rounded-xl border text-xs font-medium h-auto',
-                          'transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed',
-                          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
-                          'hover:scale-[1.02] active:scale-[0.98] shadow-sm hover:shadow-md',
-                          cfg.color,
-                        )}
-                        data-testid={`flashcard-rate-${r}`}
-                        aria-label={`${cfg.label} — ${interval}`}
-                      >
-                        <span className="font-bold">{cfg.label}</span>
-                        <span className="text-[10px] opacity-70">{interval}</span>
-                        <span className="text-[9px] opacity-40">[{cfg.key}]</span>
-                      </Button>
-                    )
+                <GradeButtons
+                  locale={locale}
+                  groupLabel="Rate your recall"
+                  disabled={isRating}
+                  interval={rating => intervals ? formatInterval(intervals[rating]) : '…'}
+                  onGrade={(rating, event) => { void handleRate(rating, event) }}
+                  buttonProps={(rating, interval) => ({
+                    'data-testid': `flashcard-rate-${rating}`,
+                    'aria-label': `${translate(locale, ({ 1: 'learning.again', 2: 'learning.hard', 3: 'learning.good', 4: 'learning.easy' } as const)[rating])} — ${interval}`,
                   })}
-                </div>
+                />
               </div>
             )}
           </div>
