@@ -36,7 +36,7 @@ function twoDigit(value: number): string {
 export function formatDatePartsForDisplay(
   parts: DateParts,
   format: DateDisplayFormat = DEFAULT_DATE_DISPLAY_FORMAT,
-  locale: AppLocale = 'en',
+  locale: AppLocale,
 ): string {
   if (format === 'us') return `${parts.month}/${parts.day}/${parts.year}`
   if (format === 'european') return `${parts.day}/${parts.month}/${parts.year}`
@@ -57,7 +57,7 @@ function datePartsFromDate(date: Date): DateParts {
 export function formatDateForDisplay(
   date: Date,
   format: DateDisplayFormat = DEFAULT_DATE_DISPLAY_FORMAT,
-  locale: AppLocale = 'en',
+  locale: AppLocale,
 ): string {
   if (Number.isNaN(date.getTime())) return ''
   return formatDatePartsForDisplay(datePartsFromDate(date), format, locale)
@@ -66,7 +66,7 @@ export function formatDateForDisplay(
 export function formatTimestampForDateDisplay(
   timestampSeconds: number | null | undefined,
   format: DateDisplayFormat = DEFAULT_DATE_DISPLAY_FORMAT,
-  locale: AppLocale = 'en',
+  locale: AppLocale,
 ): string {
   if (!timestampSeconds) return ''
   return formatDateForDisplay(new Date(timestampSeconds * 1000), format, locale)
@@ -79,7 +79,7 @@ export function parseDateDisplayParts(value: string): DateParts | null {
 export function formatDateValueForDisplay(
   value: string,
   format: DateDisplayFormat = DEFAULT_DATE_DISPLAY_FORMAT,
-  locale: AppLocale = 'en',
+  locale: AppLocale,
 ): string {
   const parts = parseDateDisplayParts(value)
   return parts ? formatDatePartsForDisplay(parts, format, locale) : value

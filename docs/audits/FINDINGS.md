@@ -15,7 +15,7 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 | ID | Mức | Mục | Tóm tắt | Chắc | Trạng thái |
 |---|---|---|---|---|---|
 | F-001 | P1 | C2 | File nội bộ `.memnova/retired/<uuid>.md` lộ ra danh sách Thư viện | ảnh | open |
-| F-002 | P1 | C4 | Ngày trong danh sách ghi chú là tiếng Anh khi UI tiếng Việt | ảnh | fixed (commit `fix: localize note dates for selected UI language`; xem biên bản) |
+| F-002 | P1 | C4 | Ngày trong danh sách ghi chú là tiếng Anh khi UI tiếng Việt | ảnh | reopened (R-01) |
 | F-003 | P1 | C4 | Nhãn Properties tiếng Anh lẫn trong UI tiếng Việt | ảnh | open |
 | F-004 | P1 | C4 | Công tắc "Ôn tập ghi chú này" và nút "Ôn ghi chú này" gần như trùng tên | ảnh | open |
 | F-005 | P1 | C5 | Nút chỉ có icon thiếu `aria-label` (~58 chỗ) | mã | open |
@@ -47,6 +47,7 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 - Chấp nhận: danh sách không chứa mục nào có đường dẫn bắt đầu bằng `.memnova/`; số đếm khớp số hàng; có test.
 
 ### F-002 — Ngày tiếng Anh trong UI tiếng Việt
+- **R-01 — reopened (17/11/2026):** review độc lập FAIL. Còn sót: formatter `dateDisplay.ts:39,58,68,83` mặc định en; Calendar chưa nhận locale app (Properties/AddPropertyForm/learning/DateValueInput); preview/title/aria bộ lọc ngày format cứng tiếng Anh; Git history today/yesterday/Nd/Nmo ago; note list relativeDate just now/Nm/Nh/Nd ago; subtitle/Search N words/Empty/link(s), số đếm en-US và thiếu plural theo locale. Giữ nguyên dữ liệu lưu, parser, ISO nhập, sort và lịch ôn. Chỉ đổi fixed sau khi đủ tiêu chí R-01 và có báo cáo [R-01](R-01-F-002-COMPLETION.md).
 - Thực tế (`WRITE`): "November 16, 2026", "Created November 16, 2026". Trong khi Properties (`PROPS`) hiện "16:14 ngày 16 thg 11, 2026".
 - Mong đợi: một hàm định dạng ngày dùng chung, theo locale đang chọn; chữ "Created" lấy từ `en.json`.
 - Bắt đầu tìm: component hàng danh sách ghi chú; grep `Created` và `toLocaleDateString`/`Intl.DateTimeFormat`.

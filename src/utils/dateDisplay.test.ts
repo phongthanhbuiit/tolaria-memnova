@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
+  formatDateForDisplay,
   formatDatePartsForDisplay,
   formatDateValueForDisplay,
   formatTimestampForDateDisplay,
@@ -7,6 +8,16 @@ import {
 } from './dateDisplay'
 
 describe('dateDisplay', () => {
+  it.each([
+    ['en', 'January 1, 2026'], ['vi', '1 tháng 1, 2026'], ['ru-RU', '1 января 2026 г.'],
+  ] as const)('preserves date-only and local midnight boundaries in %s', (locale, expected) => {
+    const localMidnight = new Date(2026, 0, 1)
+    expect(formatDatePartsForDisplay({ year: 2026, month: 1, day: 1 }, undefined, locale)).toBe(expected)
+    expect(formatDateValueForDisplay('2026-01-01', undefined, locale)).toBe(expected)
+    expect(formatDateForDisplay(localMidnight, undefined, locale)).toBe(expected)
+    expect(formatTimestampForDateDisplay(localMidnight.getTime() / 1000, undefined, locale)).toBe(expected)
+  })
+
   it('normalizes supported date display formats', () => {
     expect(normalizeDateDisplayFormat(' ISO ')).toBe('iso')
     expect(normalizeDateDisplayFormat('friendly')).toBe('friendly')
@@ -17,16 +28,16 @@ describe('dateDisplay', () => {
   it('formats date parts in every supported display style', () => {
     const parts = { year: 2026, month: 5, day: 11 }
 
-    expect(formatDatePartsForDisplay(parts, 'us')).toBe('5/11/2026')
-    expect(formatDatePartsForDisplay(parts, 'european')).toBe('11/5/2026')
-    expect(formatDatePartsForDisplay(parts, 'friendly')).toBe('May 11, 2026')
-    expect(formatDatePartsForDisplay(parts, 'iso')).toBe('2026-05-11')
+    expect(formatDatePartsForDisplay(parts, 'us', 'en')).toBe('5/11/2026')
+    expect(formatDatePartsForDisplay(parts, 'european', 'en')).toBe('11/5/2026')
+    expect(formatDatePartsForDisplay(parts, 'friendly', 'en')).toBe('May 11, 2026')
+    expect(formatDatePartsForDisplay(parts, 'iso', 'en')).toBe('2026-05-11')
   })
 
   it('formats ISO and slash date values without changing non-dates', () => {
-    expect(formatDateValueForDisplay('2026-05-11', 'european')).toBe('11/5/2026')
-    expect(formatDateValueForDisplay('05/11/2026', 'friendly')).toBe('May 11, 2026')
-    expect(formatDateValueForDisplay('next Monday', 'iso')).toBe('next Monday')
+    expect(formatDateValueForDisplay('2026-05-11', 'european', 'en')).toBe('11/5/2026')
+    expect(formatDateValueForDisplay('05/11/2026', 'friendly', 'en')).toBe('May 11, 2026')
+    expect(formatDateValueForDisplay('next Monday', 'iso', 'en')).toBe('next Monday')
   })
 
   it('localizes friendly dates while preserving the calendar day and explicit numeric styles', () => {
