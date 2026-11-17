@@ -163,7 +163,7 @@ Nguồn: kiểm kê grep toàn `src/` + đọc `learning/LearningStudyView.tsx`,
 | F-033 | P2 | Trang chủ: hai tiêu đề gần bằng cỡ ("Thư viện", "Ghi nhớ trang"); tab trông như nút | ảnh `HOME` | SPEC §7 | fixed (`6f9932a8`) |
 | F-034 | P2 | Màn hoàn thành ôn dùng `text-3xl`, lệch thang | `LearningStudyView.tsx:258` | SPEC §6 | fixed (3a1ff145) |
 | F-035 | P2 | Sửa gợi nhớ: hai thanh ngang chồng nhau, nút "Chọn nguồn" to hơn chữ xung quanh | ảnh `2026-11-16-writing-first/mnemonic.png` | SPEC §7 | fixed (e28d4857; D1) |
-| F-036 | P2 | Placeholder tiêu đề rỗng ("Heading" nghiêng đậm) trông như nội dung thật | ảnh `REVIEW` | SPEC §7 | open |
+| F-036 | P2 | Placeholder tiêu đề rỗng ("Heading" nghiêng đậm) trông như nội dung thật | ảnh `REVIEW` | SPEC §7 | fixed (`:/fix: F-036 distinguish empty title placeholder`) |
 | F-037 | P2 | Mục sidebar đang chọn: huy hiệu số đổi sang đặc màu, mục khác thì không — hai kiểu "đang chọn" | ảnh `WRITE` vs `HOME` | SPEC §7 | fixed (`:/fix: F-037 sidebar selection and D2 tokens`) |
 | F-038 | P3 | Độ đậm chữ dùng cả 400/500/600/700 ngoài editor | `font-bold` 21 | SPEC §1 | open |
 | F-039 | P2 | Core smoke wikilink không ổn định: Cmd+click xong H1 đích rỗng | `tests/smoke/wikilink-path-fix.spec.ts:63-70`, tái hiện cả baseline `f78b8fb9` | 90/90 không retry; full checks và pre-push dry-run sạch; [biên bản](F-039-COMPLETION.md) | fixed (`:/^fix: F-039 stabilize wikilink navigation during source saves`) |

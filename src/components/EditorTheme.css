@@ -93,6 +93,13 @@
    and ensure the handle aligns by NOT adding padding/margin on inner elements.
    BlockNote positions handles via JS based on .bn-block-content bounding rect. */
 
+/* D3: style only the generated empty-title hint, never authored heading text. */
+.editor__blocknote-container [data-content-type="heading"]:is(:not([data-level]), [data-level="1"]) .bn-inline-content:has(> .ProseMirror-trailingBreak:only-child)::before {
+  color: var(--text-faint);
+  font-style: normal;
+  font-weight: 400;
+}
+
 /* Title (H1) — visually separated from content.
    BlockNote renders H1 without data-level, so we target :has(h1) */
 .editor__blocknote-container .bn-block-outer:has(h1) {

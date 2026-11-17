@@ -1,0 +1,30 @@
+
+Running 1 test using 1 worker
+
+(node:86303) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:86303) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 ../../../../private/tmp/memnova-d3/checks/editor-chrome.spec.ts:6:5 › empty H1 placeholder is faint and upright while actual H1 styling is retained (3.9s)
+
+
+  1) ../../../../private/tmp/memnova-d3/checks/editor-chrome.spec.ts:6:5 › empty H1 placeholder is faint and upright while actual H1 styling is retained 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+    Expected: [32m"normal"[39m
+    Received: [31m"italic"[39m
+
+      14 |     await expect(title).toBeVisible()
+      15 |     const style=await title.evaluate(el=>({font:getComputedStyle(el,'::before').fontStyle,weight:getComputedStyle(el,'::before').fontWeight,color:getComputedStyle(el,'::before').color,faint:getComputedStyle(document.documentElement).getPropertyValue('--text-faint')}))
+    > 16 |     expect(style.font).toBe('normal')
+         |                        ^
+      17 |     expect(style.weight).toBe('400')
+      18 |   } finally {removeFixtureVaultCopy(root)}
+      19 | })
+        at /private/tmp/memnova-d3/checks/editor-chrome.spec.ts:16:24
+
+    Error Context: ../../../../tmp/memnova-d3/browser-results/editor-chrome-empty-H1-pla-44c2f-tual-H1-styling-is-retained/error-context.md
+
+  1 failed
+    ../../../../private/tmp/memnova-d3/checks/editor-chrome.spec.ts:6:5 › empty H1 placeholder is faint and upright while actual H1 styling is retained

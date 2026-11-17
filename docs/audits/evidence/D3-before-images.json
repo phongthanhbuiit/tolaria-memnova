@@ -1,0 +1,130 @@
+[
+  {
+    "file": "docs/audits/evidence/D3-before-1024-en-dark-empty.png",
+    "pixels": [
+      2048,
+      1400
+    ],
+    "sha256": "83b3dede79ed87817df194a7fec46b24cd646d8e4caa3a1c69f2107fecfbaa38"
+  },
+  {
+    "file": "docs/audits/evidence/D3-before-1024-en-dark-note.png",
+    "pixels": [
+      2048,
+      1400
+    ],
+    "sha256": "32c053d6bee3eb1f7f2ee067c70b42eb161c860f787d5f8c781bb744e460d6a8"
+  },
+  {
+    "file": "docs/audits/evidence/D3-before-1024-en-light-empty.png",
+    "pixels": [
+      2048,
+      1400
+    ],
+    "sha256": "40b88f9690162d9e7125daaacb88d173087a7cc5a66192d9222737e79a9a20e7"
+  },
+  {
+    "file": "docs/audits/evidence/D3-before-1024-en-light-note.png",
+    "pixels": [
+      2048,
+      1400
+    ],
+    "sha256": "0bc57a3530728d6dc1b2c63d4c43f4fec0b965c184e1a17c546c15e964757466"
+  },
+  {
+    "file": "docs/audits/evidence/D3-before-1024-vi-dark-empty.png",
+    "pixels": [
+      2048,
+      1400
+    ],
+    "sha256": "985c890690f4e9e8a30f646eaf232803904e6c0480c069580badaf0d1204238d"
+  },
+  {
+    "file": "docs/audits/evidence/D3-before-1024-vi-dark-note.png",
+    "pixels": [
+      2048,
+      1400
+    ],
+    "sha256": "6b497cb141a887bc93cd62bd5861e36c1095ca7833ca841c965d8b396da3eea2"
+  },
+  {
+    "file": "docs/audits/evidence/D3-before-1024-vi-light-empty.png",
+    "pixels": [
+      2048,
+      1400
+    ],
+    "sha256": "dff7aefbca7d02c0dd9086329b9304c428dd14191b5b618c59edcda6706a424f"
+  },
+  {
+    "file": "docs/audits/evidence/D3-before-1024-vi-light-note.png",
+    "pixels": [
+      2048,
+      1400
+    ],
+    "sha256": "5a16ed89645eb9c30822164dc806906b165181b8848a4c33022db020e05f89de"
+  },
+  {
+    "file": "docs/audits/evidence/D3-before-1440-en-dark-empty.png",
+    "pixels": [
+      2880,
+      1800
+    ],
+    "sha256": "224543105ebcef31f5c6e72389571a08888e3c3a5b79416ee8717fe0ce4341ae"
+  },
+  {
+    "file": "docs/audits/evidence/D3-before-1440-en-dark-note.png",
+    "pixels": [
+      2880,
+      1800
+    ],
+    "sha256": "40fb3330243588564401299f61f58b7b73c29efab7db8d954b29fbb3fbd66162"
+  },
+  {
+    "file": "docs/audits/evidence/D3-before-1440-en-light-empty.png",
+    "pixels": [
+      2880,
+      1800
+    ],
+    "sha256": "bdd544c9d79dcae723b01de4468e05fdfa0c82d0fe1221742457ecfe8cbc6a9e"
+  },
+  {
+    "file": "docs/audits/evidence/D3-before-1440-en-light-note.png",
+    "pixels": [
+      2880,
+      1800
+    ],
+    "sha256": "60475a2eda63cc6a1415e7495561640cc9347ab4861346923bd51f8b0795741f"
+  },
+  {
+    "file": "docs/audits/evidence/D3-before-1440-vi-dark-empty.png",
+    "pixels": [
+      2880,
+      1800
+    ],
+    "sha256": "4ae2e842d7b178bff6395435f4ede589621e94b391226940d24e73040cd86954"
+  },
+  {
+    "file": "docs/audits/evidence/D3-before-1440-vi-dark-note.png",
+    "pixels": [
+      2880,
+      1800
+    ],
+    "sha256": "1a1b6f2a2d559141d0517807453acda6b02357f5dcbcc8db192a0f100a100482"
+  },
+  {
+    "file": "docs/audits/evidence/D3-before-1440-vi-light-empty.png",
+    "pixels": [
+      2880,
+      1800
+    ],
+    "sha256": "ac9d9776cde73a86c1bab3b20dee8219114541220649a101a8f0ce2b92753ee5"
+  },
+  {
+    "file": "docs/audits/evidence/D3-before-1440-vi-light-note.png",
+    "pixels": [
+      2880,
+      1800
+    ],
+    "sha256": "ae2c19c8231343be2c2cf1a54ff9faa2c38b4a26deb16998877c13d45dbb5169"
+  }
+]
