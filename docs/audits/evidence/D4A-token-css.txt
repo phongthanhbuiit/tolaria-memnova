@@ -1,0 +1,14 @@
+.text-\(length\:--text-body\){font-size:var(--text-body)}
+.text-\(length\:--text-body-lg\){font-size:var(--text-body-lg)}
+.text-\(length\:--text-caption\){font-size:var(--text-caption)}
+.text-\(length\:--text-display\){font-size:var(--text-display)}
+.text-\(length\:--text-small\){font-size:var(--text-small)}
+.text-\(length\:--text-title\){font-size:var(--text-title)}
+.leading-\(--text-body--line-height\){--tw-leading:var(--text-body--line-height);line-height:var(--text-body--line-height)}
+.leading-\(--text-body-lg--line-height\){--tw-leading:var(--text-body-lg--line-height);line-height:var(--text-body-lg--line-height)}
+.leading-\(--text-caption--line-height\){--tw-leading:var(--text-caption--line-height);line-height:var(--text-caption--line-height)}
+.leading-\(--text-display--line-height\){--tw-leading:var(--text-display--line-height);line-height:var(--text-display--line-height)}
+.leading-\(--text-small--line-height\){--tw-leading:var(--text-small--line-height);line-height:var(--text-small--line-height)}
+.leading-\(--text-title--line-height\){--tw-leading:var(--text-title--line-height);line-height:var(--text-title--line-height)}
+.md\:text-\(length\:--text-body-lg\){font-size:var(--text-body-lg)}
+.md\:leading-\(--text-body-lg--line-height\){--tw-leading:var(--text-body-lg--line-height);line-height:var(--text-body-lg--line-height)}

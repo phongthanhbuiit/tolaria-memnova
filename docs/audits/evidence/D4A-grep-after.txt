@@ -1,0 +1,1 @@
+src/components/NoteTitleIcon.tsx:35:        <span style={{ fontSize: size, lineHeight: 1 }} data-testid={testId}>

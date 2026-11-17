@@ -155,7 +155,7 @@ Nguồn: kiểm kê grep toàn `src/` + đọc `learning/LearningStudyView.tsx`,
 | ID | Mức | Tóm tắt | Bằng chứng | Sửa theo | Trạng thái |
 |---|---|---|---|---|---|
 | F-023 | P1 | Không có thang chữ: 15+ cỡ, đặt bằng 4 cách khác nhau | SPEC §0 | SPEC §1 | fixed (ddbeb0d2, nền tảng bước A; call sites B–D chưa dọn) || fixed (ddbeb0d2, foundation A; call sites B–D pending) |
-| F-024 | P1 | ≥ 120 chỗ chữ 8–10px, khó đọc | `text-[10px]` 45, `text-[9px]` 6, `fontSize: 8/9/10` 12… | SPEC §1 | open |
+| F-024 | P1 | ≥ 120 chỗ chữ 8–10px, khó đọc | `text-[10px]` 45, `text-[9px]` 6, `fontSize: 8/9/10` 12… | SPEC §1 | partial (D4A: 3310fdf3…2b7268e0, grep 160→1 ngoại lệ emoji icon; còn CSS/chữ kế thừa và native trạng thái hiếm; [biên bản](STEP-D4A-TYPOGRAPHY.md)) |
 | F-025 | P1 | `--text-muted` #B4B4B4 (≈2.1:1) dùng cho nhãn đọc được; token màu chữ trùng giá trị | `src/index.css:86-90` | SPEC §2 | fixed (207e1294, nền tảng bước A; call sites B–D chưa dọn) || fixed (207e1294, foundation A; call sites B–D pending) |
 | F-026 | P1 | CSS tính năng ghi đè component shadcn (`[data-slot=…]`) → cùng `Button`/`Switch` mà mỗi màn một cỡ | `learning/noteMemory.css:10-18,31,64,83-85` | SPEC §3 | fixed (a2428886) |
 | F-027 | P1 | Màn ôn thẻ: ba vùng lệch mép (`max-w-4xl` / `3xl` / `2xl`), hộp lồng hộp, nội dung cần nhớ yếu hơn tiêu đề | `LearningStudyView.tsx:138,296`, `LearningStudyFaces.tsx:71,87,149` | SPEC §6 | fixed (62053c7a + 96754f2a) |
@@ -288,3 +288,18 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 - Probe không retry: baseline 707bac53 3/3 pass; mã cuối D3 1/3 pass (hai ca đầu fail). [Baseline](evidence/D3-R08-baseline-probe.txt), [D3](evidence/D3-R08-current-probe.txt). Không gọi các ca này là baseline failure đã tái hiện; cần phân loại riêng để giữ phạm vi D3/không sửa BlockNote.
 - Probe paste thêm quan sát selection pass, End chuyển offset20→24; quan sát ảnh hưởng timing nên không dùng làm cách sửa hoặc bằng chứng hết flaky. [Diagnostic](evidence/D3-R08-geometry.txt). Mã test instrumentation đã gỡ; không thêm sleep, retry hoặc thay assertion.
 - Chấp nhận: xác định root test hay app rồi đạt các luồng create/paste ổn định không retry; nếu là test phải chờ đúng readiness/selection, nếu là app cần regression RED riêng. Không sửa F-040 hoặc input editor trong D3. Gate curated cuối của D3 được ghi trong biên bản riêng, không thay thế bằng pass nhờ retry của các ca này.
+
+
+## R-09 — Ba ca browser mở rộng lỗi từ baseline D4A
+
+- P2 · **open** · test/app chưa phân loại đầy đủ, ngoài typography F-024.
+- `ai-panel-shortcut.spec.ts:16`: panel visible nhưng `getByTitle('Close AI panel')` không có. `release-channel-settings.spec.ts:14` (hai ca): helper không mở được settings-panel bằng shortcut hoặc command fallback. Không đổi selector/timeout/assertion của các ca này.
+- Tái hiện baseline độc lập `b95c7193` **3/3 fail**, và D4A **3/3 fail**, retries=0. [Baseline](evidence/D4A-R09-baseline.txt), [lượt D4A, kèm 5 ca pass](evidence/D4A-browser-regression.txt). Không dùng retry để che lỗi. Bằng chứng native D4A cho thấy Settings và AI panel mở qua chuột, chưa chứng minh mọi precondition browser đúng.
+- Chấp nhận: xác định helper/selector hay bug app rồi bảo vệ đúng hành vi bằng readiness và nhãn thật, không tăng timeout/retry/skip hoặc nới assertion. Chưa sửa vì không thuộc D4A; curated gate được ghi riêng trong biên bản.
+
+
+## R-10 — Mô tả Welcome tiếng Việt vượt mép nút
+
+- P3 · **open** · có sẵn ở baseline, ngoài thay cỡ chữ F-024; không sửa bố cục trong D4A.
+- Native QA macOS1440×900, vi, sáng/tối: mô tả của nút tạo Library chạy vượt đường viền bên phải. Còn đọc được nhưng không nằm trong vùng hiển thị nút. [Baseline sáng](evidence/D4A-welcome-before-light.png), [đối chiếu tối](evidence/D4A-welcome-compare-dark.png). Hiện tượng có cả trước/sau thay token.
+- Tái hiện: mở app QA với preferences rỗng và ngôn ngữ vi → xem Welcome → quan sát dòng phụ nút tạo Library. Chấp nhận: mô tả nằm trong bề rộng nút, xuống dòng phù hợp, giữ luồng kích hoạt/focus. Cần thay bố cục/nowrap nên để bước riêng.

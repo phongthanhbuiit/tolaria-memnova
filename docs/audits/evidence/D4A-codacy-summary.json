@@ -1,0 +1,44 @@
+{
+  "before": {
+    "issues": 78,
+    "rules": {
+      "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading": 15,
+      "Lizard_parameter-count-medium": 38,
+      "Lizard_nloc-medium": 18,
+      "Lizard_ccn-medium": 5,
+      "Lizard_file-nloc-medium": 2
+    },
+    "errors": [
+      {
+        "toolId": "Semgrep",
+        "phase": "toolInvoke",
+        "kind": "Syntax error",
+        "message": "Syntax error `import { useState, useEffect, useCallback, useRef, memo, typ\u2026`${year}-${month}-${day}`} function groupCommitsByDay(commits: PulseCommit[]): Map<st\u2026`${dateKey}T00:00:00`) const dateLocale\u2026",
+        "level": "warning",
+        "filePath": "src/components/PulseView.tsx",
+        "fileNotAnalyzed": true
+      }
+    ]
+  },
+  "after": {
+    "issues": 78,
+    "rules": {
+      "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading": 15,
+      "Lizard_parameter-count-medium": 38,
+      "Lizard_nloc-medium": 18,
+      "Lizard_ccn-medium": 5,
+      "Lizard_file-nloc-medium": 2
+    },
+    "errors": [
+      {
+        "toolId": "Semgrep",
+        "phase": "toolInvoke",
+        "kind": "Syntax error",
+        "message": "Syntax error `import { useState, useEffect, useCallback, useRef, memo, typ\u2026`${year}-${month}-${day}`} function groupCommitsByDay(commits: PulseCommit[]): Map<st\u2026`${dateKey}T00:00:00`) const dateLocale\u2026",
+        "level": "warning",
+        "filePath": "src/components/PulseView.tsx",
+        "fileNotAnalyzed": true
+      }
+    ]
+  }
+}
