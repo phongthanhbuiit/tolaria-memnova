@@ -63,13 +63,14 @@ test('page properties keep both faces and opaque YAML through the next mnemonic 
     await expect
       .poll(() => fs.readFileSync(note, 'utf8'))
       .toBe(source.replace('zero: 0', 'zero: 2'))
+    await page.getByRole('button', { name: 'More note actions', exact: true }).click()
     await page
-      .getByRole('button', { name: 'Switch to wide note width', exact: true })
+      .getByRole('menuitem', { name: 'Switch to wide note width', exact: true })
       .click()
     await expect
       .poll(() => fs.readFileSync(note, 'utf8'))
       .toContain('_width: "wide"')
-    await page.getByRole('tab', { name: 'Mnemonic', exact: true }).click()
+    await page.getByRole('button', { name: 'Edit mnemonic', exact: true }).click()
     const editor = page.locator('.bn-editor:visible')
     await expect(editor).toContainText('Mnemonic remains')
     await editor.locator('[data-content-type="paragraph"]').last().click()
