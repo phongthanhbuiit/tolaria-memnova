@@ -74,7 +74,7 @@ function renderPropertiesPanel(props: ComponentProps<typeof DynamicPropertiesPan
 }
 
 describe('property panel shared grid layout', () => {
-  it('uses a shared fit-content column grid with subgridded rows', () => {
+  it('uses a shared font-responsive column grid with subgridded rows', () => {
     renderPropertiesPanel({
       entry,
       frontmatter: { VeryLongPropertyName: 'Value', Status: 'Active' },
@@ -85,7 +85,7 @@ describe('property panel shared grid layout', () => {
     const layoutGrid = typeRow.parentElement
 
     expect(layoutGrid).not.toBeNull()
-    expect(layoutGrid?.style.gridTemplateColumns).toBe('fit-content(50%) minmax(0, 1fr)')
+    expect(layoutGrid?.style.gridTemplateColumns).toBe('repeat(auto-fit, minmax(calc(min(100%, max(7rem, (100% - 0.5rem) / 2))), 1fr))')
     expect(typeRow.style.gridTemplateColumns).toBe('subgrid')
     expect(typeRow.style.gridColumn).toBe('1 / -1')
 
@@ -130,25 +130,25 @@ describe('property panel shared grid layout', () => {
     expect(screen.getByTestId('add-property-icon-slot')).toHaveClass('size-5')
   })
 
-  it('renders suggested-property labels in lighter placeholder text', () => {
+  it('renders suggested-property labels in readable secondary text', () => {
     renderPropertiesPanel({
       entry,
       frontmatter: {},
       onAddProperty: vi.fn(),
     })
 
-    expect(screen.getByText('Status').parentElement).toHaveClass('text-muted-foreground/40')
-    expect(screen.getByText('Date').parentElement).toHaveClass('text-muted-foreground/40')
+    expect(screen.getByText('Status').parentElement).toHaveClass('text-text-secondary')
+    expect(screen.getByText('Date').parentElement).toHaveClass('text-text-secondary')
   })
 
-  it('renders the add-property row in lighter placeholder text', () => {
+  it('renders the add-property row in readable secondary text', () => {
     renderPropertiesPanel({
       entry,
       frontmatter: {},
       onAddProperty: vi.fn(),
     })
 
-    expect(screen.getByText('Add property').parentElement).toHaveClass('text-muted-foreground/40')
+    expect(screen.getByText('Add property').parentElement).toHaveClass('text-text-secondary')
   })
 
   it('renders plain text values flush with the shared value column', () => {

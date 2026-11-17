@@ -57,7 +57,7 @@ describe('relationship layout regression', () => {
     expect(belongsToSlot).toHaveStyle({ gridColumn: '1 / -1' })
 
     const label = within(belongsToSlot!).getByTestId('relationship-section-label')
-    expect(label).toHaveClass('text-[12px]')
+    expect(label).toHaveClass('text-body')
     expect(within(label).queryByTestId('relationship-section-icon-slot')).not.toBeInTheDocument()
     expect(within(belongsToSlot!).getByTestId('add-relation-ref')).toBeInTheDocument()
   })
