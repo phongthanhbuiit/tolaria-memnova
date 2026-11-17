@@ -100,7 +100,7 @@ function WorkspaceRowLabel({ locale }: { locale: AppLocale }) {
         className={PROPERTY_PANEL_LABEL_ICON_SLOT_CLASS_NAME}
         data-testid="workspace-row-icon-slot"
       >
-        <Cube size={14} className="shrink-0" data-testid="workspace-row-icon" />
+        <Cube size={16} className="shrink-0" data-testid="workspace-row-icon" />
       </span>
       <span className="min-w-0 truncate">{translate(locale, 'inspector.properties.workspace')}</span>
     </span>
@@ -115,7 +115,7 @@ function WorkspaceSelectorValue({
   locale: AppLocale
 }) {
   if (!currentWorkspace) {
-    return <span className="truncate text-muted-foreground">{translate(locale, 'inspector.properties.none')}</span>
+    return <span className="truncate text-text-secondary">{translate(locale, 'inspector.properties.none')}</span>
   }
   return <span className="min-w-0 truncate">{currentWorkspace.label}</span>
 }
@@ -129,10 +129,10 @@ function ReadOnlyWorkspaceSelector({
 }) {
   if (!currentWorkspace) return null
   return (
-    <div className="grid min-h-7 min-w-0 grid-cols-2 items-center gap-2 px-1.5" style={PROPERTY_PANEL_ROW_STYLE}>
+    <div className="grid min-h-(--control-sm) min-w-0 grid-cols-2 items-center gap-2 px-2" style={PROPERTY_PANEL_ROW_STYLE}>
       <WorkspaceRowLabel locale={locale} />
       <span
-        className="min-w-0 max-w-full truncate text-[12px] font-medium"
+        className="min-w-0 max-w-full truncate text-body font-medium"
         style={{
           ...PROPERTY_CHIP_STYLE,
           background: workspaceLightColor(currentWorkspace) ?? 'var(--muted)',
@@ -302,7 +302,7 @@ function EditableWorkspaceSelector({
 
   return (
     <div
-      className="grid min-h-7 min-w-0 grid-cols-2 items-center gap-2 px-1.5"
+      className="grid min-h-(--control-sm) min-w-0 grid-cols-2 items-center gap-2 px-2"
       style={PROPERTY_PANEL_ROW_STYLE}
       data-testid="workspace-selector"
     >
@@ -321,7 +321,7 @@ function EditableWorkspaceSelector({
                 aria-expanded={open}
                 aria-haspopup="listbox"
                 className={cn(
-                  'h-auto max-w-full justify-between gap-1 border-none px-2 shadow-none ring-inset [&_svg]:text-current',
+                  'max-w-full justify-between gap-[6px] border-none px-2 shadow-none ring-inset [&_svg]:text-current',
                   'hover:ring-1 hover:ring-current',
                 )}
                 style={{
@@ -335,7 +335,7 @@ function EditableWorkspaceSelector({
                 <span className="flex min-w-0 items-center truncate">
                   <WorkspaceSelectorValue currentWorkspace={currentWorkspace} locale={locale} />
                 </span>
-                <CaretUpDown size={14} aria-hidden="true" />
+                <CaretUpDown size={16} aria-hidden="true" />
               </Button>
             </div>
           </PopoverAnchor>
@@ -349,13 +349,13 @@ function EditableWorkspaceSelector({
             onCloseAutoFocus={(event) => event.preventDefault()}
           >
             <div className="border-b border-border p-1">
-              <Input
+              <Input controlSize="sm"
                 ref={inputRef}
                 value={query}
                 placeholder={translate(locale, 'inspector.properties.searchWorkspaces')}
                 autoComplete="off"
                 aria-label={translate(locale, 'inspector.properties.searchWorkspaces')}
-                className="h-8 text-sm"
+                className="text-body"
                 data-testid="workspace-selector-search-input"
                 onChange={(event) => handleSearchChange(event.target.value)}
                 onKeyDown={handleSearchKeyDown}
@@ -363,7 +363,7 @@ function EditableWorkspaceSelector({
             </div>
             <div ref={listRef} className="max-h-60 overflow-y-auto p-1">
               {options.length === 0 ? (
-                <div className="px-2 py-6 text-center text-sm text-muted-foreground">
+                <div className="px-2 py-6 text-center text-body text-text-secondary">
                   {translate(locale, 'inspector.properties.noMatchingWorkspaces')}
                 </div>
               ) : (
@@ -381,14 +381,14 @@ function EditableWorkspaceSelector({
                         aria-selected={selected}
                         data-index={index}
                         className={cn(
-                          'h-auto w-full justify-between px-2 py-1.5 text-left font-normal',
+                          'h-auto w-full justify-between px-2 py-0 text-left font-normal',
                           highlighted && 'bg-muted',
                         )}
                         onMouseEnter={() => setHighlightedIndex(index)}
                         onClick={() => selectWorkspace(workspace)}
                       >
                         <span className="min-w-0 truncate">{workspace.label}</span>
-                        {selected ? <Check size={14} aria-hidden="true" /> : null}
+                        {selected ? <Check size={16} aria-hidden="true" /> : null}
                       </Button>
                     )
                   })}
