@@ -115,7 +115,7 @@ const BRAND_ICON_STYLE: React.CSSProperties = {
 }
 
 const TITLE_STYLE: React.CSSProperties = {
-  fontWeight: 700,
+  fontWeight: 600,
   letterSpacing: -0.5,
   color: 'var(--foreground)',
   textAlign: 'center',
