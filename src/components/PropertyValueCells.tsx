@@ -1,3 +1,4 @@
+import { Checkbox } from './ui/checkbox'
 import { ArrowUpRight, X as XIcon } from '@phosphor-icons/react'
 import { useState, useCallback, useRef, type ReactNode, type RefObject } from 'react'
 import { createPortal } from 'react-dom'
@@ -106,16 +107,16 @@ function StatusValue({ propKey, value, isEditing, vaultStatuses, onSave, onStart
   const style = getStatusStyle(statusStr)
   return (
     <span className="relative inline-flex min-w-0 items-center">
-      <button
+      <Button variant="ghost" size="sm"
         type="button"
-        className="inline-flex cursor-pointer items-center gap-1.5 border-0 transition-opacity hover:opacity-80"
+        className="inline-flex min-h-(--control-sm) text-body cursor-pointer items-center gap-[6px] border-0 transition-opacity hover:opacity-80"
         style={{ ...PROPERTY_CHIP_STYLE, backgroundColor: style.bg, color: style.color }}
         onClick={() => onStartEdit(propKey)}
         data-testid="status-badge"
       >
         <span className="inline-block size-1.5 shrink-0 rounded-full" style={{ backgroundColor: style.color }} />
         {statusStr}
-      </button>
+      </Button>
       {isEditing && (
         <StatusDropdown
           value={statusStr}
@@ -149,7 +150,7 @@ function TagsValue({ propKey, value, isEditing, vaultTags, onSave, onStartEdit }
         return (
           <span
             key={tag}
-            className="group/tag relative inline-flex items-center overflow-hidden"
+            className="group/tag relative text-body inline-flex items-center overflow-hidden"
             style={{ ...PROPERTY_CHIP_STYLE, backgroundColor: style.bg, maxWidth: 120 }}
           >
             <span
@@ -162,24 +163,24 @@ function TagsValue({ propKey, value, isEditing, vaultTags, onSave, onStartEdit }
             >
               {tag}
             </span>
-            <button type="button"
-              className="ml-0.5 max-w-0 overflow-hidden border-none bg-transparent p-0 leading-none opacity-0 transition-all duration-150 group-hover/tag:max-w-[14px] group-hover/tag:opacity-100"
-              style={{ color: style.color, fontSize: 11, flexShrink: 0 }}
+            <Button variant="ghost" size="icon-sm" type="button"
+              className="ml-1 overflow-hidden border-none bg-transparent p-0 leading-none opacity-0 transition-all duration-150 group-hover/tag:opacity-100 focus-visible:opacity-100"
+              style={{ color: style.color, flexShrink: 0 }}
               onClick={() => handleRemove(tag)}
               title={`Remove ${tag}`}
             >
               &times;
-            </button>
+            </Button>
           </span>
         )
       })}
-      <button type="button"
-        className="inline-flex shrink-0 items-center justify-center border-none bg-muted text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+      <Button variant="ghost" size="sm" type="button"
+        className="inline-flex shrink-0 items-center justify-center border-none bg-muted text-text-secondary transition-colors hover:bg-accent hover:text-foreground"
         style={PROPERTY_CHIP_STYLE}
         onClick={() => onStartEdit(propKey)}
         title="Add tag"
         data-testid="tags-add-button"
-      >+</button>
+      >+</Button>
       {isEditing && (
         <TagsDropdown
           selectedTags={value}
@@ -194,14 +195,13 @@ function TagsValue({ propKey, value, isEditing, vaultTags, onSave, onStartEdit }
 
 function BooleanToggle({ value, onToggle }: { value: boolean; onToggle: () => void }) {
   return (
-    <label className="inline-flex h-6 cursor-pointer items-center gap-1.5" data-testid="boolean-toggle">
-      <input
-        type="checkbox"
+    <label className="inline-flex min-h-(--control-sm) text-body cursor-pointer items-center gap-1.5" data-testid="boolean-toggle">
+      <Checkbox
         checked={value}
-        onChange={onToggle}
-        className="size-3.5 cursor-pointer accent-primary"
+        onCheckedChange={onToggle}
+        className="cursor-pointer"
       />
-      <span className="text-[12px] text-secondary-foreground">{value ? 'Yes' : 'No'}</span>
+      <span className="text-body text-secondary-foreground">{value ? 'Yes' : 'No'}</span>
     </label>
   )
 }
@@ -250,8 +250,8 @@ function NumberValue({
 
   if (isEditing) {
     return (
-      <Input
-        className="h-7 w-full border-ring bg-muted px-2 py-1 text-left font-mono text-[12px] tabular-nums"
+      <Input controlSize="sm"
+        className="w-full border-ring bg-muted px-2 py-0 text-left font-mono text-body tabular-nums"
         type="text"
         inputMode="decimal"
         value={editValue}
@@ -265,15 +265,15 @@ function NumberValue({
   }
 
   return (
-    <button
+    <Button variant="ghost" size="sm"
       type="button"
-      className="inline-flex h-6 w-full min-w-0 items-center justify-start overflow-hidden rounded-md border-none bg-muted/60 px-2 text-left font-mono text-[12px] tabular-nums text-foreground transition-colors hover:bg-muted"
+      className="inline-flex w-full min-w-0 items-center justify-start overflow-hidden rounded-md border-none bg-muted/60 px-2 text-left font-mono text-body tabular-nums text-foreground transition-colors hover:bg-muted"
       onClick={onStartEdit}
       title={value || 'Click to edit'}
       data-testid="number-display"
     >
       <span className="min-w-0 truncate">{value || '\u2014'}</span>
-    </button>
+    </Button>
   )
 }
 
@@ -365,19 +365,19 @@ function DateValue({ value, onSave, locale = 'en', autoOpen = false, onCancel }:
         <Button
           type="button"
           variant="ghost"
-          size="xs"
-          className={`min-w-0 justify-start border-none text-left transition-colors hover:opacity-80${formatted ? ' bg-muted text-accent-foreground' : ' bg-transparent text-muted-foreground'}`}
+          size="sm"
+          className={`min-w-0 justify-start border-none text-left transition-colors hover:opacity-80${formatted ? ' bg-muted text-accent-foreground' : ' bg-transparent text-text-secondary'}`}
           style={PROPERTY_CHIP_STYLE}
           title={value}
           data-testid="date-display"
         >
-          <span className={`min-w-0 truncate${!formatted ? ' text-muted-foreground' : ''}`}>{formatted || pickDateLabel}</span>
+          <span className={`min-w-0 truncate${!formatted ? ' text-text-secondary' : ''}`}>{formatted || pickDateLabel}</span>
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto overflow-hidden p-0" align="end" side="bottom" data-testid="date-picker-popover">
         <div className="border-b p-2">
-          <Input
-            className="h-8 w-full min-w-[8.75rem] border-ring bg-background px-2 py-1 text-left font-mono text-[13px] tabular-nums"
+          <Input controlSize="sm"
+            className="w-full min-w-[8.75rem] border-ring bg-background px-2 py-0 text-left font-mono text-body tabular-nums"
             type="text"
             inputMode="numeric"
             pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
@@ -409,8 +409,8 @@ function DateValue({ value, onSave, locale = 'en', autoOpen = false, onCancel }:
             <Button
               type="button"
               variant="ghost"
-              size="xs"
-              className="h-7 px-2 text-xs text-muted-foreground hover:bg-transparent hover:text-foreground"
+              size="sm"
+              className="px-2 text-body text-text-secondary hover:bg-transparent hover:text-foreground"
               onClick={handleClear}
               data-testid="date-picker-clear"
             >
@@ -440,21 +440,21 @@ export function DisplayModeSelector({ propKey, currentMode, autoMode, onSelect }
 
   return (
     <div className="relative">
-      <button
+      <Button variant="ghost" size="icon-sm"
         ref={triggerRef}
         type="button"
-        className="inline-flex size-5 shrink-0 items-center justify-center rounded border-none bg-transparent p-0 text-muted-foreground transition-colors hover:bg-background hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary"
+        className="inline-flex shrink-0 items-center justify-center rounded-md border-none bg-transparent p-0 text-text-secondary transition-colors hover:bg-background hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary"
         onClick={() => setOpen(!open)}
         title={`Change ${propKey} type`}
         aria-label={`Change ${propKey} type`}
         data-testid="display-mode-trigger"
       >
         {showRelationshipIcon ? (
-          <ArrowUpRight className="size-3.5" data-testid="display-mode-icon-relationship" />
+          <ArrowUpRight className="size-[16px]" data-testid="display-mode-icon-relationship" />
         ) : (
-          <CurrentIcon className="size-3.5" data-testid={`display-mode-icon-${currentMode}`} />
+          <CurrentIcon className="size-[16px]" data-testid={`display-mode-icon-${currentMode}`} />
         )}
-      </button>
+      </Button>
       {open && (
         <DisplayModeMenu
           autoMode={autoMode}
@@ -496,7 +496,7 @@ function DisplayModeMenu({
       />
       <div
         ref={menuRef}
-        className="fixed z-[12001] min-w-[130px] rounded-md border border-border bg-background py-1 shadow-md"
+        className="fixed z-[12001] min-w-[130px] rounded-lg border border-border bg-background py-1 shadow-md"
         style={getAnchoredDropdownStyle(null, DISPLAY_MODE_MENU_WIDTH)}
         data-testid="display-mode-menu"
       >
@@ -528,21 +528,21 @@ function DisplayModeOption({
 }) {
   const OptIcon = DISPLAY_MODE_ICONS[option.value]
   return (
-    <button
+    <Button variant="ghost" size="sm"
       type="button"
-      className="flex w-full items-center gap-2 border-none bg-transparent px-3 py-1.5 text-left text-[12px] text-foreground transition-colors hover:bg-muted"
+      className="flex w-full items-center gap-[6px] border-none bg-transparent px-3 py-0 justify-start text-left text-body text-foreground transition-colors hover:bg-muted"
       onClick={() => onSelect(option.value)}
       data-testid={`display-mode-option-${option.value}`}
     >
-      <span className="w-3 text-center text-[10px]">
+      <span className="w-3 text-center text-caption">
         {currentMode === option.value ? '\u2713' : ''}
       </span>
-      <OptIcon className="size-3.5 text-muted-foreground" />
+      <OptIcon className="size-[16px] text-text-secondary" />
       {option.label}
       {option.value === autoMode && (
-        <span className="ml-auto text-[10px] text-muted-foreground">auto</span>
+        <span className="ml-auto text-caption text-text-secondary">auto</span>
       )}
-    </button>
+    </Button>
   )
 }
 
