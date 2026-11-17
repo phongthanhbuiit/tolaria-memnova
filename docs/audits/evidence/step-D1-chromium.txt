@@ -1,0 +1,30 @@
+
+Running 21 tests using 1 worker
+
+(node:13650) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:13650) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/integration/memnova-properties.spec.ts:39:1 › linked answers and typed card drafts survive preview, save, reload, study and Undo (15.2s)
+  ✓   2 [chromium] › tests/integration/memnova-properties.spec.ts:154:1 › page properties stay in Markdown and use the same calendar and draft controls (8.2s)
+  ✓   3 [chromium] › tests/integration/note-memory-layout.spec.ts:4:1 › note controls use the system type scale and expose a primary study action (1.4s)
+  ✓   4 [chromium] › tests/integration/note-memory-layout.spec.ts:13:1 › new surfaces keep controls within small/medium/large windows across app zoom, themes and locales (55.8s)
+  ✓   5 [chromium] › tests/integration/note-memory-layout.spec.ts:59:1 › coarse targets, contrast, reduced motion and keyboard focus remain usable (1.2s)
+  ✓   6 [chromium] › tests/integration/note-memory-layout.spec.ts:95:1 › editable drawing fits a compact editor (1.1s)
+  ✓   7 [chromium] › tests/integration/note-memory-layout.spec.ts:102:1 › source toolbar follows utility type scale and coarse target size (988ms)
+  ✓   8 [chromium] › tests/integration/note-memory-layout.spec.ts:117:1 › mnemonic return control stays within a narrow editor without learning tabs (1.1s)
+  ✓   9 [chromium] › tests/integration/note-memory-layout.spec.ts:138:1 › closing the source chooser restores focus to its toolbar action (1.4s)
+  ✓  10 [chromium] › tests/integration/note-memory-layout.spec.ts:153:3 › closing Convert note memory returns focus to its dashboard action (1.1s)
+  ✓  11 [chromium] › tests/integration/note-memory-layout.spec.ts:153:3 › closing Saved drafts and recovery returns focus to its dashboard action (1.5s)
+  ✓  12 [chromium] › tests/integration/note-memory-layout.spec.ts:171:1 › note states remain understandable in light and dark themes at a narrow width (1.6s)
+  ✓  13 [chromium] › tests/integration/note-memory-layout.spec.ts:186:1 › status labels and grade labels, intervals and borders meet contrast in both themes (2.2s)
+  ✓  14 [chromium] › tests/integration/note-memory-layout.spec.ts:217:1 › a thousand-note dashboard limits mounted rows and keeps end-to-end keyboard access (1.4s)
+  ✓  15 [chromium] › tests/integration/note-memory-study.spec.ts:3:1 › note study hides the article, waits for a readonly mnemonic canvas, returns without a rating and accepts one explicit grade (1.7s)
+  ✓  16 [chromium] › tests/integration/note-memory-study.spec.ts:51:1 › an unverified local mnemonic image blocks rating and exposes reload (1.3s)
+  ✓  17 [chromium] › tests/integration/note-memory-study.spec.ts:72:1 › legacy Q/A still reveals by Space and grades by a numeric shortcut (1.0s)
+  ✓  18 [chromium] › tests/integration/note-memory-workspace.spec.ts:11:1 › explicit note enable, mnemonic editing, study and pause use the default workspace (5.9s)
+  ✓  19 [chromium] › tests/integration/note-memory-workspace.spec.ts:124:1 › ordinary note editing retains a literal two-face marker without enabling learning (blank lines) (3.4s)
+  ✓  20 [chromium] › tests/integration/note-memory-workspace.spec.ts:124:1 › ordinary note editing retains a literal two-face marker without enabling learning (no blank lines) (3.4s)
+  ✓  21 [chromium] › tests/integration/note-memory-workspace.spec.ts:162:1 › Home creates and verifies a backup after editing a managed note (3.8s)
+
+  21 passed (1.9m)

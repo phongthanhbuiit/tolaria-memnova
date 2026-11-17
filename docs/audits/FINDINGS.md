@@ -26,8 +26,8 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 | F-010 | P2 | C3 | Mỗi hàng danh sách hiện hai ngày giống nhau, ngày đầu không nhãn | ảnh | open |
 | F-011 | P2 | C4 | Hạn ôn hiện mốc thời gian thô, không nói quá hạn bao lâu | ảnh | open |
 | F-012 | P2 | C2 | Nhãn đỏ "Cần xử lý" không nói phải làm gì | ảnh | open |
-| F-013 | P2 | C3 | Properties: khung rỗng chiếm chỗ, đẩy thao tác học xuống dưới | ảnh | open |
-| F-014 | P2 | C3 | Nút ôn chính trong Properties trông như nút phụ/vô hiệu | ảnh | open |
+| F-013 | P2 | C3 | Properties: khung rỗng chiếm chỗ, đẩy thao tác học xuống dưới | ảnh | fixed (975948d0, b8796a72, f1a741e0; D1) |
+| F-014 | P2 | C3 | Nút ôn chính trong Properties trông như nút phụ/vô hiệu | ảnh | fixed (7be04257; D1) |
 | F-015 | P2 | C3 | Màn ôn: 4 nút chấm điểm viền màu dày lạc khỏi ngôn ngữ thị giác của app | ảnh | fixed (87129845, superseded by F-028) |
 | F-016 | P2 | C4 | Màn ôn: "0/1 · 0 reviews", "in 1 min." khó hiểu | ảnh | fixed (60445d20) |
 | F-017 | P2 | C4 | "Hộp thư đến", "Library", "Notes", thư mục `views` trong sidebar tiếng Việt | ảnh | open |
@@ -99,11 +99,13 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 ### F-013 — Properties nhiều khung rỗng
 - Thực tế (`PROPS`): 4 dòng "—" + 3 khung nét đứt "Thêm" + 2 nút lớn chiếm ~60% chiều cao trước khi tới phần học.
 - Sửa: gộp thuộc tính rỗng sau một dòng "Thêm thuộc tính"; quan hệ rỗng thu thành một nút; đưa khối học lên trên hoặc cho thu gọn từng nhóm.
-- **Đổi bố cục panel → cần chủ dự án duyệt phác thảo trước.**
+- Yêu cầu ban đầu: **đổi bố cục panel → cần chủ dự án duyệt phác thảo trước.** Chủ dự án đã giao FIX D1 theo SPEC §7; giữ đủ hành động và không thêm menu/bước thao tác.
+- D1: gợi ý thuộc tính thành lưới tự co theo cỡ chữ, quan hệ thành hàng nhãn + nút thêm; bỏ khung nét đứt, inset 16px. [Ảnh sáng/tối và nghiệm thu](STEP-D1-PROPERTIES-MNEMONIC.md).
 
 ### F-014 — Nút ôn trông như nút phụ
 - Thực tế (`PROPS`): "Ôn ghi chú này" nền xám nhạt, giống trạng thái disabled; trên `HOME` cùng hành động lại là nút xanh đặc.
 - Sửa: dùng variant `default` của `Button` khi ghi chú đến hạn, `outline` khi chưa.
+- D1: phân biệt bằng due và clock hiện có; giữ guard enabled và dispatch scope. Có regression test cùng ảnh tương lai hai theme trong [biên bản](STEP-D1-PROPERTIES-MNEMONIC.md).
 
 ### F-015 — Nút chấm điểm lạc tông
 - Thực tế (`REVIEW`): 4 ô viền đỏ/cam/lục/lam dày 2px; thẻ gợi nhớ là hộp lồng hộp (nền xám bọc nền trắng).
@@ -153,12 +155,15 @@ Nguồn: kiểm kê grep toàn `src/` + đọc `learning/LearningStudyView.tsx`,
 | F-032 | P2 | 331 `style={{}}` inline, khó giữ đồng bộ | PulseView 26, AiPanelChrome 20, SidebarParts 18, AiMessage 18, TelemetryConsentDialog 14 | SPEC §1–4 | open |
 | F-033 | P2 | Trang chủ: hai tiêu đề gần bằng cỡ ("Thư viện", "Ghi nhớ trang"); tab trông như nút | ảnh `HOME` | SPEC §7 | open |
 | F-034 | P2 | Màn hoàn thành ôn dùng `text-3xl`, lệch thang | `LearningStudyView.tsx:258` | SPEC §6 | fixed (3a1ff145) |
-| F-035 | P2 | Sửa gợi nhớ: hai thanh ngang chồng nhau, nút "Chọn nguồn" to hơn chữ xung quanh | ảnh `2026-11-16-writing-first/mnemonic.png` | SPEC §7 | open |
+| F-035 | P2 | Sửa gợi nhớ: hai thanh ngang chồng nhau, nút "Chọn nguồn" to hơn chữ xung quanh | ảnh `2026-11-16-writing-first/mnemonic.png` | SPEC §7 | fixed (e28d4857; D1) |
 | F-036 | P2 | Placeholder tiêu đề rỗng ("Heading" nghiêng đậm) trông như nội dung thật | ảnh `REVIEW` | SPEC §7 | open |
 | F-037 | P2 | Mục sidebar đang chọn: huy hiệu số đổi sang đặc màu, mục khác thì không — hai kiểu "đang chọn" | ảnh `WRITE` vs `HOME` | SPEC §7 | open |
 | F-038 | P3 | Độ đậm chữ dùng cả 400/500/600/700 ngoài editor | `font-bold` 21 | SPEC §1 | open |
 | F-039 | P2 | Core smoke wikilink không ổn định: Cmd+click xong H1 đích rỗng | `tests/smoke/wikilink-path-fix.spec.ts:65-70`, tái hiện cả baseline `f78b8fb9` | Chạy ổn định không retry; phân biệt fixture/test và lỗi app trước khi sửa | open |
 | F-040 | P2 | Core smoke keyboard delete/Quick Open phụ thuộc retry | `tests/smoke/delete-note-nonblocking.spec.ts:53`, log pre-push bước C | Xác định nguyên nhân trong lane đầy đủ; không coi retry là smoke sạch | open |
+| F-041 | P2 | WebKit regression: render error react-virtuoso khi lưu ghi chú thường trước Command Palette | `note-memory-workspace.spec.ts:124-147`; tái hiện baseline b23296e9 | Phân biệt lỗi app/fixture, giữ assertion và timeout | open |
+
+D1 hoàn tất phần Properties/sửa gợi nhớ của F-024/F-032: grep typography toàn src giảm 307 → 232, CSS data-slot giữ 0 → 0. Hai finding vẫn **open** cho D2–D4. F-035 ghép thanh qua slot trình bày, giữ callback/flush guards; [ảnh và kết quả kiểm tra D1](STEP-D1-PROPERTIES-MNEMONIC.md).
 
 Ghi chú: F-015 và F-016 (Đợt 0) được thay bằng F-027/F-028 + SPEC §6 — đánh dấu `fixed` cùng lúc.
 
@@ -192,3 +197,11 @@ Bước C trên `dc29bf7d`: F-039 thất bại cả retry (lượt đầu Grow N
 - Bằng chứng: `src/…/File.tsx:123` hoặc `evidence/F-0xx-before.png`
 - Sửa: … · Chấp nhận: … (đo được, viết được thành test)
 ```
+
+### F-041 — WebKit render error trước Command Palette
+
+- P2 · C9 · Chưa kết luận lỗi native hoặc nguyên nhân app/fixture. Ngoài bề mặt D1.
+- Tái hiện: chạy `MEMNOVA_PLAYWRIGHT_WEBKIT=1 BASE_URL=http://localhost:5201 pnpm exec playwright test --config playwright.integration.config.ts tests/integration/note-memory-workspace.spec.ts --grep 'ordinary note editing retains' --retries=0`. Sau khi lưu ghi chú thường có marker literal, test mở Command Palette nhưng app hiển thị render error có `getRootForUpdatedFiber`, `forceStoreRerender`, `react-virtuoso`, `VirtualNoteList2`.
+- Current D1: lane đầy đủ 7 passed / 2 failed; chạy riêng hai ca vẫn 2 failed. Cùng hai ca với baseline `b23296e9` trên port 41743: 1 failed / 1 passed, cùng stack ở ca blank lines. Vì vậy có bằng chứng lỗi tồn tại trước D1; không khẳng định từng biến thể đều thất bại ổn định trên baseline.
+- Bằng chứng: [current](evidence/F-041-webkit-current.txt), [current recheck](evidence/F-041-webkit-recheck.txt), [baseline](evidence/F-041-webkit-baseline.txt), [snapshot baseline](evidence/F-041-baseline-context.md), [snapshot current](evidence/F-041-current-context.md).
+- Chấp nhận: xác định nguyên nhân rồi cả hai case và lane đầy đủ WebKit pass không retry; không hạ assertion hoặc tăng timeout. D1 giữ nguyên các spec, không sửa note list/editor ngoài phạm vi.

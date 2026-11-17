@@ -1,0 +1,8 @@
+{
+  "baseline": "b23296e9",
+  "files": 27,
+  "attributes": 704,
+  "normalization": "raw button/input to shared Button/Input; Checkbox onCheckedChange to the same native onChange callback; attribute order ignored for the requested layout move",
+  "diffs": [],
+  "result": "PASS"
+}

@@ -1,0 +1,86 @@
+
+Running 9 tests using 1 worker
+
+(node:15177) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:15177) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [webkit] › tests/integration/memnova-properties.spec.ts:39:1 › linked answers and typed card drafts survive preview, save, reload, study and Undo (14.8s)
+  ✓  2 [webkit] › tests/integration/memnova-properties.spec.ts:154:1 › page properties stay in Markdown and use the same calendar and draft controls (7.4s)
+  ✓  3 [webkit] › tests/integration/note-memory-study.spec.ts:3:1 › note study hides the article, waits for a readonly mnemonic canvas, returns without a rating and accepts one explicit grade (1.9s)
+  ✓  4 [webkit] › tests/integration/note-memory-study.spec.ts:51:1 › an unverified local mnemonic image blocks rating and exposes reload (996ms)
+  ✓  5 [webkit] › tests/integration/note-memory-study.spec.ts:72:1 › legacy Q/A still reveals by Space and grades by a numeric shortcut (665ms)
+  ✓  6 [webkit] › tests/integration/note-memory-workspace.spec.ts:11:1 › explicit note enable, mnemonic editing, study and pause use the default workspace (6.5s)
+  ✘  7 [webkit] › tests/integration/note-memory-workspace.spec.ts:124:1 › ordinary note editing retains a literal two-face marker without enabling learning (blank lines) (9.0s)
+(node:15489) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:15489) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  8 [webkit] › tests/integration/note-memory-workspace.spec.ts:124:1 › ordinary note editing retains a literal two-face marker without enabling learning (no blank lines) (9.4s)
+(node:15574) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:15574) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  9 [webkit] › tests/integration/note-memory-workspace.spec.ts:162:1 › Home creates and verifies a backup after editing a managed note (4.3s)
+
+
+  1) [webkit] › tests/integration/note-memory-workspace.spec.ts:124:1 › ordinary note editing retains a literal two-face marker without enabling learning (blank lines)
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('input[placeholder="Type a command..."]')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('input[placeholder="Type a command..."]')[22m
+
+
+       at ../smoke/helpers.ts:10
+
+       8 |   await page.locator('body').click()
+       9 |   await sendShortcut(page, 'k', ['Control'])
+    > 10 |   await expect(page.locator(COMMAND_INPUT)).toBeVisible()
+         |                                             ^
+      11 | }
+      12 |
+      13 | export async function closeCommandPalette(page: Page): Promise<void> {
+        at openCommandPalette (/Users/thompson/Documents/tolaria-memnova/tests/smoke/helpers.ts:10:45)
+        at /Users/thompson/Documents/tolaria-memnova/tests/integration/note-memory-workspace.spec.ts:147:5
+
+    Error Context: test-results/note-memory-workspace-ordi-8bbfc-bling-learning-blank-lines--webkit/error-context.md
+
+  2) [webkit] › tests/integration/note-memory-workspace.spec.ts:124:1 › ordinary note editing retains a literal two-face marker without enabling learning (no blank lines)
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('input[placeholder="Type a command..."]')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('input[placeholder="Type a command..."]')[22m
+
+
+       at ../smoke/helpers.ts:10
+
+       8 |   await page.locator('body').click()
+       9 |   await sendShortcut(page, 'k', ['Control'])
+    > 10 |   await expect(page.locator(COMMAND_INPUT)).toBeVisible()
+         |                                             ^
+      11 | }
+      12 |
+      13 | export async function closeCommandPalette(page: Page): Promise<void> {
+        at openCommandPalette (/Users/thompson/Documents/tolaria-memnova/tests/smoke/helpers.ts:10:45)
+        at /Users/thompson/Documents/tolaria-memnova/tests/integration/note-memory-workspace.spec.ts:147:5
+
+    Error Context: test-results/note-memory-workspace-ordi-7f50e-ng-learning-no-blank-lines--webkit/error-context.md
+
+  2 failed
+    [webkit] › tests/integration/note-memory-workspace.spec.ts:124:1 › ordinary note editing retains a literal two-face marker without enabling learning (blank lines)
+    [webkit] › tests/integration/note-memory-workspace.spec.ts:124:1 › ordinary note editing retains a literal two-face marker without enabling learning (no blank lines)
+  7 passed (58.0s)

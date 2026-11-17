@@ -1,0 +1,46 @@
+
+Running 2 tests using 1 worker
+
+(node:16353) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:16353) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [webkit] › tests/integration/note-memory-workspace.spec.ts:124:1 › ordinary note editing retains a literal two-face marker without enabling learning (blank lines) (10.6s)
+(node:16454) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:16454) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  2 [webkit] › tests/integration/note-memory-workspace.spec.ts:124:1 › ordinary note editing retains a literal two-face marker without enabling learning (no blank lines) (3.9s)
+
+
+  1) [webkit] › tests/integration/note-memory-workspace.spec.ts:124:1 › ordinary note editing retains a literal two-face marker without enabling learning (blank lines)
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('input[placeholder="Type a command..."]')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('input[placeholder="Type a command..."]')[22m
+
+
+       at ../smoke/helpers.ts:10
+
+       8 |   await page.locator('body').click()
+       9 |   await sendShortcut(page, 'k', ['Control'])
+    > 10 |   await expect(page.locator(COMMAND_INPUT)).toBeVisible()
+         |                                             ^
+      11 | }
+      12 |
+      13 | export async function closeCommandPalette(page: Page): Promise<void> {
+        at openCommandPalette (/Users/thompson/Documents/tolaria-memnova/tests/smoke/helpers.ts:10:45)
+        at /Users/thompson/Documents/tolaria-memnova/tests/integration/note-memory-workspace.spec.ts:147:5
+
+    Error Context: ../../../../tmp/memnova-d1-webkit-baseline-results/note-memory-workspace-ordi-8bbfc-bling-learning-blank-lines--webkit/error-context.md
+
+  1 failed
+    [webkit] › tests/integration/note-memory-workspace.spec.ts:124:1 › ordinary note editing retains a literal two-face marker without enabling learning (blank lines)
+  1 passed (16.2s)

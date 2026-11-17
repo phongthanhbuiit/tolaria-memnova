@@ -1,0 +1,87 @@
+{
+  "codeHead": "e28d48577d25f9c91c1d073b13ea026194df35f4",
+  "commands": [
+    {
+      "name": "lint",
+      "command": "pnpm lint",
+      "exitCode": 0,
+      "seconds": 19.4
+    },
+    {
+      "name": "types",
+      "command": "pnpm exec tsc -b",
+      "exitCode": 0,
+      "seconds": 7.1
+    },
+    {
+      "name": "coverage",
+      "command": "pnpm test:coverage",
+      "exitCode": 0,
+      "seconds": 157.4
+    },
+    {
+      "name": "build",
+      "command": "pnpm build",
+      "exitCode": 0,
+      "seconds": 22.0
+    },
+    {
+      "name": "test",
+      "command": "pnpm test",
+      "exitCode": 0,
+      "seconds": 155.5
+    },
+    {
+      "name": "rust-test",
+      "command": "cargo test --manifest-path src-tauri/Cargo.toml -- --test-threads=1",
+      "exitCode": 0,
+      "seconds": 144.8
+    },
+    {
+      "name": "rust-coverage",
+      "command": "cargo llvm-cov --manifest-path src-tauri/Cargo.toml --no-clean --fail-under-lines 85 -- --test-threads=1",
+      "exitCode": 0,
+      "seconds": 110.1
+    }
+  ],
+  "frontend": {
+    "files": 492,
+    "tests": 4942,
+    "coverageLines": 87.41,
+    "coverageStatements": 83.64,
+    "coverageBranches": 75.65,
+    "coverageFunctions": 85.23
+  },
+  "rust": {
+    "tests": 1240,
+    "ignored": 3,
+    "coverageLines": 86.4
+  },
+  "playwright": {
+    "chromium": {
+      "passed": 21,
+      "failed": 0,
+      "retries": 0
+    },
+    "webkit": {
+      "passed": 7,
+      "failed": 2,
+      "retries": 0,
+      "finding": "F-041",
+      "baselineRecheck": {
+        "passed": 1,
+        "failed": 1
+      }
+    }
+  },
+  "localization": {
+    "exitCode": 0,
+    "catalogs": 18,
+    "keys": 1013
+  },
+  "notes": [
+    "One concurrent-Rust frontend coverage run hit the known App New Note startup race; isolated App 37 passed and quiet full coverage passed without test/timeout changes.",
+    "Initial Chromium caption selector failure fixed by retaining the existing text-muted-foreground alias of secondary; unchanged specs then 21 passed.",
+    "WebKit render error reproduced on pre-D1 baseline; do not report all checks as passing."
+  ]
+}

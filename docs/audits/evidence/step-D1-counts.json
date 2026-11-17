@@ -1,0 +1,397 @@
+{
+  "baseline": "b23296e9",
+  "head": "e28d48577d25f9c91c1d073b13ea026194df35f4",
+  "before": [
+    307,
+    0
+  ],
+  "after": [
+    232,
+    0
+  ],
+  "commands": [
+    "grep -rnE \"text-\\[[0-9.]+(px|rem)\\]|fontSize:\" src --include='*.tsx' --exclude='*.test.*' | wc -l",
+    "grep -rnE \"\\[data-slot=\" src --include='*.css' | wc -l"
+  ],
+  "oneSourceModulePerCommit": true,
+  "modules": 29,
+  "commits": [
+    {
+      "commit": "84a62a2c",
+      "component": "src/components/propertyPanelLayout.ts",
+      "subject": "refactor: use shared Properties row tokens (F-024, F-032)",
+      "before": [
+        307,
+        0
+      ],
+      "after": [
+        307,
+        0
+      ]
+    },
+    {
+      "commit": "69c02006",
+      "component": "src/components/propertyChipStyles.ts",
+      "subject": "refactor: use shared Properties chip tokens (F-024, F-032)",
+      "before": [
+        307,
+        0
+      ],
+      "after": [
+        307,
+        0
+      ]
+    },
+    {
+      "commit": "fdc51bdc",
+      "component": "src/components/AccentColorPicker.tsx",
+      "subject": "refactor: expose compact AccentColorPicker controls for Properties (F-024, F-032)",
+      "before": [
+        307,
+        0
+      ],
+      "after": [
+        307,
+        0
+      ]
+    },
+    {
+      "commit": "43e92c3d",
+      "component": "src/components/EditableValue.tsx",
+      "subject": "refactor: normalize editable Properties values (F-024, F-032)",
+      "before": [
+        307,
+        0
+      ],
+      "after": [
+        299,
+        0
+      ]
+    },
+    {
+      "commit": "250d9d21",
+      "component": "src/components/ColorInput.tsx",
+      "subject": "refactor: normalize ColorInput presentation (F-024, F-032)",
+      "before": [
+        299,
+        0
+      ],
+      "after": [
+        297,
+        0
+      ]
+    },
+    {
+      "commit": "6c1a173b",
+      "component": "src/components/IconEditableValue.tsx",
+      "subject": "refactor: normalize IconEditableValue presentation (F-024, F-032)",
+      "before": [
+        297,
+        0
+      ],
+      "after": [
+        293,
+        0
+      ]
+    },
+    {
+      "commit": "48d6452c",
+      "component": "src/components/TypeSelector.tsx",
+      "subject": "refactor: normalize TypeSelector presentation (F-024, F-032)",
+      "before": [
+        293,
+        0
+      ],
+      "after": [
+        292,
+        0
+      ]
+    },
+    {
+      "commit": "14bc57c3",
+      "component": "src/components/WorkspaceSelector.tsx",
+      "subject": "refactor: normalize WorkspaceSelector presentation (F-024, F-032)",
+      "before": [
+        292,
+        0
+      ],
+      "after": [
+        291,
+        0
+      ]
+    },
+    {
+      "commit": "527ce6a3",
+      "component": "src/components/AddPropertyForm.tsx",
+      "subject": "refactor: normalize AddPropertyForm presentation (F-024, F-032)",
+      "before": [
+        291,
+        0
+      ],
+      "after": [
+        285,
+        0
+      ]
+    },
+    {
+      "commit": "df84cc9d",
+      "component": "src/components/StatusDropdown.tsx",
+      "subject": "refactor: normalize StatusDropdown presentation (F-024, F-032)",
+      "before": [
+        285,
+        0
+      ],
+      "after": [
+        279,
+        0
+      ]
+    },
+    {
+      "commit": "0b8fe3c1",
+      "component": "src/components/TagsDropdown.tsx",
+      "subject": "refactor: normalize TagsDropdown presentation (F-024, F-032)",
+      "before": [
+        279,
+        0
+      ],
+      "after": [
+        273,
+        0
+      ]
+    },
+    {
+      "commit": "d7965882",
+      "component": "src/components/PropertyValueCells.tsx",
+      "subject": "refactor: normalize PropertyValueCells presentation (F-024, F-032)",
+      "before": [
+        273,
+        0
+      ],
+      "after": [
+        265,
+        0
+      ]
+    },
+    {
+      "commit": "b1fdfd0d",
+      "component": "src/components/inspector/LinkButton.tsx",
+      "subject": "refactor: normalize LinkButton presentation (F-024, F-032)",
+      "before": [
+        265,
+        0
+      ],
+      "after": [
+        263,
+        0
+      ]
+    },
+    {
+      "commit": "db5e3c2e",
+      "component": "src/components/inspector/NoteInfoPanel.tsx",
+      "subject": "refactor: normalize NoteInfoPanel presentation (F-024, F-032)",
+      "before": [
+        263,
+        0
+      ],
+      "after": [
+        261,
+        0
+      ]
+    },
+    {
+      "commit": "f981ee8a",
+      "component": "src/components/inspector/BacklinksPanel.tsx",
+      "subject": "refactor: normalize BacklinksPanel presentation (F-024, F-032)",
+      "before": [
+        261,
+        0
+      ],
+      "after": [
+        260,
+        0
+      ]
+    },
+    {
+      "commit": "ed94d6b1",
+      "component": "src/components/inspector/InstancesPanel.tsx",
+      "subject": "refactor: normalize InstancesPanel presentation (F-024, F-032)",
+      "before": [
+        260,
+        0
+      ],
+      "after": [
+        259,
+        0
+      ]
+    },
+    {
+      "commit": "681f2bbe",
+      "component": "src/components/inspector/GitHistoryPanel.tsx",
+      "subject": "refactor: normalize GitHistoryPanel presentation (F-024, F-032)",
+      "before": [
+        259,
+        0
+      ],
+      "after": [
+        257,
+        0
+      ]
+    },
+    {
+      "commit": "8d7eaeba",
+      "component": "src/components/inspector/InspectorChrome.tsx",
+      "subject": "refactor: normalize InspectorChrome presentation (F-024, F-032)",
+      "before": [
+        257,
+        0
+      ],
+      "after": [
+        251,
+        0
+      ]
+    },
+    {
+      "commit": "74d54316",
+      "component": "src/components/learning/NoteMemorySwitch.tsx",
+      "subject": "refactor: normalize NoteMemorySwitch presentation (F-024, F-032)",
+      "before": [
+        251,
+        0
+      ],
+      "after": [
+        251,
+        0
+      ]
+    },
+    {
+      "commit": "9553d9d9",
+      "component": "src/components/learning/NoteMemoryInspector.tsx",
+      "subject": "refactor: normalize NoteMemoryInspector presentation (F-024, F-032)",
+      "before": [
+        251,
+        0
+      ],
+      "after": [
+        251,
+        0
+      ]
+    },
+    {
+      "commit": "096a925e",
+      "component": "src/components/learning/PagePropertyTools.tsx",
+      "subject": "refactor: normalize PagePropertyTools presentation (F-024, F-032)",
+      "before": [
+        251,
+        0
+      ],
+      "after": [
+        251,
+        0
+      ]
+    },
+    {
+      "commit": "7be04257",
+      "component": "src/components/learning/NoteLearningPanel.tsx",
+      "subject": "refactor: normalize NoteLearningPanel presentation (F-014, F-024, F-032)",
+      "before": [
+        251,
+        0
+      ],
+      "after": [
+        250,
+        0
+      ]
+    },
+    {
+      "commit": "975948d0",
+      "component": "src/components/DynamicPropertiesPanel.tsx",
+      "subject": "fix: compact suggested Properties actions with design tokens (F-013, F-024)",
+      "before": [
+        250,
+        0
+      ],
+      "after": [
+        250,
+        0
+      ]
+    },
+    {
+      "commit": "b8796a72",
+      "component": "src/components/inspector/RelationshipsPanel.tsx",
+      "subject": "fix: compact Properties relationship rows (F-013, F-024, F-032)",
+      "before": [
+        250,
+        0
+      ],
+      "after": [
+        247,
+        0
+      ]
+    },
+    {
+      "commit": "f1a741e0",
+      "component": "src/components/Inspector.tsx",
+      "subject": "refactor: apply Properties panel inset and body tokens (F-013, F-024)",
+      "before": [
+        247,
+        0
+      ],
+      "after": [
+        247,
+        0
+      ]
+    },
+    {
+      "commit": "f8e7b09b",
+      "component": "src/components/inspector/FlashcardPanel.tsx",
+      "subject": "refactor: normalize legacy Properties learning controls (F-024, F-032)",
+      "before": [
+        247,
+        0
+      ],
+      "after": [
+        232,
+        0
+      ]
+    },
+    {
+      "commit": "0dd135ce",
+      "component": "src/components/NoteMemoryEditorTabs.tsx",
+      "subject": "refactor: compose mnemonic source actions in its navigation row (F-035)",
+      "before": [
+        232,
+        0
+      ],
+      "after": [
+        232,
+        0
+      ]
+    },
+    {
+      "commit": "e2971a27",
+      "component": "src/components/learning/NoteBackSource.tsx",
+      "subject": "refactor: support inline mnemonic source controls (F-035)",
+      "before": [
+        232,
+        0
+      ],
+      "after": [
+        232,
+        0
+      ]
+    },
+    {
+      "commit": "e28d4857",
+      "component": "src/components/editor-content/EditorContentLayout.tsx",
+      "subject": "fix: merge mnemonic context and source actions into one row (F-035)",
+      "before": [
+        232,
+        0
+      ],
+      "after": [
+        232,
+        0
+      ]
+    }
+  ]
+}

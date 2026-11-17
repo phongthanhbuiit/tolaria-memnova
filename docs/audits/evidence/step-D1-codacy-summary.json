@@ -1,0 +1,54 @@
+{
+  "base": [
+    {
+      "tool": "Semgrep",
+      "issues": 15,
+      "levels": {
+        "warning": 15
+      },
+      "rules": {
+        "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading": 15
+      }
+    },
+    {
+      "tool": "Lizard",
+      "issues": 37,
+      "levels": {
+        "warning": 37
+      },
+      "rules": {
+        "Lizard_parameter-count-medium": 20,
+        "Lizard_nloc-medium": 11,
+        "Lizard_ccn-medium": 5,
+        "Lizard_file-nloc-medium": 1
+      }
+    }
+  ],
+  "final": [
+    {
+      "tool": "Semgrep",
+      "issues": 15,
+      "levels": {
+        "warning": 15
+      },
+      "rules": {
+        "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading": 15
+      }
+    },
+    {
+      "tool": "Lizard",
+      "issues": 37,
+      "levels": {
+        "warning": 37
+      },
+      "rules": {
+        "Lizard_parameter-count-medium": 20,
+        "Lizard_nloc-medium": 11,
+        "Lizard_ccn-medium": 5,
+        "Lizard_file-nloc-medium": 1
+      }
+    }
+  ],
+  "newCriticalHigh": 0,
+  "analysisNote": "Both CLI runs completed with warning findings (exit 1), with identical per-rule counts: 15 props-spreading warnings and 37 Medium complexity/length/parameter warnings. ESLint9 and Trivy report 0 issues; no analyzer errors. Presentation props, classes and adaptive grid reviewed: no new IO, dynamic code execution or scheduler paths. No source/results upload."
+}

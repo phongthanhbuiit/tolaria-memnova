@@ -1,0 +1,42 @@
+{
+  "library": "/var/folders/9w/6hcy1rks4gg3yc1kxk2txjlr0000gn/T/memnova-step-d1-native-242sksfw/Library",
+  "markdownBefore": 254,
+  "markdownAfter": 254,
+  "markdownExact": true,
+  "changedMarkdown": [],
+  "tables": {
+    "sessions": {
+      "before": 5,
+      "after": 5,
+      "exact": true
+    },
+    "reviews": {
+      "before": 4,
+      "after": 4,
+      "exact": true
+    },
+    "schedules": {
+      "before": 5,
+      "after": 5,
+      "exact": true
+    }
+  },
+  "integrityCheck": [
+    [
+      "ok"
+    ]
+  ],
+  "foreignKeyCheck": [],
+  "nativeQa": [
+    "mouse open note/properties",
+    "mouse edit mnemonic, select source preview, Escape cancels and restores Choose source focus",
+    "mouse return to note",
+    "mouse add property draft qa_draft_only=42, Cancel",
+    "mouse add relationship and search Reading 13, Escape cancels",
+    "mouse open study, Space reveal, Escape closes and restores Review this note focus",
+    "light/dark screenshots",
+    "QA app quit verified in app inventory"
+  ],
+  "verificationMode": "closed QA app; no WAL/SHM; read-only immutable SQLite snapshot",
+  "finalCodeHead": "e28d48577d25f9c91c1d073b13ea026194df35f4"
+}
