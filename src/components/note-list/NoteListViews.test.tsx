@@ -7,6 +7,22 @@ import { ListView } from './NoteListViews'
 vi.unmock('react-virtuoso')
 
 describe('note list updates during navigation', () => {
+  it('updates row metadata without replacing a row when its path and order stay the same', async () => {
+    const source = makeEntry({ path: '/source.md', title: 'Source' })
+    const renderItem = (entry: typeof source) => <span data-testid={entry.path}>{entry.title}</span>
+    const view = (entries: typeof source[]) => (
+      <VirtuosoMockContext.Provider value={{ viewportHeight: 600, itemHeight: 60 }}>
+        <ListView searched={entries} query="" renderItem={renderItem} />
+      </VirtuosoMockContext.Provider>
+    )
+    const { rerender } = render(view([source]))
+    const row = await screen.findByTestId(source.path)
+
+    rerender(view([{ ...source, title: 'Saved source', hasH1: true }]))
+
+    expect(await screen.findByText('Saved source')).toBe(row)
+  })
+
   it('keeps each note row mounted when a source save changes the sort order', async () => {
     const source = makeEntry({ path: '/source.md', title: 'Source' })
     const target = makeEntry({ path: '/target.md', title: 'Target' })

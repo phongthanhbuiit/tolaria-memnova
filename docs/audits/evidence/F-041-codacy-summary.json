@@ -1,0 +1,70 @@
+{
+  "before": [
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "EntityView has a parameter count of 9 (threshold: 8)"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "ListView has a parameter count of 9 (threshold: 8)"
+    }
+  ],
+  "beforeAnalyzers": [
+    [
+      "ESLint9",
+      "0"
+    ],
+    [
+      "Semgrep",
+      "0"
+    ],
+    [
+      "Lizard",
+      "2"
+    ],
+    [
+      "Trivy",
+      "0"
+    ]
+  ],
+  "beforeErrors": [],
+  "after": [
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "EntityView has a parameter count of 9 (threshold: 8)"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "ListView has a parameter count of 9 (threshold: 8)"
+    }
+  ],
+  "afterAnalyzers": [
+    [
+      "ESLint9",
+      "0"
+    ],
+    [
+      "Semgrep",
+      "0"
+    ],
+    [
+      "Lizard",
+      "2"
+    ],
+    [
+      "Trivy",
+      "0"
+    ]
+  ],
+  "afterErrors": [],
+  "newIssues": [],
+  "review": "Two unchanged Medium Lizard parameter-count warnings, EntityView/ListView. No new Critical/High. Tests excluded by project policy and checked by lint/test runners."
+}

@@ -1,0 +1,68 @@
+{
+  "head": "3f0404ffb7f6cf6b1a2bbcfe36927d569d9cdc6e",
+  "versions": {
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-virtuoso": "4.18.5",
+    "@playwright/test": "1.58.2",
+    "vitest": "4.0.18"
+  },
+  "originalSpecPrefixUnchanged": true,
+  "originalSpecSha256": "7f3b4ad3bfdadb2860bdb4597f85e4c0f2276285b2a3b56a2f26edafae94bd54",
+  "initial": {
+    "repeatEach": 10,
+    "variants": 2,
+    "passed": 0,
+    "failed": 20,
+    "failureRate": 1.0
+  },
+  "native": {
+    "identifier": "net.memnova.qa.f041",
+    "configHome": "/tmp/memnova-f041/native/prefs",
+    "library": "/tmp/memnova-f041/native/Library",
+    "frontend": "http://localhost:5201",
+    "binaryReuse": "isolated copy of verified incognito foundation debug binary used by F-039; frontend is current source",
+    "mouse": "File > Save, View > Command Palette",
+    "keyboard": "Cmd+S then Cmd+K",
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "inheritedIncognito": true,
+    "binarySha256": "f12cf27dde19d56f12eff7680d759ca74a3a5ee4cc3a6dfc4708dcd160f8f3bc",
+    "codesignVerification": "passed"
+  },
+  "after": {
+    "firstBatch": {
+      "passed": 30,
+      "failed": 0,
+      "repeatEach": 10,
+      "cases": 3
+    },
+    "secondBatch": {
+      "passed": 40,
+      "failed": 0,
+      "repeatEach": 20,
+      "cases": 2
+    },
+    "originalMarkerCases": {
+      "passed": 60,
+      "failed": 0,
+      "perCase": 30
+    },
+    "newOrdinaryNoteRegression": {
+      "passed": 10,
+      "failed": 0
+    },
+    "fullWebkitLane": {
+      "passed": 10,
+      "failed": 0
+    },
+    "retries": 0
+  },
+  "sourceSha256": {
+    "src/components/note-list/NoteListViews.tsx": "105a4eff57ca4b43ac1c1d9e3106505aab90b91c1ab808fad7390ffb311f9edf",
+    "src/components/note-list/NoteListViews.test.tsx": "7c003d3caaffd7f818d0a9938d198668bbd45da872ec38d662f0bdf7b605a6c0",
+    "tests/integration/note-memory-workspace.spec.ts": "2fb9496805e9be0a450c1e9cd1f9dfef4b7de070020146e51300cfb1a36b0709"
+  }
+}

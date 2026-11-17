@@ -1,0 +1,137 @@
+{
+  "finalResults": [
+    {
+      "label": "lint",
+      "command": [
+        "pnpm",
+        "lint"
+      ],
+      "exitCode": 0,
+      "started": "2026-11-17T15:30:59.842286+00:00",
+      "seconds": 45.063607
+    },
+    {
+      "label": "types",
+      "command": [
+        "pnpm",
+        "exec",
+        "tsc",
+        "-b"
+      ],
+      "exitCode": 0,
+      "started": "2026-11-17T15:31:44.906592+00:00",
+      "seconds": 23.315672
+    },
+    {
+      "label": "rust-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "src-tauri/Cargo.toml"
+      ],
+      "exitCode": 0,
+      "started": "2026-11-17T15:40:20.131648+00:00",
+      "seconds": 28.624707
+    },
+    {
+      "label": "rust-coverage-serial",
+      "command": [
+        "cargo",
+        "llvm-cov",
+        "--manifest-path",
+        "src-tauri/Cargo.toml",
+        "--no-clean",
+        "--fail-under-lines",
+        "85",
+        "--",
+        "--test-threads=1"
+      ],
+      "exitCode": 0,
+      "lineCoverage": 86.4
+    },
+    {
+      "label": "coverage",
+      "command": [
+        "pnpm",
+        "test:coverage"
+      ],
+      "exitCode": 0,
+      "started": "2026-11-17T15:57:29.906704+00:00",
+      "seconds": 724.322337,
+      "lineCoverage": 87.48,
+      "files": 501,
+      "tests": 4997,
+      "environment": {
+        "VITEST_MAX_WORKERS": "1"
+      }
+    },
+    {
+      "label": "localization",
+      "command": [
+        "pnpm",
+        "l10n:validate"
+      ],
+      "exitCode": 0,
+      "started": "2026-11-17T16:09:34.232949+00:00",
+      "seconds": 0.274261
+    },
+    {
+      "label": "tests",
+      "command": [
+        "pnpm",
+        "test"
+      ],
+      "environment": {
+        "VITEST_MAX_WORKERS": "4"
+      },
+      "exitCode": 0,
+      "files": 501,
+      "tests": 4997,
+      "seconds": 267.29,
+      "log": "tests-clean.log"
+    }
+  ],
+  "earlierFailedCommands": [
+    {
+      "label": "rust-coverage",
+      "command": [
+        "cargo",
+        "llvm-cov",
+        "--manifest-path",
+        "src-tauri/Cargo.toml",
+        "--no-clean",
+        "--fail-under-lines",
+        "85"
+      ],
+      "exitCode": 101,
+      "started": "2026-11-17T15:40:48.757681+00:00",
+      "seconds": 38.465007
+    },
+    {
+      "label": "tests",
+      "command": [
+        "pnpm",
+        "test"
+      ],
+      "exitCode": 1,
+      "started": "2026-11-17T15:45:46.750303+00:00",
+      "seconds": 703.15234
+    }
+  ],
+  "interruptedAttempts": [
+    "contention-tests.log",
+    "workers2-tests.log"
+  ],
+  "notes": "No earlier failed/interrupted attempt is counted as passing. Rust coverage final uses --test-threads=1; three ignored tests pre-exist. Regular tests final ran separately after browser stress, at default four workers. No timeout, retry, assertion or coverage-threshold changes.",
+  "preCommit": {
+    "exitCode": 0,
+    "relatedFiles": 43,
+    "relatedTests": 350,
+    "browser": "webkit",
+    "integrationPassed": 5,
+    "flaky": 0,
+    "sourceUnchangedDuringDocsAmend": true,
+    "log": "commit.log"
+  }
+}

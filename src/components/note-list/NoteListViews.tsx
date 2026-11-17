@@ -1,4 +1,4 @@
-import { createContext, memo, useContext } from 'react'
+import { createContext, memo, useContext, useMemo } from 'react'
 import { Virtuoso, type VirtuosoHandle } from 'react-virtuoso'
 import type { VaultEntry } from '../../types'
 import type { SortOption, SortDirection, SortConfig, RelationshipGroup } from '../../utils/noteListHelpers'
@@ -50,11 +50,11 @@ export function EntityView({ entity, groups, query, collapsedGroups, sortPrefs, 
 }
 
 type NoteRenderer = (entry: VaultEntry) => React.ReactNode
-const NoteRendererContext = createContext<NoteRenderer>(() => null)
+const NoteRendererContext = createContext<(path: string) => React.ReactNode>(() => null)
 
 function NoteRow({ entry }: { entry: VaultEntry }) {
   const renderItem = useContext(NoteRendererContext)
-  return renderItem(entry)
+  return renderItem(entry.path)
 }
 
 function renderNoteRow(_index: number, entry: VaultEntry) {
@@ -65,8 +65,8 @@ function noteRowKey(_index: number, entry: VaultEntry) {
   return entry.path
 }
 
-// An editor change can update row selections or callbacks. Only a changed
-// list needs to republish data to Virtuoso's synchronous layout subscriptions.
+// Virtuoso owns ordering; rows read current metadata from context. Replaying a
+// metadata transition must not republish data into its layout subscriptions.
 const VirtualNoteList = memo(function VirtualNoteList({ entries, virtuosoRef }: {
   entries: VaultEntry[]
   virtuosoRef?: React.RefObject<VirtuosoHandle | null>
@@ -82,7 +82,9 @@ const VirtualNoteList = memo(function VirtualNoteList({ entries, virtuosoRef }: 
       itemContent={renderNoteRow}
     />
   )
-})
+}, (previous, next) => previous.virtuosoRef === next.virtuosoRef
+  && previous.entries.length === next.entries.length
+  && previous.entries.every((entry, index) => entry.path === next.entries[index].path))
 
 export function ListView({ isArchivedView, isChangesView, isInboxView, changesError, searched, query, renderItem, virtuosoRef, locale = 'en' }: {
   isArchivedView?: boolean; isChangesView?: boolean; isInboxView?: boolean; changesError?: string | null
@@ -91,6 +93,13 @@ export function ListView({ isArchivedView, isChangesView, isInboxView, changesEr
   virtuosoRef?: React.RefObject<VirtuosoHandle | null>
   locale?: AppLocale
 }) {
+  const renderPath = useMemo(() => {
+    const entriesByPath = new Map(searched.map(entry => [entry.path, entry]))
+    return (path: string) => {
+      const entry = entriesByPath.get(path)
+      return entry ? renderItem(entry) : null
+    }
+  }, [searched, renderItem])
   const emptyText = resolveEmptyText({
     isChangesView: !!isChangesView,
     changesError: changesError ?? null,
@@ -109,7 +118,7 @@ export function ListView({ isArchivedView, isChangesView, isInboxView, changesEr
   }
 
   return (
-    <NoteRendererContext.Provider value={renderItem}>
+    <NoteRendererContext.Provider value={renderPath}>
       <VirtualNoteList entries={searched} virtuosoRef={virtuosoRef} />
     </NoteRendererContext.Provider>
   )

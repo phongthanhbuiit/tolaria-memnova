@@ -164,7 +164,7 @@ Nguồn: kiểm kê grep toàn `src/` + đọc `learning/LearningStudyView.tsx`,
 | F-038 | P3 | Độ đậm chữ dùng cả 400/500/600/700 ngoài editor | `font-bold` 21 | SPEC §1 | open |
 | F-039 | P2 | Core smoke wikilink không ổn định: Cmd+click xong H1 đích rỗng | `tests/smoke/wikilink-path-fix.spec.ts:63-70`, tái hiện cả baseline `f78b8fb9` | 90/90 không retry; full checks và pre-push dry-run sạch; [biên bản](F-039-COMPLETION.md) | fixed (`:/^fix: F-039 stabilize wikilink navigation during source saves`) |
 | F-040 | P2 | Core smoke keyboard delete/Quick Open phụ thuộc retry | `tests/smoke/delete-note-nonblocking.spec.ts:53`, log pre-push bước C | Xác định nguyên nhân trong lane đầy đủ; không coi retry là smoke sạch | open |
-| F-041 | P2 | WebKit regression: render error react-virtuoso khi lưu ghi chú thường trước Command Palette | `note-memory-workspace.spec.ts:124-147`; tái hiện baseline b23296e9 | Phân biệt lỗi app/fixture, giữ assertion và timeout | open |
+| F-041 | P1 | WebKit regression: render error react-virtuoso khi lưu ghi chú thường trước Command Palette | `note-memory-workspace.spec.ts:124-147`; HEAD trước sửa 20/20 fail | Marker 60/60, regression 10/10, lane WebKit 10/10, native chuột/bàn phím đạt; [biên bản](F-041-COMPLETION.md) | fixed (`:/^fix: F-041 stop WebKit note-list update feedback`) |
 
 D1 hoàn tất phần Properties/sửa gợi nhớ của F-024/F-032: grep typography toàn src giảm 307 → 232, CSS data-slot giữ 0 → 0. Hai finding vẫn **open** cho D2–D4. F-035 ghép thanh qua slot trình bày, giữ callback/flush guards; [ảnh và kết quả kiểm tra D1](STEP-D1-PROPERTIES-MNEMONIC.md).
 
@@ -246,8 +246,10 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 
 ### F-041 — WebKit render error trước Command Palette
 
-- P2 · C9 · Chưa kết luận lỗi native hoặc nguyên nhân app/fixture. Ngoài bề mặt D1.
+- P1 · C9 · WebKit là engine của WKWebView trong app native; render error chặn luồng lưu ghi chú thường → Command Palette. Nâng P1 theo yêu cầu ngày 17/11/2026; bằng chứng và kết luận mới trong [biên bản F-041](F-041-COMPLETION.md).
 - Tái hiện: chạy `MEMNOVA_PLAYWRIGHT_WEBKIT=1 BASE_URL=http://localhost:5201 pnpm exec playwright test --config playwright.integration.config.ts tests/integration/note-memory-workspace.spec.ts --grep 'ordinary note editing retains' --retries=0`. Sau khi lưu ghi chú thường có marker literal, test mở Command Palette nhưng app hiển thị render error có `getRootForUpdatedFiber`, `forceStoreRerender`, `react-virtuoso`, `VirtualNoteList2`.
 - Current D1: lane đầy đủ 7 passed / 2 failed; chạy riêng hai ca vẫn 2 failed. Cùng hai ca với baseline `b23296e9` trên port 41743: 1 failed / 1 passed, cùng stack ở ca blank lines. Vì vậy có bằng chứng lỗi tồn tại trước D1; không khẳng định từng biến thể đều thất bại ổn định trên baseline.
 - Bằng chứng: [current](evidence/F-041-webkit-current.txt), [current recheck](evidence/F-041-webkit-recheck.txt), [baseline](evidence/F-041-webkit-baseline.txt), [snapshot baseline](evidence/F-041-baseline-context.md), [snapshot current](evidence/F-041-current-context.md).
 - Chấp nhận: xác định nguyên nhân rồi cả hai case và lane đầy đủ WebKit pass không retry; không hạ assertion hoặc tăng timeout. D1 giữ nguyên các spec, không sửa note list/editor ngoài phạm vi.
+
+17/11/2026 — F-041 **fixed** (`:/^fix: F-041 stop WebKit note-list update feedback`), nâng **P1** vì WebKit là engine WKWebView của app native. HEAD `3f0404ff` sau F-039 vẫn fail 20/20; nguyên nhân là metadata transition phát lại data vào layout store của Virtuoso. Virtualizer nay so sánh thứ tự path, hàng đọc metadata mới qua context. Regression mới RED → GREEN; marker 60/60, regression 10/10, lane WebKit 10/10 không retry; native QA riêng lưu → Command Palette qua chuột và Cmd+S/Cmd+K đạt. Full gate cuối sạch, FE 87,48% / Rust 86,40%; các lỗi gate ban đầu được giữ riêng trong [biên bản](F-041-COMPLETION.md). F-040 giữ nguyên open và không sửa test.

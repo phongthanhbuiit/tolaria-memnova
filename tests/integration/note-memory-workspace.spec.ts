@@ -197,3 +197,28 @@ test('Home creates and verifies a backup after editing a managed note', async ({
     removeFixtureVaultCopy(root)
   }
 })
+
+
+test('saving an ordinary note keeps the note list and Command Palette usable', async ({ page }) => {
+  const root = createNoteMemoryFixture()
+  const owner = path.join(root, 'project/alpha-project.md')
+  fs.writeFileSync(owner, '# Alpha Project\n\nOrdinary article.\n')
+  const latest = new Date(Date.now() + 60_000)
+  fs.utimesSync(owner, latest, latest)
+  try {
+    await openFixtureVault(page, root)
+    await page.getByRole('button', { name: /^All Notes/ }).click()
+    await page.getByTestId('note-list-container').getByText('Alpha Project', { exact: true }).click()
+    await page.locator('.bn-editor [data-content-type="paragraph"]').last().click()
+    await page.keyboard.press('End')
+    await page.keyboard.insertText(' Saved ordinary text.')
+    await page.keyboard.press('Meta+s')
+    await expect.poll(() => fs.readFileSync(owner, 'utf8')).toContain('Saved ordinary text.')
+    await openCommandPalette(page)
+    await expect(page.locator('#tolaria-fatal-render-error')).toHaveCount(0)
+    await page.keyboard.press('Escape')
+    await expect(page.getByTestId('note-list-container').getByText('Alpha Project', { exact: true })).toBeVisible()
+  } finally {
+    removeFixtureVaultCopy(root)
+  }
+})

@@ -1,0 +1,78 @@
+{
+  "existingMarkdown": 32,
+  "changedExistingMarkdown": [],
+  "tables": {
+    "pages": {
+      "before": 0,
+      "after": 0,
+      "equal": true
+    },
+    "cards": {
+      "before": 0,
+      "after": 0,
+      "equal": true
+    },
+    "schedules": {
+      "before": 0,
+      "after": 0,
+      "equal": true
+    },
+    "sessions": {
+      "before": 0,
+      "after": 0,
+      "equal": true
+    },
+    "reviews": {
+      "before": 0,
+      "after": 0,
+      "equal": true
+    },
+    "decks": {
+      "before": 0,
+      "after": 0,
+      "equal": true
+    },
+    "deck_pages": {
+      "before": 0,
+      "after": 0,
+      "equal": true
+    },
+    "imports": {
+      "before": 0,
+      "after": 0,
+      "equal": true
+    },
+    "library_metadata": {
+      "before": 3,
+      "after": 3,
+      "equal": true
+    },
+    "page_property_definitions": {
+      "before": 0,
+      "after": 0,
+      "equal": true
+    },
+    "card_property_definitions": {
+      "before": 0,
+      "after": 0,
+      "equal": true
+    },
+    "note_card_bindings": {
+      "before": 0,
+      "after": 0,
+      "equal": true
+    },
+    "note_learning_operations": {
+      "before": 0,
+      "after": 0,
+      "equal": true
+    }
+  },
+  "integrity": [
+    [
+      "ok"
+    ]
+  ],
+  "foreignKeyCheck": [],
+  "savedOrdinaryNote": "# F041 Ordinary\n\nOrdinary article.\n\n<!-- FLASHCARD:BACK -->\n\nThis marker is an or Native F041 Keyboard save.save check.dinary note example.\n"
+}

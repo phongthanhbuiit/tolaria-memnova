@@ -1,0 +1,83 @@
+The following is a diff from the previous accessibility tree for Window: "Memnova Foundation QA" with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+~				65 text entry area (settable) Secondary Actions: Show Writing Tools, Value: **F041 Ordinary**
+Ordinary article.
+This marker is an or Native F041  Keyboard save.save check.dinary note example.
+
+
++			166 button Close command palette
++			167 text field (settable) Type a command...
++			168 text Navigation
++			169 button Search Notes ⌘P / ⌘O
++			170 button Go to All Notes
++			171 button Go to Archived
++			172 button Go to Changes
++			173 button Go to History
++			174 button Go to Inbox
++			175 button Start Review Session
++			176 button List Areas
++			177 button List Events
++			178 button List Measures
++			179 button List Notes
++			180 button List People
++			181 button List Procedures
++			182 button List Projects
++			183 button List Quarters
++			184 button List Responsibilities
++			185 button List Topics
++			186 text Note
++			187 button New Note ⌘N
++			188 button Save excerpt with source
++			189 button New Type
++			190 button Save Note ⌘S
++			191 button Paste without formatting ⌘⇧V
++			192 button Find in Note ⌘F
++			193 button Replace in Note
++			194 button Delete Note ⌘⌫
++			195 button Archive Note
++			196 button Add to Favorites ⌘D
++			197 button Mark as Organized ⌘E
++			198 button Reveal in Finder
++			199 button Copy File Path
++			200 button Copy deep link to current item
++			201 button Export note as PDF
++			202 button Set Note Icon
++			203 button Change Note Type…
++			204 button Move Note to Folder…
++			205 button Open in New Window ⌘⇧O
++			206 button New Area
++			207 button New Event
++			208 button New Measure
++			209 button New Person
++			210 button New Procedure
++			211 button New Project
++			212 button New Quarter
++			213 button New Responsibility
++			214 button New Topic
++			215 text View
++			216 button Editor Only ⌘1
++			217 button Editor + Note List ⌘2
++			218 button Full Layout ⌘3
++			219 button Toggle Properties Panel ⌘⇧I
++			220 button Toggle Raw Editor
++			221 button Use Wide Note Width
++			222 button Use Wide Note Width by Default
++			223 button Toggle Table of Contents ⌘⇧T
++			224 button Toggle Backlinks
++			225 button Customize All Notes columns
++			226 button Zoom In (100%) ⌘=
++			227 button Zoom Out (100%) ⌘-
++			228 text Settings
++			229 button Open Settings ⌘,
++			230 button Open H1 Auto-Rename Setting
++			231 button Contribute
++			232 button Check for Updates
++			233 button Use Light Mode
++			234 button Use Dark Mode
++			235 button Use System Theme
++			236 button Open Language Settings
++			237 button Use System Language (English)
++			238 button Switch Language to Italian
++			239 button Switch Language to French
++			240 button Switch Language to German
++			241 button Switch Language to Russian
+The focused UI element is 167 text field (settable) Type a command...

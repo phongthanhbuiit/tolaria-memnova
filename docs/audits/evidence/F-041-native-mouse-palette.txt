@@ -1,0 +1,190 @@
+Window: "Memnova Foundation QA", App: Memnova F041 QA.
+1 standard window Memnova Foundation QA, Secondary Actions: Raise
+	2 scroll area
+		3 HTML content Description: Memnova, URL: localhost:5201/ (showing 0-100 of 123 items)
+			4 container
+				5 button Collapse sidebar, Help: Collapse sidebar (⌘2)
+				6 button (disabled) Go Back, Help: Go Back (⌘←)
+				7 button (disabled) Go Forward, Help: Go Forward (⌘→)
+				8 container
+					9 button Home
+					10 button Inbox 23
+					11 button All Notes 37
+					12 button Study
+					13 button Archive
+				14 button VIEWS
+				15 button Create view
+				16 sortable Active Projects 3
+				17 button TYPES
+				18 button Customize sections
+				19 button Create new type
+				20 sortable Areas
+1
+				21 sortable Events
+1
+				22 sortable Measures
+2
+				23 sortable Notes
+8
+				24 sortable People
+2
+				25 sortable Procedures
+2
+				26 sortable Projects
+3
+				27 sortable Quarters
+3
+				28 sortable Responsibilities
+1
+				29 sortable Topics
+1
+				30 button FOLDERS
+				31 button Create folder
+				32 button (expanded) Library, Secondary Actions: Collapse
+				33 button attachments
+				34 button views
+			35 heading Notes, Value: 3
+				36 text Notes
+			37 pop up button Modified, Help: Sort by Modified
+			38 button Search notes
+			39 pop up button Customize All Notes columns
+			40 button Create new note
+			41 container (settable) Notes
+				42 container
+					43 text (selected) F041 Ordinary Ordinary article. This marker is an or Native F041 save check.dinary note example.
+November 17, 2026 Created November 17, 2026
+					44 text Note A Note is a general-purpose document — research notes, meeting notes, strategy docs, or anything that doesn't fit a more specific type.
+November 17, 2026 Created November 17, 2026
+					45 text AGENTS.md — Tolaria Vault This is a Tolaria vault. Keep this file focused on vault-specific conventions. For general Tolaria behavior, use the bundled Tolaria agent docs path provided by...
+November 17, 2026 Created November 17, 2026
+					46 text Type A Type defines shared metadata and defaults for a category of notes in this vault. Icon: Sidebar icon for this type Color: Accent color for notes of this type O...
+November 17, 2026 Created November 17, 2026
+					47 text CLAUDE @AGENTS.md This file is only a Claude Code compatibility shim. Keep shared agent instructions in AGENTS.md.
+November 17, 2026 Created November 17, 2026
+					48 text Q2 2025 The polish cycle focused on richer editing, faster linking, and better keyboard QA.
+October 17, 2026 Created October 17, 2026
+					49 text Sponsor Onboarding Turn a signed sponsor into a smooth first placement with minimal back-and-forth. Confirm the publication date. Review copy and assets. Hand off recurring commun...
+October 17, 2026 Created October 17, 2026
+					50 text Laputa App V1 The first usable release for daily browsing, quick open, and note-property editing. Shipped the working command palette. Made the inspector practical for real f...
+October 17, 2026 Created October 17, 2026
+			51 text Note
+			52 button Filename F041 Ordinary. Press Enter to rename
+			53 button Rename the file to match the title
+			54 button Add to favorites
+			55 button Set note as organized
+			56 button Open note's neighborhood
+			57 button Open the raw editor
+			58 button Switch to wide note width
+			59 button Open table of contents
+			60 button Reveal in Finder
+			61 button Copy file path
+			62 pop up button More note actions
+			63 button Open the properties panel
+			64 container Rich text editor
+				65 text entry area (settable) Secondary Actions: Show Writing Tools, Value: **F041 Ordinary**
+Ordinary article.
+This marker is an or Native F041 save check.dinary note example.
+
+
+					66 heading (settable, integer) F041 Ordinary, Value: 1
+						67 text (settable) F041 Ordinary
+					68 text (settable) Ordinary article.
+					69 text (settable) This marker is an or Native F041 save check.dinary note example.
+			70 container
+				71 button Open existing Library
+				72 text |
+				73 button Check for updates
+				74 button Contribute to Tolaria
+				75 button Open Tolaria docs
+				76 button Switch to dark mode
+				77 button Open settings
+			78 button Close command palette
+			79 text field (settable) Type a command...
+			80 text Navigation
+			81 button Search Notes ⌘P / ⌘O
+			82 button Go to All Notes
+			83 button Go to Archived
+			84 button Go to Changes
+			85 button Go to History
+			86 button Go to Inbox
+			87 button Start Review Session
+			88 button List Areas
+			89 button List Events
+			90 button List Measures
+			91 button List Notes
+			92 button List People
+			93 button List Procedures
+			94 button List Projects
+			95 button List Quarters
+			96 button List Responsibilities
+			97 button List Topics
+			98 text Note
+			99 button New Note ⌘N
+			100 button Save excerpt with source
+			101 button New Type
+			102 button Save Note ⌘S
+			103 button Paste without formatting ⌘⇧V
+			104 button Find in Note ⌘F
+			105 button Replace in Note
+			106 button Delete Note ⌘⌫
+			107 button Archive Note
+			108 button Add to Favorites ⌘D
+			109 button Mark as Organized ⌘E
+			110 button Reveal in Finder
+			111 button Copy File Path
+			112 button Copy deep link to current item
+			113 button Export note as PDF
+			114 button Set Note Icon
+			115 button Change Note Type…
+			116 button Move Note to Folder…
+			117 button Open in New Window ⌘⇧O
+			118 button New Area
+			119 button New Event
+			120 button New Measure
+			121 button New Person
+			122 button New Procedure
+			123 button New Project
+			124 button New Quarter
+			125 button New Responsibility
+			126 button New Topic
+			127 text View
+			128 button Editor Only ⌘1
+			129 button Editor + Note List ⌘2
+			130 button Full Layout ⌘3
+			131 button Toggle Properties Panel ⌘⇧I
+			132 button Toggle Raw Editor
+			133 button Use Wide Note Width
+			134 button Use Wide Note Width by Default
+			135 button Toggle Table of Contents ⌘⇧T
+			136 button Toggle Backlinks
+			137 button Customize All Notes columns
+			138 button Zoom In (100%) ⌘=
+			139 button Zoom Out (100%) ⌘-
+			140 text Settings
+			141 button Open Settings ⌘,
+			142 button Open H1 Auto-Rename Setting
+			143 button Contribute
+			144 button Check for Updates
+			145 button Use Light Mode
+			146 button Use Dark Mode
+			147 button Use System Theme
+			148 button Open Language Settings
+			149 button Use System Language (English)
+			150 button Switch Language to Italian
+			151 button Switch Language to French
+			152 button Switch Language to German
+			153 button Switch Language to Russian
+	154 close button
+	155 full screen button Help: this button also has an action to zoom the window, Secondary Actions: zoom the window
+	156 minimize button
+157 menu bar
+	158 Memnova F041 QA
+	159 File
+	160 Edit
+	161 View
+	162 Go
+	163 Note
+	164 Vault
+	165 Window
+
+The focused UI element is 79 text field (settable) Type a command...
