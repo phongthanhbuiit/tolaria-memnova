@@ -1,0 +1,21 @@
+{
+  "markdownFiles": 254,
+  "markdownEqual": true,
+  "changedPaths": [],
+  "countsBefore": {
+    "sessions": 5,
+    "reviews": 4
+  },
+  "countsAfter": {
+    "sessions": 5,
+    "reviews": 4
+  },
+  "integrityCheck": [
+    [
+      "ok"
+    ]
+  ],
+  "foreignKeys": [],
+  "schedulesRowsEqualToSourceCopy": true,
+  "reviewsRowsEqualToSourceCopy": true
+}

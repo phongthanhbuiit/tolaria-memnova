@@ -1,0 +1,33 @@
+[WebServer] (node:89072) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] 
+[WebServer] > tolaria-memnova@0.1.0 dev /private/tmp/memnova-step-a-original
+[WebServer] > node scripts/prepare-drawing-fonts.mjs && vite --host 127.0.0.1 --port 41742 --strictPort
+[WebServer] 
+[WebServer] (node:89086) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] 12:03:12 PM [vite] (client) Re-optimizing dependencies because vite config has changed
+[WebServer] 
+[WebServer]   VITE v7.3.2  ready in 271 ms
+[WebServer] 
+[WebServer]   ➜  Local:   http://127.0.0.1:41742/
+
+Running 3 tests using 1 worker
+
+(node:89099) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:89099) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (5.0s)
+(node:89203) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:89203) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  2 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (3.0s)
+(node:89280) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:89280) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  3 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (2.9s)
+
+  3 passed (15.8s)

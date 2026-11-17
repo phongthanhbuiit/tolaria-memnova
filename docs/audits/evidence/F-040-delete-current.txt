@@ -1,0 +1,32 @@
+[WebServer] (node:88674) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] 
+[WebServer] > tolaria-memnova@0.1.0 dev /Users/thompson/Documents/tolaria-memnova
+[WebServer] > node scripts/prepare-drawing-fonts.mjs && vite --host 127.0.0.1 --port 41741 --strictPort
+[WebServer] 
+[WebServer] (node:88702) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] 
+[WebServer]   VITE v7.3.2  ready in 255 ms
+[WebServer] 
+[WebServer]   ➜  Local:   http://127.0.0.1:41741/
+
+Running 3 tests using 1 worker
+
+(node:88722) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:88722) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (5.7s)
+(node:88869) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:88869) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  2 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (3.0s)
+(node:88941) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:88941) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  3 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (3.0s)
+
+  3 passed (16.2s)

@@ -144,7 +144,7 @@ Nguồn: kiểm kê grep toàn `src/` + đọc `learning/LearningStudyView.tsx`,
 | F-023 | P1 | Không có thang chữ: 15+ cỡ, đặt bằng 4 cách khác nhau | SPEC §0 | SPEC §1 | fixed (ddbeb0d2, nền tảng bước A; call sites B–D chưa dọn) || fixed (ddbeb0d2, foundation A; call sites B–D pending) |
 | F-024 | P1 | ≥ 120 chỗ chữ 8–10px, khó đọc | `text-[10px]` 45, `text-[9px]` 6, `fontSize: 8/9/10` 12… | SPEC §1 | open |
 | F-025 | P1 | `--text-muted` #B4B4B4 (≈2.1:1) dùng cho nhãn đọc được; token màu chữ trùng giá trị | `src/index.css:86-90` | SPEC §2 | fixed (207e1294, nền tảng bước A; call sites B–D chưa dọn) || fixed (207e1294, foundation A; call sites B–D pending) |
-| F-026 | P1 | CSS tính năng ghi đè component shadcn (`[data-slot=…]`) → cùng `Button`/`Switch` mà mỗi màn một cỡ | `learning/noteMemory.css:10-18,31,64,83-85` | SPEC §3 | open |
+| F-026 | P1 | CSS tính năng ghi đè component shadcn (`[data-slot=…]`) → cùng `Button`/`Switch` mà mỗi màn một cỡ | `learning/noteMemory.css:10-18,31,64,83-85` | SPEC §3 | fixed (a2428886) |
 | F-027 | P1 | Màn ôn thẻ: ba vùng lệch mép (`max-w-4xl` / `3xl` / `2xl`), hộp lồng hộp, nội dung cần nhớ yếu hơn tiêu đề | `LearningStudyView.tsx:138,296`, `LearningStudyFaces.tsx:71,87,149` | SPEC §6 | fixed (62053c7a + 96754f2a) |
 | F-028 | P1 | Nút chấm điểm `border-2` viền màu + nền nhuộm, cao tự do | `LearningStudyView.tsx:332`, `noteMemory.css:110-115` | SPEC §6 | fixed (87129845) |
 | F-029 | P2 | Hai màn ôn song song, hai bảng màu chấm điểm | `FlashcardStudyView.tsx:53` vs `noteMemory.css:112-115` | SPEC §6 "Gom mã" | fixed (def6ee51) |
@@ -158,6 +158,7 @@ Nguồn: kiểm kê grep toàn `src/` + đọc `learning/LearningStudyView.tsx`,
 | F-037 | P2 | Mục sidebar đang chọn: huy hiệu số đổi sang đặc màu, mục khác thì không — hai kiểu "đang chọn" | ảnh `WRITE` vs `HOME` | SPEC §7 | open |
 | F-038 | P3 | Độ đậm chữ dùng cả 400/500/600/700 ngoài editor | `font-bold` 21 | SPEC §1 | open |
 | F-039 | P2 | Core smoke wikilink không ổn định: Cmd+click xong H1 đích rỗng | `tests/smoke/wikilink-path-fix.spec.ts:65-70`, tái hiện cả baseline `f78b8fb9` | Chạy ổn định không retry; phân biệt fixture/test và lỗi app trước khi sửa | open |
+| F-040 | P2 | Core smoke keyboard delete/Quick Open phụ thuộc retry | `tests/smoke/delete-note-nonblocking.spec.ts:53`, log pre-push bước C | Xác định nguyên nhân trong lane đầy đủ; không coi retry là smoke sạch | open |
 
 Ghi chú: F-015 và F-016 (Đợt 0) được thay bằng F-027/F-028 + SPEC §6 — đánh dấu `fixed` cùng lúc.
 
@@ -170,6 +171,16 @@ Ghi chú: F-015 và F-016 (Đợt 0) được thay bằng F-027/F-028 + SPEC §6
 - Chấp nhận: xác định nguyên nhân fixture/test hoặc app rồi chạy lane ổn định không retry; không hạ assertion, tăng timeout hoặc sửa ngoài scope trong bước A.
 
 Bước B cũng bị cùng gate chặn trên `715aa8b5`: 53 passed / 1 failed, 6,0 phút, thất bại cả retry; [log](evidence/step-B-pre-push.txt). Không sửa F-039 trong phạm vi B.
+
+Bước C trên `dc29bf7d`: F-039 thất bại cả retry (lượt đầu Grow Newsletter, retry H1 rỗng); 52 passed / 1 flaky / 1 failed, 5,6 phút. Hook chặn push. [Log](evidence/step-C-pre-push.txt).
+
+### F-040 — Core smoke keyboard delete/Quick Open phụ thuộc retry
+
+- P2 · C9 · S7 · Chắc chắn về một lượt smoke flaky; chưa kết luận lỗi thao tác thật trên app hay regression của F-026.
+- Tái hiện đã quan sát: 1) `git push origin main` trên `dc29bf7d`. 2) Core smoke `delete-note-nonblocking.spec.ts:21` mở Quick Open khi deletion còn pending, nhập Note B và Enter. 3) Assertion heading Note B ở dòng 53 không tìm thấy trong 5 giây; retry pass.
+- Tác động: lane chỉ qua ca này nhờ retry, không phải smoke sạch. Không có bằng chứng mất dữ liệu; test dùng mock delete pending.
+- Bằng chứng: [pre-push](evidence/step-C-pre-push.txt). Chạy riêng không retry `--repeat-each=3`: [bản cuối 3/3 pass](evidence/F-040-delete-current.txt), [baseline f78b8fb9 3/3 pass](evidence/F-040-delete-baseline.txt); chưa tái hiện ngoài lane đầy đủ.
+- Chấp nhận: xác định nguyên nhân timing/fixture/app trong lane đầy đủ, chạy ổn định không retry; không tăng timeout/hạ assertion để che lỗi. Chưa sửa trong scope F-026.
 
 ## Mẫu cho finding mới
 

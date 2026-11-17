@@ -1,0 +1,7 @@
+{
+  "files": 40,
+  "attributes": 763,
+  "result": "Event handlers, disabled/value/checked, aria/data attributes and ids are unchanged in source JSX.",
+  "baseline": "28963157",
+  "testedSource": "a2428886"
+}

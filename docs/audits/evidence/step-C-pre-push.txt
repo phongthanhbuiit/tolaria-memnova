@@ -1,0 +1,153 @@
+Pre-push on dc29bf7d; lint/build/frontend coverage passed. Core smoke excerpt:
+
+(node:84515) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/smoke/autosave-low-end-typing.spec.ts:86:1 › @smoke autosave waits for idle typing and persists the latest draft only (8.1s)
+  ✓   2 [chromium] › tests/smoke/create-note-backing-file.spec.ts:137:1 › @smoke creating a note writes its backing file before reload can read it (3.0s)
+  ✓   3 [chromium] › tests/smoke/create-note-backing-file.spec.ts:158:1 › @smoke rapid note creation waits for each backing file write (4.4s)
+  ✘   4 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (7.9s)
+(node:84840) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:84840) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   5 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (retry #1) (3.7s)
+  ✓   6 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:64:3 › responsive note deletion › breadcrumb delete menu responds to a single pointer click @smoke (3.0s)
+  ✓   7 [chromium] › tests/smoke/example.spec.ts:16:3 › Command Palette smoke tests › Cmd+K opens the command palette @smoke (2.3s)
+  ✓   8 [chromium] › tests/smoke/example.spec.ts:56:3 › Keyboard shortcuts smoke tests › Cmd+P opens quick open palette @smoke (2.1s)
+  ✓   9 [chromium] › tests/smoke/fix-ai-chat-empty-body-v3.spec.ts:12:3 › AI chat empty body fix — no regression › AI panel opens, note is selected, message can be sent and response renders @smoke (3.8s)
+  ✓  10 [chromium] › tests/smoke/fix-crash-create-note.spec.ts:101:3 › Create note crash fix › clicking + next to a type section creates a note without crashing @smoke (2.6s)
+  ✓  11 [chromium] › tests/smoke/fix-crash-create-note.spec.ts:109:3 › Create note crash fix › Cmd+N creates a note without crashing @smoke (3.7s)
+  ✓  12 [chromium] › tests/smoke/fix-crash-create-note.spec.ts:126:3 › Create note crash fix › command palette creates typed notes without crashing when a type template is present @smoke (2.7s)
+  ✓  13 [chromium] › tests/smoke/fresh-start-telemetry-onboarding.spec.ts:65:1 › accepting telemetry consent on a fresh start opens the vault choice wizard @smoke (3.3s)
+  ✓  14 [chromium] › tests/smoke/fresh-start-telemetry-onboarding.spec.ts:81:1 › telemetry consent still leaves the welcome wizard fully keyboard navigable @smoke (3.2s)
+  ✓  15 [chromium] › tests/smoke/fresh-start-telemetry-onboarding.spec.ts:118:3 › accept telemetry still resumes onboarding with only a remembered default vault @smoke (3.2s)
+  ✓  16 [chromium] › tests/smoke/fresh-start-telemetry-onboarding.spec.ts:118:3 › decline telemetry still resumes onboarding with only a remembered default vault @smoke (3.2s)
+  ✓  17 [chromium] › tests/smoke/frontmatter-date-picker.spec.ts:54:3 › Frontmatter date picker › local-midnight date properties keep the selected calendar day @smoke (3.2s)
+  ✓  18 [chromium] › tests/smoke/getting-started-template.spec.ts:3:1 › Getting Started template shows inline retry on clone failure and opens after retry @smoke (6.7s)
+  ✓  19 [chromium] › tests/smoke/h1-title-decoupled.spec.ts:92:1 › @smoke older notes with a document title do not render the legacy title section (2.8s)
+  ✓  20 [chromium] › tests/smoke/h1-title-decoupled.spec.ts:122:1 › @smoke edited H1 titles drive note list, search, and wikilink autocomplete (4.0s)
+  ✓  21 [chromium] › tests/smoke/h1-title-decoupled.spec.ts:154:1 › @smoke rapid H1 typing stays stable while editing an existing note (3.1s)
+  ✓  22 [chromium] › tests/smoke/h1-untitled-auto-rename.spec.ts:204:1 › @smoke new-note H1 auto-rename keeps the editor usable and leaves no untitled duplicates (33.7s)
+  ✓  23 [chromium] › tests/smoke/h1-untitled-auto-rename.spec.ts:256:1 › @smoke new-note short title typing stays in the H1 until Enter (10.4s)
+  ✓  24 [chromium] › tests/smoke/h1-untitled-auto-rename.spec.ts:289:1 › @smoke new-note typing stays focused through initial save settlement (12.3s)
+  ✓  25 [chromium] › tests/smoke/h1-untitled-auto-rename.spec.ts:309:1 › @smoke new-note editor mode roundtrip stays editable after auto-rename (13.4s)
+  ✓  26 [chromium] › tests/smoke/h1-untitled-auto-rename.spec.ts:347:1 › @smoke new-note H1 auto-rename preserves body typing and cursor while rename lands (16.0s)
+  ✓  27 [chromium] › tests/smoke/h1-untitled-auto-rename.spec.ts:383:1 › @smoke fresh-note Enter stays stable after autosave and editor chrome clicks (17.2s)
+  ✓  28 [chromium] › tests/smoke/h1-untitled-auto-rename.spec.ts:419:1 › @smoke new-note H1 auto-rename does not recreate the untitled file when a buffered save lands after rename (9.3s)
+  ✓  29 [chromium] › tests/smoke/keyboard-command-routing.spec.ts:111:3 › keyboard command routing › desktop menu-command bridge creates a note through the shared command path @smoke (2.6s)
+  ✓  30 [chromium] › tests/smoke/keyboard-command-routing.spec.ts:122:3 › keyboard command routing › desktop menu-command bridge toggles the properties panel through the shared command path @smoke (2.7s)
+  ✓  31 [chromium] › tests/smoke/keyboard-command-routing.spec.ts:129:3 › keyboard command routing › desktop keyboard shortcut toggles the properties panel through the renderer shortcut path @smoke (2.8s)
+  ✓  32 [chromium] › tests/smoke/keyboard-command-routing.spec.ts:136:3 › keyboard command routing › desktop shortcut bridge opens quick open through both Cmd+P and Cmd+O @smoke (2.6s)
+  ✓  33 [chromium] › tests/smoke/keyboard-command-routing.spec.ts:169:3 › keyboard command routing › global search arrow keys move one result at a time @smoke (4.2s)
+  ✓  34 [chromium] › tests/smoke/keyboard-command-routing.spec.ts:200:3 › keyboard command routing › desktop menu-command bridge toggles organized state through the shared command path @smoke (2.8s)
+  ✓  35 [chromium] › tests/smoke/keyboard-command-routing.spec.ts:212:3 › keyboard command routing › text history keeps priority while app command bridge undoes and redoes organization outside the editor @smoke (3.0s)
+  ✓  36 [chromium] › tests/smoke/keyboard-command-routing.spec.ts:233:3 › keyboard command routing › renderer shortcut bridge toggles the raw editor through the shared keyboard handler @smoke (2.8s)
+  ✓  37 [chromium] › tests/smoke/keyboard-command-routing.spec.ts:257:3 › keyboard command routing › desktop menu-command bridge toggles the AI panel, while the wrong modifier event does not @smoke (3.0s)
+  ✓  38 [chromium] › tests/smoke/linkify-init-warnings.spec.ts:47:1 › @smoke note open and editor remount flows stay free of duplicate linkify warnings (4.2s)
+  ✓  39 [chromium] › tests/smoke/missing-active-vault-recovery.spec.ts:98:1 › missing active vault reload shows recovery state and clears stale notes @smoke (3.5s)
+  ✓  40 [chromium] › tests/smoke/missing-string-metadata-open-note.spec.ts:122:1 › @smoke note open tolerates missing string metadata from the vault scan (3.5s)
+  ✓  41 [chromium] › tests/smoke/missing-string-metadata-open-note.spec.ts:133:1 › @smoke note open after vault reload tolerates missing suggestion metadata (3.4s)
+  ✓  42 [chromium] › tests/smoke/multi-selection-shortcuts.spec.ts:86:3 › multi-selection shortcuts › Cmd/Ctrl+E organizes the full Inbox multi-selection @smoke (2.6s)
+  ✓  43 [chromium] › tests/smoke/multi-selection-shortcuts.spec.ts:96:3 › multi-selection shortcuts › Cmd/Ctrl+E organizes a CRLF Inbox note without duplicating frontmatter @smoke (2.9s)
+  ✓  44 [chromium] › tests/smoke/multi-selection-shortcuts.spec.ts:115:3 › multi-selection shortcuts › Cmd/Ctrl+Backspace batch-deletes the full visible multi-selection after one confirmation @smoke (2.5s)
+  ✓  45 [chromium] › tests/smoke/multibyte-search-snippet.spec.ts:42:3 › Multibyte note-list search › searching content near Korean text keeps the result openable @smoke (2.9s)
+  ✓  46 [chromium] › tests/smoke/multibyte-search-snippet.spec.ts:58:3 › Multibyte note-list search › opening CRLF Chinese table content keeps the note searchable @smoke (3.1s)
+  ✓  47 [chromium] › tests/smoke/note-history-edit-loop.spec.ts:61:1 › opening note history then editing and saving the same note stays stable @smoke (3.5s)
+  ✓  48 [chromium] › tests/smoke/pull-refresh-open-note.spec.ts:148:3 › Pull refreshes the open note immediately › @smoke unrelated pull keeps the active editor mounted with selection in place (7.2s)
+  ✓  49 [chromium] › tests/smoke/quick-open-create-note.spec.ts:35:1 › quick open creates a note when the typed title has no matches @smoke (2.6s)
+  ✓  50 [chromium] › tests/smoke/save-before-note-switch.spec.ts:201:1 › @smoke switching notes persists unsaved raw edits without waiting for the debounce window (3.9s)
+  ✓  51 [chromium] › tests/smoke/save-before-note-switch.spec.ts:222:1 › @smoke switching notes during a slow rich-editor save writes once and opens the latest note (4.5s)
+  ✓  52 [chromium] › tests/smoke/save-before-note-switch.spec.ts:256:1 › @smoke deleting a property after switching notes keeps the current note editable (3.9s)
+  ✓  53 [chromium] › tests/smoke/type-derived-properties.spec.ts:48:3 › Type-derived instance properties › type schema placeholders stay visible and valued defaults seed new instances @smoke (3.4s)
+  ✓  54 [chromium] › tests/smoke/vault-loading-skeleton.spec.ts:142:1 › slow vault open keeps the app shell usable while notes load @smoke (2.4s)
+  ✘  55 [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note (16.6s)
+(node:87964) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:87964) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  56 [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note (retry #1) (35.0s)
+
+
+  1) [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator:  locator('.bn-editor h1').first()
+    Expected: "Manage Sponsorships"
+    Received: "Grow Newsletter"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveText" with timeout 5000ms
+      - waiting for locator('.bn-editor h1').first()
+        2 × locator resolved to <h1 class="bn-inline-content">Grow Newsletter</h1>
+          - unexpected value "Grow Newsletter"
+
+
+      68 |
+      69 |     await wikilink.click({ modifiers: ['Meta'] })
+    > 70 |     await expect(page.locator('.bn-editor h1').first()).toHaveText(INSERTED_WIKILINK_TITLE, { timeout: 5000 })
+         |                                                         ^
+      71 |   })
+      72 | })
+      73 |
+        at /Users/thompson/Documents/tolaria-memnova/tests/smoke/wikilink-path-fix.spec.ts:70:57
+
+    Retry #1 ───────────────────────────────────────────────────────────────────────────────────────
+
+    Test timeout of 30000ms exceeded.
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator:  locator('.bn-editor h1').first()
+    Expected: "Manage Sponsorships"
+    Received: ""
+
+    Call log:
+      - Expect "toHaveText" with timeout 5000ms
+      - waiting for locator('.bn-editor h1').first()
+
+
+      68 |
+      69 |     await wikilink.click({ modifiers: ['Meta'] })
+    > 70 |     await expect(page.locator('.bn-editor h1').first()).toHaveText(INSERTED_WIKILINK_TITLE, { timeout: 5000 })
+         |                                                         ^
+      71 |   })
+      72 | })
+      73 |
+        at /Users/thompson/Documents/tolaria-memnova/tests/smoke/wikilink-path-fix.spec.ts:70:57
+
+  2) [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: 'Note B', level: 1 })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for getByRole('heading', { name: 'Note B', level: 1 })
+
+
+      51 |     await page.keyboard.press('Enter')
+      52 |
+    > 53 |     await expect(page.getByRole('heading', { name: 'Note B', level: 1 })).toBeVisible({ timeout: 5_000 })
+         |                                                                           ^
+      54 |     await expect(progressNotice).toBeVisible()
+      55 |     await page.evaluate(() => {
+      56 |       const { __resolveDelete: resolveDelete } = window as typeof window & { __resolveDelete?: () => void }
+        at /Users/thompson/Documents/tolaria-memnova/tests/smoke/delete-note-nonblocking.spec.ts:53:75
+
+    Error Context: test-results/smoke-delete-note-nonblock-86b4b-deletion-is-in-flight-smoke-chromium/error-context.md
+
+  1 failed
+    [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note 
+  1 flaky
+    [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke 
+  52 passed (5.6m)
+ ELIFECYCLE  Command failed with exit code 1.
+  ❌ Core smoke tests FAILED
+husky - pre-push script failed (code 1)
+error: failed to push some refs to 'https://github.com/phongthanhbuiit/tolaria-memnova.git'
