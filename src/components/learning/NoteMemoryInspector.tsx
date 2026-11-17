@@ -30,14 +30,14 @@ export function NoteMemoryInspector({
   return (
     <section
       aria-label={t('properties.memory')}
-      className="note-memory-surface min-w-0 space-y-3 border-t px-3 py-3 text-sm"
+      className="note-memory-surface min-w-0 space-y-3 border-t px-0 py-3 text-body"
     >
       <h3 className="flex items-start gap-2 font-medium">
         <CalendarBlank aria-hidden="true" className="mt-0.5 size-4 shrink-0" />
         {t('properties.memory')}
       </h3>
       {!current && (
-        <p role="status" className="text-muted-foreground">
+        <p role="status" className="text-text-secondary">
           {t('learning.loading')}
         </p>
       )}
@@ -53,21 +53,21 @@ export function NoteMemoryInspector({
         </div>
       )}
       {data?.view.schedule && (
-        <dl className="grid grid-cols-[minmax(0,1fr)_auto] gap-x-3 gap-y-2 text-xs">
-          <dt className="text-muted-foreground">{t('properties.due')}</dt>
+        <dl className="grid grid-cols-[minmax(0,1fr)_auto] gap-x-3 gap-y-2 text-small">
+          <dt className="text-text-secondary">{t('properties.due')}</dt>
           <dd className="max-w-40 break-words text-right">
             {dueLabel(data.view.schedule.due, locale)}
           </dd>
-          <dt className="text-muted-foreground">{t('properties.reps')}</dt>
+          <dt className="text-text-secondary">{t('properties.reps')}</dt>
           <dd className="text-right tabular-nums">{new Intl.NumberFormat(locale).format(data.view.schedule.reps)}</dd>
-          <dt className="text-muted-foreground">{t('properties.lapses')}</dt>
+          <dt className="text-text-secondary">{t('properties.lapses')}</dt>
           <dd className="text-right tabular-nums">
             {new Intl.NumberFormat(locale).format(data.view.schedule.lapses)}
           </dd>
         </dl>
       )}
       {data && !data.view.schedule && (
-        <p className="text-xs text-muted-foreground">
+        <p className="text-small text-text-secondary">
           {t('properties.noNoteMemory')}
         </p>
       )}
