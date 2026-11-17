@@ -1,6 +1,8 @@
 import { useState, useCallback, useEffect, useRef, type ComponentProps } from 'react'
 import { normalizeUrl, openExternalUrl } from '../utils/url'
 import { getTagStyle } from '../utils/tagStyles'
+import { Button } from './ui/button'
+import { Input } from './ui/input'
 import { PROPERTY_CHIP_STYLE } from './propertyChipStyles'
 
 function AutoFocusInput(props: ComponentProps<'input'>) {
@@ -10,7 +12,7 @@ function AutoFocusInput(props: ComponentProps<'input'>) {
     ref.current?.focus()
   }, [])
 
-  return <input ref={ref} {...props} />
+  return <Input controlSize="sm" ref={ref} {...props} />
 }
 
 export function UrlValue({
@@ -63,7 +65,7 @@ export function UrlValue({
   if (isEditing) {
     return (
       <AutoFocusInput
-        className="w-full rounded border border-ring bg-muted px-2 py-1 text-[12px] text-foreground outline-none focus:border-primary"
+        className="w-full rounded-md border border-ring bg-muted px-2 py-0 text-body text-foreground outline-none focus:border-primary"
         type="text"
         value={editValue}
         onChange={(e) => setEditValue(e.target.value)}
@@ -75,23 +77,23 @@ export function UrlValue({
 
   return (
     <span className="group/url flex w-full min-w-0 items-center gap-1">
-      <button
+      <Button variant="ghost" size="sm"
         type="button"
-        className="inline-flex h-6 min-w-0 flex-1 cursor-pointer items-center justify-start overflow-hidden rounded-md border-0 bg-transparent px-2 text-left text-[12px] text-[var(--accent-blue)] underline decoration-[var(--accent-blue)]/40 transition-colors hover:decoration-[var(--accent-blue)]"
+        className="inline-flex min-w-0 flex-1 cursor-pointer items-center justify-start overflow-hidden rounded-md border-0 bg-transparent px-2 text-left text-body text-[var(--accent-blue)] underline decoration-[var(--accent-blue)]/40 transition-colors hover:decoration-[var(--accent-blue)]"
         onClick={handleOpen}
         title={value}
         data-testid="url-link"
       >
         <span className="min-w-0 truncate">{value || '\u2014'}</span>
-      </button>
-      <button type="button"
-        className="shrink-0 border-none bg-transparent p-0 text-[12px] leading-none text-muted-foreground opacity-0 transition-all hover:text-foreground group-hover/url:opacity-100"
+      </Button>
+      <Button variant="ghost" size="sm" type="button"
+        className="shrink-0 border-none bg-transparent p-0 text-body leading-none text-text-secondary opacity-0 transition-all hover:text-foreground group-hover/url:opacity-100 focus-visible:opacity-100"
         onClick={handleEditClick}
         title="Edit URL"
         data-testid="url-edit-btn"
       >
         &#9998;
-      </button>
+      </Button>
     </span>
   )
 }
@@ -123,7 +125,7 @@ export function EditableValue({
   if (isEditing) {
     return (
       <AutoFocusInput
-        className="w-full rounded border border-ring bg-muted px-2 py-1 text-[12px] text-foreground outline-none focus:border-primary"
+        className="w-full rounded-md border border-ring bg-muted px-2 py-0 text-body text-foreground outline-none focus:border-primary"
         type="text"
         value={editValue}
         onChange={(e) => setEditValue(e.target.value)}
@@ -134,14 +136,14 @@ export function EditableValue({
   }
 
   return (
-    <button
+    <Button variant="ghost" size="sm"
       type="button"
-      className="inline-flex h-6 w-full min-w-0 cursor-pointer items-center justify-start overflow-hidden rounded-md border-0 bg-transparent px-0 text-left text-[12px] text-secondary-foreground transition-colors hover:bg-muted"
+      className="inline-flex w-full min-w-0 cursor-pointer items-center justify-start overflow-hidden rounded-md border-0 bg-transparent px-0 text-left text-body text-secondary-foreground transition-colors hover:bg-muted"
       onClick={onStartEdit}
       title={value || 'Click to edit'}
     >
       <span className="min-w-0 truncate">{value || '\u2014'}</span>
-    </button>
+    </Button>
   )
 }
 
@@ -211,7 +213,7 @@ export function TagPillList({
         editingIndex === idx ? (
           <AutoFocusInput
             key={item}
-            className="rounded-full border border-ring bg-muted px-2 py-0.5 text-[11px] text-foreground outline-none focus:border-primary"
+            className="rounded-md border border-ring bg-muted px-2 py-0 text-caption text-foreground outline-none focus:border-primary"
             style={{ width: Math.max(60, editValue.length * 7 + 16) }}
             type="text"
             value={editValue}
@@ -222,7 +224,7 @@ export function TagPillList({
         ) : (
           <span
             key={item}
-            className="group/pill relative inline-flex max-w-full min-w-0 items-center overflow-hidden transition-colors"
+            className="group/pill relative inline-flex max-w-full min-w-0 items-center overflow-hidden text-body transition-colors"
             style={{
               ...PROPERTY_CHIP_STYLE,
               backgroundColor: getTagStyle(item).bg,
@@ -230,15 +232,15 @@ export function TagPillList({
             }}
             title="Click to edit"
           >
-            <button
+            <Button variant="ghost" size="sm"
               type="button"
-              className="min-w-0 truncate border-0 bg-transparent p-0 pr-4 text-left text-[inherit]"
+              className="min-w-0 truncate border-0 bg-transparent p-0 pr-8 text-left text-body"
               onClick={() => handleStartEdit(idx)}
             >
               {item}
-            </button>
-            <button type="button"
-              className="absolute right-0.5 top-1/2 flex h-3.5 w-3.5 -translate-y-1/2 items-center justify-center rounded-full border-none p-0 text-[10px] leading-none opacity-0 transition-all hover:bg-[var(--accent-red-light)] hover:text-[var(--accent-red)] group-hover/pill:opacity-100"
+            </Button>
+            <Button variant="ghost" size="icon-sm" type="button"
+              className="absolute right-0.5 top-1/2 flex -translate-y-1/2 items-center justify-center rounded-md border-none p-0 text-caption leading-none opacity-0 transition-all hover:bg-[var(--accent-red-light)] hover:text-[var(--accent-red)] group-hover/pill:opacity-100 focus-visible:opacity-100"
               style={{ color: getTagStyle(item).color, backgroundColor: getTagStyle(item).bg }}
               onClick={(e) => {
                 e.stopPropagation()
@@ -247,13 +249,13 @@ export function TagPillList({
               title="Remove"
             >
               &times;
-            </button>
+            </Button>
           </span>
         )
       )}
       {isAddingNew ? (
         <AutoFocusInput
-          className="rounded-full border border-ring bg-muted px-2 py-0.5 text-[11px] text-foreground outline-none focus:border-primary"
+          className="rounded-md border border-ring bg-muted px-2 py-0 text-caption text-foreground outline-none focus:border-primary"
           style={{ width: Math.max(60, newValue.length * 7 + 16) }}
           type="text"
           value={newValue}
@@ -266,14 +268,14 @@ export function TagPillList({
           placeholder={`${label}...`}
         />
       ) : (
-        <button type="button"
-          className="inline-flex items-center justify-center border-none bg-muted leading-none text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+        <Button variant="ghost" size="sm" type="button"
+          className="inline-flex items-center justify-center border-none bg-muted leading-none text-text-secondary transition-colors hover:bg-accent hover:text-foreground"
           style={PROPERTY_CHIP_STYLE}
           onClick={() => setIsAddingNew(true)}
           title={`Add ${label.toLowerCase()}`}
         >
           +
-        </button>
+        </Button>
       )}
     </div>
   )
