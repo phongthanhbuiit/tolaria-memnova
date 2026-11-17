@@ -271,3 +271,11 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 - RED trên HEAD D3 và checkout độc lập baseline `707bac53`, retries=0: `vault-workflows.spec.ts` đòi ẩn file còn tồn tại chỉ vì `Trashed: true`, và tìm nhãn Related to khi Properties chưa mở. [Baseline RED](evidence/D3-R06-baseline-red.txt). Không kết luận bug app mới.
 - ADR-0045 đã bỏ Trash và yêu cầu cờ Trashed là metadata thường. Test mới xác nhận note có cờ cũ vẫn hiện và byte cờ giữ nguyên, xoá đúng file fixture tạm rồi mở lại Library, giữ assertion note biến mất/Note C vẫn hiện và thêm kiểm tra file không tồn tại. Test relationships click nút Properties trước assertion cũ. Không sửa app/fixture gốc, không thêm timeout/retry/skip hoặc hạ coverage.
 - GREEN: 8/8 filesystem regression, 30,2s, retries=0. [Log](evidence/D3-R06-green.txt). Hai ca này xuất hiện khi hook chạy lại file có helper filename của D3; sửa trong commit test riêng, không làm D4 hoặc F-040.
+
+
+## R-07 — Type-create regression dùng mock mặc định thay bridge filesystem
+
+- P2 · test-only · **fixed (`:/^test: R-07 isolate type creation fixtures`)** theo ngoại lệ test chặn gate của luật đêm.
+- Baseline `707bac53` độc lập và HEAD D3 cùng fail 2/2 ở assertion `.bn-editor` visible sau tạo note trong mock mặc định, trước assertion breadcrumb. AX có entry mới và textbox; không kết luận bug app native. [Baseline RED, retries=0](evidence/D3-R07-baseline-red.txt). Hook mặc định đã tự retry2 và vẫn fail, không dùng retry làm bằng chứng pass.
+- Dùng createFixtureVaultCopy/openFixtureVaultDesktopHarness/cleanup đã có như các core creation test; test có thư viện nhỏ riêng và bridge tạo/đọc file thật, không dùng dữ liệu demo hoặc prefs thật. Bỏ fixed sleep thay bằng readiness sẵn có của helper. Giữ nguyên assertion editor visible, filename/loại Project hoặc Note và raw frontmatter, không tăng timeout/retry/skip, không sửa app/mock.
+- GREEN 2/2, 10,0s, retries=0. [Log](evidence/D3-R07-green.txt). Commit test riêng; không sửa F-040.

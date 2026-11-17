@@ -1,14 +1,22 @@
 import { test, expect } from '@playwright/test'
 import { executeCommand, openCommandPalette } from './helpers'
+import { createFixtureVaultCopy, openFixtureVaultDesktopHarness, removeFixtureVaultCopy } from '../helpers/fixtureVault'
+
+let tempVaultDir: string
+
+test.beforeEach(async ({ page }) => {
+  tempVaultDir = createFixtureVaultCopy()
+  await openFixtureVaultDesktopHarness(page, tempVaultDir)
+})
+
+test.afterEach(() => {
+  removeFixtureVaultCopy(tempVaultDir)
+})
 
 test('clicking + in type section creates note with that type', async ({ page }) => {
-  await page.goto('/')
-  await page.waitForTimeout(2000)
-
   // Click on "Projects" in the sidebar to select that type section
   const projectsItem = page.locator('[data-testid="sidebar-section-Projects"]').or(page.locator('.app__sidebar').locator('text=Projects').first())
   await projectsItem.click()
-  await page.waitForTimeout(1000)
 
   // Click the "+" button to create a new note
   await page.click('[title="Create new note"]')
@@ -28,12 +36,8 @@ test('clicking + in type section creates note with that type', async ({ page }) 
 })
 
 test('clicking + in All Notes creates generic note', async ({ page }) => {
-  await page.goto('/')
-  await page.waitForTimeout(2000)
-
   // Click on "All Notes" in sidebar
   await page.locator('text=All Notes').first().click()
-  await page.waitForTimeout(500)
 
   // Click the "+" button
   await page.click('[title="Create new note"]')
