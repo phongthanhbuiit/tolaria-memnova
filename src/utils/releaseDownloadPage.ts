@@ -129,6 +129,10 @@ const REDIRECT_PAGE_STYLES = `
       color: var(--download-text-primary);
     }
 
+    h1, h2, h3, h4, h5, h6, strong, b {
+      font-weight: 600;
+    }
+
     main {
       width: min(100%, 520px);
       background: var(--download-surface-card);
