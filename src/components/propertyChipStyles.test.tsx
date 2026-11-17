@@ -6,13 +6,13 @@ import { TypeSelector } from './TypeSelector'
 
 function expectSharedChipSize(element: HTMLElement | null) {
   expect(element).not.toBeNull()
-  expect(element?.style.height).toBe('24px')
-  expect(element?.style.borderRadius).toBe('6px')
+  expect(element?.style.minHeight).toBe('var(--control-sm)')
+  expect(element?.style.borderRadius).toBe('var(--radius-sm)')
   expect(element?.style.paddingTop).toBe('0px')
   expect(element?.style.paddingRight).toBe('8px')
   expect(element?.style.paddingBottom).toBe('0px')
   expect(element?.style.paddingLeft).toBe('8px')
-  expect(element?.style.fontSize).toBe('12px')
+  expect(element?.style.fontSize).toBe('')
   expect(element?.style.fontWeight).toBe('500')
 }
 

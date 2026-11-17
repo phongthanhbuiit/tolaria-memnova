@@ -1,9 +1,8 @@
 import type { CSSProperties } from 'react'
 
 export const PROPERTY_CHIP_STYLE: CSSProperties = {
-  borderRadius: 6,
+  borderRadius: 'var(--radius-sm)',
   padding: '0 8px',
-  height: 24,
-  fontSize: 12,
+  minHeight: 'var(--control-sm)',
   fontWeight: 500,
 }

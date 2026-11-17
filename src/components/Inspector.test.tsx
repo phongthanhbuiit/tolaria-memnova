@@ -185,7 +185,7 @@ Status: Evergreened
     render(<Inspector {...defaultProps} entry={mockEntry} content={mockContent} />)
     const badge = screen.getByTestId('status-badge')
     expect(badge).toHaveTextContent('Active')
-    expect(badge.style.borderRadius).toBe('6px')
+    expect(badge.style.borderRadius).toBe('var(--radius-sm)')
   })
 
   it('computes word count from content minus frontmatter and title', () => {
