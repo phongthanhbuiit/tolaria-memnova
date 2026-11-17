@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import type { AppLocale } from '../../lib/i18n'
-import { noteFolderPaths, noteFolderScope, workspaceDue } from '../../lib/learning/noteWorkspace'
+import { isPublicNotePath, noteFolderPaths, noteFolderScope, workspaceDue } from '../../lib/learning/noteWorkspace'
 import type { LearningWorkspace } from './LearningContext'
 
 function searchText(value: string, locale: AppLocale) {
@@ -21,7 +21,7 @@ export function useNoteCatalog(workspace: LearningWorkspace | null, locale: AppL
     [currentFolder, pages, recursive])
   const index = useMemo(() => {
     const titles = new Map(pages?.map(page => [page.id, page.title]))
-    return (notes ?? []).filter(row => row.view.state !== 'ordinary').map(row => ({
+    return (notes ?? []).filter(row => row.view.state !== 'ordinary' && isPublicNotePath(row.view.path)).map(row => ({
       row,
       text: searchText(`${titles.get(row.view.pageId) ?? ''}\n${row.view.path}`, locale),
     }))

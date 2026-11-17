@@ -212,3 +212,30 @@ it('keeps the learning filters out of an ordinary writing-only Library', () => {
     expect(screen.getByText('Open a note and enable memorization to add it here.')).toBeVisible()
   } finally { workspace.notes = original }
 })
+
+
+it.each([false, true])('excludes retired records from catalog, search, count and study scope (available=%s)', (available) => {
+  const originalNotes = workspace.notes
+  const path = '.memnova/retired/retired-sentinel.md'
+  workspace.pages.push({ id: 'retired', path, title: 'Retired sentinel', available })
+  workspace.notes = [...originalNotes, {
+    ...originalNotes[0],
+    view: { ...originalNotes[0].view, pageId: 'retired', path, binding: { cardId: 'retired-card' } },
+    card: { ...originalNotes[0].card, id: 'retired-card', pageId: 'retired' },
+  }]
+  const source = JSON.stringify({ pages: workspace.pages, notes: workspace.notes })
+  try {
+    render(<NoteLearningDashboard mode="decks" locale="en" onOpenPage={vi.fn()} legacy={null} />)
+    expect(screen.queryByText(path)).not.toBeInTheDocument()
+    expect(screen.getAllByRole('listitem')).toHaveLength(1)
+    fireEvent.click(screen.getByRole('button', { name: 'Study due notes (1)' }))
+    expect(workspace.requestStudy).toHaveBeenLastCalledWith(['a', 'b'], 'notes')
+    fireEvent.change(screen.getByRole('searchbox'), { target: { value: 'retired-sentinel' } })
+    expect(screen.queryAllByRole('listitem')).toHaveLength(0)
+    expect(screen.getByRole('status')).toHaveTextContent('No matching notes')
+    expect(JSON.stringify({ pages: workspace.pages, notes: workspace.notes })).toBe(source)
+  } finally {
+    workspace.pages.pop()
+    workspace.notes = originalNotes
+  }
+})

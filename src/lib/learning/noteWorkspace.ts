@@ -7,6 +7,11 @@ import type {
   StudyLane,
 } from './types'
 
+/** Metadata records stay in storage; user-facing catalogs must not index their paths. */
+export function isPublicNotePath(path: string): boolean {
+  return !path.replaceAll('\\', '/').split('/').some(part => part.toLowerCase() === '.memnova')
+}
+
 export function noteFolderPaths(pages: LearningPage[]): string[] {
   const folders = new Set<string>()
   for (const page of pages) {
@@ -36,7 +41,7 @@ export function workspaceDue(
   clock: number
 ) {
   const available = new Set(
-    pages.filter((page) => page.available).map((page) => page.id)
+    pages.filter((page) => page.available && isPublicNotePath(page.path)).map((page) => page.id)
   )
   const bound = new Set(
     summaries.flatMap((row) =>
@@ -82,6 +87,7 @@ export function noteFolderScope(
     .filter(
       (page) =>
         page.available &&
+        isPublicNotePath(page.path) &&
         page.path.startsWith(prefix) &&
         (recursive || !page.path.slice(prefix.length).includes('/'))
     )

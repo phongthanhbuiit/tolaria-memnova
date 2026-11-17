@@ -135,3 +135,25 @@ fn test_get_note_content_invalid_utf8() {
         format!("File is not valid UTF-8 text: {}", path.display())
     );
 }
+
+#[test]
+fn retired_metadata_is_not_indexed_and_remains_byte_identical() {
+    let dir = TempDir::new().unwrap();
+    let content = "# Retired sentinel\n\nretired-search-sentinel\n";
+    create_test_file(dir.path(), "visible.md", "# Visible\n");
+    create_test_file(dir.path(), ".memnova/retired/old.md", content);
+    let retired = dir.path().join(".memnova/retired/old.md");
+    let before = std::fs::read(&retired).unwrap();
+    let entries = scan_vault(dir.path(), &HashMap::new()).unwrap();
+    assert_eq!(entries.len(), 1);
+    assert_eq!(entries[0].filename, "visible.md");
+    let search = crate::search::search_vault(
+        dir.path().to_str().unwrap(),
+        "retired-search-sentinel",
+        "keyword",
+        10,
+    )
+    .unwrap();
+    assert!(search.results.is_empty());
+    assert_eq!(std::fs::read(&retired).unwrap(), before);
+}

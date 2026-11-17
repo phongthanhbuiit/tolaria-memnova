@@ -67,3 +67,13 @@ it('scopes folders by path boundaries and explicit recursive choice, never by Ma
   expect(noteFolderScope('', pages, true)).toEqual(['a', 'b', 'c'])
   expect(() => noteFolderScope('../', pages)).toThrow('Invalid note folder')
 })
+
+it('excludes metadata paths from due counts and study scopes without changing source records', () => {
+  const source = [...pages, { id: 'retired', path: '.memnova/retired/old.md', available: true } as LearningPage]
+  const before = JSON.stringify(source)
+  const summaries = [note('ready', 'n'), note('ready', 'retired-card', 'retired')]
+  expect(noteFolderScope('', source)).toEqual(['a', 'b', 'c'])
+  expect(workspaceDue(source, summaries, [card('internal-old', 'retired')], Date.now()).notes.map(row => row.id)).toEqual(['n'])
+  expect(workspaceDue(source, summaries, [card('internal-old', 'retired')], Date.now()).legacy).toEqual([])
+  expect(JSON.stringify(source)).toBe(before)
+})
