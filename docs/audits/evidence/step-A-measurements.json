@@ -1,0 +1,444 @@
+[
+  {
+    "theme": "light",
+    "types": [
+      {
+        "token": "caption",
+        "size": 11,
+        "line": 16,
+        "weight": 500
+      },
+      {
+        "token": "small",
+        "size": 12,
+        "line": 18,
+        "weight": 400
+      },
+      {
+        "token": "body",
+        "size": 13,
+        "line": 20,
+        "weight": 400
+      },
+      {
+        "token": "body-lg",
+        "size": 14,
+        "line": 22,
+        "weight": 400
+      },
+      {
+        "token": "title",
+        "size": 16,
+        "line": 24,
+        "weight": 600
+      },
+      {
+        "token": "display",
+        "size": 20,
+        "line": 28,
+        "weight": 600
+      },
+      {
+        "token": "study",
+        "size": 18,
+        "line": 28,
+        "weight": 400
+      }
+    ],
+    "controls": [
+      {
+        "id": "button-sm",
+        "height": 28,
+        "radius": "6px"
+      },
+      {
+        "id": "input-sm",
+        "height": 28,
+        "radius": "6px"
+      },
+      {
+        "id": "select-sm",
+        "height": 28,
+        "radius": "6px"
+      },
+      {
+        "id": "button-md",
+        "height": 32,
+        "radius": "6px"
+      },
+      {
+        "id": "input-md",
+        "height": 32,
+        "radius": "6px"
+      },
+      {
+        "id": "select-md",
+        "height": 32,
+        "radius": "6px"
+      },
+      {
+        "id": "button-lg",
+        "height": 36,
+        "radius": "6px"
+      },
+      {
+        "id": "input-lg",
+        "height": 36,
+        "radius": "6px"
+      },
+      {
+        "id": "select-lg",
+        "height": 36,
+        "radius": "6px"
+      }
+    ],
+    "contrasts": [
+      {
+        "text": "primary",
+        "surface": "app",
+        "ratio": 12.261102653975094
+      },
+      {
+        "text": "primary",
+        "surface": "sidebar",
+        "ratio": 11.345228172613464
+      },
+      {
+        "text": "primary",
+        "surface": "panel",
+        "ratio": 12.261102653975094
+      },
+      {
+        "text": "primary",
+        "surface": "card",
+        "ratio": 12.261102653975094
+      },
+      {
+        "text": "primary",
+        "surface": "popover",
+        "ratio": 12.261102653975094
+      },
+      {
+        "text": "primary",
+        "surface": "input",
+        "ratio": 12.261102653975094
+      },
+      {
+        "text": "primary",
+        "surface": "button",
+        "ratio": 10.278230396628794
+      },
+      {
+        "text": "primary",
+        "surface": "dialog",
+        "ratio": 12.261102653975094
+      },
+      {
+        "text": "secondary",
+        "surface": "app",
+        "ratio": 6.006626016173986
+      },
+      {
+        "text": "secondary",
+        "surface": "sidebar",
+        "ratio": 5.557945694138424
+      },
+      {
+        "text": "secondary",
+        "surface": "panel",
+        "ratio": 6.006626016173986
+      },
+      {
+        "text": "secondary",
+        "surface": "card",
+        "ratio": 6.006626016173986
+      },
+      {
+        "text": "secondary",
+        "surface": "popover",
+        "ratio": 6.006626016173986
+      },
+      {
+        "text": "secondary",
+        "surface": "input",
+        "ratio": 6.006626016173986
+      },
+      {
+        "text": "secondary",
+        "surface": "button",
+        "ratio": 5.035231156849116
+      },
+      {
+        "text": "secondary",
+        "surface": "dialog",
+        "ratio": 6.006626016173986
+      },
+      {
+        "text": "muted",
+        "surface": "app",
+        "ratio": 5.488817691840067
+      },
+      {
+        "text": "muted",
+        "surface": "sidebar",
+        "ratio": 5.078816389455344
+      },
+      {
+        "text": "muted",
+        "surface": "panel",
+        "ratio": 5.488817691840067
+      },
+      {
+        "text": "muted",
+        "surface": "card",
+        "ratio": 5.488817691840067
+      },
+      {
+        "text": "muted",
+        "surface": "popover",
+        "ratio": 5.488817691840067
+      },
+      {
+        "text": "muted",
+        "surface": "input",
+        "ratio": 5.488817691840067
+      },
+      {
+        "text": "muted",
+        "surface": "button",
+        "ratio": 4.601163079205965
+      },
+      {
+        "text": "muted",
+        "surface": "dialog",
+        "ratio": 5.488817691840067
+      }
+    ],
+    "badgeRadius": "4px",
+    "cardRadius": "8px",
+    "dialogRadius": "12px",
+    "textSpacing": "pass",
+    "mouseAndKeyboard": "pass"
+  },
+  {
+    "theme": "dark",
+    "types": [
+      {
+        "token": "caption",
+        "size": 11,
+        "line": 16,
+        "weight": 500
+      },
+      {
+        "token": "small",
+        "size": 12,
+        "line": 18,
+        "weight": 400
+      },
+      {
+        "token": "body",
+        "size": 13,
+        "line": 20,
+        "weight": 400
+      },
+      {
+        "token": "body-lg",
+        "size": 14,
+        "line": 22,
+        "weight": 400
+      },
+      {
+        "token": "title",
+        "size": 16,
+        "line": 24,
+        "weight": 600
+      },
+      {
+        "token": "display",
+        "size": 20,
+        "line": 28,
+        "weight": 600
+      },
+      {
+        "token": "study",
+        "size": 18,
+        "line": 28,
+        "weight": 400
+      }
+    ],
+    "controls": [
+      {
+        "id": "button-sm",
+        "height": 28,
+        "radius": "6px"
+      },
+      {
+        "id": "input-sm",
+        "height": 28,
+        "radius": "6px"
+      },
+      {
+        "id": "select-sm",
+        "height": 28,
+        "radius": "6px"
+      },
+      {
+        "id": "button-md",
+        "height": 32,
+        "radius": "6px"
+      },
+      {
+        "id": "input-md",
+        "height": 32,
+        "radius": "6px"
+      },
+      {
+        "id": "select-md",
+        "height": 32,
+        "radius": "6px"
+      },
+      {
+        "id": "button-lg",
+        "height": 36,
+        "radius": "6px"
+      },
+      {
+        "id": "input-lg",
+        "height": 36,
+        "radius": "6px"
+      },
+      {
+        "id": "select-lg",
+        "height": 36,
+        "radius": "6px"
+      }
+    ],
+    "contrasts": [
+      {
+        "text": "primary",
+        "surface": "app",
+        "ratio": 12.800680451262178
+      },
+      {
+        "text": "primary",
+        "surface": "sidebar",
+        "ratio": 13.642162483189665
+      },
+      {
+        "text": "primary",
+        "surface": "panel",
+        "ratio": 12.216290566082312
+      },
+      {
+        "text": "primary",
+        "surface": "card",
+        "ratio": 12.216290566082312
+      },
+      {
+        "text": "primary",
+        "surface": "popover",
+        "ratio": 11.339989353778773
+      },
+      {
+        "text": "primary",
+        "surface": "input",
+        "ratio": 12.800680451262178
+      },
+      {
+        "text": "primary",
+        "surface": "button",
+        "ratio": 9.832208540279016
+      },
+      {
+        "text": "primary",
+        "surface": "dialog",
+        "ratio": 11.629980551227295
+      },
+      {
+        "text": "secondary",
+        "surface": "app",
+        "ratio": 7.84059730435585
+      },
+      {
+        "text": "secondary",
+        "surface": "sidebar",
+        "ratio": 8.356016916329992
+      },
+      {
+        "text": "secondary",
+        "surface": "panel",
+        "ratio": 7.482650258034396
+      },
+      {
+        "text": "secondary",
+        "surface": "card",
+        "ratio": 7.482650258034396
+      },
+      {
+        "text": "secondary",
+        "surface": "popover",
+        "ratio": 6.945903407025125
+      },
+      {
+        "text": "secondary",
+        "surface": "input",
+        "ratio": 7.84059730435585
+      },
+      {
+        "text": "secondary",
+        "surface": "button",
+        "ratio": 6.022366394528262
+      },
+      {
+        "text": "secondary",
+        "surface": "dialog",
+        "ratio": 7.123527105207328
+      },
+      {
+        "text": "muted",
+        "surface": "app",
+        "ratio": 6.602447742107635
+      },
+      {
+        "text": "muted",
+        "surface": "sidebar",
+        "ratio": 7.036474758318008
+      },
+      {
+        "text": "muted",
+        "surface": "panel",
+        "ratio": 6.301025978428197
+      },
+      {
+        "text": "muted",
+        "surface": "card",
+        "ratio": 6.301025978428197
+      },
+      {
+        "text": "muted",
+        "surface": "popover",
+        "ratio": 5.84903961859299
+      },
+      {
+        "text": "muted",
+        "surface": "input",
+        "ratio": 6.602447742107635
+      },
+      {
+        "text": "muted",
+        "surface": "button",
+        "ratio": 5.071343146472784
+      },
+      {
+        "text": "muted",
+        "surface": "dialog",
+        "ratio": 5.998613833347823
+      }
+    ],
+    "badgeRadius": "4px",
+    "cardRadius": "8px",
+    "dialogRadius": "12px",
+    "textSpacing": "pass",
+    "mouseAndKeyboard": "pass"
+  }
+]

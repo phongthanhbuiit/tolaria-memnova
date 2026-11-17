@@ -1,0 +1,28 @@
+{
+  "base": {
+    "Semgrep": 75,
+    "Stylelint": 127,
+    "ESLint9": 0,
+    "Lizard": 0,
+    "Trivy": 0
+  },
+  "final": {
+    "Semgrep": 75,
+    "Stylelint": 127,
+    "ESLint9": 0,
+    "Lizard": 0,
+    "Trivy": 0
+  },
+  "successfulTools": [
+    "ESLint9",
+    "Semgrep",
+    "Lizard",
+    "Trivy",
+    "Stylelint"
+  ],
+  "analyzerErrors": 0,
+  "newCriticalHigh": 0,
+  "reviewedMinor": "Five replacement hex token declarations in index.css; no new hex in TSX.",
+  "reviewedMedium": "75 existing React props spreading warnings in established UI primitives; no new occurrences.",
+  "qaCode": "foundation.tsx and verify-foundation.js included in final scan"
+}
