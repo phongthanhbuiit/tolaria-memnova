@@ -28,7 +28,7 @@ function dateToISO(day: Date): string {
   return `${yyyy}-${mm}-${dd}`
 }
 
-const ADD_INPUT_CLASS = "h-[26px] min-w-[60px] flex-1 rounded border border-border bg-muted px-1.5 text-[12px] text-foreground outline-none focus:border-primary"
+const ADD_INPUT_CLASS = "min-w-[60px] flex-1 rounded-md border border-border bg-muted px-2 text-body text-foreground outline-none focus:border-primary"
 
 function isValidNumberValue(value: string): boolean {
   const trimmed = value.trim()
@@ -44,13 +44,13 @@ function canSubmitProperty({ key, value, displayMode }: { key: string; value: st
 function AddBooleanInput({ value, locale, onChange }: { value: string; locale: AppLocale; onChange: (v: string) => void }) {
   const boolVal = value.toLowerCase() === 'true'
   return (
-    <button type="button"
-      className="h-[26px] min-w-[60px] flex-1 rounded border border-border bg-muted px-1.5 text-[12px] text-secondary-foreground transition-colors hover:bg-accent"
+    <Button variant="ghost" size="sm" type="button"
+      className="min-w-[60px] flex-1 rounded-md border border-border bg-muted px-2 text-body text-secondary-foreground transition-colors hover:bg-accent"
       onClick={() => onChange(boolVal ? 'false' : 'true')}
       data-testid="add-property-boolean-toggle"
     >
       {boolVal ? `\u2713 ${translate(locale, 'inspector.properties.yes')}` : `\u2717 ${translate(locale, 'inspector.properties.no')}`}
-    </button>
+    </Button>
   )
 }
 
@@ -69,15 +69,15 @@ function AddDateInput({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <button type="button"
-          className="inline-flex h-[26px] min-w-[60px] flex-1 cursor-pointer items-center gap-1 rounded border border-border bg-muted px-1.5 text-[12px] transition-colors hover:bg-accent"
+        <Button variant="ghost" size="sm" type="button"
+          className="inline-flex min-w-[60px] flex-1 cursor-pointer items-center gap-[6px] rounded-md border border-border bg-muted px-2 text-body transition-colors hover:bg-accent"
           data-testid="add-property-date-trigger"
         >
-          <CalendarIcon className="size-3 shrink-0 text-muted-foreground" />
-          <span className={`min-w-0 truncate${!formatted ? ' text-muted-foreground' : ' text-foreground'}`}>
+          <CalendarIcon className="size-[16px] shrink-0 text-text-secondary" />
+          <span className={`min-w-0 truncate${!formatted ? ' text-text-secondary' : ' text-foreground'}`}>
             {formatted || translate(locale, 'inspector.properties.pickDate')}
           </span>
-        </button>
+        </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start" side="bottom">
         <Calendar
@@ -95,13 +95,13 @@ function AddStatusInput({ value, onChange, vaultStatuses }: { value: string; onC
   const [showDropdown, setShowDropdown] = useState(false)
   return (
     <span className="relative inline-flex min-w-[60px] flex-1 items-center">
-      <button type="button"
-        className="inline-flex h-[26px] min-w-[60px] flex-1 cursor-pointer items-center gap-1 rounded border border-border bg-muted px-1.5 text-[12px] transition-colors hover:bg-accent"
+      <Button variant="ghost" size="sm" type="button"
+        className="inline-flex min-w-[60px] flex-1 cursor-pointer items-center gap-[6px] rounded-md border border-border bg-muted px-2 text-body transition-colors hover:bg-accent"
         onClick={() => setShowDropdown(true)}
         data-testid="add-property-status-trigger"
       >
-        {value ? <StatusPill status={value} /> : <span className="text-muted-foreground">Status{'\u2026'}</span>}
-      </button>
+        {value ? <StatusPill status={value} /> : <span className="text-text-secondary">Status{'\u2026'}</span>}
+      </Button>
       {showDropdown && (
         <StatusDropdown
           value={value}
@@ -120,7 +120,7 @@ function AddNumberInput({ value, onChange, onKeyDown }: {
   onKeyDown: (e: React.KeyboardEvent) => void
 }) {
   return (
-    <Input
+    <Input controlSize="sm"
       className={`${ADD_INPUT_CLASS} font-mono tabular-nums`}
       type="text"
       inputMode="decimal"
@@ -145,12 +145,12 @@ function AddPropertyValueInput({ displayMode, value, onChange, onKeyDown, vaultS
     case 'date': return <AddDateInput value={value} locale={locale} onChange={onChange} />
     case 'status': return <AddStatusInput value={value} onChange={onChange} vaultStatuses={vaultStatuses} />
     case 'tags': return (
-      <Input className={ADD_INPUT_CLASS} type="text" placeholder="tag1, tag2, ..." value={value}
+      <Input controlSize="sm" className={ADD_INPUT_CLASS} type="text" placeholder="tag1, tag2, ..." value={value}
         onChange={(e) => onChange(e.target.value)} onKeyDown={onKeyDown}
       />
     )
     default: return (
-      <Input className={ADD_INPUT_CLASS} type="text" placeholder={translate(locale, 'inspector.properties.valuePlaceholder')} value={value}
+      <Input controlSize="sm" className={ADD_INPUT_CLASS} type="text" placeholder={translate(locale, 'inspector.properties.valuePlaceholder')} value={value}
         onChange={(e) => onChange(e.target.value)} onKeyDown={onKeyDown}
       />
     )
@@ -179,17 +179,16 @@ export function AddPropertyForm({ onAdd, onCancel, vaultStatuses, locale = 'en' 
   }
 
   return (
-    <div className="mt-1 flex flex-wrap items-center gap-1.5 rounded px-1.5 py-1" data-testid="add-property-form">
-      <Input
-        className="h-[26px] w-20 shrink-0 rounded border border-border bg-muted px-1.5 text-[12px] text-foreground outline-none focus:border-primary"
+    <div className="mt-1 flex flex-wrap items-center gap-1.5 rounded-md px-2 py-1" data-testid="add-property-form">
+      <Input controlSize="sm"
+        className="w-20 shrink-0 rounded-md border border-border bg-muted px-2 text-body text-foreground outline-none focus:border-primary"
         type="text" placeholder={translate(locale, 'inspector.properties.propertyName')} value={newKey}
         onChange={(e) => setNewKey(e.target.value)} onKeyDown={handleKeyDown} autoFocus
       />
       <Select value={displayMode} onValueChange={(v) => handleModeChange(v as PropertyDisplayMode)}>
         <SelectTrigger
           size="sm"
-          className="h-[26px] w-[72px] shrink-0 gap-1 border-border bg-muted px-1.5 py-0 shadow-none"
-          style={{ fontSize: 12, borderRadius: 4 }}
+          className="w-[72px] shrink-0 gap-[6px] border-border bg-muted px-2 py-0 shadow-none"
           data-testid="add-property-type-trigger"
         >
           <SelectValue />
@@ -199,7 +198,7 @@ export function AddPropertyForm({ onAdd, onCancel, vaultStatuses, locale = 'en' 
             const OptIcon = DISPLAY_MODE_ICONS[opt.value]
             return (
               <SelectItem key={opt.value} value={opt.value}>
-                <OptIcon className="size-3.5 text-muted-foreground" />
+                <OptIcon className="size-[16px] text-text-secondary" />
                 {opt.label}
               </SelectItem>
             )
@@ -208,14 +207,14 @@ export function AddPropertyForm({ onAdd, onCancel, vaultStatuses, locale = 'en' 
       </Select>
       <AddPropertyValueInput displayMode={displayMode} value={newValue} onChange={setNewValue} onKeyDown={handleKeyDown} vaultStatuses={vaultStatuses} locale={locale} />
       <Button
-        size="icon-xs" onClick={() => onAdd(newKey, newValue, displayMode)}
+        variant="outline" size="icon-sm" onClick={() => onAdd(newKey, newValue, displayMode)}
         disabled={!canSubmit} title={translate(locale, 'inspector.properties.addProperty')}
         data-testid="add-property-confirm"
       >
-        <Check className="size-3.5" />
+        <Check className="size-[16px]" />
       </Button>
-      <Button size="icon-xs" variant="outline" onClick={onCancel} title={translate(locale, 'common.cancel')} data-testid="add-property-cancel">
-        <X className="size-3.5" />
+      <Button size="icon-sm" variant="ghost" onClick={onCancel} title={translate(locale, 'common.cancel')} data-testid="add-property-cancel">
+        <X className="size-[16px]" />
       </Button>
     </div>
   )
