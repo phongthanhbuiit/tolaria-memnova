@@ -308,8 +308,8 @@ export const AiPanelHeader = memo(function AiPanelHeader({
         <Button
           type="button"
           variant="ghost"
-          size="icon-xs"
-          className="h-6 w-6 p-0 [&_svg:not([class*=size-])]:size-4"
+          size="icon-inline"
+          className="p-0 [&_svg:not([class*=size-])]:size-4"
           onClick={onNewChat}
           aria-label={t('ai.panel.newChat')}
           title={t('ai.panel.newChat')}
@@ -319,8 +319,8 @@ export const AiPanelHeader = memo(function AiPanelHeader({
         <Button
           type="button"
           variant="ghost"
-          size="icon-xs"
-          className="h-6 w-6 p-0 [&_svg:not([class*=size-])]:size-4"
+          size="icon-inline"
+          className="p-0 [&_svg:not([class*=size-])]:size-4"
           onClick={onClose}
           aria-label={t('ai.panel.close')}
           title={t('ai.panel.close')}

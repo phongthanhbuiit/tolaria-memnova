@@ -255,8 +255,8 @@ function ResponseActions({
       <Button
         type="button"
         variant="ghost"
-        size="icon-xs"
-        className="h-6 w-6 rounded-md p-0 text-muted-foreground hover:text-foreground"
+        size="icon-inline"
+        className="rounded-md p-0 text-muted-foreground hover:text-foreground"
         disabled={regenerateDisabled}
         aria-label={translate(locale, 'ai.message.regenerate')}
         title={translate(locale, 'ai.message.regenerate')}
@@ -268,8 +268,8 @@ function ResponseActions({
       <Button
         type="button"
         variant="ghost"
-        size="icon-xs"
-        className="h-6 w-6 rounded-md p-0 text-muted-foreground hover:text-foreground"
+        size="icon-inline"
+        className="rounded-md p-0 text-muted-foreground hover:text-foreground"
         aria-label={translate(locale, 'ai.message.copy')}
         title={translate(locale, 'ai.message.copy')}
         onClick={onCopy}
@@ -280,8 +280,8 @@ function ResponseActions({
       <Button
         type="button"
         variant="ghost"
-        size="icon-xs"
-        className="h-6 w-6 rounded-md p-0 text-muted-foreground hover:text-foreground"
+        size="icon-inline"
+        className="rounded-md p-0 text-muted-foreground hover:text-foreground"
         disabled={forkDisabled}
         aria-label={translate(locale, 'ai.message.fork')}
         title={translate(locale, 'ai.message.fork')}

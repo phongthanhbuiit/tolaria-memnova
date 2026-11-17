@@ -1,0 +1,755 @@
+{
+  "baseline": "f78b8fb9",
+  "review": "95176804",
+  "method": "Static Button icon* JSX scan including className constants, then Chromium CSS sizing probe with 14px rem, 200x52px parent (calendar: 28x52px). Probe isolates sizing classes, not a screenshot measurement of each product surface.",
+  "rows": [
+    {
+      "file": "src/components/ui/calendar.tsx",
+      "line": 258,
+      "size": "icon",
+      "className": "{cn(\n        \"data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground data-[range-middle=true]:bg-accent data-[range-middle=true]:text-accent-foreground data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-ring/50 dark:hover:text-accent-foreground flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:ring-[3px] data-[range-end=true]:rounded-md data-[range-end=true]:rounded-r-md data-[range-middle=true]:rounded-none data-[range-start=true]:rounded-md data-[range-start=true]:rounded-l-md [&>span]:text-small [&>span]:opacity-70\",\n        defaultClassNames.day,\n        className\n      )}",
+      "label": "",
+      "baseline": null,
+      "probe": {
+        "baseline": {
+          "id": "0-0",
+          "w": 28,
+          "h": 28
+        },
+        "review": {
+          "id": "0-1",
+          "w": 28,
+          "h": 32
+        }
+      }
+    },
+    {
+      "file": "src/components/LinuxMenuButton.tsx",
+      "line": 105,
+      "size": "icon",
+      "className": "h-full w-[38px] rounded-none text-foreground/70 hover:bg-foreground/10 hover:text-foreground",
+      "label": "Application menu",
+      "baseline": {
+        "file": "src/components/LinuxMenuButton.tsx",
+        "line": 105,
+        "size": "icon",
+        "className": "h-full w-[38px] rounded-none text-foreground/70 hover:bg-foreground/10 hover:text-foreground",
+        "label": "Application menu"
+      },
+      "probe": {
+        "baseline": {
+          "id": "1-0",
+          "w": 38,
+          "h": 52
+        },
+        "review": {
+          "id": "1-1",
+          "w": 38,
+          "h": 52
+        }
+      }
+    },
+    {
+      "file": "src/components/sidebar/SidebarLoadingSections.tsx",
+      "line": 114,
+      "size": "icon-xs",
+      "className": "h-auto w-auto min-w-0 rounded-none p-0 text-muted-foreground hover:bg-transparent hover:text-foreground",
+      "label": "{label}",
+      "baseline": {
+        "file": "src/components/sidebar/SidebarLoadingSections.tsx",
+        "line": 114,
+        "size": "icon-xs",
+        "className": "h-auto w-auto min-w-0 rounded-none p-0 text-muted-foreground hover:bg-transparent hover:text-foreground",
+        "label": "{label}"
+      },
+      "probe": {
+        "baseline": {
+          "id": "2-0",
+          "w": 14,
+          "h": 14
+        },
+        "review": {
+          "id": "2-1",
+          "w": 16,
+          "h": 28
+        }
+      }
+    },
+    {
+      "file": "src/components/sidebar/SidebarSections.tsx",
+      "line": 111,
+      "size": "icon-xs",
+      "className": "h-auto w-auto min-w-0 rounded-none p-0 text-muted-foreground hover:bg-transparent hover:text-foreground",
+      "label": "{translate(locale, 'sidebar.action.createView')}",
+      "baseline": {
+        "file": "src/components/sidebar/SidebarSections.tsx",
+        "line": 111,
+        "size": "icon-xs",
+        "className": "h-auto w-auto min-w-0 rounded-none p-0 text-muted-foreground hover:bg-transparent hover:text-foreground",
+        "label": "{translate(locale, 'sidebar.action.createView')}"
+      },
+      "probe": {
+        "baseline": {
+          "id": "3-0",
+          "w": 14,
+          "h": 14
+        },
+        "review": {
+          "id": "3-1",
+          "w": 16,
+          "h": 28
+        }
+      }
+    },
+    {
+      "file": "src/components/sidebar/SidebarSections.tsx",
+      "line": 284,
+      "size": "icon-xs",
+      "className": "h-auto w-auto min-w-0 rounded-none p-0 text-muted-foreground hover:bg-transparent hover:text-foreground",
+      "label": "{translate(locale, 'sidebar.action.customizeSections')}",
+      "baseline": {
+        "file": "src/components/sidebar/SidebarSections.tsx",
+        "line": 284,
+        "size": "icon-xs",
+        "className": "h-auto w-auto min-w-0 rounded-none p-0 text-muted-foreground hover:bg-transparent hover:text-foreground",
+        "label": "{translate(locale, 'sidebar.action.customizeSections')}"
+      },
+      "probe": {
+        "baseline": {
+          "id": "4-0",
+          "w": 14,
+          "h": 14
+        },
+        "review": {
+          "id": "4-1",
+          "w": 16,
+          "h": 28
+        }
+      }
+    },
+    {
+      "file": "src/components/sidebar/SidebarSections.tsx",
+      "line": 296,
+      "size": "icon-xs",
+      "className": "h-auto w-auto min-w-0 rounded-none p-0 text-muted-foreground hover:bg-transparent hover:text-foreground",
+      "label": "{translate(locale, 'sidebar.action.createType')}",
+      "baseline": {
+        "file": "src/components/sidebar/SidebarSections.tsx",
+        "line": 296,
+        "size": "icon-xs",
+        "className": "h-auto w-auto min-w-0 rounded-none p-0 text-muted-foreground hover:bg-transparent hover:text-foreground",
+        "label": "{translate(locale, 'sidebar.action.createType')}"
+      },
+      "probe": {
+        "baseline": {
+          "id": "5-0",
+          "w": 14,
+          "h": 14
+        },
+        "review": {
+          "id": "5-1",
+          "w": 16,
+          "h": 28
+        }
+      }
+    },
+    {
+      "file": "src/components/sidebar/SidebarSections.tsx",
+      "line": 359,
+      "size": "icon-xs",
+      "className": "'!h-auto !w-auto !min-w-0 !rounded-none !p-0 text-muted-foreground hover:!bg-transparent hover:text-foreground [&_svg]:!size-4'",
+      "label": "{label}",
+      "baseline": {
+        "file": "src/components/sidebar/SidebarSections.tsx",
+        "line": 359,
+        "size": "icon-xs",
+        "className": "'!h-auto !w-auto !min-w-0 !rounded-none !p-0 text-muted-foreground hover:!bg-transparent hover:text-foreground [&_svg]:!size-4'",
+        "label": "{label}"
+      },
+      "probe": {
+        "baseline": {
+          "id": "6-0",
+          "w": 14,
+          "h": 14
+        },
+        "review": {
+          "id": "6-1",
+          "w": 16,
+          "h": 28
+        }
+      }
+    },
+    {
+      "file": "src/components/FlashcardStudyView.tsx",
+      "line": 722,
+      "size": "icon",
+      "className": "text-white hover:bg-white/10 rounded-full h-8 w-8 ml-2 flex items-center justify-center",
+      "label": "Close",
+      "baseline": {
+        "file": "src/components/FlashcardStudyView.tsx",
+        "line": 743,
+        "size": "icon",
+        "className": "text-white hover:bg-white/10 rounded-full h-8 w-8 ml-2 flex items-center justify-center",
+        "label": "Close"
+      },
+      "probe": {
+        "baseline": {
+          "id": "7-0",
+          "w": 28,
+          "h": 28
+        },
+        "review": {
+          "id": "7-1",
+          "w": 32,
+          "h": 32
+        }
+      }
+    },
+    {
+      "file": "src/components/AiPanelChrome.tsx",
+      "line": 308,
+      "size": "icon-xs",
+      "className": "h-6 w-6 p-0 [&_svg:not([class*=size-])]:size-4",
+      "label": "{t('ai.panel.newChat')}",
+      "baseline": {
+        "file": "src/components/AiPanelChrome.tsx",
+        "line": 308,
+        "size": "icon-xs",
+        "className": "h-6 w-6 p-0 [&_svg:not([class*=size-])]:size-4",
+        "label": "{t('ai.panel.newChat')}"
+      },
+      "probe": {
+        "baseline": {
+          "id": "8-0",
+          "w": 21,
+          "h": 21
+        },
+        "review": {
+          "id": "8-1",
+          "w": 28,
+          "h": 28
+        }
+      }
+    },
+    {
+      "file": "src/components/AiPanelChrome.tsx",
+      "line": 319,
+      "size": "icon-xs",
+      "className": "h-6 w-6 p-0 [&_svg:not([class*=size-])]:size-4",
+      "label": "{t('ai.panel.close')}",
+      "baseline": {
+        "file": "src/components/AiPanelChrome.tsx",
+        "line": 319,
+        "size": "icon-xs",
+        "className": "h-6 w-6 p-0 [&_svg:not([class*=size-])]:size-4",
+        "label": "{t('ai.panel.close')}"
+      },
+      "probe": {
+        "baseline": {
+          "id": "9-0",
+          "w": 21,
+          "h": 21
+        },
+        "review": {
+          "id": "9-1",
+          "w": 28,
+          "h": 28
+        }
+      }
+    },
+    {
+      "file": "src/components/LinuxTitlebar.tsx",
+      "line": 190,
+      "size": "icon",
+      "className": "{[\n        'h-full w-[46px] rounded-none text-foreground/70 hover:text-foreground',\n        close ? 'hover:bg-destructive hover:text-destructive-foreground' : 'hover:bg-foreground/10',\n      ].join(' ')}",
+      "label": "{ariaLabel}",
+      "baseline": {
+        "file": "src/components/LinuxTitlebar.tsx",
+        "line": 190,
+        "size": "icon",
+        "className": "{[\n        'h-full w-[46px] rounded-none text-foreground/70 hover:text-foreground',\n        close ? 'hover:bg-destructive hover:text-destructive-foreground' : 'hover:bg-foreground/10',\n      ].join(' ')}",
+        "label": "{ariaLabel}"
+      },
+      "probe": {
+        "baseline": {
+          "id": "10-0",
+          "w": 46,
+          "h": 52
+        },
+        "review": {
+          "id": "10-1",
+          "w": 46,
+          "h": 52
+        }
+      }
+    },
+    {
+      "file": "src/components/AiWorkspaceFloatingButton.tsx",
+      "line": 70,
+      "size": "icon",
+      "className": "{cn(\n          'fixed right-5 z-30 size-12 rounded-full border border-border bg-background text-foreground shadow-[0_10px_28px_rgba(15,23,42,0.18),0_2px_8px_rgba(15,23,42,0.12)] hover:bg-background hover:text-foreground',\n          updateBannerVisible ? 'bottom-[80px]' : 'bottom-11',\n        )}",
+      "label": "{label}",
+      "baseline": {
+        "file": "src/components/AiWorkspaceFloatingButton.tsx",
+        "line": 70,
+        "size": "icon",
+        "className": "{cn(\n          'fixed right-5 z-30 size-12 rounded-full border border-border bg-background text-foreground shadow-[0_10px_28px_rgba(15,23,42,0.18),0_2px_8px_rgba(15,23,42,0.12)] hover:bg-background hover:text-foreground',\n          updateBannerVisible ? 'bottom-[80px]' : 'bottom-11',\n        )}",
+        "label": "{label}"
+      },
+      "probe": {
+        "baseline": {
+          "id": "11-0",
+          "w": 42,
+          "h": 42
+        },
+        "review": {
+          "id": "11-1",
+          "w": 42,
+          "h": 42
+        }
+      }
+    },
+    {
+      "file": "src/components/TypeCustomizePopover.tsx",
+      "line": 136,
+      "size": "icon-xs",
+      "className": "{cn(\n                'h-[30px] w-[30px] justify-self-center rounded p-0 transition-colors',\n                selectedIcon === name\n                  ? 'bg-primary/10 text-primary'\n                  : 'text-muted-foreground hover:bg-accent hover:text-foreground',\n              )}",
+      "label": "{name}",
+      "baseline": {
+        "file": "src/components/TypeCustomizePopover.tsx",
+        "line": 136,
+        "size": "icon-xs",
+        "className": "{cn(\n                'h-[30px] w-[30px] justify-self-center rounded p-0 transition-colors',\n                selectedIcon === name\n                  ? 'bg-primary/10 text-primary'\n                  : 'text-muted-foreground hover:bg-accent hover:text-foreground',\n              )}",
+        "label": "{name}"
+      },
+      "probe": {
+        "baseline": {
+          "id": "12-0",
+          "w": 30,
+          "h": 30
+        },
+        "review": {
+          "id": "12-1",
+          "w": 30,
+          "h": 30
+        }
+      }
+    },
+    {
+      "file": "src/components/AiWorkspace.tsx",
+      "line": 846,
+      "size": "icon-xs",
+      "className": "{cn(\n              'pointer-events-none absolute top-1/2 right-1.5 z-10 h-6 w-6 -translate-y-1/2 rounded-md p-0 opacity-0 shadow-none transition-opacity',\n              'bg-transparent text-foreground hover:bg-transparent hover:text-foreground',\n              'group-hover:pointer-events-auto group-hover:opacity-100 focus-visible:pointer-events-auto focus-visible:opacity-100',\n            )}",
+      "label": "{closeLabel}",
+      "baseline": {
+        "file": "src/components/AiWorkspace.tsx",
+        "line": 846,
+        "size": "icon-xs",
+        "className": "{cn(\n              'pointer-events-none absolute top-1/2 right-1.5 z-10 h-6 w-6 -translate-y-1/2 rounded-md p-0 opacity-0 shadow-none transition-opacity',\n              'bg-transparent text-foreground hover:bg-transparent hover:text-foreground',\n              'group-hover:pointer-events-auto group-hover:opacity-100 focus-visible:pointer-events-auto focus-visible:opacity-100',\n            )}",
+        "label": "{closeLabel}"
+      },
+      "probe": {
+        "baseline": {
+          "id": "13-0",
+          "w": 21,
+          "h": 21
+        },
+        "review": {
+          "id": "13-1",
+          "w": 28,
+          "h": 28
+        }
+      }
+    },
+    {
+      "file": "src/components/AiMessage.tsx",
+      "line": 255,
+      "size": "icon-xs",
+      "className": "h-6 w-6 rounded-md p-0 text-muted-foreground hover:text-foreground",
+      "label": "{translate(locale, 'ai.message.regenerate')}",
+      "baseline": {
+        "file": "src/components/AiMessage.tsx",
+        "line": 255,
+        "size": "icon-xs",
+        "className": "h-6 w-6 rounded-md p-0 text-muted-foreground hover:text-foreground",
+        "label": "{translate(locale, 'ai.message.regenerate')}"
+      },
+      "probe": {
+        "baseline": {
+          "id": "14-0",
+          "w": 21,
+          "h": 21
+        },
+        "review": {
+          "id": "14-1",
+          "w": 28,
+          "h": 28
+        }
+      }
+    },
+    {
+      "file": "src/components/AiMessage.tsx",
+      "line": 268,
+      "size": "icon-xs",
+      "className": "h-6 w-6 rounded-md p-0 text-muted-foreground hover:text-foreground",
+      "label": "{translate(locale, 'ai.message.copy')}",
+      "baseline": {
+        "file": "src/components/AiMessage.tsx",
+        "line": 268,
+        "size": "icon-xs",
+        "className": "h-6 w-6 rounded-md p-0 text-muted-foreground hover:text-foreground",
+        "label": "{translate(locale, 'ai.message.copy')}"
+      },
+      "probe": {
+        "baseline": {
+          "id": "15-0",
+          "w": 21,
+          "h": 21
+        },
+        "review": {
+          "id": "15-1",
+          "w": 28,
+          "h": 28
+        }
+      }
+    },
+    {
+      "file": "src/components/AiMessage.tsx",
+      "line": 280,
+      "size": "icon-xs",
+      "className": "h-6 w-6 rounded-md p-0 text-muted-foreground hover:text-foreground",
+      "label": "{translate(locale, 'ai.message.fork')}",
+      "baseline": {
+        "file": "src/components/AiMessage.tsx",
+        "line": 280,
+        "size": "icon-xs",
+        "className": "h-6 w-6 rounded-md p-0 text-muted-foreground hover:text-foreground",
+        "label": "{translate(locale, 'ai.message.fork')}"
+      },
+      "probe": {
+        "baseline": {
+          "id": "16-0",
+          "w": 21,
+          "h": 21
+        },
+        "review": {
+          "id": "16-1",
+          "w": 28,
+          "h": 28
+        }
+      }
+    },
+    {
+      "file": "src/components/TableOfContentsPanel.tsx",
+      "line": 243,
+      "size": "icon-xs",
+      "className": "h-6 w-6 shrink-0 p-0 text-muted-foreground hover:bg-transparent hover:text-foreground",
+      "label": "{translate(locale, 'tableOfContents.close')}",
+      "baseline": {
+        "file": "src/components/TableOfContentsPanel.tsx",
+        "line": 243,
+        "size": "icon-xs",
+        "className": "h-6 w-6 shrink-0 p-0 text-muted-foreground hover:bg-transparent hover:text-foreground",
+        "label": "{translate(locale, 'tableOfContents.close')}"
+      },
+      "probe": {
+        "baseline": {
+          "id": "17-0",
+          "w": 21,
+          "h": 21
+        },
+        "review": {
+          "id": "17-1",
+          "w": 28,
+          "h": 28
+        }
+      }
+    },
+    {
+      "file": "src/components/FolderTree.tsx",
+      "line": 300,
+      "size": "icon-xs",
+      "className": "h-auto w-auto min-w-0 rounded-none p-0 text-muted-foreground hover:bg-transparent hover:text-foreground",
+      "label": "{translate(locale, 'sidebar.action.createFolder')}",
+      "baseline": {
+        "file": "src/components/FolderTree.tsx",
+        "line": 300,
+        "size": "icon-xs",
+        "className": "h-auto w-auto min-w-0 rounded-none p-0 text-muted-foreground hover:bg-transparent hover:text-foreground",
+        "label": "{translate(locale, 'sidebar.action.createFolder')}"
+      },
+      "probe": {
+        "baseline": {
+          "id": "18-0",
+          "w": 14,
+          "h": 14
+        },
+        "review": {
+          "id": "18-1",
+          "w": 16,
+          "h": 28
+        }
+      }
+    },
+    {
+      "file": "src/components/WorkspaceSettingsRows.tsx",
+      "line": 50,
+      "size": "icon-xs",
+      "className": "h-4 w-4 shrink-0 rounded-full p-0 text-muted-foreground hover:bg-muted hover:text-foreground",
+      "label": "{tooltip}",
+      "baseline": {
+        "file": "src/components/WorkspaceSettingsRows.tsx",
+        "line": 50,
+        "size": "icon-xs",
+        "className": "h-4 w-4 shrink-0 rounded-full p-0 text-muted-foreground hover:bg-muted hover:text-foreground",
+        "label": "{tooltip}"
+      },
+      "probe": {
+        "baseline": {
+          "id": "19-0",
+          "w": 14,
+          "h": 14
+        },
+        "review": {
+          "id": "19-1",
+          "w": 28,
+          "h": 28
+        }
+      }
+    },
+    {
+      "file": "src/components/BulkActionBar.tsx",
+      "line": 25,
+      "size": "icon-sm",
+      "className": "{\n        destructive\n          ? 'h-8 w-8 rounded-lg bg-destructive text-destructive-foreground hover:bg-destructive/90 focus-visible:ring-destructive/30'\n          : 'h-8 w-8 rounded-lg bg-background/10 text-background hover:bg-background/20 focus-visible:ring-background/35 disabled:bg-background/5 disabled:text-background/35'\n      }",
+      "label": "{ariaLabel}",
+      "baseline": {
+        "file": "src/components/BulkActionBar.tsx",
+        "line": 25,
+        "size": "icon-sm",
+        "className": "{\n        destructive\n          ? 'h-8 w-8 rounded-lg bg-destructive text-destructive-foreground hover:bg-destructive/90 focus-visible:ring-destructive/30'\n          : 'h-8 w-8 rounded-lg bg-background/10 text-background hover:bg-background/20 focus-visible:ring-background/35 disabled:bg-background/5 disabled:text-background/35'\n      }",
+        "label": "{ariaLabel}"
+      },
+      "probe": {
+        "baseline": {
+          "id": "20-0",
+          "w": 28,
+          "h": 28
+        },
+        "review": {
+          "id": "20-1",
+          "w": 28,
+          "h": 28
+        }
+      }
+    },
+    {
+      "file": "src/components/BulkActionBar.tsx",
+      "line": 88,
+      "size": "icon-sm",
+      "className": "h-8 w-8 rounded-lg text-background/55 hover:bg-background/10 hover:text-background focus-visible:ring-background/30",
+      "label": "Clear selection",
+      "baseline": {
+        "file": "src/components/BulkActionBar.tsx",
+        "line": 88,
+        "size": "icon-sm",
+        "className": "h-8 w-8 rounded-lg text-background/55 hover:bg-background/10 hover:text-background focus-visible:ring-background/30",
+        "label": "Clear selection"
+      },
+      "probe": {
+        "baseline": {
+          "id": "21-0",
+          "w": 28,
+          "h": 28
+        },
+        "review": {
+          "id": "21-1",
+          "w": 28,
+          "h": 28
+        }
+      }
+    },
+    {
+      "file": "src/components/WikilinkPropertyField.tsx",
+      "line": 22,
+      "size": "icon",
+      "className": "h-5 w-5 text-muted-foreground",
+      "label": "{`${translate(locale, 'common.remove')} ${target}`}",
+      "baseline": {
+        "file": "src/components/WikilinkPropertyField.tsx",
+        "line": 22,
+        "size": "icon",
+        "className": "h-5 w-5 text-muted-foreground",
+        "label": "{`${translate(locale, 'common.remove')} ${target}`}"
+      },
+      "probe": {
+        "baseline": {
+          "id": "22-0",
+          "w": 17.5,
+          "h": 17.5
+        },
+        "review": {
+          "id": "22-1",
+          "w": 32,
+          "h": 32
+        }
+      }
+    },
+    {
+      "file": "src/components/status-bar/VaultMenu.tsx",
+      "line": 378,
+      "size": "icon-xs",
+      "className": "ml-0.5 h-6 w-6 shrink-0 rounded-sm text-muted-foreground opacity-0 pointer-events-none transition-opacity hover:bg-[var(--hover)] hover:text-foreground focus-visible:opacity-100 focus-visible:pointer-events-auto group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto",
+      "label": "{removeLabel}",
+      "baseline": {
+        "file": "src/components/status-bar/VaultMenu.tsx",
+        "line": 378,
+        "size": "icon-xs",
+        "className": "ml-0.5 h-6 w-6 shrink-0 rounded-sm text-muted-foreground opacity-0 pointer-events-none transition-opacity hover:bg-[var(--hover)] hover:text-foreground focus-visible:opacity-100 focus-visible:pointer-events-auto group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto",
+        "label": "{removeLabel}"
+      },
+      "probe": {
+        "baseline": {
+          "id": "23-0",
+          "w": 21,
+          "h": 21
+        },
+        "review": {
+          "id": "23-1",
+          "w": 28,
+          "h": 28
+        }
+      }
+    },
+    {
+      "file": "src/components/note-list/NoteListHeader.tsx",
+      "line": 74,
+      "size": "icon-xs",
+      "className": "'!h-6 !w-6 !min-w-0 !rounded !p-0 !text-muted-foreground hover:!bg-accent hover:!text-foreground focus-visible:!bg-accent [&_svg]:!size-4'",
+      "label": "{expandSidebarLabel}",
+      "baseline": {
+        "file": "src/components/note-list/NoteListHeader.tsx",
+        "line": 74,
+        "size": "icon-xs",
+        "className": "'!h-6 !w-6 !min-w-0 !rounded !p-0 !text-muted-foreground hover:!bg-accent hover:!text-foreground focus-visible:!bg-accent [&_svg]:!size-4'",
+        "label": "{expandSidebarLabel}"
+      },
+      "probe": {
+        "baseline": {
+          "id": "24-0",
+          "w": 21,
+          "h": 21
+        },
+        "review": {
+          "id": "24-1",
+          "w": 21,
+          "h": 28
+        }
+      }
+    },
+    {
+      "file": "src/components/note-list/NoteListHeader.tsx",
+      "line": 191,
+      "size": "icon-xs",
+      "className": "'!h-auto !w-auto !min-w-0 !rounded-none !p-0 !text-muted-foreground hover:!bg-transparent hover:!text-foreground focus-visible:!bg-transparent data-[state=open]:!bg-transparent data-[state=open]:!text-foreground [&_svg]:!size-4'",
+      "label": "{translate(locale, 'noteList.searchAction')}",
+      "baseline": {
+        "file": "src/components/note-list/NoteListHeader.tsx",
+        "line": 191,
+        "size": "icon-xs",
+        "className": "'!h-auto !w-auto !min-w-0 !rounded-none !p-0 !text-muted-foreground hover:!bg-transparent hover:!text-foreground focus-visible:!bg-transparent data-[state=open]:!bg-transparent data-[state=open]:!text-foreground [&_svg]:!size-4'",
+        "label": "{translate(locale, 'noteList.searchAction')}"
+      },
+      "probe": {
+        "baseline": {
+          "id": "25-0",
+          "w": 14,
+          "h": 14
+        },
+        "review": {
+          "id": "25-1",
+          "w": 16,
+          "h": 28
+        }
+      }
+    },
+    {
+      "file": "src/components/note-list/NoteListHeader.tsx",
+      "line": 202,
+      "size": "icon-xs",
+      "className": "'!h-auto !w-auto !min-w-0 !rounded-none !p-0 !text-muted-foreground hover:!bg-transparent hover:!text-foreground focus-visible:!bg-transparent data-[state=open]:!bg-transparent data-[state=open]:!text-foreground [&_svg]:!size-4'",
+      "label": "{translate(locale, 'noteList.createNote')}",
+      "baseline": {
+        "file": "src/components/note-list/NoteListHeader.tsx",
+        "line": 202,
+        "size": "icon-xs",
+        "className": "'!h-auto !w-auto !min-w-0 !rounded-none !p-0 !text-muted-foreground hover:!bg-transparent hover:!text-foreground focus-visible:!bg-transparent data-[state=open]:!bg-transparent data-[state=open]:!text-foreground [&_svg]:!size-4'",
+        "label": "{translate(locale, 'noteList.createNote')}"
+      },
+      "probe": {
+        "baseline": {
+          "id": "26-0",
+          "w": 14,
+          "h": 14
+        },
+        "review": {
+          "id": "26-1",
+          "w": 16,
+          "h": 28
+        }
+      }
+    },
+    {
+      "file": "src/components/note-list/NoteListHeader.tsx",
+      "line": 253,
+      "size": "icon-xs",
+      "className": "absolute inset-y-1 right-8 !h-6 !w-6 !min-w-0 !rounded !p-0 !text-muted-foreground hover:!bg-accent hover:!text-foreground focus-visible:!bg-accent [&_svg]:!size-3",
+      "label": "{clearLabel}",
+      "baseline": {
+        "file": "src/components/note-list/NoteListHeader.tsx",
+        "line": 253,
+        "size": "icon-xs",
+        "className": "absolute inset-y-1 right-8 !h-6 !w-6 !min-w-0 !rounded !p-0 !text-muted-foreground hover:!bg-accent hover:!text-foreground focus-visible:!bg-accent [&_svg]:!size-3",
+        "label": "{clearLabel}"
+      },
+      "probe": {
+        "baseline": {
+          "id": "27-0",
+          "w": 21,
+          "h": 21
+        },
+        "review": {
+          "id": "27-1",
+          "w": 21,
+          "h": 28
+        }
+      }
+    },
+    {
+      "file": "src/components/note-list/ListPropertiesPopover.tsx",
+      "line": 386,
+      "size": "icon-xs",
+      "className": "{cn('h-7 w-7 text-muted-foreground', triggerClassName)}",
+      "label": "{triggerTitle}",
+      "baseline": {
+        "file": "src/components/note-list/ListPropertiesPopover.tsx",
+        "line": 386,
+        "size": "icon-xs",
+        "className": "{cn('h-7 w-7 text-muted-foreground', triggerClassName)}",
+        "label": "{triggerTitle}"
+      },
+      "probe": {
+        "baseline": {
+          "id": "28-0",
+          "w": 24.5,
+          "h": 24.5
+        },
+        "review": {
+          "id": "28-1",
+          "w": 28,
+          "h": 28
+        }
+      }
+    }
+  ]
+}

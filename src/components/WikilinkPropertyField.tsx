@@ -19,7 +19,7 @@ export function WikilinkPropertyField({ id, label, icon: Icon, value, placeholde
     <label htmlFor={id} className="flex items-center gap-1 text-xs font-medium text-muted-foreground"><Icon size={12} />{label}</label>
     {targets.length > 0 && <div className="my-1 flex flex-wrap gap-1">{targets.map(target => <span key={target} className="inline-flex items-center gap-1 rounded border border-border bg-muted/60 px-1.5 py-0.5 text-xs text-foreground">
       {onNavigate ? <Button type="button" variant="link" className="h-auto max-w-40 truncate p-0 text-xs" disabled={disabled} onClick={() => onNavigate(target)}>{target}</Button> : <span className="max-w-40 truncate">{target}</span>}
-      <Button type="button" variant="ghost" size="icon" className="h-5 w-5 text-muted-foreground" disabled={disabled} aria-label={`${translate(locale, 'common.remove')} ${target}`} onClick={() => onRemove(target)}><X size={10} weight="bold" /></Button>
+      <Button type="button" variant="ghost" size="icon-inline" className="text-muted-foreground" disabled={disabled} aria-label={`${translate(locale, 'common.remove')} ${target}`} onClick={() => onRemove(target)}><X size={10} weight="bold" /></Button>
     </span>)}</div>}
     <NoteAutocomplete inputId={id} disabled={disabled} entries={entries} typeEntryMap={typeEntryMap} value={query} onChange={setQuery} onSelect={select} placeholder={placeholder} testId={id} />
   </div>

@@ -243,8 +243,8 @@ function TableOfContentsHeader({ locale = 'en', onClose }: Pick<TableOfContentsP
       <Button
         type="button"
         variant="ghost"
-        size="icon-xs"
-        className="h-6 w-6 shrink-0 p-0 text-muted-foreground hover:bg-transparent hover:text-foreground"
+        size="icon-inline"
+        className="shrink-0 p-0 text-muted-foreground hover:bg-transparent hover:text-foreground"
         onClick={onClose}
         aria-label={translate(locale, 'tableOfContents.close')}
         title={translate(locale, 'tableOfContents.close')}

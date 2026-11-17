@@ -1,5 +1,7 @@
 # Memnova hiện tại
 
+**17/11/2026 — R-02:** sửa minimum size làm icon trong dòng chữ phình sau bước A; biến thể inline dùng spacing token có vùng bấm 24,5px, standard giữ 28/32/36px. [Kiểm kê 29 nơi gọi, TDD và ảnh native sáng/tối](audits/R-02-R-03-COMPLETION.md). R-03 đang xử lý riêng; D2–D4 chưa thực hiện.
+
 **17/11/2026 — F-039, Cmd+click wikilink ổn định khi source lưu:** giữ identity của note không đổi trong projection một workspace và key hàng danh sách theo đường dẫn. Smoke vẫn dùng fixture lớn ban đầu, đạt 30/30 trước + 30/30 đồng thời + 30/30 sau core suite, không retry; full Node 24/Rust checks và pre-push dry-run sạch. [Nguyên nhân, trace/video, native QA và kiểm tra](audits/F-039-COMPLETION.md). F-040/F-041 vẫn open; đây chưa phải bản cài phát hành mới.
 
 **17/11/2026 — R-01/F-002, ngày và số theo ngôn ngữ giao diện:** bổ sung locale bắt buộc cho formatter, Calendar có tháng/thứ/aria đã dịch, bộ lọc ngày, thời gian tương đối Git/Pulse và số từ/liên kết theo locale/số nhiều. Sáu commit sửa kết thúc tại `9c951e78`; QA native Anh/Việt sáng/tối và test hai múi giờ trong [biên bản R-01](audits/R-01-F-002-COMPLETION.md). ISO nhập/lưu, parser, sort và lịch ôn giữ nguyên. Mã đã push qua hook hiện có, nhưng core smoke còn F-039 pass nhờ retry; đây chưa phải bản cài phát hành mới.

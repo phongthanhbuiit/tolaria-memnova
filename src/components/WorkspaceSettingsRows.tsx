@@ -50,8 +50,8 @@ function WorkspaceFieldLabel({
           <Button
             type="button"
             variant="ghost"
-            size="icon-xs"
-            className="h-4 w-4 shrink-0 rounded-full p-0 text-muted-foreground hover:bg-muted hover:text-foreground"
+            size="icon-inline"
+            className="shrink-0 rounded-full p-0 text-muted-foreground hover:bg-muted hover:text-foreground"
             aria-label={tooltip}
           >
             <Info size={12} />

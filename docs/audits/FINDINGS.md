@@ -194,6 +194,27 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 - Bằng chứng: [pre-push](evidence/step-C-pre-push.txt). Chạy riêng không retry `--repeat-each=3`: [bản cuối 3/3 pass](evidence/F-040-delete-current.txt), [baseline f78b8fb9 3/3 pass](evidence/F-040-delete-baseline.txt); chưa tái hiện ngoài lane đầy đủ.
 - Chấp nhận: xác định nguyên nhân timing/fixture/app trong lane đầy đủ, chạy ổn định không retry; không tăng timeout/hạ assertion để che lỗi. Chưa sửa trong scope F-026.
 
+## Regression review A–D1 — R-02 / R-03
+
+| ID | Mức | Nguồn | Tóm tắt | Trạng thái |
+|---|---|---|---|---|
+| R-02 | P2 | review A–D1 | Minimum size của Button icon từ bước A đè kích thước nhỏ ở call site, làm nút phình/lệch hàng | fixed (`:/^fix: R-02 compact icon button dimensions`) |
+| R-03 | P2 | review A–D1 | Undo ở màn ôn biến mất sau click, làm mất focus bàn phím | open |
+
+### R-02 — Nút icon phình sau bước A
+
+- P2 · Nguồn: review A–D1; ghi nhận trước khi sửa; 29 nơi gọi đã đối chiếu với `f78b8fb9`. Fixed: `:/^fix: R-02 compact icon button dimensions`; [bảng kích thước, TDD và ảnh](R-02-R-03-COMPLETION.md).
+- Bằng chứng mã: `src/components/ui/button.tsx:36-40` đặt `min-h/min-w` cho icon sizes, trong khi các call site còn đặt `h-/w-`: AiPanelChrome, TableOfContentsPanel, WorkspaceSettingsRows, AiMessage, WikilinkPropertyField và note-list/NoteListHeader.
+- Tác động: nút icon nhỏ trong dòng chữ/thanh công cụ bị minimum size đè, làm lệch hàng.
+- Chấp nhận: kiểm kê toàn src, bảng kích thước baseline/current; sửa ở variant dùng token, không đổi `--control-*`, không thêm important hoặc override data-slot; test từng size và ảnh native trước/sau sáng/tối. Không làm D2–D4.
+
+### R-03 — Focus sau Undo trong phiên ôn
+
+- P2 · Nguồn: review A–D1; ghi nhận trước khi sửa, đang bổ sung regression RED bằng thao tác chuột/bàn phím.
+- Bằng chứng mã: `src/components/learning/LearningStudyView.tsx:338` chỉ mount Undo khi `session.canUndo`; sau Undo phần tử đang focus bị unmount. Đối chiếu thêm FlashcardStudyView.
+- Tác động: focus có thể rơi về body và Space/1–4/Esc không còn tới vùng ôn.
+- Chấp nhận: click Undo bằng chuột rồi Space và 1–4 vẫn lật/chấm thẻ, activeElement không phải body; giữ nút disabled hoặc trả focus về vùng thẻ; không đổi phím, guard, FSRS hay dữ liệu phiên; QA native sáng/tối với Library/preferences riêng.
+
 ## Mẫu cho finding mới
 
 ```markdown

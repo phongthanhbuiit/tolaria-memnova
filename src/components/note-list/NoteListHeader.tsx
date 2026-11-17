@@ -14,7 +14,7 @@ import type { GitRepositoryOption } from '../../utils/gitRepositories'
 import { isMac } from '../../utils/platform'
 
 const NOTE_LIST_ACTION_BUTTON_CLASSNAME = '!h-auto !w-auto !min-w-0 !rounded-none !p-0 !text-muted-foreground hover:!bg-transparent hover:!text-foreground focus-visible:!bg-transparent data-[state=open]:!bg-transparent data-[state=open]:!text-foreground [&_svg]:!size-4'
-const NOTE_LIST_EXPAND_BUTTON_CLASSNAME = '!h-6 !w-6 !min-w-0 !rounded !p-0 !text-muted-foreground hover:!bg-accent hover:!text-foreground focus-visible:!bg-accent [&_svg]:!size-4'
+const NOTE_LIST_EXPAND_BUTTON_CLASSNAME = 'rounded text-muted-foreground hover:bg-accent hover:text-foreground focus-visible:bg-accent [&_svg]:size-4'
 const COLLAPSED_SIDEBAR_MAC_CHROME_PADDING = 80
 const PROPERTY_TRIGGER_TITLE_KEYS: Record<string, TranslationKey> = {
   'Customize columns': 'noteList.properties.customizeColumns',
@@ -74,7 +74,7 @@ function ExpandSidebarButton({ locale }: { locale: AppLocale }) {
     <Button
       type="button"
       variant="ghost"
-      size="icon-xs"
+      size="icon-inline"
       className={NOTE_LIST_EXPAND_BUTTON_CLASSNAME}
       onClick={dispatchExpandSidebarFromHeader}
       title={expandSidebarLabel}
@@ -253,8 +253,8 @@ function SearchRow({
           <Button
             type="button"
             variant="ghost"
-            size="icon-xs"
-            className="absolute inset-y-1 right-8 !h-6 !w-6 !min-w-0 !rounded !p-0 !text-muted-foreground hover:!bg-accent hover:!text-foreground focus-visible:!bg-accent [&_svg]:!size-3"
+            size="icon-inline"
+            className="absolute inset-y-1 right-8 rounded text-muted-foreground hover:bg-accent hover:text-foreground focus-visible:bg-accent [&_svg]:size-3"
             onMouseDown={(event) => event.preventDefault()}
             onClick={handleClearSearch}
             title={clearLabel}
