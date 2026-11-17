@@ -56,10 +56,10 @@ export function NoteMemorySwitch({ path, locale }: { path: string; locale: AppLo
     <div className="flex items-center justify-between gap-2">
       {ready ? <>
         <Label htmlFor={id} className="min-h-6 flex-1">{t('properties.spacedRepetition')}</Label>
-        <Switch id={id} aria-describedby={hint ? `${id}-hint` : undefined} checked={Boolean(view?.config?.enabled)} disabled={busy || blocked} onCheckedChange={value => void change(value)} />
+        <Switch size="responsive" id={id} aria-describedby={hint ? `${id}-hint` : undefined} checked={Boolean(view?.config?.enabled)} disabled={busy || blocked} onCheckedChange={value => void change(value)} />
       </> : <>
         <span className="text-xs">{t('properties.spacedRepetition')}</span>
-        <Button variant="ghost" size="sm" disabled={workspace.busy || workspace.phase === 'loading'} onClick={() => void workspace.openMigration()}>{t('learning.prepare')}</Button>
+        <Button layout="responsive" variant="ghost" size="sm" disabled={workspace.busy || workspace.phase === 'loading'} onClick={() => void workspace.openMigration()}>{t('learning.prepare')}</Button>
       </>}
     </div>
     {hint && <p id={`${id}-hint`} className="text-xs text-muted-foreground">{t(hint)}</p>}

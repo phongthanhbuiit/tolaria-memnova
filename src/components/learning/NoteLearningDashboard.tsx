@@ -62,7 +62,7 @@ export function NoteLearningDashboard({
         className="mx-auto flex max-w-5xl flex-wrap items-center gap-2 border-b px-4 py-2 sm:px-8"
         aria-label={t('learning.library')}
       >
-        <Button
+        <Button size="lg" layout="responsive"
           variant={lane === 'notes' ? 'secondary' : 'ghost'}
           aria-pressed={lane === 'notes'}
           onClick={() => {
@@ -74,7 +74,7 @@ export function NoteLearningDashboard({
           {t('learning.noteMemory.notes')} ·{' '}
           {translate(locale, 'decks.due', { n: due.notes.length })}
         </Button>
-        <Button
+        <Button size="lg" layout="responsive"
           variant={lane === 'legacy' ? 'secondary' : 'ghost'}
           aria-pressed={lane === 'legacy'}
           onClick={() => {
@@ -103,7 +103,7 @@ export function NoteLearningDashboard({
               )}
             </div>
             <div className="flex flex-wrap items-center gap-2">
-              <Button
+              <Button size="lg" layout="responsive"
                 disabled={!dueCount}
                 onClickCapture={focusLearningDialogTrigger}
                 onClick={() => workspace.requestStudy(scope, 'notes')}
@@ -111,20 +111,20 @@ export function NoteLearningDashboard({
                 <Play aria-hidden="true" />
                 {translate(locale, 'learning.noteMemory.studyViewDue', { n: dueCount })}
               </Button>
-              <Button variant="ghost" aria-controls={advancedId} aria-expanded={advanced}
+              <Button size="lg" layout="responsive" variant="ghost" aria-controls={advancedId} aria-expanded={advanced}
                 onClick={() => setAdvanced(value => !value)}>
                 {t('learning.advanced')}<CaretDown aria-hidden="true" className={advanced ? 'rotate-180' : ''} />
               </Button>
             </div>
           </header>
-          {workspace.error && <LearningError error={workspace.error} locale={locale}><Button variant="outline" onClick={() => { void workspace.reconnect() }}><ArrowClockwise aria-hidden="true" />{t('learning.retry')}</Button></LearningError>}
+          {workspace.error && <LearningError error={workspace.error} locale={locale}><Button size="lg" layout="responsive" variant="outline" onClick={() => { void workspace.reconnect() }}><ArrowClockwise aria-hidden="true" />{t('learning.retry')}</Button></LearningError>}
           <div id={advancedId} hidden={!advanced} className="space-y-3">
             {advanced && <>
               <div className="flex flex-wrap gap-2">
-                <Button variant="outline" onClickCapture={focusLearningDialogTrigger} onClick={() => setConversion(true)}>
+                <Button size="lg" layout="responsive" variant="outline" onClickCapture={focusLearningDialogTrigger} onClick={() => setConversion(true)}>
                   <Swap aria-hidden="true" />{t('learning.noteMemory.title')}
                 </Button>
-                <Button variant="outline" onClickCapture={focusLearningDialogTrigger} onClick={() => setRecovery(true)}>
+                <Button size="lg" layout="responsive" variant="outline" onClickCapture={focusLearningDialogTrigger} onClick={() => setRecovery(true)}>
                   <ClockCounterClockwise aria-hidden="true" />{t('learning.noteMemory.recoveryTitle')}
                 </Button>
               </div>

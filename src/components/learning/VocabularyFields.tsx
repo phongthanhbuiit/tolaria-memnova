@@ -46,7 +46,7 @@ export function CardTypeField({
         value={cardType}
         onValueChange={(value) => onChange('card_type', value)}
       >
-        <SelectTrigger
+        <SelectTrigger size="md" layout="responsive"
           id={id}
           aria-label={translate(locale, 'learning.cardType')}
         >
@@ -54,7 +54,7 @@ export function CardTypeField({
         </SelectTrigger>
         <SelectContent className={cardEditorStyles.portal}>
           {(['basic', 'vocabulary'] as const).map((value) => (
-            <SelectItem key={value} value={value}>
+            <SelectItem size="md" layout="responsive" key={value} value={value}>
               {translate(locale, `learning.${value}`)}
             </SelectItem>
           ))}
@@ -108,7 +108,7 @@ export function VocabularyFields({
             .map(([key, label]) => (
               <label key={key} className="grid gap-2 text-sm">
                 {translate(locale, label)}
-                <Input
+                <Input layout="responsive"
                   disabled={disabled || !vocabularyEditable(properties[key])}
                   value={vocabularyText(properties, key)}
                   onChange={(event) => onChange(key, event.target.value)}

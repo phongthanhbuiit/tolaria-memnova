@@ -22,12 +22,12 @@ export function NoteMemoryEditorTabs({ panelId, showContext = true, locale, onRe
   }
   return <div className="note-memory-nav border-b border-border">
     {showContext && <div className="flex min-w-0 flex-wrap items-center gap-2 px-3 py-1">
-      <Button id={`${panelId}-back`} size="sm" variant="ghost" onClick={() => { void goBack() }}>
+      <Button layout="responsive" id={`${panelId}-back`} size="sm" variant="ghost" onClick={() => { void goBack() }}>
         <ArrowLeft aria-hidden="true" />{translate(locale, 'editor.noteMemory.backToNote')}
       </Button>
       <span className="text-xs text-muted-foreground">{translate(locale, 'editor.noteMemory.mnemonicTab')}</span>
     </div>}
-    {conflict && <div role="alert" className="flex flex-wrap items-center gap-2 px-4 pb-3 text-sm"><p>{translate(locale, 'editor.noteMemory.externalConflict')}</p>{draft && <Button size="sm" variant="outline" onClick={() => { void writeClipboardText(draft()).catch(() => setError(true)) }}><Copy aria-hidden="true" />{translate(locale, 'learning.noteMemory.copy')}</Button>}</div>}
+    {conflict && <div role="alert" className="flex flex-wrap items-center gap-2 px-4 pb-3 text-sm"><p>{translate(locale, 'editor.noteMemory.externalConflict')}</p>{draft && <Button layout="responsive" size="sm" variant="outline" onClick={() => { void writeClipboardText(draft()).catch(() => setError(true)) }}><Copy aria-hidden="true" />{translate(locale, 'learning.noteMemory.copy')}</Button>}</div>}
     {error && <p role="alert" className="px-4 pb-3 text-sm text-destructive">{translate(locale, 'learning.error')}</p>}
   </div>
 }

@@ -155,9 +155,9 @@ export function CardForm({
         if (!open && !busy && !sourceBusy && !propertyBusy) onClose()
       }}
     >
-      <DialogContent
+      <DialogContent size="md"
         showCloseButton={false}
-        className={`${cardEditorStyles.root} flex max-h-[90dvh] flex-col gap-0 overflow-hidden p-0 w-[calc(100%-32px)] max-w-[720px] sm:max-w-[720px]`}
+        className={`${cardEditorStyles.root} flex flex-col gap-0 overflow-hidden p-0`}
         onEscapeKeyDown={(event) => {
           if (busy || sourceBusy || propertyBusy) event.preventDefault()
         }}
@@ -165,13 +165,13 @@ export function CardForm({
           if (busy || sourceBusy || propertyBusy) event.preventDefault()
         }}
       >
-        <DialogHeader className="shrink-0 border-b p-5">
+        <DialogHeader variant="panel" className="shrink-0 border-b">
           <DialogTitle>
             {t(persisted ? 'learning.editCard' : 'learning.addCard')}
           </DialogTitle>
-          <DialogDescription>{t('learning.questionHelp')}</DialogDescription>
+          <DialogDescription variant="caption">{t('learning.questionHelp')}</DialogDescription>
         </DialogHeader>
-        <div className="grid min-h-0 gap-5 overflow-y-auto overscroll-contain p-5">
+        <div className="grid min-h-0 gap-5 overflow-y-auto overscroll-contain p-[24px]">
           <div className="grid gap-3 sm:grid-cols-2">
             {presetFields.includes('card_type') && (
               <CardTypeField
@@ -193,12 +193,12 @@ export function CardForm({
                   }))
                 }
               >
-                <SelectTrigger id={statusId}>
+                <SelectTrigger size="md" layout="responsive" id={statusId}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className={cardEditorStyles.portal}>
                   {(['draft', 'active', 'suspended'] as const).map((status) => (
-                    <SelectItem key={status} value={status}>
+                    <SelectItem size="md" layout="responsive" key={status} value={status}>
                       {t(`learning.${status}`)}
                     </SelectItem>
                   ))}
@@ -208,7 +208,7 @@ export function CardForm({
           </div>
           <label className="grid gap-2 text-sm font-medium">
             {t('learning.front')}
-            <Textarea
+            <Textarea layout="responsive" className="min-h-[112px] text-body-lg"
               name="front"
               autoComplete="off"
               autoFocus={
@@ -240,20 +240,20 @@ export function CardForm({
                 }))
               }}
             >
-              <SelectTrigger
+              <SelectTrigger size="md" layout="responsive"
                 id={`${statusId}-answer`}
                 aria-labelledby={`${statusId}-answer-label`}
               >
                 <SelectValue />
               </SelectTrigger>
               <SelectContent className={cardEditorStyles.portal}>
-                <SelectItem value="inline">
+                <SelectItem size="md" layout="responsive" value="inline">
                   {t('learning.answerInline')}
                 </SelectItem>
-                <SelectItem value="current">
+                <SelectItem size="md" layout="responsive" value="current">
                   {t('learning.answerCurrent')}
                 </SelectItem>
-                <SelectItem value="other">
+                <SelectItem size="md" layout="responsive" value="other">
                   {t('learning.answerOther')}
                 </SelectItem>
               </SelectContent>
@@ -289,7 +289,7 @@ export function CardForm({
           {draft.answerMode === 'inline' && (
             <label className="grid gap-2 text-sm font-medium">
               {t('learning.back')}
-              <Textarea
+              <Textarea layout="responsive" className="min-h-[112px] text-body-lg"
                 name="back"
                 autoComplete="off"
                 value={draft.back}
@@ -310,7 +310,7 @@ export function CardForm({
                 .map((key) => (
                   <label key={key} className="grid gap-2 text-sm">
                     IPA
-                    <Input
+                    <Input layout="responsive"
                       name={key}
                       autoComplete="off"
                       spellCheck={false}
@@ -413,16 +413,16 @@ export function CardForm({
           )}
         </div>
         <div
-          className={`${cardEditorStyles.footer} flex shrink-0 flex-wrap justify-end gap-2 border-t bg-background p-4`}
+          className={`${cardEditorStyles.footer} flex shrink-0 flex-wrap justify-end gap-2 border-t bg-background p-[24px]`}
         >
-          <Button
+          <Button size="md" layout="responsive"
             variant="ghost"
             disabled={busy || sourceBusy || propertyBusy}
             onClick={onClose}
           >
             {t('common.cancel')}
           </Button>
-          <Button
+          <Button size="md" layout="responsive"
             className="card-editor-save grid max-w-full whitespace-normal"
             aria-busy={busy}
             disabled={

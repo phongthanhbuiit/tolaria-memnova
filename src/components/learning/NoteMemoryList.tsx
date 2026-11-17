@@ -62,7 +62,7 @@ export function NoteMemoryList({ rows, pages, clock, locale, onOpenPage, scrollP
     const detailId = `${listId}-detail-${index}`
     const statusId = `${listId}-status-${index}`
     return <article key={row.view.pageId} role="listitem" aria-setsize={rows.length} aria-posinset={index + 1} className="note-memory-row border-b border-border">
-      <Button variant="ghost" data-memory-index={index} className="w-full flex-wrap justify-between gap-x-4 gap-y-1 rounded-none px-2 py-2 text-left"
+      <Button size="md" layout="responsive" variant="ghost" data-memory-index={index} className="w-full flex-wrap justify-between gap-x-4 gap-y-1 rounded-none px-2 py-2 text-left focus-visible:outline-offset-[-2px]"
         disabled={!page?.available} aria-labelledby={labelId} aria-describedby={`${detailId} ${statusId}`}
         onClick={() => { if (page) onOpenPage(page) }} ref={node => {
           if (!node) { buttons.current.delete(row.view.pageId); return }

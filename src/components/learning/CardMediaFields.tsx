@@ -129,7 +129,7 @@ export function CardMediaFields(props: Props) {
             <div key={kind} className="space-y-2">
               <label className="grid gap-2 text-sm">
                 {translate(locale, `learning.${kind}`)}
-                <Input
+                <Input layout="responsive"
                   value={
                     typeof properties[kind] === 'string' ? properties[kind] : ''
                   }
@@ -139,7 +139,7 @@ export function CardMediaFields(props: Props) {
                   onChange={(event) => onChange(kind, event.target.value)}
                 />
               </label>
-              <Button
+              <Button layout="responsive"
                 variant="outline"
                 size="sm"
                 disabled={disabled || busy || !isTauri()}

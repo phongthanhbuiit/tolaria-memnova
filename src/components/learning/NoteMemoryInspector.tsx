@@ -46,7 +46,7 @@ export function NoteMemoryInspector({
           <p role="alert" className="text-destructive">
             {t('learning.error')}
           </p>
-          <Button variant="outline" size="sm" onClick={retry}>
+          <Button layout="responsive" variant="outline" size="sm" onClick={retry}>
             <ArrowClockwise aria-hidden="true" />
             {t('learning.retry')}
           </Button>

@@ -1,0 +1,12 @@
+/* Opt-in frames preserve the physical viewport under the existing app zoom. */
+.ui-dialog-frame {
+  width: min(var(--dialog-frame-width), calc((100dvw - 32px) / var(--tolaria-overlay-zoom-factor, 1)));
+  max-width: none;
+  max-height: calc((100dvh - 32px) / var(--tolaria-overlay-zoom-factor, 1));
+  top: calc(50dvh / var(--tolaria-overlay-zoom-factor, 1));
+  left: calc(50dvw / var(--tolaria-overlay-zoom-factor, 1));
+}
+.ui-dialog-sm { --dialog-frame-width: 440px; }
+.ui-dialog-md { --dialog-frame-width: 560px; }
+.ui-dialog-lg { --dialog-frame-width: 640px; }
+.ui-dialog-comparison { --dialog-frame-width: 1000px; }

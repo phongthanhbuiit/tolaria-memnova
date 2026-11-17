@@ -5,6 +5,7 @@ import { CaretRight as ChevronRightIcon, Check as CheckIcon, Circle as CircleIco
 import { DropdownMenu as DropdownMenuPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
+import { controlLayouts, type ControlLayout } from './control-layout'
 
 function DropdownMenu({
   ...props
@@ -61,12 +62,14 @@ function DropdownMenuGroup({
 
 function DropdownMenuItem({
   className,
+  layout = "default",
   inset,
   variant = "default",
   ...props
 }: React.ComponentProps<typeof DropdownMenuPrimitive.Item> & {
   inset?: boolean
   variant?: "default" | "destructive"
+  layout?: ControlLayout
 }) {
   return (
     <DropdownMenuPrimitive.Item
@@ -75,7 +78,8 @@ function DropdownMenuItem({
       data-variant={variant}
       className={cn(
         "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:!text-destructive [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-md px-2 py-1.5 text-body outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-        className
+        layout === 'responsive' && 'min-h-(--control-md)',
+        controlLayouts[layout], className
       )}
       {...props}
     />

@@ -94,7 +94,7 @@ export function PropertyEditor({
         open={expanded}
         onOpenChange={setExpanded}
         action={
-          <Button
+          <Button size="md" layout="responsive"
             variant="ghost"
             ref={addButton}
             hidden={adding}
@@ -168,7 +168,7 @@ export function PropertyEditor({
             aria-label={t('inspector.properties.addProperty')}
             className="space-y-3 rounded-md border bg-muted/20 p-3"
           >
-            <Input
+            <Input layout="responsive"
               name="propertyName"
               autoComplete="off"
               ref={input}
@@ -191,7 +191,7 @@ export function PropertyEditor({
               onChange={setKind}
             />
             <div className="flex flex-wrap gap-2">
-              <Button
+              <Button size="md" layout="responsive"
                 variant="secondary"
                 disabled={disabled || !name.trim()}
                 onClick={add}
@@ -199,7 +199,7 @@ export function PropertyEditor({
                 <Plus className={cardEditorStyles.icon} aria-hidden="true" />
                 {t('inspector.properties.addProperty')}
               </Button>
-              <Button
+              <Button size="md" layout="responsive"
                 variant="ghost"
                 disabled={disabled}
                 onClick={() => {

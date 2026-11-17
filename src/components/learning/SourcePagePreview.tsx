@@ -57,7 +57,7 @@ export function SourcePagePreview({
         className={`${cardEditorStyles.root} flex min-w-0 flex-wrap items-center justify-between gap-2`}
       >
         <span className="min-w-0 flex-1 break-words font-medium">{title}</span>
-        <Button
+        <Button size="md" layout="responsive"
           ref={trigger}
           variant="ghost"
           aria-label={`${translate(locale, 'cardEditor.previewSource')}: ${title}`}
@@ -74,7 +74,7 @@ export function SourcePagePreview({
         </Button>
       </div>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent
+        <DialogContent size="lg"
           onKeyDown={(event) => event.stopPropagation()}
           onCloseAutoFocus={(event) => {
             if (trigger.current?.isConnected) {
@@ -84,20 +84,20 @@ export function SourcePagePreview({
           }}
           showCloseButton={false}
           aria-describedby={undefined}
-          className="learning-editor-preview flex max-h-[85dvh] flex-col overflow-hidden p-0 sm:max-w-3xl"
+          className="learning-editor-preview flex flex-col overflow-hidden p-0"
         >
-          <DialogHeader
-            className={`${cardEditorStyles.root} shrink-0 border-b p-5`}
+          <DialogHeader variant="panel"
+            className={`${cardEditorStyles.root} shrink-0 border-b`}
           >
             <div className="flex items-center justify-between gap-3">
               <DialogTitle>{current?.page?.title ?? title}</DialogTitle>
-              <Button variant="ghost" onClick={() => setOpen(false)}>
+              <Button size="md" layout="responsive" variant="ghost" onClick={() => setOpen(false)}>
                 {translate(locale, 'learning.close')}
               </Button>
             </div>
           </DialogHeader>
           <div
-            className="min-h-0 overflow-y-auto p-5"
+            className="min-h-0 overflow-y-auto p-[24px]"
             onClickCapture={(event) => {
               if (
                 (event.target as HTMLElement).closest(
@@ -129,7 +129,7 @@ export function SourcePagePreview({
                 <pre className="my-3 whitespace-pre-wrap break-words text-xs">
                   {current.error}
                 </pre>
-                <Button
+                <Button size="md" layout="responsive"
                   variant="outline"
                   onClick={() => {
                     setRead(null)

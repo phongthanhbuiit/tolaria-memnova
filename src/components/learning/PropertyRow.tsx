@@ -137,7 +137,7 @@ export function PropertyRow({
               }
             }}
           >
-            <DropdownMenuItem
+            <DropdownMenuItem layout="responsive"
               disabled={!editable || !valid}
               onSelect={() => {
                 setKey(name)
@@ -153,7 +153,7 @@ export function PropertyRow({
               />
               {t('properties.rename')}
             </DropdownMenuItem>
-            <DropdownMenuItem
+            <DropdownMenuItem layout="responsive"
               disabled={!editable}
               onSelect={() => {
                 setError(null)
@@ -164,7 +164,7 @@ export function PropertyRow({
               <Swap className={cardEditorStyles.icon} aria-hidden="true" />
               {t('cardEditor.changeType')}
             </DropdownMenuItem>
-            <DropdownMenuItem
+            <DropdownMenuItem layout="responsive"
               variant="destructive"
               onSelect={() => {
                 pendingFocus.current = 'mutation'
@@ -183,7 +183,7 @@ export function PropertyRow({
           aria-label={`${t('cardEditor.applyName')} ${name}`}
           className="space-y-2"
         >
-          <Input
+          <Input layout="responsive"
             name="propertyName"
             autoComplete="off"
             ref={rename}
@@ -198,7 +198,7 @@ export function PropertyRow({
             }}
           />
           <div className="flex flex-wrap gap-2">
-            <Button
+            <Button size="md" layout="responsive"
               variant="secondary"
               disabled={disabled || key === name || !valid}
               onClick={() => {
@@ -215,7 +215,7 @@ export function PropertyRow({
               <Check className={cardEditorStyles.icon} aria-hidden="true" />
               {t('cardEditor.applyName')}
             </Button>
-            <Button
+            <Button size="md" layout="responsive"
               variant="ghost"
               disabled={disabled}
               onClick={() => {
@@ -284,7 +284,7 @@ export function PropertyRow({
             {JSON.stringify(conversion.value)}
           </pre>
           <div className="flex flex-wrap gap-2">
-            <Button
+            <Button size="md" layout="responsive"
               variant="secondary"
               disabled={disabled}
               onClick={() => {
@@ -297,14 +297,14 @@ export function PropertyRow({
               <Check className={cardEditorStyles.icon} aria-hidden="true" />
               {t('cardEditor.applyType')}
             </Button>
-            <Button variant="ghost" disabled={disabled} onClick={cancelType}>
+            <Button size="md" layout="responsive" variant="ghost" disabled={disabled} onClick={cancelType}>
               {t('common.cancel')}
             </Button>
           </div>
         </div>
       )}
       {editing === 'type' && !conversion && (
-        <Button variant="ghost" disabled={disabled} onClick={cancelType}>
+        <Button size="md" layout="responsive" variant="ghost" disabled={disabled} onClick={cancelType}>
           {t('common.cancel')}
         </Button>
       )}

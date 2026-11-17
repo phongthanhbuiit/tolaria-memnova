@@ -30,7 +30,7 @@ export function CardEditorSection({
     <section className="min-w-0 rounded-lg border">
       <div className="flex min-w-0 items-center gap-2 px-[2px]">
         <h3 className="min-w-0 flex-1">
-          <Button
+          <Button size="md" layout="responsive"
             variant="ghost"
             disabled={disabled}
             className="w-full justify-start whitespace-normal text-left"

@@ -98,7 +98,7 @@ export function NoteBackSourceToolbar(props: BackToolbarProps) {
         {workspace?.phase === 'error' ? (
           <p role="alert">{translate(locale, 'learning.error')}</p>
         ) : (
-          <Button
+          <Button size="sm" layout="responsive"
             variant="outline"
             disabled={workspace?.phase === 'loading' || !client}
             onClick={() => {
@@ -131,7 +131,7 @@ export function NoteBackSourceToolbar(props: BackToolbarProps) {
             </>
           )}
         </span>
-        <Button
+        <Button layout="responsive"
           variant="outline"
           size="sm"
           disabled={Boolean(action?.busy)}
@@ -143,7 +143,7 @@ export function NoteBackSourceToolbar(props: BackToolbarProps) {
         </Button>
         {back.kind === 'page' && (
           <>
-            <Button
+            <Button layout="responsive"
               variant="ghost"
               size="sm"
               disabled={
@@ -158,7 +158,7 @@ export function NoteBackSourceToolbar(props: BackToolbarProps) {
               <ArrowSquareOut aria-hidden="true" />
               {translate(locale, 'editor.noteMemory.openSource')}
             </Button>
-            <Button
+            <Button layout="responsive"
               variant="ghost"
               size="sm"
               disabled={Boolean(action?.busy)}
@@ -177,7 +177,7 @@ export function NoteBackSourceToolbar(props: BackToolbarProps) {
           {translate(locale, 'learning.loading')}
         </p>
       )}
-      {action?.error && <LearningError error={action.error} locale={locale}><Button variant="outline" size="sm" onClick={() => { void perform(action.kind) }}><ArrowClockwise aria-hidden="true" />{translate(locale, 'learning.retry')}</Button></LearningError>}
+      {action?.error && <LearningError error={action.error} locale={locale}><Button layout="responsive" variant="outline" size="sm" onClick={() => { void perform(action.kind) }}><ArrowClockwise aria-hidden="true" />{translate(locale, 'learning.retry')}</Button></LearningError>}
       <NoteBackSourceDialog
         open={open}
         ownerPath={ownerPath}

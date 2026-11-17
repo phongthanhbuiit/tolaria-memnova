@@ -155,8 +155,8 @@ function IconActionButton({
     <ActionTooltip copy={copy} side="bottom" align={tooltipAlign}>
       <Button
         type="button"
-        variant="ghost"
-        size="icon-xs"
+        variant="toolbar"
+        size="toolbar"
         className={cn('text-muted-foreground [&_svg:not([class*=size-])]:size-4', className)}
         style={style}
         onClick={onClick}
@@ -876,9 +876,9 @@ function ScheduleForReviewAction({
         <DropdownMenuTrigger asChild>
           <Button
             type="button"
-            variant="ghost"
-            size="xs"
-            className="h-auto gap-1 px-2 py-1 text-[11px] text-muted-foreground hover:text-foreground border border-dashed border-border hover:border-foreground/30 transition-colors"
+            variant="toolbar"
+            size="toolbar"
+            className="gap-1 text-[11px] text-muted-foreground hover:text-foreground border border-dashed border-border hover:border-foreground/30 transition-colors"
             aria-label="Schedule options"
             data-testid="breadcrumb-schedule-review"
           >
@@ -911,9 +911,9 @@ function ScheduleForReviewAction({
     <ActionTooltip copy={{ label: 'Schedule note for spaced repetition review' }} side="bottom">
       <Button
         type="button"
-        variant="ghost"
-        size="xs"
-        className="h-auto gap-1 px-2 py-1 text-[11px] text-muted-foreground hover:text-foreground border border-dashed border-border hover:border-foreground/30 transition-colors"
+        variant="toolbar"
+        size="toolbar"
+        className="gap-1 text-[11px] text-muted-foreground hover:text-foreground border border-dashed border-border hover:border-foreground/30 transition-colors"
         onClick={onScheduleForReview}
         aria-label="Schedule for review"
         data-testid="breadcrumb-schedule-review"
@@ -1075,8 +1075,8 @@ function BreadcrumbOverflowMenu({
         <DropdownMenuTrigger asChild>
           <Button
             type="button"
-            variant="ghost"
-            size="icon-xs"
+            variant="toolbar"
+            size="toolbar"
             className="breadcrumb-bar__overflow-menu text-muted-foreground hover:text-foreground"
             aria-label={translate(locale, 'editor.toolbar.moreActions')}
             data-testid="breadcrumb-overflow-menu-trigger"

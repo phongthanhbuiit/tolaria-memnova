@@ -103,13 +103,13 @@ export function NoteLearningPanel({
           <p role="status">{t('learning.noteMemory.missingMnemonic')}</p>
         )}
         <div className="note-memory-actions">
-          {needsConversion && <Button disabled={busy} onClickCapture={focusLearningDialogTrigger} onClick={() => setConversion(true)}>
+          {needsConversion && <Button size="sm" layout="responsive" disabled={busy} onClickCapture={focusLearningDialogTrigger} onClick={() => setConversion(true)}>
             <Swap aria-hidden="true" />{t('learning.noteMemory.title')}
           </Button>}
-          {((enabled && view?.state === 'draft') || (view?.hasBack && (view.state === 'ready' || view.state === 'disabled'))) && <Button variant="ghost" size="sm" disabled={busy} onClickCapture={focusLearningDialogTrigger} onClick={() => { void editMnemonic() }}><PencilSimpleLine aria-hidden="true" />{t(view?.hasBack ? 'editor.noteMemory.editMnemonic' : 'editor.noteMemory.addMnemonic')}</Button>}
-          {view?.state === 'ready' && <Button
+          {((enabled && view?.state === 'draft') || (view?.hasBack && (view.state === 'ready' || view.state === 'disabled'))) && <Button layout="responsive" variant="ghost" size="sm" disabled={busy} onClickCapture={focusLearningDialogTrigger} onClick={() => { void editMnemonic() }}><PencilSimpleLine aria-hidden="true" />{t(view?.hasBack ? 'editor.noteMemory.editMnemonic' : 'editor.noteMemory.addMnemonic')}</Button>}
+          {view?.state === 'ready' && <Button layout="responsive"
             variant="default"
-            size={compact ? "sm" : "default"}
+            size="sm"
             onClickCapture={focusLearningDialogTrigger}
             disabled={busy || !page}
             onClick={() =>
@@ -121,9 +121,9 @@ export function NoteLearningPanel({
           </Button>}
         </div>
         {view?.state === 'pending' && <div className="border-t border-border pt-2">
-          <Button
+          <Button layout="responsive"
             variant="default"
-            size={compact ? "sm" : "default"}
+            size="sm"
             onClickCapture={focusLearningDialogTrigger}
             disabled={busy}
             onClick={() => setRecovery(true)}
@@ -134,7 +134,7 @@ export function NoteLearningPanel({
         </div>}
         {oldCards.length > 0 && (
           <section className="space-y-4 border-t pt-4">
-            <Button
+            <Button size="sm" layout="responsive"
               variant="outline"
               aria-expanded={legacy}
               onClick={() => setLegacy((value) => !value)}

@@ -60,7 +60,7 @@ export function PagePropertyTools({
   }
   return (
     <div className="note-memory-surface space-y-2 px-3 py-3">
-      <Button
+      <Button layout="responsive"
         variant="outline"
         size="sm"
         className="w-full whitespace-normal"

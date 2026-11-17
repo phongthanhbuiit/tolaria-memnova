@@ -59,13 +59,13 @@ describe('BreadcrumbBar filename visibility', () => {
   })
 
   it('keeps breadcrumb action buttons on the zero-padding footprint', () => {
-    const editorCss = readFileSync(`${process.cwd()}/src/components/Editor.css`, 'utf8')
-
-    expect(editorCss).toContain(".breadcrumb-bar__actions [data-slot='button']")
-    expect(editorCss).toContain('width: auto;')
-    expect(editorCss).toContain('height: auto;')
-    expect(editorCss).toContain('padding: 0;')
-    expect(editorCss).toContain('border-radius: 0;')
+    const { container } = render(<BreadcrumbBar entry={baseEntry} {...defaultProps} />)
+    const buttons = container.querySelectorAll('.breadcrumb-bar__actions button')
+    expect(buttons.length).toBeGreaterThan(0)
+    for (const button of buttons) {
+      expect(button).toHaveClass('w-auto', 'h-auto', 'min-w-0', 'p-0', 'rounded-none')
+      expect(button).toHaveClass('bg-transparent', 'hover:bg-transparent')
+    }
   })
 
   it('offsets the editor-only breadcrumb title past the macOS traffic lights', () => {

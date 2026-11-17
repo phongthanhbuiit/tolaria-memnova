@@ -36,7 +36,7 @@ function NumberValue({
   const [text, setText] = useState(String(value))
   const valid = text.trim() !== '' && isEditableNumber(Number(text))
   return (
-    <Input
+    <Input layout="responsive"
       aria-label={name}
       name={name}
       autoComplete="off"
@@ -64,7 +64,7 @@ function DateValue({ name, value, disabled, onChange, locale }: Props) {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <Button variant="outline" disabled={disabled} aria-label={name}>
+        <Button size="md" layout="responsive" variant="outline" disabled={disabled} aria-label={name}>
           <CalendarBlank className={cardEditorStyles.icon} aria-hidden="true" />
           {text || translate(locale, 'inspector.properties.pickDate')}
         </Button>
@@ -127,7 +127,7 @@ function ListValue(props: Props) {
                 }
               />
             ) : (
-              <Input
+              <Input layout="responsive"
                 aria-label={`${name} ${index + 1}`}
                 value={String(item)}
                 disabled={disabled}
@@ -160,7 +160,7 @@ function ListValue(props: Props) {
           onChange={(next) => onChange([...items, next])}
         />
       ) : (
-        <Button
+        <Button layout="responsive"
           variant="ghost"
           size="sm"
           disabled={disabled}
@@ -232,7 +232,7 @@ export function PropertyValueEditor(props: Props) {
       )
     default:
       return (
-        <Input
+        <Input layout="responsive"
           aria-label={name}
           value={typeof value === 'string' ? value : ''}
           disabled={disabled}

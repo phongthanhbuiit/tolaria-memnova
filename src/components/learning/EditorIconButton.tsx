@@ -15,7 +15,7 @@ export function EditorIconButton({ label, children, ...props }: Props) {
     <TooltipProvider delayDuration={300}>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button
+          <Button layout="responsive"
             variant="ghost"
             size="icon-sm"
             aria-label={label}

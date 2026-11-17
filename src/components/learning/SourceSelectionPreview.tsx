@@ -38,7 +38,7 @@ export function SourceSelectionPreview(props: {
       onKeyDownCapture={stopLinkKey}
     >
       {busy && <p role="status">{translate(locale, 'learning.loading')}</p>}
-      {error && <LearningError error={error} locale={locale}><Button variant="outline" onClick={onRetry}><ArrowClockwise aria-hidden="true" />{translate(locale, 'learning.noteMemory.refreshPreview')}</Button></LearningError>}
+      {error && <LearningError error={error} locale={locale}><Button size="md" layout="responsive" variant="outline" onClick={onRetry}><ArrowClockwise aria-hidden="true" />{translate(locale, 'learning.noteMemory.refreshPreview')}</Button></LearningError>}
       {preview && (
         <>
           <p className="text-xs text-muted-foreground">

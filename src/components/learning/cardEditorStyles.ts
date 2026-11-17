@@ -1,6 +1,6 @@
 import './cardEditor.css'
 
-// Explicit pixel dimensions keep the form stable with the app's 14px root.
+// Feature layout helpers; controls get their dimensions from shared size/layout variants.
 export const cardEditorStyles = {
   root: 'learning-editor',
   portal: 'learning-editor-portal',

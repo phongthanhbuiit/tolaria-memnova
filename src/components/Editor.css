@@ -42,18 +42,6 @@ body.mac-chrome .app:not(:has(.app__sidebar)):not(:has(.app__note-list)) .breadc
   display: flex;
 }
 
-.breadcrumb-bar__actions [data-slot='button'] {
-  width: auto;
-  height: auto;
-  min-width: 0;
-  padding: 0;
-  border-radius: 0;
-}
-
-.breadcrumb-bar__actions [data-slot='button']:hover {
-  background: transparent;
-}
-
 .breadcrumb-bar__overflow-menu {
   display: flex;
 }

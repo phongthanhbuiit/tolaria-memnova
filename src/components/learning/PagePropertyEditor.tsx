@@ -201,9 +201,9 @@ export function PagePropertyEditor({
         if (!open && !busy && !pickerBusy) onClose()
       }}
     >
-      <DialogContent
+      <DialogContent size="md"
         showCloseButton={false}
-        className={`${cardEditorStyles.root} flex max-h-[90dvh] flex-col overflow-hidden p-0 sm:max-w-2xl`}
+        className={`${cardEditorStyles.root} flex flex-col overflow-hidden p-0`}
         onEscapeKeyDown={(event) => {
           if (busy || pickerBusy) event.preventDefault()
         }}
@@ -211,11 +211,11 @@ export function PagePropertyEditor({
           if (busy || pickerBusy) event.preventDefault()
         }}
       >
-        <DialogHeader className="shrink-0 border-b p-5">
+        <DialogHeader variant="panel" className="shrink-0 border-b">
           <DialogTitle>{t('properties.page')}</DialogTitle>
-          <DialogDescription>{t('properties.pageHelp')}</DialogDescription>
+          <DialogDescription variant="caption">{t('properties.pageHelp')}</DialogDescription>
         </DialogHeader>
-        <div className="min-h-0 space-y-4 overflow-y-auto p-5">
+        <div className="min-h-0 space-y-4 overflow-y-auto p-[24px]">
           {draft ? (
             <PropertyEditor
               values={draft.values}
@@ -242,7 +242,7 @@ export function PagePropertyEditor({
                 {error}
               </pre>
               {!draft && (
-                <Button
+                <Button size="md" layout="responsive"
                   onClick={() => {
                     setError(null)
                     setAttempt((value) => value + 1)
@@ -255,16 +255,16 @@ export function PagePropertyEditor({
           )}
         </div>
         <footer
-          className={`${cardEditorStyles.footer} flex shrink-0 flex-wrap justify-end gap-2 border-t p-4`}
+          className={`${cardEditorStyles.footer} flex shrink-0 flex-wrap justify-end gap-2 border-t p-[24px]`}
         >
-          <Button
+          <Button size="md" layout="responsive"
             variant="outline"
             disabled={busy || pickerBusy}
             onClick={onClose}
           >
             {t('common.cancel')}
           </Button>
-          <Button
+          <Button size="md" layout="responsive"
             disabled={!draft || busy || pickerBusy || invalidProperties}
             onClick={() => void save()}
           >

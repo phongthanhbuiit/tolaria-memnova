@@ -73,13 +73,13 @@ export function PropertyKindSelect({
       disabled={disabled}
       onValueChange={(value) => onChange(definitionFor(value))}
     >
-      <SelectTrigger ref={triggerRef} aria-label={label}>
+      <SelectTrigger size="md" layout="responsive" ref={triggerRef} aria-label={label}>
         <PropertyKindIcon definition={definition} />
         <SelectValue placeholder={translate(locale, 'properties.opaque')} />
       </SelectTrigger>
       <SelectContent className={cardEditorStyles.portal}>
         {kinds.map((kind) => (
-          <SelectItem key={kind} value={kind}>
+          <SelectItem size="md" layout="responsive" key={kind} value={kind}>
             {translate(locale, `properties.kind.${kind}` as TranslationKey)}
           </SelectItem>
         ))}

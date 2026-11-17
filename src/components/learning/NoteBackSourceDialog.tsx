@@ -197,17 +197,17 @@ export function NoteBackSourceDialog(props: BackSourceDialogProps) {
         if (!lockedRef.current) onOpenChange(value)
       }}
     >
-      <DialogContent
+      <DialogContent size="md"
         onOpenAutoFocus={onOpenAutoFocus} onCloseAutoFocus={onCloseAutoFocus}
         className="note-memory-dialog"
         showCloseButton={false}
         onKeyDown={(event) => event.stopPropagation()}
       >
-        <DialogHeader>
+        <DialogHeader variant="panel">
           <DialogTitle>
             {translate(locale, 'learning.noteMemory.chooseSource')}
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription variant="caption">
             {translate(locale, 'editor.noteMemory.registrationHelp')}
           </DialogDescription>
         </DialogHeader>
@@ -217,6 +217,7 @@ export function NoteBackSourceDialog(props: BackSourceDialogProps) {
               {translate(locale, 'learning.noteMemory.mnemonicSource')}
             </label>
             <NoteAutocomplete
+              controlLayout="responsive"
               inputId={id}
               selectByPath
               entries={entries}
@@ -241,7 +242,7 @@ export function NoteBackSourceDialog(props: BackSourceDialogProps) {
               disabled={!choice || Boolean(action?.busy) || preview.busy}
               onValueChange={(value) => selectFace(value as MemoryFace)}
             >
-              <SelectTrigger id={faceId} className="w-full">
+              <SelectTrigger size="md" layout="responsive" id={faceId} className="w-full">
                 <SelectValue
                   placeholder={translate(
                     locale,
@@ -250,10 +251,10 @@ export function NoteBackSourceDialog(props: BackSourceDialogProps) {
                 />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="front">
+                <SelectItem size="md" layout="responsive" value="front">
                   {translate(locale, 'learning.noteMemory.article')}
                 </SelectItem>
-                <SelectItem
+                <SelectItem size="md" layout="responsive"
                   value="back"
                   disabled={
                     !preview.preview?.hasBack || preview.preview.backLinked
@@ -281,14 +282,14 @@ export function NoteBackSourceDialog(props: BackSourceDialogProps) {
           {action?.error && <LearningError error={action.error} locale={locale}>{action.partial && <p>{translate(locale, 'editor.noteMemory.registrationPartial')}</p>}</LearningError>}
         </div>
         <div className="note-memory-footer">
-          <Button
+          <Button size="md" layout="responsive"
             variant="outline"
             disabled={Boolean(action?.busy)}
             onClick={() => onOpenChange(false)}
           >
             <X aria-hidden="true" />{translate(locale, 'common.cancel')}
           </Button>
-          <Button
+          <Button size="md" layout="responsive"
             disabled={
               Boolean(action?.busy) ||
               preview.busy ||

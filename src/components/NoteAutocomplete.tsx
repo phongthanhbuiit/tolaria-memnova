@@ -12,6 +12,7 @@ import {
   type SVGAttributes,
 } from 'react'
 import { Input } from '@/components/ui/input'
+import type { ControlLayout } from './ui/control-layout'
 import { Button } from '@/components/ui/button'
 import type { VaultEntry, WorkspaceIdentity } from '../types'
 import { getTypeColor, getTypeLightColor } from '../utils/typeColors'
@@ -39,6 +40,7 @@ interface NoteAutocompleteProps {
   inputId?: string
   disabled?: boolean
   selectByPath?: boolean
+  controlLayout?: ControlLayout
 }
 
 interface MatchedEntry {
@@ -202,6 +204,7 @@ function handleAutocompleteKeyDown({
 }
 
 interface NoteAutocompleteMenuItemProps {
+  controlLayout?: ControlLayout
   item: MatchedEntry
   selected: boolean
   onSelect: (title: string) => void
@@ -209,6 +212,7 @@ interface NoteAutocompleteMenuItemProps {
 }
 
 function NoteAutocompleteMenuItem({
+  controlLayout,
   item,
   selected,
   onSelect,
@@ -216,6 +220,7 @@ function NoteAutocompleteMenuItem({
 }: NoteAutocompleteMenuItemProps) {
   return (
     <Button
+      layout={controlLayout}
       type="button" variant="ghost"
       className={`wikilink-menu__item${selected ? ' wikilink-menu__item--selected' : ''}`}
       onMouseDown={preventAutocompleteMouseDown}
@@ -238,12 +243,14 @@ function NoteAutocompleteMenuItem({
 }
 
 function NoteAutocompleteMenu({
+  controlLayout,
   matches,
   menuRef,
   selectedIndex,
   onHover,
   onSelect,
 }: {
+  controlLayout?: ControlLayout
   matches: MatchedEntry[]
   menuRef: React.RefObject<HTMLDivElement | null>
   selectedIndex: number
@@ -256,6 +263,7 @@ function NoteAutocompleteMenu({
     <div className="wikilink-menu" ref={menuRef} style={{ position: 'absolute', top: '100%', left: 0, right: 0, marginTop: 2, minWidth: 'auto' }}>
       {matches.map((item, index) => (
         <NoteAutocompleteMenuItem
+          controlLayout={controlLayout}
           key={item.selectionValue ?? item.title}
           item={item}
           selected={index === selectedIndex}
@@ -267,7 +275,7 @@ function NoteAutocompleteMenu({
   )
 }
 
-export function NoteAutocomplete({ entries, typeEntryMap, value, onChange, onSelect, onEscape, placeholder, autoFocus, testId, inputId, disabled, selectByPath = false }: NoteAutocompleteProps) {
+export function NoteAutocomplete({ entries, typeEntryMap, value, onChange, onSelect, onEscape, placeholder, autoFocus, testId, inputId, disabled, selectByPath = false, controlLayout = 'default' }: NoteAutocompleteProps) {
   const [selectedIndex, setSelectedIndex] = useState(-1)
   const [open, setOpen] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -325,11 +333,12 @@ export function NoteAutocomplete({ entries, typeEntryMap, value, onChange, onSel
   return (
     <div style={{ position: 'relative' }}>
       <Input
+        layout={controlLayout}
         ref={inputRef}
         id={inputId}
         disabled={disabled}
         autoFocus={autoFocus}
-        className="h-7 flex-1 rounded border border-border bg-transparent px-2 py-0.5 text-xs text-foreground shadow-none focus-visible:ring-1"
+        className={controlLayout === 'responsive' ? 'flex-1 border-border px-2 text-body text-foreground shadow-none' : 'h-7 flex-1 rounded border border-border bg-transparent px-2 py-0.5 text-xs text-foreground shadow-none focus-visible:ring-1'}
         style={{ borderRadius: 4, outline: 'none', minWidth: 0, width: '100%', boxSizing: 'border-box' }}
         placeholder={placeholder}
         value={value}
@@ -340,6 +349,7 @@ export function NoteAutocomplete({ entries, typeEntryMap, value, onChange, onSel
       />
       {open && matches.length > 0 && (
         <NoteAutocompleteMenu
+          controlLayout={controlLayout}
           matches={matches}
           menuRef={menuRef}
           selectedIndex={selectedIndex}

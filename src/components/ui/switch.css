@@ -1,0 +1,5 @@
+@media (pointer: coarse) {
+  .ui-switch-responsive { width: 52px; height: 44px; padding-inline: 9px; position: relative; background: transparent; box-shadow: none; }
+  .ui-switch-responsive::before { content: ''; position: absolute; width: 36px; height: 20px; left: 7px; top: 11px; border-radius: 999px; background: var(--input); }
+  .ui-switch-responsive[aria-checked='true']::before { background: var(--primary); }
+}

@@ -2,10 +2,12 @@ import * as React from "react"
 
 import { nativeTextAssistanceDisabledProps } from "@/lib/nativeTextAssistance"
 import { cn } from "@/lib/utils"
+import { controlLayouts, type ControlLayout } from './control-layout'
 
-function Input({ className, type, controlSize = "md", ...props }: React.ComponentProps<"input"> & {
+function Input({ className, type, controlSize = "md", layout = "default", ...props }: React.ComponentProps<"input"> & {
   // The native numeric `size` attribute remains available to callers.
   controlSize?: "sm" | "md" | "lg"
+  layout?: ControlLayout
 }) {
   return (
     <input
@@ -17,7 +19,7 @@ function Input({ className, type, controlSize = "md", ...props }: React.Componen
         controlSize === "sm" ? "min-h-(--control-sm)" : controlSize === "lg" ? "min-h-(--control-lg)" : "min-h-(--control-md)",
         "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
         "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
-        className
+        controlLayouts[layout], className
       )}
       {...props}
     />

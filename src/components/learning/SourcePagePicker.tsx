@@ -171,6 +171,7 @@ export function SourcePagePicker(props: PickerProps) {
         {label ?? translate(locale, 'learning.sourcePage')}
       </label>
       <NoteAutocomplete
+        controlLayout="responsive"
         inputId={id}
         selectByPath
         entries={entries}
@@ -197,17 +198,17 @@ export function SourcePagePicker(props: PickerProps) {
           }
         }}
       >
-        <DialogContent
+        <DialogContent size="md"
           className="note-memory-dialog"
           showCloseButton={!action?.busy}
           onKeyDown={(event) => event.stopPropagation()}
         >
-          <DialogHeader>
+          <DialogHeader variant="panel">
             <DialogTitle>
               {pending?.entry.title ??
                 translate(locale, 'learning.noteMemory.chooseSource')}
             </DialogTitle>
-            <DialogDescription>
+            <DialogDescription variant="caption">
               {translate(locale, 'editor.noteMemory.registrationHelp')}
             </DialogDescription>
             <p className="note-memory-caption break-all">{candidatePath}</p>
@@ -236,7 +237,7 @@ export function SourcePagePicker(props: PickerProps) {
             )}
           </div>
           <div className="note-memory-footer">
-            <Button
+            <Button size="md" layout="responsive"
               variant="outline"
               disabled={Boolean(action?.busy)}
               onClick={() => {
@@ -246,7 +247,7 @@ export function SourcePagePicker(props: PickerProps) {
             >
               {translate(locale, 'common.cancel')}
             </Button>
-            <Button
+            <Button size="md" layout="responsive"
               disabled={
                 disabled || busy || (!pending?.registered && !preview.preview)
               }
