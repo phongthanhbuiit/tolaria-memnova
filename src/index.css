@@ -369,8 +369,32 @@
   --link-hover: var(--accent-blue-hover);
 }
 
-/* --- Tailwind v4 theme inline: register colors + radii --- */
+/* --- Tailwind v4 theme inline: app chrome, not editor typography --- */
 @theme inline {
+  /* DESIGN-SPEC §1: six chrome levels plus the study-content exception.
+     Keep the existing 14px root; rem values still follow root-size changes. */
+  --text-caption: calc(11rem / 14);
+  --text-caption--line-height: calc(16 / 11);
+  --text-caption--font-weight: 500;
+  --text-small: calc(12rem / 14);
+  --text-small--line-height: 1.5;
+  --text-small--font-weight: 400;
+  --text-body: calc(13rem / 14);
+  --text-body--line-height: calc(20 / 13);
+  --text-body--font-weight: 400;
+  --text-body-lg: 1rem;
+  --text-body-lg--line-height: calc(22 / 14);
+  --text-body-lg--font-weight: 400;
+  --text-title: calc(16rem / 14);
+  --text-title--line-height: 1.5;
+  --text-title--font-weight: 600;
+  --text-display: calc(20rem / 14);
+  --text-display--line-height: 1.4;
+  --text-display--font-weight: 600;
+  --text-study: calc(18rem / 14);
+  --text-study--line-height: calc(28 / 18);
+  --text-study--font-weight: 400;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);

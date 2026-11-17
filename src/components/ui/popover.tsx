@@ -71,7 +71,7 @@ function PopoverTextSlot({
 function PopoverHeader(props: React.ComponentProps<"div">) {
   return (
     <PopoverTextSlot
-      baseClassName="flex flex-col gap-1 text-sm"
+      baseClassName="flex flex-col gap-1 text-body"
       element="div"
       slot="popover-header"
       {...props}
