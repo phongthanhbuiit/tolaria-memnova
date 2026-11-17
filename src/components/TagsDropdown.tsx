@@ -1,3 +1,5 @@
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 import { useState, useRef, useCallback, useMemo } from 'react'
 import { createPortal } from 'react-dom'
 import { getTagStyle, setTagColor, getTagColorKey } from '../utils/tagStyles'
@@ -16,16 +18,10 @@ export function TagPill({ tag, className }: { tag: string; className?: string })
   const style = getTagStyle(tag)
   return (
     <span
-      className={`inline-block min-w-0 truncate${className ? ` ${className}` : ''}`}
+      className={`inline-block min-w-0 truncate rounded-sm px-2 text-body font-medium${className ? ` ${className}` : ''}`}
       style={{
         backgroundColor: style.bg,
         color: style.color,
-        borderRadius: 16,
-        padding: '1px 6px',
-        fontFamily: "'Inter', sans-serif",
-        fontSize: 10,
-        fontWeight: 600,
-        letterSpacing: '0',
         maxWidth: 160,
       }}
       title={tag}
@@ -38,14 +34,14 @@ export function TagPill({ tag, className }: { tag: string; className?: string })
 function ColorPickerRow({ tag, onColorChange }: { tag: string; onColorChange: (tag: string, colorKey: string) => void }) {
   const currentKey = getTagColorKey(tag)
   return (
-    <div className="flex items-center gap-1 px-3 py-1.5" data-testid={`tag-color-picker-${tag}`}>
+    <div className="flex flex-wrap items-center gap-1 px-3 py-2" data-testid={`tag-color-picker-${tag}`}>
       <AccentColorPicker
         className="gap-1"
         getOptionTestId={(key) => `tag-color-option-${key}`}
         indicator="check"
         selectedColor={currentKey}
         onSelectColor={(colorKey) => onColorChange(tag, colorKey)}
-        size={16}
+        controlSize="sm"
         stopPropagation
       />
     </div>
@@ -66,21 +62,21 @@ function TagOption({
     <>
       <div
         className="flex w-full items-center gap-1 px-2 py-1 transition-colors"
-        style={{ borderRadius: 4, backgroundColor: highlighted ? 'var(--muted)' : 'transparent' }}
+        style={{ borderRadius: 'var(--radius-md)', backgroundColor: highlighted ? 'var(--muted)' : 'transparent' }}
       >
-        <button type="button"
-          className="flex min-w-0 flex-1 items-center gap-1.5 border-none bg-transparent p-0 text-left"
+        <Button variant="ghost" size="sm" type="button"
+          className="flex min-w-0 flex-1 items-center gap-[6px] border-none bg-transparent p-0 text-left justify-start"
           onClick={() => onToggle(tag)}
           onMouseEnter={onMouseEnter}
           data-testid={`tag-option-${tag}`}
         >
-          <span className="w-3.5 text-center text-[10px]" style={{ color: style.color }}>
+          <span className="w-3.5 text-center text-caption" style={{ color: style.color }}>
             {selected ? '\u2713' : ''}
           </span>
           <TagPill tag={tag} />
-        </button>
-        <button type="button"
-          className="flex size-4 shrink-0 items-center justify-center rounded-full border-none p-0"
+        </Button>
+        <Button variant="ghost" size="icon-sm" type="button"
+          className="flex shrink-0 items-center justify-center rounded-md border-none p-0"
           style={{ backgroundColor: style.color }}
           onClick={() => onToggleColor(tag)}
           onMouseEnter={onMouseEnter}
@@ -93,17 +89,10 @@ function TagOption({
   )
 }
 
-const SECTION_LABEL_STYLE = {
-  fontFamily: "'Inter', sans-serif",
-  fontSize: 9,
-  fontWeight: 500,
-  letterSpacing: '0',
-}
-
 function SectionLabel({ children }: { children: string }) {
   return (
     <div className="px-2 py-1">
-      <span className="text-muted-foreground" style={SECTION_LABEL_STYLE}>{children}</span>
+      <span className="text-caption tracking-wide text-text-secondary">{children}</span>
     </div>
   )
 }
@@ -247,7 +236,7 @@ export function TagsDropdown({
     <span ref={anchorRef} data-testid="tags-dropdown">
       {createPortal(
         <>
-          <button
+          <Button variant="ghost" size="sm"
             type="button"
             aria-label="Close tags menu"
             className="fixed inset-0 z-[12000] cursor-default border-0 bg-transparent p-0"
@@ -261,9 +250,9 @@ export function TagsDropdown({
             data-testid="tags-dropdown-popover"
           >
             <div className="border-b border-border px-2 py-1.5">
-              <input
+              <Input controlSize="sm"
                 ref={inputRef}
-                className="w-full border-none bg-transparent text-[12px] text-foreground outline-none placeholder:text-muted-foreground"
+                className="w-full border-none bg-transparent text-body text-foreground outline-none placeholder:text-text-secondary"
                 placeholder="Type a tag..."
                 value={query}
                 onChange={e => handleQueryChange(e.target.value)}
@@ -351,10 +340,10 @@ function CreateTagSection({ show, query, showDivider, highlighted, onToggle, onM
   return (
     <>
       {showDivider && <div className="my-1 h-px bg-border" />}
-      <button type="button"
-        className="flex w-full items-center gap-1.5 border-none bg-transparent px-2 py-1 text-left text-[11px] transition-colors"
+      <Button variant="ghost" size="sm" type="button"
+        className="flex w-full items-center gap-[6px] border-none bg-transparent px-2 py-0 text-left text-body transition-colors"
         style={{
-          borderRadius: 4,
+          borderRadius: 'var(--radius-md)',
           backgroundColor: highlighted ? 'var(--muted)' : 'transparent',
           color: 'var(--muted-foreground)',
         }}
@@ -363,7 +352,7 @@ function CreateTagSection({ show, query, showDivider, highlighted, onToggle, onM
         data-testid="tag-create-option"
       >
         Create <TagPill tag={trimmed} />
-      </button>
+      </Button>
     </>
   )
 }
@@ -371,7 +360,7 @@ function CreateTagSection({ show, query, showDivider, highlighted, onToggle, onM
 function EmptyTagMessage({ show }: { show: boolean }) {
   if (!show) return null
   return (
-    <div className="px-2 py-2 text-center text-[11px] text-muted-foreground">
+    <div className="px-2 py-2 text-center text-caption text-text-secondary">
       No matching tags
     </div>
   )
