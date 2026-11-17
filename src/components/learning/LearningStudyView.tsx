@@ -105,7 +105,7 @@ export function LearningStudyView({
     )
     return new Intl.RelativeTimeFormat(locale, {
       numeric: 'always',
-      style: 'short',
+      style: 'long',
     }).format(
       minutes < 60
         ? minutes
@@ -166,7 +166,7 @@ export function LearningStudyView({
             </DialogTitle>
             <DialogDescription className="shrink-0 text-small tabular-nums text-text-secondary">
               {session
-                ? `${session.completedCount}/${session.initialCount} · ${translate(locale, 'home.daily_goal_reviews', { n: session.reviewCount })}`
+                ? `${Math.min(session.completedCount + (item ? 1 : 0), session.initialCount)} / ${session.initialCount}`
                 : t('learning.loading')}
             </DialogDescription>
             {!terminal && (
@@ -330,7 +330,7 @@ export function LearningStudyView({
                   onClick={returnToArticle}
                 >
                   <ArrowUUpLeft aria-hidden />
-                  {t('learning.noteMemory.returnArticle')}
+                  {t('editor.noteMemory.backToNote')}
                 </Button>
               )}
               {session?.canUndo && (

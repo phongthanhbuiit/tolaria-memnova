@@ -30,7 +30,7 @@ test('note study hides the article, waits for a readonly mnemonic canvas, return
   await expect(dialog.locator('.excalidraw canvas').first()).toBeVisible()
   await page.screenshot({ path: '/tmp/memnova-m19-study-canvas.png' })
   await dialog
-    .getByRole('button', { name: 'Return to article', exact: true })
+    .getByRole('button', { name: 'Back to note', exact: true })
     .click()
   await expect(
     dialog.getByRole('heading', { name: 'A4 Article', exact: true })

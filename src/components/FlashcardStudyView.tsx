@@ -305,10 +305,11 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
   }, [flipped, isComplete, handleFlip, handleRate, onClose, lightboxImg])
 
   const formatInterval = (days: number) => {
-    if (days === 0) return '<1d'
-    if (days < 7) return `${days}d`
-    if (days < 30) return `${Math.round(days / 7)}w`
-    return `${Math.round(days / 30)}mo`
+    if (days === 0) return `< ${new Intl.NumberFormat(locale, { style: 'unit', unit: 'day', unitDisplay: 'long' }).format(1)}`
+    const value = days < 7 ? days : days < 30 ? Math.round(days / 7) : Math.round(days / 30)
+    return new Intl.RelativeTimeFormat(locale, { numeric: 'always', style: 'long' }).format(
+      value, days < 7 ? 'day' : days < 30 ? 'week' : 'month'
+    )
   }
 
   const overlay = (

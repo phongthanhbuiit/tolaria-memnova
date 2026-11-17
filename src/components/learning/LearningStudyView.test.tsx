@@ -149,7 +149,7 @@ it('uses one clock for preview outcomes and interval labels, without rounding a 
     render(<LearningStudyView study={fixture()} root="/library" locale="en" />)
     fireEvent.click(screen.getByRole('button', { name: 'Show answer' }))
     expect(screen.getByRole('button', { name: /^Again/ })).toHaveTextContent(
-      'in 1 min.'
+      'in 1 minute'
     )
   } finally {
     vi.unstubAllGlobals()
@@ -339,7 +339,7 @@ it('studies the live Markdown article and mnemonic, hiding the opposite face and
     'data-note-path',
     '/library/nested/mnemonic.md'
   )
-  fireEvent.click(screen.getByRole('button', { name: 'Return to article' }))
+  fireEvent.click(screen.getByRole('button', { name: 'Back to note' }))
   expect(screen.getByText('Live A4 article')).toBeVisible()
   expect(
     screen.queryByRole('button', { name: /^Good/ })
