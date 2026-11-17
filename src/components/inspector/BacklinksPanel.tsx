@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import type { VaultEntry } from '../../types'
 import { ArrowUpRight } from '@phosphor-icons/react'
 import { entryStatusTitle } from './shared'
@@ -16,13 +17,13 @@ function BacklinkEntry({ entry, context, onNavigate }: {
 }) {
   const isDimmed = entry.archived
   return (
-    <button type="button"
-      className="flex w-full cursor-pointer flex-col items-start gap-0.5 border-none bg-transparent p-0 text-left hover:underline"
+    <Button variant="ghost" size="sm" type="button"
+      className="flex w-full cursor-pointer flex-col items-start whitespace-normal gap-0.5 border-none bg-transparent p-0 text-left hover:underline"
       onClick={() => onNavigate(entry.title)}
       title={entryStatusTitle(entry)}
     >
       <span
-        className="flex items-center gap-1 text-xs text-primary"
+        className="flex items-center gap-1 text-body text-primary"
         style={isDimmed ? { color: 'var(--muted-foreground)' } : undefined}
       >
         <NoteTitleIcon icon={entry.icon} size={14} />
@@ -30,11 +31,11 @@ function BacklinkEntry({ entry, context, onNavigate }: {
         <StatusSuffix isArchived={entry.archived} />
       </span>
       {context && (
-        <span className="line-clamp-2 text-[11px] leading-snug text-muted-foreground">
+        <span className="line-clamp-2 text-caption leading-snug text-text-secondary">
           {context}
         </span>
       )}
-    </button>
+    </Button>
   )
 }
 
@@ -46,7 +47,7 @@ export function BacklinksPanel({ backlinks, onNavigate }: {
 
   return (
     <div>
-      <h4 className="font-mono-overline mb-2 flex items-center gap-1 text-muted-foreground">
+      <h4 className="text-caption font-medium tracking-wide mb-2 flex items-center gap-1 text-text-secondary">
         <ArrowUpRight size={12} className="shrink-0" />
         Backlinks
       </h4>
