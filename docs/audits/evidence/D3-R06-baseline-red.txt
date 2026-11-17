@@ -1,0 +1,70 @@
+
+Running 2 tests using 1 worker
+
+(node:26377) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26377) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [chromium] › tests/integration/vault-workflows.spec.ts:79:1 › trashed note does not appear in All Notes (11.0s)
+(node:26600) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26600) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [chromium] › tests/integration/vault-workflows.spec.ts:166:1 › inspector shows relationships for note with wikilink fields (7.9s)
+
+
+  1) [chromium] › tests/integration/vault-workflows.spec.ts:79:1 › trashed note does not appear in All Notes 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).not.[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator:  locator('[data-testid="note-list-container"]').getByText('Trashed Note', { exact: true })
+    Expected: not visible
+    Received: visible
+    Timeout:  5000ms
+
+    Call log:
+    [2m  - Expect "not toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('[data-testid="note-list-container"]').getByText('Trashed Note', { exact: true })[22m
+    [2m    9 × locator resolved to <div data-testid="note-title-row" class="truncate pr-5 text-body text-foreground font-medium">Trashed Note</div>[22m
+    [2m      - unexpected value "visible"[22m
+
+
+      80 |   const list = noteList(page)
+      81 |   // "Trashed Note" has Trashed: true — should be hidden
+    > 82 |   await expect(list.getByText('Trashed Note', { exact: true })).not.toBeVisible()
+         |                                                                     ^
+      83 |
+      84 |   // Regular notes are visible
+      85 |   await expect(list.getByText('Note C', { exact: true })).toBeVisible()
+        at /private/tmp/memnova-d3/qa-checkout/tests/integration/vault-workflows.spec.ts:82:69
+
+    Error Context: test-results/vault-workflows-trashed-note-does-not-appear-in-All-Notes-chromium/error-context.md
+
+  2) [chromium] › tests/integration/vault-workflows.spec.ts:166:1 › inspector shows relationships for note with wikilink fields 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('Related to').first()
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByText('Related to').first()[22m
+
+
+      170 |   // The DynamicRelationshipsPanel renders field labels like "Related to", "Topics"
+      171 |   // as <span> elements. Verify that the relationship labels are visible in the inspector.
+    > 172 |   await expect(page.getByText('Related to').first()).toBeVisible({ timeout: 5_000 })
+          |                                                      ^
+      173 | })
+      174 |
+      175 | // ---------------------------------------------------------------------------
+        at /private/tmp/memnova-d3/qa-checkout/tests/integration/vault-workflows.spec.ts:172:54
+
+    Error Context: test-results/vault-workflows-inspector--92edb-r-note-with-wikilink-fields-chromium/error-context.md
+
+  2 failed
+    [chromium] › tests/integration/vault-workflows.spec.ts:79:1 › trashed note does not appear in All Notes 
+    [chromium] › tests/integration/vault-workflows.spec.ts:166:1 › inspector shows relationships for note with wikilink fields 

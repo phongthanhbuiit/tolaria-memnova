@@ -263,3 +263,11 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 - Chấp nhận: xác định nguyên nhân rồi cả hai case và lane đầy đủ WebKit pass không retry; không hạ assertion hoặc tăng timeout. D1 giữ nguyên các spec, không sửa note list/editor ngoài phạm vi.
 
 17/11/2026 — F-041 **fixed** (`:/^fix: F-041 stop WebKit note-list update feedback`), nâng **P1** vì WebKit là engine WKWebView của app native. HEAD `3f0404ff` sau F-039 vẫn fail 20/20; nguyên nhân là metadata transition phát lại data vào layout store của Virtuoso. Virtualizer nay so sánh thứ tự path, hàng đọc metadata mới qua context. Regression mới RED → GREEN; marker 60/60, regression 10/10, lane WebKit 10/10 không retry; native QA riêng lưu → Command Palette qua chuột và Cmd+S/Cmd+K đạt. Full gate cuối sạch, FE 87,48% / Rust 86,40%; các lỗi gate ban đầu được giữ riêng trong [biên bản](F-041-COMPLETION.md). F-040 giữ nguyên open và không sửa test.
+
+
+## R-06 — Hai precondition cũ trong regression filesystem chặn commit D3
+
+- P2 · test-only · **fixed (`:/^test: R-06 align filesystem regression preconditions`)** theo ngoại lệ test chặn gate trong OVERNIGHT-RULES.
+- RED trên HEAD D3 và checkout độc lập baseline `707bac53`, retries=0: `vault-workflows.spec.ts` đòi ẩn file còn tồn tại chỉ vì `Trashed: true`, và tìm nhãn Related to khi Properties chưa mở. [Baseline RED](evidence/D3-R06-baseline-red.txt). Không kết luận bug app mới.
+- ADR-0045 đã bỏ Trash và yêu cầu cờ Trashed là metadata thường. Test mới xác nhận note có cờ cũ vẫn hiện và byte cờ giữ nguyên, xoá đúng file fixture tạm rồi mở lại Library, giữ assertion note biến mất/Note C vẫn hiện và thêm kiểm tra file không tồn tại. Test relationships click nút Properties trước assertion cũ. Không sửa app/fixture gốc, không thêm timeout/retry/skip hoặc hạ coverage.
+- GREEN: 8/8 filesystem regression, 30,2s, retries=0. [Log](evidence/D3-R06-green.txt). Hai ca này xuất hiện khi hook chạy lại file có helper filename của D3; sửa trong commit test riêng, không làm D4 hoặc F-040.

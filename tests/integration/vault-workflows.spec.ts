@@ -76,13 +76,17 @@ test('archived note does not appear in All Notes', async ({ page }) => {
 // 3. Trashed note hidden from note list
 // ---------------------------------------------------------------------------
 
-test('trashed note does not appear in All Notes', async ({ page }) => {
+test('permanently deleted note does not appear in All Notes', async ({ page }) => {
+  const deletedPath = path.join(tempVaultDir, 'note', 'trashed-note.md')
+  // ADR-0045: a legacy Trashed flag is ordinary metadata; deletion removes the file.
+  await expect(noteList(page).getByText('Trashed Note', { exact: true })).toBeVisible()
+  expect(fs.readFileSync(deletedPath, 'utf8')).toContain('Trashed: true')
+  fs.unlinkSync(deletedPath)
+  await openFixtureVault(page, tempVaultDir)
   const list = noteList(page)
-  // "Trashed Note" has Trashed: true — should be hidden
   await expect(list.getByText('Trashed Note', { exact: true })).not.toBeVisible()
-
-  // Regular notes are visible
   await expect(list.getByText('Note C', { exact: true })).toBeVisible()
+  expect(fs.existsSync(deletedPath)).toBe(false)
 })
 
 // ---------------------------------------------------------------------------
@@ -166,6 +170,7 @@ test('rename note updates wikilinks in other files', async ({ page }) => {
 test('inspector shows relationships for note with wikilink fields', async ({ page }) => {
   // Open Note C which has Related to: [[Alpha Project]] and Topics: [[design]]
   await openNote(page, 'Note C')
+  await page.getByRole('button', { name: 'Open the properties panel' }).click()
 
   // The DynamicRelationshipsPanel renders field labels like "Related to", "Topics"
   // as <span> elements. Verify that the relationship labels are visible in the inspector.

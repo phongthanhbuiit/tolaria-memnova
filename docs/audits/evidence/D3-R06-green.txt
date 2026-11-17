@@ -1,0 +1,21 @@
+[2m[WebServer] [22m(node:26706) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:26733) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 8 tests using 1 worker
+
+(node:26760) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:26760) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/integration/vault-workflows.spec.ts:50:1 › vault loads entries from fixture files @smoke (6.5s)
+  ✓  2 [chromium] › tests/integration/vault-workflows.spec.ts:66:1 › archived note does not appear in All Notes (2.3s)
+  ✓  3 [chromium] › tests/integration/vault-workflows.spec.ts:79:1 › permanently deleted note does not appear in All Notes (4.5s)
+  ✓  4 [chromium] › tests/integration/vault-workflows.spec.ts:96:1 › create note saves file to disk with correct slug (2.5s)
+  ✓  5 [chromium] › tests/integration/vault-workflows.spec.ts:125:1 › rename note updates filename on disk (2.8s)
+  ✓  6 [chromium] › tests/integration/vault-workflows.spec.ts:148:1 › rename note updates wikilinks in other files (2.9s)
+  ✓  7 [chromium] › tests/integration/vault-workflows.spec.ts:170:1 › inspector shows relationships for note with wikilink fields (2.9s)
+  ✓  8 [chromium] › tests/integration/vault-workflows.spec.ts:184:1 › editor shows real file content from disk (3.2s)
+
+  8 passed (30.2s)
