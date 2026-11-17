@@ -21,6 +21,7 @@ import { joinVaultPath, notePathsMatch } from '../../utils/notePathIdentity'
 import { canonicalWikilinkTargetForEntry } from '../../utils/wikilink'
 
 interface BackToolbarProps {
+  layout?: 'standalone' | 'inline'
   back: MemoryBack
   ownerPath: string
   ownerPageId: string
@@ -35,7 +36,7 @@ type ToolbarAction = {
   error: string | null
 }
 export function NoteBackSourceToolbar(props: BackToolbarProps) {
-  const { back, ownerPath, ownerPageId, locale, onApplyBack, onNavigate } =
+  const { back, ownerPath, ownerPageId, locale, onApplyBack, onNavigate, layout = 'standalone' } =
     props
   const workspace = useLearningWorkspace(),
     client = workspace?.client,
@@ -94,7 +95,7 @@ export function NoteBackSourceToolbar(props: BackToolbarProps) {
   }
   if (workspace?.phase !== 'ready')
     return (
-      <div className="note-memory-toolbar px-4 py-2 text-sm">
+      <div className={layout === 'inline' ? "note-memory-toolbar min-w-0 text-body" : "note-memory-toolbar px-4 py-2 text-body"}>
         {workspace?.phase === 'error' ? (
           <p role="alert">{translate(locale, 'learning.error')}</p>
         ) : (
@@ -111,9 +112,9 @@ export function NoteBackSourceToolbar(props: BackToolbarProps) {
       </div>
     )
   return (
-    <div className="note-memory-toolbar border-b border-border px-3 py-2 text-sm">
+    <div className={layout === 'inline' ? "note-memory-toolbar min-w-0 text-body" : "note-memory-toolbar border-b border-border px-4 py-2 text-body"}>
       <div className="flex flex-wrap items-center gap-2">
-        <span className="min-w-0 flex-1 break-words text-xs text-muted-foreground">
+        <span className="min-w-0 flex-1 truncate text-small text-text-secondary">
           {back.kind === 'inline'
             ? translate(locale, 'editor.noteMemory.localMnemonic')
             : (target?.title ??
@@ -173,7 +174,7 @@ export function NoteBackSourceToolbar(props: BackToolbarProps) {
         )}
       </div>
       {action?.busy && (
-        <p role="status" className="mt-2 text-xs text-muted-foreground">
+        <p role="status" className="mt-2 text-small text-text-secondary">
           {translate(locale, 'learning.loading')}
         </p>
       )}
