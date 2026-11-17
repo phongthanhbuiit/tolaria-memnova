@@ -1,10 +1,11 @@
 // Component/browser fixture only: no SQLite, filesystem persistence or review/XP claims.
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { TooltipProvider } from '../../src/components/ui/tooltip'
 import { LearningStudyView } from '../../src/components/learning/LearningStudyView'
-import type { useLearningStudy } from '../../src/hooks/useLearningStudy'
-import type { StudySession } from '../../src/lib/learning/types'
+import { useLearningStudy } from '../../src/hooks/useLearningStudy'
+import type { LearningClient } from '../../src/lib/learning/client'
+import type { RateRequest, StudySession } from '../../src/lib/learning/types'
 import snapshot from './note-memory-study-canvas.json'
 import '../../src/index.css'
 import '../../src/App.css'
@@ -18,7 +19,7 @@ const article =
     () =>
       'DNA stores information. A membrane is a gate, mitochondria a power station, and ribosomes a workshop. Recall these images to explain the complete article.'
   ).join('\n\n')
-const mnemonic =
+const mnemonic = parameters.has('undo-focus') ? '# Mnemonic text' :
   '# Visual memory\n\n' +
   (broken
     ? '![Unavailable](attachments/unverified.svg)'
@@ -98,6 +99,32 @@ const initial: StudySession = {
         },
   },
 }
+let finishRefresh: () => void
+const undoRefresh = new Promise<void>(resolve => { finishRefresh = resolve })
+const refreshCommitted = () => parameters.has('stable-snapshot') ? Promise.resolve() : undoRefresh
+const restored = { ...initial, initialCount: 2, revision: 2 }
+const undoClient = {
+  vaultPath: '/fixture', libraryId: 'undo-focus',
+  startSession: async () => ({ ...initial, initialCount: 2, currentIndex: parameters.has('stable-snapshot') ? 0 : 1, canUndo: true, lastReviewId: 'previous-review' }),
+  undoReview: async () => restored,
+  rateCard: async (request: RateRequest) => {
+    document.documentElement.dataset.lastRating = String(request.rating)
+    return { session: { ...restored, status: 'completed', current: null, reviewCount: 1 }, replayed: false }
+  },
+  pauseSession: async () => {},
+} as unknown as LearningClient
+export function UndoHarness() {
+  const study = useLearningStudy(undoClient, refreshCommitted)
+  const { start } = study
+  useEffect(() => {
+    void start()
+    const complete = (event: KeyboardEvent) => { if (event.key === 'F8') finishRefresh() }
+    window.addEventListener('keydown', complete)
+    return () => window.removeEventListener('keydown', complete)
+  }, [start])
+  return <TooltipProvider><LearningStudyView study={study} root="/fixture" locale="en" /></TooltipProvider>
+}
+
 export function Harness() {
   const [session, setSession] = useState(initial),
     [open, setOpen] = useState(true)
@@ -141,4 +168,4 @@ export function Harness() {
     </TooltipProvider>
   )
 }
-createRoot(document.getElementById('note-study-root')!).render(<Harness />)
+createRoot(document.getElementById('note-study-root')!).render(parameters.has('undo-focus') ? <UndoHarness /> : <Harness />)

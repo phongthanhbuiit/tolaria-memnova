@@ -396,3 +396,29 @@ it('blocks pointer grading too if an already-read article later reports a decode
   fireEvent.click(screen.getByRole('button', { name: /^Good/ }))
   expect(study.rate).not.toHaveBeenCalled()
 })
+
+
+it.each([1, 2, 3, 4])('retains focus synchronously after mouse Undo, then accepts Space and %i', (rating) => {
+  const study = noteFixture()
+  study.session!.canUndo = true
+  const { rerender } = render(<LearningStudyView study={study} root="/library" locale="en" />)
+  study.undo = vi.fn(async () => {
+    study.session = { ...study.session!, canUndo: false }
+    rerender(<LearningStudyView study={{ ...study }} root="/library" locale="en" />)
+  })
+  const undo = screen.getByRole('button', { name: 'Undo' })
+  // Match Chromium pointer activation; fireEvent alone does not focus buttons.
+  undo.focus()
+  fireEvent.mouseDown(undo)
+  fireEvent.click(undo)
+  expect(study.undo).toHaveBeenCalledOnce()
+  // The view must retain focus without waiting for an overlay MutationObserver.
+  expect(document.activeElement).not.toBe(document.body)
+  fireEvent.keyDown(document.activeElement!, { key: ' ' })
+  // Native Space activation if the focused control is a button.
+  if (document.activeElement instanceof HTMLButtonElement) fireEvent.click(document.activeElement)
+  expect(screen.getByText('Live mnemonic canvas')).toBeVisible()
+  expect(document.activeElement).not.toBe(document.body)
+  fireEvent.keyDown(document.activeElement!, { key: String(rating) })
+  expect(study.rate).toHaveBeenCalledWith(rating)
+})

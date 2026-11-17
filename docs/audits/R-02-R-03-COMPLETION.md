@@ -4,7 +4,7 @@ Ngày: 17/11/2026. Chế độ FIX, nguồn review A–D1; không làm D2–D4. 
 
 ## R-02 — kích thước icon
 
-Commit: `:/^fix: R-02 compact icon button dimensions` (Git revision selector; hash sẽ được ghi ở commit R-03).
+Commit: `326bf5a0` — `fix: R-02 compact icon button dimensions`.
 
 Nguyên nhân: bước A đổi icon sizes sang `min-h/min-w(--control-*)`. `h-6/w-6` vẫn còn trong class đã merge nhưng minimum thắng used height/width; `!h-6` cũng không thắng một thuộc tính khác là min-height. Ví dụ Chromium trước sửa: New AI chat 28×28; yêu cầu compact 24px bị đè. NoteListHeader clear/expand còn `!min-w-0`, nên bị kéo riêng chiều cao thành 21×28. Đây là CSS sizing, không phải lỗi callback hoặc icon SVG.
 
@@ -60,15 +60,54 @@ Bảng dưới là probe Chromium cho sizing classes trên cùng parent 200×52p
 
 ## R-03
 
-Đã đăng ký; chưa sửa ở commit R-02. Regression focus và bằng chứng native được bổ sung trong commit riêng tiếp theo.
+Commit: `:/^fix: R-03 retain study focus across mouse undo` (Git revision selector cho commit chứa thay đổi này).
+
+### Nguyên nhân và giới hạn bằng chứng
+
+`LearningStudyView` chỉ mount Undo khi canUndo. Khi pointer focus nằm ở Undo và session chuyển canUndo → false mà không đổi snapshot thẻ, React gỡ phần tử đang focus. Test component với Button/Dialog thật đo được **activeElement = body ngay trong lần cập nhật đó**. Effect autofocus chỉ phụ thuộc snapshot/readiness, nên không đảm bảo giữ focus đồng bộ cho chuyển trạng thái này. Dialog có thể phục hồi focus sau qua MutationObserver, hoặc renderer của snapshot mới có thể focus nút lật thẻ.
+
+**Không kết luận quá bằng chứng:** native hai thẻ và 8 ca Chromium baseline với refresh chậm đều tiếp tục dùng Space/1–4 được. Trình duyệt phục hồi focus ở các lượt đó. RED chứng minh mất focus đồng bộ của view, không chứng minh phím ngừng hoạt động ở mọi engine/lượt chạy. Ca unit đầu tiên chỉ phát keydown khi focus ở native Button là sai mô phỏng Space, đã loại bỏ; không dùng kết quả đó làm bằng chứng lỗi. Regression cuối mô phỏng cả native activation khi cần và thất bại ngay tại activeElement = body, trước phần Space.
+
+### Sửa và TDD
+
+- Luôn render Undo, disabled khi không thể Undo / busy / pending, giữ chỗ trong footer theo phương án được review cho phép. Đây là thay đổi rõ ràng so với quy tắc ẩn Undo ban đầu ở SPEC §6, được yêu cầu R-03 cho phép thay thế.
+- Vùng thẻ có tabindex=-1 (chỉ nhận focus lập trình, không thêm Tab stop). Click Undo đưa focus vào vùng thẻ **trước** gọi callback. DOM này tồn tại qua busy và snapshot, nên không cần chờ Promise hay thêm listener/phím/sleep.
+- Không đổi guard bàn phím, mapping Space/1–4/Esc, useLearningStudy, FSRS, lịch, request hay dữ liệu phiên. FlashcardStudyView legacy riêng không có Undo; source đã đối chiếu và 10 test hiện hữu pass, không sửa file đó.
+- RED: 4/4 trường hợp rating 1–4 fail tại activeElement = body. [Log RED](evidence/R-03-RED.txt). GREEN: LearningStudyView 16/16 + FlashcardStudyView 10/10.
+- Chromium: 21/21 integration, retries=0: 16 ca Undo (note/legacy × 1–4 × refresh chậm/snapshot ổn định), 3 ca renderer/readiness/legacy hiện hữu và 2 ca R-02. Các ca Undo dùng mouse click thật, keyboard thật, activeElement khác body, grade đúng số; kiểm tra Undo disabled. WebKit cũng đạt 18/18 (16 Undo + 2 sizing), retries=0. F8 chỉ là gate trong fixture để giải phóng committed refresh, không phải phím sản phẩm. Không sleep cố định hoặc đổi timeout/retry.
+
+### Native sáng/tối
+
+Cùng bundle, prefs và Library cô lập của R-02. Bề mặt sản phẩm thật: mouse Study → Show mnemonic → Good → Undo, rồi Space và 3 (tối) / 2 (sáng); progress trở về thẻ trước, mặt gợi nhớ hiện, rating quay về thẻ tiếp theo. Escape đóng phiên và focus trả về Study due notes. [Tối](evidence/R-03-after-dark-library-undo-space.png), [sáng](evidence/R-03-after-light-library-undo-space.png), [Undo disabled](evidence/R-03-after-dark-library-disabled.png).
+
+Fixture native với view/hook/renderer thật và transport cục bộ giữ refresh: mouse Undo → Saving (Undo vẫn ở chỗ cũ, disabled; AX focus ở vùng thẻ) → F8 giải phóng → Space → 1 (tối) / 4 (sáng) → Done → Escape. Không ghi SQLite trong fixture này. [Sáng đang refresh](evidence/R-03-after-light-pending-refresh.png), [tối đang refresh](evidence/R-03-after-dark-pending-refresh.png), [grade 1](evidence/R-03-after-dark-grade-1.png), [grade 4](evidence/R-03-after-light-grade-4.png). Ảnh before cùng tên tương ứng giữ trạng thái Undo biến mất, kể cả trước baseline khi phím vẫn hoạt động nhờ dialog.
+
+Snapshot SQLite của Library QA sau khi đóng phiên: integrity_check = ok, foreign_key_check rỗng; 6 sessions, 9 reviews, 5 schedules (các lượt rating/Undo QA có chủ ý). 256/256 tệp Markdown giống byte với bản sao ban đầu, không có tệp thêm/xóa/đổi nội dung. Không chạm Library cá nhân. SPEC §8: 232 → 232 và 0 → 0.
+
+Codacy cuối: 8 file production, 21 warning cả trước/sau, không lỗi analyzer, không Critical/High mới. Cảnh báo Lizard cho LearningStudyView giảm NLOC 257→256 và nhánh 68→67; các warning khác giữ nguyên. Không dùng Lizard làm điểm CodeScene.
 
 ## Release gates
 
-Full check suite Node 24 và pre-push sẽ được ghi sau commit R-03, trước khi push main. Không tuyên bố đã đạt ở commit R-02.
+Full check suite trên Node **24.19.0** đã pass. [Biên bản máy](evidence/R-02-R-03-checks.json); logs đầy đủ ở `/tmp/memnova-r02-r03/`.
+
+| Gate | Kết quả |
+|---|---|
+| `pnpm lint` | pass, không warning |
+| `pnpm exec tsc -b` | pass |
+| `pnpm test` | 501 files, 4.996 tests pass |
+| `pnpm test:coverage` | 4.996 tests pass; lines **87,47%** (gate ≥70%) |
+| `cargo test --manifest-path src-tauri/Cargo.toml` | 1.240 unit + 1 integration pass; 3 ignored đã có ở baseline, không thêm ignore |
+| `cargo llvm-cov --manifest-path src-tauri/Cargo.toml --no-clean --fail-under-lines 85` | pass; lines **86,40%** |
+| `pnpm l10n:validate` | 18 catalogs, 1.028 keys |
+| Chromium / WebKit targeted, retries=0 | 21/21 và 18/18 |
+
+Pre-push dry-run pass: build, 4.996 tests với coverage 87,47%, **54/54 core smoke không flaky/retry phát sinh**; tổng 11m47s. Smoke 5,5 phút, vượt mục tiêu dưới 5 phút của repo ở lượt có kiểm tra fixture bổ sung chạy đồng thời; không đổi timeout/retry để che kết quả. Actual push chạy lại normal hook cho cả hai commit, ghi receipt cuối ở `/tmp/memnova-r02-r03/push.log` và phản hồi hoàn tất.
+
+Production source không đổi sau các gates trên. Typecheck bổ sung cho hai fixtures/hai specs (vì tsconfig chính loại tests) đã pass; sửa prop permission `default`→`safe` trong fixture AI và chạy lại 2 ca Chromium pass, không thay nhánh hiển thị API-model hay mã sản phẩm. Correction nằm trong commit R-02 đã amend qua hook bình thường. Cấu hình typecheck bổ sung có trong biên bản máy.
 
 - CodeScene: not run (optional integration unavailable).
 - Localization: no UI copy changes. Không cần dịch; validator ở release gate.
 - PostHog: no event needed because these fixes restore existing control geometry/focus, without a new user action.
 - Refactoring: none needed ngoài variant sizing tối thiểu; không thay abstraction lưu trữ.
 - ADRs: none. Docs: FINDINGS, CURRENT-STATE, ABSTRACTIONS và báo cáo này.
-- Demo vault dirt: kiểm tra trước commit/push; không thay fixture demo có chủ ý.
+- Demo vault dirt: `git status --short -- demo-vault demo-vault-v2` rỗng; không thay fixture demo.

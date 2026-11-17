@@ -1,6 +1,6 @@
 # Memnova hiện tại
 
-**17/11/2026 — R-02:** sửa minimum size làm icon trong dòng chữ phình sau bước A; biến thể inline dùng spacing token có vùng bấm 24,5px, standard giữ 28/32/36px. [Kiểm kê 29 nơi gọi, TDD và ảnh native sáng/tối](audits/R-02-R-03-COMPLETION.md). R-03 đang xử lý riêng; D2–D4 chưa thực hiện.
+**17/11/2026 — R-02/R-03:** sửa minimum size làm icon trong dòng chữ phình sau bước A; biến thể inline dùng spacing token có vùng bấm 24,5px, standard giữ 28/32/36px. [Kiểm kê 29 nơi gọi, TDD và ảnh native sáng/tối](audits/R-02-R-03-COMPLETION.md). Undo luôn giữ chỗ, disabled khi không khả dụng và click trả focus về vùng thẻ trước khi cập nhật; Space/1–4/Esc được kiểm tra riêng. D2–D4 chưa thực hiện.
 
 **17/11/2026 — F-039, Cmd+click wikilink ổn định khi source lưu:** giữ identity của note không đổi trong projection một workspace và key hàng danh sách theo đường dẫn. Smoke vẫn dùng fixture lớn ban đầu, đạt 30/30 trước + 30/30 đồng thời + 30/30 sau core suite, không retry; full Node 24/Rust checks và pre-push dry-run sạch. [Nguyên nhân, trace/video, native QA và kiểm tra](audits/F-039-COMPLETION.md). F-040/F-041 vẫn open; đây chưa phải bản cài phát hành mới.
 

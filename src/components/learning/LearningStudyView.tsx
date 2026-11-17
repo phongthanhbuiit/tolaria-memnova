@@ -205,6 +205,7 @@ export function LearningStudyView({
         </DialogHeader>
         <div
           ref={scrollContainer}
+          tabIndex={-1}
           className="learning-study-body"
         >
           {study.error && (
@@ -335,19 +336,19 @@ export function LearningStudyView({
                   {t('editor.noteMemory.backToNote')}
                 </Button>
               )}
-              {session?.canUndo && (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="study-secondary-action ml-auto"
-                  disabled={!session?.canUndo || study.busy || study.hasPending}
-                  onClick={() => {
-                    void study.undo()
-                  }}
-                >
-                  <ArrowUUpLeft aria-hidden="true" />{t('learning.undo')}
-                </Button>
-              )}
+              <Button
+                variant="ghost"
+                size="sm"
+                className="study-secondary-action ml-auto"
+                disabled={!session?.canUndo || study.busy || study.hasPending}
+                onClick={() => {
+                  // Retain focus before Undo disables controls or replaces the snapshot.
+                  scrollContainer.current?.focus({ preventScroll: true })
+                  void study.undo()
+                }}
+              >
+                <ArrowUUpLeft aria-hidden="true" />{t('learning.undo')}
+              </Button>
               {study.busy && (
                 <span role="status" className="text-sm text-muted-foreground">
                   {t('learning.saving')}

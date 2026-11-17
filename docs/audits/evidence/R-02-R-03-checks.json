@@ -1,0 +1,169 @@
+{
+  "node": "24.19.0",
+  "gates": [
+    {
+      "label": "lint",
+      "command": [
+        "pnpm",
+        "lint"
+      ],
+      "exitCode": 0,
+      "started": "2026-11-17T13:42:29.587787+00:00",
+      "seconds": 23.95042
+    },
+    {
+      "label": "types",
+      "command": [
+        "pnpm",
+        "exec",
+        "tsc",
+        "-b"
+      ],
+      "exitCode": 0,
+      "started": "2026-11-17T13:42:53.538845+00:00",
+      "seconds": 9.058344
+    },
+    {
+      "label": "tests",
+      "command": [
+        "pnpm",
+        "test"
+      ],
+      "exitCode": 0,
+      "started": "2026-11-17T13:43:02.597882+00:00",
+      "seconds": 226.926573
+    },
+    {
+      "label": "coverage",
+      "command": [
+        "pnpm",
+        "test:coverage"
+      ],
+      "exitCode": 0,
+      "started": "2026-11-17T13:46:49.525237+00:00",
+      "seconds": 231.966903
+    },
+    {
+      "label": "rust-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "src-tauri/Cargo.toml"
+      ],
+      "exitCode": 0,
+      "started": "2026-11-17T13:50:41.495400+00:00",
+      "seconds": 21.772377
+    },
+    {
+      "label": "rust-coverage",
+      "command": [
+        "cargo",
+        "llvm-cov",
+        "--manifest-path",
+        "src-tauri/Cargo.toml",
+        "--no-clean",
+        "--fail-under-lines",
+        "85"
+      ],
+      "exitCode": 0,
+      "started": "2026-11-17T13:51:03.268424+00:00",
+      "seconds": 19.965504
+    },
+    {
+      "label": "localization",
+      "command": [
+        "pnpm",
+        "l10n:validate"
+      ],
+      "exitCode": 0,
+      "started": "2026-11-17T13:51:23.234937+00:00",
+      "seconds": 0.262735
+    }
+  ],
+  "frontendLineCoverage": 87.47,
+  "rustLineCoverage": 86.4,
+  "targetedBrowser": {
+    "chromium": {
+      "passed": 21,
+      "retries": 0
+    },
+    "webkit": {
+      "passed": 18,
+      "retries": 0
+    }
+  },
+  "specSection8": {
+    "typographyBefore": 232,
+    "typographyAfter": 232,
+    "dataSlotCssBefore": 0,
+    "dataSlotCssAfter": 0
+  },
+  "nativeMarkdown": {
+    "markdownFilesBefore": 256,
+    "markdownFilesAfter": 256,
+    "changed": []
+  },
+  "nativeDatabase": {
+    "source": "/tmp/memnova-r02-r03/native/Library/.memnova/learning.sqlite3",
+    "method": "Copied QA database after native session closed; no WAL sidecar present",
+    "integrity": [
+      [
+        "ok"
+      ]
+    ],
+    "foreignKeys": [],
+    "tables": {
+      "sessions": 6,
+      "reviews": 9,
+      "schedules": 5
+    }
+  },
+  "codacy": {
+    "productionFiles": 8,
+    "baselineWarnings": 21,
+    "finalWarnings": 21,
+    "newCriticalHigh": 0,
+    "analyzerErrors": 0
+  },
+  "codeScene": "not run (optional integration unavailable)",
+  "prepushDryRun": {
+    "passed": true,
+    "smokePassed": 54,
+    "flaky": 0,
+    "smokeMinutes": 5.5,
+    "underFiveMinuteTargetMet": false,
+    "elapsedSeconds": 707,
+    "log": "/tmp/memnova-r02-r03/prepush-dry-run.log",
+    "context": "Additional fixture typecheck and browser verification overlapped; no timeout/retry configuration changes."
+  },
+  "fixtureTypecheck": {
+    "exitCode": 0,
+    "config": {
+      "extends": "/Users/thompson/Documents/tolaria-memnova/tsconfig.app.json",
+      "compilerOptions": {
+        "tsBuildInfoFile": "/tmp/memnova-r02-r03/fixtures.tsbuildinfo",
+        "types": []
+      },
+      "files": [
+        "/Users/thompson/Documents/tolaria-memnova/node_modules/vite/client.d.ts",
+        "/Users/thompson/Documents/tolaria-memnova/node_modules/@types/node/index.d.ts",
+        "/Users/thompson/Documents/tolaria-memnova/src/App.tsx"
+      ],
+      "include": [
+        "/Users/thompson/Documents/tolaria-memnova/tests/fixtures/icon-button-sizes.tsx",
+        "/Users/thompson/Documents/tolaria-memnova/tests/fixtures/note-memory-study.tsx",
+        "/Users/thompson/Documents/tolaria-memnova/tests/integration/icon-button-sizes.spec.ts",
+        "/Users/thompson/Documents/tolaria-memnova/tests/integration/study-undo-focus.spec.ts",
+        "/Users/thompson/Documents/tolaria-memnova/src"
+      ],
+      "exclude": [
+        "/Users/thompson/Documents/tolaria-memnova/src/**/*.test.ts",
+        "/Users/thompson/Documents/tolaria-memnova/src/**/*.test.tsx",
+        "/Users/thompson/Documents/tolaria-memnova/src/**/*.spec.ts",
+        "/Users/thompson/Documents/tolaria-memnova/src/**/*.spec.tsx"
+      ]
+    },
+    "log": "/tmp/memnova-r02-r03/fixture-types.log"
+  }
+}

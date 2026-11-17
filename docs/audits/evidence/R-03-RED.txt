@@ -1,0 +1,54 @@
+
+ RUN  v4.0.18 /Users/thompson/Documents/tolaria-memnova
+
+ ❯ src/components/learning/LearningStudyView.test.tsx (16 tests | 4 failed | 12 skipped) 189ms
+   ↓ requires revealing the answer and ignores rating shortcuts while saving
+   ↓ does not reveal or grade a card until its Markdown content is rendered
+   ↓ uses one clock for preview outcomes and interval labels, without rounding a minute into two
+   ↓ shows vocabulary context with the question and keeps related words behind the answer
+   ↓ renders the linked answer with its own media base and refuses a missing source
+   ↓ does not leak audio from the hidden linked answer onto the question face
+   ↓ keeps preview keyboard events from rating the underlying study card
+   ↓ renders a new snapshot after source reload even when the question text is unchanged
+   ↓ studies the live Markdown article and mnemonic, hiding the opposite face and all legacy property media
+   ↓ revokes grading on loading or errors and acknowledges a new complete snapshot with unchanged text
+   ↓ does not grade through a focused utility button or a repeated shortcut
+   ↓ blocks pointer grading too if an already-read article later reports a decode failure
+   × retains focus synchronously after mouse Undo, then accepts Space and 1 121ms
+   × retains focus synchronously after mouse Undo, then accepts Space and 2 27ms
+   × retains focus synchronously after mouse Undo, then accepts Space and 3 19ms
+   × retains focus synchronously after mouse Undo, then accepts Space and 4 20ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/components/learning/LearningStudyView.test.tsx > retains focus synchronously after mouse Undo, then accepts Space and 1
+AssertionError: expected <body data-scroll-locked="1" …(1)>…(5)</body> not to be <body data-scroll-locked="1" …(1)>…(5)</body> // Object.is equality
+ ❯ src/components/learning/LearningStudyView.test.tsx:416:38
+    414|   expect(study.undo).toHaveBeenCalledOnce()
+    415|   // The view must retain focus without waiting for an overlay Mutatio…
+    416|   expect(document.activeElement).not.toBe(document.body)
+       |                                      ^
+    417|   fireEvent.keyDown(document.activeElement!, { key: ' ' })
+    418|   // Native Space activation if the focused control is a button.
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  src/components/learning/LearningStudyView.test.tsx > retains focus synchronously after mouse Undo, then accepts Space and 2
+ FAIL  src/components/learning/LearningStudyView.test.tsx > retains focus synchronously after mouse Undo, then accepts Space and 3
+ FAIL  src/components/learning/LearningStudyView.test.tsx > retains focus synchronously after mouse Undo, then accepts Space and 4
+AssertionError: expected <body …(2)>…(5)</body> not to be <body …(2)>…(5)</body> // Object.is equality
+ ❯ src/components/learning/LearningStudyView.test.tsx:416:38
+    414|   expect(study.undo).toHaveBeenCalledOnce()
+    415|   // The view must retain focus without waiting for an overlay Mutatio…
+    416|   expect(document.activeElement).not.toBe(document.body)
+       |                                      ^
+    417|   fireEvent.keyDown(document.activeElement!, { key: ' ' })
+    418|   // Native Space activation if the focused control is a button.
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed | 12 skipped (16)
+   Start at  20:40:51
+   Duration  4.22s (transform 705ms, setup 91ms, import 3.26s, tests 189ms, environment 584ms)
