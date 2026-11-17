@@ -440,7 +440,7 @@ body.mac-chrome .app:not(:has(.app__sidebar)):not(:has(.app__note-list)) .breadc
 
 .note-icon-button__plus {
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .note-icon-button__label {
