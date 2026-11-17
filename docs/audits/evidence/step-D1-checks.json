@@ -83,5 +83,45 @@
     "One concurrent-Rust frontend coverage run hit the known App New Note startup race; isolated App 37 passed and quiet full coverage passed without test/timeout changes.",
     "Initial Chromium caption selector failure fixed by retaining the existing text-muted-foreground alias of secondary; unchanged specs then 21 passed.",
     "WebKit render error reproduced on pre-D1 baseline; do not report all checks as passing."
-  ]
+  ],
+  "presentationTestCommit": "ca9e775e",
+  "typeDerivedSmoke": {
+    "passed": 1,
+    "failed": 0,
+    "retries": 0,
+    "note": "Only two obsolete opacity presentation assertions replaced by resolved secondary token color checks; interaction and persistence assertions unchanged."
+  },
+  "prePushInitial": {
+    "exitCode": 1,
+    "frontendTests": 4942,
+    "coverageLines": 87.41,
+    "smokePassed": 52,
+    "smokeFailed": 2,
+    "failures": [
+      "obsolete type-derived opacity assertions (now corrected)",
+      "F-039 baseline wikilink"
+    ]
+  },
+  "prePushFinal": {
+    "testedHead": "8359fe87",
+    "command": "git push origin main",
+    "exitCode": 1,
+    "lintExitCode": 0,
+    "buildExitCode": 0,
+    "frontendTests": 4942,
+    "coverageLines": 87.41,
+    "smokePassed": 52,
+    "smokeFlaky": 1,
+    "smokeFailed": 1,
+    "smokeMinutes": 5.6,
+    "typeDerivedSmokePassed": true,
+    "failures": [
+      "F-039 baseline wikilink"
+    ],
+    "flaky": [
+      "F-040 baseline delete/Quick Open"
+    ],
+    "originUpdated": false,
+    "hooksBypassed": false
+  }
 }

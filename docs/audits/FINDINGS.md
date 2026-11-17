@@ -179,6 +179,8 @@ Bước B cũng bị cùng gate chặn trên `715aa8b5`: 53 passed / 1 failed, 6
 
 Bước C trên `dc29bf7d`: F-039 thất bại cả retry (lượt đầu Grow Newsletter, retry H1 rỗng); 52 passed / 1 flaky / 1 failed, 5,6 phút. Hook chặn push. [Log](evidence/step-C-pre-push.txt).
 
+Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn bị F-039 chặn (Grow Newsletter rồi H1 rỗng); 52 passed / 1 flaky / 1 failed, 5,6 phút. F-040 cũng tái hiện ở lượt đầu rồi pass retry. Lint/build/full coverage pass; không sửa hai finding ngoài D1. [Log](evidence/step-D1-pre-push.txt).
+
 ### F-040 — Core smoke keyboard delete/Quick Open phụ thuộc retry
 
 - P2 · C9 · S7 · Chắc chắn về một lượt smoke flaky; chưa kết luận lỗi thao tác thật trên app hay regression của F-026.

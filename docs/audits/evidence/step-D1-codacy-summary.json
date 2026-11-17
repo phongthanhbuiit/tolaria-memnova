@@ -50,5 +50,11 @@
     }
   ],
   "newCriticalHigh": 0,
-  "analysisNote": "Both CLI runs completed with warning findings (exit 1), with identical per-rule counts: 15 props-spreading warnings and 37 Medium complexity/length/parameter warnings. ESLint9 and Trivy report 0 issues; no analyzer errors. Presentation props, classes and adaptive grid reviewed: no new IO, dynamic code execution or scheduler paths. No source/results upload."
+  "analysisNote": "Both CLI runs completed with warning findings (exit 1), with identical per-rule counts: 15 props-spreading warnings and 37 Medium complexity/length/parameter warnings. ESLint9 and Trivy report 0 issues; no analyzer errors. Presentation props, classes and adaptive grid reviewed: no new IO, dynamic code execution or scheduler paths. No source/results upload.",
+  "projectExclusionsRetained": [
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "tests/**"
+  ],
+  "testVerification": "Excluded tests are verified by project lint/test runners, not reported as Codacy analyzed."
 }
