@@ -1,3 +1,4 @@
+import { Input } from '@/components/ui/input'
 /**
  * HomePage.tsx
  *
@@ -179,7 +180,7 @@ export function HomePage({
             {translate(locale, 'home.daily_goal')}:
           </span>
           {editingGoal ? (
-            <input
+            <Input variant="bare"
               ref={goalInputRef}
               type="number"
               min={1}
@@ -196,7 +197,7 @@ export function HomePage({
               autoFocus
             />
           ) : (
-            <button
+            <Button variant="bare"
               type="button"
               onClick={startEditGoal}
               title="Click to edit daily goal"
@@ -204,7 +205,7 @@ export function HomePage({
             >
               {stats.dailyGoal}
               <PencilSimple size={10} className="opacity-0 group-hover:opacity-60 transition-opacity" />
-            </button>
+            </Button>
           )}
           <span className="text-xs text-muted-foreground font-semibold">
             {translate(locale, 'home.daily_goal_reviews', { n: '' }).replace(/\d+\s*/, '')}

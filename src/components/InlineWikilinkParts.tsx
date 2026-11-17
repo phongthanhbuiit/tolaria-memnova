@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import { Fragment, createElement, useEffect, useImperativeHandle, useRef } from 'react'
 import type { CSSProperties } from 'react'
 import type { VaultEntry } from '../types'
@@ -81,7 +82,7 @@ function InlineSuggestionRow({
   const typeIcon = getTypeIcon(suggestion.entry.isA, typeEntry?.icon)
 
   return (
-    <button
+    <Button variant="bare"
       type="button"
       className={cn(
         'mx-1 flex w-[calc(100%-0.5rem)] cursor-pointer items-center justify-between rounded-md border-0 bg-transparent px-3 py-2 text-left transition-colors',
@@ -112,7 +113,7 @@ function InlineSuggestionRow({
       <span className="ml-3 shrink-0 text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground">
         {suggestion.entry.isA ?? 'Note'}
       </span>
-    </button>
+    </Button>
   )
 }
 

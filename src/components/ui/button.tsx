@@ -10,6 +10,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
+        bare: "",
         toolbar: "bg-transparent hover:bg-transparent",
         default: "bg-primary text-primary-foreground hover:bg-primary/90",
         destructive:
@@ -67,7 +68,7 @@ function Button({
       data-slot="button"
       data-variant={variant}
       data-size={size}
-      className={cn(buttonVariants({ variant, size, layout, className }))}
+      className={cn(variant === "bare" ? "focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ring" : buttonVariants({ variant, size, layout }), className)}
       {...props}
     />
   )

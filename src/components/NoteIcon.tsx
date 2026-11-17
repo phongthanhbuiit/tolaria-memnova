@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import { translate } from '../lib/i18n'
 import { useAppLocale } from '../hooks/useAppPreferences'
 import { useCallback, useEffect } from 'react'
@@ -30,7 +31,7 @@ export function NoteIcon({ icon, editable = true }: NoteIconProps) {
   return (
     <div className="note-icon-area" data-testid="note-icon-area" style={{ position: 'relative' }}>
       {hasIcon ? (
-        <button type="button"
+        <Button variant="bare" type="button"
           className="note-icon-button note-icon-button--active"
           onClick={handleActivate}
           data-testid="note-icon-display"
@@ -39,10 +40,10 @@ export function NoteIcon({ icon, editable = true }: NoteIconProps) {
           disabled={!editable}
         >
           <NoteTitleIcon icon={icon} size={26} />
-        </button>
+        </Button>
       ) : (
         editable && (
-          <button type="button"
+          <Button variant="bare" type="button"
             className="note-icon-button note-icon-button--add"
             onClick={handleActivate}
             data-testid="note-icon-add"
@@ -51,7 +52,7 @@ export function NoteIcon({ icon, editable = true }: NoteIconProps) {
           >
             <span className="note-icon-button__plus">+</span>
             <span className="note-icon-button__label">{translate(locale, 'a11y.addIcon')}</span>
-          </button>
+          </Button>
         )
       )}
     </div>

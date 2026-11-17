@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import { type KeyboardEvent, type ReactNode, useCallback } from 'react'
 import {
   PencilSimple, MagnifyingGlass, Trash, ChartBar, Eye,
@@ -111,7 +112,7 @@ function ActionCardHeader({
   }, [])
 
   return (
-    <button
+    <Button variant="bare"
       ref={setHeaderRef}
       type="button"
       className="flex w-full items-center gap-2 border-0 bg-transparent text-left"
@@ -126,7 +127,7 @@ function ActionCardHeader({
       </span>
       <span className="flex-1 truncate">{label}</span>
       <StatusIndicator status={status} />
-    </button>
+    </Button>
   )
 }
 

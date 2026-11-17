@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import { useState, useEffect, useCallback, useRef, memo, type KeyboardEvent } from 'react'
 import { invoke } from '@tauri-apps/api/core'
 import { cn } from '@/lib/utils'
@@ -114,7 +115,7 @@ function FileItem({
   }, [commitHash, file.path, onOpenNote])
 
   return (
-    <button
+    <Button variant="bare"
       type="button"
       className={cn(
         'flex w-full items-center rounded text-left transition-colors hover:bg-accent focus-visible:bg-accent disabled:cursor-default disabled:hover:bg-transparent',
@@ -132,7 +133,7 @@ function FileItem({
       >
         {file.title}
       </span>
-    </button>
+    </Button>
   )
 }
 
@@ -153,7 +154,7 @@ function CommitCard({
   return (
     <div className="border-b border-border px-4 py-2">
       <div className="flex items-start gap-[8px]">
-        <button
+        <Button variant="bare"
           type="button"
           className={cn(
             'flex min-w-0 flex-1 items-start justify-between border-none bg-transparent py-2 text-left transition-colors',
@@ -178,7 +179,7 @@ function CommitCard({
               <SummaryBadges added={commit.added} modified={commit.modified} deleted={commit.deleted} />
             </div>
           </div>
-        </button>
+        </Button>
         {commitUrl && (
           <a
             className="mt-2 flex shrink-0 items-center text-(length:--text-caption) leading-(--text-caption--line-height) font-mono text-primary no-underline hover:underline gap-[3px]"
@@ -193,14 +194,14 @@ function CommitCard({
             <ArrowSquareOut size={10} />
           </a>
         )}
-        <button
+        <Button variant="bare"
           type="button"
           className="mt-2 flex shrink-0 cursor-pointer items-center justify-center rounded border-none bg-transparent p-0 text-muted-foreground hover:text-foreground w-[20px] h-[20px]"
           onClick={toggleExpanded}
           aria-label={translate(locale, expanded ? 'pulse.collapseFiles' : 'pulse.expandFiles')}
         >
           <Chevron size={12} />
-        </button>
+        </Button>
       </div>
       {expanded && commit.files.length > 0 && (
         <div className="mt-[6px] ml-[4px]">
@@ -225,7 +226,7 @@ function DayGroup({ label, commits, locale, onOpenNote }: {
 
   return (
     <div>
-      <button
+      <Button variant="bare"
         type="button"
         className={cn(
           'flex w-full cursor-pointer select-none items-center border-0 border-b border-border bg-muted/50 text-left transition-colors hover:bg-muted focus-visible:bg-muted',
@@ -246,7 +247,7 @@ function DayGroup({ label, commits, locale, onOpenNote }: {
             label: translate(locale, commits.length === 1 ? 'pulse.commitSingular' : 'pulse.commitPlural'),
           })})
         </span>
-      </button>
+      </Button>
       {!collapsed && commits.map((commit) => (
         <CommitCard key={commit.hash} commit={commit} locale={locale} onOpenNote={onOpenNote} />
       ))}
@@ -283,14 +284,14 @@ function PulseHeader({
     >
       <div className="flex items-center gap-[8px]">
         {sidebarCollapsed && onExpandSidebar && (
-          <button
+          <Button variant="bare"
             type="button"
             className="flex shrink-0 cursor-pointer items-center justify-center rounded border-none bg-transparent p-0 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground w-[24px] h-[24px]"
             onClick={onExpandSidebar}
             aria-label={translate(locale, 'sidebar.action.expand')}
           >
             <CaretRight size={14} weight="bold" />
-          </button>
+          </Button>
         )}
         <Pulse size={16} className="text-primary" />
         <span className="text-(length:--text-body-lg) leading-(--text-body-lg--line-height) font-semibold text-foreground">{translate(locale, 'pulse.title')}</span>
@@ -336,12 +337,12 @@ function ErrorState({ message, locale = 'en', onRetry }: { message: string; loca
   return (
     <div className="flex flex-1 flex-col items-center justify-center text-muted-foreground p-[32px]">
       <p className="text-(length:--text-body) leading-(--text-body--line-height)">{message}</p>
-      <button type="button"
+      <Button variant="bare" type="button"
         className="mt-2 cursor-pointer rounded border border-border bg-transparent px-3 py-1 text-(length:--text-small) leading-(--text-small--line-height) text-foreground transition-colors hover:bg-accent"
         onClick={onRetry}
       >
         {translate(locale, 'pulse.retry')}
-      </button>
+      </Button>
     </div>
   )
 }

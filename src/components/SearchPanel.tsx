@@ -1,3 +1,5 @@
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 import { createElement, forwardRef, useRef, useEffect, useCallback, useLayoutEffect, useMemo } from 'react'
 import { cn } from '@/lib/utils'
 import type { SearchResult, VaultEntry } from '../types'
@@ -354,7 +356,7 @@ export function SearchPanel({
       ref={rootRef}
       className="fixed inset-0 z-[1000] flex justify-center bg-[var(--shadow-dialog)] pt-[15vh]"
     >
-      <button
+      <Button variant="bare"
         type="button"
         aria-label={translate(locale, 'a11y.closeSearch')}
         className="absolute inset-0 z-0 cursor-default border-0 bg-transparent p-0"
@@ -402,7 +404,7 @@ const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
           <circle cx="11" cy="11" r="8" />
           <path d="m21 21-4.35-4.35" />
         </svg>
-        <input
+        <Input variant="bare"
           ref={ref}
           className="flex-1 bg-transparent text-(length:--text-body-lg) leading-(--text-body-lg--line-height) text-foreground outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ring placeholder:text-muted-foreground"
           type="text"

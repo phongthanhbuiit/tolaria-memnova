@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import { translate } from '../lib/i18n'
 import { useAppLocale } from '../hooks/useAppPreferences'
 import { useState, useRef, useEffect, useCallback } from 'react'
@@ -12,7 +13,7 @@ interface EmojiPickerProps {
 function EmojiOptionButton({ entry, onSelect }: { entry: EmojiEntry; onSelect: (emoji: string) => void }) {
   const locale = useAppLocale()
   return (
-    <button
+    <Button variant="bare"
       type="button"
       key={entry.emoji}
       className="flex h-8 w-8 items-center justify-center rounded text-xl transition-colors hover:bg-accent"
@@ -22,7 +23,7 @@ function EmojiOptionButton({ entry, onSelect }: { entry: EmojiEntry; onSelect: (
       data-testid="emoji-option"
     >
       {entry.emoji}
-    </button>
+    </Button>
   )
 }
 

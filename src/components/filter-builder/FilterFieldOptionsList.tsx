@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
 interface FieldGroup {
@@ -41,7 +42,7 @@ export function FilterFieldOptionsList({
           {group.options.map((field) => {
             const optionIndex = options.indexOf(field)
             return (
-              <button
+              <Button variant="bare"
                 key={field}
                 id={`${listboxId}-option-${optionIndex}`}
                 type="button"
@@ -59,7 +60,7 @@ export function FilterFieldOptionsList({
                 data-testid={optionTestId(field)}
               >
                 <span className="truncate">{field}</span>
-              </button>
+              </Button>
             )
           })}
         </div>

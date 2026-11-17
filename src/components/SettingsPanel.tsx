@@ -474,7 +474,7 @@ function SettingsPanelInner({
 
 function SettingsBackdropCloseButton({ onClose, t }: { onClose: () => void; t: Translate }) {
   return (
-    <button
+    <Button variant="bare"
       type="button"
       aria-label={t('settings.close')}
       className="absolute inset-0 cursor-default border-0 bg-transparent p-0"

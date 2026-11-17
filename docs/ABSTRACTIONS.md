@@ -1185,3 +1185,7 @@ In the All Notes list, a memoized VirtualNoteList receives the search results an
 F-041: VirtualNoteList compares ordered note paths and the Virtuoso ref, rather than metadata object identities. A path-based renderer context resolves each mounted row against the latest entries and callback. Metadata transitions therefore update live rows without synchronously republishing unchanged order into Virtuoso; insertions, removals, filtering and sorting still update its data. This prevents layout-store feedback when React replays a pending title update after a save.
 
 Learning catalog visibility: `noteWorkspace.isPublicNotePath` excludes `.memnova` metadata paths from derived catalog indexes, due counts and folder study scopes. Persisted workspace snapshots and retired files remain intact.
+
+### Form controls with existing presentation
+
+`Button` and `Input` support `variant="bare"` for migrating existing styled controls without imposing default typography, dimensions or SVG sizing. They retain shared keyboard focus outlines and forward refs, values, native attributes and event handlers. New controls should use the standard variants; raw form implementations stay inside `src/components/ui/`.

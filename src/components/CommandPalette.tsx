@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { cn } from '@/lib/utils'
 import type { VaultEntry } from '../types'
@@ -419,7 +420,7 @@ function OpenCommandPalette({
       data-command-palette="true"
       className="fixed inset-0 z-[1000] flex justify-center bg-[var(--shadow-dialog)] pt-[15vh]"
     >
-      <button
+      <Button variant="bare"
         type="button"
         aria-label={translate(locale, 'a11y.closeCommandPalette')}
         className="absolute inset-0 z-0 cursor-default border-0 bg-transparent p-0"
@@ -476,7 +477,7 @@ interface CommandRowProps {
 
 function CommandRow({ command, selected, onHover, onSelect }: CommandRowProps) {
   return (
-    <button
+    <Button variant="bare"
       type="button"
       data-selected={selected}
       className={cn(
@@ -490,6 +491,6 @@ function CommandRow({ command, selected, onHover, onSelect }: CommandRowProps) {
       {command.shortcut && (
         <span className="text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground">{command.shortcut}</span>
       )}
-    </button>
+    </Button>
   )
 }

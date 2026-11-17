@@ -155,7 +155,7 @@ export function QuickOpenPalette({ open, entries, isLoading = false, onSelect, o
       data-testid="quick-open-palette"
       className="fixed inset-0 z-[1000] flex justify-center bg-[var(--shadow-dialog)] pt-[15vh]"
     >
-      <button
+      <Button variant="bare"
         type="button"
         aria-label={translate(locale, 'a11y.closeQuickOpen')}
         className="absolute inset-0 z-0 cursor-default border-0 bg-transparent p-0"

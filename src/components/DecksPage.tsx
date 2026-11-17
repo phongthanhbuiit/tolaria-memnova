@@ -48,7 +48,7 @@ function FilterTab({
   onClick: () => void
 }) {
   return (
-    <button
+    <Button variant="bare"
       type="button"
       onClick={onClick}
       className={cn(
@@ -67,7 +67,7 @@ function FilterTab({
       >
         {count}
       </span>
-    </button>
+    </Button>
   )
 }
 
@@ -182,7 +182,7 @@ export function DecksPage({
               aria-label={translate(locale, 'decks.search_placeholder')}
             />
             {search && (
-              <button
+              <Button variant="bare"
                 type="button"
                 onClick={() => setSearch('')}
                 className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
@@ -190,7 +190,7 @@ export function DecksPage({
                 title={translate(locale, 'noteList.clearSearch')}
               >
                 <X size={12} />
-              </button>
+              </Button>
             )}
           </div>
 
@@ -237,13 +237,13 @@ export function DecksPage({
             {translate(locale, 'decks.empty_search')}
           </p>
           {isFiltered && (
-            <button
+            <Button variant="bare"
               type="button"
               onClick={() => { setSearch(''); setStatusFilter('all') }}
               className="mt-3 text-(length:--text-small) leading-(--text-small--line-height) text-[var(--accent-blue)] hover:underline"
             >
               Clear filters
-            </button>
+            </Button>
           )}
         </div>
       ) : (

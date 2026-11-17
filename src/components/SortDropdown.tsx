@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 import { cn } from '@/lib/utils'
@@ -222,7 +223,7 @@ function SortDropdownTrigger({
   const currentLabel = getLocalizedSortOptionLabel(current, locale)
 
   return (
-    <button
+    <Button variant="bare"
       ref={triggerRef}
       type="button"
       className={cn('flex items-center gap-0.5 rounded px-1 py-0.5 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground', open && 'bg-accent text-foreground')}
@@ -237,7 +238,7 @@ function SortDropdownTrigger({
     >
       <DirectionIcon size={12} data-testid={`sort-direction-icon-${groupLabel}`} />
       <span className="text-(length:--text-caption) leading-(--text-caption--line-height) font-medium">{currentLabel}</span>
-    </button>
+    </Button>
   )
 }
 
@@ -382,7 +383,7 @@ function SortRow({ index, groupLabel, value, label, current, direction, buttonRe
         className={cn('flex items-center justify-between gap-1 rounded px-1 text-(length:--text-small) leading-(--text-small--line-height) text-popover-foreground hover:bg-accent', isActive && 'bg-accent font-medium')}
         style={{ minHeight: 28 }}
       >
-        <button
+        <Button variant="bare"
           ref={buttonRef}
           type="button"
           role="menuitemradio"
@@ -397,7 +398,7 @@ function SortRow({ index, groupLabel, value, label, current, direction, buttonRe
           {...itemData}
         >
           <span className="truncate">{label}</span>
-        </button>
+        </Button>
         <span className="flex items-center gap-0.5">
           <SortDirectionButton
             value={value}
@@ -445,7 +446,7 @@ function SortDirectionButton({
   locale: AppLocale
 }) {
   return (
-    <button
+    <Button variant="bare"
       type="button"
       className={getDirectionButtonClass(isActive, activeDirection, direction)}
       onClick={(event) => {
@@ -457,6 +458,6 @@ function SortDirectionButton({
       {...itemData}
     >
       {icon}
-    </button>
+    </Button>
   )
 }

@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import { useRef, useEffect, type ComponentType, type MouseEvent, type PointerEvent, type SVGAttributes } from 'react'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
@@ -77,7 +78,7 @@ function NoteSearchListItem<T extends NoteSearchResultItem>({
         selected ? 'bg-accent' : 'hover:bg-secondary',
       )}
     >
-      <button
+      <Button variant="bare"
         type="button"
         className="flex w-full items-center justify-between gap-2 border-0 bg-transparent px-3 py-1.5 text-left"
         onPointerDownCapture={activateFromPress}
@@ -111,7 +112,7 @@ function NoteSearchListItem<T extends NoteSearchResultItem>({
             <WorkspaceInitialsBadge workspace={item.workspace} testId="note-search-workspace-badge" />
           </span>
         )}
-      </button>
+      </Button>
     </div>
   )
 }

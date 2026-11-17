@@ -54,7 +54,7 @@ function ReferencePill({ reference, onClick }: {
   const color = getTypeColor(type)
   const lightColor = getTypeLightColor(type)
   return (
-    <button type="button"
+    <Button variant="bare" type="button"
       className="inline-flex items-center border-none cursor-pointer transition-opacity hover:opacity-80 text-(length:--text-caption) leading-(--text-caption--line-height) rounded-[9999px] p-[1px_8px] font-medium [font-family:inherit]"
       style={{
         background: lightColor,
@@ -64,7 +64,7 @@ function ReferencePill({ reference, onClick }: {
       data-testid="message-reference-pill"
     >
       {reference.title}
-    </button>
+    </Button>
   )
 }
 
@@ -104,7 +104,7 @@ function ReasoningBlock({ locale, text, expanded, onToggle }: {
 
   return (
     <div className="mb-[8px]">
-      <button type="button"
+      <Button variant="bare" type="button"
         className="flex items-center gap-1.5 w-full border-none bg-transparent cursor-pointer text-muted-foreground hover:text-foreground transition-colors text-(length:--text-small) leading-(--text-small--line-height) p-[4px_0]"
         onClick={onToggle}
         data-testid="reasoning-toggle"
@@ -112,7 +112,7 @@ function ReasoningBlock({ locale, text, expanded, onToggle }: {
         <Brain size={14} />
         <span>{translate(locale, 'ai.message.reasoning')}</span>
         {expanded ? <CaretDown size={12} /> : <CaretRight size={12} />}
-      </button>
+      </Button>
       {expanded && (
         <div
           ref={contentRef}
@@ -173,7 +173,7 @@ function ToolUseBlock({
 
   return (
     <div className="mb-[8px]">
-      <button
+      <Button variant="bare"
         type="button"
         className="flex w-full cursor-pointer items-center gap-1.5 border-none bg-transparent text-muted-foreground transition-colors hover:text-foreground text-(length:--text-small) leading-(--text-small--line-height) p-[4px_0]"
         aria-expanded={expanded}
@@ -190,7 +190,7 @@ function ToolUseBlock({
           {actions.length}
         </span>
         {expanded ? <CaretDown size={12} /> : <CaretRight size={12} />}
-      </button>
+      </Button>
       {expanded && (
         <div className="mt-[4px]" data-testid="tool-use-content">
           <ActionCardsList
