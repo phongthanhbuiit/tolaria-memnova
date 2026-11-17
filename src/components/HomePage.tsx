@@ -165,8 +165,8 @@ export function HomePage({
       {/* ── Page header ─────────────────────────────────────────── */}
       <div className="flex items-start justify-between gap-4 flex-wrap">
         <div>
-          <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">{formattedDate}</p>
-          <h1 className="text-3xl font-black tracking-tight text-foreground">{greeting}</h1>
+          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-1">{formattedDate}</p>
+          <h1 className="text-3xl font-semibold tracking-tight text-foreground">{greeting}</h1>
           <p className="text-sm text-muted-foreground mt-0.5 font-medium">
             {translate(locale, 'home.subtitle')}
           </p>
@@ -175,7 +175,7 @@ export function HomePage({
         {/* Daily Goal Badge — click the number to edit */}
         <div className="px-4 py-2 bg-card border border-border shadow-sm rounded-2xl flex items-center gap-2 w-fit shrink-0 group">
           <CalendarBlank size={18} className="text-[var(--accent-blue)]" />
-          <span className="text-xs font-bold text-foreground">
+          <span className="text-xs font-semibold text-foreground">
             {translate(locale, 'home.daily_goal')}:
           </span>
           {editingGoal ? (
@@ -191,7 +191,7 @@ export function HomePage({
                 if (e.key === 'Enter') commitGoal()
                 if (e.key === 'Escape') setEditingGoal(false)
               }}
-              className="w-12 text-xs font-black text-center bg-muted rounded px-1 py-0.5 border border-[var(--accent-blue)] focus:outline-none"
+              className="w-12 text-xs font-semibold text-center bg-muted rounded px-1 py-0.5 border border-[var(--accent-blue)] focus:outline-none"
               aria-label="Edit daily goal"
               autoFocus
             />
@@ -200,7 +200,7 @@ export function HomePage({
               type="button"
               onClick={startEditGoal}
               title="Click to edit daily goal"
-              className="flex items-center gap-1 text-xs font-black text-foreground hover:text-[var(--accent-blue)] transition-colors"
+              className="flex items-center gap-1 text-xs font-semibold text-foreground hover:text-[var(--accent-blue)] transition-colors"
             >
               {stats.dailyGoal}
               <PencilSimple size={10} className="opacity-0 group-hover:opacity-60 transition-opacity" />
@@ -239,7 +239,7 @@ export function HomePage({
             <div className="flex items-center gap-2 mb-3">
               <span
                 className={cn(
-                  'text-(length:--text-caption) leading-(--text-caption--line-height) font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full border',
+                  'text-(length:--text-caption) leading-(--text-caption--line-height) font-semibold uppercase tracking-widest px-2.5 py-0.5 rounded-full border',
                   totalDue > 0
                     ? 'bg-[var(--accent-blue-light)] border-[var(--accent-blue)]/20 text-[var(--accent-blue)]'
                     : 'bg-[var(--accent-green-light)] border-[var(--accent-green)]/20 text-[var(--accent-green)]',
@@ -249,7 +249,7 @@ export function HomePage({
               </span>
             </div>
 
-            <h2 className="text-3xl font-black mb-2 tracking-tight text-foreground">
+            <h2 className="text-3xl font-semibold mb-2 tracking-tight text-foreground">
               {totalDue > 0
                 ? translate(locale, 'home.due_cards', { n: totalDue })
                 : translate(locale, 'home.all_caught_up')}
@@ -266,7 +266,7 @@ export function HomePage({
               <Button
                 type="button"
                 onClick={onStartReview}
-                className="px-6 py-3 font-bold rounded-2xl text-sm transition-all duration-200 flex items-center gap-2 shadow-sm text-white bg-[var(--accent-blue)] hover:opacity-90 active:scale-95 h-auto"
+                className="px-6 py-3 font-semibold rounded-2xl text-sm transition-all duration-200 flex items-center gap-2 shadow-sm text-white bg-[var(--accent-blue)] hover:opacity-90 active:scale-95 h-auto"
               >
                 <Play size={16} weight="fill" />
                 {translate(locale, 'home.start_review')}
@@ -275,7 +275,7 @@ export function HomePage({
               <Button
                 type="button"
                 onClick={() => onNavigate({ kind: 'filter', filter: 'decks' })}
-                className="px-6 py-3 font-bold rounded-2xl text-sm transition-all duration-200 flex items-center gap-2 shadow-sm bg-[var(--accent-green-light)] border border-[var(--accent-green)]/20 text-[var(--accent-green)] hover:bg-[var(--accent-green-light)]/20 active:scale-95 h-auto"
+                className="px-6 py-3 font-semibold rounded-2xl text-sm transition-all duration-200 flex items-center gap-2 shadow-sm bg-[var(--accent-green-light)] border border-[var(--accent-green)]/20 text-[var(--accent-green)] hover:bg-[var(--accent-green-light)]/20 active:scale-95 h-auto"
               >
                 <Play size={16} />
                 {translate(locale, 'home.view_decks')}
@@ -322,18 +322,18 @@ export function HomePage({
             <div className="absolute inset-0 flex flex-col items-center justify-center">
               {totalAtStart > 0 ? (
                 <>
-                  <span className="text-xl font-black text-foreground tracking-tighter leading-none">
+                  <span className="text-xl font-semibold text-foreground tracking-tighter leading-none">
                     {stats.todayReviews}
-                    <span className="text-sm font-bold text-muted-foreground">/{totalAtStart}</span>
+                    <span className="text-sm font-semibold text-muted-foreground">/{totalAtStart}</span>
                   </span>
-                  <span className="text-(length:--text-caption) leading-(--text-caption--line-height) font-black text-muted-foreground uppercase tracking-widest mt-1">
+                  <span className="text-(length:--text-caption) leading-(--text-caption--line-height) font-semibold text-muted-foreground uppercase tracking-widest mt-1">
                     {translate(locale, 'home.goal_label')}
                   </span>
                 </>
               ) : (
                 <>
-                  <span className="text-2xl font-black text-[var(--accent-green)] tracking-tighter leading-none">✓</span>
-                  <span className="text-(length:--text-caption) leading-(--text-caption--line-height) font-black text-muted-foreground uppercase tracking-widest mt-1">
+                  <span className="text-2xl font-semibold text-[var(--accent-green)] tracking-tighter leading-none">✓</span>
+                  <span className="text-(length:--text-caption) leading-(--text-caption--line-height) font-semibold text-muted-foreground uppercase tracking-widest mt-1">
                     Done
                   </span>
                 </>
@@ -344,7 +344,7 @@ export function HomePage({
           <div className="w-full px-4 mt-2">
             <div className="flex items-center justify-center gap-1.5 mb-1">
               <Trophy size={14} className="text-[var(--accent-yellow)]" weight="fill" />
-              <span className="px-2 py-0.5 rounded-full bg-[var(--accent-blue-light)] text-[var(--accent-blue)] text-(length:--text-caption) leading-(--text-caption--line-height) font-black uppercase tracking-wider">
+              <span className="px-2 py-0.5 rounded-full bg-[var(--accent-blue-light)] text-[var(--accent-blue)] text-(length:--text-caption) leading-(--text-caption--line-height) font-semibold uppercase tracking-wider">
                 {translate(locale, 'home.level')} {level}
               </span>
             </div>
@@ -362,7 +362,7 @@ export function HomePage({
             {stats.dailyGoal > 0 && (
               <p className="text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground mt-2">
                 Goal: {stats.todayReviews}/{stats.dailyGoal} reviews
-                {goalPercent >= 100 && <span className="ml-1 text-[var(--accent-green)] font-bold">✓</span>}
+                {goalPercent >= 100 && <span className="ml-1 text-[var(--accent-green)] font-semibold">✓</span>}
               </p>
             )}
           </div>
@@ -377,10 +377,10 @@ export function HomePage({
                 <Brain size={20} weight="fill" />
               </div>
               <div>
-                <p className="text-(length:--text-caption) leading-(--text-caption--line-height) uppercase font-bold text-muted-foreground tracking-wider">
+                <p className="text-(length:--text-caption) leading-(--text-caption--line-height) uppercase font-semibold text-muted-foreground tracking-wider">
                   {translate(locale, 'home.reviewed')}
                 </p>
-                <p className="text-xl font-black text-foreground tracking-tight">
+                <p className="text-xl font-semibold text-foreground tracking-tight">
                   {stats.todayReviews}
                 </p>
               </div>
@@ -392,10 +392,10 @@ export function HomePage({
                 <CheckCircle size={20} weight="fill" />
               </div>
               <div>
-                <p className="text-(length:--text-caption) leading-(--text-caption--line-height) uppercase font-bold text-muted-foreground tracking-wider">
+                <p className="text-(length:--text-caption) leading-(--text-caption--line-height) uppercase font-semibold text-muted-foreground tracking-wider">
                   {translate(locale, 'home.accuracy')}
                 </p>
-                <p className="text-xl font-black text-foreground tracking-tight">
+                <p className="text-xl font-semibold text-foreground tracking-tight">
                   {stats.todayReviews > 0
                     ? `${Math.round((stats.todayCorrect / stats.todayReviews) * 100)}%`
                     : '0%'}
@@ -409,10 +409,10 @@ export function HomePage({
                 <Timer size={20} weight="fill" />
               </div>
               <div>
-                <p className="text-(length:--text-caption) leading-(--text-caption--line-height) uppercase font-bold text-muted-foreground tracking-wider">
+                <p className="text-(length:--text-caption) leading-(--text-caption--line-height) uppercase font-semibold text-muted-foreground tracking-wider">
                   {translate(locale, 'home.study_time')}
                 </p>
-                <p className="text-xl font-black text-foreground tracking-tight">
+                <p className="text-xl font-semibold text-foreground tracking-tight">
                   {formatStudyTime(stats.todayDurationMs)}
                 </p>
               </div>
@@ -424,10 +424,10 @@ export function HomePage({
                 <Sparkle size={20} weight="fill" />
               </div>
               <div>
-                <p className="text-(length:--text-caption) leading-(--text-caption--line-height) uppercase font-bold text-muted-foreground tracking-wider">
+                <p className="text-(length:--text-caption) leading-(--text-caption--line-height) uppercase font-semibold text-muted-foreground tracking-wider">
                   {translate(locale, 'home.xp_earned')}
                 </p>
-                <p className="text-xl font-black text-foreground tracking-tight">
+                <p className="text-xl font-semibold text-foreground tracking-tight">
                   +{stats.todayXp} XP
                 </p>
               </div>
@@ -439,14 +439,14 @@ export function HomePage({
         <div className="col-span-1 md:col-span-3 p-6 bg-card border border-border rounded-[32px] flex flex-col gap-4">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-sm font-black uppercase text-foreground tracking-wider">
+              <h2 className="text-sm font-semibold uppercase text-foreground tracking-wider">
                 {translate(locale, 'home.heatmap')}
               </h2>
               <p className="text-xs text-muted-foreground font-semibold">
                 {translate(locale, 'home.heatmap_desc')}
               </p>
             </div>
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-[var(--accent-yellow-light)] rounded-2xl border border-[var(--accent-yellow)]/15 text-[var(--accent-yellow)] font-bold">
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-[var(--accent-yellow-light)] rounded-2xl border border-[var(--accent-yellow)]/15 text-[var(--accent-yellow)] font-semibold">
               <FireSimple size={18} weight="fill" className="animate-pulse" />
               <span className="text-xs">{translate(locale, 'home.day_streak', { n: stats.streak })}</span>
             </div>
@@ -492,7 +492,7 @@ export function HomePage({
         {decksData.length > 0 && (
           <div className="col-span-1 md:col-span-3 space-y-4">
             <div>
-              <h2 className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+              <h2 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
                 {translate(locale, 'home.continue_learning')}
               </h2>
             </div>
@@ -506,19 +506,19 @@ export function HomePage({
                 >
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex-1 min-w-0 mr-3">
-                      <p className="font-bold text-foreground truncate group-hover:text-[var(--accent-blue)] transition-colors">
+                      <p className="font-semibold text-foreground truncate group-hover:text-[var(--accent-blue)] transition-colors">
                         {deck.entry.title}
                       </p>
-                      <p className="text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground font-bold uppercase tracking-wider mt-0.5">
+                      <p className="text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground font-semibold uppercase tracking-wider mt-0.5">
                         {translate(locale, 'decks.cards_count', { n: deck.totalCards })}
                       </p>
                     </div>
                     {deck.dueCount > 0 ? (
-                      <span className="px-3 py-1 bg-[var(--accent-blue-light)] text-[var(--accent-blue)] text-(length:--text-caption) leading-(--text-caption--line-height) font-black rounded-full whitespace-nowrap">
+                      <span className="px-3 py-1 bg-[var(--accent-blue-light)] text-[var(--accent-blue)] text-(length:--text-caption) leading-(--text-caption--line-height) font-semibold rounded-full whitespace-nowrap">
                         {translate(locale, 'decks.due', { n: deck.dueCount })}
                       </span>
                     ) : (
-                      <span className="px-3 py-1 bg-[var(--accent-green-light)] text-[var(--accent-green)] text-(length:--text-caption) leading-(--text-caption--line-height) font-black rounded-full whitespace-nowrap">
+                      <span className="px-3 py-1 bg-[var(--accent-green-light)] text-[var(--accent-green)] text-(length:--text-caption) leading-(--text-caption--line-height) font-semibold rounded-full whitespace-nowrap">
                         ✓ Done
                       </span>
                     )}
