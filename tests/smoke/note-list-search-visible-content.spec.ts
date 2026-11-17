@@ -70,7 +70,7 @@ async function searchAndOpenByKeyboard(
   await page.keyboard.press('Tab')
   await page.keyboard.press('ArrowDown')
   await page.keyboard.press('Enter')
-  await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText(expectedFilenameStem, { timeout: 5_000 })
+  await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', 'Filename ' + (expectedFilenameStem) + '. Press Enter to rename', { timeout: 5_000 })
 }
 
 test.describe('Note-list search visible content', () => {

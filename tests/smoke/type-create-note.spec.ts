@@ -15,7 +15,7 @@ test('clicking + in type section creates note with that type', async ({ page }) 
   await expect(page.locator('.bn-editor')).toBeVisible({ timeout: 5000 })
 
   // The new note should use a type-specific untitled filename.
-  await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText(/untitled-project-\d+/i)
+  await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', /untitled-project-\d+/i)
 
   // Toggle raw editor to see frontmatter
   await openCommandPalette(page)
@@ -40,6 +40,6 @@ test('clicking + in All Notes creates generic note', async ({ page }) => {
   await expect(page.locator('.bn-editor')).toBeVisible({ timeout: 5000 })
 
   // The new note should be a generic untitled note, not a typed one.
-  await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText(/untitled-note-\d+/i)
-  await expect(page.getByTestId('breadcrumb-filename-trigger')).not.toContainText(/untitled-project-\d+/i)
+  await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', /untitled-note-\d+/i)
+  await expect(page.getByTestId('breadcrumb-filename-trigger')).not.toHaveAttribute('aria-label', /untitled-project-\d+/i)
 })

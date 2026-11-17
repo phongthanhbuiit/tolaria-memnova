@@ -6,7 +6,7 @@ test('keyboard-created notes omit default status metadata @smoke', async ({ page
   await page.waitForSelector('[data-testid="sidebar-top-nav"]', { timeout: 10_000 })
 
   await page.keyboard.press('Meta+n')
-  await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText(/untitled-note-\d+/i, { timeout: 5_000 })
+  await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', /untitled-note-\d+/i, { timeout: 5_000 })
 
   await openCommandPalette(page)
   await executeCommand(page, 'Toggle Raw')

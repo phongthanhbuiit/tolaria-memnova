@@ -40,7 +40,7 @@ async function renameActiveNoteFilename(page: import('@playwright/test').Page, n
   await expect(filenameInput).toBeVisible({ timeout: 5_000 })
   await filenameInput.fill(nextFilename)
   await filenameInput.press('Enter')
-  await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText(nextFilename, { timeout: 5_000 })
+  await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', 'Filename ' + (nextFilename) + '. Press Enter to rename', { timeout: 5_000 })
 }
 
 // ---------------------------------------------------------------------------

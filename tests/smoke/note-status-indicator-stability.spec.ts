@@ -65,7 +65,7 @@ test.afterEach(() => {
 
 test('new note status indicator stays steady through typing and autosave', async ({ page }) => {
   await triggerMenuCommand(page, APP_COMMAND_IDS.fileNewNote)
-  await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText(/untitled-note-\d+/i, {
+  await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', /untitled-note-\d+/i, {
     timeout: 5_000,
   })
   await expect(page.locator(STATUS_DOT_SELECTOR).first()).toBeVisible({ timeout: 5_000 })

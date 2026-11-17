@@ -45,7 +45,8 @@ test.describe('Wikilink insertion and navigation', () => {
 
     await page.getByTestId('note-list-container').getByText(SOURCE_NOTE_TITLE, { exact: true }).click()
     await expect(page.locator('.bn-editor h1').first()).toHaveText(SOURCE_NOTE_TITLE)
-    await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveText('grow-newsletter')
+    await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveText(SOURCE_NOTE_TITLE)
+    await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', 'Filename grow-newsletter. Press Enter to rename')
   })
 
   test('[[ autocomplete inserts wikilink that is not broken', async ({ page }) => {
@@ -66,7 +67,8 @@ test.describe('Wikilink insertion and navigation', () => {
 
     await wikilink.click({ modifiers: ['Meta'] })
     await expect(page.locator('.bn-editor h1').first()).toHaveText(INSERTED_WIKILINK_TITLE, { timeout: 5000 })
-    await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveText(INSERTED_WIKILINK_TARGET)
+    await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveText(INSERTED_WIKILINK_TITLE)
+    await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', `Filename ${INSERTED_WIKILINK_TARGET}. Press Enter to rename`)
     await expect(page.locator('.bn-editor')).toContainText('Revenue stream from newsletter sponsorships.')
   })
 })

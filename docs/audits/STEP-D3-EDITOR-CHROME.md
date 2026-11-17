@@ -36,3 +36,7 @@ Native tái hiện placeholder Heading đậm nghiêng như H1 thật. RED WebKi
 ## Trạng thái
 
 Đang thực hiện các finding còn lại và gate phát hành; chưa tuyên bố D3 hoàn tất.
+
+## F-009 — chỉ breadcrumb
+
+RED 3/4 ca fail khi trigger vẫn hiện slug; GREEN 108/108 test liên quan. Tiêu đề hiện tại H1/frontmatter được ưu tiên, rồi metadata, rồi fallback filename. Draft đổi tên vẫn stem gốc; Escape không ghi, Enter gọi đúng path/stem, entry không đổi. Tạo ghi chú, slugify và đồng bộ tên file giữ nguyên. Native xác nhận tiêu đề hiển thị thay slug, bằng chứng D3-F009-after-native.png. SPEC8 193→193 / 0→0; chỉ sửa hiển thị, chưa đổi typography.

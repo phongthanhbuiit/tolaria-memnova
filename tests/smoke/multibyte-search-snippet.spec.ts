@@ -50,8 +50,8 @@ test.describe('Multibyte note-list search', () => {
     await expect(noteList.getByText('Multibyte Search Boundary', { exact: true })).toBeVisible()
 
     await noteList.getByText('Multibyte Search Boundary', { exact: true }).click()
-    await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText(
-      'multibyte-search-boundary',
+    await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute(
+      'aria-label', 'Filename multibyte-search-boundary. Press Enter to rename',
     )
   })
 
@@ -66,7 +66,7 @@ test.describe('Multibyte note-list search', () => {
     await expect(noteList.getByText('上海复盘', { exact: true })).toBeVisible()
 
     await noteList.getByText('上海复盘', { exact: true }).click()
-    await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText('chinese-crlf-table')
+    await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', 'Filename chinese-crlf-table. Press Enter to rename')
     await expect(page.locator('.editor-content-wrapper').getByText('指标')).toBeVisible()
   })
 })

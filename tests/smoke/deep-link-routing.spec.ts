@@ -40,7 +40,7 @@ async function openNoteWithQuickOpen(page: Page, title: string, expectedFilename
   await page.locator('input[placeholder="Search notes..."]').fill(title)
   await expect(page.getByTestId('quick-open-palette').getByText(title, { exact: true })).toBeVisible({ timeout: 5_000 })
   await page.keyboard.press('Enter')
-  await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText(expectedFilename, { timeout: 5_000 })
+  await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', 'Filename ' + (expectedFilename) + '. Press Enter to rename', { timeout: 5_000 })
 }
 
 test('command palette copies and opens a Tolaria item deep link', async ({ page }) => {
@@ -56,7 +56,7 @@ test('command palette copies and opens a Tolaria item deep link', async ({ page 
 
   await openNoteWithQuickOpen(page, 'Note B', 'note-b')
   await openDeepLink(page, deepLink)
-  await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText('alpha-project', { timeout: 5_000 })
+  await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', 'Filename alpha-project. Press Enter to rename', { timeout: 5_000 })
 
   await openDeepLink(page, 'tolaria://missing-vault/project/alpha-project.md')
   await expect(page.getByText('Deep link targets an unknown vault.')).toBeVisible({ timeout: 5_000 })

@@ -41,14 +41,14 @@ test('@smoke disabling H1 auto-rename keeps untitled filenames until manual sync
   await createUntitledNote(page)
 
   const filenameTrigger = page.getByTestId('breadcrumb-filename-trigger')
-  const untitledStem = (await filenameTrigger.textContent())?.trim() ?? ''
+  const untitledStem = (await filenameTrigger.getAttribute('aria-label'))?.match(/^Filename (.*)\. Press Enter to rename$/)?.[1]?.trim() ?? ''
   expect(untitledStem).toMatch(/^untitled-note-\d+(?:-\d+)?$/i)
 
   await page.keyboard.type('Manual Sync Title', { delay: 20 })
   await page.keyboard.press('Enter')
   await page.waitForTimeout(2_700)
 
-  await expect(filenameTrigger).toContainText(untitledStem)
+  await expect(filenameTrigger).toHaveAttribute('aria-label', 'Filename ' + (untitledStem) + '. Press Enter to rename')
   await expect(page.getByTestId('breadcrumb-sync-button')).toBeVisible()
   await expect.poll(() => fs.existsSync(path.join(tempVaultDir, `${untitledStem}.md`))).toBe(true)
 
@@ -56,7 +56,7 @@ test('@smoke disabling H1 auto-rename keeps untitled filenames until manual sync
   await syncButton.focus()
   await page.keyboard.press('Enter')
 
-  await expect(filenameTrigger).toContainText('manual-sync-title')
+  await expect(filenameTrigger).toHaveAttribute('aria-label', 'Filename manual-sync-title. Press Enter to rename')
   await expect.poll(() => fs.existsSync(path.join(tempVaultDir, `${untitledStem}.md`))).toBe(false)
   await expect.poll(() => fs.existsSync(path.join(tempVaultDir, 'manual-sync-title.md'))).toBe(true)
 })

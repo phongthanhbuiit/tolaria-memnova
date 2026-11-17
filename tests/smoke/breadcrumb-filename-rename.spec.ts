@@ -74,12 +74,12 @@ test('@smoke Cmd+S preserves the existing filename until the explicit breadcrumb
   await openBlockNoteMode(page)
 
   await expect(page.getByRole('heading', { name: updatedTitle, level: 1 })).toBeVisible({ timeout: 5_000 })
-  await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText('note-b')
+  await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', 'Filename note-b. Press Enter to rename')
   await expect(page.getByTestId('breadcrumb-sync-button')).toBeVisible()
 
   await page.getByTestId('breadcrumb-sync-button').click()
   await expect(page.locator('.fixed.bottom-8')).toContainText('Renamed', { timeout: 5_000 })
-  await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText('breadcrumb-sync-target')
+  await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', 'Filename breadcrumb-sync-target. Press Enter to rename')
   await expect(page.getByTestId('breadcrumb-sync-button')).toHaveCount(0)
 
   await expect.poll(() => fs.existsSync(originalPath)).toBe(false)
@@ -98,7 +98,7 @@ test('@smoke Cmd+S preserves the existing filename until the explicit breadcrumb
   await renameInput.press('Enter')
 
   await expect(page.locator('.fixed.bottom-8')).toContainText('Renamed', { timeout: 5_000 })
-  await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText('manual-breadcrumb-name')
+  await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', 'Filename manual-breadcrumb-name. Press Enter to rename')
   await expect.poll(() => fs.existsSync(syncedPath)).toBe(false)
   await expect.poll(() => fs.existsSync(manuallyRenamedPath)).toBe(true)
 

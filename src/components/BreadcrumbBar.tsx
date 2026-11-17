@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useImperativeHandle, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent, type ReactNode } from 'react'
+import { memo, useCallback, useEffect, useImperativeHandle, useId, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent, type ReactNode } from 'react'
 import type { NoteWidthMode, VaultEntry } from '../types'
 import { cn } from '@/lib/utils'
 import { translate, type AppLocale } from '../lib/i18n'
@@ -609,12 +609,10 @@ function deriveEntryDisplayTitleState(entry: VaultEntry): BreadcrumbDisplayTitle
   }
 }
 
-function deriveBreadcrumbDisplayTitle(entry: VaultEntry, filenameStem: string, content?: string | null): string | null {
+function deriveBreadcrumbDisplayTitle(entry: VaultEntry, filenameStem: string, content?: string | null): string {
   const displayState = deriveContentDisplayTitleState(content) ?? deriveEntryDisplayTitleState(entry)
   const displayTitle = displayState.title.trim()
-  if (!displayTitle || displayState.hasH1) return null
-  if (slugify(displayTitle) === slugify(filenameStem)) return null
-  return displayTitle
+  return displayTitle || filenameStem
 }
 
 function FilenameInput({
@@ -648,13 +646,18 @@ function FilenameInput({
 
 function FilenameTrigger({
   filenameStem,
+  displayTitle,
   locale = 'en',
   onStartEditing,
 }: {
   filenameStem: string
+  displayTitle: string
   locale?: AppLocale
   onStartEditing: () => void
 }) {
+  const titleId = useId()
+  const hintId = useId()
+  const filenameHint = translate(locale, 'editor.filename.trigger', { filename: filenameStem })
   const handleKeyDown = useCallback((event: KeyboardEvent<HTMLButtonElement>) => {
     if (event.key !== 'Enter') return
     event.preventDefault()
@@ -662,6 +665,7 @@ function FilenameTrigger({
   }, [onStartEditing])
 
   return (
+    <>
     <Button
       type="button"
       variant="ghost"
@@ -670,10 +674,14 @@ function FilenameTrigger({
       onDoubleClick={onStartEditing}
       onKeyDown={handleKeyDown}
       data-testid="breadcrumb-filename-trigger"
-      aria-label={translate(locale, 'editor.filename.trigger', { filename: filenameStem })}
+      aria-label={filenameHint}
+      aria-labelledby={titleId}
+      aria-describedby={hintId}
     >
-      <span className="breadcrumb-bar__filename-text truncate">{filenameStem}</span>
+      <span id={titleId} className="breadcrumb-bar__filename-text truncate" data-testid="breadcrumb-display-title">{displayTitle}</span>
     </Button>
+    <span id={hintId} className="sr-only">{filenameHint}</span>
+    </>
   )
 }
 
@@ -727,19 +735,7 @@ function FilenameDisplay({
 
   return (
     <div className="flex min-w-0 items-center gap-1">
-      {displayTitle && (
-        <>
-          <span
-            className="min-w-0 max-w-[min(24rem,45vw)] truncate text-foreground"
-            data-testid="breadcrumb-display-title"
-            title={displayTitle}
-          >
-            {displayTitle}
-          </span>
-          <span aria-hidden="true" className="shrink-0 text-border">·</span>
-        </>
-      )}
-      <FilenameTrigger filenameStem={filenameStem} locale={locale} onStartEditing={onStartEditing} />
+      <FilenameTrigger filenameStem={filenameStem} displayTitle={displayTitle} locale={locale} onStartEditing={onStartEditing} />
       <SyncFilenameButton entryPath={entry.path} syncStem={syncStem} locale={locale} onRenameFilename={onRenameFilename} />
     </div>
   )

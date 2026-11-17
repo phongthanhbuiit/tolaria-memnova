@@ -45,7 +45,8 @@ test('quick open creates a note when the typed title has no matches @smoke', asy
   await page.keyboard.press('Enter')
 
   await expect(page.getByTestId('quick-open-palette')).not.toBeVisible({ timeout: 5_000 })
-  await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText('new-research-brief', { timeout: 5_000 })
+  await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', 'Filename new-research-brief. Press Enter to rename', { timeout: 5_000 })
+  await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveText(title)
   await expect.poll(() => fs.existsSync(notePath), { timeout: 5_000 }).toBe(true)
   const content = fs.readFileSync(notePath, 'utf8')
   expect(content).toContain(`title: ${title}`)
@@ -55,10 +56,10 @@ test('quick open creates a note when the typed title has no matches @smoke', asy
 test('quick open returns from Home to an existing note even if it was the last open note', async ({ page }) => {
   await openFixtureVaultDesktopHarness(page, tempVaultDir)
   await page.getByTestId('note-list-container').getByText('Alpha Project', { exact: true }).click()
-  await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText('alpha-project')
+  await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', 'Filename alpha-project. Press Enter to rename')
   await page.getByRole('button', { name: 'Home', exact: true }).click()
   await openNoteWithCmdO(page)
   await page.getByTestId('quick-open-palette').getByRole('textbox').fill('Alpha Project')
   await page.keyboard.press('Enter')
-  await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText('alpha-project')
+  await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', 'Filename alpha-project. Press Enter to rename')
 })

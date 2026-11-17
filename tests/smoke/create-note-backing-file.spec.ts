@@ -141,7 +141,7 @@ test('@smoke creating a note writes its backing file before reload can read it',
   await triggerMenuCommand(page, 'file-new-note')
   await triggerMenuCommand(page, 'vault-reload')
 
-  await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText(/untitled-note-\d+/i, {
+  await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', /untitled-note-\d+/i, {
     timeout: 5_000,
   })
   await expect.poll(() => readProbe(page), { timeout: 5_000 }).toMatchObject({

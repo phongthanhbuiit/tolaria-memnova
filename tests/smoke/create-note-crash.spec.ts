@@ -35,5 +35,5 @@ test('create note via sidebar + button does not crash', async ({ page }) => {
 
   expect(errors).toHaveLength(0)
   await expect(page.locator('.bn-editor')).toBeVisible({ timeout: 5_000 })
-  await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText(/untitled-note-\d+/i)
+  await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', /untitled-note-\d+/i)
 })

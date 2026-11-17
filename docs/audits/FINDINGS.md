@@ -22,7 +22,7 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 | F-006 | P1 | C3 | 38 phần tử form HTML thô ngoài `ui/` (vi phạm AGENTS.md) | mã | open |
 | F-007 | P2 | C4 | Thuật ngữ học tập không nhất quán (trang/ghi chú, ghi nhớ/ôn/gợi nhớ) | ảnh | open |
 | F-008 | P2 | C3 | Hai nút chính màu xanh cạnh tranh trên Trang chủ | ảnh | fixed (`70212a69`) |
-| F-009 | P2 | C1 | Ghi chú mới tên "Untitled Note 1794825081", breadcrumb hiện slug | ảnh | open |
+| F-009 | P2 | C1 | Ghi chú mới tên "Untitled Note 1794825081", breadcrumb hiện slug | ảnh | partial — breadcrumb fixed (`:/fix: F-009 show note titles in breadcrumb`); đặt tên mới ngoài D3 |
 | F-010 | P2 | C3 | Mỗi hàng danh sách hiện hai ngày giống nhau, ngày đầu không nhãn | ảnh | fixed (`14154524`) |
 | F-011 | P2 | C4 | Hạn ôn hiện mốc thời gian thô, không nói quá hạn bao lâu | ảnh | open |
 | F-012 | P2 | C2 | Nhãn đỏ "Cần xử lý" không nói phải làm gì | ảnh | open |
@@ -88,6 +88,8 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 - Thực tế (`REVIEW`, `HOME`): tiêu đề "Untitled Note 1794825081", breadcrumb "untitled-note-1794825081"; (`WRITE`) breadcrumb "pomodoro" thay vì tiêu đề "Pomodoro".
 - Sửa: tiêu đề mặc định đã dịch ("Chưa đặt tên"), số chống trùng chỉ nằm ở tên file; breadcrumb hiện tiêu đề.
 - Lưu ý: chạm cách đặt tên file → đọc ADR liên quan trước, không đổi tên file đã có.
+
+- D3: breadcrumb ưu tiên H1 hiện tại → frontmatter → metadata → filename fallback. Chỉ hiện một tiêu đề; Enter/double-click vẫn mở stem thật, rename/sync vẫn hành động tường minh. Không đổi đặt tên mới. RED 3/4 fail → GREEN 4/4; suite liên quan 108/108. [Bằng chứng D3](STEP-D3-EDITOR-CHROME.md).
 
 ### F-010 — Hai ngày trùng nhau trên mỗi hàng
 - Thực tế (`WRITE`): "November 16, 2026    Created November 16, 2026" ở mọi hàng.

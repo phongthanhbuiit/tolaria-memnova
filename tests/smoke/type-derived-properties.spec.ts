@@ -21,7 +21,7 @@ async function openNoteViaQuickOpen(page: Page, query: string): Promise<void> {
   const result = page.getByTestId('quick-open-palette').getByText(query).first()
   await expect(result).toBeVisible()
   await result.click()
-  await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText(new RegExp(query, 'i'), { timeout: 5_000 })
+  await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', new RegExp(query, 'i'), { timeout: 5_000 })
 }
 
 async function secondaryTextColor(page: Page): Promise<string> {
@@ -77,7 +77,7 @@ test.describe('Type-derived instance properties', () => {
 
     await page.locator('aside').getByText('Books', { exact: true }).first().click()
     await page.locator('[title="Create new note"]').first().click()
-    await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText(/untitled-book-\d+/i, { timeout: 5_000 })
+    await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', /untitled-book-\d+/i, { timeout: 5_000 })
 
     await openCommandPalette(page)
     await executeCommand(page, 'Toggle Raw')

@@ -114,7 +114,7 @@ test.describe('keyboard command routing', () => {
     await openFixtureVaultDesktopHarness(page, tempVaultDir)
     await triggerMenuCommand(page, APP_COMMAND_IDS.fileNewNote)
 
-    await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText(/untitled-note-\d+/i, { timeout: 5_000 })
+    await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', /untitled-note-\d+/i, { timeout: 5_000 })
     await expectRuntimeStyleNonce(page)
     expect(runtimeStyleCspSignals).toEqual([])
   })

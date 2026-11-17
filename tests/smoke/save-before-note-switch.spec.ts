@@ -211,7 +211,7 @@ test('@smoke switching notes persists unsaved raw edits without waiting for the 
 
   await openNote(page, 'Alpha Project')
 
-  await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText('alpha-project', { timeout: 5_000 })
+  await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', 'Filename alpha-project. Press Enter to rename', { timeout: 5_000 })
   await expect.poll(async () => getRawEditorContent(page)).toContain('# Alpha Project')
   await expect.poll(
     () => fs.readFileSync(noteBPath, 'utf8'),
@@ -245,7 +245,7 @@ test('@smoke switching notes during a slow rich-editor save writes once and open
   await expect.poll(() => delayedSaveCount(page), { timeout: 5_000 }).toBe(1)
   await releaseDelayedSave(page)
 
-  await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText('note-c', { timeout: 10_000 })
+  await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', 'Filename note-c. Press Enter to rename', { timeout: 10_000 })
   await expect.poll(
     () => fs.readFileSync(noteBPath, 'utf8'),
     { timeout: 10_000 },
@@ -261,7 +261,7 @@ test('@smoke deleting a property after switching notes keeps the current note ed
   await expect(page.getByTestId('editable-property').filter({ hasText: 'Status' })).toBeVisible()
 
   await openNote(page, 'Alpha Project')
-  await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText('alpha-project', { timeout: 5_000 })
+  await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', 'Filename alpha-project. Press Enter to rename', { timeout: 5_000 })
 
   const ownerRow = page.getByTestId('editable-property').filter({ hasText: 'Owner' })
   await expect(ownerRow).toBeVisible()
@@ -269,7 +269,7 @@ test('@smoke deleting a property after switching notes keeps the current note ed
   await ownerRow.getByTitle('Delete property').click({ force: true })
 
   await expect(ownerRow).toHaveCount(0)
-  await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText('alpha-project')
+  await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', 'Filename alpha-project. Press Enter to rename')
   await expect.poll(
     () => fs.readFileSync(alphaPath, 'utf8'),
     { timeout: 1_000, intervals: [50, 100, 200, 300, 350] },

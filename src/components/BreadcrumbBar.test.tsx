@@ -95,12 +95,9 @@ function expectDisplayTitleState(
 ) {
   renderEditableFilenameBreadcrumb(entryOverrides, props)
 
-  if (expected.displayTitle) {
-    expect(screen.getByTestId('breadcrumb-display-title')).toHaveTextContent(expected.displayTitle)
-  } else {
-    expect(screen.queryByTestId('breadcrumb-display-title')).not.toBeInTheDocument()
-  }
-  expect(screen.getByTestId('breadcrumb-filename-trigger')).toHaveTextContent(expected.filenameStem)
+  expect(screen.getByTestId('breadcrumb-display-title')).toHaveTextContent(expected.displayTitle ?? expected.filenameStem)
+  expect(screen.getByTestId('breadcrumb-filename-trigger')).toHaveTextContent(expected.displayTitle ?? expected.filenameStem)
+  expect(screen.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', expect.stringContaining(expected.filenameStem))
 }
 
 async function expectTooltip(trigger: HTMLElement, ...parts: string[]) {
@@ -298,7 +295,7 @@ describe('BreadcrumbBar — title in breadcrumb (always rendered, CSS-toggled)',
     render(<BreadcrumbBar entry={baseEntry} {...defaultProps} />)
     expect(screen.getByText('Note')).toBeInTheDocument()
     expect(screen.getByText('›')).toBeInTheDocument()
-    expect(screen.getByText('test')).toBeInTheDocument()
+    expect(screen.getByText('Test Note')).toBeInTheDocument()
   })
 
   it('shows the workspace initials label before the note type when workspace metadata is present', () => {
@@ -328,14 +325,14 @@ describe('BreadcrumbBar — title in breadcrumb (always rendered, CSS-toggled)',
   it('does not render emoji note icons in the breadcrumb filename', () => {
     const entryWithEmoji = { ...baseEntry, icon: '🚀' }
     render(<BreadcrumbBar entry={entryWithEmoji} {...defaultProps} />)
-    expect(screen.getByTestId('breadcrumb-filename-trigger')).toHaveTextContent('test')
+    expect(screen.getByTestId('breadcrumb-filename-trigger')).toHaveTextContent('Test Note')
     expect(screen.queryByText('🚀')).not.toBeInTheDocument()
   })
 
   it('does not render Phosphor note icons in the breadcrumb filename', () => {
     const entryWithPhosphor = { ...baseEntry, icon: 'cooking-pot' }
     render(<BreadcrumbBar entry={entryWithPhosphor} {...defaultProps} />)
-    expect(screen.getByTestId('breadcrumb-filename-trigger')).toHaveTextContent('test')
+    expect(screen.getByTestId('breadcrumb-filename-trigger')).toHaveTextContent('Test Note')
     expect(screen.queryByTestId('breadcrumb-note-icon')).not.toBeInTheDocument()
   })
 
@@ -362,7 +359,7 @@ describe('BreadcrumbBar — title in breadcrumb (always rendered, CSS-toggled)',
 })
 
 describe('BreadcrumbBar — filename controls', () => {
-  it('shows a legacy display title while keeping the filename visible', () => {
+  it('shows the legacy title while retaining the filename in the editing label', () => {
     expectDisplayTitleState(
       {
         title: 'Reference Planning Notes',
@@ -387,14 +384,14 @@ describe('BreadcrumbBar — filename controls', () => {
     )
   })
 
-  it('keeps content-derived H1 notes focused on the filename breadcrumb', () => {
+  it('shows the current H1 title in the breadcrumb', () => {
     expectDisplayTitleState(
       {
         title: 'Reference Planning Notes',
         filename: 'manual-filename.md',
         hasH1: false,
       },
-      { displayTitle: null, filenameStem: 'manual-filename' },
+      { displayTitle: 'Canonical H1', filenameStem: 'manual-filename' },
       {
         content: '---\ntitle: Reference Planning Notes\n---\n\n# Canonical H1\n\nBody.',
       },
@@ -408,7 +405,7 @@ describe('BreadcrumbBar — filename controls', () => {
         filename: 'reference-planning-notes.md',
         hasH1: false,
       },
-      { displayTitle: null, filenameStem: 'reference-planning-notes' },
+      { displayTitle: 'Reference Planning Notes', filenameStem: 'reference-planning-notes' },
     )
   })
 
@@ -419,18 +416,18 @@ describe('BreadcrumbBar — filename controls', () => {
         filename: 'Reference Planning Notes.md',
         hasH1: false,
       },
-      { displayTitle: null, filenameStem: 'Reference Planning Notes' },
+      { displayTitle: 'Reference Planning Notes', filenameStem: 'Reference Planning Notes' },
     )
   })
 
-  it('keeps H1-titled notes focused on the filename breadcrumb', () => {
+  it('shows the metadata title before opened content is available', () => {
     expectDisplayTitleState(
       {
         title: 'Reference Planning Notes',
         filename: 'manual-filename.md',
         hasH1: true,
       },
-      { displayTitle: null, filenameStem: 'manual-filename' },
+      { displayTitle: 'Reference Planning Notes', filenameStem: 'manual-filename' },
     )
   })
 

@@ -1,0 +1,68 @@
+
+ RUN  v4.0.18 /Users/thompson/Documents/tolaria-memnova
+
+ ❯ src/components/BreadcrumbBar.display-title.test.tsx (4 tests | 3 failed) 68ms
+   × shows the live display title while explicit filename editing retains the original stem 42ms
+   × shows a title or an honest filename fallback for 'reference-planning-notes.md' 9ms
+   × shows a title or an honest filename fallback for 'stable-file.md' 9ms
+   ✓ shows a title or an honest filename fallback for 'fallback-name.md' 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/components/BreadcrumbBar.display-title.test.tsx > shows the live display title while explicit filename editing retains the original stem
+Error: expect(element).toHaveTextContent()
+
+Expected element to have text content:
+  Current title — Ghi chú
+Received:
+  stable-file
+ ❯ src/components/BreadcrumbBar.display-title.test.tsx:14:19
+     12|   const view = render(<BreadcrumbBar {...common} entry={entry} content…
+     13|   const trigger = screen.getByTestId('breadcrumb-filename-trigger')
+     14|   expect(trigger).toHaveTextContent('Current title — Ghi chú')
+       |                   ^
+     15|   expect(trigger).not.toHaveTextContent('stable-file')
+     16|   fireEvent.doubleClick(trigger)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  src/components/BreadcrumbBar.display-title.test.tsx > shows a title or an honest filename fallback for 'reference-planning-notes.md'
+Error: expect(element).toHaveTextContent()
+
+Expected element to have text content:
+  Reference Planning Notes
+Received:
+  reference-planning-notes
+ ❯ src/components/BreadcrumbBar.display-title.test.tsx:35:61
+     33| ])('shows a title or an honest filename fallback for $filename', ({ ti…
+     34|   render(<BreadcrumbBar {...common} entry={makeEntry({ title, filename…
+     35|   expect(screen.getByTestId('breadcrumb-filename-trigger')).toHaveText…
+       |                                                             ^
+     36| })
+     37| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  src/components/BreadcrumbBar.display-title.test.tsx > shows a title or an honest filename fallback for 'stable-file.md'
+Error: expect(element).toHaveTextContent()
+
+Expected element to have text content:
+  Frontmatter title
+Received:
+  stable-file
+ ❯ src/components/BreadcrumbBar.display-title.test.tsx:35:61
+     33| ])('shows a title or an honest filename fallback for $filename', ({ ti…
+     34|   render(<BreadcrumbBar {...common} entry={makeEntry({ title, filename…
+     35|   expect(screen.getByTestId('breadcrumb-filename-trigger')).toHaveText…
+       |                                                             ^
+     36| })
+     37| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 1 passed (4)
+   Start at  01:14:32
+   Duration  4.03s (transform 966ms, setup 78ms, import 3.46s, tests 68ms, environment 329ms)
+

@@ -1,0 +1,34 @@
+
+ RUN  v4.0.18 /Users/thompson/Documents/tolaria-memnova
+
+ ❯ src/components/BreadcrumbBar.display-title.test.tsx (4 tests | 1 failed) 93ms
+   × shows the live display title while explicit filename editing retains the original stem 76ms
+   ✓ shows a title or an honest filename fallback for 'reference-planning-notes.md' 6ms
+   ✓ shows a title or an honest filename fallback for 'stable-file.md' 6ms
+   ✓ shows a title or an honest filename fallback for 'fallback-name.md' 4ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/components/BreadcrumbBar.display-title.test.tsx > shows the live display title while explicit filename editing retains the original stem
+Error: expect(element).toHaveAccessibleName()
+
+Expected element to have accessible name:
+  Current title — Ghi chú
+Received:
+  Filename stable-file. Press Enter to rename
+ ❯ src/components/BreadcrumbBar.display-title.test.tsx:15:19
+     13|   const trigger = screen.getByTestId('breadcrumb-filename-trigger')
+     14|   expect(trigger).toHaveTextContent('Current title — Ghi chú')
+     15|   expect(trigger).toHaveAccessibleName('Current title — Ghi chú')
+       |                   ^
+     16|   expect(trigger).toHaveAccessibleDescription('Filename stable-file. P…
+     17|   expect(trigger).not.toHaveTextContent('stable-file')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 3 passed (4)
+   Start at  02:08:26
+   Duration  3.54s (transform 605ms, setup 81ms, import 2.84s, tests 93ms, environment 438ms)
+
