@@ -1017,5 +1017,14 @@
   "filters.date.openPickerForDate": "Ouvrir le calendrier ({date})",
   "filters.date.resolvesTo": "Correspond au {date}",
   "filters.date.unrecognized": "Non reconnu",
+  "noteList.subtitle.empty": "Vide",
+  "noteList.subtitle.words.one": "{count} mot",
+  "noteList.subtitle.words.few": "{count} mots",
+  "noteList.subtitle.words.many": "{count} mots",
+  "noteList.subtitle.words.other": "{count} mots",
+  "noteList.subtitle.links.one": "{count} lien",
+  "noteList.subtitle.links.few": "{count} liens",
+  "noteList.subtitle.links.many": "{count} liens",
+  "noteList.subtitle.links.other": "{count} liens",
   "filters.date.inputPlaceholder": "YYYY-MM-DD ou une date relative"
 }

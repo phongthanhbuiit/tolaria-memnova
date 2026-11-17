@@ -1017,5 +1017,14 @@
   "filters.date.openPickerForDate": "날짜 선택기 열기({date})",
   "filters.date.resolvesTo": "해당 날짜: {date}",
   "filters.date.unrecognized": "인식할 수 없음",
+  "noteList.subtitle.empty": "비어 있음",
+  "noteList.subtitle.words.one": "{count} 단어",
+  "noteList.subtitle.words.few": "{count} 단어",
+  "noteList.subtitle.words.many": "{count} 단어",
+  "noteList.subtitle.words.other": "{count} 단어",
+  "noteList.subtitle.links.one": "{count} 개 링크",
+  "noteList.subtitle.links.few": "{count} 개 링크",
+  "noteList.subtitle.links.many": "{count} 개 링크",
+  "noteList.subtitle.links.other": "{count} 개 링크",
   "filters.date.inputPlaceholder": "YYYY-MM-DD 또는 상대 날짜"
 }

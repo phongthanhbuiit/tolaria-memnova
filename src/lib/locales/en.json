@@ -1017,5 +1017,14 @@
   "filters.date.openPickerForDate": "Open date picker ({date})",
   "filters.date.resolvesTo": "Resolves to {date}",
   "filters.date.unrecognized": "Not recognized",
+  "noteList.subtitle.empty": "Empty",
+  "noteList.subtitle.words.one": "{count} word",
+  "noteList.subtitle.words.few": "{count} words",
+  "noteList.subtitle.words.many": "{count} words",
+  "noteList.subtitle.words.other": "{count} words",
+  "noteList.subtitle.links.one": "{count} link",
+  "noteList.subtitle.links.few": "{count} links",
+  "noteList.subtitle.links.many": "{count} links",
+  "noteList.subtitle.links.other": "{count} links",
   "filters.date.inputPlaceholder": "YYYY-MM-DD or a relative date"
 }

@@ -1017,5 +1017,14 @@
   "filters.date.openPickerForDate": "Buka pemilih tanggal ({date})",
   "filters.date.resolvesTo": "Sesuai dengan {date}",
   "filters.date.unrecognized": "Tidak dikenali",
+  "noteList.subtitle.empty": "Kosong",
+  "noteList.subtitle.words.one": "{count} kata",
+  "noteList.subtitle.words.few": "{count} kata",
+  "noteList.subtitle.words.many": "{count} kata",
+  "noteList.subtitle.words.other": "{count} kata",
+  "noteList.subtitle.links.one": "{count} tautan",
+  "noteList.subtitle.links.few": "{count} tautan",
+  "noteList.subtitle.links.many": "{count} tautan",
+  "noteList.subtitle.links.other": "{count} tautan",
   "filters.date.inputPlaceholder": "YYYY-MM-DD atau tanggal relatif"
 }

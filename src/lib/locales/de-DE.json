@@ -1017,5 +1017,14 @@
   "filters.date.openPickerForDate": "Kalender öffnen ({date})",
   "filters.date.resolvesTo": "Entspricht dem {date}",
   "filters.date.unrecognized": "Nicht erkannt",
+  "noteList.subtitle.empty": "Leer",
+  "noteList.subtitle.words.one": "{count} Wort",
+  "noteList.subtitle.words.few": "{count} Wörter",
+  "noteList.subtitle.words.many": "{count} Wörter",
+  "noteList.subtitle.words.other": "{count} Wörter",
+  "noteList.subtitle.links.one": "{count} Link",
+  "noteList.subtitle.links.few": "{count} Links",
+  "noteList.subtitle.links.many": "{count} Links",
+  "noteList.subtitle.links.other": "{count} Links",
   "filters.date.inputPlaceholder": "YYYY-MM-DD oder relatives Datum"
 }

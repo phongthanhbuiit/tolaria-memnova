@@ -1017,5 +1017,14 @@
   "filters.date.openPickerForDate": "Otwórz kalendarz ({date})",
   "filters.date.resolvesTo": "Odpowiada dacie {date}",
   "filters.date.unrecognized": "Nie rozpoznano",
+  "noteList.subtitle.empty": "Pusto",
+  "noteList.subtitle.words.one": "{count} słowo",
+  "noteList.subtitle.words.few": "{count} słowa",
+  "noteList.subtitle.words.many": "{count} słów",
+  "noteList.subtitle.words.other": "{count} słowa",
+  "noteList.subtitle.links.one": "{count} link",
+  "noteList.subtitle.links.few": "{count} linki",
+  "noteList.subtitle.links.many": "{count} linków",
+  "noteList.subtitle.links.other": "{count} linku",
   "filters.date.inputPlaceholder": "YYYY-MM-DD lub data względna"
 }

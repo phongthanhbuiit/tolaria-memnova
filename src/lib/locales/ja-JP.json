@@ -1017,5 +1017,14 @@
   "filters.date.openPickerForDate": "日付選択を開く（{date}）",
   "filters.date.resolvesTo": "該当する日付：{date}",
   "filters.date.unrecognized": "認識できません",
+  "noteList.subtitle.empty": "空",
+  "noteList.subtitle.words.one": "{count} 語",
+  "noteList.subtitle.words.few": "{count} 語",
+  "noteList.subtitle.words.many": "{count} 語",
+  "noteList.subtitle.words.other": "{count} 語",
+  "noteList.subtitle.links.one": "{count} 件のリンク",
+  "noteList.subtitle.links.few": "{count} 件のリンク",
+  "noteList.subtitle.links.many": "{count} 件のリンク",
+  "noteList.subtitle.links.other": "{count} 件のリンク",
   "filters.date.inputPlaceholder": "YYYY-MM-DD または相対日付"
 }

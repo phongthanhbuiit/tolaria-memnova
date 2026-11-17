@@ -1017,5 +1017,14 @@
   "filters.date.openPickerForDate": "Адкрыць каляндар ({date})",
   "filters.date.resolvesTo": "Адпавядае даце {date}",
   "filters.date.unrecognized": "Не распазнана",
+  "noteList.subtitle.empty": "Пуста",
+  "noteList.subtitle.words.one": "{count} слова",
+  "noteList.subtitle.words.few": "{count} словы",
+  "noteList.subtitle.words.many": "{count} слоў",
+  "noteList.subtitle.words.other": "{count} слова",
+  "noteList.subtitle.links.one": "{count} спасылка",
+  "noteList.subtitle.links.few": "{count} спасылкі",
+  "noteList.subtitle.links.many": "{count} спасылак",
+  "noteList.subtitle.links.other": "{count} спасылкі",
   "filters.date.inputPlaceholder": "YYYY-MM-DD або адносная дата"
 }

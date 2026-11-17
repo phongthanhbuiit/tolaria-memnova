@@ -1017,5 +1017,14 @@
   "filters.date.openPickerForDate": "開啟日期選擇器（{date}）",
   "filters.date.resolvesTo": "對應日期：{date}",
   "filters.date.unrecognized": "無法辨識",
+  "noteList.subtitle.empty": "空白",
+  "noteList.subtitle.words.one": "{count} 詞",
+  "noteList.subtitle.words.few": "{count} 詞",
+  "noteList.subtitle.words.many": "{count} 詞",
+  "noteList.subtitle.words.other": "{count} 詞",
+  "noteList.subtitle.links.one": "{count} 個連結",
+  "noteList.subtitle.links.few": "{count} 個連結",
+  "noteList.subtitle.links.many": "{count} 個連結",
+  "noteList.subtitle.links.other": "{count} 個連結",
   "filters.date.inputPlaceholder": "YYYY-MM-DD 或相對日期"
 }

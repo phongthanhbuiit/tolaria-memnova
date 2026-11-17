@@ -54,6 +54,33 @@ export function getDisplayDate(entry: VaultEntry): number | null {
   return entry.modifiedAt ?? entry.createdAt
 }
 
+const subtitleCountKeys = {
+  words: {
+    one: 'noteList.subtitle.words.one', few: 'noteList.subtitle.words.few',
+    many: 'noteList.subtitle.words.many', other: 'noteList.subtitle.words.other',
+  },
+  links: {
+    one: 'noteList.subtitle.links.one', few: 'noteList.subtitle.links.few',
+    many: 'noteList.subtitle.links.many', other: 'noteList.subtitle.links.other',
+  },
+} as const
+
+function formatSubtitleCount(count: number, unit: keyof typeof subtitleCountKeys, locale: AppLocale): string {
+  const dateLocale = getLocaleDateLocale(locale)
+  const category = new Intl.PluralRules(dateLocale).select(count)
+  const form = category === 'one' || category === 'few' || category === 'many' ? category : 'other'
+  return translate(locale, subtitleCountKeys[unit][form], { count: count.toLocaleString(dateLocale) })
+}
+
+function appendSubtitleCounts(parts: string[], entry: VaultEntry, locale: AppLocale): void {
+  parts.push(entry.wordCount > 0
+    ? formatSubtitleCount(entry.wordCount, 'words', locale)
+    : translate(locale, 'noteList.subtitle.empty'))
+  if (entry.outgoingLinks.length > 0) {
+    parts.push(formatSubtitleCount(entry.outgoingLinks.length, 'links', locale))
+  }
+}
+
 export function formatSubtitle(
   entry: VaultEntry,
   dateDisplayFormat: DateDisplayFormat = DEFAULT_DATE_DISPLAY_FORMAT,
@@ -62,14 +89,7 @@ export function formatSubtitle(
   const parts: string[] = []
   const date = getDisplayDate(entry)
   if (date) parts.push(formatTimestampForDateDisplay(date, dateDisplayFormat, locale))
-  if (entry.wordCount > 0) {
-    parts.push(`${entry.wordCount.toLocaleString('en-US')} words`)
-  } else {
-    parts.push('Empty')
-  }
-  if (entry.outgoingLinks.length > 0) {
-    parts.push(`${entry.outgoingLinks.length} ${entry.outgoingLinks.length === 1 ? 'link' : 'links'}`)
-  }
+  appendSubtitleCounts(parts, entry, locale)
   return parts.join(' \u00b7 ')
 }
 
@@ -89,14 +109,7 @@ export function formatSearchSubtitle(
   if (created && wasCreatedBeforeLastModification(entry)) {
     parts.push(`${translate(locale, 'noteList.sort.created')} ${formatTimestampForDateDisplay(created, dateDisplayFormat, locale)}`)
   }
-  if (entry.wordCount > 0) {
-    parts.push(`${entry.wordCount.toLocaleString('en-US')} words`)
-  } else {
-    parts.push('Empty')
-  }
-  if (entry.outgoingLinks.length > 0) {
-    parts.push(`${entry.outgoingLinks.length} ${entry.outgoingLinks.length === 1 ? 'link' : 'links'}`)
-  }
+  appendSubtitleCounts(parts, entry, locale)
   return parts.join(' \u00b7 ')
 }
 

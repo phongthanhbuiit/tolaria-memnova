@@ -1017,5 +1017,14 @@
   "filters.date.openPickerForDate": "Adkryć kaliandar ({date})",
   "filters.date.resolvesTo": "Adpaviadaje dacie {date}",
   "filters.date.unrecognized": "Nie raspaznana",
+  "noteList.subtitle.empty": "Pusta",
+  "noteList.subtitle.words.one": "{count} słova",
+  "noteList.subtitle.words.few": "{count} słovy",
+  "noteList.subtitle.words.many": "{count} słoŭ",
+  "noteList.subtitle.words.other": "{count} słova",
+  "noteList.subtitle.links.one": "{count} spasyłka",
+  "noteList.subtitle.links.few": "{count} spasyłki",
+  "noteList.subtitle.links.many": "{count} spasyłak",
+  "noteList.subtitle.links.other": "{count} spasyłki",
   "filters.date.inputPlaceholder": "YYYY-MM-DD abo adnosnaja data"
 }

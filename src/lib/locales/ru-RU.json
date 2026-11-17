@@ -1017,5 +1017,14 @@
   "filters.date.openPickerForDate": "Открыть календарь ({date})",
   "filters.date.resolvesTo": "Соответствует дате {date}",
   "filters.date.unrecognized": "Не распознано",
+  "noteList.subtitle.empty": "Пусто",
+  "noteList.subtitle.words.one": "{count} слово",
+  "noteList.subtitle.words.few": "{count} слова",
+  "noteList.subtitle.words.many": "{count} слов",
+  "noteList.subtitle.words.other": "{count} слова",
+  "noteList.subtitle.links.one": "{count} ссылка",
+  "noteList.subtitle.links.few": "{count} ссылки",
+  "noteList.subtitle.links.many": "{count} ссылок",
+  "noteList.subtitle.links.other": "{count} ссылки",
   "filters.date.inputPlaceholder": "YYYY-MM-DD или относительная дата"
 }
