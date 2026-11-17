@@ -64,6 +64,12 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* DESIGN-SPEC §3: exact CSS pixels despite the legacy 14px rem base.
+     These are minima so controls can grow with user text-spacing overrides. */
+  --control-sm: 28px;
+  --control-md: 32px;
+  --control-lg: 36px;
 }
 
 :root,
