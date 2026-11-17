@@ -1,5 +1,7 @@
 # Memnova hiện tại
 
+**18/11/2026 — D4B / F-032, F-038:** Năm file Pulse/AI chrome/sidebar/AI message/consent chuyển static inline sang utility, giữ pixel geometry và biến theme; style object92→11, còn9dynamic+2delay và editorStyle scrolling contract được ghi rõ. F-032 toàn app còn partial. F-038 đã đưa weight chrome về400/500/600, giữ700 cho nội dung/cú pháp editor. [Số đo từng file, ma trận ảnh và gates D4B](audits/STEP-D4B-INLINE-STYLE.md). Hook source54/54core, frontend87,50%, Rust86,40%; chưa phải bản cài phát hành mới.
+
 **18/11/2026 — D4A / F-024:** Sáu commit theo nhóm study, dialog/palette, Settings/Welcome, AI, Pulse và chrome thay cỡ chữ literal bằng token, giữ nguyên weight/màu/bố cục/hành vi. Grep SPEC §8 160→1 (ngoại lệ emoji icon); 159 dòng chữ khớp grep→0. [Biên bản, ảnh native sáng/tối và giới hạn](audits/STEP-D4A-TYPOGRAPHY.md). F-024 còn partial vì cỡ kế thừa/CSS và một số trạng thái native chưa kiểm hết; R-09 ghi ba browser regression tái hiện baseline. Chưa build bản cài phát hành mới.
 
 **18/11/2026 — bước D3:** Editor actionbar chia nhóm và dùng tooltip/aria đã dịch, chrome/status bar dùng token; H1 rỗng faint/upright; breadcrumb hiện tiêu đề, filename chỉ đổi qua thao tác tường minh. [Ảnh native trước/sau, TDD, dữ liệu và gate D3](audits/STEP-D3-EDITOR-CHROME.md). Không đổi nội dung BlockNote hoặc đặt tên ghi chú mới. Core curated cuối 54/54 không retry; R-08 còn mở về ba regression create/paste chưa phân loại test/app (xem biên bản). D4A được ghi ở mục mới phía trên; chưa phải bản cài phát hành mới.

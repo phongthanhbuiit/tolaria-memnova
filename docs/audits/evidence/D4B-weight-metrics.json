@@ -1,0 +1,32 @@
+[
+  {
+    "file": "src/components/WelcomeScreen.tsx",
+    "before": 1,
+    "after": 0
+  },
+  {
+    "file": "src/components/FlashcardStudyView.tsx",
+    "before": 2,
+    "after": 0
+  },
+  {
+    "file": "src/components/DecksPage.tsx",
+    "before": 8,
+    "after": 0
+  },
+  {
+    "file": "src/components/HomePage.tsx",
+    "before": 31,
+    "after": 0
+  },
+  {
+    "file": "src/utils/releaseHistoryPage.ts",
+    "before": 1,
+    "after": 0
+  },
+  {
+    "file": "src/components/Editor.css",
+    "before": 1,
+    "after": 0
+  }
+]

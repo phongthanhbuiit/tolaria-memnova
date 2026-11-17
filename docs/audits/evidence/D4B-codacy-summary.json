@@ -1,0 +1,18 @@
+{
+  "before": {
+    "count": 145,
+    "by_analyzer": {
+      "Semgrep": 3,
+      "Lizard": 30,
+      "Stylelint": 112
+    }
+  },
+  "after": {
+    "count": 144,
+    "by_analyzer": {
+      "Semgrep": 3,
+      "Lizard": 29,
+      "Stylelint": 112
+    }
+  }
+}

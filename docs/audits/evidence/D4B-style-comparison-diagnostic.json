@@ -1,0 +1,87 @@
+[
+  {
+    "case": "chromium-chrome-after-style-dark.png",
+    "pixel_diff_bbox": null
+  },
+  {
+    "case": "chromium-chrome-after-style-light.png",
+    "pixel_diff_bbox": null
+  },
+  {
+    "case": "chromium-consent-after-style-dark.png",
+    "pixel_diff_bbox": null
+  },
+  {
+    "case": "chromium-consent-after-style-light.png",
+    "pixel_diff_bbox": null
+  },
+  {
+    "case": "chromium-message-after-style-dark.png",
+    "pixel_diff_bbox": [
+      20,
+      179,
+      21,
+      180
+    ]
+  },
+  {
+    "case": "chromium-message-after-style-light.png",
+    "pixel_diff_bbox": null
+  },
+  {
+    "case": "chromium-pulse-after-style-dark.png",
+    "pixel_diff_bbox": null
+  },
+  {
+    "case": "chromium-pulse-after-style-light.png",
+    "pixel_diff_bbox": null
+  },
+  {
+    "case": "chromium-sidebar-after-style-dark.png",
+    "pixel_diff_bbox": null
+  },
+  {
+    "case": "chromium-sidebar-after-style-light.png",
+    "pixel_diff_bbox": null
+  },
+  {
+    "case": "webkit-chrome-after-style-dark.png",
+    "pixel_diff_bbox": null
+  },
+  {
+    "case": "webkit-chrome-after-style-light.png",
+    "pixel_diff_bbox": null
+  },
+  {
+    "case": "webkit-consent-after-style-dark.png",
+    "pixel_diff_bbox": null
+  },
+  {
+    "case": "webkit-consent-after-style-light.png",
+    "pixel_diff_bbox": null
+  },
+  {
+    "case": "webkit-message-after-style-dark.png",
+    "pixel_diff_bbox": null
+  },
+  {
+    "case": "webkit-message-after-style-light.png",
+    "pixel_diff_bbox": null
+  },
+  {
+    "case": "webkit-pulse-after-style-dark.png",
+    "pixel_diff_bbox": null
+  },
+  {
+    "case": "webkit-pulse-after-style-light.png",
+    "pixel_diff_bbox": null
+  },
+  {
+    "case": "webkit-sidebar-after-style-dark.png",
+    "pixel_diff_bbox": null
+  },
+  {
+    "case": "webkit-sidebar-after-style-light.png",
+    "pixel_diff_bbox": null
+  }
+]

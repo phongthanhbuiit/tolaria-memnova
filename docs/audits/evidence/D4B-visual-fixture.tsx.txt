@@ -1,0 +1,24 @@
+import React from 'react'
+import { createRoot } from 'react-dom/client'
+import '/src/index.css'
+import { PulseView } from '/src/components/PulseView'
+import { AiPanelHeader, AiPanelContextBar, AiPanelMessageHistory, AiPanelComposer } from '/src/components/AiPanelChrome'
+import { AiMessage } from '/src/components/AiMessage'
+import { NavItem, SectionContent, VisibilityPopover, SidebarCountPill } from '/src/components/SidebarParts'
+import { TelemetryConsentDialog } from '/src/components/TelemetryConsentDialog'
+import { WelcomeScreen } from '/src/components/WelcomeScreen'
+import { HomePage } from '/src/components/HomePage'
+import { DecksPage } from '/src/components/DecksPage'
+import { UpdateBanner } from '/src/components/UpdateBanner'
+import { TooltipProvider } from '/src/components/ui/tooltip'
+import { Book } from '@phosphor-icons/react'
+import type { VaultEntry } from '/src/types'
+const noop=()=>{}; const query=new URLSearchParams(location.search); const surface=query.get('surface')||'pulse';document.documentElement.dataset.theme=query.get('theme')||'light';
+const entry:VaultEntry={path:'/fixture/note.md',filename:'note.md',title:'A study note',isA:'Note',aliases:[],belongsTo:[],relatedTo:[],status:null,archived:false,modifiedAt:1794931200,createdAt:1794931200,fileSize:120,snippet:'Reading and recall',wordCount:20,relationships:{},icon:null,color:null,order:null,sidebarLabel:null,template:null,sort:null,view:null,visible:true,organized:true,favorite:false,favoriteIndex:null,listPropertiesDisplay:[],outgoingLinks:[],properties:{},hasH1:true,fsrsEnabled:true};
+const groups=[{label:'Notes',type:'Note',Icon:Book},{label:'Projects',type:'Project',Icon:Book}];
+const message={userMessage:'Summarize this note.',references:[{title:'A study note',path:entry.path,type:'Note'}],reasoning:'Compare the main ideas before recalling the details.',reasoningDone:false,actions:[{tool:'read_file',toolId:'read-1',label:'Read note',path:entry.path,status:'done' as const,input:'A study note',output:'A short note for visual QA.'}],response:'## Main idea\n\n**Recall** the useful context. Keep [a reference](https://example.com).',messageId:'qa-msg',onFork:noop,onRegenerate:noop,onOpenNote:noop,onNavigateWikilink:noop};
+export function Chrome(){return <div style={{width:500,height:850,display:'flex',flexDirection:'column'}}><AiPanelHeader agentLabel="Codex" agentReadiness="ready" permissionMode="safe" permissionModeDisabled={false} onPermissionModeChange={noop} onClose={noop} onNewChat={noop}/><AiPanelContextBar activeEntry={entry} linkedCount={3}/><AiPanelMessageHistory agentLabel="Codex" agentReadiness="ready" messages={[]} isActive={false} hasContext/><AiPanelComposer entries={[entry]} agentLabel="Codex" agentReadiness="ready" input="A question" inputRef={React.createRef()} isActive={false} onChange={noop} onSend={noop}/></div>}
+export function Sidebar(){return <div style={{width:360,padding:12}}><NavItem icon={Book} label="All notes" count={42} isActive onClick={noop}/><NavItem icon={Book} label="Disabled" disabled/><SectionContent group={groups[0]} itemCount={12} selection={{kind:'sectionGroup',type:'Note'}} onSelect={noop}/><SidebarCountPill count={3} style={{background:'var(--muted)',padding:'2px 10px'}}/><div style={{position:'relative',marginTop:30}}><VisibilityPopover entries={[entry]} sections={groups} isSectionVisible={()=>true} onToggle={noop}/></div></div>}
+const stats={totalXp:90,streak:4,lastStudyDate:'2026-11-18',dailyGoal:20,todayReviews:6,todayCorrect:5,todayXp:30,todayDurationMs:40000,heatmap:[],combo:2};
+const views:Record<string,React.ReactNode>={pulse:<div style={{width:580,height:850}}><PulseView vaultPath="/fixture" onOpenNote={noop} sidebarCollapsed onExpandSidebar={noop}/></div>,chrome:<Chrome/>,sidebar:<Sidebar/>,message:<div style={{width:560,padding:20}}><AiMessage {...message}/><AiMessage userMessage="" actions={[]} localMarker="A local context marker"/><AiMessage userMessage="A follow-up" actions={[]} isStreaming/></div>,consent:<TelemetryConsentDialog onAccept={noop} onDecline={noop}/>,welcome:<WelcomeScreen mode="welcome" defaultVaultPath="/fixture" onCreateVault={noop} onRetryCreateVault={noop} onCreateEmptyVault={noop} onOpenFolder={noop} isOffline={false} creatingAction={null} error={null} canRetryTemplate={false}/>,home:<HomePage stats={stats} level={2} currentLevelXP={30} nextLevelXP={100} entries={[entry]} onStartReview={noop} onNavigate={noop} onUpdateDailyGoal={noop}/>,decks:<DecksPage entries={[entry]} onStartStudyDeck={noop}/>,update:<UpdateBanner status={{state:'available',version:'2026.11.18',displayVersion:'2026.11.18'}} actions={{startDownload:async()=>{},openReleaseNotes:async()=>{},dismiss:noop}}/>};
+createRoot(document.getElementById('root')!).render(<TooltipProvider>{views[surface]}</TooltipProvider>)

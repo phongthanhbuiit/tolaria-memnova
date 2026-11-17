@@ -1,0 +1,202 @@
+[
+  {
+    "case": "chromium-chrome-after-dark",
+    "node_counts": [
+      39,
+      39
+    ],
+    "computed_diff": [],
+    "changed_pixels": 0,
+    "max_channel_delta": 0
+  },
+  {
+    "case": "chromium-chrome-after-light",
+    "node_counts": [
+      39,
+      39
+    ],
+    "computed_diff": [],
+    "changed_pixels": 0,
+    "max_channel_delta": 0
+  },
+  {
+    "case": "chromium-consent-after-dark",
+    "node_counts": [
+      22,
+      22
+    ],
+    "computed_diff": [],
+    "changed_pixels": 0,
+    "max_channel_delta": 0
+  },
+  {
+    "case": "chromium-consent-after-light",
+    "node_counts": [
+      22,
+      22
+    ],
+    "computed_diff": [],
+    "changed_pixels": 0,
+    "max_channel_delta": 0
+  },
+  {
+    "case": "chromium-message-after-dark",
+    "node_counts": [
+      58,
+      58
+    ],
+    "computed_diff": [],
+    "changed_pixels": 1,
+    "max_channel_delta": 1
+  },
+  {
+    "case": "chromium-message-after-light",
+    "node_counts": [
+      58,
+      58
+    ],
+    "computed_diff": [],
+    "changed_pixels": 0,
+    "max_channel_delta": 0
+  },
+  {
+    "case": "chromium-pulse-after-dark",
+    "node_counts": [
+      107,
+      107
+    ],
+    "computed_diff": [],
+    "changed_pixels": 0,
+    "max_channel_delta": 0
+  },
+  {
+    "case": "chromium-pulse-after-light",
+    "node_counts": [
+      107,
+      107
+    ],
+    "computed_diff": [],
+    "changed_pixels": 0,
+    "max_channel_delta": 0
+  },
+  {
+    "case": "chromium-sidebar-after-dark",
+    "node_counts": [
+      33,
+      33
+    ],
+    "computed_diff": [],
+    "changed_pixels": 0,
+    "max_channel_delta": 0
+  },
+  {
+    "case": "chromium-sidebar-after-light",
+    "node_counts": [
+      33,
+      33
+    ],
+    "computed_diff": [],
+    "changed_pixels": 0,
+    "max_channel_delta": 0
+  },
+  {
+    "case": "webkit-chrome-after-dark",
+    "node_counts": [
+      39,
+      39
+    ],
+    "computed_diff": [],
+    "changed_pixels": 0,
+    "max_channel_delta": 0
+  },
+  {
+    "case": "webkit-chrome-after-light",
+    "node_counts": [
+      39,
+      39
+    ],
+    "computed_diff": [],
+    "changed_pixels": 0,
+    "max_channel_delta": 0
+  },
+  {
+    "case": "webkit-consent-after-dark",
+    "node_counts": [
+      22,
+      22
+    ],
+    "computed_diff": [],
+    "changed_pixels": 0,
+    "max_channel_delta": 0
+  },
+  {
+    "case": "webkit-consent-after-light",
+    "node_counts": [
+      22,
+      22
+    ],
+    "computed_diff": [],
+    "changed_pixels": 0,
+    "max_channel_delta": 0
+  },
+  {
+    "case": "webkit-message-after-dark",
+    "node_counts": [
+      58,
+      58
+    ],
+    "computed_diff": [],
+    "changed_pixels": 0,
+    "max_channel_delta": 0
+  },
+  {
+    "case": "webkit-message-after-light",
+    "node_counts": [
+      58,
+      58
+    ],
+    "computed_diff": [],
+    "changed_pixels": 0,
+    "max_channel_delta": 0
+  },
+  {
+    "case": "webkit-pulse-after-dark",
+    "node_counts": [
+      107,
+      107
+    ],
+    "computed_diff": [],
+    "changed_pixels": 0,
+    "max_channel_delta": 0
+  },
+  {
+    "case": "webkit-pulse-after-light",
+    "node_counts": [
+      107,
+      107
+    ],
+    "computed_diff": [],
+    "changed_pixels": 0,
+    "max_channel_delta": 0
+  },
+  {
+    "case": "webkit-sidebar-after-dark",
+    "node_counts": [
+      33,
+      33
+    ],
+    "computed_diff": [],
+    "changed_pixels": 0,
+    "max_channel_delta": 0
+  },
+  {
+    "case": "webkit-sidebar-after-light",
+    "node_counts": [
+      33,
+      33
+    ],
+    "computed_diff": [],
+    "changed_pixels": 0,
+    "max_channel_delta": 0
+  }
+]

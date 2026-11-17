@@ -1,0 +1,67 @@
+[
+  {
+    "file": "src/components/PulseView.tsx",
+    "inline_before": 26,
+    "inline_after": 1
+  },
+  {
+    "file": "src/components/AiPanelChrome.tsx",
+    "inline_before": 20,
+    "inline_after": 0
+  },
+  {
+    "file": "src/components/SidebarParts.tsx",
+    "inline_before": 14,
+    "inline_after": 7
+  },
+  {
+    "file": "src/components/AiMessage.tsx",
+    "inline_before": 18,
+    "inline_after": 3
+  },
+  {
+    "file": "src/components/TelemetryConsentDialog.tsx",
+    "inline_before": 14,
+    "inline_after": 0
+  },
+  {
+    "file": "src/components/WelcomeScreen.tsx",
+    "inline_before": 12,
+    "inline_after": 12
+  },
+  {
+    "file": "src/components/FlashcardStudyView.tsx",
+    "inline_before": 4,
+    "inline_after": 4
+  },
+  {
+    "file": "src/components/DecksPage.tsx",
+    "inline_before": 1,
+    "inline_after": 1
+  },
+  {
+    "file": "src/components/HomePage.tsx",
+    "inline_before": 2,
+    "inline_after": 2
+  },
+  {
+    "file": "src/components/UpdateBanner.tsx",
+    "inline_before": 5,
+    "inline_after": 5
+  },
+  {
+    "file": "src/utils/releaseHistoryPage.ts",
+    "inline_before": 0,
+    "inline_after": 0
+  },
+  {
+    "file": "src/components/Editor.css",
+    "inline_before": 0,
+    "inline_after": 0
+  },
+  {
+    "file": "src/utils/releaseDownloadPage.ts",
+    "inline_before": 0,
+    "inline_after": 0
+  }
+]
