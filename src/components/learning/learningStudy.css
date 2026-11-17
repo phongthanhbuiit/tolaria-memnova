@@ -1,0 +1,35 @@
+@reference "../../index.css";
+
+.learning-study-dialog {
+  width: min(640px, calc((100dvw - 32px) / var(--tolaria-overlay-zoom-factor, 1)));
+  max-width: none;
+  max-height: calc((100dvh - 32px) / var(--tolaria-overlay-zoom-factor, 1));
+  top: calc(50dvh / var(--tolaria-overlay-zoom-factor, 1));
+  left: calc(50dvw / var(--tolaria-overlay-zoom-factor, 1));
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
+.learning-study-header { position: relative; flex-shrink: 0; gap: 0; padding: 0 24px; text-align: start; }
+.learning-study-heading { display: flex; align-items: center; min-width: 0; min-height: 56px; gap: 8px; }
+.learning-study-progress { position: absolute; inset-inline: 0; bottom: 0; height: 2px; overflow: hidden; }
+.learning-study-body { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.learning-study-footer { flex-shrink: 0; padding: 24px; border-top: 1px solid var(--border); background: var(--background); }
+.learning-study-faces { display: flex; flex-direction: column; justify-content: center; min-height: 240px; gap: 24px; padding: 24px; border-radius: var(--radius-lg); @apply bg-muted/40; }
+.learning-study-face { min-width: 0; }
+.learning-study-copy { max-width: 60ch; margin-inline: auto; @apply text-study text-text-primary; }
+
+/* Readonly recall content only. The writable editor keeps its own typography. */
+.learning-study-copy .editor__blocknote-container .bn-editor,
+.learning-study-copy .editor__blocknote-container .bn-editor .bn-block-content .bn-inline-content {
+  @apply text-study text-text-primary;
+}
+.learning-study-copy .bn-editor { --editor-line-height: calc(28 / 18); }
+
+@media (prefers-reduced-motion: reduce) {
+  .learning-study-dialog, .learning-study-dialog * { animation: none; transition: none; }
+}

@@ -68,7 +68,7 @@ export function LearningStudyFaces({
   const t = (key: TranslationKey) => translate(locale, key)
   return (
     <div
-      className="mx-auto max-w-3xl space-y-6"
+      className="learning-study-faces"
       onClickCapture={(event) => {
         if (
           isNote &&
@@ -84,22 +84,24 @@ export function LearningStudyFaces({
         hidden={isNote && revealed}
         inert={isNote && revealed}
         aria-hidden={isNote && revealed ? true : undefined}
-        className="mx-auto max-w-2xl rounded-xl border bg-card p-6 shadow-sm"
+        className="learning-study-face"
       >
-        <p className="mb-4 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+        <p className="mb-[12px] text-caption uppercase tracking-wide text-text-secondary">
           {t(isNote ? 'learning.noteMemory.article' : 'learning.front')}
         </p>
-        <BlockNoteReadOnly
-          key={`${key}:question`}
-          content={isNote ? (item.page?.content ?? '') : item.card.front}
-          onReady={isNote ? undefined : questionRendered}
-          onRenderStatus={isNote ? questionStatus : undefined}
-          verifiedMedia={isNote ? noteDetails?.frontMedia : undefined}
-          preserveBody
-          locale={locale}
-          vaultPath={root}
-          notePath={item.page ? `${root}/${item.page.path}` : undefined}
-        />
+        <div className="learning-study-copy">
+          <BlockNoteReadOnly
+            key={`${key}:question`}
+            content={isNote ? (item.page?.content ?? '') : item.card.front}
+            onReady={isNote ? undefined : questionRendered}
+            onRenderStatus={isNote ? questionStatus : undefined}
+            verifiedMedia={isNote ? noteDetails?.frontMedia : undefined}
+            preserveBody
+            locale={locale}
+            vaultPath={root}
+            notePath={item.page ? `${root}/${item.page.path}` : undefined}
+          />
+        </div>
         {!isNote && typeof item.card.properties.IPA === 'string' && (
           <p className="mt-4 text-muted-foreground">
             {item.card.properties.IPA}
@@ -146,22 +148,24 @@ export function LearningStudyFaces({
           hidden={isNote && !revealed}
           inert={isNote && !revealed}
           aria-hidden={isNote && !revealed ? true : undefined}
-          className="rounded-xl border border-primary/30 bg-muted/30 p-6"
+          className={isNote ? 'learning-study-face' : 'learning-study-face border-t pt-[24px]'}
         >
-          <p className="mb-4 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+          <p className="mb-[12px] text-caption uppercase tracking-wide text-text-secondary">
             {t(isNote ? 'learning.noteMemory.mnemonic' : 'learning.back')}
           </p>
-          <BlockNoteReadOnly
-            key={`${key}:answer`}
-            content={answer}
-            onReady={isNote ? undefined : answerRendered}
-            onRenderStatus={isNote ? answerStatus : undefined}
-            verifiedMedia={isNote ? noteDetails?.backMedia : undefined}
-            preserveBody
-            locale={locale}
-            vaultPath={root}
-            notePath={answerPage ? `${root}/${answerPage.path}` : undefined}
-          />
+          <div className="learning-study-copy">
+            <BlockNoteReadOnly
+              key={`${key}:answer`}
+              content={answer}
+              onReady={isNote ? undefined : answerRendered}
+              onRenderStatus={isNote ? answerStatus : undefined}
+              verifiedMedia={isNote ? noteDetails?.backMedia : undefined}
+              preserveBody
+              locale={locale}
+              vaultPath={root}
+              notePath={answerPage ? `${root}/${answerPage.path}` : undefined}
+            />
+          </div>
           {!isNote && (
             <VocabularyStudyDetails
               properties={item.card.properties}

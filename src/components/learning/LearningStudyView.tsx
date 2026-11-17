@@ -19,6 +19,7 @@ import { LearningError } from './LearningError'
 import { GradeButtons } from './GradeButtons'
 import { LearningStudyFaces } from './LearningStudyFaces'
 import { useStudyFaces } from './useStudyFaces'
+import './learningStudy.css'
 
 export function LearningStudyView({
   study,
@@ -123,7 +124,7 @@ export function LearningStudyView({
       <DialogContent
         onOpenAutoFocus={onOpenAutoFocus} onCloseAutoFocus={onCloseAutoFocus}
         showCloseButton={false}
-        className="learning-study-dialog flex max-h-[94dvh] flex-col gap-0 overflow-hidden p-0 sm:max-w-4xl"
+        className="learning-study-dialog"
         onEscapeKeyDown={(event) => {
           event.preventDefault()
           void study.close()
@@ -157,29 +158,32 @@ export function LearningStudyView({
           }
         }}
       >
-        <DialogHeader className="border-b p-5">
-          <div className="flex items-center justify-between gap-3">
-            <DialogTitle>
+        <DialogHeader className="learning-study-header">
+          <div className="learning-study-heading">
+            <DialogTitle className="min-w-0 flex-1 truncate text-title">
               {item?.page?.title ?? t('learning.study')}
             </DialogTitle>
+            <DialogDescription className="shrink-0 text-small tabular-nums text-text-secondary">
+              {session
+                ? `${session.completedCount}/${session.initialCount} · ${translate(locale, 'home.daily_goal_reviews', { n: session.reviewCount })}`
+                : t('learning.loading')}
+            </DialogDescription>
             <Button
               variant="ghost"
+              size="icon-sm"
+              aria-label={t('learning.close')}
               disabled={study.busy || study.hasPending}
               onClick={() => {
                 void study.close()
               }}
             >
-              <X aria-hidden="true" />{t('learning.close')}
+              <X aria-hidden="true" />
             </Button>
           </div>
-          <DialogDescription>
-            {session
-              ? `${session.completedCount}/${session.initialCount} · ${translate(locale, 'home.daily_goal_reviews', { n: session.reviewCount })}`
-              : t('learning.loading')}
-          </DialogDescription>
+
           {session && (
             <div
-              className="mt-3 h-1.5 overflow-hidden rounded bg-muted"
+              className="learning-study-progress"
               role="progressbar"
               aria-label={t('decks.progress')}
               aria-valuemin={0}
@@ -187,7 +191,7 @@ export function LearningStudyView({
               aria-valuenow={session.completedCount}
             >
               <div
-                className="h-full bg-primary transition-[width] motion-reduce:transition-none"
+                className="h-full bg-primary"
                 style={{
                   width: `${session.initialCount ? (session.completedCount / session.initialCount) * 100 : 0}%`,
                 }}
@@ -197,7 +201,7 @@ export function LearningStudyView({
         </DialogHeader>
         <div
           ref={scrollContainer}
-          className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-5 sm:p-8"
+          className="learning-study-body"
         >
           {study.error && (
             <LearningError error={study.error} locale={locale}>
@@ -280,11 +284,12 @@ export function LearningStudyView({
             }}
           />
         </div>
-        <footer className="shrink-0 border-t bg-background p-4 sm:px-8">
-          <div className="mx-auto max-w-2xl space-y-3">
+        <footer className="learning-study-footer">
+          <div className="flex flex-col gap-[8px]">
             {item?.page && !revealed && (
               <Button
                 ref={revealButton}
+                size="study-reveal"
                 className="w-full"
                 disabled={
                   study.busy || !!study.error || !sourceReady || !questionReady
@@ -299,17 +304,7 @@ export function LearningStudyView({
                 )}
               </Button>
             )}
-            {isNote && revealed && (
-              <Button
-                variant="outline"
-                className="w-full"
-                disabled={study.busy || study.hasPending}
-                onClick={returnToArticle}
-              >
-                <ArrowUUpLeft aria-hidden />
-                {t('learning.noteMemory.returnArticle')}
-              </Button>
-            )}
+
             {item?.page && revealed && (
               <GradeButtons
                 locale={locale}
@@ -318,17 +313,31 @@ export function LearningStudyView({
                 onGrade={rating => { void study.rate(rating) }}
               />
             )}
-            <div className="flex items-center justify-between">
-              <Button
-                variant="ghost"
-                size="sm"
-                disabled={!session?.canUndo || study.busy || study.hasPending}
-                onClick={() => {
-                  void study.undo()
-                }}
-              >
-                <ArrowUUpLeft aria-hidden="true" />{t('learning.undo')}
-              </Button>
+            <div className="flex items-center gap-[8px]">
+              {isNote && revealed && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  disabled={study.busy || study.hasPending}
+                  onClick={returnToArticle}
+                >
+                  <ArrowUUpLeft aria-hidden />
+                  {t('learning.noteMemory.returnArticle')}
+                </Button>
+              )}
+              {session?.canUndo && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="ml-auto"
+                  disabled={!session?.canUndo || study.busy || study.hasPending}
+                  onClick={() => {
+                    void study.undo()
+                  }}
+                >
+                  <ArrowUUpLeft aria-hidden="true" />{t('learning.undo')}
+                </Button>
+              )}
               {study.busy && (
                 <span role="status" className="text-sm text-muted-foreground">
                   {t('learning.saving')}
