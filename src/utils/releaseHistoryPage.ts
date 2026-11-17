@@ -100,6 +100,10 @@ const RELEASE_HISTORY_PAGE_STYLES = `
       padding: 32px 20px 48px;
     }
 
+    h1, h2, h3, h4, h5, h6, strong, b {
+      font-weight: 600;
+    }
+
     main {
       width: min(100%, 840px);
       margin: 0 auto;
@@ -218,7 +222,7 @@ const RELEASE_HISTORY_PAGE_STYLES = `
       border-radius: 999px;
       color: var(--release-accent);
       font-size: 0.8125rem;
-      font-weight: 700;
+      font-weight: 600;
       letter-spacing: 0.02em;
       padding: 6px 10px;
       text-decoration: none;
