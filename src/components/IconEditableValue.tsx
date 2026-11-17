@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import { useId, useMemo, useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
@@ -99,7 +100,7 @@ function IconEditableInput({
 
   return (
     <div className="relative flex flex-col gap-2" data-testid="icon-editable-value">
-      <Input
+      <Input controlSize="sm"
         type="text"
         value={editValue}
         onChange={(event) => {
@@ -115,29 +116,29 @@ function IconEditableInput({
         aria-expanded
         aria-activedescendant={filteredIcons.at(highlightedIndex) ? `${listboxId}-option-${highlightedIndex}` : undefined}
         placeholder="Emoji, icon name, or URL"
-        className="h-8 text-[12px]"
+        className="text-body"
         data-testid="icon-editable-input"
       />
       <div
         id={listboxId}
         role="listbox"
-        className="max-h-44 overflow-y-auto rounded-md border border-border bg-popover p-1 shadow-sm"
+        className="max-h-44 overflow-y-auto rounded-lg border border-border bg-popover p-1 shadow-sm"
         data-testid="icon-picker-results"
       >
         {filteredIcons.length === 0 ? (
-          <div className="px-2 py-6 text-center text-[12px] text-muted-foreground" data-testid="icon-picker-empty">
+          <div className="px-2 py-6 text-center text-body text-text-secondary" data-testid="icon-picker-empty">
             No icons found
           </div>
         ) : (
           filteredIcons.map(({ name, Icon }, index) => (
-            <button
+            <Button variant="ghost" size="sm"
               key={name}
               id={`${listboxId}-option-${index}`}
               type="button"
               role="option"
               aria-selected={index === highlightedIndex}
               className={cn(
-                'flex w-full items-center gap-2 rounded px-2 py-1.5 text-left text-[12px] transition-colors',
+                'flex w-full justify-start items-center gap-[6px] rounded-md px-2 py-0 text-left text-body transition-colors',
                 index === highlightedIndex
                   ? 'bg-primary/10 text-primary'
                   : 'text-foreground hover:bg-accent hover:text-foreground',
@@ -147,9 +148,9 @@ function IconEditableInput({
               onClick={() => selectIcon(name)}
               data-testid={`icon-picker-option-${name}`}
             >
-              <Icon size={14} aria-hidden="true" className="shrink-0" />
+              <Icon size={16} aria-hidden="true" className="shrink-0" />
               <span className="truncate">{name}</span>
-            </button>
+            </Button>
           ))
         )}
       </div>
@@ -169,14 +170,14 @@ export function IconEditableValue({
   }
 
   return (
-    <button
+    <Button variant="ghost" size="sm"
       type="button"
-      className="inline-flex h-6 min-w-0 max-w-full cursor-pointer items-center truncate rounded-md border-0 bg-transparent px-2 text-left text-[12px] text-secondary-foreground transition-colors hover:bg-muted"
+      className="inline-flex min-w-0 max-w-full cursor-pointer items-center truncate rounded-md border-0 bg-transparent px-2 text-left text-body text-secondary-foreground transition-colors hover:bg-muted"
       onClick={onStartEdit}
       title={value || 'Click to edit'}
       data-testid="icon-editable-display"
     >
       {value || '\u2014'}
-    </button>
+    </Button>
   )
 }
