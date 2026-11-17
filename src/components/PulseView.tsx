@@ -79,7 +79,7 @@ const STATUS_COLOR = {
   deleted: 'var(--destructive)',
 } as const
 
-const PULSE_ROW_FOCUS_CLASS_NAME = 'focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring/70 focus-visible:ring-inset'
+const PULSE_ROW_FOCUS_CLASS_NAME = 'focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:ring-1 focus-visible:ring-ring/70 focus-visible:ring-inset'
 const PULSE_EDGE_TO_EDGE_ROW_CLASS_NAME = '-mx-4 rounded-none px-4'
 
 function SummaryBadges({ added, modified, deleted }: { added: number; modified: number; deleted: number }) {

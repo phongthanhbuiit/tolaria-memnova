@@ -34,7 +34,7 @@ function FilterPillsInner({ active, counts, onChange, position = 'top', locale =
           type="button"
           role="tab"
           aria-selected={active === value}
-          className={`inline-flex whitespace-nowrap items-center gap-1.5 rounded-md border px-3 py-0 text-small font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring ${
+          className={`inline-flex whitespace-nowrap items-center gap-1.5 rounded-md border px-3 py-0 text-small font-medium transition-colors focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:ring-1 focus-visible:ring-ring ${
             active === value
               ? 'border-foreground/20 bg-foreground/10 text-foreground'
               : 'border-transparent text-muted-foreground hover:bg-muted hover:text-foreground'

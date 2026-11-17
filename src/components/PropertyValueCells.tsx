@@ -450,7 +450,7 @@ export function DisplayModeSelector({ propKey, currentMode, autoMode, onSelect }
       <Button variant="ghost" size="icon-sm"
         ref={triggerRef}
         type="button"
-        className="inline-flex shrink-0 items-center justify-center rounded-md border-none bg-transparent p-0 text-text-secondary transition-colors hover:bg-background hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary"
+        className="inline-flex shrink-0 items-center justify-center rounded-md border-none bg-transparent p-0 text-text-secondary transition-colors hover:bg-background hover:text-foreground focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:ring-1 focus-visible:ring-primary"
         onClick={() => setOpen(!open)}
         title={translate(locale, 'a11y.changePropertyType', { property: propertyDisplayLabel(propKey, locale) })}
         aria-label={translate(locale, 'a11y.changePropertyType', { property: propertyDisplayLabel(propKey, locale) })}

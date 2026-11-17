@@ -32,7 +32,7 @@ export function containsWikilinks(value: FrontmatterValue): boolean {
   return false
 }
 
-const PROPERTY_ROW_CLASS_NAME = 'group/prop grid min-h-(--control-sm) min-w-0 grid-cols-2 items-center gap-2 rounded-md px-2 outline-none transition-colors hover:bg-muted focus:bg-muted focus:ring-1 focus:ring-primary'
+const PROPERTY_ROW_CLASS_NAME = 'group/prop grid min-h-(--control-sm) min-w-0 grid-cols-2 items-center gap-2 rounded-md px-2 transition-colors hover:bg-muted focus:bg-muted focus:ring-1 focus:ring-primary'
 
 function PropertyRow({ propKey, value, editingKey, displayMode, autoMode, vaultStatuses, vaultTags, locale, onStartEdit, onSave, onSaveList, onUpdate, onDelete, onDisplayModeChange }: {
   propKey: string; value: FrontmatterValue; editingKey: string | null

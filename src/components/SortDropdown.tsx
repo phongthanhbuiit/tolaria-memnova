@@ -90,7 +90,7 @@ function selectOnKeyboard(
 
 function getDirectionButtonClass(isActive: boolean, activeDirection: SortDirection, buttonDirection: SortDirection) {
   return cn(
-    'flex items-center rounded p-0.5 hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+    'flex items-center rounded p-0.5 hover:bg-background focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:ring-2 focus-visible:ring-ring',
     isActive && activeDirection === buttonDirection ? 'text-foreground' : 'text-muted-foreground opacity-40',
   )
 }
@@ -387,7 +387,7 @@ function SortRow({ index, groupLabel, value, label, current, direction, buttonRe
           type="button"
           role="menuitemradio"
           aria-checked={isActive}
-          className="flex min-w-0 flex-1 items-center gap-1.5 rounded px-1 py-1 text-left text-inherit hover:bg-background/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="flex min-w-0 flex-1 items-center gap-1.5 rounded px-1 py-1 text-left text-inherit hover:bg-background/80 focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:ring-2 focus-visible:ring-ring"
           onClick={(event) => {
             event.stopPropagation()
             onSelect(value, defaultDirection)

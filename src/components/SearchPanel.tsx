@@ -404,7 +404,7 @@ const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
         </svg>
         <input
           ref={ref}
-          className="flex-1 bg-transparent text-(length:--text-body-lg) leading-(--text-body-lg--line-height) text-foreground outline-none placeholder:text-muted-foreground"
+          className="flex-1 bg-transparent text-(length:--text-body-lg) leading-(--text-body-lg--line-height) text-foreground outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ring placeholder:text-muted-foreground"
           type="text"
           placeholder="Search in all notes..."
           value={query}

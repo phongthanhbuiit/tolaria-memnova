@@ -237,7 +237,7 @@ export function InlineWikilinkEditorField({
         aria-disabled={disabled ? 'true' : undefined}
         data-testid={dataTestId}
         className={cn(
-          'min-h-[34px] w-full rounded-lg border border-border bg-transparent px-[10px] py-[8px] text-(length:--text-body) leading-(--text-body--line-height) text-foreground outline-none',
+          'min-h-[34px] w-full rounded-lg border border-border bg-transparent px-[10px] py-[8px] text-(length:--text-body) leading-(--text-body--line-height) text-foreground outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:-outline-offset-2 focus-visible:outline-ring',
           disabled && 'cursor-not-allowed opacity-60',
           editorClassName,
         )}

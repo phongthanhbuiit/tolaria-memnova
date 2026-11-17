@@ -191,7 +191,7 @@ export function HomePage({
                 if (e.key === 'Enter') commitGoal()
                 if (e.key === 'Escape') setEditingGoal(false)
               }}
-              className="w-12 text-xs font-semibold text-center bg-muted rounded px-1 py-0.5 border border-[var(--accent-blue)] focus:outline-none"
+              className="w-12 text-xs font-semibold text-center bg-muted rounded px-1 py-0.5 border border-[var(--accent-blue)] focus:outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ring"
               aria-label="Edit daily goal"
               autoFocus
             />

@@ -354,7 +354,7 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
       <div
         ref={containerRef}
         tabIndex={-1}
-        className="flex-1 min-h-0 overflow-y-auto p-6 focus:outline-none"
+        className="flex-1 min-h-0 overflow-y-auto p-6 focus:outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:-outline-offset-2 focus-visible:outline-ring"
       >
         <div className="max-w-3xl mx-auto w-full flex flex-col gap-4 pb-12">
           {isComplete ? (
@@ -556,7 +556,7 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
                   className={cn(
                     'px-10 py-3.5 rounded-xl text-sm font-medium transition-all duration-150 h-auto',
                     'bg-[var(--accent-blue)] text-white hover:opacity-90 shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]',
-                    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-blue)]',
+                    'focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:ring-2 focus-visible:ring-[var(--accent-blue)]',
                   )}
                   data-testid="flashcard-show-answer"
                 >

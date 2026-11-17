@@ -48,7 +48,7 @@ function Tab({ label, icon, isActive, onClick, testId }: TabProps) {
         'flashcard-tab',
         'relative flex items-center gap-1.5 px-3 py-1.5 text-small font-medium',
         'rounded-md transition-all duration-150 select-none',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+        'focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:ring-2 focus-visible:ring-ring',
         isActive
           ? 'bg-background text-foreground shadow-sm'
           : 'text-muted-foreground hover:text-foreground hover:bg-background/50',
