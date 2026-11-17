@@ -1,3 +1,5 @@
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 import { useState, useRef, useCallback, useEffect } from 'react'
 import { isValidCssColor, toHexColor } from '../utils/colorUtils'
 
@@ -29,9 +31,9 @@ export function ColorSwatch({ color, onChange }: {
 
   return (
     <span className="inline-flex shrink-0 items-center">
-      <button
+      <Button variant="ghost" size="icon-sm"
         type="button"
-        className="relative size-4 shrink-0 cursor-pointer rounded-[3px] border border-border p-0 transition-shadow hover:ring-1 hover:ring-primary focus:outline-none focus:ring-2 focus:ring-primary"
+        className="relative shrink-0 cursor-pointer rounded-md border border-border p-0 transition-shadow hover:ring-1 hover:ring-primary focus:outline-none focus:ring-2 focus:ring-primary"
         style={{ background: color }}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
@@ -39,7 +41,7 @@ export function ColorSwatch({ color, onChange }: {
         aria-label={`Color: ${color}. Click to open color picker`}
         data-testid="color-swatch"
       >
-        <input
+        <Input controlSize="sm"
           ref={inputRef}
           type="color"
           value={hex}
@@ -49,7 +51,7 @@ export function ColorSwatch({ color, onChange }: {
           aria-hidden="true"
           data-testid="color-picker-input"
         />
-      </button>
+      </Button>
     </span>
   )
 }
@@ -132,9 +134,9 @@ function EditableColorValue({
   return (
     <span className="flex w-full items-center gap-1.5">
       {showSwatch && <ColorSwatch color={editValue} onChange={onPickerChange} />}
-      <input
+      <Input controlSize="sm"
         ref={textInputRef}
-        className="w-full rounded border border-ring bg-muted px-2 py-1 text-[12px] text-foreground outline-none focus:border-primary"
+        className="w-full rounded-md border border-ring bg-muted px-2 py-0 text-body text-foreground outline-none focus:border-primary"
         type="text"
         value={editValue}
         onChange={(e) => onChange(e.target.value)}
@@ -158,16 +160,16 @@ function ReadonlyColorValue({
   value: string
 }) {
   return (
-    <span className="inline-flex h-6 min-w-0 items-center gap-1.5">
+    <span className="inline-flex min-h-(--control-sm) min-w-0 items-center gap-1.5">
       {showSwatch && <ColorSwatch color={value} onChange={onPickerChange} />}
-      <button
+      <Button variant="ghost" size="sm"
         type="button"
-        className="min-w-0 cursor-pointer truncate rounded border-0 bg-transparent px-1 text-left text-[12px] text-secondary-foreground transition-colors hover:bg-muted"
+        className="min-w-0 cursor-pointer truncate rounded-md border-0 bg-transparent px-1 text-left text-body text-secondary-foreground transition-colors hover:bg-muted"
         onClick={onStartEdit}
         title={value || 'Click to edit'}
       >
         {value || '\u2014'}
-      </button>
+      </Button>
     </span>
   )
 }
