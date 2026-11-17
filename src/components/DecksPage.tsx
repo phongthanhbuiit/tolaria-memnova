@@ -61,7 +61,7 @@ function FilterTab({
       {label}
       <span
         className={cn(
-          'inline-flex items-center justify-center min-w-[18px] h-[18px] rounded-full text-(length:--text-caption) leading-(--text-caption--line-height) font-black px-1',
+          'inline-flex items-center justify-center min-w-[18px] h-[18px] rounded-full text-(length:--text-caption) leading-(--text-caption--line-height) font-semibold px-1',
           active ? 'bg-white/25' : 'bg-muted text-muted-foreground',
         )}
       >
@@ -149,14 +149,14 @@ export function DecksPage({
       {/* ── Header ─────────────────────────────────────────────── */}
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-black tracking-tight text-foreground flex items-center gap-2">
+          <h1 className="text-3xl font-semibold tracking-tight text-foreground flex items-center gap-2">
             <Brain size={28} className="text-[var(--accent-blue)]" />
             {translate(locale, 'decks.title')}
           </h1>
           <p className="text-sm text-muted-foreground mt-1 font-medium flex items-center gap-2">
             {translate(locale, 'decks.subtitle')}
             {totalDueCards > 0 && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[var(--accent-blue-light)] text-[var(--accent-blue)] rounded-full text-(length:--text-caption) leading-(--text-caption--line-height) font-black">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[var(--accent-blue-light)] text-[var(--accent-blue)] rounded-full text-(length:--text-caption) leading-(--text-caption--line-height) font-semibold">
                 {translate(locale, 'decks.total_due', { n: totalDueCards })}
               </span>
             )}
@@ -260,7 +260,7 @@ export function DecksPage({
                 <div>
                   <div className="flex items-start justify-between gap-4 mb-2">
                     <div className="min-w-0">
-                      <h3 className="font-bold text-lg text-foreground truncate group-hover:text-[var(--accent-blue)] transition-colors">
+                      <h3 className="font-semibold text-lg text-foreground truncate group-hover:text-[var(--accent-blue)] transition-colors">
                         {deck.entry.title}
                       </h3>
                       {deck.entry.isA && (
@@ -271,11 +271,11 @@ export function DecksPage({
                     </div>
 
                     {deck.dueCards > 0 ? (
-                      <span className="px-3 py-1 bg-[var(--accent-blue-light)] text-[var(--accent-blue)] text-(length:--text-caption) leading-(--text-caption--line-height) font-black rounded-full whitespace-nowrap">
+                      <span className="px-3 py-1 bg-[var(--accent-blue-light)] text-[var(--accent-blue)] text-(length:--text-caption) leading-(--text-caption--line-height) font-semibold rounded-full whitespace-nowrap">
                         {translate(locale, 'decks.due', { n: deck.dueCards })}
                       </span>
                     ) : (
-                      <span className="px-3 py-1 bg-[var(--accent-green-light)] text-[var(--accent-green)] text-(length:--text-caption) leading-(--text-caption--line-height) font-black rounded-full whitespace-nowrap flex items-center gap-1">
+                      <span className="px-3 py-1 bg-[var(--accent-green-light)] text-[var(--accent-green)] text-(length:--text-caption) leading-(--text-caption--line-height) font-semibold rounded-full whitespace-nowrap flex items-center gap-1">
                         <CheckCircle size={12} weight="fill" />
                         {translate(locale, 'decks.done_all')}
                       </span>
@@ -290,7 +290,7 @@ export function DecksPage({
                 <div className="space-y-4">
                   {/* Progress bar */}
                   <div className="space-y-1">
-                    <div className="flex justify-between text-(length:--text-caption) leading-(--text-caption--line-height) font-bold text-muted-foreground">
+                    <div className="flex justify-between text-(length:--text-caption) leading-(--text-caption--line-height) font-semibold text-muted-foreground">
                       <span>{translate(locale, 'decks.progress')}</span>
                       <span>{progress}%</span>
                     </div>
@@ -307,7 +307,7 @@ export function DecksPage({
                     <Button
                       type="button"
                       onClick={() => onStartStudyDeck(deck.entry)}
-                      className="px-4 py-2 bg-[var(--accent-blue)] hover:opacity-90 text-white rounded-xl text-xs font-bold transition-all duration-150 flex items-center gap-1.5 active:scale-95 shadow-sm h-auto"
+                      className="px-4 py-2 bg-[var(--accent-blue)] hover:opacity-90 text-white rounded-xl text-xs font-semibold transition-all duration-150 flex items-center gap-1.5 active:scale-95 shadow-sm h-auto"
                     >
                       <Play size={12} weight="fill" />
                       {translate(locale, 'decks.study_deck')}
