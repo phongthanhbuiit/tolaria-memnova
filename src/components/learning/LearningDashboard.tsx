@@ -25,8 +25,8 @@ function LibraryHeader({ locale, studyReady, onBrowseAllNotes, onCreateNote }: L
       {studyReady && <p className="text-sm text-muted-foreground">{translate(locale, 'learning.libraryWritingHelp')}</p>}
     </div>
     <div className="flex flex-wrap gap-2">
-      <Button variant="outline" onClick={onBrowseAllNotes}><Files aria-hidden="true" />{translate(locale, 'sidebar.nav.allNotes')}</Button>
-      <Button onClick={onCreateNote}><NotePencil aria-hidden="true" />{translate(locale, 'command.note.newNote')}</Button>
+      <Button size="lg" variant="outline" onClick={onBrowseAllNotes}><Files aria-hidden="true" />{translate(locale, 'sidebar.nav.allNotes')}</Button>
+      <Button size="lg" variant="outline" onClick={onCreateNote}><NotePencil aria-hidden="true" />{translate(locale, 'command.note.newNote')}</Button>
     </div>
   </header>
 }

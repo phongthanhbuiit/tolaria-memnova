@@ -21,7 +21,7 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 | F-005 | P1 | C5 | Nút chỉ có icon thiếu `aria-label` (~58 chỗ) | mã | open |
 | F-006 | P1 | C3 | 38 phần tử form HTML thô ngoài `ui/` (vi phạm AGENTS.md) | mã | open |
 | F-007 | P2 | C4 | Thuật ngữ học tập không nhất quán (trang/ghi chú, ghi nhớ/ôn/gợi nhớ) | ảnh | open |
-| F-008 | P2 | C3 | Hai nút chính màu xanh cạnh tranh trên Trang chủ | ảnh | open |
+| F-008 | P2 | C3 | Hai nút chính màu xanh cạnh tranh trên Trang chủ | ảnh | fixed (`fix: F-008 home primary action hierarchy`) |
 | F-009 | P2 | C1 | Ghi chú mới tên "Untitled Note 1794825081", breadcrumb hiện slug | ảnh | open |
 | F-010 | P2 | C3 | Mỗi hàng danh sách hiện hai ngày giống nhau, ngày đầu không nhãn | ảnh | open |
 | F-011 | P2 | C4 | Hạn ôn hiện mốc thời gian thô, không nói quá hạn bao lâu | ảnh | open |
@@ -81,6 +81,8 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 ### F-008 — Hai nút chính trên Trang chủ
 - Thực tế (`HOME`): "Ghi chú mới" và "Ôn ghi chú đến hạn (4)" cùng kiểu nút đặc màu xanh.
 - Sửa: mỗi vùng chỉ một nút chính. Đề xuất giữ "Ôn ghi chú đến hạn" là chính khi có bài đến hạn, "Ghi chú mới" là outline; đảo lại khi không có bài đến hạn.
+
+- D2: hai hành động viết/duyệt ở header dùng outline lg; giữ nút ôn làm hành động chính. Không đổi callback hoặc thêm điều kiện theo lịch học. [Bằng chứng D2](STEP-D2-HOME-LIST-SIDEBAR.md).
 
 ### F-009 — Tên ghi chú mặc định
 - Thực tế (`REVIEW`, `HOME`): tiêu đề "Untitled Note 1794825081", breadcrumb "untitled-note-1794825081"; (`WRITE`) breadcrumb "pomodoro" thay vì tiêu đề "Pomodoro".
