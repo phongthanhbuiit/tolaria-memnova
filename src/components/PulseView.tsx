@@ -84,10 +84,10 @@ const PULSE_EDGE_TO_EDGE_ROW_CLASS_NAME = '-mx-4 rounded-none px-4'
 
 function SummaryBadges({ added, modified, deleted }: { added: number; modified: number; deleted: number }) {
   return (
-    <div className="flex items-center" style={{ gap: 8 }}>
-      {added > 0 && <span className="text-(length:--text-caption) leading-(--text-caption--line-height) font-medium" style={{ color: STATUS_COLOR.added }}>+{added}</span>}
-      {modified > 0 && <span className="text-(length:--text-caption) leading-(--text-caption--line-height) font-medium" style={{ color: STATUS_COLOR.modified }}>~{modified}</span>}
-      {deleted > 0 && <span className="text-(length:--text-caption) leading-(--text-caption--line-height) font-medium" style={{ color: STATUS_COLOR.deleted }}>-{deleted}</span>}
+    <div className="flex items-center gap-[8px]">
+      {added > 0 && <span className="text-(length:--text-caption) leading-(--text-caption--line-height) font-medium text-(--accent-green)">+{added}</span>}
+      {modified > 0 && <span className="text-(length:--text-caption) leading-(--text-caption--line-height) font-medium text-(--accent-orange)">~{modified}</span>}
+      {deleted > 0 && <span className="text-(length:--text-caption) leading-(--text-caption--line-height) font-medium text-destructive">-{deleted}</span>}
     </div>
   )
 }
@@ -119,14 +119,14 @@ function FileItem({
       className={cn(
         'flex w-full items-center rounded text-left transition-colors hover:bg-accent focus-visible:bg-accent disabled:cursor-default disabled:hover:bg-transparent',
         PULSE_ROW_FOCUS_CLASS_NAME,
+        'gap-[6px] p-[3px_8px]',
       )}
-      style={{ gap: 6, padding: '3px 8px' }}
       onClick={handleOpen}
       onKeyDown={(event) => handleActivationKey(event, handleOpen)}
       title={file.path}
       disabled={!onOpenNote}
     >
-      <Icon size={12} style={{ color, flexShrink: 0 }} weight="bold" />
+      <Icon className="shrink-0" size={12} style={{ color }} weight="bold" />
       <span
         className={`truncate text-(length:--text-small) leading-(--text-small--line-height) ${file.status === 'deleted' ? 'text-muted-foreground line-through' : 'text-foreground'}`}
       >
@@ -152,7 +152,7 @@ function CommitCard({
 
   return (
     <div className="border-b border-border px-4 py-2">
-      <div className="flex items-start" style={{ gap: 8 }}>
+      <div className="flex items-start gap-[8px]">
         <button
           type="button"
           className={cn(
@@ -160,17 +160,17 @@ function CommitCard({
             PULSE_ROW_FOCUS_CLASS_NAME,
             PULSE_EDGE_TO_EDGE_ROW_CLASS_NAME,
             expanded ? 'bg-accent/40' : 'hover:bg-accent/40 focus-visible:bg-accent/40',
+        'gap-[8px]',
           )}
-          style={{ gap: 8 }}
           onClick={toggleExpanded}
           onKeyDown={(event) => handleActivationKey(event, toggleExpanded)}
         >
           <div className="min-w-0 flex-1">
-            <div className="flex items-center" style={{ gap: 6, marginBottom: 2 }}>
-              <GitCommit size={13} className="text-muted-foreground" style={{ flexShrink: 0 }} />
+            <div className="flex items-center gap-[6px] mb-[2px]">
+              <GitCommit size={13} className="text-muted-foreground shrink-0" />
               <span className="truncate text-(length:--text-body) leading-(--text-body--line-height) font-medium text-foreground">{commit.message}</span>
             </div>
-            <div className="flex items-center" style={{ gap: 8 }}>
+            <div className="flex items-center gap-[8px]">
               <span className="text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground">{relativeDate(commit.date, locale)}</span>
               {!commitUrl && (
                 <span className="text-(length:--text-caption) leading-(--text-caption--line-height) font-mono text-muted-foreground">{commit.shortHash}</span>
@@ -181,8 +181,7 @@ function CommitCard({
         </button>
         {commitUrl && (
           <a
-            className="mt-2 flex shrink-0 items-center text-(length:--text-caption) leading-(--text-caption--line-height) font-mono text-primary no-underline hover:underline"
-            style={{ gap: 3 }}
+            className="mt-2 flex shrink-0 items-center text-(length:--text-caption) leading-(--text-caption--line-height) font-mono text-primary no-underline hover:underline gap-[3px]"
             href={commitUrl}
             onClick={(e) => {
               e.preventDefault()
@@ -196,8 +195,7 @@ function CommitCard({
         )}
         <button
           type="button"
-          className="mt-2 flex shrink-0 cursor-pointer items-center justify-center rounded border-none bg-transparent p-0 text-muted-foreground hover:text-foreground"
-          style={{ width: 20, height: 20 }}
+          className="mt-2 flex shrink-0 cursor-pointer items-center justify-center rounded border-none bg-transparent p-0 text-muted-foreground hover:text-foreground w-[20px] h-[20px]"
           onClick={toggleExpanded}
           aria-label={translate(locale, expanded ? 'pulse.collapseFiles' : 'pulse.expandFiles')}
         >
@@ -205,7 +203,7 @@ function CommitCard({
         </button>
       </div>
       {expanded && commit.files.length > 0 && (
-        <div style={{ marginTop: 6, marginLeft: 4 }}>
+        <div className="mt-[6px] ml-[4px]">
           {commit.files.map((file) => (
             <FileItem key={file.path} file={file} commitHash={commit.hash} onOpenNote={onOpenNote} />
           ))}
@@ -232,8 +230,8 @@ function DayGroup({ label, commits, locale, onOpenNote }: {
         className={cn(
           'flex w-full cursor-pointer select-none items-center border-0 border-b border-border bg-muted/50 text-left transition-colors hover:bg-muted focus-visible:bg-muted',
           PULSE_ROW_FOCUS_CLASS_NAME,
+        'p-[6px_16px] gap-[6px]',
         )}
-        style={{ padding: '6px 16px', gap: 6 }}
         aria-expanded={!collapsed}
         onClick={toggleCollapsed}
         onKeyDown={(event) => handleActivationKey(event, toggleCollapsed)}
@@ -280,16 +278,14 @@ function PulseHeader({
   return (
     <div
       ref={headerRef}
-      className="flex shrink-0 items-center justify-between border-b border-border"
-      style={{ height: 52, padding: '0 16px', cursor: 'default' }}
+      className="flex shrink-0 items-center justify-between border-b border-border h-[52px] p-[0_16px] cursor-default"
       data-testid="pulse-header"
     >
-      <div className="flex items-center" style={{ gap: 8 }}>
+      <div className="flex items-center gap-[8px]">
         {sidebarCollapsed && onExpandSidebar && (
           <button
             type="button"
-            className="flex shrink-0 cursor-pointer items-center justify-center rounded border-none bg-transparent p-0 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-            style={{ width: 24, height: 24 }}
+            className="flex shrink-0 cursor-pointer items-center justify-center rounded border-none bg-transparent p-0 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground w-[24px] h-[24px]"
             onClick={onExpandSidebar}
             aria-label={translate(locale, 'sidebar.action.expand')}
           >
@@ -312,7 +308,7 @@ function PulseRepositoryRow({
   if (!onRepositoryChange || !selectedRepositoryPath || repositories.length <= 1) return null
 
   return (
-    <div className="flex h-11 shrink-0 items-center border-b border-border px-4" style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}>
+    <div className="flex h-11 shrink-0 items-center border-b border-border px-4 [-webkit-app-region:no-drag]">
       <GitRepositorySelect
         label={translate(locale, 'git.repository.select')}
         repositories={repositories}
@@ -326,10 +322,10 @@ function PulseRepositoryRow({
 
 function EmptyState({ locale = 'en' }: { locale?: AppLocale }) {
   return (
-    <div className="flex flex-1 flex-col items-center justify-center text-muted-foreground" style={{ padding: 32 }}>
-      <Pulse size={32} style={{ marginBottom: 8, opacity: 0.5 }} />
+    <div className="flex flex-1 flex-col items-center justify-center text-muted-foreground p-[32px]">
+      <Pulse className="mb-[8px] opacity-50" size={32} />
       <p className="text-(length:--text-body) leading-(--text-body--line-height)">{translate(locale, 'pulse.noActivity')}</p>
-      <p className="text-(length:--text-small) leading-(--text-small--line-height)" style={{ marginTop: 4 }}>
+      <p className="text-(length:--text-small) leading-(--text-small--line-height) mt-[4px]">
         {translate(locale, 'pulse.emptyDescription')}
       </p>
     </div>
@@ -338,7 +334,7 @@ function EmptyState({ locale = 'en' }: { locale?: AppLocale }) {
 
 function ErrorState({ message, locale = 'en', onRetry }: { message: string; locale?: AppLocale; onRetry: () => void }) {
   return (
-    <div className="flex flex-1 flex-col items-center justify-center text-muted-foreground" style={{ padding: 32 }}>
+    <div className="flex flex-1 flex-col items-center justify-center text-muted-foreground p-[32px]">
       <p className="text-(length:--text-body) leading-(--text-body--line-height)">{message}</p>
       <button type="button"
         className="mt-2 cursor-pointer rounded border border-border bg-transparent px-3 py-1 text-(length:--text-small) leading-(--text-small--line-height) text-foreground transition-colors hover:bg-accent"
@@ -373,7 +369,7 @@ function PulseFeed({
 }) {
   if (loading) {
     return (
-      <div className="flex items-center justify-center" style={{ padding: 32 }}>
+      <div className="flex items-center justify-center p-[32px]">
         <span className="text-(length:--text-body) leading-(--text-body--line-height) text-muted-foreground">{translate(locale, 'pulse.loadingActivity')}</span>
       </div>
     )
@@ -398,9 +394,9 @@ function PulseFeed({
           onOpenNote={onOpenNote}
         />
       ))}
-      <div ref={sentinelRef} style={{ height: 1 }} />
+      <div className="h-[1px]" ref={sentinelRef} />
       {loadingMore && (
-        <div className="flex items-center justify-center" style={{ padding: 12 }}>
+        <div className="flex items-center justify-center p-[12px]">
           <span className="text-(length:--text-small) leading-(--text-small--line-height) text-muted-foreground">{translate(locale, 'pulse.loading')}</span>
         </div>
       )}
