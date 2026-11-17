@@ -24,6 +24,17 @@ async function openNoteViaQuickOpen(page: Page, query: string): Promise<void> {
   await expect(page.getByTestId('breadcrumb-filename-trigger')).toContainText(new RegExp(query, 'i'), { timeout: 5_000 })
 }
 
+async function secondaryTextColor(page: Page): Promise<string> {
+  return page.evaluate(() => {
+    const reference = document.createElement('span')
+    reference.style.color = 'var(--text-secondary)'
+    document.body.append(reference)
+    const color = getComputedStyle(reference).color
+    reference.remove()
+    return color
+  })
+}
+
 test.describe('Type-derived instance properties', () => {
   test.beforeEach(async ({ page }) => {
     tempVaultDir = createFixtureVaultCopy()
@@ -52,11 +63,11 @@ test.describe('Type-derived instance properties', () => {
 
     const startDatePlaceholder = page.getByTestId('type-derived-property').filter({ hasText: 'Start date' })
     await expect(startDatePlaceholder).toBeVisible()
-    await expect(startDatePlaceholder.getByText('Start date')).toHaveClass(/text-muted-foreground\/40/)
+    await expect(startDatePlaceholder.getByText('Start date')).toHaveCSS('color', await secondaryTextColor(page))
 
     const mentorPlaceholder = page.getByTestId('type-derived-relationship').filter({ hasText: 'Mentor' })
     await expect(mentorPlaceholder).toBeVisible()
-    await expect(mentorPlaceholder.getByText('Mentor')).toHaveClass(/text-muted-foreground\/40/)
+    await expect(mentorPlaceholder.getByText('Mentor')).toHaveCSS('color', await secondaryTextColor(page))
 
     await startDatePlaceholder.click()
     const startDateRow = page.getByTestId('editable-property').filter({ hasText: 'Start date' })
