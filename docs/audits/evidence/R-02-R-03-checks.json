@@ -165,5 +165,24 @@
       ]
     },
     "log": "/tmp/memnova-r02-r03/fixture-types.log"
+  },
+  "R04": {
+    "authorized": true,
+    "testOnly": true,
+    "focusedPassed": 63,
+    "lintExitCode": 0,
+    "baselineDeterministicRed": "fake clock 500ms: 350ms warmup + 100ms mock transport",
+    "coverage": {
+      "passed": 4995,
+      "failed": 1,
+      "failingTest": "WikilinkChatInput consecutive IME (R-05)",
+      "log": "/tmp/memnova-r02-r03/R-04-coverage.log"
+    },
+    "codacy": {
+      "filesAnalyzed": 0,
+      "toolsRun": 0,
+      "reason": "project exclusions for *.test.tsx"
+    },
+    "releaseStatus": "blocked by R-05; proposal not applied"
   }
 }

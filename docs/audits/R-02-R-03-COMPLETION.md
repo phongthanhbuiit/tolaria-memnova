@@ -111,3 +111,24 @@ Production source không đổi sau các gates trên. Typecheck bổ sung cho ha
 - Refactoring: none needed ngoài variant sizing tối thiểu; không thay abstraction lưu trữ.
 - ADRs: none. Docs: FINDINGS, CURRENT-STATE, ABSTRACTIONS và báo cáo này.
 - Demo vault dirt: `git status --short -- demo-vault demo-vault-v2` rỗng; không thay fixture demo.
+
+## R-04 — tách prefetch nền khỏi assertion search (đã được cho phép)
+
+Commit: `:/^test: R-04 isolate note-list search from background prefetch`.
+
+Actual push lần đầu bị chặn trước khi lên remote: lint/build pass, coverage có hai test NoteList.rendering fail vì prefetch nền chạm shared content mock. Log được giữ ở `/tmp/memnova-r02-r03/push-first-failure.log`. Không thử push lại để chờ may mắn.
+
+Đã tái hiện độc lập trên archive baseline `95176804`, trước R-02/R-03: dùng fake clock 500ms sau render để đi qua mốc prefetch 350ms + mock transport 100ms, assertion cũ fail với `/vault/a.md`. [Log RED](evidence/R-04-RED.txt). Không thêm sleep hay thay timeout sản phẩm. Người dùng đã cho phép mở scope R-04 test-only trước khi áp dụng patch.
+
+Sửa 7 dòng trong NoteList.rendering.test.tsx: partial mock module, chỉ thay prefetchNoteContent bằng spy. Rendering/search vẫn phải dùng đúng search_vault và không đọc từng file; giữ nguyên tất cả assertion. Các test hover/likely-next preload trong NoteList.keyboard.test.tsx vẫn dùng đường riêng và pass. Không thay app hoặc D2–D4, không thêm retry/skip/fixme.
+
+- 63/63 test rendering/keyboard pass trên repo thật; ESLint file pass.
+- Coverage sau R-04: 501 files, 4.995 pass / 1 fail; các ca rendering pass, failure duy nhất ở IME của file khác (R-05). Chưa coi đây là coverage/pre-push cuối đã pass.
+- Codacy CLI 0.24.0 được gọi cho file test: **0 file / 0 tool chạy** do exclusions dự án. Không ghi là đã phân tích test hoặc gán điểm. Dùng ESLint/Vitest cho file này; 8 file production không đổi, kết quả scan production trước đó vẫn không có Critical/High mới.
+- R-04 test-only: không có UI copy, analytics, ADR, refactor app hoặc native QA mới. Native/Markdown/SQLite và Rust evidence ở trên áp dụng cho production source không đổi.
+
+## R-05 — blocker kế tiếp, chưa áp dụng đề xuất
+
+Coverage sau R-04 gặp ca consecutive IME của WikilinkChatInput.test.tsx: spy draft còn “안” thay vì “안녕”. Source app và test giống baseline; probe 40 ca baseline nguyên bản đều pass, nên chưa kết luận baseline lỗi ổn định hay lỗi native/app. [Finding R-05](FINDINGS.md).
+
+Đề xuất test-only 2 dòng await act(async ...) cho hai compositionEnd, theo [React act](https://react.dev/reference/react/act): callback onChange không đảm bảo DOM đã commit trước tương tác tiếp theo. Patch `/tmp/memnova-r02-r03/proposed-R-05.patch` qua kiểm tra áp dụng, 32/32 test pass trên bản sao. Giữ mọi assertion, không sửa app, không tăng timeout/retry. Đang chờ phép mở scope trước khi áp dụng. Các lượt gate pass/dry-run trước đó là kết quả lịch sử, không đại diện cho coverage hoặc actual push hiện đang bị chặn.

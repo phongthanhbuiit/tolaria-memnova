@@ -14,6 +14,13 @@ import {
 } from '../test-utils/noteListTestUtils'
 import type { ViewFile } from '../types'
 
+// Rendering/search assertions must not depend on the independent 350ms note-open warmup.
+// Hover and likely-next preloading are covered in NoteList.keyboard.test.tsx.
+vi.mock('../hooks/useTabManagement', async (importOriginal) => ({
+  ...await importOriginal<typeof import('../hooks/useTabManagement')>(),
+  prefetchNoteContent: vi.fn(),
+}))
+
 function makeBookTypeEntries(
   displayProps: string[] = [],
   entryOverrides: Parameters<typeof makeEntry>[0] = {},

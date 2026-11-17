@@ -1,0 +1,108 @@
+Baseline 95176804, before R-02/R-03. Diagnostic uses fake clock 500ms after render (350ms prefetch +100ms mock transport); selected test only, other cases filtered by -t. No product sleep/timeout changed.
+
+
+ RUN  v4.0.18 /private/tmp/memnova-r02-r03/gate-baseline
+
+stdout | src/components/NoteList.rendering.test.tsx > NoteList rendering > ignores full-content matches that only appear in hidden frontmatter
+[mock-tauri] Vault API available: false
+
+stdout | src/components/NoteList.rendering.test.tsx > NoteList rendering > ignores full-content matches that only appear in hidden frontmatter
+PREFETCH CALL STACK Error:
+    at /private/tmp/memnova-r02-r03/gate-baseline/src/components/NoteList.rendering.test.tsx:134:41
+    at Mock (file:///Users/thompson/Documents/tolaria-memnova/node_modules/.pnpm/@vitest+spy@4.0.18/node_modules/@vitest/spy/dist/index.js:285:34)
+    at mockInvoke (/private/tmp/memnova-r02-r03/gate-baseline/src/mock-tauri/index.ts:50:12)
+    at runGetNoteContentCommandWithRetry (/private/tmp/memnova-r02-r03/gate-baseline/src/hooks/noteContentCache.ts:210:14)
+
+ ❯ src/components/NoteList.rendering.test.tsx (58 tests | 1 failed | 57 skipped) 344ms
+     ↓ shows an empty state when there are no entries
+     ↓ renders all entries in the all-notes view
+     ↓ filters section groups by type
+     ↓ supports event sections
+     ↓ supports project sections
+     ↓ passes the selected type when creating a note from a type section
+     ↓ creates an untyped note from all notes
+     ↓ shows the active folder name and creates notes inside that folder
+     ↓ pins the current entity and shows grouped children
+     ↓ shows referenced-by groups for topic entities
+     ↓ toggles the search input from the header action
+     ↓ filters by a case-insensitive search query
+     ↓ filters by snippet text when the title does not match
+     ↓ filters by full note content when the title and snippet do not match
+     ↓ ignores stale full-content results when the query changes before a slow search returns
+     × ignores full-content matches that only appear in hidden frontmatter 343ms
+     ↓ runs full-content note-list search across visible workspaces
+     ↓ filters by visible property values and ignores hidden properties
+     ↓ uses the active all-notes columns when filtering by visible property values
+     ↓ sorts entries by last modified descending by default
+     ↓ hides standalone status badges inside note rows
+     ↓ shows search and create actions in the header instead of a count badge
+     ↓ uses breadcrumbs-like button styling for note-list header actions
+     ↓ keeps the note-list search input full width and shows inline search controls while loading
+     ↓ shows backlinks from outgoing links in entity view
+     ↓ shows no placeholder neighborhood groups when none exist
+     ↓ keeps existing neighborhood groups visible at zero after search filters them out
+     ↓ shows the same note in multiple neighborhood groups when relationships overlap
+     ↓ shows all real inverse relationship groups for custom relationship keys
+     ↓ collapses and expands entity groups
+     ↓ shows the pinned neighborhood note using the standard row content
+     ↓ shows the inbox customize-columns action and falls back to type-defined chips
+     ↓ shows the all-notes customize-columns action and falls back to type-defined chips
+     ↓ opens the all-notes column picker as a searchable combobox and saves new columns
+     ↓ opens the inbox column picker from the global event and saves new columns
+     ↓ opens the view column picker from the global event and applies the saved columns
+     ↓ shows an empty-state picker for views with no matching properties
+     ↓ shows status in the type column picker when at least one note has it set
+     ↓ keeps blank statuses out of the type column picker
+     ↓ renders status as a note-list chip when a type displays it
+     ↓ auto-detects status-like property values in note-list chips
+     ↓ formats date properties in note-list chips with the selected display format
+     ↓ keeps unknown status values on neutral note-list chip styling
+     ↓ uses inbox overrides when configured
+     ↓ Cmd+clicks relationship chips through the note list without triggering the row click
+     ↓ opens the current tab on a regular click
+     ↓ enters Neighborhood on Cmd+Click
+     ↓ enters Neighborhood on Ctrl+Click
+     ↓ supports Cmd+Click on the entity pinned card
+     ↓ opens the current tab from the entity pinned card on regular click
+     ↓ opens child notes from entity view in the current tab
+     ↓ does not show a type note pinned card while browsing the section
+     ↓ renders a clickable type header that opens the type note
+     ↓ does not render a type header outside type sections
+     ↓ adds left padding for macOS traffic lights when the sidebar is collapsed
+     ↓ does not add macOS traffic-light padding on Windows when the sidebar is collapsed
+     ↓ does not add extra left padding when the sidebar is expanded
+     ↓ defaults to no extra padding when sidebarCollapsed is omitted
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/components/NoteList.rendering.test.tsx > NoteList rendering > ignores full-content matches that only appear in hidden frontmatter
+AssertionError: expected "vi.fn()" to not be called at all, but actually been called 1 times
+
+Received:
+
+  1st vi.fn() call:
+
+    Array [
+      Object {
+        "path": "/vault/a.md",
+      },
+    ]
+
+
+Number of calls: 1
+
+ ❯ src/components/NoteList.rendering.test.tsx:440:34
+    438|         }))
+    439|       })
+    440|       expect(getNoteContent).not.toHaveBeenCalled()
+       |                                  ^
+    441|       expect(screen.queryByText('Alpha Note')).not.toBeInTheDocument()
+    442|       expect(screen.getByText('No matching notes')).toBeInTheDocument()
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 57 skipped (58)
+   Start at  21:21:52
+   Duration  4.17s (transform 628ms, setup 81ms, import 3.21s, tests 344ms, environment 444ms)
