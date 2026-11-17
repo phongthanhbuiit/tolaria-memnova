@@ -31,7 +31,7 @@ it('leaves legacy editing available without opening migration and ignores a late
       path={props.path}
     />,
   )
-  expect(screen.getByRole('button', { name: 'Page properties' })).toBeDisabled()
+  expect(screen.getByRole('button', { name: 'Edit properties' })).toBeDisabled()
   expect(state.workspace.flush).not.toHaveBeenCalled()
   let finish!: () => void
   state.workspace = {
@@ -54,7 +54,7 @@ it('leaves legacy editing available without opening migration and ignores a late
       path={props.path}
     />,
   )
-  fireEvent.click(screen.getByRole('button', { name: 'Page properties' }))
+  fireEvent.click(screen.getByRole('button', { name: 'Edit properties' }))
   state.workspace = {
     phase: 'ready',
     client: { libraryId: 'b' },
@@ -72,4 +72,12 @@ it('leaves legacy editing available without opening migration and ignores a late
   )
   await act(async () => finish())
   expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+})
+
+it('names the property editor action clearly in Vietnamese and opens the same editor', async () => {
+  state.workspace = { phase: 'ready', client: { libraryId: 'a' }, flush: vi.fn().mockResolvedValue(undefined) }
+  render(<PagePropertyTools path="/a/page.md" content="# Page" frontmatter={{}} locale="vi" onUpdate={vi.fn()} onRemove={vi.fn()} />)
+  fireEvent.click(screen.getByRole('button', { name: 'Chỉnh sửa thuộc tính' }))
+  expect(await screen.findByRole('dialog')).toHaveTextContent('Typed editor')
+  expect(state.workspace.flush).toHaveBeenCalledOnce()
 })

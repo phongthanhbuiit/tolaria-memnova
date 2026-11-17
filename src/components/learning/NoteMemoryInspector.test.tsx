@@ -67,7 +67,7 @@ it('shows the real retained schedule separately from immutable pre-conversion me
     { wrapper: data.wrapper }
   )
   const panel = await screen.findByRole('region', {
-    name: 'Review schedule · read only',
+    name: 'Review schedule',
   })
   expect(within(panel).getByText('7', { exact: true })).toBeInTheDocument()
   expect(within(panel).getByText('2', { exact: true })).toBeInTheDocument()
@@ -144,4 +144,12 @@ it('does not reread SQLite metadata on each body keystroke', async () => {
     )
   expect(data.client.readNoteMemory).toHaveBeenCalledTimes(1)
   expect(data.client.noteCompatibility).toHaveBeenCalledTimes(1)
+})
+
+it('uses the review schedule heading without internal read-only terminology in Vietnamese', async () => {
+  const data = fixture()
+  render(<NoteMemoryInspector path="/qa/lesson.md" content={content} locale="vi" />, { wrapper: data.wrapper })
+  const panel = await screen.findByRole('region', { name: 'Lịch ôn' })
+  expect(within(panel).getByRole('heading', { name: 'Lịch ôn' })).toBeInTheDocument()
+  expect(within(panel).queryByRole('textbox')).not.toBeInTheDocument()
 })

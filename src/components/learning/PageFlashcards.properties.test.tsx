@@ -157,10 +157,10 @@ it('does not persist a custom-field draft when cancelling or switching preset', 
 it('does not crash the card editor when read-only schedule metadata contains an invalid date', async () => {
   workspace.cards[0].schedule.due = 'invalid date'
   const dialog = await edit()
-  expect(dialog.getByText('Review schedule · read only')).toBeVisible()
+  expect(dialog.getByText('Review schedule')).toBeVisible()
   fireEvent.click(
     dialog.getByRole('button', {
-      name: 'Review schedule · read only',
+      name: 'Review schedule',
       exact: true,
     }),
   )

@@ -163,7 +163,7 @@ test('page properties stay in Markdown and use the same calendar and draft contr
       .click()
     await expect(page.getByRole('tab', { name: 'Memorization', exact: true })).toHaveCount(0)
     const tools = page.getByRole('button', {
-      name: 'Page properties',
+      name: 'Edit properties',
       exact: true,
     })
     if (!(await tools.isVisible()))
@@ -172,7 +172,7 @@ test('page properties stay in Markdown and use the same calendar and draft contr
         .click()
     await tools.click()
     const dialog = page.getByRole('dialog', {
-      name: 'Page properties',
+      name: 'Edit properties',
       exact: true,
     })
     await addProperty(page, dialog, 'page_flag', 'Boolean')

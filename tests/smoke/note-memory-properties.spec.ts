@@ -42,7 +42,7 @@ test('page properties keep both faces and opaque YAML through the next mnemonic 
       .getByRole('button', { name: 'Open the properties panel', exact: true })
       .click()
     await expect(
-      page.getByRole('region', { name: 'Review schedule · read only' })
+      page.getByRole('region', { name: 'Review schedule' })
     ).toContainText('This note has no review schedule yet.')
     await expect(
       page.getByTestId('editable-property').filter({ hasText: 'Opaque' })
@@ -51,10 +51,10 @@ test('page properties keep both faces and opaque YAML through the next mnemonic 
       page.getByTestId('editable-property').filter({ hasText: 'Copy' })
     ).toHaveCount(0)
     await page
-      .getByRole('button', { name: 'Page properties', exact: true })
+      .getByRole('button', { name: 'Edit properties', exact: true })
       .click()
     const dialog = page.getByRole('dialog', {
-      name: 'Page properties',
+      name: 'Edit properties',
       exact: true,
     })
     await dialog.getByRole('textbox', { name: 'zero', exact: true }).fill('2')
@@ -87,7 +87,7 @@ test('page properties keep both faces and opaque YAML through the next mnemonic 
     expect(saved).toContain('Article remains')
     expect(saved.split('<!-- FLASHCARD:BACK -->')).toHaveLength(2)
     await page
-      .getByRole('region', { name: 'Review schedule · read only' })
+      .getByRole('region', { name: 'Review schedule' })
       .scrollIntoViewIfNeeded()
     await page.screenshot({ path: '/tmp/memnova-m18-properties.png' })
   } finally {
