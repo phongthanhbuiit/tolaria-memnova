@@ -217,21 +217,21 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 
 ## R-04 — Flaky assertion tìm kiếm bị prefetch nền làm nhiễu
 
-- P2 · Nguồn: pre-push R-02/R-03, không thuộc review A–D1 · **fixed (`:/^test: R-04 isolate note-list search from background prefetch`)**; release đang chặn bởi R-05.
+- P2 · Nguồn: pre-push R-02/R-03, không thuộc review A–D1 · **fixed (`4f7e458a`)**.
 - Bằng chứng: actual push của `e8cdfc3e` bị chặn ở `NoteList.rendering.test.tsx:435,482`: mock get_note_content bị gọi với `/vault/a.md`, dù search không đọc từng file. Log `/tmp/memnova-r02-r03/push-first-failure.log`.
 - Nguyên nhân: useLikelyNextPreload (`src/components/note-list/useNoteListModel.tsx:79-103`) khởi động sau 350ms; mock transport thêm 100ms (`src/mock-tauri/index.ts:49`). Test search dùng cùng handler toàn cục và khẳng định không có bất kỳ read nào. Prefetch hợp lệ hoặc request đang chạy từ test trước có thể làm assertion thất bại tùy thời gian thực thi.
 - Tái hiện deterministic trước R-02/R-03: checkout archive `95176804` ngoài repo, trong test hidden-frontmatter dùng fake clock đi qua 500ms sau render, rồi thực hiện search/assertion cũ → fail với đúng `/vault/a.md`. Các file test/model/cache/transport giống byte giữa baseline và hai commit R-02/R-03. Log RED `/tmp/memnova-r02-r03/gate-baseline-red.log`.
 - Sửa test-only đã được người dùng cho phép: mock riêng prefetchNoteContent trong file test rendering/search để assertion tiếp tục kiểm tra transport của search; prefetch vẫn được kiểm tra ở NoteList.keyboard.test.tsx. Probe baseline 500ms chuyển GREEN; patch `/tmp/memnova-r02-r03/proposed-R-04.patch`. Không sửa app, không nới assertion tìm kiếm, không thêm retry/timeout/skip.
-- Chấp nhận: test deterministic qua mốc prefetch, cả rendering/keyboard suite pass, full coverage và normal pre-push pass không flaky. Người dùng đã cho phép R-04 test-only và push. 63/63 rendering/keyboard pass trên repo thật; toàn bộ rendering pass trong coverage. Full coverage còn fail một ca IME R-05 ở file khác, chưa đạt pre-push cuối.
+- Chấp nhận: test deterministic qua mốc prefetch, cả rendering/keyboard suite pass, full coverage và normal pre-push pass không flaky. Người dùng đã cho phép R-04 test-only và push. 63/63 rendering/keyboard pass trên repo thật; toàn bộ rendering pass trong coverage. Coverage lượt đó còn fail IME R-05 ở file khác; sau R-05, 4.996/4.996 pass, lines87,47%; đang chờ pre-push cuối.
 
 ## R-05 — Test IME liên tiếp đợi callback trước khi DOM commit xong
 
-- P2 · Nguồn: coverage sau R-04 · **open, nguyên nhân test đang xác minh**.
+- P2 · Nguồn: coverage sau R-04 · **fixed (`:/^test: R-05 await IME composition updates`), test-only**. Giữ giới hạn: không kết luận lỗi native/app.
 - Bằng chứng FAIL: `/tmp/memnova-r02-r03/R-04-coverage.log`, WikilinkChatInput.test.tsx:352: draft cuối “안” thay vì “안녕”, trong khi DOM chứa hai text node. R-04 rendering/search pass; tổng 4.995 pass / 1 fail.
 - Mã app/test IME giống baseline `95176804`, không bị R-02/R-03/R-04 sửa. Probe 40 ca độc lập trên baseline đều pass; chưa gọi đây là baseline failure tái hiện ổn định.
 - Giả thuyết: InlineWikilinkInput.tsx:489-491 flush composition qua queueMicrotask, onChange chạy trước forceRender remount editor theo key. Test chỉ đợi spy onDraftChange rồi phát composition tiếp vào node có thể đang chờ remount. Callback không phải tín hiệu DOM đã commit.
-- Đề xuất **test-only, chưa áp dụng repo**: await act(async ...) quanh cả hai compositionEnd để flush microtask/React updates rồi tiếp tục tương tác, theo https://react.dev/reference/react/act. Giữ nguyên mọi assertion draft/DOM, không sleep/timeout/retry/skip, không sửa app. Patch `/tmp/memnova-r02-r03/proposed-R-05.patch`; 32/32 test pass trên bản sao baseline với patch.
-- Chấp nhận: suite IME + coverage + normal pre-push pass. Chưa khẳng định lỗi gõ IME của app được tái hiện hoặc đã sửa; đây là đề xuất làm đúng ranh giới async trong test. Cần phép mở rộng scope R-05 trước khi áp dụng.
+- Sửa **test-only, được người dùng cho phép**: await act(async ...) quanh cả hai compositionEnd để flush microtask/React updates rồi tiếp tục tương tác, theo https://react.dev/reference/react/act. Giữ nguyên mọi assertion draft/DOM, không sleep/timeout/retry/skip, không sửa app. Patch `/tmp/memnova-r02-r03/proposed-R-05.patch`; 32/32 test pass trên bản sao baseline với patch.
+- Chấp nhận: suite IME + coverage + normal pre-push pass. Chưa khẳng định lỗi gõ IME của app được tái hiện hoặc đã sửa; đây là đề xuất làm đúng ranh giới async trong test. Người dùng đã cho phép R-05 test-only và push. 95/95 test IME/rendering/keyboard pass; full coverage 501 files, 4.996 tests pass, lines87,47%. Đang chạy pre-push cuối trước publish.
 
 ## Mẫu cho finding mới
 

@@ -183,6 +183,28 @@
       "toolsRun": 0,
       "reason": "project exclusions for *.test.tsx"
     },
-    "releaseStatus": "blocked by R-05; proposal not applied"
+    "releaseStatus": "R-04 and R-05 targeted/full coverage green; awaiting final verified push"
+  },
+  "R05": {
+    "authorized": true,
+    "testOnly": true,
+    "changedLines": 2,
+    "focusedPassed": 95,
+    "lintExitCode": 0,
+    "coverage": {
+      "filesPassed": 501,
+      "testsPassed": 4996,
+      "failed": 0,
+      "lineCoverage": 87.47,
+      "retry": 0,
+      "log": "/tmp/memnova-r02-r03/R-05-coverage.log"
+    },
+    "codacy": {
+      "filesAnalyzed": 0,
+      "toolsRun": 0,
+      "reason": "project exclusions for *.test.tsx"
+    },
+    "limits": "40 baseline scoped probes passed; no claim of deterministic baseline or native IME failure",
+    "finalPushLog": "/tmp/memnova-r02-r03/push-final.log"
   }
 }

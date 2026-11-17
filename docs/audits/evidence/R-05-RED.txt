@@ -1,0 +1,60 @@
+Excerpt: pnpm test:coverage after R-04, before R-05, Node24.19.0. This records the failing current-tree run; 40 baseline scoped probes passed, so it is not evidence of a deterministic baseline/native IME failure.
+
+ FAIL  src/components/WikilinkChatInput.test.tsx > WikilinkChatInput > does not duplicate syllables across consecutive IME compositions
+AssertionError: expected last "vi.fn()" call to have been called with [ '안녕' ]
+
+Ignored nodes: comments, script, style
+<html>
+  <head />
+  <body>
+    <div>
+      <div
+        class="relative"
+      >
+        <div
+          class="relative"
+        >
+          <div
+            class="min-h-[34px] w-full rounded-lg border border-border bg-transparent px-[10px] py-[8px] text-[13px] text-foreground outline-none"
+            contenteditable="true"
+            data-testid="agent-input"
+            style="white-space: pre-wrap; word-break: break-word;"
+          >
+            안
+            녕
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+- Expected
++ Received
+
+  [
+-   "안녕",
++   "안",
+  ]
+
+ ❯ src/components/WikilinkChatInput.test.tsx:352:29
+    350|
+    351|     await waitFor(() => {
+    352|       expect(onDraftChange).toHaveBeenLastCalledWith('안녕')
+       |                             ^
+    353|     })
+    354|     expect(screen.getByTestId('agent-input').textContent).toBe('안녕')
+ ❯ runWithExpensiveErrorDiagnosticsDisabled node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/config.js:47:12
+ ❯ checkCallback node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ ❯ Timeout.checkRealTimersCallback node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/wait-for.js:118:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 500 passed (501)
+      Tests  1 failed | 4995 passed (4996)
+   Start at  21:45:45
+   Duration  180.04s (transform 9.18s, setup 19.80s, import 362.71s, tests 103.93s, environment 136.89s)
+
+Vitest coverage artifacts preserved at /var/folders/9w/6hcy1rks4gg3yc1kxk2txjlr0000gn/T/tolaria-vitest-coverage-runs/1794926744752-20715-1
+ ELIFECYCLE  Command failed with exit code 1.

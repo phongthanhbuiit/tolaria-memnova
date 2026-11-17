@@ -335,7 +335,7 @@ describe('WikilinkChatInput', () => {
     fireEvent.compositionStart(firstEditor)
     firstEditor.appendChild(document.createTextNode('안'))
     fireEvent.input(firstEditor)
-    fireEvent.compositionEnd(firstEditor)
+    await act(async () => { fireEvent.compositionEnd(firstEditor) })
 
     await waitFor(() => {
       expect(onDraftChange).toHaveBeenLastCalledWith('안')
@@ -346,7 +346,7 @@ describe('WikilinkChatInput', () => {
     fireEvent.compositionStart(secondEditor)
     secondEditor.appendChild(document.createTextNode('녕'))
     fireEvent.input(secondEditor)
-    fireEvent.compositionEnd(secondEditor)
+    await act(async () => { fireEvent.compositionEnd(secondEditor) })
 
     await waitFor(() => {
       expect(onDraftChange).toHaveBeenLastCalledWith('안녕')

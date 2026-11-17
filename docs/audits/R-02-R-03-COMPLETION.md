@@ -114,7 +114,7 @@ Production source không đổi sau các gates trên. Typecheck bổ sung cho ha
 
 ## R-04 — tách prefetch nền khỏi assertion search (đã được cho phép)
 
-Commit: `:/^test: R-04 isolate note-list search from background prefetch`.
+Commit: `4f7e458a` — `test: R-04 isolate note-list search from background prefetch`.
 
 Actual push lần đầu bị chặn trước khi lên remote: lint/build pass, coverage có hai test NoteList.rendering fail vì prefetch nền chạm shared content mock. Log được giữ ở `/tmp/memnova-r02-r03/push-first-failure.log`. Không thử push lại để chờ may mắn.
 
@@ -127,8 +127,16 @@ Sửa 7 dòng trong NoteList.rendering.test.tsx: partial mock module, chỉ thay
 - Codacy CLI 0.24.0 được gọi cho file test: **0 file / 0 tool chạy** do exclusions dự án. Không ghi là đã phân tích test hoặc gán điểm. Dùng ESLint/Vitest cho file này; 8 file production không đổi, kết quả scan production trước đó vẫn không có Critical/High mới.
 - R-04 test-only: không có UI copy, analytics, ADR, refactor app hoặc native QA mới. Native/Markdown/SQLite và Rust evidence ở trên áp dụng cho production source không đổi.
 
-## R-05 — blocker kế tiếp, chưa áp dụng đề xuất
+## R-05 — đồng bộ composition async trong test (đã được cho phép)
 
-Coverage sau R-04 gặp ca consecutive IME của WikilinkChatInput.test.tsx: spy draft còn “안” thay vì “안녕”. Source app và test giống baseline; probe 40 ca baseline nguyên bản đều pass, nên chưa kết luận baseline lỗi ổn định hay lỗi native/app. [Finding R-05](FINDINGS.md).
+Commit: `:/^test: R-05 await IME composition updates` (revision selector cho commit chứa thay đổi này).
 
-Đề xuất test-only 2 dòng await act(async ...) cho hai compositionEnd, theo [React act](https://react.dev/reference/react/act): callback onChange không đảm bảo DOM đã commit trước tương tác tiếp theo. Patch `/tmp/memnova-r02-r03/proposed-R-05.patch` qua kiểm tra áp dụng, 32/32 test pass trên bản sao. Giữ mọi assertion, không sửa app, không tăng timeout/retry. Đang chờ phép mở scope trước khi áp dụng. Các lượt gate pass/dry-run trước đó là kết quả lịch sử, không đại diện cho coverage hoặc actual push hiện đang bị chặn.
+Coverage sau R-04 từng gặp ca consecutive IME của WikilinkChatInput.test.tsx: spy draft còn “안” thay vì “안녕”. [Log RED từ lượt coverage](evidence/R-05-RED.txt). Source app và test giống baseline `95176804`; probe 40 ca baseline nguyên bản đều pass, nên không gọi đó là baseline failure tái hiện ổn định hoặc bằng chứng lỗi native/app.
+
+Test cũ chỉ đợi spy callback, trong khi compositionEnd flush qua queueMicrotask và editor có thể còn chờ React commit/remount. Sửa đúng 2 dòng: await act(async ...) quanh cả hai compositionEnd, theo [React act](https://react.dev/reference/react/act), để hoàn tất đơn vị tương tác trước khi đọc editor cho composition kế tiếp. Giữ nguyên mọi input event và assertion draft/DOM. Người dùng đã cho phép R-05 test-only trước khi áp dụng; không sửa app/D2–D4, không sleep/timeout/retry/skip.
+
+- 95/95 test IME + NoteList rendering/keyboard pass trên repo thật.
+- `pnpm test:coverage` sau R-05, Node24.19.0: **501 files, 4.996/4.996 tests pass; lines87,47%**, không retry. Log `/tmp/memnova-r02-r03/R-05-coverage.log`. Cả 58 ca NoteList rendering và 32 ca IME pass trong chính lượt này.
+- ESLint file pass. Codacy CLI: 0 file / 0 tool do exclusion *.test.tsx của dự án, không ghi là đã phân tích test. Production source không đổi, scan production trước đó vẫn không có Critical/High mới.
+- CodeScene: not run (optional integration unavailable). Localization: no UI copy changes. PostHog: không cần event cho sửa đồng bộ test. Không thêm dependency, ADR, abstraction hay native/data behavior; bằng chứng native/Rust/Markdown/SQLite ở trên vẫn áp dụng.
+- Full pre-push sẽ chạy lại khi publish cả bốn commit. Receipt cuối ở `/tmp/memnova-r02-r03/push-final.log`; những lượt lỗi trước đó được giữ nguyên để phân biệt với kết quả cuối, không che bằng retry hoặc đổi timeout.
