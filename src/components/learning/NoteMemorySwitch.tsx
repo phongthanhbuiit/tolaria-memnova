@@ -52,17 +52,17 @@ export function NoteMemorySwitch({ path, locale }: { path: string; locale: AppLo
       setBusy(false)
     }
   }
-  return <div className="note-memory-surface space-y-1 px-3 py-2">
+  return <div className="note-memory-surface space-y-1 px-0 py-2">
     <div className="flex items-center justify-between gap-2">
       {ready ? <>
-        <Label htmlFor={id} className="min-h-6 flex-1">{t('properties.spacedRepetition')}</Label>
+        <Label htmlFor={id} className="min-h-(--control-sm) min-w-0 flex-1 text-body font-medium text-text-secondary"><span className="min-w-0 whitespace-normal [overflow-wrap:anywhere]">{t('properties.spacedRepetition')}</span></Label>
         <Switch size="responsive" id={id} aria-describedby={hint ? `${id}-hint` : undefined} checked={Boolean(view?.config?.enabled)} disabled={busy || blocked} onCheckedChange={value => void change(value)} />
       </> : <>
-        <span className="text-xs">{t('properties.spacedRepetition')}</span>
+        <span className="min-w-0 flex-1 whitespace-normal text-body font-medium text-text-secondary [overflow-wrap:anywhere]">{t('properties.spacedRepetition')}</span>
         <Button layout="responsive" variant="ghost" size="sm" disabled={workspace.busy || workspace.phase === 'loading'} onClick={() => void workspace.openMigration()}>{t('learning.prepare')}</Button>
       </>}
     </div>
-    {hint && <p id={`${id}-hint`} className="text-xs text-muted-foreground">{t(hint)}</p>}
+    {hint && <p id={`${id}-hint`} className="text-small text-text-secondary">{t(hint)}</p>}
     {error && <LearningError error={error} locale={locale} />}
   </div>
 }
