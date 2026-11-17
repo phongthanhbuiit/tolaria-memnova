@@ -1,0 +1,10 @@
+Modern Web Guidance CLI (GoogleChrome/modern-web-guidance)
+Skill version read: 2026_11_09-5bcc021b; CLI warned newer skill available, no dependency/skill update at night.
+Searches: name icon buttons; show keyboard focus; preserve form keyboard behavior; preserve SVG width height with revert-layer when migrating button components.
+Retrieved: accessibility, forms, ime-safe-enter-submit, css, icons.
+
+Accessibility: Don't disable browser native focus indicators without providing a replacement custom focus indicator.
+Forms: explicitly set type=button on secondary or helper buttons.
+IME: Safari may expose composition end / Enter ordering differently; isComposing alone is insufficient for every IME. Native Telex verification remains necessary; no IME behavior changes were made in E2.
+CSS/icons review: preserve existing component SVG geometry and token architecture; bare Button/Input variants preserve existing presentation.
+Verification: Chromium/WebKit Tab outlines, light/dark, forced colors; real native WKWebView paths; native Telex not verified due unavailable input source control.

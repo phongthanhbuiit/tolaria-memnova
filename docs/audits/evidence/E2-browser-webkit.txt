@@ -1,0 +1,32 @@
+
+Running 23 tests using 1 worker
+
+(node:75159) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:75159) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [webkit] › tests/integration/a11y-button-names.spec.ts:5:3 › panel/en: rendered buttons expose accessible names (1.6s)
+  ✓   2 [webkit] › tests/integration/a11y-button-names.spec.ts:5:3 › panel/vi: rendered buttons expose accessible names (846ms)
+  ✓   3 [webkit] › tests/integration/a11y-button-names.spec.ts:5:3 › dashboard/en: rendered buttons expose accessible names (889ms)
+  ✓   4 [webkit] › tests/integration/a11y-button-names.spec.ts:5:3 › dashboard/vi: rendered buttons expose accessible names (1.0s)
+  ✓   5 [webkit] › tests/integration/a11y-button-names.spec.ts:5:3 › conversion/en: rendered buttons expose accessible names (1.1s)
+  ✓   6 [webkit] › tests/integration/a11y-button-names.spec.ts:5:3 › conversion/vi: rendered buttons expose accessible names (1.0s)
+  ✓   7 [webkit] › tests/integration/a11y-button-names.spec.ts:5:3 › recovery/en: rendered buttons expose accessible names (998ms)
+  ✓   8 [webkit] › tests/integration/a11y-button-names.spec.ts:5:3 › recovery/vi: rendered buttons expose accessible names (1.0s)
+  ✓   9 [webkit] › tests/integration/a11y-button-names.spec.ts:5:3 › source/en: rendered buttons expose accessible names (967ms)
+  ✓  10 [webkit] › tests/integration/a11y-button-names.spec.ts:5:3 › source/vi: rendered buttons expose accessible names (944ms)
+  ✓  11 [webkit] › tests/integration/a11y-button-names.spec.ts:5:3 › tabs/en: rendered buttons expose accessible names (920ms)
+  ✓  12 [webkit] › tests/integration/a11y-button-names.spec.ts:5:3 › tabs/vi: rendered buttons expose accessible names (913ms)
+  ✓  13 [webkit] › tests/integration/a11y-button-names.spec.ts:5:3 › study/en: rendered buttons expose accessible names (1.0s)
+  ✓  14 [webkit] › tests/integration/a11y-button-names.spec.ts:5:3 › study/vi: rendered buttons expose accessible names (917ms)
+  ✓  15 [webkit] › tests/integration/a11y-button-names.spec.ts:5:3 › toolbar/en: rendered buttons expose accessible names (1.1s)
+  ✓  16 [webkit] › tests/integration/a11y-button-names.spec.ts:5:3 › toolbar/vi: rendered buttons expose accessible names (975ms)
+  ✓  17 [webkit] › tests/integration/a11y-keyboard-focus.spec.ts:15:3 › light: Tab reveals focus on tab panel, input and rich chat draft (833ms)
+  ✓  18 [webkit] › tests/integration/a11y-keyboard-focus.spec.ts:31:3 › light: global search input exposes keyboard focus (822ms)
+  ✓  19 [webkit] › tests/integration/a11y-keyboard-focus.spec.ts:15:3 › dark: Tab reveals focus on tab panel, input and rich chat draft (727ms)
+  ✓  20 [webkit] › tests/integration/a11y-keyboard-focus.spec.ts:31:3 › dark: global search input exposes keyboard focus (697ms)
+  ✓  21 [webkit] › tests/integration/a11y-keyboard-focus.spec.ts:39:1 › forced colors: keyboard focus survives without box-shadow rings (551ms)
+  ✓  22 [webkit] › tests/integration/form-control-migration.spec.ts:3:1 › migrated daily goal preserves mouse editing, ref focus, Enter, Escape and blur (880ms)
+  ✓  23 [webkit] › tests/integration/form-control-migration.spec.ts:24:1 › migrated emoji choice retains click and keyboard activation with the same value (1.0s)
+
+  23 passed (23.9s)

@@ -1,0 +1,10 @@
+
+ RUN  v4.0.18 /Users/thompson/Documents/tolaria-memnova
+
+ ✓ src/components/shadcnFormControls.test.ts (1 test) 250ms
+ ✓ src/components/a11ySurfaces.sweep.test.tsx (22 tests) 619ms
+
+ Test Files  2 passed (2)
+      Tests  23 passed (23)
+   Start at  06:10:27
+   Duration  5.81s (transform 1.12s, setup 141ms, import 4.85s, tests 869ms, environment 877ms)

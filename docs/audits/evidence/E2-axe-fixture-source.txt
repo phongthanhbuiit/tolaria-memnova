@@ -1,0 +1,119 @@
+import { createRef, type ReactElement } from 'react'
+import { AppPreferencesProvider } from '../../src/hooks/useAppPreferences'
+import { Dialog, DialogContent, DialogTitle } from '../../src/components/ui/dialog'
+import { TooltipProvider } from '../../src/components/ui/tooltip'
+import { Sidebar } from '../../src/components/Sidebar'
+import { NoteList } from '../../src/components/NoteList'
+import { BreadcrumbBar } from '../../src/components/BreadcrumbBar'
+import { DynamicPropertiesPanel } from '../../src/components/DynamicPropertiesPanel'
+import { AddPropertyForm } from '../../src/components/AddPropertyForm'
+import { FilterBuilder } from '../../src/components/FilterBuilder'
+import { BulkActionBar } from '../../src/components/BulkActionBar'
+import { QuickOpenPalette } from '../../src/components/QuickOpenPalette'
+import { SearchPanel } from '../../src/components/SearchPanel'
+import { StatusDropdown } from '../../src/components/StatusDropdown'
+import { TagsDropdown } from '../../src/components/TagsDropdown'
+import { NoteIcon } from '../../src/components/NoteIcon'
+import { AccentColorPicker } from '../../src/components/AccentColorPicker'
+import { EmojiPicker } from '../../src/components/EmojiPicker'
+import { HomePage } from '../../src/components/HomePage'
+import { DecksPage } from '../../src/components/DecksPage'
+import { PulseView } from '../../src/components/PulseView'
+import { AiPanelHeader, AiPanelComposer } from '../../src/components/AiPanelChrome'
+import { TagPillList, UrlValue } from '../../src/components/EditableValue'
+
+import { createRoot } from 'react-dom/client'
+import type { Settings, VaultEntry } from '../../src/types'
+import { WelcomeScreen } from '../../src/components/WelcomeScreen'
+import { CloneVaultModal } from '../../src/components/CloneVaultModal'
+import { SettingsPanel } from '../../src/components/SettingsPanel'
+import { CommitDialog } from '../../src/components/CommitDialog'
+import { ConfirmDeleteDialog } from '../../src/components/ConfirmDeleteDialog'
+import '../../src/index.css'
+import '../../src/App.css'
+
+const makeEntry = (overrides: Partial<VaultEntry> = {}): VaultEntry => ({
+  path: '/test.md',
+  filename: 'test.md',
+  title: 'Test',
+  isA: null,
+  aliases: [],
+  belongsTo: [],
+  relatedTo: [],
+  status: null,
+  archived: false,
+  modifiedAt: null,
+  createdAt: null,
+  fileSize: 100,
+  snippet: '',
+  wordCount: 0,
+  relationships: {},
+  icon: null,
+  color: null,
+  order: null,
+  sidebarLabel: null,
+  template: null,
+  sort: null,
+  view: null,
+  visible: null,
+  organized: false,
+  favorite: false,
+  favoriteIndex: null,
+  listPropertiesDisplay: [],
+  outgoingLinks: [],
+  properties: {},
+  hasH1: false,
+  ...overrides,
+})
+
+
+const emptySettings: Settings = {
+  ai_features_enabled: true,
+  auto_pull_interval_minutes: null,
+  git_enabled: true,
+  autogit_enabled: null,
+  autogit_idle_threshold_seconds: null,
+  autogit_inactive_threshold_seconds: null,
+  auto_advance_inbox_after_organize: null,
+  telemetry_consent: null,
+  crash_reporting_enabled: null,
+  analytics_enabled: null,
+  anonymous_id: null,
+  release_channel: null,
+  theme_mode: null,
+  ui_language: null,
+  date_display_format: null,
+  default_ai_agent: null,
+  hide_gitignored_files: null,
+  all_notes_show_pdfs: null,
+  all_notes_show_images: null,
+  all_notes_show_unsupported: null,
+}
+
+
+const noop=()=>{};const entry=makeEntry({title:'Ghi chú kiểm tra',icon:'rocket'});const entries=[entry];
+const surfaces: [string, () => ReactElement][] = [
+  ['sidebar', () => <Sidebar entries={entries} selection={{ kind: 'filter', filter: 'all' }} onSelect={noop} locale="vi" />],
+  ['note list', () => <NoteList entries={entries} selection={{kind:"filter",filter:"all"}} selectedNote={null} noteListFilter="all" onNoteListFilterChange={noop} onSelectNote={noop} onReplaceActiveTab={noop} onCreateNote={noop} locale="vi" />],
+  ['editor chrome', () => <BreadcrumbBar entry={entry} locale="vi" wordCount={0} showDiffToggle diffMode={false} diffLoading={false} onToggleDiff={noop} onToggleInspector={noop} onToggleRaw={noop} onToggleFavorite={noop} onToggleNoteWidth={noop} onRevealFile={noop} />],
+  ['properties', () => <DynamicPropertiesPanel entry={entry} content="" frontmatter={{ Status: 'Active', tags: ['QA'] }} locale="vi" onAddProperty={noop} onUpdateProperty={noop} onDeleteProperty={noop} />],
+  ['add property', () => <AddPropertyForm locale="vi" onAdd={noop} onCancel={noop} vaultStatuses={[]} />],
+  ['view filters', () => <FilterBuilder group={{ all: [{ field: 'title', op: 'contains', value: 'QA' }, { any: [{ field: 'status', op: 'equals', value: 'Active' }] }] }} availableFields={['title', 'status']} onChange={noop} />],
+  ['selection actions', () => <BulkActionBar count={2} onOrganize={noop} onArchive={noop} onDelete={noop} onClear={noop} />],
+  ['quick open', () => <QuickOpenPalette open entries={entries} locale="vi" onSelect={noop} onClose={noop} />],
+  ['search', () => <SearchPanel open entries={entries} vaultPath="/qa" onSelectNote={noop} onClose={noop} />],
+  ['status menu', () => <StatusDropdown value="Active" vaultStatuses={['Active']} onSave={noop} onCancel={noop} />],
+  ['tags menu', () => <TagsDropdown selectedTags={['QA']} vaultTags={['QA']} onToggle={noop} onClose={noop} />],
+  ['note icon', () => <NoteIcon icon="rocket" />],
+  ['color picker', () => <AccentColorPicker selectedColor="blue" onSelectColor={noop} />],
+  ['editable URL', () => <UrlValue value="https://example.com" isEditing={false} onSave={noop} onCancel={noop} onStartEdit={noop} />],
+  ['editable tags', () => <TagPillList label="tag" items={['QA']} onSave={noop} />],
+  ['legacy home', () => <HomePage entries={entries} stats={{ totalXp: 0, streak: 0, lastStudyDate: null, dailyGoal: 20, todayReviews: 0, todayCorrect: 0, todayXp: 0, todayDurationMs: 0, heatmap: [], combo: 0 }} level={1} currentLevelXP={0} nextLevelXP={100} onStartReview={noop} onNavigate={noop} onUpdateDailyGoal={noop} locale="vi" />],
+  ['legacy decks', () => <DecksPage entries={entries} onStartStudyDeck={noop} locale="vi" />],
+  ['AI chrome', () => <><AiPanelHeader agentLabel="QA" agentReadiness="ready" locale="vi" permissionMode="default" permissionModeDisabled={false} onPermissionModeChange={noop} onClose={noop} onNewChat={noop} /><AiPanelComposer entries={entries} agentLabel="QA" agentReadiness="ready" locale="vi" input="" inputRef={createRef<HTMLDivElement>()} isActive={false} onChange={noop} onSend={noop} /></>],
+]
+
+surfaces.push(['welcome',()=> <WelcomeScreen locale="vi" mode="welcome" defaultVaultPath="/qa" onCreateVault={noop} onRetryCreateVault={noop} onCreateEmptyVault={noop} onOpenFolder={noop} isOffline={false} creatingAction={null} error={null} canRetryTemplate={false} />],['clone',()=> <CloneVaultModal open onClose={noop} onVaultCloned={noop}/>],['settings',()=> <SettingsPanel open settings={emptySettings} locale="vi" onSave={noop} onClose={noop}/>],['commit',()=> <CommitDialog open modifiedCount={1} locale="vi" onCommit={noop} onClose={noop}/>],['confirm delete',()=> <ConfirmDeleteDialog open title="Xóa ghi chú" message="Bằng chứng QA" confirmLabel="Xóa" onConfirm={noop} onCancel={noop}/>]);
+const index=Number(new URLSearchParams(location.search).get('case')??0);
+const [name,view]=surfaces[index]; document.documentElement.dataset.surface=name;
+createRoot(document.getElementById('root')!).render(<AppPreferencesProvider locale="vi"><TooltipProvider>{view()}</TooltipProvider></AppPreferencesProvider>);

@@ -1,0 +1,18 @@
+The focused UI element is 195 combo box (collapsed, settable) Kênh phát hành, Value: Ổn định, Secondary Actions: Expand
+The focused UI element is 200 switch (settable, boolean) Sử dụng nhiều thư viện cùng lúc, Value: off
+The focused UI element is 204 switch (settable, boolean) Bật tính năng Git, Value: on
+The focused UI element is 207 switch (settable, boolean) Bật AutoGit, Value: off
+There has been no change in the accessibility tree for Window: "Memnova D2 1440 QA".
+Selected text: ```
+90
+```
+
+Note: Pay special attention to the content selected by the user. If the user asks a question or refers to the content they are looking at on-screen, they might be referring to the selected content (but they might be referring to something else that's visible, too).
+There has been no change in the accessibility tree for Window: "Memnova D2 1440 QA".
+Selected text: ```
+30
+```
+
+Note: Pay special attention to the content selected by the user. If the user asks a question or refers to the content they are looking at on-screen, they might be referring to the selected content (but they might be referring to something else that's visible, too).
+The focused UI element is 224 radio button Sáng, Value: 0
+The focused UI element is 225 radio button Tối, Value: 1

@@ -1,0 +1,9 @@
+Input source: ABC; NOT an IME test
+Expected: kiem tra e2
+Duration: 208 ms
+The following is a diff from the previous accessibility tree for Window: "Memnova D2 1440 QA" with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+Removed element IDs: 88-89
++					125 text entry area (settable) Value: kiem tra e2, Placeholder: Ask Codex, Secondary Actions: Show Writing Tools
++						126 text (settable) kiem tra e2
+~					93 button Gửi tin nhắn
+The focused UI element is 125 text entry area (settable) Value: kiem tra e2, Placeholder: Ask Codex, Secondary Actions: Show Writing Tools

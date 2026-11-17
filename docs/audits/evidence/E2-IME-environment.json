@@ -1,0 +1,19 @@
+{
+  "selectedInputSourceBefore": "ABC",
+  "selectedInputSourceAfter": "ABC",
+  "enabledVietnameseInputMode": "com.apple.inputmethod.VietnameseSimpleTelex",
+  "symbolicHotKeys": {
+    "60": {
+      "enabled": false
+    },
+    "61": {
+      "enabled": false
+    }
+  },
+  "controlSpace": "no input source change observed",
+  "SystemUIServer": "CUA timeoutReached -10005",
+  "TextInputMenuAgent": "CUA timeoutReached -10005",
+  "systemSettingsChanged": false,
+  "nativeTelexResult": "NOT VERIFIED",
+  "nativeABCControl": "kiem tra e2 matched in AI chat and relationship note-title field; drafts cancelled; no message sent"
+}

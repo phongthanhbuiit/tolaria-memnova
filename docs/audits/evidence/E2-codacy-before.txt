@@ -1,0 +1,43 @@
+  Pipeline started
+  Starting tool execution
+  Starting analysis (ESLint9, 48 files)
+  Using project ESLint (ESLint9, v9.39.2)
+  Analysis complete (ESLint9, 0 issues, 3.7s)
+  Starting analysis (Semgrep, 66 files)
+  Analysis complete (Semgrep, 81 issues, 1 errors, 5.1s)
+  Starting analysis (Lizard, 48 files)
+  Analysis complete (Lizard, 47 issues, 0.4s)
+  Starting analysis (Trivy, 66 files)
+  Analysis complete (Trivy, 0 issues, 0.8s)
+  Pipeline complete (128 issues, 1 errors, 12.4s)
+
+Analysis complete: 128 issues found
+4 tools ran in 12s 431ms
+1 error occurred
+
+┌──────────┬─────────┬─────────┬────────────────────┬───────┬────────┬──────────┐
+│ Tool     │ Version │ Install │ Configuration      │ Files │ Issues │ Duration │
+├──────────┼─────────┼─────────┼────────────────────┼───────┼────────┼──────────┤
+│ ESLint 9 │ 9.39.5  │ bundled │ ./eslint.config.js │ 48    │ 0      │ 3s 708ms │
+├──────────┼─────────┼─────────┼────────────────────┼───────┼────────┼──────────┤
+│ Lizard   │ 1.23.0  │ codacy  │ Codacy             │ 48    │ 47     │ 351ms    │
+├──────────┼─────────┼─────────┼────────────────────┼───────┼────────┼──────────┤
+│ Opengrep │ 1.26.0  │ codacy  │ Codacy             │ 66    │ 81     │ 5s 64ms  │
+├──────────┼─────────┼─────────┼────────────────────┼───────┼────────┼──────────┤
+│ Trivy    │ 0.72.0  │ codacy  │ Codacy             │ 66    │ 0      │ 838ms    │
+└──────────┴─────────┴─────────┴────────────────────┴───────┴────────┴──────────┘
+
+Pattern Summary
+───────────────
+
+WARNING — Best Practice
+  Avoid React Props Spreading (Opengrep)                  81 issues  in 20 files
+
+WARNING — Complexity
+  Limit Function Parameter Count (Medium) (Lizard)        28 issues  in 15 files
+  Limit Function Length (Medium) (Lizard)                 12 issues  in 11 files
+  Limit Function Cyclomatic Complexity (Medium) (Lizard)   5 issues  in 4 files
+  Limit File Length (Medium) (Lizard)                      2 issues  in 2 files
+
+
+Analysis results stored in /tmp/memnova-e2/codacy-before-final.sarif

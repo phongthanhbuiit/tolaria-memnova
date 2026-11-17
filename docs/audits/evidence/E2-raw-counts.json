@@ -1,0 +1,66 @@
+{
+  "src/components/RenameDetectedBanner.tsx": {
+    "before": 2,
+    "after": 0
+  },
+  "src/components/PulseView.tsx": {
+    "before": 6,
+    "after": 0
+  },
+  "src/components/CommandPalette.tsx": {
+    "before": 2,
+    "after": 0
+  },
+  "src/components/AiActionCard.tsx": {
+    "before": 1,
+    "after": 0
+  },
+  "src/components/NoteSearchList.tsx": {
+    "before": 1,
+    "after": 0
+  },
+  "src/components/EmojiPicker.tsx": {
+    "before": 1,
+    "after": 0
+  },
+  "src/components/SearchPanel.tsx": {
+    "before": 2,
+    "after": 0
+  },
+  "src/components/SettingsPanel.tsx": {
+    "before": 1,
+    "after": 0
+  },
+  "src/components/NoteIcon.tsx": {
+    "before": 2,
+    "after": 0
+  },
+  "src/components/SortDropdown.tsx": {
+    "before": 3,
+    "after": 0
+  },
+  "src/components/QuickOpenPalette.tsx": {
+    "before": 1,
+    "after": 0
+  },
+  "src/components/AiMessage.tsx": {
+    "before": 3,
+    "after": 0
+  },
+  "src/components/InlineWikilinkParts.tsx": {
+    "before": 1,
+    "after": 0
+  },
+  "src/components/DecksPage.tsx": {
+    "before": 3,
+    "after": 0
+  },
+  "src/components/HomePage.tsx": {
+    "before": 2,
+    "after": 0
+  },
+  "src/components/filter-builder/FilterFieldOptionsList.tsx": {
+    "before": 1,
+    "after": 0
+  }
+}

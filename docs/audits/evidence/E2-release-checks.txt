@@ -1,0 +1,19 @@
+Node: 24.12.0
+lint / tsc -b / build: exit 0 (final normal pre-push)
+pnpm test: exit 0, 506 files / 5041 tests
+Final normal pre-push pnpm test:coverage: exit 0, 506 files / 5041 tests, 87.83% lines
+cargo test --manifest-path src-tauri/Cargo.toml -- --test-threads=1: exit 0; 1241 unit pass + 1 integration; 3 existing ignored
+cargo llvm-cov --manifest-path src-tauri/Cargo.toml --no-clean --fail-under-lines 85 -- --test-threads=1: exit 0; full 86.41% lines
+Integration Chromium: 23/23, retries=0
+Integration WebKit: 23/23, retries=0
+Final F005 rendered sweep after author-name additions: 22/22
+Axe button-name app states: 23, violations 0, incomplete 0; empty legacy Decks not applicable
+Axe learning cases: 18, violations 0; two inspector cases have no buttons
+Final core smoke: 54/54, 4.5 minutes, no actual retry
+Local Codacy CLI0.24: 128 -> 128 baseline warnings, no new warning identity; no new Critical/High reported; one unchanged PulseView parser error, CLI exit1
+CodeScene: not run (optional integration unavailable)
+Localization final F005 hook: 18 catalogs / 1100 English keys, exit 0; manual translation, no Lara credentials
+Source push: git push origin main exit0; 91400c39 -> f5462464; normal hook 8m12s
+Native Telex: NOT VERIFIED, input source control unavailable, no system preferences changed
+Native ABC control: matched physical key input in AI and relationship field, drafts cancelled, not an IME test
+Native QA process and server stopped; source user files protected; Markdown hashes unchanged; demo vault status clean

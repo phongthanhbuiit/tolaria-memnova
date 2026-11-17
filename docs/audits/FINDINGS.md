@@ -18,8 +18,8 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 | F-002 | P1 | C4 | Ngày trong danh sách ghi chú là tiếng Anh khi UI tiếng Việt | ảnh | fixed (9c951e78) |
 | F-003 | P1 | C4 | Nhãn Properties tiếng Anh lẫn trong UI tiếng Việt | ảnh | fixed (`1a262b64`) |
 | F-004 | P1 | C4 | Công tắc "Ôn tập ghi chú này" và nút "Ôn ghi chú này" gần như trùng tên | ảnh | fixed (`e8dfc0c2`) |
-| F-005 | P1 | C5 | Nút chỉ có icon thiếu `aria-label` (~58 chỗ) | mã | open |
-| F-006 | P1 | C3 | 38 phần tử form HTML thô ngoài `ui/` (vi phạm AGENTS.md) | mã | open |
+| F-005 | P1 | C5 | Nút chỉ có icon thiếu `aria-label` (~58 chỗ) | mã | partial (E2 `f6601cbc`; còn R-13) |
+| F-006 | P1 | C3 | 38 phần tử form HTML thô ngoài `ui/` (vi phạm AGENTS.md) | mã | fixed (`f5462464`) |
 | F-007 | P2 | C4 | Thuật ngữ học tập không nhất quán (trang/ghi chú, ghi nhớ/ôn/gợi nhớ) | ảnh | open |
 | F-008 | P2 | C3 | Hai nút chính màu xanh cạnh tranh trên Trang chủ | ảnh | fixed (`70212a69`) |
 | F-009 | P2 | C1 | Ghi chú mới tên "Untitled Note 1794825081", breadcrumb hiện slug | ảnh | partial — breadcrumb fixed (`6b1e6200`); đặt tên mới ngoài D3 |
@@ -32,7 +32,7 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 | F-016 | P2 | C4 | Màn ôn: "0/1 · 0 reviews", "in 1 min." khó hiểu | ảnh | fixed (60445d20) |
 | F-017 | P2 | C4 | "Hộp thư đến", "Library", "Notes", thư mục `views` trong sidebar tiếng Việt | ảnh | fixed (`5ef69069`) |
 | F-018 | P2 | C5 | Thanh công cụ editor 10 icon không nhãn | ảnh | fixed (`247911cc`) |
-| F-019 | P2 | C5 | 27 chỗ `outline-none`, có thể mất vòng focus | mã | open |
+| F-019 | P2 | C5 | 27 chỗ `outline-none`, có thể mất vòng focus | mã | fixed (`9463246e`) |
 | F-020 | P2 | C1 | "Trang chủ" và "Ôn tập" trên sidebar: không rõ khác nhau thế nào | nghi ngờ | open |
 | F-021 | P2 | C9 | 8 component > 850 dòng (App.tsx 1886) | mã | open |
 | F-022 | P3 | C4 | Chữ nội bộ lộ ra: "Lịch ôn · chỉ đọc", "Thuộc tính của trang" trong panel "Thuộc tính" | ảnh | fixed (`b8351fef`) |
@@ -70,10 +70,12 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 - Chấp nhận: hai nhãn không dùng chung động từ; mọi locale được cập nhật; `pnpm l10n:validate` pass.
 
 ### F-005 — Nút icon thiếu tên truy cập
+- **E2 — partial (`f6601cbc`), 18/11/2026:** nhãn/tooltip icon của app đã dịch đủ catalog; mở rộng test sang mọi HTML button kể cả role combobox, 22/22 GREEN. Axe app/learning không còn button-name violation trong các trạng thái đã quét. Native BlockNote vẫn có hai nhãn English, ghi R-13 nên chưa đóng yêu cầu mọi nút được dịch. [Biên bản E2](STEP-E2-A11Y-FORMS.md).
 - Thực tế: grep `size="icon` không kèm `aria-label` cùng dòng ≈ 58. Phép đếm một dòng nên có dương tính giả — mở từng file xác nhận.
 - Chấp nhận: axe qua Playwright không còn lỗi `button-name` trên S1–S11; mỗi nút icon có tooltip trùng `aria-label`.
 
 ### F-006 — Phần tử form HTML thô
+- **E2 — fixed (`f5462464`), 18/11/2026:** baseline hiện tại 32 raw tags ở 16 file → 0; Button/Input bare giữ presentation, refs/attributes/handlers. AST RED/GREEN, Enter/Escape/blur/emoji trên Chromium và WebKit; native Quick Open/Settings/quan hệ. Mỗi finding một commit theo yêu cầu E2 hiện tại. [Biên bản E2](STEP-E2-A11Y-FORMS.md).
 - Thực tế: 38 chỗ `<button|input|select|textarea>` ngoài `src/components/ui`. Nhiều nhất: `inspector/InspectorChrome.tsx` (4), `StatusDropdown.tsx` (4), `EditableValue.tsx` (4), `inspector/RelationshipsPanel.tsx` (3), `TagsDropdown.tsx` (3), `AddPropertyForm.tsx` (3).
 - Sửa: thay bằng `Button`/`Input`/`Select` shadcn, **mỗi file một commit**, giữ nguyên hành vi và test hiện có.
 - Chấp nhận: grep còn 0 (hoặc từng ngoại lệ có chú thích lý do).
@@ -140,6 +142,7 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 - D3: giữ nhãn/tooltip đã có của icon chính; thêm nhóm chức năng, dịch nhánh Schedule/Review Deck và focus tooltip thanh tìm. Token hoá chrome/status bar; 10 icon AX/tooltip tiếng Việt kiểm riêng. [Nghiệm thu D3](STEP-D3-EDITOR-CHROME.md).
 
 ### F-019 — `outline-none`
+- **E2 — fixed (`9463246e`), 18/11/2026:** thêm solid focus-visible outlines/token và kế thừa shared controls; bỏ suppression ở row không focusable. 5/5 Chromium + 5/5 WebKit (sáng/tối/forced colors); native Tab qua AI/status/sidebar/Settings/listbox. Literal outline-none 35→26, các chỗ giữ có replacement/kế thừa, không lấy số literal bằng 0 làm tiêu chí. [Biên bản E2](STEP-E2-A11Y-FORMS.md).
 - Thực tế: 27 chỗ. Mở từng chỗ, kiểm có `focus-visible:ring` thay thế không.
 - Chấp nhận: Tab qua mọi điều khiển đều thấy vòng focus ở cả hai theme.
 
@@ -312,6 +315,8 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 
 ## R-11 — Copy English còn ngoài các nhãn E1 được chỉ định
 
+- **E2:** phần accessible name Close quick open đã được dịch trong F-005 (`f6601cbc`); copy Save còn ngoài phạm vi E2, R-11 vẫn open.
+
 - P2 · C4 · **open**, có sẵn ở baseline. Không tuyên bố toàn app đã sạch English sau E1.
 - Native vi: editor thuộc tính còn nút “Save” (`src/lib/locales/vi.json`, khóa `common.save`); Quick Open còn accessible name “Close quick open” (`src/components/QuickOpenPalette.tsx:160`). [Ảnh editor vi](evidence/F-022-editor-after.png); Quick Open AX đã được quan sát khi kiểm sentinel.
 - Tái hiện: chọn vi → mở Properties → Chỉnh sửa thuộc tính → xem nút Save; hoặc ⌘P → đọc accessible name nút đóng. Chấp nhận: đưa mọi nhãn vào source catalog/đủ bản dịch, giữ save/close handlers và phím tắt. Không đổi tên dữ liệu/thư mục thật. Để bước copy riêng, không mở rộng finding hệ thống Type/Status/quan hệ của F-003.
@@ -322,3 +327,17 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 - Baseline độc lập `286fffae`, retries=0: `note-memory-properties.spec.ts:68` tìm button đổi độ rộng trong toolbar khi 1280×800/Properties mở; action đã ở overflow menu. Tab Mnemonic cũ cũng không còn là đường sửa gợi nhớ hiện hành. [Baseline RED / GREEN](evidence/E1-red-green.txt).
 - Test đi qua More note actions → menuitem Switch to wide note width, rồi button Edit mnemonic. Giữ nguyên mọi assertion Markdown, opaque YAML, width, hai mặt và save; không sửa app hoặc tăng timeout/retry/skip.
 - GREEN tường minh 1/1, 8,7s, --retries=0; hook thường sau sửa pass ngay lần đầu. Hook cũ trước sửa đã tự dùng hai retry theo config có sẵn và vẫn fail; không thêm retry và không gọi lượt cũ là pass.
+
+## R-13 — Nhãn icon nội bộ BlockNote vẫn tiếng Anh trong UI vi
+
+- P2 · copy/a11y dependency · **open**. Được thấy khi QA E2, F-005 toàn yêu cầu vẫn partial.
+- Native vi, UX verification → editor → hover vùng block: AX có button `Add block` và `Open block menu`. Hai nút có tên nhưng chưa được dịch. [AX đầy đủ](evidence/R-13-native-AX.txt), [ảnh ngữ cảnh](evidence/E2-editor-labels.png).
+- `src/components/Editor.tsx:243` tạo BlockNote không truyền dictionary; dictionary mặc định ở dependency. Chưa tích hợp runtime locale hoặc thay lifetime của editor trong đêm. Không sửa nội dung ghi chú hay mutation dictionary readonly.
+- Tác động: người dùng đọc màn hình tiếng Việt gặp tên hành động English trong editor. Chấp nhận: tên/tooltip hai nút và các control liên quan theo locale, có regression đổi locale mà không mất selection/draft; nguồn copy/catalog theo AGENTS. Không remount editor để đổi nhãn nếu làm mất trạng thái.
+
+## R-14 — Ô chọn trường trong bộ lọc thiếu tên truy cập
+
+- P2 · a11y · **open**. Input đã dùng shared Input, không phải raw form tag còn sót của F-006.
+- `src/components/FilterFieldCombobox.tsx:195`: input role combobox có aria-controls/expanded nhưng không có aria-label/labelledby hoặc label liên kết. Browser fixture E2 có hai điều kiện, sau khi sửa các button combobox vẫn còn 2 input combobox có accessible name rỗng. [DOM và phép đếm](evidence/E2-combobox-browser.txt), [fixture](evidence/E2-axe-fixture-source.txt).
+- Tái hiện: mở FilterBuilder với title/status → kiểm accessibility tree của hai ô chọn trường. Giá trị title/status không thay cho author name. Tác động: khó phân biệt ô chọn trường với các control lọc khác khi dùng screen reader; vẫn thao tác bàn phím được.
+- Chấp nhận: tên trường lọc đã dịch, liên kết đúng từng control; giữ query/property key, value, callbacks và phím. Không nới rule button-name để che lỗi input; bổ sung kiểm form naming riêng ở bước sau.

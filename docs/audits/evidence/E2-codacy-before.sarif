@@ -1,0 +1,3017 @@
+{
+  "$schema": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/errata01/os/schemas/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Semgrep",
+          "version": "0.0.1",
+          "rules": [
+            {
+              "id": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+              "shortDescription": {
+                "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/AiMessage.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 324,
+                  "startColumn": 35,
+                  "endColumn": 40
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/CommandPalette.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 275,
+                  "startColumn": 34,
+                  "endColumn": 39
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/EditableValue.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 48,
+                  "endColumn": 53
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/PropertyValueCells.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 639,
+                  "startColumn": 42,
+                  "endColumn": 57
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/PropertyValueCells.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 644,
+                  "startColumn": 36,
+                  "endColumn": 51
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/PropertyValueCells.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 645,
+                  "startColumn": 48,
+                  "endColumn": 63
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/PropertyValueCells.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 650,
+                  "startColumn": 58,
+                  "endColumn": 73
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/PropertyValueCells.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 664,
+                  "startColumn": 35,
+                  "endColumn": 44
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/PropertyValueCells.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 679,
+                  "startColumn": 31,
+                  "endColumn": 36
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/SettingsPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 323,
+                  "startColumn": 11,
+                  "endColumn": 95
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/SettingsPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 464,
+                  "startColumn": 15,
+                  "endColumn": 99
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/SettingsPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 589,
+                  "startColumn": 11,
+                  "endColumn": 95
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/SettingsPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 605,
+                  "startColumn": 48,
+                  "endColumn": 53
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/SettingsPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 606,
+                  "startColumn": 38,
+                  "endColumn": 43
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/SettingsPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 607,
+                  "startColumn": 44,
+                  "endColumn": 49
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/SettingsPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 661,
+                  "startColumn": 15,
+                  "endColumn": 99
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/SortDropdown.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 397,
+                  "startColumn": 15,
+                  "endColumn": 23
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/SortDropdown.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 457,
+                  "startColumn": 11,
+                  "endColumn": 19
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/StatusDropdown.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 325,
+                  "startColumn": 58,
+                  "endColumn": 69
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/StatusDropdown.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 329,
+                  "startColumn": 21,
+                  "endColumn": 32
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/StatusDropdown.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 359,
+                  "startColumn": 49,
+                  "endColumn": 54
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/StatusDropdown.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 370,
+                  "startColumn": 49,
+                  "endColumn": 54
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/TypeSelector.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 270,
+                  "startColumn": 36,
+                  "endColumn": 41
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/inspector/RelationshipsPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 467,
+                  "startColumn": 19,
+                  "endColumn": 24
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/note-list/NoteListLayout.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 62,
+                  "startColumn": 46,
+                  "endColumn": 49
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/note-list/NoteListLayout.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 404,
+                  "startColumn": 33,
+                  "endColumn": 45
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/note-list/NoteListLayout.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 406,
+                  "startColumn": 25,
+                  "endColumn": 37
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/note-list/NoteListLayout.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 407,
+                  "startColumn": 27,
+                  "endColumn": 39
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/button.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 71,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/checkbox.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 45,
+                  "startColumn": 13,
+                  "endColumn": 18
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/dialog.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 55,
+                  "endColumn": 60
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/dialog.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 18,
+                  "startColumn": 66,
+                  "endColumn": 71
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/dialog.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 24,
+                  "startColumn": 64,
+                  "endColumn": 69
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/dialog.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 30,
+                  "startColumn": 62,
+                  "endColumn": 67
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/dialog.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 44,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/dialog.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 69,
+                  "startColumn": 13,
+                  "endColumn": 18
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/dialog.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 91,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/dialog.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 111,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/dialog.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 131,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/dialog.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 145,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/dropdown-menu.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 68,
+                  "endColumn": 73
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/dropdown-menu.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 20,
+                  "startColumn": 72,
+                  "endColumn": 77
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/dropdown-menu.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 30,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/dropdown-menu.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 49,
+                  "startColumn": 13,
+                  "endColumn": 18
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/dropdown-menu.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 59,
+                  "startColumn": 70,
+                  "endColumn": 75
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/dropdown-menu.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 84,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/dropdown-menu.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 103,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/dropdown-menu.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 121,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/dropdown-menu.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 138,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/dropdown-menu.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 165,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/dropdown-menu.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 178,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/dropdown-menu.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 194,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/dropdown-menu.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 202,
+                  "startColumn": 71,
+                  "endColumn": 76
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/dropdown-menu.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 221,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/dropdown-menu.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 240,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/input.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 11,
+                  "endColumn": 44
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/input.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 24,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/popover.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 57,
+                  "endColumn": 62
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/popover.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 68,
+                  "endColumn": 73
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/popover.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 13,
+                  "endColumn": 18
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/popover.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 45,
+                  "startColumn": 66,
+                  "endColumn": 71
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/popover.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 77,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/popover.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 83,
+                  "startColumn": 94,
+                  "endColumn": 99
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/popover.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 87,
+                  "startColumn": 108,
+                  "endColumn": 113
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/select.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 55,
+                  "endColumn": 60
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/select.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 62,
+                  "endColumn": 67
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/select.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 23,
+                  "startColumn": 62,
+                  "endColumn": 67
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/select.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 45,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/select.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 76,
+                  "startColumn": 13,
+                  "endColumn": 18
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/select.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 102,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/select.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 122,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/select.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 145,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/select.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 161,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/select.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 179,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/switch.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 37,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/tabs.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/tabs.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 53,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/tabs.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 76,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/tabs.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 89,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/textarea.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 11,
+                  "endColumn": 44
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/ui/textarea.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 11,
+                  "endColumn": 16
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tool": {
+        "driver": {
+          "name": "Lizard",
+          "version": "0.0.1",
+          "rules": [
+            {
+              "id": "Lizard_parameter-count-medium",
+              "shortDescription": {
+                "text": "AiActionCard has a parameter count of 10 (threshold: 8)"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "Lizard_nloc-medium",
+              "shortDescription": {
+                "text": "OpenCommandPalette has a NLOC of 77 (threshold: 50)"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "Lizard_ccn-medium",
+              "shortDescription": {
+                "text": "handler has a cyclomatic complexity of 22 (threshold: 15)"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            },
+            {
+              "id": "Lizard_file-nloc-medium",
+              "shortDescription": {
+                "text": "File has 1133 lines of code (threshold: 730)"
+              },
+              "defaultConfiguration": {
+                "level": "warning"
+              }
+            }
+          ]
+        }
+      },
+      "results": [
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "AiActionCard has a parameter count of 10 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/AiActionCard.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 206,
+                  "startColumn": 1,
+                  "endLine": 258
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "ConversationMessage has a parameter count of 13 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/AiMessage.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 323,
+                  "startColumn": 1,
+                  "endLine": 377
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_nloc-medium",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "OpenCommandPalette has a NLOC of 77 (threshold: 50)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/CommandPalette.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 278,
+                  "startColumn": 1,
+                  "endLine": 494
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "OpenCommandPalette has a parameter count of 9 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/CommandPalette.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 278,
+                  "startColumn": 1,
+                  "endLine": 494
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_nloc-medium",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "DecksPage has a NLOC of 147 (threshold: 50)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/DecksPage.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 77,
+                  "startColumn": 1,
+                  "endLine": 307
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "PropertyRow has a parameter count of 14 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/DynamicPropertiesPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 37,
+                  "startColumn": 1,
+                  "endLine": 41
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "TypeDerivedPropertySlot has a parameter count of 13 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/DynamicPropertiesPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 145,
+                  "startColumn": 1,
+                  "endLine": 166
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_nloc-medium",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "resolveMissingTypeName has a NLOC of 67 (threshold: 50)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/DynamicPropertiesPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 106,
+                  "startColumn": 1,
+                  "endLine": 265
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "PropertyEntryRows has a parameter count of 15 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/DynamicPropertiesPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 298,
+                  "startColumn": 1,
+                  "endLine": 321
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "PendingSuggestedPropertyRow has a parameter count of 10 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/DynamicPropertiesPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 364,
+                  "startColumn": 1,
+                  "endLine": 381
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "DynamicPropertiesPanelContent has a parameter count of 18 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/DynamicPropertiesPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 486,
+                  "startColumn": 1,
+                  "endLine": 512
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_nloc-medium",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "DynamicPropertiesPanel has a NLOC of 53 (threshold: 50)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/DynamicPropertiesPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 617,
+                  "startColumn": 1,
+                  "endLine": 673
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "DynamicPropertiesPanel has a parameter count of 13 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/DynamicPropertiesPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 617,
+                  "startColumn": 1,
+                  "endLine": 673
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_ccn-medium",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "handler has a cyclomatic complexity of 22 (threshold: 15)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/FlashcardStudyView.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 283,
+                  "startColumn": 1,
+                  "endLine": 304
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_nloc-medium",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "formatInterval has a NLOC of 410 (threshold: 50)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/FlashcardStudyView.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 306,
+                  "startColumn": 1,
+                  "endLine": 742
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_ccn-medium",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "formatInterval has a cyclomatic complexity of 70 (threshold: 15)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/FlashcardStudyView.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 306,
+                  "startColumn": 1,
+                  "endLine": 742
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_nloc-medium",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "HomePage has a NLOC of 366 (threshold: 50)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/HomePage.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 43,
+                  "startColumn": 1,
+                  "endLine": 505
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_ccn-medium",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "HomePage has a cyclomatic complexity of 23 (threshold: 15)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/HomePage.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 43,
+                  "startColumn": 1,
+                  "endLine": 505
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "HomePage has a parameter count of 10 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/HomePage.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 43,
+                  "startColumn": 1,
+                  "endLine": 505
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "InlineWikilinkEditorField has a parameter count of 19 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/InlineWikilinkParts.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 163,
+                  "startColumn": 1,
+                  "endLine": 192
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "inlineWikilinkEditorListenerMap has a parameter count of 9 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/InlineWikilinkParts.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 294,
+                  "startColumn": 1,
+                  "endLine": 317
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_nloc-medium",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "NumberValue has a NLOC of 116 (threshold: 50)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/PropertyValueCells.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 207,
+                  "startColumn": 1,
+                  "endLine": 466
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "PulseFeed has a parameter count of 11 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/PulseView.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 338,
+                  "startColumn": 1,
+                  "endLine": 356
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "PulseView has a parameter count of 9 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/PulseView.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 398,
+                  "startColumn": 1,
+                  "endLine": 494
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_nloc-medium",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "QuickOpenPalette has a NLOC of 53 (threshold: 50)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/QuickOpenPalette.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 118,
+                  "startColumn": 1,
+                  "endLine": 196
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_nloc-medium",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "SearchPanel has a NLOC of 64 (threshold: 50)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/SearchPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 308,
+                  "startColumn": 1,
+                  "endLine": 387
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "SearchResultRow has a parameter count of 10 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/SearchPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 499,
+                  "startColumn": 1,
+                  "endLine": 534
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_ccn-medium",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "createSettingsDraft has a cyclomatic complexity of 21 (threshold: 15)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/SettingsPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 197,
+                  "startColumn": 1,
+                  "endLine": 234
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "SettingsPanelInner has a parameter count of 17 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/SettingsPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 341,
+                  "startColumn": 1,
+                  "endLine": 407
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "SortDropdownMenu has a parameter count of 11 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/SortDropdown.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 244,
+                  "startColumn": 1,
+                  "endLine": 265
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "SortRow has a parameter count of 10 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/SortDropdown.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 358,
+                  "startColumn": 1,
+                  "endLine": 366
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "SortDirectionButton has a parameter count of 10 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/SortDropdown.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 426,
+                  "startColumn": 1,
+                  "endLine": 441
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "TagOption has a parameter count of 9 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/TagsDropdown.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 51,
+                  "startColumn": 1,
+                  "endLine": 56
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "VaultTagSection has a parameter count of 9 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/TagsDropdown.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 301,
+                  "startColumn": 1,
+                  "endLine": 330
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "EditableTypeSelector has a parameter count of 11 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/TypeSelector.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 272,
+                  "startColumn": 1,
+                  "endLine": 284
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_nloc-medium",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "handleSearchKeyDown has a NLOC of 127 (threshold: 50)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/TypeSelector.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 376,
+                  "startColumn": 1,
+                  "endLine": 503
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_ccn-medium",
+          "ruleIndex": 2,
+          "level": "warning",
+          "message": {
+            "text": "handleSearchKeyDown has a cyclomatic complexity of 18 (threshold: 15)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/TypeSelector.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 376,
+                  "startColumn": 1,
+                  "endLine": 503
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "VocabField has a parameter count of 9 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/inspector/FlashcardPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 105,
+                  "startColumn": 1,
+                  "endLine": 122
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_nloc-medium",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "resolveCardType has a NLOC of 89 (threshold: 50)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/inspector/FlashcardPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 196,
+                  "startColumn": 1,
+                  "endLine": 412
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_nloc-medium",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "propertiesIcon has a NLOC of 53 (threshold: 50)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/inspector/InspectorChrome.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 38,
+                  "startColumn": 1,
+                  "endLine": 101
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "LinkButton has a parameter count of 9 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/inspector/LinkButton.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 1,
+                  "endLine": 18
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "confirmRelationshipSelection has a parameter count of 9 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/inspector/RelationshipsPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 132,
+                  "startColumn": 1,
+                  "endLine": 148
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "RelationshipGroup has a parameter count of 11 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/inspector/RelationshipsPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 449,
+                  "startColumn": 1,
+                  "endLine": 453
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "NoteTargetInput has a parameter count of 9 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/inspector/RelationshipsPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 550,
+                  "startColumn": 1,
+                  "endLine": 554
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_parameter-count-medium",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "DynamicRelationshipsPanel has a parameter count of 11 (threshold: 8)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/inspector/RelationshipsPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 908,
+                  "startColumn": 1,
+                  "endLine": 911
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_file-nloc-medium",
+          "ruleIndex": 3,
+          "level": "warning",
+          "message": {
+            "text": "File has 1133 lines of code (threshold: 730)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/SettingsPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "Lizard_file-nloc-medium",
+          "ruleIndex": 3,
+          "level": "warning",
+          "message": {
+            "text": "File has 889 lines of code (threshold: 730)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/components/inspector/RelationshipsPanel.tsx",
+                  "uriBaseId": "%SRCROOT%"
+                },
+                "region": {
+                  "startLine": 1,
+                  "startColumn": 1
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

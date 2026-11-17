@@ -1,0 +1,9 @@
+
+ RUN  v4.0.18 /Users/thompson/Documents/tolaria-memnova
+
+ ✓ src/components/a11ySurfaces.sweep.test.tsx (22 tests) 679ms
+
+ Test Files  1 passed (1)
+      Tests  22 passed (22)
+   Start at  06:25:25
+   Duration  8.44s (transform 1.45s, setup 275ms, import 5.65s, tests 679ms, environment 1.45s)

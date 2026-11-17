@@ -1,0 +1,49 @@
+
+ RUN  v4.0.18 /Users/thompson/Documents/tolaria-memnova
+
+ ❯ src/components/a11ySurfaces.sweep.test.tsx (22 tests | 1 failed) 804ms
+   ✓ F-005 rendered sweep: sidebar has named buttons and localized icon labels 151ms
+   ✓ F-005 rendered sweep: note list has named buttons and localized icon labels 29ms
+   ✓ F-005 rendered sweep: editor chrome has named buttons and localized icon labels 32ms
+   ✓ F-005 rendered sweep: properties has named buttons and localized icon labels 69ms
+   ✓ F-005 rendered sweep: add property has named buttons and localized icon labels 33ms
+   ✓ F-005 rendered sweep: view filters has named buttons and localized icon labels 62ms
+   ✓ F-005 rendered sweep: selection actions has named buttons and localized icon labels 9ms
+   ✓ F-005 rendered sweep: quick open has named buttons and localized icon labels 9ms
+   ✓ F-005 rendered sweep: search has named buttons and localized icon labels 5ms
+   ✓ F-005 rendered sweep: status menu has named buttons and localized icon labels 35ms
+   ✓ F-005 rendered sweep: tags menu has named buttons and localized icon labels 10ms
+   ✓ F-005 rendered sweep: note icon has named buttons and localized icon labels 5ms
+   ✓ F-005 rendered sweep: color picker has named buttons and localized icon labels 42ms
+   × F-005 rendered sweep: editable URL has named buttons and localized icon labels 7ms
+   ✓ F-005 rendered sweep: editable tags has named buttons and localized icon labels 8ms
+   ✓ F-005 rendered sweep: legacy home has named buttons and localized icon labels 38ms
+   ✓ F-005 rendered sweep: legacy decks has named buttons and localized icon labels 2ms
+   ✓ F-005 rendered sweep: AI chrome has named buttons and localized icon labels 14ms
+   ✓ F-005 scans the populated Pulse surface 31ms
+   ✓ F-005 scans status swatches after opening the color palette 57ms
+   ✓ F-005 scans filtered emoji choices without treating English catalog names as localized labels 138ms
+   ✓ F-005 scans the shared dialog close icon in Vietnamese 19ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/components/a11ySurfaces.sweep.test.tsx > F-005 rendered sweep: editable URL has named buttons and localized icon labels
+AssertionError: <button data-slot="button" data-variant="ghost" data-size="sm" class="inline-flex items-center justify-center gap-[6px] whitespace-nowrap rounded-md font-medium disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-[16px] [&amp;_svg]:shrink-0 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent dark:hover:bg-accent/50 min-h-(--control-sm) has-[>svg]:px-2.5 shrink-0 border-none bg-transparent p-0 text-body leading-none text-text-secondary opacity-0 transition-all hover:text-foreground group-hover/url:opacity-100 focus-visible:opacity-100" type="button" title="Edit URL" data-testid="url-edit-btn">✎</button>: expected null to be truthy
+
+- Expected:
+true
+
++ Received:
+null
+
+ ❯ scan src/components/a11ySurfaces.sweep.test.tsx:45:37
+
+ ❯ src/components/a11ySurfaces.sweep.test.tsx:70:125
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 21 passed (22)
+   Start at  05:54:57
+   Duration  7.95s (transform 1.58s, setup 85ms, import 6.55s, tests 804ms, environment 389ms)

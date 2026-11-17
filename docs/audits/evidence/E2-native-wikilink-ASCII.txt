@@ -1,0 +1,10 @@
+Input source: ABC; NOT an IME test
+Expected: kiem tra e2
+Duration: 189 ms
+The following is a diff from the previous accessibility tree for Window: "Memnova D2 1440 QA" with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
++				187 container
++					188 button Add block
++					189 button Open block menu
+~				178 text field (settable) Value: kiem tra e2, Placeholder: Tiêu đề ghi chú
++				190 button Tạo & mở kiem tra e2
+The focused UI element is 178 text field (settable) Value: kiem tra e2, Placeholder: Tiêu đề ghi chú

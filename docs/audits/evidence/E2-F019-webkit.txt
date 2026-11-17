@@ -1,0 +1,14 @@
+
+Running 5 tests using 1 worker
+
+(node:50798) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:50798) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [webkit] › tests/integration/a11y-keyboard-focus.spec.ts:15:3 › light: Tab reveals focus on tab panel, input and rich chat draft (3.7s)
+  ✓  2 [webkit] › tests/integration/a11y-keyboard-focus.spec.ts:31:3 › light: global search input exposes keyboard focus (734ms)
+  ✓  3 [webkit] › tests/integration/a11y-keyboard-focus.spec.ts:15:3 › dark: Tab reveals focus on tab panel, input and rich chat draft (616ms)
+  ✓  4 [webkit] › tests/integration/a11y-keyboard-focus.spec.ts:31:3 › dark: global search input exposes keyboard focus (611ms)
+  ✓  5 [webkit] › tests/integration/a11y-keyboard-focus.spec.ts:39:1 › forced colors: keyboard focus survives without box-shadow rings (522ms)
+
+  5 passed (7.5s)

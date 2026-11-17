@@ -1,0 +1,32 @@
+The focused UI element is 122 pop up button Mục tiêu AI
+The focused UI element is 123 pop up button Chế độ quyền
+The focused UI element is 124 button Cài đặt AI
+The focused UI element is 77 button Mở thư viện có sẵn
+The focused UI element is 79 button Kiểm tra cập nhật
+The focused UI element is 81 button Thêm remote cho kho này
+The focused UI element is 83 button Xem các thay đổi đang chờ
+The focused UI element is 85 button Commit các thay đổi cục bộ
+The focused UI element is 86 button Đồng bộ ngay
+The focused UI element is 88 button Mở lịch sử thay đổi
+The focused UI element is 90 button MCP chưa kết nối — nhấn để thiết lập
+The focused UI element is 91 button Đóng góp cho Tolaria
+The focused UI element is 92 button Mở tài liệu Tolaria
+The focused UI element is 93 button Chuyển sang giao diện tối
+The focused UI element is 94 button Mở cài đặt
+The focused UI element is 2 HTML content Description: Memnova, URL: localhost:5201/
+The focused UI element is 4 button Thu gọn thanh bên, Help: Thu gọn thanh bên (⌘2)
+The focused UI element is 8 button Trang chủ
+The focused UI element is 9 button Chưa sắp xếp 85
+The focused UI element is 10 button Tất cả ghi chú 89
+The focused UI element is 11 button Ôn tập
+The focused UI element is 12 button Kho lưu trữ
+The focused UI element is 13 button CHẾ ĐỘ XEM
+The focused UI element is 14 button Tạo chế độ xem
+The focused UI element is 15 sortable Capture QA 89
+The focused UI element is 15 sortable Capture QA 89
+The focused UI element is 16 button LOẠI
+The focused UI element is 17 button Tùy chỉnh các mục
+The focused UI element is 18 button Tạo loại mới
+The focused UI element is 19 sortable Ghi chú
+The focused UI element is 19 sortable Ghi chú
+The focused UI element is 20 sortable Trách nhiệm

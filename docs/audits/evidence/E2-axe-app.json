@@ -1,0 +1,4624 @@
+[
+  {
+    "surface": "sidebar",
+    "testEngine": {
+      "name": "axe-core",
+      "version": "4.11.1"
+    },
+    "testRunner": {
+      "name": "axe"
+    },
+    "testEnvironment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36",
+      "windowWidth": 1280,
+      "windowHeight": 720,
+      "orientationAngle": 0,
+      "orientationType": "landscape-primary"
+    },
+    "timestamp": "2026-11-17T23:19:35.120Z",
+    "url": "http://127.0.0.1:5201/tests/fixtures/e2-axe-qa.html?case=0",
+    "toolOptions": {
+      "runOnly": {
+        "type": "rule",
+        "values": [
+          "button-name"
+        ]
+      },
+      "reporter": "v1"
+    },
+    "inapplicable": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "impact": null,
+        "tags": [
+          "cat.name-role-value",
+          "wcag2a",
+          "wcag412",
+          "section508",
+          "section508.22.a",
+          "TTv5",
+          "TT6.a",
+          "EN-301-549",
+          "EN-9.4.1.2",
+          "ACT",
+          "RGAAv4",
+          "RGAA-11.9.1"
+        ],
+        "description": "Ensure buttons have discernible text",
+        "help": "Buttons must have discernible text",
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\" style=\"padding: calc(var(--...\">",
+            "target": [
+              ".text-foreground.hover\\:text-accent-foreground.dark\\:hover\\:bg-accent\\/50:nth-child(1)"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\" style=\"padding: calc(var(--...\">",
+            "target": [
+              ".text-foreground.hover\\:text-accent-foreground.dark\\:hover\\:bg-accent\\/50:nth-child(2)"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\" style=\"padding: calc(var(--...\">",
+            "target": [
+              ".bg-primary\\/10"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\" style=\"padding: calc(var(--...\">",
+            "target": [
+              ".text-foreground.hover\\:text-accent-foreground.dark\\:hover\\:bg-accent\\/50:nth-child(4)"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\" style=\"padding: calc(var(--...\">",
+            "target": [
+              ".text-foreground.hover\\:text-accent-foreground.dark\\:hover\\:bg-accent\\/50:nth-child(5)"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"toolbar\" data-size=\"toolbar\" class=\"whitespace-nowrap te...\" type=\"button\">",
+            "target": [
+              ".h-auto"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"toolbar\" data-size=\"icon-sm\" class=\"inline-flex items-ce...\" type=\"button\" title=\"Tùy chỉnh các mục\" aria-label=\"Tùy chỉnh các mục\">",
+            "target": [
+              ".h-\\(--control-sm\\)"
+            ]
+          }
+        ]
+      }
+    ],
+    "incomplete": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "surface": "note list",
+    "testEngine": {
+      "name": "axe-core",
+      "version": "4.11.1"
+    },
+    "testRunner": {
+      "name": "axe"
+    },
+    "testEnvironment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36",
+      "windowWidth": 1280,
+      "windowHeight": 720,
+      "orientationAngle": 0,
+      "orientationType": "landscape-primary"
+    },
+    "timestamp": "2026-11-17T23:19:36.098Z",
+    "url": "http://127.0.0.1:5201/tests/fixtures/e2-axe-qa.html?case=1",
+    "toolOptions": {
+      "runOnly": {
+        "type": "rule",
+        "values": [
+          "button-name"
+        ]
+      },
+      "reporter": "v1"
+    },
+    "inapplicable": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "impact": null,
+        "tags": [
+          "cat.name-role-value",
+          "wcag2a",
+          "wcag412",
+          "section508",
+          "section508.22.a",
+          "TTv5",
+          "TT6.a",
+          "EN-301-549",
+          "EN-9.4.1.2",
+          "ACT",
+          "RGAAv4",
+          "RGAA-11.9.1"
+        ],
+        "description": "Ensure buttons have discernible text",
+        "help": "Buttons must have discernible text",
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"bare\" data-size=\"default\" class=\"focus-visible:outlin...\" type=\"button\" title=\"Sắp xếp theo Đã sửa ...\" aria-haspopup=\"menu\" aria-expanded=\"false\" data-testid=\"sort-button-__list__\">",
+            "target": [
+              ".gap-0\\.5"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"toolbar\" data-size=\"icon-sm\" class=\"inline-flex items-ce...\" type=\"button\" title=\"Tìm ghi chú\" aria-label=\"Tìm ghi chú\">",
+            "target": [
+              "button[title=\"Tìm ghi chú\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"toolbar\" data-size=\"icon-sm\" class=\"inline-flex items-ce...\" type=\"button\" title=\"Tạo ghi chú mới\" aria-label=\"Tạo ghi chú mới\">",
+            "target": [
+              "button[title=\"Tạo ghi chú mới\"]"
+            ]
+          }
+        ]
+      }
+    ],
+    "incomplete": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "surface": "editor chrome",
+    "testEngine": {
+      "name": "axe-core",
+      "version": "4.11.1"
+    },
+    "testRunner": {
+      "name": "axe"
+    },
+    "testEnvironment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36",
+      "windowWidth": 1280,
+      "windowHeight": 720,
+      "orientationAngle": 0,
+      "orientationType": "landscape-primary"
+    },
+    "timestamp": "2026-11-17T23:19:37.034Z",
+    "url": "http://127.0.0.1:5201/tests/fixtures/e2-axe-qa.html?case=2",
+    "toolOptions": {
+      "runOnly": {
+        "type": "rule",
+        "values": [
+          "button-name"
+        ]
+      },
+      "reporter": "v1"
+    },
+    "inapplicable": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "impact": null,
+        "tags": [
+          "cat.name-role-value",
+          "wcag2a",
+          "wcag412",
+          "section508",
+          "section508.22.a",
+          "TTv5",
+          "TT6.a",
+          "EN-301-549",
+          "EN-9.4.1.2",
+          "ACT",
+          "RGAAv4",
+          "RGAA-11.9.1"
+        ],
+        "description": "Ensure buttons have discernible text",
+        "help": "Buttons must have discernible text",
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              },
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "aria-labelledby",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-labelledby attribute exists and references elements that are visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"xs\" class=\"inline-flex items-ce...\" type=\"button\" data-testid=\"breadcrumb-filename-...\" aria-label=\"Tên tệp test. Nhấn E...\" aria-labelledby=\"_r_0_\" aria-describedby=\"_r_1_\">",
+            "target": [
+              ".dark\\:hover\\:bg-accent\\/50"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"tooltip-trigger\" data-variant=\"toolbar\" data-size=\"icon-sm\" class=\"inline-flex items-ce...\" type=\"button\" aria-label=\"Thêm vào mục yêu thí...\" data-state=\"closed\">",
+            "target": [
+              "button[aria-label=\"Thêm vào mục yêu thích\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"tooltip-trigger\" data-variant=\"toolbar\" data-size=\"icon-sm\" class=\"inline-flex items-ce...\" type=\"button\" aria-label=\"Mở trình soạn thảo t...\" data-state=\"closed\">",
+            "target": [
+              "button[aria-label=\"Mở trình soạn thảo thô\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"tooltip-trigger\" data-variant=\"toolbar\" data-size=\"icon-sm\" class=\"inline-flex items-ce...\" type=\"button\" aria-label=\"Chuyển sang độ rộng ...\" data-state=\"closed\">",
+            "target": [
+              ".breadcrumb-bar__overflowable-action.gap-2:nth-child(3) > .\\[\\&_svg\\:not\\(\\[class\\*\\=size-\\]\\)\\]\\:size-4.gap-\\[6px\\].bg-transparent"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"tooltip-trigger\" data-variant=\"toolbar\" data-size=\"icon-sm\" class=\"inline-flex items-ce...\" type=\"button\" aria-label=\"Hiển thị trong Finde...\" data-testid=\"breadcrumb-reveal-fi...\" data-state=\"closed\">",
+            "target": [
+              "button[aria-label=\"Hiển thị trong Finder\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"tooltip-trigger\" data-variant=\"toolbar\" data-size=\"icon-sm\" class=\"inline-flex items-ce...\" type=\"button\" aria-label=\"Thêm hành động ghi c...\" data-testid=\"breadcrumb-overflow-...\" id=\"radix-_r_6_\" aria-haspopup=\"menu\" aria-expanded=\"false\" data-state=\"closed\">",
+            "target": [
+              "#radix-_r_6_"
+            ]
+          }
+        ]
+      }
+    ],
+    "incomplete": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "testEngine": {
+      "name": "axe-core",
+      "version": "4.11.1"
+    },
+    "testRunner": {
+      "name": "axe"
+    },
+    "testEnvironment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36",
+      "windowWidth": 1280,
+      "windowHeight": 720,
+      "orientationAngle": 0,
+      "orientationType": "landscape-primary"
+    },
+    "timestamp": "2026-11-17T23:27:13.855Z",
+    "url": "http://127.0.0.1:5201/tests/fixtures/e2-axe-qa.html?case=3",
+    "toolOptions": {
+      "runOnly": {
+        "type": "rule",
+        "values": [
+          "button-name"
+        ]
+      },
+      "reporter": "v1"
+    },
+    "inapplicable": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "impact": null,
+        "tags": [
+          "cat.name-role-value",
+          "wcag2a",
+          "wcag412",
+          "section508",
+          "section508.22.a",
+          "TTv5",
+          "TT6.a",
+          "EN-301-549",
+          "EN-9.4.1.2",
+          "ACT",
+          "RGAAv4",
+          "RGAA-11.9.1"
+        ],
+        "description": "Ensure buttons have discernible text",
+        "help": "Buttons must have discernible text",
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\" role=\"combobox\" aria-label=\"Loại\" aria-controls=\"_r_0_\" aria-expanded=\"false\" aria-haspopup=\"listbox\" style=\"border-radius: var(-...\">",
+            "target": [
+              ".transition-\\[color\\,box-shadow\\]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-sm\" class=\"gap-[6px] whitespace...\" type=\"button\" title=\"Đổi kiểu của Trạng t...\" aria-label=\"Đổi kiểu của Trạng t...\" data-testid=\"display-mode-trigger\">",
+            "target": [
+              "button[title=\"Đổi kiểu của Trạng thái\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              },
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-sm\" class=\"inline-flex items-ce...\" type=\"button\" aria-label=\"Xóa thuộc tính\" title=\"Xóa thuộc tính\">",
+            "target": [
+              ".group\\/prop.focus\\:bg-muted.focus\\:ring-1:nth-child(2) > .gap-1\\.5.max-w-full.flex > .hover\\:text-destructive.group-hover\\/prop\\:opacity-100[aria-label=\"Xóa thuộc tính\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"justify-center white...\" type=\"button\" data-testid=\"status-badge\" style=\"border-radius: var(-...\">",
+            "target": [
+              ".cursor-pointer"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-sm\" class=\"gap-[6px] whitespace...\" type=\"button\" title=\"Đổi kiểu của Tags\" aria-label=\"Đổi kiểu của Tags\" data-testid=\"display-mode-trigger\">",
+            "target": [
+              "button[title=\"Đổi kiểu của Tags\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              },
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-sm\" class=\"inline-flex items-ce...\" type=\"button\" aria-label=\"Xóa thuộc tính\" title=\"Xóa thuộc tính\">",
+            "target": [
+              ".group\\/prop.focus\\:bg-muted.focus\\:ring-1:nth-child(3) > .gap-1\\.5.max-w-full.flex > .hover\\:text-destructive.group-hover\\/prop\\:opacity-100[aria-label=\"Xóa thuộc tính\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              },
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-sm\" class=\"inline-flex items-ce...\" type=\"button\" title=\"Xóa QA\" aria-label=\"Xóa QA\" style=\"color: var(--accent-...\">",
+            "target": [
+              ".ml-1"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              },
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"gap-[6px] whitespace...\" type=\"button\" title=\"Thêm thẻ\" aria-label=\"Thêm thẻ\" data-testid=\"tags-add-button\" style=\"border-radius: var(-...\">",
+            "target": [
+              "button[title=\"Thêm thẻ\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"justify-center white...\" type=\"button\" data-testid=\"suggested-property\">",
+            "target": [
+              ".grid-cols-\\[minmax\\(0\\,1fr\\)_auto\\].w-full[data-testid=\"suggested-property\"]:nth-child(1)"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"justify-center white...\" type=\"button\" data-testid=\"suggested-property\">",
+            "target": [
+              ".grid-cols-\\[minmax\\(0\\,1fr\\)_auto\\].w-full[data-testid=\"suggested-property\"]:nth-child(2)"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"justify-center white...\" type=\"button\" data-testid=\"suggested-property\">",
+            "target": [
+              ".grid-cols-\\[minmax\\(0\\,1fr\\)_auto\\].w-full[data-testid=\"suggested-property\"]:nth-child(3)"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"justify-center white...\" type=\"button\" data-testid=\"add-property-row\" style=\"grid-column: 1 / -1;...\">",
+            "target": [
+              "button[data-testid=\"add-property-row\"]"
+            ]
+          }
+        ]
+      }
+    ],
+    "incomplete": [],
+    "violations": [],
+    "surface": "properties",
+    "errors": []
+  },
+  {
+    "testEngine": {
+      "name": "axe-core",
+      "version": "4.11.1"
+    },
+    "testRunner": {
+      "name": "axe"
+    },
+    "testEnvironment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36",
+      "windowWidth": 1280,
+      "windowHeight": 720,
+      "orientationAngle": 0,
+      "orientationType": "landscape-primary"
+    },
+    "timestamp": "2026-11-17T23:27:15.287Z",
+    "url": "http://127.0.0.1:5201/tests/fixtures/e2-axe-qa.html?case=4",
+    "toolOptions": {
+      "runOnly": {
+        "type": "rule",
+        "values": [
+          "button-name"
+        ]
+      },
+      "reporter": "v1"
+    },
+    "inapplicable": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "impact": null,
+        "tags": [
+          "cat.name-role-value",
+          "wcag2a",
+          "wcag412",
+          "section508",
+          "section508.22.a",
+          "TTv5",
+          "TT6.a",
+          "EN-301-549",
+          "EN-9.4.1.2",
+          "ACT",
+          "RGAAv4",
+          "RGAA-11.9.1"
+        ],
+        "description": "Ensure buttons have discernible text",
+        "help": "Buttons must have discernible text",
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button type=\"button\" role=\"combobox\" aria-expanded=\"false\" aria-autocomplete=\"none\" dir=\"ltr\" data-state=\"closed\" data-slot=\"select-trigger\" data-size=\"sm\" class=\"data-[placeholder]:t...\" aria-label=\"Kiểu thuộc tính\" data-testid=\"add-property-type-tr...\">",
+            "target": [
+              ".data-\\[placeholder\\]\\:text-text-muted"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"outline\" data-size=\"icon-sm\" class=\"inline-flex items-ce...\" disabled=\"\" aria-label=\"Thêm thuộc tính\" title=\"Thêm thuộc tính\" data-testid=\"add-property-confirm\">",
+            "target": [
+              ".bg-background"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-sm\" class=\"inline-flex items-ce...\" aria-label=\"Hủy\" title=\"Hủy\" data-testid=\"add-property-cancel\">",
+            "target": [
+              ".dark\\:hover\\:bg-accent\\/50"
+            ]
+          }
+        ]
+      }
+    ],
+    "incomplete": [],
+    "violations": [],
+    "surface": "add property",
+    "errors": []
+  },
+  {
+    "testEngine": {
+      "name": "axe-core",
+      "version": "4.11.1"
+    },
+    "testRunner": {
+      "name": "axe"
+    },
+    "testEnvironment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36",
+      "windowWidth": 1280,
+      "windowHeight": 720,
+      "orientationAngle": 0,
+      "orientationType": "landscape-primary"
+    },
+    "timestamp": "2026-11-17T23:27:16.284Z",
+    "url": "http://127.0.0.1:5201/tests/fixtures/e2-axe-qa.html?case=5",
+    "toolOptions": {
+      "runOnly": {
+        "type": "rule",
+        "values": [
+          "button-name"
+        ]
+      },
+      "reporter": "v1"
+    },
+    "inapplicable": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "impact": null,
+        "tags": [
+          "cat.name-role-value",
+          "wcag2a",
+          "wcag412",
+          "section508",
+          "section508.22.a",
+          "TTv5",
+          "TT6.a",
+          "EN-301-549",
+          "EN-9.4.1.2",
+          "ACT",
+          "RGAAv4",
+          "RGAA-11.9.1"
+        ],
+        "description": "Ensure buttons have discernible text",
+        "help": "Buttons must have discernible text",
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"outline\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\" title=\"Switch to OR\">",
+            "target": [
+              "button[title=\"Switch to OR\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button type=\"button\" role=\"combobox\" aria-expanded=\"false\" aria-autocomplete=\"none\" dir=\"ltr\" data-state=\"closed\" data-slot=\"select-trigger\" data-size=\"sm\" class=\"data-[placeholder]:t...\" aria-label=\"Toán tử lọc\" style=\"min-width: 120px;\">",
+            "target": [
+              "#root > div > .space-y-2 > .items-start.gap-1\\.5[data-testid=\"filter-row\"] > .data-\\[placeholder\\]\\:text-text-muted.\\[\\&_svg\\:not\\(\\[class\\*\\=\\'text-\\'\\]\\)\\]\\:text-muted-foreground.w-fit"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              },
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"outline\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\" aria-pressed=\"false\" data-testid=\"filter-regex-toggle\" title=\"Dùng giá trị như biể...\" aria-label=\"Dùng giá trị như biể...\">",
+            "target": [
+              "#root > div > .space-y-2 > .items-start.gap-1\\.5[data-testid=\"filter-row\"] > .gap-1.flex-1.min-w-0 > .font-mono.dark\\:border-input[data-testid=\"filter-regex-toggle\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\" title=\"Xóa bộ lọc\" aria-label=\"Xóa bộ lọc\">",
+            "target": [
+              "#root > div > .space-y-2 > .items-start.gap-1\\.5[data-testid=\"filter-row\"] > .w-8[title=\"Xóa bộ lọc\"][aria-label=\"Xóa bộ lọc\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"outline\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\" title=\"Switch to AND\">",
+            "target": [
+              "button[title=\"Switch to AND\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\" title=\"Xóa nhóm\" aria-label=\"Xóa nhóm\">",
+            "target": [
+              ".ml-auto"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button type=\"button\" role=\"combobox\" aria-expanded=\"false\" aria-autocomplete=\"none\" dir=\"ltr\" data-state=\"closed\" data-slot=\"select-trigger\" data-size=\"sm\" class=\"data-[placeholder]:t...\" aria-label=\"Toán tử lọc\" style=\"min-width: 120px;\">",
+            "target": [
+              ".ml-3 > .space-y-2 > .items-start.gap-1\\.5[data-testid=\"filter-row\"] > .data-\\[placeholder\\]\\:text-text-muted.\\[\\&_svg\\:not\\(\\[class\\*\\=\\'text-\\'\\]\\)\\]\\:text-muted-foreground.w-fit"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              },
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"outline\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\" aria-pressed=\"false\" data-testid=\"filter-regex-toggle\" title=\"Dùng giá trị như biể...\" aria-label=\"Dùng giá trị như biể...\">",
+            "target": [
+              ".ml-3 > .space-y-2 > .items-start.gap-1\\.5[data-testid=\"filter-row\"] > .gap-1.flex-1.min-w-0 > .font-mono.dark\\:border-input[data-testid=\"filter-regex-toggle\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\" title=\"Xóa bộ lọc\" aria-label=\"Xóa bộ lọc\">",
+            "target": [
+              ".ml-3 > .space-y-2 > .items-start.gap-1\\.5[data-testid=\"filter-row\"] > .w-8[title=\"Xóa bộ lọc\"][aria-label=\"Xóa bộ lọc\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\">",
+            "target": [
+              ".ml-3 > .mt-2.gap-2.flex > .h-7.text-xs.dark\\:hover\\:bg-accent\\/50:nth-child(1)"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\">",
+            "target": [
+              ".ml-3 > .mt-2.gap-2.flex > .h-7.text-xs.dark\\:hover\\:bg-accent\\/50:nth-child(2)"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\">",
+            "target": [
+              "#root > div > .mt-2.gap-2.flex > .h-7.text-xs.dark\\:hover\\:bg-accent\\/50:nth-child(1)"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\">",
+            "target": [
+              "#root > div > .mt-2.gap-2.flex > .h-7.text-xs.dark\\:hover\\:bg-accent\\/50:nth-child(2)"
+            ]
+          }
+        ]
+      }
+    ],
+    "incomplete": [],
+    "violations": [],
+    "surface": "view filters",
+    "errors": []
+  },
+  {
+    "surface": "selection actions",
+    "testEngine": {
+      "name": "axe-core",
+      "version": "4.11.1"
+    },
+    "testRunner": {
+      "name": "axe"
+    },
+    "testEnvironment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36",
+      "windowWidth": 1280,
+      "windowHeight": 720,
+      "orientationAngle": 0,
+      "orientationType": "landscape-primary"
+    },
+    "timestamp": "2026-11-17T23:19:40.685Z",
+    "url": "http://127.0.0.1:5201/tests/fixtures/e2-axe-qa.html?case=6",
+    "toolOptions": {
+      "runOnly": {
+        "type": "rule",
+        "values": [
+          "button-name"
+        ]
+      },
+      "reporter": "v1"
+    },
+    "inapplicable": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "impact": null,
+        "tags": [
+          "cat.name-role-value",
+          "wcag2a",
+          "wcag412",
+          "section508",
+          "section508.22.a",
+          "TTv5",
+          "TT6.a",
+          "EN-301-549",
+          "EN-9.4.1.2",
+          "ACT",
+          "RGAAv4",
+          "RGAA-11.9.1"
+        ],
+        "description": "Ensure buttons have discernible text",
+        "help": "Buttons must have discernible text",
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-sm\" class=\"inline-flex items-ce...\" type=\"button\" aria-label=\"Sắp xếp ghi chú đã c...\" title=\"Sắp xếp ghi chú đã c...\" data-testid=\"bulk-organize-btn\">",
+            "target": [
+              "button[aria-label=\"Sắp xếp ghi chú đã chọn\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-sm\" class=\"inline-flex items-ce...\" type=\"button\" aria-label=\"Lưu trữ ghi chú đã c...\" title=\"Lưu trữ ghi chú đã c...\" data-testid=\"bulk-archive-btn\">",
+            "target": [
+              "button[aria-label=\"Lưu trữ ghi chú đã chọn\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"destructive\" data-size=\"icon-sm\" class=\"inline-flex items-ce...\" type=\"button\" aria-label=\"Xóa vĩnh viễn ghi ch...\" title=\"Xóa vĩnh viễn ghi ch...\" data-testid=\"bulk-delete-btn\">",
+            "target": [
+              ".dark\\:focus-visible\\:ring-destructive\\/40"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-sm\" class=\"inline-flex items-ce...\" type=\"button\" aria-label=\"Bỏ chọn\" title=\"Bỏ chọn\" data-testid=\"bulk-clear-btn\">",
+            "target": [
+              ".text-background\\/55"
+            ]
+          }
+        ]
+      }
+    ],
+    "incomplete": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "surface": "quick open",
+    "testEngine": {
+      "name": "axe-core",
+      "version": "4.11.1"
+    },
+    "testRunner": {
+      "name": "axe"
+    },
+    "testEnvironment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36",
+      "windowWidth": 1280,
+      "windowHeight": 720,
+      "orientationAngle": 0,
+      "orientationType": "landscape-primary"
+    },
+    "timestamp": "2026-11-17T23:19:41.595Z",
+    "url": "http://127.0.0.1:5201/tests/fixtures/e2-axe-qa.html?case=7",
+    "toolOptions": {
+      "runOnly": {
+        "type": "rule",
+        "values": [
+          "button-name"
+        ]
+      },
+      "reporter": "v1"
+    },
+    "inapplicable": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "impact": null,
+        "tags": [
+          "cat.name-role-value",
+          "wcag2a",
+          "wcag412",
+          "section508",
+          "section508.22.a",
+          "TTv5",
+          "TT6.a",
+          "EN-301-549",
+          "EN-9.4.1.2",
+          "ACT",
+          "RGAAv4",
+          "RGAA-11.9.1"
+        ],
+        "description": "Ensure buttons have discernible text",
+        "help": "Buttons must have discernible text",
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"bare\" data-size=\"default\" class=\"focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ring absolute inset-0 z-0 cursor-default border-0 bg-transparent p-0\" type=\"button\" aria-label=\"Đóng mở nhanh\"></button>",
+            "target": [
+              ".absolute"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"bare\" data-size=\"default\" class=\"focus-visible:outlin...\" type=\"button\">",
+            "target": [
+              ".px-3"
+            ]
+          }
+        ]
+      }
+    ],
+    "incomplete": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "surface": "search",
+    "testEngine": {
+      "name": "axe-core",
+      "version": "4.11.1"
+    },
+    "testRunner": {
+      "name": "axe"
+    },
+    "testEnvironment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36",
+      "windowWidth": 1280,
+      "windowHeight": 720,
+      "orientationAngle": 0,
+      "orientationType": "landscape-primary"
+    },
+    "timestamp": "2026-11-17T23:19:42.509Z",
+    "url": "http://127.0.0.1:5201/tests/fixtures/e2-axe-qa.html?case=8",
+    "toolOptions": {
+      "runOnly": {
+        "type": "rule",
+        "values": [
+          "button-name"
+        ]
+      },
+      "reporter": "v1"
+    },
+    "inapplicable": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "impact": null,
+        "tags": [
+          "cat.name-role-value",
+          "wcag2a",
+          "wcag412",
+          "section508",
+          "section508.22.a",
+          "TTv5",
+          "TT6.a",
+          "EN-301-549",
+          "EN-9.4.1.2",
+          "ACT",
+          "RGAAv4",
+          "RGAA-11.9.1"
+        ],
+        "description": "Ensure buttons have discernible text",
+        "help": "Buttons must have discernible text",
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"bare\" data-size=\"default\" class=\"focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ring absolute inset-0 z-0 cursor-default border-0 bg-transparent p-0\" type=\"button\" aria-label=\"Đóng tìm kiếm\"></button>",
+            "target": [
+              "button"
+            ]
+          }
+        ]
+      }
+    ],
+    "incomplete": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "surface": "status menu",
+    "testEngine": {
+      "name": "axe-core",
+      "version": "4.11.1"
+    },
+    "testRunner": {
+      "name": "axe"
+    },
+    "testEnvironment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36",
+      "windowWidth": 1280,
+      "windowHeight": 720,
+      "orientationAngle": 0,
+      "orientationType": "landscape-primary"
+    },
+    "timestamp": "2026-11-17T23:19:43.424Z",
+    "url": "http://127.0.0.1:5201/tests/fixtures/e2-axe-qa.html?case=9",
+    "toolOptions": {
+      "runOnly": {
+        "type": "rule",
+        "values": [
+          "button-name"
+        ]
+      },
+      "reporter": "v1"
+    },
+    "inapplicable": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "impact": null,
+        "tags": [
+          "cat.name-role-value",
+          "wcag2a",
+          "wcag412",
+          "section508",
+          "section508.22.a",
+          "TTv5",
+          "TT6.a",
+          "EN-301-549",
+          "EN-9.4.1.2",
+          "ACT",
+          "RGAAv4",
+          "RGAA-11.9.1"
+        ],
+        "description": "Ensure buttons have discernible text",
+        "help": "Buttons must have discernible text",
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\" aria-label=\"Đóng menu trạng thái\" data-testid=\"status-dropdown-back...\">",
+            "target": [
+              ".inline-flex"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"gap-[6px] whitespace...\" type=\"button\" data-testid=\"status-option-Active\">",
+            "target": [
+              "button[data-testid=\"status-option-Active\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-sm\" class=\"gap-[6px] whitespace...\" type=\"button\" title=\"Đổi màu\" aria-label=\"Đổi màu\" data-testid=\"status-color-swatch-...\" style=\"background-color: va...\">",
+            "target": [
+              "button[data-testid=\"status-color-swatch-Active\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"gap-[6px] whitespace...\" type=\"button\" data-testid=\"status-option-Not st...\">",
+            "target": [
+              "button[data-testid=\"status-option-Not started\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-sm\" class=\"gap-[6px] whitespace...\" type=\"button\" title=\"Đổi màu\" aria-label=\"Đổi màu\" data-testid=\"status-color-swatch-...\" style=\"background-color: va...\">",
+            "target": [
+              ".gap-1.transition-colors.w-full:nth-child(3) > .h-\\(--control-sm\\).w-\\(--control-sm\\).min-h-7"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"gap-[6px] whitespace...\" type=\"button\" data-testid=\"status-option-In pro...\">",
+            "target": [
+              "button[data-testid=\"status-option-In progress\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-sm\" class=\"gap-[6px] whitespace...\" type=\"button\" title=\"Đổi màu\" aria-label=\"Đổi màu\" data-testid=\"status-color-swatch-...\" style=\"background-color: va...\">",
+            "target": [
+              ".gap-1.transition-colors.w-full:nth-child(4) > .h-\\(--control-sm\\).w-\\(--control-sm\\).min-h-7"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"gap-[6px] whitespace...\" type=\"button\" data-testid=\"status-option-Done\">",
+            "target": [
+              "button[data-testid=\"status-option-Done\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-sm\" class=\"gap-[6px] whitespace...\" type=\"button\" title=\"Đổi màu\" aria-label=\"Đổi màu\" data-testid=\"status-color-swatch-...\" style=\"background-color: va...\">",
+            "target": [
+              "button[data-testid=\"status-color-swatch-Done\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"gap-[6px] whitespace...\" type=\"button\" data-testid=\"status-option-Blocke...\">",
+            "target": [
+              "button[data-testid=\"status-option-Blocked\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-sm\" class=\"gap-[6px] whitespace...\" type=\"button\" title=\"Đổi màu\" aria-label=\"Đổi màu\" data-testid=\"status-color-swatch-...\" style=\"background-color: va...\">",
+            "target": [
+              "button[data-testid=\"status-color-swatch-Blocked\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"gap-[6px] whitespace...\" type=\"button\" data-testid=\"status-option-Paused\">",
+            "target": [
+              "button[data-testid=\"status-option-Paused\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-sm\" class=\"gap-[6px] whitespace...\" type=\"button\" title=\"Đổi màu\" aria-label=\"Đổi màu\" data-testid=\"status-color-swatch-...\" style=\"background-color: va...\">",
+            "target": [
+              "button[data-testid=\"status-color-swatch-Paused\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"gap-[6px] whitespace...\" type=\"button\" data-testid=\"status-option-Draft\">",
+            "target": [
+              "button[data-testid=\"status-option-Draft\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-sm\" class=\"gap-[6px] whitespace...\" type=\"button\" title=\"Đổi màu\" aria-label=\"Đổi màu\" data-testid=\"status-color-swatch-...\" style=\"background-color: va...\">",
+            "target": [
+              "button[data-testid=\"status-color-swatch-Draft\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"gap-[6px] whitespace...\" type=\"button\" data-testid=\"status-option-Archiv...\">",
+            "target": [
+              "button[data-testid=\"status-option-Archived\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-sm\" class=\"gap-[6px] whitespace...\" type=\"button\" title=\"Đổi màu\" aria-label=\"Đổi màu\" data-testid=\"status-color-swatch-...\" style=\"background-color: va...\">",
+            "target": [
+              "button[data-testid=\"status-color-swatch-Archived\"]"
+            ]
+          }
+        ]
+      }
+    ],
+    "incomplete": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "surface": "tags menu",
+    "testEngine": {
+      "name": "axe-core",
+      "version": "4.11.1"
+    },
+    "testRunner": {
+      "name": "axe"
+    },
+    "testEnvironment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36",
+      "windowWidth": 1280,
+      "windowHeight": 720,
+      "orientationAngle": 0,
+      "orientationType": "landscape-primary"
+    },
+    "timestamp": "2026-11-17T23:19:44.328Z",
+    "url": "http://127.0.0.1:5201/tests/fixtures/e2-axe-qa.html?case=10",
+    "toolOptions": {
+      "runOnly": {
+        "type": "rule",
+        "values": [
+          "button-name"
+        ]
+      },
+      "reporter": "v1"
+    },
+    "inapplicable": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "impact": null,
+        "tags": [
+          "cat.name-role-value",
+          "wcag2a",
+          "wcag412",
+          "section508",
+          "section508.22.a",
+          "TTv5",
+          "TT6.a",
+          "EN-301-549",
+          "EN-9.4.1.2",
+          "ACT",
+          "RGAAv4",
+          "RGAA-11.9.1"
+        ],
+        "description": "Ensure buttons have discernible text",
+        "help": "Buttons must have discernible text",
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\" aria-label=\"Đóng menu thẻ\" data-testid=\"tags-dropdown-backdr...\">",
+            "target": [
+              ".inline-flex"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"whitespace-nowrap ro...\" type=\"button\" data-testid=\"tag-option-QA\">",
+            "target": [
+              ".flex-1"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-sm\" class=\"gap-[6px] whitespace...\" type=\"button\" title=\"Đổi màu\" aria-label=\"Đổi màu\" data-testid=\"tag-color-swatch-QA\" style=\"background-color: va...\">",
+            "target": [
+              ".h-\\(--control-sm\\)"
+            ]
+          }
+        ]
+      }
+    ],
+    "incomplete": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "surface": "note icon",
+    "testEngine": {
+      "name": "axe-core",
+      "version": "4.11.1"
+    },
+    "testRunner": {
+      "name": "axe"
+    },
+    "testEnvironment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36",
+      "windowWidth": 1280,
+      "windowHeight": 720,
+      "orientationAngle": 0,
+      "orientationType": "landscape-primary"
+    },
+    "timestamp": "2026-11-17T23:19:45.207Z",
+    "url": "http://127.0.0.1:5201/tests/fixtures/e2-axe-qa.html?case=11",
+    "toolOptions": {
+      "runOnly": {
+        "type": "rule",
+        "values": [
+          "button-name"
+        ]
+      },
+      "reporter": "v1"
+    },
+    "inapplicable": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "impact": null,
+        "tags": [
+          "cat.name-role-value",
+          "wcag2a",
+          "wcag412",
+          "section508",
+          "section508.22.a",
+          "TTv5",
+          "TT6.a",
+          "EN-301-549",
+          "EN-9.4.1.2",
+          "ACT",
+          "RGAAv4",
+          "RGAA-11.9.1"
+        ],
+        "description": "Ensure buttons have discernible text",
+        "help": "Buttons must have discernible text",
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"bare\" data-size=\"default\" class=\"focus-visible:outlin...\" type=\"button\" data-testid=\"note-icon-display\" title=\"Sửa biểu tượng\" aria-label=\"Sửa biểu tượng\">",
+            "target": [
+              "button"
+            ]
+          }
+        ]
+      }
+    ],
+    "incomplete": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "surface": "color picker",
+    "testEngine": {
+      "name": "axe-core",
+      "version": "4.11.1"
+    },
+    "testRunner": {
+      "name": "axe"
+    },
+    "testEnvironment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36",
+      "windowWidth": 1280,
+      "windowHeight": 720,
+      "orientationAngle": 0,
+      "orientationType": "landscape-primary"
+    },
+    "timestamp": "2026-11-17T23:19:46.113Z",
+    "url": "http://127.0.0.1:5201/tests/fixtures/e2-axe-qa.html?case=12",
+    "toolOptions": {
+      "runOnly": {
+        "type": "rule",
+        "values": [
+          "button-name"
+        ]
+      },
+      "reporter": "v1"
+    },
+    "inapplicable": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "impact": null,
+        "tags": [
+          "cat.name-role-value",
+          "wcag2a",
+          "wcag412",
+          "section508",
+          "section508.22.a",
+          "TTv5",
+          "TT6.a",
+          "EN-301-549",
+          "EN-9.4.1.2",
+          "ACT",
+          "RGAAv4",
+          "RGAA-11.9.1"
+        ],
+        "description": "Ensure buttons have discernible text",
+        "help": "Buttons must have discernible text",
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-xs\" class=\"inline-flex items-ce...\" type=\"button\" title=\"Đỏ\" aria-label=\"Đỏ\" style=\"width: 24px; height:...\">",
+            "target": [
+              "button[title=\"Đỏ\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-xs\" class=\"inline-flex items-ce...\" type=\"button\" title=\"Cam\" aria-label=\"Cam\" style=\"width: 24px; height:...\">",
+            "target": [
+              "button[title=\"Cam\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-xs\" class=\"inline-flex items-ce...\" type=\"button\" title=\"Vàng\" aria-label=\"Vàng\" style=\"width: 24px; height:...\">",
+            "target": [
+              "button[title=\"Vàng\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-xs\" class=\"inline-flex items-ce...\" type=\"button\" title=\"Xanh lá\" aria-label=\"Xanh lá\" style=\"width: 24px; height:...\">",
+            "target": [
+              "button[title=\"Xanh lá\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-xs\" class=\"inline-flex items-ce...\" type=\"button\" title=\"Xanh dương\" aria-label=\"Xanh dương\" style=\"width: 24px; height:...\">",
+            "target": [
+              ".scale-110"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-xs\" class=\"inline-flex items-ce...\" type=\"button\" title=\"Tím\" aria-label=\"Tím\" style=\"width: 24px; height:...\">",
+            "target": [
+              "button[title=\"Tím\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-xs\" class=\"inline-flex items-ce...\" type=\"button\" title=\"Hồng\" aria-label=\"Hồng\" style=\"width: 24px; height:...\">",
+            "target": [
+              "button[title=\"Hồng\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-xs\" class=\"inline-flex items-ce...\" type=\"button\" title=\"Xám\" aria-label=\"Xám\" style=\"width: 24px; height:...\">",
+            "target": [
+              "button[title=\"Xám\"]"
+            ]
+          }
+        ]
+      }
+    ],
+    "incomplete": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "surface": "editable URL",
+    "testEngine": {
+      "name": "axe-core",
+      "version": "4.11.1"
+    },
+    "testRunner": {
+      "name": "axe"
+    },
+    "testEnvironment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36",
+      "windowWidth": 1280,
+      "windowHeight": 720,
+      "orientationAngle": 0,
+      "orientationType": "landscape-primary"
+    },
+    "timestamp": "2026-11-17T23:19:47.008Z",
+    "url": "http://127.0.0.1:5201/tests/fixtures/e2-axe-qa.html?case=13",
+    "toolOptions": {
+      "runOnly": {
+        "type": "rule",
+        "values": [
+          "button-name"
+        ]
+      },
+      "reporter": "v1"
+    },
+    "inapplicable": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "impact": null,
+        "tags": [
+          "cat.name-role-value",
+          "wcag2a",
+          "wcag412",
+          "section508",
+          "section508.22.a",
+          "TTv5",
+          "TT6.a",
+          "EN-301-549",
+          "EN-9.4.1.2",
+          "ACT",
+          "RGAAv4",
+          "RGAA-11.9.1"
+        ],
+        "description": "Ensure buttons have discernible text",
+        "help": "Buttons must have discernible text",
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"gap-[6px] whitespace...\" type=\"button\" title=\"https://example.com\" data-testid=\"url-link\">",
+            "target": [
+              ".hover\\:text-accent-foreground"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              },
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\" title=\"Sửa URL\" aria-label=\"Sửa URL\" data-testid=\"url-edit-btn\">",
+            "target": [
+              ".justify-center"
+            ]
+          }
+        ]
+      }
+    ],
+    "incomplete": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "surface": "editable tags",
+    "testEngine": {
+      "name": "axe-core",
+      "version": "4.11.1"
+    },
+    "testRunner": {
+      "name": "axe"
+    },
+    "testEnvironment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36",
+      "windowWidth": 1280,
+      "windowHeight": 720,
+      "orientationAngle": 0,
+      "orientationType": "landscape-primary"
+    },
+    "timestamp": "2026-11-17T23:19:47.909Z",
+    "url": "http://127.0.0.1:5201/tests/fixtures/e2-axe-qa.html?case=14",
+    "toolOptions": {
+      "runOnly": {
+        "type": "rule",
+        "values": [
+          "button-name"
+        ]
+      },
+      "reporter": "v1"
+    },
+    "inapplicable": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "impact": null,
+        "tags": [
+          "cat.name-role-value",
+          "wcag2a",
+          "wcag412",
+          "section508",
+          "section508.22.a",
+          "TTv5",
+          "TT6.a",
+          "EN-301-549",
+          "EN-9.4.1.2",
+          "ACT",
+          "RGAAv4",
+          "RGAA-11.9.1"
+        ],
+        "description": "Ensure buttons have discernible text",
+        "help": "Buttons must have discernible text",
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\">",
+            "target": [
+              ".transition-\\[color\\,box-shadow\\]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              },
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-sm\" class=\"gap-[6px] whitespace...\" type=\"button\" title=\"Xóa QA\" aria-label=\"Xóa QA\" style=\"color: var(--accent-...\">",
+            "target": [
+              ".h-\\(--control-sm\\)"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              },
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"gap-[6px] whitespace...\" type=\"button\" title=\"Thêm tag\" aria-label=\"Thêm tag\" style=\"border-radius: var(-...\">",
+            "target": [
+              ".px-3"
+            ]
+          }
+        ]
+      }
+    ],
+    "incomplete": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "surface": "legacy home",
+    "testEngine": {
+      "name": "axe-core",
+      "version": "4.11.1"
+    },
+    "testRunner": {
+      "name": "axe"
+    },
+    "testEnvironment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36",
+      "windowWidth": 1280,
+      "windowHeight": 720,
+      "orientationAngle": 0,
+      "orientationType": "landscape-primary"
+    },
+    "timestamp": "2026-11-17T23:19:48.867Z",
+    "url": "http://127.0.0.1:5201/tests/fixtures/e2-axe-qa.html?case=15",
+    "toolOptions": {
+      "runOnly": {
+        "type": "rule",
+        "values": [
+          "button-name"
+        ]
+      },
+      "reporter": "v1"
+    },
+    "inapplicable": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "impact": null,
+        "tags": [
+          "cat.name-role-value",
+          "wcag2a",
+          "wcag412",
+          "section508",
+          "section508.22.a",
+          "TTv5",
+          "TT6.a",
+          "EN-301-549",
+          "EN-9.4.1.2",
+          "ACT",
+          "RGAAv4",
+          "RGAA-11.9.1"
+        ],
+        "description": "Ensure buttons have discernible text",
+        "help": "Buttons must have discernible text",
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"bare\" data-size=\"default\" class=\"focus-visible:outlin...\" type=\"button\" title=\"Click to edit daily ...\">",
+            "target": [
+              ".hover\\:text-\\[var\\(--accent-blue\\)\\]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"default\" data-size=\"default\" class=\"justify-center white...\" type=\"button\">",
+            "target": [
+              ".whitespace-nowrap"
+            ]
+          }
+        ]
+      }
+    ],
+    "incomplete": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "surface": "legacy decks",
+    "testEngine": {
+      "name": "axe-core",
+      "version": "4.11.1"
+    },
+    "testRunner": {
+      "name": "axe"
+    },
+    "testEnvironment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36",
+      "windowWidth": 1280,
+      "windowHeight": 720,
+      "orientationAngle": 0,
+      "orientationType": "landscape-primary"
+    },
+    "timestamp": "2026-11-17T23:20:48.376Z",
+    "url": "http://127.0.0.1:5201/tests/fixtures/e2-axe-qa.html?case=16",
+    "toolOptions": {
+      "runOnly": {
+        "type": "rule",
+        "values": [
+          "button-name"
+        ]
+      },
+      "reporter": "v1"
+    },
+    "inapplicable": [
+      {
+        "id": "button-name",
+        "impact": null,
+        "tags": [
+          "cat.name-role-value",
+          "wcag2a",
+          "wcag412",
+          "section508",
+          "section508.22.a",
+          "TTv5",
+          "TT6.a",
+          "EN-301-549",
+          "EN-9.4.1.2",
+          "ACT",
+          "RGAAv4",
+          "RGAA-11.9.1"
+        ],
+        "description": "Ensure buttons have discernible text",
+        "help": "Buttons must have discernible text",
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+        "nodes": []
+      }
+    ],
+    "passes": [],
+    "incomplete": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "surface": "AI chrome",
+    "testEngine": {
+      "name": "axe-core",
+      "version": "4.11.1"
+    },
+    "testRunner": {
+      "name": "axe"
+    },
+    "testEnvironment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36",
+      "windowWidth": 1280,
+      "windowHeight": 720,
+      "orientationAngle": 0,
+      "orientationType": "landscape-primary"
+    },
+    "timestamp": "2026-11-17T23:20:49.330Z",
+    "url": "http://127.0.0.1:5201/tests/fixtures/e2-axe-qa.html?case=17",
+    "toolOptions": {
+      "runOnly": {
+        "type": "rule",
+        "values": [
+          "button-name"
+        ]
+      },
+      "reporter": "v1"
+    },
+    "inapplicable": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "impact": null,
+        "tags": [
+          "cat.name-role-value",
+          "wcag2a",
+          "wcag412",
+          "section508",
+          "section508.22.a",
+          "TTv5",
+          "TT6.a",
+          "EN-301-549",
+          "EN-9.4.1.2",
+          "ACT",
+          "RGAAv4",
+          "RGAA-11.9.1"
+        ],
+        "description": "Ensure buttons have discernible text",
+        "help": "Buttons must have discernible text",
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-inline\" class=\"inline-flex items-ce...\" type=\"button\" aria-label=\"Cuộc trò chuyện AI m...\" title=\"Cuộc trò chuyện AI m...\">",
+            "target": [
+              "button[aria-label=\"Cuộc trò chuyện AI mới\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-inline\" class=\"inline-flex items-ce...\" type=\"button\" aria-label=\"Đóng bảng AI\" title=\"Đóng bảng AI\">",
+            "target": [
+              "button[aria-label=\"Đóng bảng AI\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"tooltip-trigger\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\" role=\"radio\" aria-checked=\"false\" data-state=\"closed\">",
+            "target": [
+              ".min-h-\\(--control-sm\\).px-3.py-0:nth-child(1)"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"tooltip-trigger\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\" role=\"radio\" aria-checked=\"false\" data-state=\"closed\">",
+            "target": [
+              ".min-h-\\(--control-sm\\).px-3.py-0:nth-child(2)"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-sm\" class=\"gap-[6px] whitespace...\" type=\"button\" disabled=\"\" aria-label=\"Gửi tin nhắn\" title=\"Gửi tin nhắn\" data-testid=\"agent-send\" style=\"background: var(--mu...\">",
+            "target": [
+              ".border-none"
+            ]
+          }
+        ]
+      }
+    ],
+    "incomplete": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "surface": "welcome",
+    "testEngine": {
+      "name": "axe-core",
+      "version": "4.11.1"
+    },
+    "testRunner": {
+      "name": "axe"
+    },
+    "testEnvironment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36",
+      "windowWidth": 1280,
+      "windowHeight": 720,
+      "orientationAngle": 0,
+      "orientationType": "landscape-primary"
+    },
+    "timestamp": "2026-11-17T23:20:50.222Z",
+    "url": "http://127.0.0.1:5201/tests/fixtures/e2-axe-qa.html?case=18",
+    "toolOptions": {
+      "runOnly": {
+        "type": "rule",
+        "values": [
+          "button-name"
+        ]
+      },
+      "reporter": "v1"
+    },
+    "inapplicable": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "impact": null,
+        "tags": [
+          "cat.name-role-value",
+          "wcag2a",
+          "wcag412",
+          "section508",
+          "section508.22.a",
+          "TTv5",
+          "TT6.a",
+          "EN-301-549",
+          "EN-9.4.1.2",
+          "ACT",
+          "RGAAv4",
+          "RGAA-11.9.1"
+        ],
+        "description": "Ensure buttons have discernible text",
+        "help": "Buttons must have discernible text",
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"outline\" data-size=\"lg\" class=\"inline-flex items-ce...\" type=\"button\" data-testid=\"welcome-create-new\" style=\"width: 100%; border-...\">",
+            "target": [
+              "button[data-testid=\"welcome-create-new\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"outline\" data-size=\"lg\" class=\"inline-flex items-ce...\" type=\"button\" data-testid=\"welcome-open-folder\" style=\"width: 100%; border-...\">",
+            "target": [
+              "button[data-testid=\"welcome-open-folder\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"default\" class=\"inline-flex items-ce...\" aria-expanded=\"false\">",
+            "target": [
+              ".dark\\:hover\\:bg-accent\\/50"
+            ]
+          }
+        ]
+      }
+    ],
+    "incomplete": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "surface": "clone",
+    "testEngine": {
+      "name": "axe-core",
+      "version": "4.11.1"
+    },
+    "testRunner": {
+      "name": "axe"
+    },
+    "testEnvironment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36",
+      "windowWidth": 1280,
+      "windowHeight": 720,
+      "orientationAngle": 0,
+      "orientationType": "landscape-primary"
+    },
+    "timestamp": "2026-11-17T23:20:51.104Z",
+    "url": "http://127.0.0.1:5201/tests/fixtures/e2-axe-qa.html?case=19",
+    "toolOptions": {
+      "runOnly": {
+        "type": "rule",
+        "values": [
+          "button-name"
+        ]
+      },
+      "reporter": "v1"
+    },
+    "inapplicable": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "impact": null,
+        "tags": [
+          "cat.name-role-value",
+          "wcag2a",
+          "wcag412",
+          "section508",
+          "section508.22.a",
+          "TTv5",
+          "TT6.a",
+          "EN-301-549",
+          "EN-9.4.1.2",
+          "ACT",
+          "RGAAv4",
+          "RGAA-11.9.1"
+        ],
+        "description": "Ensure buttons have discernible text",
+        "help": "Buttons must have discernible text",
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"outline\" data-size=\"default\" class=\"inline-flex items-ce...\" type=\"button\" data-testid=\"clone-vault-cancel\">",
+            "target": [
+              ".hover\\:bg-accent"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"default\" data-size=\"default\" class=\"inline-flex items-ce...\" type=\"submit\" disabled=\"\" data-testid=\"clone-vault-submit\">",
+            "target": [
+              ".bg-primary"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              },
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button type=\"button\" data-slot=\"dialog-close\" aria-label=\"Đóng\" title=\"Đóng\" class=\"ring-offset-backgrou...\">",
+            "target": [
+              ".ring-offset-background"
+            ]
+          }
+        ]
+      }
+    ],
+    "incomplete": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "surface": "settings",
+    "testEngine": {
+      "name": "axe-core",
+      "version": "4.11.1"
+    },
+    "testRunner": {
+      "name": "axe"
+    },
+    "testEnvironment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36",
+      "windowWidth": 1280,
+      "windowHeight": 720,
+      "orientationAngle": 0,
+      "orientationType": "landscape-primary"
+    },
+    "timestamp": "2026-11-17T23:20:52.081Z",
+    "url": "http://127.0.0.1:5201/tests/fixtures/e2-axe-qa.html?case=20",
+    "toolOptions": {
+      "runOnly": {
+        "type": "rule",
+        "values": [
+          "button-name"
+        ]
+      },
+      "reporter": "v1"
+    },
+    "inapplicable": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "impact": null,
+        "tags": [
+          "cat.name-role-value",
+          "wcag2a",
+          "wcag412",
+          "section508",
+          "section508.22.a",
+          "TTv5",
+          "TT6.a",
+          "EN-301-549",
+          "EN-9.4.1.2",
+          "ACT",
+          "RGAAv4",
+          "RGAA-11.9.1"
+        ],
+        "description": "Ensure buttons have discernible text",
+        "help": "Buttons must have discernible text",
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"bare\" data-size=\"default\" class=\"focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-offset-2 focus-visible:outline-ring absolute inset-0 cursor-default border-0 bg-transparent p-0\" type=\"button\" aria-label=\"Đóng cài đặt\"></button>",
+            "target": [
+              ".absolute"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "non-empty-title",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has a title attribute"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"icon-sm\" class=\"inline-flex items-ce...\" title=\"Đóng cài đặt\" aria-label=\"Đóng cài đặt\">",
+            "target": [
+              ".h-\\(--control-sm\\)"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\">",
+            "target": [
+              ".h-10.gap-2\\.5.px-2\\.5:nth-child(1)"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\">",
+            "target": [
+              ".h-10.gap-2\\.5.px-2\\.5:nth-child(2)"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\">",
+            "target": [
+              ".h-10.gap-2\\.5.px-2\\.5:nth-child(3)"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\">",
+            "target": [
+              ".h-10.gap-2\\.5.px-2\\.5:nth-child(4)"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\">",
+            "target": [
+              ".h-10.gap-2\\.5.px-2\\.5:nth-child(5)"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\">",
+            "target": [
+              ".h-10.gap-2\\.5.px-2\\.5:nth-child(6)"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\">",
+            "target": [
+              ".h-10.gap-2\\.5.px-2\\.5:nth-child(7)"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\">",
+            "target": [
+              ".h-10.gap-2\\.5.px-2\\.5:nth-child(8)"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button type=\"button\" role=\"combobox\" aria-expanded=\"false\" aria-autocomplete=\"none\" dir=\"ltr\" data-state=\"closed\" data-slot=\"select-trigger\" data-size=\"default\" class=\"border-input data-[p...\" aria-label=\"Chu kỳ kéo (phút)\" data-testid=\"settings-pull-interv...\" data-value=\"5\" data-settings-autofo.. ...>",
+            "target": [
+              "button[aria-label=\"Chu kỳ kéo (phút)\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button type=\"button\" role=\"combobox\" aria-expanded=\"false\" aria-autocomplete=\"none\" dir=\"ltr\" data-state=\"closed\" data-slot=\"select-trigger\" data-size=\"default\" class=\"border-input data-[p...\" aria-label=\"Kênh phát hành\" data-testid=\"settings-release-cha...\" data-value=\"stable\">",
+            "target": [
+              "button[aria-label=\"Kênh phát hành\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "implicit-label",
+                "data": {
+                  "implicitLabel": "Sử dụng nhiều thư viện cùng lúc Tính năng thử nghiệm. Bật để xem các thư viện đã chọn trên cùng một đồ thị. Tắt để làm việc với từng thư viện. Sử dụng nhiều thư viện cùng lúc"
+                },
+                "relatedNodes": [
+                  {
+                    "html": "<label for=\"settings-multi-workspace-enabled\" class=\"border-b border-border px-4 py-3 last:border-b-0 flex flex-col gap-3 lg:flex-row lg:items-center\" data-testid=\"settings-multi-workspace-enabled\" style=\"cursor: pointer; opacity: 1;\">",
+                    "target": [
+                      "#settings-section-workspaces > .overflow-hidden.bg-card.rounded-md > label"
+                    ]
+                  }
+                ],
+                "impact": "critical",
+                "message": "Element has an implicit (wrapped) <label>"
+              },
+              {
+                "id": "explicit-label",
+                "data": {
+                  "explicitLabel": "Sử dụng nhiều thư viện cùng lúc Tính năng thử nghiệm. Bật để xem các thư viện đã chọn trên cùng một đồ thị. Tắt để làm việc với từng thư viện. Sử dụng nhiều thư viện cùng lúc"
+                },
+                "relatedNodes": [
+                  {
+                    "html": "<label for=\"settings-multi-workspace-enabled\" class=\"border-b border-border px-4 py-3 last:border-b-0 flex flex-col gap-3 lg:flex-row lg:items-center\" data-testid=\"settings-multi-workspace-enabled\" style=\"cursor: pointer; opacity: 1;\">",
+                    "target": [
+                      "#settings-section-workspaces > .overflow-hidden.bg-card.rounded-md > label"
+                    ]
+                  }
+                ],
+                "impact": "critical",
+                "message": "Element has an explicit <label>"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"switch\" role=\"switch\" aria-checked=\"false\" type=\"button\" class=\"peer inline-flex h-5...\" id=\"settings-multi-works...\" aria-label=\"Sử dụng nhiều thư vi...\">",
+            "target": [
+              "#settings-multi-workspace-enabled"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "implicit-label",
+                "data": {
+                  "implicitLabel": "Bật tính năng Git Hiển thị trạng thái Git, lịch sử, thay đổi, commit, đồng bộ và các điều khiển AutoGit trên toàn Tolaria. Bật tính năng Git"
+                },
+                "relatedNodes": [
+                  {
+                    "html": "<label for=\"settings-git-enabled\" class=\"border-b border-border px-4 py-3 last:border-b-0 flex flex-col gap-3 lg:flex-row lg:items-center\" data-testid=\"settings-git-enabled\" style=\"cursor: pointer; opacity: 1;\">",
+                    "target": [
+                      "label[for=\"settings-git-enabled\"]"
+                    ]
+                  }
+                ],
+                "impact": "critical",
+                "message": "Element has an implicit (wrapped) <label>"
+              },
+              {
+                "id": "explicit-label",
+                "data": {
+                  "explicitLabel": "Bật tính năng Git Hiển thị trạng thái Git, lịch sử, thay đổi, commit, đồng bộ và các điều khiển AutoGit trên toàn Tolaria. Bật tính năng Git"
+                },
+                "relatedNodes": [
+                  {
+                    "html": "<label for=\"settings-git-enabled\" class=\"border-b border-border px-4 py-3 last:border-b-0 flex flex-col gap-3 lg:flex-row lg:items-center\" data-testid=\"settings-git-enabled\" style=\"cursor: pointer; opacity: 1;\">",
+                    "target": [
+                      "label[for=\"settings-git-enabled\"]"
+                    ]
+                  }
+                ],
+                "impact": "critical",
+                "message": "Element has an explicit <label>"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"switch\" role=\"switch\" aria-checked=\"true\" type=\"button\" class=\"peer inline-flex h-5...\" id=\"settings-git-enabled\" aria-label=\"Bật tính năng Git\">",
+            "target": [
+              "#settings-git-enabled"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "implicit-label",
+                "data": {
+                  "implicitLabel": "Bật AutoGit Khi bật, Tolaria sẽ tự động commit và đẩy các thay đổi đã lưu sau một khoảng nghỉ hoặc khi ứng dụng chuyển sang trạng thái không hoạt động. Bật AutoGit"
+                },
+                "relatedNodes": [
+                  {
+                    "html": "<label for=\"settings-autogit-enabled\" class=\"border-b border-border px-4 py-3 last:border-b-0 flex flex-col gap-3 lg:flex-row lg:items-center\" data-testid=\"settings-autogit-enabled\" style=\"cursor: pointer; opacity: 1;\">",
+                    "target": [
+                      "label[for=\"settings-autogit-enabled\"]"
+                    ]
+                  }
+                ],
+                "impact": "critical",
+                "message": "Element has an implicit (wrapped) <label>"
+              },
+              {
+                "id": "explicit-label",
+                "data": {
+                  "explicitLabel": "Bật AutoGit Khi bật, Tolaria sẽ tự động commit và đẩy các thay đổi đã lưu sau một khoảng nghỉ hoặc khi ứng dụng chuyển sang trạng thái không hoạt động. Bật AutoGit"
+                },
+                "relatedNodes": [
+                  {
+                    "html": "<label for=\"settings-autogit-enabled\" class=\"border-b border-border px-4 py-3 last:border-b-0 flex flex-col gap-3 lg:flex-row lg:items-center\" data-testid=\"settings-autogit-enabled\" style=\"cursor: pointer; opacity: 1;\">",
+                    "target": [
+                      "label[for=\"settings-autogit-enabled\"]"
+                    ]
+                  }
+                ],
+                "impact": "critical",
+                "message": "Element has an explicit <label>"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"switch\" role=\"switch\" aria-checked=\"false\" type=\"button\" class=\"peer inline-flex h-5...\" id=\"settings-autogit-ena...\" aria-label=\"Bật AutoGit\">",
+            "target": [
+              "#settings-autogit-enabled"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              },
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\" role=\"radio\" aria-checked=\"true\" aria-label=\"Sáng\" data-testid=\"settings-theme-light\">",
+            "target": [
+              ".hover\\:bg-background"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              },
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\" role=\"radio\" aria-checked=\"false\" aria-label=\"Tối\" data-testid=\"settings-theme-dark\">",
+            "target": [
+              "button[aria-label=\"Tối\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              },
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"ghost\" data-size=\"sm\" class=\"inline-flex items-ce...\" type=\"button\" role=\"radio\" aria-checked=\"false\" aria-label=\"Hệ thống\" data-testid=\"settings-theme-syste...\">",
+            "target": [
+              "button[aria-label=\"Hệ thống\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button type=\"button\" role=\"combobox\" aria-expanded=\"false\" aria-autocomplete=\"none\" dir=\"ltr\" data-state=\"closed\" data-slot=\"select-trigger\" data-size=\"default\" class=\"border-input data-[p...\" aria-label=\"Ngôn ngữ hiển thị\" data-testid=\"settings-ui-language\" data-value=\"system\">",
+            "target": [
+              "button[aria-label=\"Ngôn ngữ hiển thị\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button type=\"button\" role=\"combobox\" aria-expanded=\"false\" aria-autocomplete=\"none\" dir=\"ltr\" data-state=\"closed\" data-slot=\"select-trigger\" data-size=\"default\" class=\"border-input data-[p...\" aria-label=\"Hiển thị ngày\" data-testid=\"settings-date-displa...\" data-value=\"friendly\">",
+            "target": [
+              "button[aria-label=\"Hiển thị ngày\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button type=\"button\" role=\"combobox\" aria-expanded=\"false\" aria-autocomplete=\"none\" dir=\"ltr\" data-state=\"closed\" data-slot=\"select-trigger\" data-size=\"default\" class=\"border-input data-[p...\" aria-label=\"Chiều rộng ghi chú m...\" data-testid=\"settings-default-not...\" data-value=\"normal\">",
+            "target": [
+              "button[aria-label=\"Chiều rộng ghi chú mặc định\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "implicit-label",
+                "data": {
+                  "implicitLabel": "Sử dụng dạng số nhiều cho tên loại trong thanh bên Khi được bật, Tolaria sẽ tự động biến các nhãn phần loại thành dạng số nhiều, trừ khi một loại xác định nhãn thanh bên của riêng nó. Sử dụng dạng số nhiều cho tên loại trong thanh bên"
+                },
+                "relatedNodes": [
+                  {
+                    "html": "<label for=\"settings-sidebar-type-pluralization\" class=\"border-b border-border px-4 py-3 last:border-b-0 flex flex-col gap-3 lg:flex-row lg:items-center\" data-testid=\"settings-sidebar-type-pluralization\" style=\"cursor: pointer; opacity: 1;\">",
+                    "target": [
+                      "label:nth-child(3)"
+                    ]
+                  }
+                ],
+                "impact": "critical",
+                "message": "Element has an implicit (wrapped) <label>"
+              },
+              {
+                "id": "explicit-label",
+                "data": null,
+                "relatedNodes": [
+                  {
+                    "html": "<label for=\"settings-sidebar-type-pluralization\" class=\"border-b border-border px-4 py-3 last:border-b-0 flex flex-col gap-3 lg:flex-row lg:items-center\" data-testid=\"settings-sidebar-type-pluralization\" style=\"cursor: pointer; opacity: 1;\">",
+                    "target": [
+                      "label:nth-child(3)"
+                    ]
+                  }
+                ],
+                "impact": "critical",
+                "message": "Element has an explicit <label>"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"switch\" role=\"switch\" aria-checked=\"true\" type=\"button\" class=\"peer inline-flex h-5...\" id=\"settings-sidebar-typ...\" aria-label=\"Sử dụng dạng số nhiề...\">",
+            "target": [
+              "#settings-sidebar-type-pluralization"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "implicit-label",
+                "data": {
+                  "implicitLabel": "Tự đổi tên ghi chú chưa đặt tên từ H1 đầu tiên Khi bật, Tolaria sẽ đổi tên tệp ghi chú chưa đặt tên ngay khi H1 đầu tiên trở thành tiêu đề thật. Tắt tùy chọn này nếu bạn muốn giữ nguyên tên tệp cho đến khi tự đổi thủ công từ thanh breadcrumb. Tự đổi tên ghi chú chưa đặt tên từ H1 đầu tiên"
+                },
+                "relatedNodes": [
+                  {
+                    "html": "<label for=\"settings-initial-h1-auto-rename\" class=\"border-b border-border px-4 py-3 last:border-b-0 flex flex-col gap-3 lg:flex-row lg:items-center\" data-testid=\"settings-initial-h1-auto-rename\" style=\"cursor: pointer; opacity: 1;\">",
+                    "target": [
+                      "label:nth-child(4)"
+                    ]
+                  }
+                ],
+                "impact": "critical",
+                "message": "Element has an implicit (wrapped) <label>"
+              },
+              {
+                "id": "explicit-label",
+                "data": null,
+                "relatedNodes": [
+                  {
+                    "html": "<label for=\"settings-initial-h1-auto-rename\" class=\"border-b border-border px-4 py-3 last:border-b-0 flex flex-col gap-3 lg:flex-row lg:items-center\" data-testid=\"settings-initial-h1-auto-rename\" style=\"cursor: pointer; opacity: 1;\">",
+                    "target": [
+                      "label:nth-child(4)"
+                    ]
+                  }
+                ],
+                "impact": "critical",
+                "message": "Element has an explicit <label>"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"switch\" role=\"switch\" aria-checked=\"true\" type=\"button\" class=\"peer inline-flex h-5...\" id=\"settings-initial-h1-...\" aria-label=\"Tự đổi tên ghi chú c...\">",
+            "target": [
+              "#settings-initial-h1-auto-rename"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "implicit-label",
+                "data": {
+                  "implicitLabel": "Ẩn các tệp và thư mục bị Git bỏ qua Giữ các tệp kho được tạo sinh và chỉ dùng cục bộ ra khỏi ghi chú, tìm kiếm, mở nhanh và danh sách thư mục. Ẩn các tệp và thư mục bị Git bỏ qua"
+                },
+                "relatedNodes": [
+                  {
+                    "html": "<label for=\"settings-hide-gitignored-files\" class=\"border-b border-border px-4 py-3 last:border-b-0 flex flex-col gap-3 lg:flex-row lg:items-center\" data-testid=\"settings-hide-gitignored-files\" style=\"cursor: pointer; opacity: 1;\">",
+                    "target": [
+                      "label[for=\"settings-hide-gitignored-files\"]"
+                    ]
+                  }
+                ],
+                "impact": "critical",
+                "message": "Element has an implicit (wrapped) <label>"
+              },
+              {
+                "id": "explicit-label",
+                "data": null,
+                "relatedNodes": [
+                  {
+                    "html": "<label for=\"settings-hide-gitignored-files\" class=\"border-b border-border px-4 py-3 last:border-b-0 flex flex-col gap-3 lg:flex-row lg:items-center\" data-testid=\"settings-hide-gitignored-files\" style=\"cursor: pointer; opacity: 1;\">",
+                    "target": [
+                      "label[for=\"settings-hide-gitignored-files\"]"
+                    ]
+                  }
+                ],
+                "impact": "critical",
+                "message": "Element has an explicit <label>"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"switch\" role=\"switch\" aria-checked=\"true\" type=\"button\" class=\"peer inline-flex h-5...\" id=\"settings-hide-gitign...\" aria-label=\"Ẩn các tệp và thư mụ...\">",
+            "target": [
+              "#settings-hide-gitignored-files"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "implicit-label",
+                "data": {
+                  "implicitLabel": "Hiển thị PDF Hiển thị các tệp PDF trong All Notes. Khi duyệt thư mục, các tệp PDF vẫn được hiển thị trong thư mục tương ứng. Hiển thị PDF"
+                },
+                "relatedNodes": [
+                  {
+                    "html": "<label for=\"settings-all-notes-show-pdfs\" class=\"border-b border-border px-4 py-3 last:border-b-0 flex flex-col gap-3 lg:flex-row lg:items-center\" data-testid=\"settings-all-notes-show-pdfs\" style=\"cursor: pointer; opacity: 1;\">",
+                    "target": [
+                      "label[for=\"settings-all-notes-show-pdfs\"]"
+                    ]
+                  }
+                ],
+                "impact": "critical",
+                "message": "Element has an implicit (wrapped) <label>"
+              },
+              {
+                "id": "explicit-label",
+                "data": null,
+                "relatedNodes": [
+                  {
+                    "html": "<label for=\"settings-all-notes-show-pdfs\" class=\"border-b border-border px-4 py-3 last:border-b-0 flex flex-col gap-3 lg:flex-row lg:items-center\" data-testid=\"settings-all-notes-show-pdfs\" style=\"cursor: pointer; opacity: 1;\">",
+                    "target": [
+                      "label[for=\"settings-all-notes-show-pdfs\"]"
+                    ]
+                  }
+                ],
+                "impact": "critical",
+                "message": "Element has an explicit <label>"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"switch\" role=\"switch\" aria-checked=\"false\" type=\"button\" class=\"peer inline-flex h-5...\" id=\"settings-all-notes-s...\" aria-label=\"Hiển thị PDF\">",
+            "target": [
+              "#settings-all-notes-show-pdfs"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "implicit-label",
+                "data": {
+                  "implicitLabel": "Hiển thị hình ảnh Hiển thị các tệp hình ảnh phổ biến trong All Notes. Khi duyệt thư mục, các tệp này vẫn được hiển thị trong thư mục tương ứng. Hiển thị hình ảnh"
+                },
+                "relatedNodes": [
+                  {
+                    "html": "<label for=\"settings-all-notes-show-images\" class=\"border-b border-border px-4 py-3 last:border-b-0 flex flex-col gap-3 lg:flex-row lg:items-center\" data-testid=\"settings-all-notes-show-images\" style=\"cursor: pointer; opacity: 1;\">",
+                    "target": [
+                      "label[for=\"settings-all-notes-show-images\"]"
+                    ]
+                  }
+                ],
+                "impact": "critical",
+                "message": "Element has an implicit (wrapped) <label>"
+              },
+              {
+                "id": "explicit-label",
+                "data": null,
+                "relatedNodes": [
+                  {
+                    "html": "<label for=\"settings-all-notes-show-images\" class=\"border-b border-border px-4 py-3 last:border-b-0 flex flex-col gap-3 lg:flex-row lg:items-center\" data-testid=\"settings-all-notes-show-images\" style=\"cursor: pointer; opacity: 1;\">",
+                    "target": [
+                      "label[for=\"settings-all-notes-show-images\"]"
+                    ]
+                  }
+                ],
+                "impact": "critical",
+                "message": "Element has an explicit <label>"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"switch\" role=\"switch\" aria-checked=\"false\" type=\"button\" class=\"peer inline-flex h-5...\" id=\"settings-all-notes-s...\" aria-label=\"Hiển thị hình ảnh\">",
+            "target": [
+              "#settings-all-notes-show-images"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "implicit-label",
+                "data": {
+                  "implicitLabel": "Hiển thị các tệp không được hỗ trợ Hiển thị các tệp không phải Markdown khác không có chế độ xem trước trong ứng dụng trong mục Tất cả ghi chú. Khi duyệt thư mục, các tệp này vẫn hiển thị trong thư mục tương ứng. Hiển thị các tệp không được hỗ trợ"
+                },
+                "relatedNodes": [
+                  {
+                    "html": "<label for=\"settings-all-notes-show-unsupported\" class=\"border-b border-border px-4 py-3 last:border-b-0 flex flex-col gap-3 lg:flex-row lg:items-center\" data-testid=\"settings-all-notes-show-unsupported\" style=\"cursor: pointer; opacity: 1;\">",
+                    "target": [
+                      "label:nth-child(8)"
+                    ]
+                  }
+                ],
+                "impact": "critical",
+                "message": "Element has an implicit (wrapped) <label>"
+              },
+              {
+                "id": "explicit-label",
+                "data": null,
+                "relatedNodes": [
+                  {
+                    "html": "<label for=\"settings-all-notes-show-unsupported\" class=\"border-b border-border px-4 py-3 last:border-b-0 flex flex-col gap-3 lg:flex-row lg:items-center\" data-testid=\"settings-all-notes-show-unsupported\" style=\"cursor: pointer; opacity: 1;\">",
+                    "target": [
+                      "label:nth-child(8)"
+                    ]
+                  }
+                ],
+                "impact": "critical",
+                "message": "Element has an explicit <label>"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"switch\" role=\"switch\" aria-checked=\"false\" type=\"button\" class=\"peer inline-flex h-5...\" id=\"settings-all-notes-s...\" aria-label=\"Hiển thị các tệp khô...\">",
+            "target": [
+              "#settings-all-notes-show-unsupported"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "implicit-label",
+                "data": {
+                  "implicitLabel": "Bật các tính năng AI của Tolaria Hiển thị các điều khiển trên bảng điều khiển AI, chế độ bảng lệnh AI và lời nhắc trạng thái AI. Tắt tùy chọn này để ẩn các bề mặt AI cho đến khi bạn bật lại tại đây. Bật các tính năng AI của Tolaria"
+                },
+                "relatedNodes": [
+                  {
+                    "html": "<label for=\"settings-ai-features-enabled\" class=\"border-b border-border px-4 py-3 last:border-b-0 flex flex-col gap-3 lg:flex-row lg:items-center\" data-testid=\"settings-ai-features-enabled\" style=\"cursor: pointer; opacity: 1;\">",
+                    "target": [
+                      "label[for=\"settings-ai-features-enabled\"]"
+                    ]
+                  }
+                ],
+                "impact": "critical",
+                "message": "Element has an implicit (wrapped) <label>"
+              },
+              {
+                "id": "explicit-label",
+                "data": null,
+                "relatedNodes": [
+                  {
+                    "html": "<label for=\"settings-ai-features-enabled\" class=\"border-b border-border px-4 py-3 last:border-b-0 flex flex-col gap-3 lg:flex-row lg:items-center\" data-testid=\"settings-ai-features-enabled\" style=\"cursor: pointer; opacity: 1;\">",
+                    "target": [
+                      "label[for=\"settings-ai-features-enabled\"]"
+                    ]
+                  }
+                ],
+                "impact": "critical",
+                "message": "Element has an explicit <label>"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"switch\" role=\"switch\" aria-checked=\"true\" type=\"button\" class=\"peer inline-flex h-5...\" id=\"settings-ai-features...\" aria-label=\"Bật các tính năng AI...\">",
+            "target": [
+              "#settings-ai-features-enabled"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button type=\"button\" role=\"combobox\" aria-expanded=\"false\" aria-autocomplete=\"none\" dir=\"ltr\" data-state=\"closed\" data-slot=\"select-trigger\" data-size=\"default\" class=\"border-input data-[p...\" aria-label=\"Mục tiêu AI mặc định\" data-testid=\"settings-default-ai-...\" data-value=\"agent:claude_code\">",
+            "target": [
+              "button[aria-label=\"Mục tiêu AI mặc định\"]"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_j_-content-...\" data-state=\"active\" id=\"radix-_r_j_-trigger-...\" data-slot=\"tabs-trigger\" class=\"focus-visible:border...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
+            "target": [
+              "#radix-_r_j_-trigger-agents"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_j_-content-...\" data-state=\"inactive\" id=\"radix-_r_j_-trigger-...\" data-slot=\"tabs-trigger\" class=\"focus-visible:border...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
+            "target": [
+              "#radix-_r_j_-trigger-local"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_j_-content-...\" data-state=\"inactive\" id=\"radix-_r_j_-trigger-...\" data-slot=\"tabs-trigger\" class=\"focus-visible:border...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
+            "target": [
+              "#radix-_r_j_-trigger-api"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "implicit-label",
+                "data": {
+                  "implicitLabel": "Sắp xếp ghi chú rõ ràng Khi bật, phần Chưa sắp xếp sẽ hiển thị các ghi chú chưa được sắp xếp và có một công tắc để đánh dấu ghi chú đã được sắp xếp. Sắp xếp ghi chú rõ ràng"
+                },
+                "relatedNodes": [
+                  {
+                    "html": "<label for=\"settings-explicit-organization\" class=\"border-b border-border px-4 py-3 last:border-b-0 flex flex-col gap-3 lg:flex-row lg:items-center\" data-testid=\"settings-explicit-organization\" style=\"cursor: pointer; opacity: 1;\">",
+                    "target": [
+                      "label[for=\"settings-explicit-organization\"]"
+                    ]
+                  }
+                ],
+                "impact": "critical",
+                "message": "Element has an implicit (wrapped) <label>"
+              },
+              {
+                "id": "explicit-label",
+                "data": null,
+                "relatedNodes": [
+                  {
+                    "html": "<label for=\"settings-explicit-organization\" class=\"border-b border-border px-4 py-3 last:border-b-0 flex flex-col gap-3 lg:flex-row lg:items-center\" data-testid=\"settings-explicit-organization\" style=\"cursor: pointer; opacity: 1;\">",
+                    "target": [
+                      "label[for=\"settings-explicit-organization\"]"
+                    ]
+                  }
+                ],
+                "impact": "critical",
+                "message": "Element has an explicit <label>"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"switch\" role=\"switch\" aria-checked=\"true\" type=\"button\" class=\"peer inline-flex h-5...\" id=\"settings-explicit-or...\" aria-label=\"Sắp xếp ghi chú rõ r...\">",
+            "target": [
+              "#settings-explicit-organization"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "aria-label",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "aria-label attribute exists and is not empty"
+              },
+              {
+                "id": "implicit-label",
+                "data": {
+                  "implicitLabel": "Tự chuyển sang mục Chưa sắp xếp tiếp theo Khi bật, việc đánh dấu một ghi chú trong Chưa sắp xếp là đã sắp xếp sẽ mở ngay ghi chú tiếp theo đang hiển thị. Tự chuyển sang mục Chưa sắp xếp tiếp theo"
+                },
+                "relatedNodes": [
+                  {
+                    "html": "<label for=\"settings-auto-advance-inbox-after-organize\" class=\"border-b border-border px-4 py-3 last:border-b-0 flex flex-col gap-3 lg:flex-row lg:items-center\" data-testid=\"settings-auto-advance-inbox-after-organize\" style=\"cursor: pointer; opacity: 1;\">",
+                    "target": [
+                      "#settings-section-workflow > .overflow-hidden.bg-card.rounded-md > label:nth-child(2)"
+                    ]
+                  }
+                ],
+                "impact": "critical",
+                "message": "Element has an implicit (wrapped) <label>"
+              },
+              {
+                "id": "explicit-label",
+                "data": null,
+                "relatedNodes": [
+                  {
+                    "html": "<label for=\"settings-auto-advance-inbox-after-organize\" class=\"border-b border-border px-4 py-3 last:border-b-0 flex flex-col gap-3 lg:flex-row lg:items-center\" data-testid=\"settings-auto-advance-inbox-after-organize\" style=\"cursor: pointer; opacity: 1;\">",
+                    "target": [
+                      "#settings-section-workflow > .overflow-hidden.bg-card.rounded-md > label:nth-child(2)"
+                    ]
+                  }
+                ],
+                "impact": "critical",
+                "message": "Element has an explicit <label>"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"switch\" role=\"switch\" aria-checked=\"false\" type=\"button\" class=\"peer inline-flex h-5...\" id=\"settings-auto-advanc...\" aria-label=\"Tự chuyển sang mục C...\">",
+            "target": [
+              "#settings-auto-advance-inbox-after-organize"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"outline\" data-size=\"sm\" class=\"inline-flex items-ce...\">",
+            "target": [
+              ".dark\\:border-input"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"default\" data-size=\"sm\" class=\"inline-flex items-ce...\" data-testid=\"settings-save\">",
+            "target": [
+              ".text-primary-foreground"
+            ]
+          }
+        ]
+      }
+    ],
+    "incomplete": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "surface": "commit",
+    "testEngine": {
+      "name": "axe-core",
+      "version": "4.11.1"
+    },
+    "testRunner": {
+      "name": "axe"
+    },
+    "testEnvironment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36",
+      "windowWidth": 1280,
+      "windowHeight": 720,
+      "orientationAngle": 0,
+      "orientationType": "landscape-primary"
+    },
+    "timestamp": "2026-11-17T23:20:53.095Z",
+    "url": "http://127.0.0.1:5201/tests/fixtures/e2-axe-qa.html?case=21",
+    "toolOptions": {
+      "runOnly": {
+        "type": "rule",
+        "values": [
+          "button-name"
+        ]
+      },
+      "reporter": "v1"
+    },
+    "inapplicable": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "impact": null,
+        "tags": [
+          "cat.name-role-value",
+          "wcag2a",
+          "wcag412",
+          "section508",
+          "section508.22.a",
+          "TTv5",
+          "TT6.a",
+          "EN-301-549",
+          "EN-9.4.1.2",
+          "ACT",
+          "RGAAv4",
+          "RGAA-11.9.1"
+        ],
+        "description": "Ensure buttons have discernible text",
+        "help": "Buttons must have discernible text",
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"outline\" data-size=\"default\" class=\"inline-flex items-ce...\">",
+            "target": [
+              ".hover\\:bg-accent"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"default\" data-size=\"default\" class=\"inline-flex items-ce...\" disabled=\"\">",
+            "target": [
+              ".bg-primary"
+            ]
+          }
+        ]
+      }
+    ],
+    "incomplete": [],
+    "violations": [],
+    "errors": []
+  },
+  {
+    "surface": "confirm delete",
+    "testEngine": {
+      "name": "axe-core",
+      "version": "4.11.1"
+    },
+    "testRunner": {
+      "name": "axe"
+    },
+    "testEnvironment": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36",
+      "windowWidth": 1280,
+      "windowHeight": 720,
+      "orientationAngle": 0,
+      "orientationType": "landscape-primary"
+    },
+    "timestamp": "2026-11-17T23:20:53.997Z",
+    "url": "http://127.0.0.1:5201/tests/fixtures/e2-axe-qa.html?case=22",
+    "toolOptions": {
+      "runOnly": {
+        "type": "rule",
+        "values": [
+          "button-name"
+        ]
+      },
+      "reporter": "v1"
+    },
+    "inapplicable": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "impact": null,
+        "tags": [
+          "cat.name-role-value",
+          "wcag2a",
+          "wcag412",
+          "section508",
+          "section508.22.a",
+          "TTv5",
+          "TT6.a",
+          "EN-301-549",
+          "EN-9.4.1.2",
+          "ACT",
+          "RGAAv4",
+          "RGAA-11.9.1"
+        ],
+        "description": "Ensure buttons have discernible text",
+        "help": "Buttons must have discernible text",
+        "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axeAPI",
+        "nodes": [
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"destructive\" data-size=\"default\" class=\"inline-flex items-ce...\" type=\"submit\" data-testid=\"confirm-delete-btn\" data-confirm-delete-...=\"true\">",
+            "target": [
+              ".bg-destructive"
+            ]
+          },
+          {
+            "any": [
+              {
+                "id": "button-has-visible-text",
+                "data": null,
+                "relatedNodes": [],
+                "impact": "critical",
+                "message": "Element has inner text that is visible to screen readers"
+              }
+            ],
+            "all": [],
+            "none": [],
+            "impact": null,
+            "html": "<button data-slot=\"button\" data-variant=\"outline\" data-size=\"default\" class=\"inline-flex items-ce...\" type=\"button\" data-confirm-delete-...=\"true\" tabindex=\"-1\">",
+            "target": [
+              ".focus-visible\\:ring-ring\\/50"
+            ]
+          }
+        ]
+      }
+    ],
+    "incomplete": [],
+    "violations": [],
+    "errors": []
+  }
+]

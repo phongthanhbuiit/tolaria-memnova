@@ -1,0 +1,142 @@
+[
+  {
+    "file": "src/components/PropertyValueCells.tsx",
+    "before": 1,
+    "after": 0
+  },
+  {
+    "file": "src/components/PulseView.tsx",
+    "before": 1,
+    "after": 0
+  },
+  {
+    "file": "src/components/CommandPalette.tsx",
+    "before": 1,
+    "after": 1
+  },
+  {
+    "file": "src/components/AddPropertyForm.tsx",
+    "before": 2,
+    "after": 2
+  },
+  {
+    "file": "src/components/EmojiPicker.tsx",
+    "before": 1,
+    "after": 1
+  },
+  {
+    "file": "src/components/TagsDropdown.tsx",
+    "before": 1,
+    "after": 1
+  },
+  {
+    "file": "src/components/FlashcardStudyView.tsx",
+    "before": 2,
+    "after": 1
+  },
+  {
+    "file": "src/components/FlashcardEditorTabs.tsx",
+    "before": 1,
+    "after": 0
+  },
+  {
+    "file": "src/components/SearchPanel.tsx",
+    "before": 1,
+    "after": 1
+  },
+  {
+    "file": "src/components/SortDropdown.tsx",
+    "before": 2,
+    "after": 0
+  },
+  {
+    "file": "src/components/ColorInput.tsx",
+    "before": 2,
+    "after": 2
+  },
+  {
+    "file": "src/components/InlineWikilinkParts.tsx",
+    "before": 1,
+    "after": 1
+  },
+  {
+    "file": "src/components/DynamicPropertiesPanel.tsx",
+    "before": 1,
+    "after": 0
+  },
+  {
+    "file": "src/components/StatusDropdown.tsx",
+    "before": 1,
+    "after": 1
+  },
+  {
+    "file": "src/components/EditableValue.tsx",
+    "before": 4,
+    "after": 4
+  },
+  {
+    "file": "src/components/HomePage.tsx",
+    "before": 1,
+    "after": 1
+  },
+  {
+    "file": "src/components/ui/tabs.tsx",
+    "before": 1,
+    "after": 1
+  },
+  {
+    "file": "src/components/ui/scroll-area.tsx",
+    "before": 1,
+    "after": 1
+  },
+  {
+    "file": "src/components/ui/switch.tsx",
+    "before": 1,
+    "after": 1
+  },
+  {
+    "file": "src/components/ui/dialog.tsx",
+    "before": 1,
+    "after": 1
+  },
+  {
+    "file": "src/components/ui/button.tsx",
+    "before": 1,
+    "after": 1
+  },
+  {
+    "file": "src/components/ui/checkbox.tsx",
+    "before": 1,
+    "after": 1
+  },
+  {
+    "file": "src/components/ui/select.tsx",
+    "before": 1,
+    "after": 1
+  },
+  {
+    "file": "src/components/ui/textarea.tsx",
+    "before": 1,
+    "after": 1
+  },
+  {
+    "file": "src/components/ui/input.tsx",
+    "before": 1,
+    "after": 1
+  },
+  {
+    "file": "src/components/note-list/FilterPills.tsx",
+    "before": 1,
+    "after": 0
+  },
+  {
+    "file": "src/components/note-list/NoteListLayout.tsx",
+    "before": 1,
+    "after": 1
+  },
+  {
+    "file": "src/components/note-list/InboxFilterPills.tsx",
+    "before": 1,
+    "after": 0
+  }
+]

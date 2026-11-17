@@ -1,0 +1,190 @@
+[
+  {
+    "surface": "panel",
+    "locale": "en",
+    "violations": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "nodes": 2
+      }
+    ]
+  },
+  {
+    "surface": "panel",
+    "locale": "vi",
+    "violations": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "nodes": 2
+      }
+    ]
+  },
+  {
+    "surface": "dashboard",
+    "locale": "en",
+    "violations": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "nodes": 8
+      }
+    ]
+  },
+  {
+    "surface": "dashboard",
+    "locale": "vi",
+    "violations": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "nodes": 8
+      }
+    ]
+  },
+  {
+    "surface": "conversion",
+    "locale": "en",
+    "violations": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "nodes": 10
+      }
+    ]
+  },
+  {
+    "surface": "conversion",
+    "locale": "vi",
+    "violations": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "nodes": 10
+      }
+    ]
+  },
+  {
+    "surface": "recovery",
+    "locale": "en",
+    "violations": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "nodes": 6
+      }
+    ]
+  },
+  {
+    "surface": "recovery",
+    "locale": "vi",
+    "violations": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "nodes": 6
+      }
+    ]
+  },
+  {
+    "surface": "source",
+    "locale": "en",
+    "violations": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "nodes": 3
+      }
+    ]
+  },
+  {
+    "surface": "source",
+    "locale": "vi",
+    "violations": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "nodes": 3
+      }
+    ]
+  },
+  {
+    "surface": "tabs",
+    "locale": "en",
+    "violations": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "nodes": 1
+      }
+    ]
+  },
+  {
+    "surface": "tabs",
+    "locale": "vi",
+    "violations": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "nodes": 1
+      }
+    ]
+  },
+  {
+    "surface": "study",
+    "locale": "en",
+    "violations": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "nodes": 3
+      }
+    ]
+  },
+  {
+    "surface": "study",
+    "locale": "vi",
+    "violations": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "nodes": 3
+      }
+    ]
+  },
+  {
+    "surface": "toolbar",
+    "locale": "en",
+    "violations": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "nodes": 1
+      }
+    ]
+  },
+  {
+    "surface": "toolbar",
+    "locale": "vi",
+    "violations": [],
+    "passes": [
+      {
+        "id": "button-name",
+        "nodes": 1
+      }
+    ]
+  },
+  {
+    "surface": "inspector",
+    "locale": "en",
+    "violations": [],
+    "passes": []
+  },
+  {
+    "surface": "inspector",
+    "locale": "vi",
+    "violations": [],
+    "passes": []
+  }
+]

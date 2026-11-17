@@ -1,0 +1,139 @@
+Window: "Memnova D2 1440 QA", App: Memnova E2 QA.
+0 standard window Memnova D2 1440 QA, Secondary Actions: Raise
+	1 scroll area
+		2 HTML content Description: Memnova, URL: localhost:5201/
+			3 container
+				4 button Thu gọn thanh bên, Help: Thu gọn thanh bên (⌘2)
+				5 button (disabled) Quay lại, Help: Quay lại (⌘←)
+				6 button (disabled) Tiếp theo, Help: Tiếp theo (⌘→)
+				7 container
+					8 button Trang chủ
+					9 button Chưa sắp xếp 85
+					10 button Tất cả ghi chú 89
+					11 button Ôn tập
+					12 button Kho lưu trữ
+				13 button CHẾ ĐỘ XEM
+				14 button Tạo chế độ xem
+				15 sortable Capture QA 89
+				16 button LOẠI
+				17 button Tùy chỉnh các mục
+				18 button Tạo loại mới
+				19 sortable Ghi chú
+6
+				20 sortable Trách nhiệm
+2
+				21 button THƯ MỤC
+				22 button Tạo thư mục
+				23 button (expanded) Library, Secondary Actions: Collapse
+				24 button 00 Research folder with a long title
+				25 button 01 Research folder with a long title
+				26 button 02 Research folder with a long title
+				27 button 03 Research folder with a long title
+				28 button 04 Research folder with a long title
+				29 button 05 Research folder with a long title
+				30 button 06 Research folder with a long title
+				31 button 07 Research folder with a long title
+				32 button 08 Research folder with a long title
+				33 button 09 Research folder with a long title
+				34 button 10 Research folder with a long title
+				35 button 11 Research folder with a long title
+				36 button 12 Research folder with a long title
+				37 button 13 Research folder with a long title
+				38 button 14 Research folder with a long title
+				39 button 15 Research folder with a long title
+				40 button 16 Research folder with a long title
+				41 button 17 Research folder with a long title
+				42 button 18 Research folder with a long title
+				43 button 19 Research folder with a long title
+				44 button 20 Research folder with a long title
+				45 button 21 Research folder with a long title
+				46 button 22 Research folder with a long title
+				47 button 23 Research folder with a long title
+				48 button 24 Research folder with a long title
+				49 button 25 Research folder with a long title
+				50 button 26 Research folder with a long title
+				51 button 27 Research folder with a long title
+				52 button 28 Research folder with a long title
+				53 button 29 Research folder with a long title
+				54 button views
+			55 heading Chưa sắp xếp, Value: 3
+				56 text Chưa sắp xếp
+			57 pop up button Đã sửa đổi, Help: Sắp xếp theo Đã sửa đổi
+			58 button Tìm ghi chú
+			59 pop up button Tùy chỉnh các cột của mục Chưa sắp xếp
+			60 button Tạo ghi chú mới
+			61 container (settable) Notes
+				62 container
+					63 text Empty Title D3 ngày 18 tháng 11, 2026
+					64 text An Explicit Display Title — D3 A paragraph for checking editor chrome without changing its content.
+ngày 18 tháng 11, 2026
+					65 text Grow Newsletter Build a sustainable audience through high-quality weekly essays. manage-sponsorships
+ngày 17 tháng 11, 2026
+					66 text Manage Sponsorships Revenue stream from newsletter sponsorships. Matteo Cellini handles day-to-day operations. Inbound leads via sponsorship page Qualification call Proposal and ne...
+ngày 17 tháng 11, 2026
+					67 text UX verification An ordinary document for writing and reference. A small blue bookmark recalls this document.
+ngày 17 tháng 11, 2026
+					68 text Reading 13 Reference material for ordinary writing. Native mnemonic preserves the reading context.
+ngày 16 tháng 11, 2026
+					69 text Reading 2 Reference material for ordinary writing.
+ngày 16 tháng 11, 2026
+					70 text Reading 27 Reference material for ordinary writing.
+ngày 16 tháng 11, 2026
+					71 text Reading 28 Reference material for ordinary writing.
+ngày 16 tháng 11, 2026
+					72 text Reading 25 Reference material for ordinary writing.
+ngày 16 tháng 11, 2026
+			73 text Chọn một ghi chú để bắt đầu chỉnh sửa
+			74 button Ghi chú mới
+			75 button Mở ghi chú
+			76 container Đại lý
+				77 container
+					78 sortable Trò chuyện AI, Value: on
+					79 button Đóng Trò chuyện AI
+				80 button Trò chuyện mới
+				81 button Mở rộng không gian làm việc AI
+				82 button Đóng không gian làm việc AI
+				83 text Hướng dẫn Vault cần được chú ý: Gemini guidance can be created
+				84 button Khôi phục
+				85 container
+					86 text Open a note, then ask Codex about it
+					87 text The AI will use the active note as context
+					88 text Ask Codex
+					89 text entry area (settable) Placeholder: Ask Codex, Secondary Actions: Show Writing Tools
+					90 pop up button Mục tiêu AI
+					91 pop up button Chế độ quyền
+					92 button Cài đặt AI
+					93 button (disabled) Send message
+			94 container
+				95 button Mở thư viện có sẵn
+				96 text |
+				97 button Kiểm tra cập nhật
+				98 text |
+				99 button Thêm remote cho kho này
+				100 text |
+				101 button Xem các thay đổi đang chờ
+				102 text |
+				103 button Commit các thay đổi cục bộ
+				104 button Đồng bộ ngay
+				105 text |
+				106 button Mở lịch sử thay đổi
+				107 text |
+				108 button MCP chưa kết nối — nhấn để thiết lập
+				109 button Đóng góp cho Tolaria
+				110 button Mở tài liệu Tolaria
+				111 button Chuyển sang giao diện tối
+				112 button Mở cài đặt
+	113 close button
+	114 full screen button Help: this button also has an action to zoom the window, Secondary Actions: zoom the window
+	115 minimize button
+116 menu bar
+	117 Memnova E2 QA
+	118 File
+	119 Edit
+	120 View
+	121 Go
+	122 Note
+	123 Vault
+	124 Window
+
+The focused UI element is 89 text entry area (settable) Placeholder: Ask Codex, Secondary Actions: Show Writing Tools

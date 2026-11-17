@@ -1,0 +1,11 @@
+[
+  {
+    "toolId": "Semgrep",
+    "phase": "toolInvoke",
+    "kind": "Syntax error",
+    "message": "Syntax error `import { Button } from '@/components/ui/button' import { use…`${year}-${month}-${day}`} function groupCommitsByDay(commits: PulseCommit[]): Map<st…`${dateKey}T00:00:00`) const dateLocale…",
+    "level": "warning",
+    "filePath": "src/components/PulseView.tsx",
+    "fileNotAnalyzed": true
+  }
+]
