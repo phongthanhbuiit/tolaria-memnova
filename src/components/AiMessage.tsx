@@ -38,8 +38,7 @@ export interface AiMessageProps {
 function LocalMarker({ text }: { text: string }) {
   return (
     <div
-      className="mx-auto text-center text-muted-foreground text-(length:--text-caption) leading-(--text-caption--line-height)"
-      style={{ margin: '8px 0 16px', maxWidth: '85%' }}
+      className="text-center text-muted-foreground text-(length:--text-caption) leading-(--text-caption--line-height) m-[8px_0_16px] max-w-[85%]"
       data-testid="ai-local-marker"
     >
       {text}
@@ -56,14 +55,10 @@ function ReferencePill({ reference, onClick }: {
   const lightColor = getTypeLightColor(type)
   return (
     <button type="button"
-      className="inline-flex items-center border-none cursor-pointer transition-opacity hover:opacity-80 text-(length:--text-caption) leading-(--text-caption--line-height)"
+      className="inline-flex items-center border-none cursor-pointer transition-opacity hover:opacity-80 text-(length:--text-caption) leading-(--text-caption--line-height) rounded-[9999px] p-[1px_8px] font-medium [font-family:inherit]"
       style={{
         background: lightColor,
         color,
-        borderRadius: 9999,
-        padding: '1px 8px',
-        fontWeight: 500,
-        fontFamily: 'inherit',
       }}
       onClick={() => onClick?.(reference.path)}
       data-testid="message-reference-pill"
@@ -79,18 +74,11 @@ function UserBubble({ content, references, onOpenNote }: {
   onOpenNote?: (path: string) => void
 }) {
   return (
-    <div className="flex justify-end" style={{ marginBottom: 8 }}>
-      <div className="text-(length:--text-body) leading-(--text-body--line-height)"
-        style={{
-          background: 'var(--state-hover)',
-          color: 'var(--foreground)',
-          borderRadius: '12px 12px 2px 12px',
-          maxWidth: '85%',
-          padding: '8px 12px',
-        }}
+    <div className="flex justify-end mb-[8px]">
+      <div className="text-(length:--text-body) leading-(--text-body--line-height) bg-(--state-hover) text-foreground rounded-[12px_12px_2px_12px] max-w-[85%] p-[8px_12px]"
       >
         {references && references.length > 0 && (
-          <div className="flex flex-wrap gap-1" style={{ marginBottom: 4 }}>
+          <div className="flex flex-wrap gap-1 mb-[4px]">
             {references.map(ref => (
               <ReferencePill key={ref.path} reference={ref} onClick={onOpenNote} />
             ))}
@@ -115,10 +103,9 @@ function ReasoningBlock({ locale, text, expanded, onToggle }: {
   }, [expanded, text])
 
   return (
-    <div style={{ marginBottom: 8 }}>
+    <div className="mb-[8px]">
       <button type="button"
-        className="flex items-center gap-1.5 w-full border-none bg-transparent cursor-pointer p-0 text-muted-foreground hover:text-foreground transition-colors text-(length:--text-small) leading-(--text-small--line-height)"
-        style={{ padding: '4px 0' }}
+        className="flex items-center gap-1.5 w-full border-none bg-transparent cursor-pointer text-muted-foreground hover:text-foreground transition-colors text-(length:--text-small) leading-(--text-small--line-height) p-[4px_0]"
         onClick={onToggle}
         data-testid="reasoning-toggle"
       >
@@ -129,8 +116,7 @@ function ReasoningBlock({ locale, text, expanded, onToggle }: {
       {expanded && (
         <div
           ref={contentRef}
-          className="text-muted-foreground text-(length:--text-small) leading-(--text-small--line-height)"
-          style={{  padding: '4px 0 4px 20px', maxHeight: 200, overflowY: 'auto' }}
+          className="text-muted-foreground text-(length:--text-small) leading-(--text-small--line-height) p-[4px_0_4px_20px] max-h-[200px] overflow-y-auto"
           data-testid="reasoning-content"
         >
           {text}
@@ -147,7 +133,7 @@ function ActionCardsList({ actions, onOpenNote, expandedIds, onToggleExpand }: {
   onToggleExpand: (toolId: string) => void
 }) {
   return (
-    <div className="flex flex-col gap-1" style={{ marginBottom: 8 }}>
+    <div className="flex flex-col gap-1 mb-[8px]">
       {actions.map((action) => (
         <AiActionCard
           key={action.toolId}
@@ -186,11 +172,10 @@ function ToolUseBlock({
   const pending = actions.some((action) => action.status === 'pending')
 
   return (
-    <div style={{ marginBottom: 8 }}>
+    <div className="mb-[8px]">
       <button
         type="button"
-        className="flex w-full cursor-pointer items-center gap-1.5 border-none bg-transparent p-0 text-muted-foreground transition-colors hover:text-foreground text-(length:--text-small) leading-(--text-small--line-height)"
-        style={{ padding: '4px 0' }}
+        className="flex w-full cursor-pointer items-center gap-1.5 border-none bg-transparent text-muted-foreground transition-colors hover:text-foreground text-(length:--text-small) leading-(--text-small--line-height) p-[4px_0]"
         aria-expanded={expanded}
         onClick={onToggle}
         data-testid="tool-use-toggle"
@@ -198,13 +183,7 @@ function ToolUseBlock({
         <Terminal size={14} />
         <span>{translate(locale, 'ai.message.toolUse')}</span>
         <span
-          className={`inline-flex h-4 min-w-4 items-center justify-center rounded-full ${pending ? 'animate-pulse' : ''} text-(length:--text-caption) leading-(--text-caption--line-height)`}
-          style={{
-            background: 'var(--state-hover)',
-            color: 'var(--muted-foreground)',
-            fontWeight: 600,
-            padding: '0 5px',
-          }}
+          className={`inline-flex h-4 min-w-4 items-center justify-center rounded-full ${pending ? 'animate-pulse' : ''} text-(length:--text-caption) leading-(--text-caption--line-height) bg-(--state-hover) text-muted-foreground font-semibold p-[0_5px]`}
           data-pending={pending || undefined}
           data-testid="tool-use-count"
         >
@@ -213,7 +192,7 @@ function ToolUseBlock({
         {expanded ? <CaretDown size={12} /> : <CaretRight size={12} />}
       </button>
       {expanded && (
-        <div data-testid="tool-use-content" style={{ marginTop: 4 }}>
+        <div className="mt-[4px]" data-testid="tool-use-content">
           <ActionCardsList
             actions={actions}
             onOpenNote={onOpenNote}
@@ -311,7 +290,7 @@ function ResponseBlock({
   }, [text])
 
   return (
-    <div className="group/ai-response" style={{ marginBottom: 4 }}>
+    <div className="group/ai-response mb-[4px]">
       <MarkdownContent content={text} onWikilinkClick={onNavigateWikilink} />
       <ResponseActions
         locale={locale}
@@ -326,8 +305,9 @@ function ResponseBlock({
 
 function StreamingIndicator() {
   return (
-    <div className="flex items-center gap-2 text-muted-foreground text-(length:--text-small) leading-(--text-small--line-height)" style={{ marginTop: 8, padding: 0 }}>
+    <div className="flex items-center gap-2 text-muted-foreground text-(length:--text-small) leading-(--text-small--line-height) mt-[8px] p-[0]">
       <div className="flex gap-1">
+        {/* The unlayered typing-dot animation shorthand overrides layered delay utilities. */}
         <span className="typing-dot" />
         <span className="typing-dot" style={{ animationDelay: '0.2s' }} />
         <span className="typing-dot" style={{ animationDelay: '0.4s' }} />
@@ -365,7 +345,7 @@ function ConversationMessage({ userMessage, references, locale = 'en', messageId
   }, [])
 
   return (
-    <div data-testid="ai-message" style={{ marginBottom: 16 }}>
+    <div className="mb-[16px]" data-testid="ai-message">
       <UserBubble content={userMessage} references={references} onOpenNote={onOpenNote} />
       {reasoning && (
         <ReasoningBlock

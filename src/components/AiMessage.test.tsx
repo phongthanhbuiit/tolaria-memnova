@@ -21,7 +21,7 @@ describe('AiMessage', () => {
   it('renders user message', () => {
     const { container } = render(<AiMessage userMessage="Hello AI" actions={[]} />)
     expect(screen.getByText('Hello AI')).toBeTruthy()
-    expect(container.querySelector('[style*="background: var(--state-hover)"]')).toBeTruthy()
+    expect(container.querySelector('[class~="bg-(--state-hover)"]')).toBeTruthy()
   })
 
   it('renders response as markdown', () => {
