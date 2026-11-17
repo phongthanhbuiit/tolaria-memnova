@@ -25,9 +25,9 @@ import { canonicalFrontmatterKey } from '../../utils/systemMetadata'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
-const RELATIONSHIP_SECTION_ROW_CLASS_NAME = 'flex min-w-0 flex-col gap-1 px-1.5'
+const RELATIONSHIP_SECTION_ROW_CLASS_NAME = 'grid min-w-0 grid-cols-[repeat(auto-fit,minmax(min(100%,7rem),1fr))] items-start gap-2 px-2'
 const RELATIONSHIPS_PANEL_GRID_CLASS_NAME = 'grid min-w-0 gap-x-2 gap-y-3'
-const RELATIONSHIP_SECTION_LABEL_TEXT_CLASS_NAME = 'min-w-0 flex-1 truncate'
+const RELATIONSHIP_SECTION_LABEL_TEXT_CLASS_NAME = 'min-w-0 flex-1 whitespace-normal break-words'
 const RELATIONSHIP_SECTION_VALUE_CLASS_NAME = 'min-w-0'
 const RELATIONSHIP_ACTION_ROW_CLASS_NAME = 'min-w-0 px-1.5'
 const SUGGESTED_RELATIONSHIPS = ['belongs_to', 'related_to', 'has'] as const
@@ -79,13 +79,11 @@ function RelationshipSectionRow({ label, children, dataTestId, placeholder = fal
   placeholder?: boolean
 }) {
   const labelClassName = placeholder ? PROPERTY_PANEL_PLACEHOLDER_LABEL_CLASS_NAME : PROPERTY_PANEL_LABEL_CLASS_NAME
-  const labelTextClassName = placeholder
-    ? `${RELATIONSHIP_SECTION_LABEL_TEXT_CLASS_NAME} text-muted-foreground/40`
-    : RELATIONSHIP_SECTION_LABEL_TEXT_CLASS_NAME
+  const labelTextClassName = `${RELATIONSHIP_SECTION_LABEL_TEXT_CLASS_NAME} text-text-secondary`
 
   return (
     <div className={RELATIONSHIP_SECTION_ROW_CLASS_NAME} style={{ gridColumn: '1 / -1' }} data-testid={dataTestId}>
-      <span className={labelClassName} data-testid="relationship-section-label">
+      <span className={`${labelClassName} min-h-(--control-sm)`} data-testid="relationship-section-label">
         <span className={labelTextClassName}>{humanizePropertyKey(label)}</span>
       </span>
       <div className={RELATIONSHIP_SECTION_VALUE_CLASS_NAME}>{children}</div>
@@ -234,19 +232,19 @@ function CreateAndOpenOption({ title, selected, locale, onClick, onHover }: {
   onHover: () => void
 }) {
   return (
-    <button
+    <Button layout="responsive" variant="ghost" size="sm"
       type="button"
-      className={`flex w-full cursor-pointer items-center gap-2 border-0 bg-transparent px-3 py-1.5 text-left text-sm transition-colors ${selected ? 'bg-accent' : 'hover:bg-secondary'}`}
+      className={`flex w-full cursor-pointer items-center gap-[6px] border-0 bg-transparent px-3 py-0 text-left text-body transition-colors ${selected ? 'bg-accent' : 'hover:bg-secondary'}`}
       data-testid="create-and-open-option"
       onMouseDown={e => e.preventDefault()}
       onClick={onClick}
       onMouseEnter={onHover}
     >
-      <Plus size={14} className="shrink-0 text-muted-foreground" />
+      <Plus size={16} className="shrink-0 text-text-secondary" />
       <span className="truncate text-foreground">
-        {translate(locale, 'inspector.relationship.createAndOpen')} <strong>{title}</strong>
+        {translate(locale, 'inspector.relationship.createAndOpen')} <strong className="font-semibold">{title}</strong>
       </span>
-    </button>
+    </Button>
   )
 }
 
@@ -270,7 +268,7 @@ function SearchDropdownWithCreate({ search, onSelect, query, entries, locale, on
   if (!hasResults && !showCreate) return null
 
   return (
-    <div className="absolute left-0 right-0 top-full z-50 mt-0.5 rounded border border-border bg-popover shadow-md">
+    <div className="absolute left-0 right-0 top-full z-50 mt-1 rounded-lg border border-border bg-popover shadow-md">
       {hasResults && (
         <NoteSearchList
           items={search.results}
@@ -405,36 +403,34 @@ function InlineAddNote({ entries, sourceEntry, vaultPath, locale, onAdd, onCreat
 
   if (!active) {
     return (
-      <button type="button"
-        className="mt-1 w-full border border-dashed border-border bg-transparent text-left text-muted-foreground cursor-pointer hover:border-foreground hover:text-foreground"
-        style={{ borderRadius: 6, padding: '6px 10px', fontSize: 12 }}
+      <Button layout="responsive" variant="ghost" size="sm" type="button"
+        className="w-full justify-start px-2 text-left text-text-secondary"
         onClick={() => setActive(true)}
         data-testid="add-relation-ref"
       >
         {translate(locale, 'inspector.relationship.add')}
-      </button>
+      </Button>
     )
   }
 
   return (
-    <div className="relative mt-1">
+    <div className="relative">
       <div className="group/add relative flex items-center">
-        <input
+        <Input controlSize="sm"
           ref={inputRef}
-          className="w-full border border-border bg-transparent text-foreground"
-          style={{ borderRadius: 6, outline: 'none', minWidth: 0, padding: '6px 10px', fontSize: 12 }}
+          className="w-full min-w-0 border-border bg-transparent px-2 pr-8 text-foreground"
           placeholder={translate(locale, 'inspector.relationship.noteTitle')}
           value={query}
           onChange={e => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
           data-testid="add-relation-ref-input"
         />
-        <button type="button"
-          className="absolute right-1 top-1/2 -translate-y-1/2 border-none bg-transparent p-0.5 text-muted-foreground opacity-0 transition-opacity hover:text-foreground group-hover/add:opacity-100"
+        <Button variant="ghost" size="icon-sm" type="button"
+          className="absolute right-1 top-1/2 -translate-y-1/2 border-none bg-transparent p-0.5 text-text-secondary opacity-0 transition-opacity hover:text-foreground group-hover/add:opacity-100 focus-visible:opacity-100"
           onClick={dismiss}
         >
-          <X size={12} />
-        </button>
+          <X size={16} />
+        </Button>
       </div>
       {showDropdown && (
         <SearchDropdownWithCreate
@@ -606,9 +602,9 @@ function NoteTargetInput({ entries, value, locale, onChange, onSelectEntry, onSu
 
   return (
     <div className="relative">
-      <input
-        className="w-full border border-border bg-transparent px-2 py-1 text-xs text-foreground"
-        style={{ borderRadius: 4, outline: 'none' }}
+      <Input controlSize="sm"
+        className="w-full border border-border bg-transparent px-2 py-0 text-body text-foreground"
+
         placeholder={translate(locale, 'inspector.relationship.noteTitle')}
         value={value}
         onChange={e => onChange(e.target.value)}
@@ -725,7 +721,7 @@ interface AddRelationshipFormProps {
 
 function AddRelationshipButton({ locale, onClick }: { locale: AppLocale; onClick: () => void }) {
   return (
-    <Button type="button" variant="outline" className="mt-2 h-auto w-full justify-center px-3 py-1.5 text-xs text-muted-foreground" onClick={onClick}>
+    <Button layout="responsive" type="button" variant="outline" size="sm" className="mt-2 w-full justify-center px-3 py-0 text-body text-text-secondary" onClick={onClick}>
       {translate(locale, 'inspector.relationship.addRelationship')}
     </Button>
   )
@@ -752,14 +748,14 @@ function RelationshipKeyInput({
   }
 
   return (
-    <Input
+    <Input controlSize="sm"
       ref={inputRef}
       autoFocus
       placeholder={translate(locale, 'inspector.relationship.name')}
       value={value}
       onChange={(event) => onChange(event.target.value)}
       onKeyDown={handleKeyDown}
-      className="h-7 text-xs"
+      className="text-body"
     />
   )
 }
@@ -776,11 +772,11 @@ function AddRelationshipActions({
   onSubmit: () => void
 }) {
   return (
-    <div className="flex gap-1.5">
-      <Button type="button" variant="outline" size="sm" className="h-7 flex-1 text-xs" onClick={onSubmit} disabled={!canSubmit} data-testid="submit-add-relationship">
+    <div className="flex gap-2">
+      <Button layout="responsive" type="button" variant="outline" size="sm" className="flex-1 text-body" onClick={onSubmit} disabled={!canSubmit} data-testid="submit-add-relationship">
         {translate(locale, 'inspector.relationship.add')}
       </Button>
-      <Button type="button" variant="outline" size="sm" className="h-7 px-2 text-xs text-muted-foreground" onClick={onCancel}>
+      <Button layout="responsive" type="button" variant="outline" size="sm" className="px-2 text-body text-text-secondary" onClick={onCancel}>
         {translate(locale, 'common.cancel')}
       </Button>
     </div>
@@ -839,7 +835,7 @@ function AddRelationshipForm({ entries, sourceEntry, vaultPath, locale, onAddPro
   }
 
   return (
-    <div className="mt-2 flex flex-col gap-1.5">
+    <div className="mt-2 flex flex-col gap-2">
       <RelationshipKeyInput
         inputRef={keyInputRef}
         locale={locale}
@@ -883,7 +879,7 @@ function updateRefsForAddition(refs: string[], refToAdd: string): FrontmatterVal
 
 function DisabledLinkButton({ locale }: { locale: AppLocale }) {
   return (
-    <button type="button" className="mt-2 w-full border border-border bg-transparent text-center text-muted-foreground" style={{ borderRadius: 6, padding: '6px 12px', fontSize: 12, opacity: 0.5, cursor: 'not-allowed' }} disabled>{translate(locale, 'inspector.relationship.addRelationship')}</button>
+    <Button layout="responsive" variant="outline" size="sm" type="button" className="mt-2 w-full text-center text-text-secondary" disabled>{translate(locale, 'inspector.relationship.addRelationship')}</Button>
   )
 }
 

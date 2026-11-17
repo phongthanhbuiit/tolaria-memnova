@@ -161,7 +161,7 @@ describe('property panel shared grid layout', () => {
     expect(screen.getByText('Luca').parentElement).toHaveClass('px-0')
   })
 
-  it('renders relationship groups as single-column stacks', () => {
+  it('renders relationship labels beside values and actions', () => {
     const relatedEntry: VaultEntry = {
       ...entry,
       path: '/vault/project-alpha.md',
@@ -182,7 +182,7 @@ describe('property panel shared grid layout', () => {
     const relationshipRow = screen.getByTestId('relationship-section-label').parentElement
 
     expect(relationshipRow).not.toBeNull()
-    expect(relationshipRow).toHaveClass('flex-col')
+    expect(relationshipRow).toHaveClass('grid-cols-[repeat(auto-fit,minmax(min(100%,7rem),1fr))]')
     expect(relationshipRow).toHaveStyle({ gridColumn: '1 / -1' })
   })
 })

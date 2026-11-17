@@ -93,7 +93,7 @@ describe('relationship display labels', () => {
     expect(screen.getByText('Project Beta')).toBeInTheDocument()
   })
 
-  it('renders relationship rows as single-column stacks', () => {
+  it('renders relationship labels beside their existing actions', () => {
     render(
       <DynamicRelationshipsPanel
         frontmatter={{ belongs_to: ['[[project-alpha]]'] }}
@@ -104,7 +104,7 @@ describe('relationship display labels', () => {
     )
 
     const relationshipRow = screen.getByTestId('relationship-section-label').parentElement
-    expect(relationshipRow).toHaveClass('flex-col')
+    expect(relationshipRow).toHaveClass('grid-cols-[repeat(auto-fit,minmax(min(100%,7rem),1fr))]')
     expect(relationshipRow).toHaveStyle({ gridColumn: '1 / -1' })
   })
 

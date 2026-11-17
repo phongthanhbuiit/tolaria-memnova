@@ -161,7 +161,7 @@ describe('DynamicRelationshipsPanel', () => {
     })
 
     const placeholder = screen.getByTestId('type-derived-relationship')
-    expect(within(placeholder).getByText('Mentor')).toHaveClass('text-muted-foreground/40')
+    expect(within(placeholder).getByText('Mentor')).toHaveClass('text-text-secondary')
     fireEvent.click(within(placeholder).getByTestId('add-relation-ref'))
     fireEvent.change(within(placeholder).getByTestId('add-relation-ref-input'), {
       target: { value: 'My Project' },
