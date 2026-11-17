@@ -1048,5 +1048,14 @@
   "inspector.propertyLabel.icon": "Značok",
   "inspector.propertyLabel.belongsTo": "Naležyć da",
   "inspector.propertyLabel.relatedTo": "Zviazana z",
-  "inspector.propertyLabel.has": "Źmiaščaje"
+  "inspector.propertyLabel.has": "Źmiaščaje",
+  "sidebar.builtIn.Note": "Natatki",
+  "sidebar.builtIn.Project": "Prajekty",
+  "sidebar.builtIn.Experiment": "Eksperymenty",
+  "sidebar.builtIn.Responsibility": "Abaviazki",
+  "sidebar.builtIn.Procedure": "Pracedury",
+  "sidebar.builtIn.Person": "Liudzi",
+  "sidebar.builtIn.Event": "Padziei",
+  "sidebar.builtIn.Topic": "Temy",
+  "sidebar.builtIn.Type": "Typy"
 }

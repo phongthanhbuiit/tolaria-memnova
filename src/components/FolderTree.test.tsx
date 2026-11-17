@@ -595,3 +595,9 @@ describe('FolderTree', () => {
     expect(screen.queryByTestId('delete-folder-menu-item')).not.toBeInTheDocument()
   })
 })
+
+it('preserves real Library and views folder names in Vietnamese', () => {
+  render(<FolderTree folders={[{ name: 'views', path: 'views', children: [] }]} vaultRootPath="/qa/Library" selection={{ kind: 'filter', filter: 'all' }} onSelect={vi.fn()} locale="vi" />)
+  expect(screen.getByText('Library', { exact: true })).toBeInTheDocument()
+  expect(screen.getByText('views', { exact: true })).toBeInTheDocument()
+})

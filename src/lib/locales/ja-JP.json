@@ -1048,5 +1048,14 @@
   "inspector.propertyLabel.icon": "アイコン",
   "inspector.propertyLabel.belongsTo": "所属先",
   "inspector.propertyLabel.relatedTo": "関連先",
-  "inspector.propertyLabel.has": "含む"
+  "inspector.propertyLabel.has": "含む",
+  "sidebar.builtIn.Note": "ノート",
+  "sidebar.builtIn.Project": "プロジェクト",
+  "sidebar.builtIn.Experiment": "実験",
+  "sidebar.builtIn.Responsibility": "責任",
+  "sidebar.builtIn.Procedure": "手順",
+  "sidebar.builtIn.Person": "人物",
+  "sidebar.builtIn.Event": "イベント",
+  "sidebar.builtIn.Topic": "トピック",
+  "sidebar.builtIn.Type": "種類"
 }

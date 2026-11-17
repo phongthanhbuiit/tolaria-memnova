@@ -1048,5 +1048,14 @@
   "inspector.propertyLabel.icon": "Значок",
   "inspector.propertyLabel.belongsTo": "Принадлежит",
   "inspector.propertyLabel.relatedTo": "Связано с",
-  "inspector.propertyLabel.has": "Содержит"
+  "inspector.propertyLabel.has": "Содержит",
+  "sidebar.builtIn.Note": "Заметки",
+  "sidebar.builtIn.Project": "Проекты",
+  "sidebar.builtIn.Experiment": "Эксперименты",
+  "sidebar.builtIn.Responsibility": "Обязанности",
+  "sidebar.builtIn.Procedure": "Процедуры",
+  "sidebar.builtIn.Person": "Люди",
+  "sidebar.builtIn.Event": "События",
+  "sidebar.builtIn.Topic": "Темы",
+  "sidebar.builtIn.Type": "Типы"
 }

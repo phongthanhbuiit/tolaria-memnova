@@ -1,3 +1,4 @@
+import { translate, type AppLocale, type TranslationKey } from '../lib/i18n'
 /**
  * Pure functions for building sidebar section groups from vault entries.
  * Extracted from Sidebar.tsx for testability.
@@ -138,3 +139,17 @@ export function sortSections(groups: SectionGroup[], typeEntryMap: Record<string
 }
 
 export { BUILT_IN_SECTION_GROUPS }
+
+const BUILT_IN_LABELS: Readonly<Record<string, TranslationKey>> = {
+  Note: 'sidebar.builtIn.Note', Project: 'sidebar.builtIn.Project',
+  Experiment: 'sidebar.builtIn.Experiment', Responsibility: 'sidebar.builtIn.Responsibility',
+  Procedure: 'sidebar.builtIn.Procedure', Person: 'sidebar.builtIn.Person',
+  Event: 'sidebar.builtIn.Event', Topic: 'sidebar.builtIn.Topic', Type: 'sidebar.builtIn.Type',
+}
+
+/** Apply display copy after sorting; stored types, custom labels and order stay intact. */
+export function localizeSectionGroup(group: SectionGroup, typeEntryMap: Record<string, VaultEntry>, locale: AppLocale): SectionGroup {
+  if (resolveTypeEntry(group.type, typeEntryMap)?.sidebarLabel) return group
+  const key = Object.hasOwn(BUILT_IN_LABELS, group.type) ? BUILT_IN_LABELS[group.type] : undefined
+  return key ? { ...group, label: translate(locale, key) } : group
+}

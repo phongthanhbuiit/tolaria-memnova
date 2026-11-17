@@ -1048,5 +1048,14 @@
   "inspector.propertyLabel.icon": "Ícone",
   "inspector.propertyLabel.belongsTo": "Pertence a",
   "inspector.propertyLabel.relatedTo": "Relacionado a",
-  "inspector.propertyLabel.has": "Tem"
+  "inspector.propertyLabel.has": "Tem",
+  "sidebar.builtIn.Note": "Notas",
+  "sidebar.builtIn.Project": "Projetos",
+  "sidebar.builtIn.Experiment": "Experimentos",
+  "sidebar.builtIn.Responsibility": "Responsabilidades",
+  "sidebar.builtIn.Procedure": "Procedimentos",
+  "sidebar.builtIn.Person": "Pessoas",
+  "sidebar.builtIn.Event": "Eventos",
+  "sidebar.builtIn.Topic": "Tópicos",
+  "sidebar.builtIn.Type": "Tipos"
 }

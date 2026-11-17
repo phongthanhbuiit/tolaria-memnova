@@ -159,3 +159,19 @@ describe('collectActiveTypes', () => {
     expect(types).toContain('Note')
   })
 })
+
+it('localizes built-in section display names without changing section identity or custom labels', async () => {
+  const { localizeSectionGroup } = await import('../utils/sidebarSections')
+  const note = buildSectionGroup('Note', {})
+  expect(localizeSectionGroup(note, {}, 'vi')).toEqual({ ...note, label: 'Ghi chú' })
+  const project = buildSectionGroup('Project', {})
+  expect(localizeSectionGroup(project, {}, 'vi').label).toBe('Dự án')
+  const custom = { Project: { ...baseEntry, title: 'Project', sidebarLabel: 'My Projects' } }
+  expect(localizeSectionGroup(buildSectionGroup('Project', custom), custom, 'vi').label).toBe('My Projects')
+  expect(localizeSectionGroup(buildSectionGroup('views', {}, false), {}, 'vi').label).toBe('views')
+})
+
+it('uses the same Vietnamese Inbox name in navigation and the selected list heading', async () => {
+  const { translate } = await import('../lib/i18n')
+  expect(translate('vi', 'noteList.title.inbox')).toBe(translate('vi', 'sidebar.nav.inbox'))
+})

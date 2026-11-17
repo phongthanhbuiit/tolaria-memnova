@@ -1048,5 +1048,14 @@
   "inspector.propertyLabel.icon": "아이콘",
   "inspector.propertyLabel.belongsTo": "소속",
   "inspector.propertyLabel.relatedTo": "관련 항목",
-  "inspector.propertyLabel.has": "포함"
+  "inspector.propertyLabel.has": "포함",
+  "sidebar.builtIn.Note": "노트",
+  "sidebar.builtIn.Project": "프로젝트",
+  "sidebar.builtIn.Experiment": "실험",
+  "sidebar.builtIn.Responsibility": "책임",
+  "sidebar.builtIn.Procedure": "절차",
+  "sidebar.builtIn.Person": "사람",
+  "sidebar.builtIn.Event": "이벤트",
+  "sidebar.builtIn.Topic": "주제",
+  "sidebar.builtIn.Type": "유형"
 }

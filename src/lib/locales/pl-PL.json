@@ -1048,5 +1048,14 @@
   "inspector.propertyLabel.icon": "Ikona",
   "inspector.propertyLabel.belongsTo": "Należy do",
   "inspector.propertyLabel.relatedTo": "Powiązane z",
-  "inspector.propertyLabel.has": "Zawiera"
+  "inspector.propertyLabel.has": "Zawiera",
+  "sidebar.builtIn.Note": "Notatki",
+  "sidebar.builtIn.Project": "Projekty",
+  "sidebar.builtIn.Experiment": "Eksperymenty",
+  "sidebar.builtIn.Responsibility": "Obowiązki",
+  "sidebar.builtIn.Procedure": "Procedury",
+  "sidebar.builtIn.Person": "Osoby",
+  "sidebar.builtIn.Event": "Wydarzenia",
+  "sidebar.builtIn.Topic": "Tematy",
+  "sidebar.builtIn.Type": "Typy"
 }

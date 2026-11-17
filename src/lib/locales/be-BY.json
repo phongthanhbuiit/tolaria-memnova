@@ -1048,5 +1048,14 @@
   "inspector.propertyLabel.icon": "Значок",
   "inspector.propertyLabel.belongsTo": "Належыць да",
   "inspector.propertyLabel.relatedTo": "Звязана з",
-  "inspector.propertyLabel.has": "Змяшчае"
+  "inspector.propertyLabel.has": "Змяшчае",
+  "sidebar.builtIn.Note": "Нататкі",
+  "sidebar.builtIn.Project": "Праекты",
+  "sidebar.builtIn.Experiment": "Эксперыменты",
+  "sidebar.builtIn.Responsibility": "Абавязкі",
+  "sidebar.builtIn.Procedure": "Працэдуры",
+  "sidebar.builtIn.Person": "Людзі",
+  "sidebar.builtIn.Event": "Падзеі",
+  "sidebar.builtIn.Topic": "Тэмы",
+  "sidebar.builtIn.Type": "Тыпы"
 }

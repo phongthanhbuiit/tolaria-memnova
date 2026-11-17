@@ -1048,5 +1048,14 @@
   "inspector.propertyLabel.icon": "图标",
   "inspector.propertyLabel.belongsTo": "属于",
   "inspector.propertyLabel.relatedTo": "关联",
-  "inspector.propertyLabel.has": "包含"
+  "inspector.propertyLabel.has": "包含",
+  "sidebar.builtIn.Note": "笔记",
+  "sidebar.builtIn.Project": "项目",
+  "sidebar.builtIn.Experiment": "实验",
+  "sidebar.builtIn.Responsibility": "职责",
+  "sidebar.builtIn.Procedure": "流程",
+  "sidebar.builtIn.Person": "人物",
+  "sidebar.builtIn.Event": "事件",
+  "sidebar.builtIn.Topic": "主题",
+  "sidebar.builtIn.Type": "类型"
 }

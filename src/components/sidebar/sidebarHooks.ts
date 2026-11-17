@@ -1,3 +1,4 @@
+import { useAppLocale } from '../../hooks/useAppPreferences'
 import {
   useState, useMemo, useEffect, useCallback, useRef,
   type KeyboardEvent as ReactKeyboardEvent,
@@ -7,7 +8,7 @@ import type { VaultEntry } from '../../types'
 import { APP_STORAGE_KEYS, LEGACY_APP_STORAGE_KEYS, getAppStorageItem } from '../../constants/appStorage'
 import { buildTypeEntryMap } from '../../utils/typeColors'
 import { countAllNotesByFilter } from '../../utils/noteListHelpers'
-import { buildDynamicSections, sortSections } from '../../utils/sidebarSections'
+import { buildDynamicSections, sortSections, localizeSectionGroup } from '../../utils/sidebarSections'
 import type { AllNotesFileVisibility } from '../../utils/allNotesFileVisibility'
 import { buildTypeVisibilityLookup, isTypeSectionVisible } from '../../utils/typeVisibility'
 
@@ -159,12 +160,13 @@ export function useSidebarInlineRenameInput({
 }
 
 export function useSidebarSections(entries: VaultEntry[], pluralizeTypeLabels = true) {
+  const locale = useAppLocale()
   const typeEntryMap = useMemo(() => buildTypeEntryMap(entries), [entries])
   const typeVisibility = useMemo(() => buildTypeVisibilityLookup(entries), [entries])
   const allSectionGroups = useMemo(() => {
     const sections = buildDynamicSections(entries, typeEntryMap, pluralizeTypeLabels)
-    return sortSections(sections, typeEntryMap)
-  }, [entries, pluralizeTypeLabels, typeEntryMap])
+    return sortSections(sections, typeEntryMap).map(group => pluralizeTypeLabels ? localizeSectionGroup(group, typeEntryMap, locale) : group)
+  }, [entries, pluralizeTypeLabels, typeEntryMap, locale])
   const visibleSections = useMemo(
     () => allSectionGroups.filter((group) => isTypeSectionVisible(entries, group.type, typeVisibility)),
     [allSectionGroups, entries, typeVisibility],

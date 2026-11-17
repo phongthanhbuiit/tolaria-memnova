@@ -1048,5 +1048,14 @@
   "inspector.propertyLabel.icon": "Ikon",
   "inspector.propertyLabel.belongsTo": "Milik",
   "inspector.propertyLabel.relatedTo": "Terkait dengan",
-  "inspector.propertyLabel.has": "Memiliki"
+  "inspector.propertyLabel.has": "Memiliki",
+  "sidebar.builtIn.Note": "Catatan",
+  "sidebar.builtIn.Project": "Proyek",
+  "sidebar.builtIn.Experiment": "Eksperimen",
+  "sidebar.builtIn.Responsibility": "Tanggung jawab",
+  "sidebar.builtIn.Procedure": "Prosedur",
+  "sidebar.builtIn.Person": "Orang",
+  "sidebar.builtIn.Event": "Acara",
+  "sidebar.builtIn.Topic": "Topik",
+  "sidebar.builtIn.Type": "Jenis"
 }

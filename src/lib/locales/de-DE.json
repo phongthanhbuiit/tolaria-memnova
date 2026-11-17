@@ -1048,5 +1048,14 @@
   "inspector.propertyLabel.icon": "Symbol",
   "inspector.propertyLabel.belongsTo": "Gehört zu",
   "inspector.propertyLabel.relatedTo": "Verknüpft mit",
-  "inspector.propertyLabel.has": "Hat"
+  "inspector.propertyLabel.has": "Hat",
+  "sidebar.builtIn.Note": "Notizen",
+  "sidebar.builtIn.Project": "Projekte",
+  "sidebar.builtIn.Experiment": "Experimente",
+  "sidebar.builtIn.Responsibility": "Verantwortlichkeiten",
+  "sidebar.builtIn.Procedure": "Verfahren",
+  "sidebar.builtIn.Person": "Personen",
+  "sidebar.builtIn.Event": "Ereignisse",
+  "sidebar.builtIn.Topic": "Themen",
+  "sidebar.builtIn.Type": "Typen"
 }
