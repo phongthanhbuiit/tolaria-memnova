@@ -84,10 +84,12 @@
 
   /* --- Semantic text (light mode) --- */
   --text-primary: #37352F;
-  --text-secondary: #787774;
-  --text-tertiary: #787774;
-  --text-muted: #B4B4B4;
-  --text-faint: #B4B4B4;
+  --text-secondary: #65635D;
+  --text-tertiary: #696760;
+  /* Transitional readable muted for legacy labels; new labels use secondary.
+     Faint is reserved for disabled/placeholder/decorative content. */
+  --text-muted: #6B6963;
+  --text-faint: #9A9790;
   --text-heading: #37352F;
   --text-inverse: #FFFFFF;
 
@@ -238,7 +240,7 @@
   --text-primary: #E6E1D8;
   --text-secondary: #B8B1A6;
   --text-tertiary: #9C9488;
-  --text-muted: #7F776D;
+  --text-muted: #AAA296;
   --text-faint: #625B53;
   --text-heading: #F1ECE3;
   --text-inverse: #151411;
