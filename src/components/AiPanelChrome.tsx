@@ -120,7 +120,7 @@ function ComposerInput({
       onUnsupportedPaste={onUnsupportedAiPaste}
       disabled={disabled}
       placeholder={placeholder}
-      placeholderClassName={hasControls ? 'px-2 py-1.5 text-[13px] leading-5' : undefined}
+      placeholderClassName={hasControls ? 'px-2 py-1.5 text-(length:--text-body) leading-(--text-body--line-height) leading-5' : undefined}
       inputRef={inputRef}
       editorClassName={cn(
         'max-h-[120px] overflow-y-auto overscroll-contain',
@@ -225,10 +225,10 @@ function AiPanelEmptyState({
         style={{ paddingTop: 40 }}
       >
         <Sparkle size={24} style={{ marginBottom: 8, opacity: 0.5 }} />
-        <p style={{ fontSize: 13, margin: '0 0 4px' }}>
+        <p className="text-(length:--text-body) leading-(--text-body--line-height)" style={{ margin: '0 0 4px' }}>
           {t('ai.panel.empty.checkingTitle')}
         </p>
-        <p style={{ fontSize: 11, margin: 0, opacity: 0.6 }}>
+        <p className="text-(length:--text-caption) leading-(--text-caption--line-height)" style={{ margin: 0, opacity: 0.6 }}>
           {t('ai.panel.empty.checkingDescription')}
         </p>
       </div>
@@ -242,10 +242,10 @@ function AiPanelEmptyState({
         style={{ paddingTop: 40 }}
       >
         <Sparkle size={24} style={{ marginBottom: 8, opacity: 0.5 }} />
-        <p style={{ fontSize: 13, margin: '0 0 4px' }}>
+        <p className="text-(length:--text-body) leading-(--text-body--line-height)" style={{ margin: '0 0 4px' }}>
           {t('ai.panel.empty.missingTitle', { agent: agentLabel })}
         </p>
-        <p style={{ fontSize: 11, margin: 0, opacity: 0.6 }}>
+        <p className="text-(length:--text-caption) leading-(--text-caption--line-height)" style={{ margin: 0, opacity: 0.6 }}>
           {t('ai.panel.empty.missingDescription')}
         </p>
       </div>
@@ -258,13 +258,13 @@ function AiPanelEmptyState({
       style={{ paddingTop: 40 }}
     >
       <Sparkle size={24} style={{ marginBottom: 8, opacity: 0.5 }} />
-      <p style={{ fontSize: 13, margin: '0 0 4px' }}>
+      <p className="text-(length:--text-body) leading-(--text-body--line-height)" style={{ margin: '0 0 4px' }}>
         {hasContext
           ? t('ai.panel.empty.withContextTitle', { agent: agentLabel })
           : t('ai.panel.empty.noContextTitle', { agent: agentLabel })
         }
       </p>
-      <p style={{ fontSize: 11, margin: 0, opacity: 0.6 }}>
+      <p className="text-(length:--text-caption) leading-(--text-caption--line-height)" style={{ margin: 0, opacity: 0.6 }}>
         {hasContext
           ? t('ai.panel.empty.withContextDescription')
           : t('ai.panel.empty.noContextDescription')
@@ -298,10 +298,10 @@ export const AiPanelHeader = memo(function AiPanelHeader({
       <div className="flex items-center" style={{ gap: 8 }}>
         <Sparkle size={16} className="shrink-0 text-muted-foreground" />
         <div className="flex flex-1 flex-col overflow-hidden">
-          <span className="text-muted-foreground" style={{ fontSize: 13, fontWeight: 600 }}>
+          <span className="text-muted-foreground text-(length:--text-body) leading-(--text-body--line-height)" style={{ fontWeight: 600 }}>
             {t('ai.panel.title')}
           </span>
-          <span className="truncate text-[11px] text-muted-foreground">
+          <span className="truncate text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground">
             {headerStatusText({ agentLabel, agentReadiness, modeLabel, t })}
           </span>
         </div>
@@ -336,7 +336,7 @@ export const AiPanelHeader = memo(function AiPanelHeader({
           onChange={onPermissionModeChange}
         />
       ) : (
-        <div className="rounded-md border border-border bg-muted px-3 py-2 text-[11px] leading-5 text-muted-foreground">
+        <div className="rounded-md border border-border bg-muted px-3 py-2 text-(length:--text-caption) leading-(--text-caption--line-height) leading-5 text-muted-foreground">
           {t('ai.panel.mode.chatDescription')}
         </div>
       )}
@@ -407,8 +407,8 @@ export const AiPanelContextBar = memo(function AiPanelContextBar({
 
   return (
     <div
-      className="flex shrink-0 items-center border-b border-border text-muted-foreground"
-      style={{ padding: '6px 12px', gap: 6, fontSize: 11 }}
+      className="flex shrink-0 items-center border-b border-border text-muted-foreground text-(length:--text-caption) leading-(--text-caption--line-height)"
+      style={{ padding: '6px 12px', gap: 6 }}
       data-testid="context-bar"
     >
       <Link size={12} className="shrink-0" />

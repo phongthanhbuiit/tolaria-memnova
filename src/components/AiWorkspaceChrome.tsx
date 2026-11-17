@@ -18,7 +18,7 @@ export function GuidanceWarning({
   if (!status || !vaultAiGuidanceNeedsRestore(status)) return null
 
   return (
-    <div className="flex shrink-0 items-center gap-2 border-y border-border bg-muted/50 px-3 py-2 text-[12px] text-muted-foreground">
+    <div className="flex shrink-0 items-center gap-2 border-y border-border bg-muted/50 px-3 py-2 text-(length:--text-small) leading-(--text-small--line-height) text-muted-foreground">
       <WarningCircle size={15} className="shrink-0 text-amber-600" />
       <span className="min-w-0 flex-1">
         {translate(locale, 'ai.workspace.guidanceWarning', { summary: getVaultAiGuidanceSummary(status) })}
@@ -63,7 +63,7 @@ export function WorkspaceHeader({
     >
       <div className="flex min-w-0 flex-1 items-center gap-2">
         <div className="min-w-0 max-w-[260px]">
-          <div className="truncate text-[13px] font-semibold text-foreground">{conversation.title}</div>
+          <div className="truncate text-(length:--text-body) leading-(--text-body--line-height) font-semibold text-foreground">{conversation.title}</div>
         </div>
       </div>
       <div className="flex items-center gap-1">

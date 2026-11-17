@@ -163,7 +163,7 @@ function TargetPickerTrigger({
         size={compact ? 'xs' : 'sm'}
         className={cn(
           'justify-between gap-1.5 text-muted-foreground hover:text-foreground',
-          compact ? 'max-w-[150px] rounded-full px-2 text-[12px]' : 'max-w-[240px] gap-2',
+          compact ? 'max-w-[150px] rounded-full px-2 text-(length:--text-small) leading-(--text-small--line-height)' : 'max-w-[240px] gap-2',
         )}
         disabled={disabled || !hasTargets}
         aria-label={translate(locale, 'ai.workspace.targetLabel')}
@@ -272,7 +272,7 @@ function PermissionPicker({
 }) {
   if (targetKind === 'api_model') {
     return (
-      <Button type="button" variant={compact ? 'ghost' : 'outline'} size={compact ? 'xs' : 'sm'} disabled className="rounded-full px-2 text-[12px] text-muted-foreground">
+      <Button type="button" variant={compact ? 'ghost' : 'outline'} size={compact ? 'xs' : 'sm'} disabled className="rounded-full px-2 text-(length:--text-small) leading-(--text-small--line-height) text-muted-foreground">
         {translate(locale, 'ai.panel.mode.chat')}
       </Button>
     )
@@ -287,7 +287,7 @@ function PermissionPicker({
           size={compact ? 'xs' : 'sm'}
           className={cn(
             'justify-between text-muted-foreground hover:text-foreground',
-            compact ? 'rounded-full px-2 text-[12px]' : 'gap-2',
+            compact ? 'rounded-full px-2 text-(length:--text-small) leading-(--text-small--line-height)' : 'gap-2',
           )}
           disabled={disabled}
           aria-label={translate(locale, 'ai.workspace.permissionMode')}
@@ -758,7 +758,7 @@ function SideWorkspaceTitleEditor({
       }}
       onPointerDown={(event) => event.stopPropagation()}
       aria-label={translate(locale, 'ai.workspace.renameChat')}
-      className="h-9 w-[180px] rounded-lg px-3 text-[13px] font-semibold"
+      className="h-9 w-[180px] rounded-lg px-3 text-(length:--text-body) leading-(--text-body--line-height) font-semibold"
       autoFocus
     />
   )
@@ -813,7 +813,7 @@ function SideWorkspaceTab({
           variant="ghost"
           size="sm"
           className={cn(
-            'h-10 shrink-0 cursor-grab justify-start rounded-lg px-3 text-[13px] font-semibold active:cursor-grabbing',
+            'h-10 shrink-0 cursor-grab justify-start rounded-lg px-3 text-(length:--text-body) leading-(--text-body--line-height) font-semibold active:cursor-grabbing',
             active
               ? 'bg-[var(--state-hover)] text-foreground'
               : 'text-muted-foreground hover:bg-[var(--state-hover)] hover:text-foreground',

@@ -40,16 +40,16 @@ export function CommandPaletteAiMode({
       submitOnEmpty={true}
       placeholder={`Ask ${aiAgentLabel}...`}
       dataTestId="command-palette-ai-input"
-      editorClassName="border-none px-0 py-0 text-[15px]"
+      editorClassName="border-none px-0 py-0 text-(length:--text-body-lg) leading-(--text-body-lg--line-height)"
       suggestionListVariant="palette"
       paletteHeader={(
-        <div className="mb-2 flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
+        <div className="mb-2 flex items-center gap-2 text-(length:--text-caption) leading-(--text-caption--line-height) font-medium uppercase tracking-[0.08em] text-muted-foreground">
           <Sparkle size={12} weight="fill" />
           <span>Ask {aiAgentLabel}</span>
         </div>
       )}
       paletteEmptyState={(
-        <div className="px-4 py-6 text-center text-[13px] text-muted-foreground">
+        <div className="px-4 py-6 text-center text-(length:--text-body) leading-(--text-body--line-height) text-muted-foreground">
           {!resolvedAiAgentReady ? (
             `${aiAgentLabel} is not available on this machine.`
           ) : (
@@ -65,7 +65,7 @@ export function CommandPaletteAiMode({
         </div>
       )}
       paletteFooter={(
-        <div className="flex items-center gap-4 border-t border-border px-4 py-1.5 text-[11px] text-muted-foreground">
+        <div className="flex items-center gap-4 border-t border-border px-4 py-1.5 text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground">
           <span>{aiAgentLabel} mode</span>
           <span>↵ send</span>
           <span>esc close</span>

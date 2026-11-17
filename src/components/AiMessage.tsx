@@ -38,8 +38,8 @@ export interface AiMessageProps {
 function LocalMarker({ text }: { text: string }) {
   return (
     <div
-      className="mx-auto text-center text-muted-foreground"
-      style={{ fontSize: 11, margin: '8px 0 16px', maxWidth: '85%' }}
+      className="mx-auto text-center text-muted-foreground text-(length:--text-caption) leading-(--text-caption--line-height)"
+      style={{ margin: '8px 0 16px', maxWidth: '85%' }}
       data-testid="ai-local-marker"
     >
       {text}
@@ -56,16 +56,14 @@ function ReferencePill({ reference, onClick }: {
   const lightColor = getTypeLightColor(type)
   return (
     <button type="button"
-      className="inline-flex items-center border-none cursor-pointer transition-opacity hover:opacity-80"
+      className="inline-flex items-center border-none cursor-pointer transition-opacity hover:opacity-80 text-(length:--text-caption) leading-(--text-caption--line-height)"
       style={{
         background: lightColor,
         color,
         borderRadius: 9999,
         padding: '1px 8px',
-        fontSize: 11,
         fontWeight: 500,
         fontFamily: 'inherit',
-        lineHeight: 1.4,
       }}
       onClick={() => onClick?.(reference.path)}
       data-testid="message-reference-pill"
@@ -82,15 +80,13 @@ function UserBubble({ content, references, onOpenNote }: {
 }) {
   return (
     <div className="flex justify-end" style={{ marginBottom: 8 }}>
-      <div
+      <div className="text-(length:--text-body) leading-(--text-body--line-height)"
         style={{
           background: 'var(--state-hover)',
           color: 'var(--foreground)',
           borderRadius: '12px 12px 2px 12px',
           maxWidth: '85%',
           padding: '8px 12px',
-          fontSize: 13,
-          lineHeight: 1.5,
         }}
       >
         {references && references.length > 0 && (
@@ -121,8 +117,8 @@ function ReasoningBlock({ locale, text, expanded, onToggle }: {
   return (
     <div style={{ marginBottom: 8 }}>
       <button type="button"
-        className="flex items-center gap-1.5 w-full border-none bg-transparent cursor-pointer p-0 text-muted-foreground hover:text-foreground transition-colors"
-        style={{ fontSize: 12, padding: '4px 0' }}
+        className="flex items-center gap-1.5 w-full border-none bg-transparent cursor-pointer p-0 text-muted-foreground hover:text-foreground transition-colors text-(length:--text-small) leading-(--text-small--line-height)"
+        style={{ padding: '4px 0' }}
         onClick={onToggle}
         data-testid="reasoning-toggle"
       >
@@ -133,8 +129,8 @@ function ReasoningBlock({ locale, text, expanded, onToggle }: {
       {expanded && (
         <div
           ref={contentRef}
-          className="text-muted-foreground"
-          style={{ fontSize: 12, lineHeight: 1.5, padding: '4px 0 4px 20px', maxHeight: 200, overflowY: 'auto' }}
+          className="text-muted-foreground text-(length:--text-small) leading-(--text-small--line-height)"
+          style={{  padding: '4px 0 4px 20px', maxHeight: 200, overflowY: 'auto' }}
           data-testid="reasoning-content"
         >
           {text}
@@ -193,8 +189,8 @@ function ToolUseBlock({
     <div style={{ marginBottom: 8 }}>
       <button
         type="button"
-        className="flex w-full cursor-pointer items-center gap-1.5 border-none bg-transparent p-0 text-muted-foreground transition-colors hover:text-foreground"
-        style={{ fontSize: 12, padding: '4px 0' }}
+        className="flex w-full cursor-pointer items-center gap-1.5 border-none bg-transparent p-0 text-muted-foreground transition-colors hover:text-foreground text-(length:--text-small) leading-(--text-small--line-height)"
+        style={{ padding: '4px 0' }}
         aria-expanded={expanded}
         onClick={onToggle}
         data-testid="tool-use-toggle"
@@ -202,11 +198,10 @@ function ToolUseBlock({
         <Terminal size={14} />
         <span>{translate(locale, 'ai.message.toolUse')}</span>
         <span
-          className={`inline-flex h-4 min-w-4 items-center justify-center rounded-full ${pending ? 'animate-pulse' : ''}`}
+          className={`inline-flex h-4 min-w-4 items-center justify-center rounded-full ${pending ? 'animate-pulse' : ''} text-(length:--text-caption) leading-(--text-caption--line-height)`}
           style={{
             background: 'var(--state-hover)',
             color: 'var(--muted-foreground)',
-            fontSize: 10,
             fontWeight: 600,
             padding: '0 5px',
           }}
@@ -331,7 +326,7 @@ function ResponseBlock({
 
 function StreamingIndicator() {
   return (
-    <div className="flex items-center gap-2 text-muted-foreground" style={{ fontSize: 12, marginTop: 8, padding: 0 }}>
+    <div className="flex items-center gap-2 text-muted-foreground text-(length:--text-small) leading-(--text-small--line-height)" style={{ marginTop: 8, padding: 0 }}>
       <div className="flex gap-1">
         <span className="typing-dot" />
         <span className="typing-dot" style={{ animationDelay: '0.2s' }} />

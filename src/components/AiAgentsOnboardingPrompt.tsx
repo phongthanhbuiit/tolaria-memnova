@@ -102,7 +102,7 @@ function AgentStatusList({ statuses }: { statuses: AiAgentsStatus }) {
               </div>
             </div>
             <span
-              className={`rounded-full px-2 py-1 text-[11px] font-medium ${ready ? 'bg-[var(--feedback-success-bg)] text-[var(--feedback-success-text)]' : 'bg-[var(--feedback-warning-bg)] text-[var(--feedback-warning-text)]'}`}
+              className={`rounded-full px-2 py-1 text-(length:--text-caption) leading-(--text-caption--line-height) font-medium ${ready ? 'bg-[var(--feedback-success-bg)] text-[var(--feedback-success-text)]' : 'bg-[var(--feedback-warning-bg)] text-[var(--feedback-warning-text)]'}`}
             >
               {ready ? 'Installed' : 'Missing'}
             </span>

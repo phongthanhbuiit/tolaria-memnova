@@ -84,7 +84,7 @@ function SidebarHeader({
           <SidebarSimple size={16} />
         </Button>
         {!collapsed && (
-          <span className="truncate text-[13px] font-semibold text-foreground">
+          <span className="truncate text-(length:--text-body) leading-(--text-body--line-height) font-semibold text-foreground">
             {translate(locale, 'ai.workspace.title')}
           </span>
         )}
@@ -148,7 +148,7 @@ function ConversationTitleEditor({
           if (event.key === 'Escape') cancel()
         }}
         aria-label={translate(locale, 'ai.workspace.renameChat')}
-        className="h-7 min-w-0 flex-1 px-2 text-[12px]"
+        className="h-7 min-w-0 flex-1 px-2 text-(length:--text-small) leading-(--text-small--line-height)"
         autoFocus
       />
       <Check size={14} className="shrink-0 text-muted-foreground" />
@@ -251,7 +251,7 @@ function ConversationRow({
           variant="ghost"
           size="sm"
           className={cn(
-            'min-w-0 flex-1 justify-start gap-2 rounded-md px-2 pr-2 text-left text-[12px] transition-[padding] group-hover:pr-8 group-focus-within:pr-8',
+            'min-w-0 flex-1 justify-start gap-2 rounded-md px-2 pr-2 text-left text-(length:--text-small) leading-(--text-small--line-height) transition-[padding] group-hover:pr-8 group-focus-within:pr-8',
             active ? 'bg-accent text-foreground' : 'text-muted-foreground hover:text-foreground',
           )}
           aria-pressed={active}
@@ -301,7 +301,7 @@ function ConversationList({
     : translate(locale, 'ai.workspace.noActiveChats')
 
   if (visibleConversations.length === 0) {
-    return <div className="px-2 py-4 text-[12px] text-muted-foreground">{emptyLabel}</div>
+    return <div className="px-2 py-4 text-(length:--text-small) leading-(--text-small--line-height) text-muted-foreground">{emptyLabel}</div>
   }
 
   return visibleConversations.map((conversation) => (
@@ -335,7 +335,7 @@ function ArchivedConversationsToggle({
         type="button"
         variant="ghost"
         size="sm"
-        className="w-full justify-start text-[12px] text-muted-foreground"
+        className="w-full justify-start text-(length:--text-small) leading-(--text-small--line-height) text-muted-foreground"
         onClick={() => setShowArchived(!showArchived)}
       >
         <Archive size={16} />

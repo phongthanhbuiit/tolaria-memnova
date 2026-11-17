@@ -150,16 +150,14 @@ function DetailBlock({ label, content, isError }: {
   return (
     <div style={{ marginTop: 6 }}>
       <div
-        className="text-muted-foreground"
-        style={{ fontSize: 10, fontWeight: 600, marginBottom: 2 }}
+        className="text-muted-foreground text-(length:--text-caption) leading-(--text-caption--line-height)"
+        style={{ fontWeight: 600, marginBottom: 2 }}
       >
         {label}
       </div>
-      <pre
+      <pre className="text-(length:--text-caption) leading-(--text-caption--line-height)"
         data-testid={`detail-${label.toLowerCase()}`}
         style={{
-          fontSize: 11,
-          lineHeight: 1.4,
           margin: 0,
           padding: '4px 6px',
           borderRadius: 4,
@@ -235,9 +233,8 @@ export function AiActionCard({
   return (
     <div
       data-testid="ai-action-card"
-      className="rounded"
+      className="rounded text-(length:--text-small) leading-(--text-small--line-height)"
       style={{
-        fontSize: 12,
         background: TOOL_BACKGROUND_BY_NAME.get(tool) ?? DEFAULT_ACTION_CARD_BACKGROUND,
       }}
     >
