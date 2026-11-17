@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import { ArrowCounterClockwise } from '@phosphor-icons/react'
 import type { GitCommit } from '../../types'
 
@@ -16,23 +17,23 @@ export function GitHistoryPanel({ commits, onViewCommitDiff }: { commits: GitCom
 
   return (
     <div>
-      <h4 className="font-mono-overline mb-2 flex items-center gap-1 text-muted-foreground">
+      <h4 className="text-caption font-medium tracking-wide mb-2 flex items-center gap-1 text-text-secondary">
         <ArrowCounterClockwise size={12} className="shrink-0" />
         History
       </h4>
       <div className="flex flex-col gap-2.5">
         {commits.map((c) => (
           <div key={c.hash} style={{ borderLeft: '2px solid var(--border)', paddingLeft: 10 }}>
-            <button type="button"
-              className="mb-0.5 w-full cursor-pointer truncate border-none bg-transparent p-0 text-left text-xs text-primary hover:underline"
+            <Button variant="ghost" size="sm" type="button"
+              className="mb-0.5 w-full justify-start cursor-pointer truncate border-none bg-transparent p-0 text-left text-body text-primary hover:underline"
               onClick={() => onViewCommitDiff?.(c.hash)}
               title={`View diff for ${c.shortHash}`}
             >
-              <span className="font-mono" style={{ fontSize: 11 }}>{c.shortHash}</span>
+              <span className="font-mono text-caption">{c.shortHash}</span>
               {' · '}
               {c.message}
-            </button>
-            <div className="text-muted-foreground" style={{ fontSize: 10 }}>
+            </Button>
+            <div className="text-small text-text-secondary">
               {formatRelativeDate(c.date)}
             </div>
           </div>
