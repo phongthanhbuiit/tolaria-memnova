@@ -371,7 +371,7 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
                     </span>
                   )}
                   {isVocabulary && level && (
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--accent-orange-light)] text-[var(--accent-orange)] border border-[var(--accent-orange)]/10 font-bold uppercase">
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--accent-orange-light)] text-[var(--accent-orange)] border border-[var(--accent-orange)]/10 font-semibold uppercase">
                       {level}
                     </span>
                   )}
@@ -627,7 +627,7 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
         createPortal(
           <div
             key={f.id}
-            className="xp-float pointer-events-none fixed z-[9999] text-sm font-black text-[var(--accent-blue)] select-none"
+            className="xp-float pointer-events-none fixed z-[9999] text-sm font-semibold text-[var(--accent-blue)] select-none"
             style={{ left: f.x, top: f.y - 20 }}
           >
             +{f.xp} XP ✨
