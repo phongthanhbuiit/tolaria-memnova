@@ -1,0 +1,64 @@
+{
+  "node": "24.12.0",
+  "lint": 0,
+  "types": 0,
+  "test": {
+    "exitCode": 0,
+    "files": 504,
+    "passed": 5007
+  },
+  "frontend_coverage": {
+    "exitCode": 0,
+    "lines": 87.5,
+    "minimum": 70
+  },
+  "build": 0,
+  "cargo_test": {
+    "exitCode": 0,
+    "passed": 1241,
+    "threads": 1
+  },
+  "cargo_coverage": {
+    "exitCode": 0,
+    "lines": 86.4,
+    "minimum": 85,
+    "no_clean": true,
+    "threads": 1
+  },
+  "localization": {
+    "exitCode": 0,
+    "catalogs": 18,
+    "keys": 1042,
+    "method": "manual translations after Lara missing credentials"
+  },
+  "webkit_D3": {
+    "exitCode": 0,
+    "passed": 2,
+    "retries": 0
+  },
+  "chromium_D3": {
+    "exitCode": 0,
+    "passed": 2,
+    "retries": 0
+  },
+  "core_smoke_final": {
+    "exitCode": 0,
+    "passed": 54,
+    "actual_retries": 0,
+    "minutes": 4.6
+  },
+  "pre_push_final": {
+    "exitCode": 0,
+    "seconds": 510,
+    "main": "652b29af"
+  },
+  "CodeScene": "not run (optional integration unavailable)",
+  "Codacy": {
+    "exitCode": 1,
+    "before": 66,
+    "after": 65,
+    "new_critical_high": 0,
+    "limitation": "baseline Opengrep syntax error for BreadcrumbBar; fileNotAnalyzed"
+  },
+  "known_open": "R-08; broader regression45 passed+3 flaky; independent baseline3 passed/current1 passed2 failed, no retries"
+}

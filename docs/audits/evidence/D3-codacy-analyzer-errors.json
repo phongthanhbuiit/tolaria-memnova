@@ -1,0 +1,24 @@
+{
+  "before": [
+    {
+      "toolId": "Semgrep",
+      "phase": "toolInvoke",
+      "kind": "Syntax error",
+      "message": "Syntax error `import { memo, useCallback, useEffect, useImperativeHandle, \u2026`Due ${fsrsDueDate}`return ( <div className=\"flex items-center gap-1\"> <ActionTo\u2026` was unexpected",
+      "level": "warning",
+      "filePath": "src/components/BreadcrumbBar.tsx",
+      "fileNotAnalyzed": true
+    }
+  ],
+  "after": [
+    {
+      "toolId": "Semgrep",
+      "phase": "toolInvoke",
+      "kind": "Syntax error",
+      "message": "Syntax error `import { memo, useCallback, useEffect, useImperativeHandle, \u2026` was unexpected",
+      "level": "warning",
+      "filePath": "src/components/BreadcrumbBar.tsx",
+      "fileNotAnalyzed": true
+    }
+  ]
+}

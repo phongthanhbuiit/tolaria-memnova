@@ -1,0 +1,80 @@
+[2m[WebServer] [22m(node:46164) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:46193) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 3 tests using 1 worker
+
+(node:46202) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:46202) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [chromium] › tests/smoke/create-note-default-properties.spec.ts:4:1 › keyboard-created notes omit default status metadata @smoke (8.7s)
+(node:46345) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:46345) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [chromium] › tests/smoke/new-note-heading-paste-regression.spec.ts:122:1 › new-note first typing and rich heading paste remain stable through saves (14.9s)
+(node:46469) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:46469) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  3 [chromium] › tests/smoke/new-note-immediate-editability.spec.ts:54:1 › the New Note command from Home opens a focused plain Markdown note (8.1s)
+
+
+  1) [chromium] › tests/smoke/create-note-default-properties.spec.ts:4:1 › keyboard-created notes omit default status metadata @smoke 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveAttribute[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByTestId('breadcrumb-filename-trigger')
+    Expected pattern: [32m/untitled-note-\d+/i[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toHaveAttribute" with timeout 5000ms[22m
+    [2m  - waiting for getByTestId('breadcrumb-filename-trigger')[22m
+
+
+       7 |
+       8 |   await page.keyboard.press('Meta+n')
+    >  9 |   await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', /untitled-note-\d+/i, { timeout: 5_000 })
+         |                                                                 ^
+      10 |
+      11 |   await openCommandPalette(page)
+      12 |   await executeCommand(page, 'Toggle Raw')
+        at /Users/thompson/Documents/tolaria-memnova/tests/smoke/create-note-default-properties.spec.ts:9:65
+
+    Error Context: test-results/create-note-default-proper-d574c-fault-status-metadata-smoke-chromium/error-context.md
+
+  2) [chromium] › tests/smoke/new-note-heading-paste-regression.spec.ts:122:1 › new-note first typing and rich heading paste remain stable through saves 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('.bn-editor [data-content-type="heading"]').first()
+    Expected substring: [32m"Sentry Fresh Paste G[7muard[27m Rich Paste Payload"[39m
+    Received string:    [31m"Sentry Fresh Paste G Rich Paste Payload[7muard[27m"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for locator('.bn-editor [data-content-type="heading"]').first()[22m
+    [2m    9 × locator resolved to <div dir="auto" class="bn-block-content" data-content-type="heading">…</div>[22m
+    [2m      - unexpected value "Sentry Fresh Paste G Rich Paste Payloaduard"[22m
+
+
+      143 |     html: '<h1>Rich <em>Paste</em> Payload</h1><table><tr><td>structured</td></tr></table>',
+      144 |   })
+    > 145 |   await expect(titleHeading).toContainText('Sentry Fresh Paste Guard Rich Paste Payload')
+          |                              ^
+      146 |
+      147 |   await page.keyboard.press('Enter')
+      148 |   await page.keyboard.type('Editing continues after the heading paste.', { delay: 30 })
+        at /Users/thompson/Documents/tolaria-memnova/tests/smoke/new-note-heading-paste-regression.spec.ts:145:30
+
+    Error Context: test-results/new-note-heading-paste-reg-c4f98-remain-stable-through-saves-chromium/error-context.md
+
+  2 failed
+    [chromium] › tests/smoke/create-note-default-properties.spec.ts:4:1 › keyboard-created notes omit default status metadata @smoke 
+    [chromium] › tests/smoke/new-note-heading-paste-regression.spec.ts:122:1 › new-note first typing and rich heading paste remain stable through saves 
+  1 passed (35.8s)

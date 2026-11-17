@@ -1,0 +1,21 @@
+[2m[WebServer] [22m(node:49743) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:49767) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 1 test using 1 worker
+
+(node:49783) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:49783) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+D3 layout {
+  [32m'.editor'[39m: { x: [33m550[39m, y: [33m0[39m, width: [33m730[39m, height: [33m688[39m },
+  [32m'.bn-editor'[39m: { x: [33m595[39m, y: [33m63[39m, width: [33m640[39m, height: [33m218.390625[39m },
+  [32m'.bn-editor [data-content-type=heading]'[39m: { x: [33m603[39m, y: [33m115[39m, width: [33m640[39m, height: [33m44.390625[39m }
+}
+D3 click { offset: [33m20[39m, text: [32m'Sentry Fresh Paste Guard'[39m }
+D3 End { offset: [33m24[39m, text: [32m'Sentry Fresh Paste Guard'[39m }
+  ✓  1 [chromium] › tests/smoke/new-note-heading-paste-regression.spec.ts:122:1 › new-note first typing and rich heading paste remain stable through saves (14.2s)
+
+  1 passed (17.1s)

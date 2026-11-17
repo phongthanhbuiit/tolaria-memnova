@@ -1,0 +1,188 @@
+🔍 Pre-commit checks...
+  → Changed-file lint
+  → Changed integration tests
+[2m[WebServer] [22m(node:36541) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:36576) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 12 tests using 1 worker
+
+(node:36590) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:36590) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/integration/capture-excerpt.spec.ts:25:1 › capture from the palette validates the URL, cancels cleanly, and creates exactly one ordinary note (5.1s)
+  ✓   2 [chromium] › tests/integration/capture-excerpt.spec.ts:53:1 › save a selection from the formatting toolbar without modifying or leaving its source (3.4s)
+  ✓   3 [chromium] › tests/integration/capture-excerpt.spec.ts:81:3 › a new excerpt returns to its exact source after editing around duplicate filenames with wiki delimiters (6.3s)
+  ✓   4 [chromium] › tests/integration/capture-excerpt.spec.ts:81:3 › a previously saved excerpt returns to its exact source after editing around duplicate filenames with wiki delimiters (5.3s)
+  ✓   5 [chromium] › tests/integration/vault-workflows.spec.ts:50:1 › vault loads entries from fixture files @smoke (2.8s)
+  ✓   6 [chromium] › tests/integration/vault-workflows.spec.ts:66:1 › archived note does not appear in All Notes (2.3s)
+  ✓   7 [chromium] › tests/integration/vault-workflows.spec.ts:79:1 › permanently deleted note does not appear in All Notes (4.3s)
+  ✓   8 [chromium] › tests/integration/vault-workflows.spec.ts:96:1 › create note saves file to disk with correct slug (2.5s)
+  ✓   9 [chromium] › tests/integration/vault-workflows.spec.ts:125:1 › rename note updates filename on disk (2.8s)
+  ✓  10 [chromium] › tests/integration/vault-workflows.spec.ts:148:1 › rename note updates wikilinks in other files (2.9s)
+  ✓  11 [chromium] › tests/integration/vault-workflows.spec.ts:170:1 › inspector shows relationships for note with wikilink fields (2.8s)
+  ✓  12 [chromium] › tests/integration/vault-workflows.spec.ts:184:1 › editor shows real file content from disk (2.8s)
+
+  12 passed (45.8s)
+  → Changed browser tests
+[2m[WebServer] [22m(node:37200) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:37232) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 48 tests using 1 worker
+
+(node:37241) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37241) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [chromium] › tests/smoke/breadcrumb-filename-rename.spec.ts:60:1 › @smoke Cmd+S preserves the existing filename until the explicit breadcrumb sync action (5.3s)
+  ✓   2 [chromium] › tests/smoke/create-note-backing-file.spec.ts:137:1 › @smoke creating a note writes its backing file before reload can read it (2.8s)
+  ✓   3 [chromium] › tests/smoke/create-note-backing-file.spec.ts:158:1 › @smoke rapid note creation waits for each backing file write (4.3s)
+  ✓   4 [chromium] › tests/smoke/create-note-crash.spec.ts:8:1 › create note via Cmd+N does not crash (12.0s)
+  ✓   5 [chromium] › tests/smoke/create-note-crash.spec.ts:25:1 › create note via sidebar + button does not crash (13.1s)
+  ✘   6 [chromium] › tests/smoke/create-note-default-properties.spec.ts:4:1 › keyboard-created notes omit default status metadata @smoke (7.2s)
+(node:37711) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:37711) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   7 [chromium] › tests/smoke/create-note-default-properties.spec.ts:4:1 › keyboard-created notes omit default status metadata @smoke (retry #1) (5.2s)
+  ✓   8 [chromium] › tests/smoke/deep-link-routing.spec.ts:46:1 › command palette copies and opens a Tolaria item deep link (3.2s)
+  ✓   9 [chromium] › tests/smoke/h1-auto-rename-setting.spec.ts:26:1 › @smoke disabling H1 auto-rename keeps untitled filenames until manual sync (6.0s)
+  ✓  10 [chromium] › tests/smoke/h1-untitled-auto-rename.spec.ts:204:1 › @smoke new-note H1 auto-rename keeps the editor usable and leaves no untitled duplicates (33.6s)
+  ✓  11 [chromium] › tests/smoke/h1-untitled-auto-rename.spec.ts:256:1 › @smoke new-note short title typing stays in the H1 until Enter (10.2s)
+  ✓  12 [chromium] › tests/smoke/h1-untitled-auto-rename.spec.ts:289:1 › @smoke new-note typing stays focused through initial save settlement (12.0s)
+  ✓  13 [chromium] › tests/smoke/h1-untitled-auto-rename.spec.ts:309:1 › @smoke new-note editor mode roundtrip stays editable after auto-rename (13.1s)
+  ✓  14 [chromium] › tests/smoke/h1-untitled-auto-rename.spec.ts:347:1 › @smoke new-note H1 auto-rename preserves body typing and cursor while rename lands (15.9s)
+  ✓  15 [chromium] › tests/smoke/h1-untitled-auto-rename.spec.ts:383:1 › @smoke fresh-note Enter stays stable after autosave and editor chrome clicks (17.2s)
+  ✓  16 [chromium] › tests/smoke/h1-untitled-auto-rename.spec.ts:419:1 › @smoke new-note H1 auto-rename does not recreate the untitled file when a buffered save lands after rename (9.6s)
+  ✓  17 [chromium] › tests/smoke/keyboard-command-routing.spec.ts:111:3 › keyboard command routing › desktop menu-command bridge creates a note through the shared command path @smoke (2.5s)
+  ✓  18 [chromium] › tests/smoke/keyboard-command-routing.spec.ts:122:3 › keyboard command routing › desktop menu-command bridge toggles the properties panel through the shared command path @smoke (2.7s)
+  ✓  19 [chromium] › tests/smoke/keyboard-command-routing.spec.ts:129:3 › keyboard command routing › desktop keyboard shortcut toggles the properties panel through the renderer shortcut path @smoke (2.7s)
+  ✓  20 [chromium] › tests/smoke/keyboard-command-routing.spec.ts:136:3 › keyboard command routing › desktop shortcut bridge opens quick open through both Cmd+P and Cmd+O @smoke (2.6s)
+  ✓  21 [chromium] › tests/smoke/keyboard-command-routing.spec.ts:169:3 › keyboard command routing › global search arrow keys move one result at a time @smoke (3.8s)
+  ✓  22 [chromium] › tests/smoke/keyboard-command-routing.spec.ts:200:3 › keyboard command routing › desktop menu-command bridge toggles organized state through the shared command path @smoke (2.8s)
+  ✓  23 [chromium] › tests/smoke/keyboard-command-routing.spec.ts:212:3 › keyboard command routing › text history keeps priority while app command bridge undoes and redoes organization outside the editor @smoke (3.0s)
+  ✓  24 [chromium] › tests/smoke/keyboard-command-routing.spec.ts:233:3 › keyboard command routing › renderer shortcut bridge toggles the raw editor through the shared keyboard handler @smoke (2.8s)
+  ✓  25 [chromium] › tests/smoke/keyboard-command-routing.spec.ts:257:3 › keyboard command routing › desktop menu-command bridge toggles the AI panel, while the wrong modifier event does not @smoke (2.9s)
+  ✓  26 [chromium] › tests/smoke/multibyte-search-snippet.spec.ts:42:3 › Multibyte note-list search › searching content near Korean text keeps the result openable @smoke (2.9s)
+  ✓  27 [chromium] › tests/smoke/multibyte-search-snippet.spec.ts:58:3 › Multibyte note-list search › opening CRLF Chinese table content keeps the note searchable @smoke (2.9s)
+  ✘  28 [chromium] › tests/smoke/new-note-heading-paste-regression.spec.ts:122:1 › new-note first typing and rich heading paste remain stable through saves (15.0s)
+(node:39361) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:39361) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  29 [chromium] › tests/smoke/new-note-heading-paste-regression.spec.ts:122:1 › new-note first typing and rich heading paste remain stable through saves (retry #1) (11.7s)
+  ✘  30 [chromium] › tests/smoke/new-note-immediate-editability.spec.ts:54:1 › the New Note command from Home opens a focused plain Markdown note (7.7s)
+(node:39528) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:39528) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  31 [chromium] › tests/smoke/new-note-immediate-editability.spec.ts:54:1 › the New Note command from Home opens a focused plain Markdown note (retry #1) (7.8s)
+  ✓  32 [chromium] › tests/smoke/new-note-immediate-editability.spec.ts:68:1 › @smoke newly created notes stay editable before any reselection (8.6s)
+  ✓  33 [chromium] › tests/smoke/new-note-immediate-editability.spec.ts:99:1 › @smoke untouched newly created notes can be renamed and updated before reselection (3.0s)
+  ✓  34 [chromium] › tests/smoke/new-note-title-caret-click.spec.ts:66:1 › @smoke clicking an untitled title wrapper restores the caret to the H1 (2.6s)
+  ✓  35 [chromium] › tests/smoke/note-list-search-visible-content.spec.ts:88:3 › Note-list search visible content › keyboard note-list search matches title, snippet, and visible property values @smoke (4.2s)
+  ✓  36 [chromium] › tests/smoke/note-list-search-visible-content.spec.ts:97:3 › Note-list search visible content › keyboard note-list search finds body-only content matches @smoke (3.0s)
+  ✓  37 [chromium] › tests/smoke/note-status-indicator-stability.spec.ts:66:1 › new note status indicator stays steady through typing and autosave (6.4s)
+  ✓  38 [chromium] › tests/smoke/quick-open-create-note.spec.ts:35:1 › quick open creates a note when the typed title has no matches @smoke (2.6s)
+  ✓  39 [chromium] › tests/smoke/quick-open-create-note.spec.ts:56:1 › quick open returns from Home to an existing note even if it was the last open note (2.6s)
+  ✓  40 [chromium] › tests/smoke/rich-editor-reload-typing.spec.ts:315:1 › @smoke typing after a rich-editor reload and note switch stays usable (10.7s)
+  ✓  41 [chromium] › tests/smoke/rich-editor-reload-typing.spec.ts:344:1 › @smoke rich-editor typing stays usable through repeated saves and transforms (4.9s)
+  ✓  42 [chromium] › tests/smoke/rich-editor-reload-typing.spec.ts:371:1 › typing after current-note filesystem refresh stays usable (6.7s)
+  ✓  43 [chromium] › tests/smoke/rich-editor-reload-typing.spec.ts:393:1 › editing after create-note pull reload and note switch avoids React update loops (13.1s)
+  ✓  44 [chromium] › tests/smoke/rich-editor-reload-typing.spec.ts:426:1 › checklist toggles after a rich-editor reload ignore stale checkbox events (6.4s)
+  ✓  45 [chromium] › tests/smoke/rich-editor-reload-typing.spec.ts:453:1 › clicking back into a blockquote after media and frontmatter reload stays usable (7.0s)
+  ✓  46 [chromium] › tests/smoke/save-before-note-switch.spec.ts:201:1 › @smoke switching notes persists unsaved raw edits without waiting for the debounce window (3.9s)
+  ✓  47 [chromium] › tests/smoke/save-before-note-switch.spec.ts:222:1 › @smoke switching notes during a slow rich-editor save writes once and opens the latest note (4.2s)
+  ✓  48 [chromium] › tests/smoke/save-before-note-switch.spec.ts:256:1 › @smoke deleting a property after switching notes keeps the current note editable (3.7s)
+  ✓  49 [chromium] › tests/smoke/type-create-note.spec.ts:16:1 › clicking + in type section creates note with that type (2.7s)
+  ✓  50 [chromium] › tests/smoke/type-create-note.spec.ts:38:1 › clicking + in All Notes creates generic note (2.7s)
+  ✓  51 [chromium] › tests/smoke/type-derived-properties.spec.ts:59:3 › Type-derived instance properties › type schema placeholders stay visible and valued defaults seed new instances @smoke (3.3s)
+
+
+  1) [chromium] › tests/smoke/create-note-default-properties.spec.ts:4:1 › keyboard-created notes omit default status metadata @smoke 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoHaveAttribute[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: getByTestId('breadcrumb-filename-trigger')
+    Expected pattern: [32m/untitled-note-\d+/i[39m
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toHaveAttribute" with timeout 5000ms[22m
+    [2m  - waiting for getByTestId('breadcrumb-filename-trigger')[22m
+
+
+       7 |
+       8 |   await page.keyboard.press('Meta+n')
+    >  9 |   await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', /untitled-note-\d+/i, { timeout: 5_000 })
+         |                                                                 ^
+      10 |
+      11 |   await openCommandPalette(page)
+      12 |   await executeCommand(page, 'Toggle Raw')
+        at /Users/thompson/Documents/tolaria-memnova/tests/smoke/create-note-default-properties.spec.ts:9:65
+
+    Error Context: test-results/create-note-default-proper-d574c-fault-status-metadata-smoke-chromium/error-context.md
+
+  2) [chromium] › tests/smoke/new-note-heading-paste-regression.spec.ts:122:1 › new-note first typing and rich heading paste remain stable through saves 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoContainText[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Locator: locator('.bn-editor [data-content-type="heading"]').first()
+    Expected substring: [32m"Sentry Fresh Paste G[7muard[27m Rich Paste Payload"[39m
+    Received string:    [31m"Sentry Fresh Paste G Rich Paste Payload[7muard[27m"[39m
+    Timeout: 5000ms
+
+    Call log:
+    [2m  - Expect "toContainText" with timeout 5000ms[22m
+    [2m  - waiting for locator('.bn-editor [data-content-type="heading"]').first()[22m
+    [2m    9 × locator resolved to <div dir="auto" class="bn-block-content" data-content-type="heading">…</div>[22m
+    [2m      - unexpected value "Sentry Fresh Paste G Rich Paste Payloaduard"[22m
+
+
+      143 |     html: '<h1>Rich <em>Paste</em> Payload</h1><table><tr><td>structured</td></tr></table>',
+      144 |   })
+    > 145 |   await expect(titleHeading).toContainText('Sentry Fresh Paste Guard Rich Paste Payload')
+          |                              ^
+      146 |
+      147 |   await page.keyboard.press('Enter')
+      148 |   await page.keyboard.type('Editing continues after the heading paste.', { delay: 30 })
+        at /Users/thompson/Documents/tolaria-memnova/tests/smoke/new-note-heading-paste-regression.spec.ts:145:30
+
+    Error Context: test-results/new-note-heading-paste-reg-c4f98-remain-stable-through-saves-chromium/error-context.md
+
+  3) [chromium] › tests/smoke/new-note-immediate-editability.spec.ts:54:1 › the New Note command from Home opens a focused plain Markdown note 
+
+    Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoContain[2m([22m[32mexpected[39m[2m) // indexOf[22m
+
+    Expected substring: [32m"Ideas from the train."[39m
+    Received string:    [31m""[39m
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+      62 |   await page.keyboard.type('Ideas from the train.')
+      63 |   const written = path.join(tempVaultDir, 'ordinary-journal.md')
+    > 64 |   await expect.poll(() => fs.existsSync(written) ? fs.readFileSync(written, 'utf8') : '').toContain('Ideas from the train.')
+         |   ^
+      65 |   expect(fs.readFileSync(written, 'utf8')).not.toContain('_memnova_learning_enabled: true')
+      66 | })
+      67 |
+        at /Users/thompson/Documents/tolaria-memnova/tests/smoke/new-note-immediate-editability.spec.ts:64:3
+
+    Error Context: test-results/new-note-immediate-editabi-ebfeb-focused-plain-Markdown-note-chromium/error-context.md
+
+  3 flaky
+    [chromium] › tests/smoke/create-note-default-properties.spec.ts:4:1 › keyboard-created notes omit default status metadata @smoke 
+    [chromium] › tests/smoke/new-note-heading-paste-regression.spec.ts:122:1 › new-note first typing and rich heading paste remain stable through saves 
+    [chromium] › tests/smoke/new-note-immediate-editability.spec.ts:54:1 › the New Note command from Home opens a focused plain Markdown note 
+  45 passed (5.9m)
+✅ Pre-commit passed
+🏥 CodeScene code health check...
+  ⚠️  CODESCENE_PAT or CODESCENE_PROJECT_ID not set — not run (optional integration unavailable)
+[main 1f783df5] fixup! fix: F-009 show note titles in breadcrumb
+ 21 files changed, 48 insertions(+), 47 deletions(-)

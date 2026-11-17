@@ -5,7 +5,7 @@
     "legacyType": "\\btext-(?:xs|sm|base|lg|xl|[2-9]xl)\\b",
     "heightWidthLiteral": "(?<![\\w-])(?:min-|max-)?[hw]-(?:\\d+(?:\\.\\d+)?|\\[[^\\]]*\\d[^\\]]*\\])",
     "radius": "\\brounded(?:-[\\w\\[\\].]+)?|borderRadius:",
-    "nonTokenTextColor": "\\btext-(?:white|black|(?:gray|slate|zinc|neutral|stone|red|green|blue|purple|amber|yellow|orange)-\\d+)|(?:\\bcolor:\\s*[\\'\\\"](?:#|rgb|hsl))"
+    "nonTokenTextColor": "\\btext-(?:white|black|(?:gray|slate|zinc|neutral|stone|red|green|blue|purple|violet|indigo|fuchsia|pink|rose|emerald|teal|cyan|sky|amber|yellow|orange)-\\d+)|(?:\\bcolor:\\s*[\\'\\\"](?:#|rgb|hsl))"
   },
   "results": [
     {
@@ -15,7 +15,7 @@
         "legacyType": 5,
         "heightWidthLiteral": 11,
         "radius": 3,
-        "nonTokenTextColor": 0,
+        "nonTokenTextColor": 2,
         "radiusOffScale": 1,
         "controlHard": 1,
         "controlHardLines": [
@@ -204,7 +204,7 @@
         "legacyType": 2,
         "heightWidthLiteral": 0,
         "radius": 3,
-        "nonTokenTextColor": 0,
+        "nonTokenTextColor": 1,
         "radiusOffScale": 0,
         "controlHard": 0,
         "controlHardLines": []

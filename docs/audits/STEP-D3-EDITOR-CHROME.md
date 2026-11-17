@@ -35,11 +35,11 @@ Native tái hiện placeholder Heading đậm nghiêng như H1 thật. RED WebKi
 
 ## Trạng thái
 
-F-036 và breadcrumb F-009 đã commit. F-018 có mã/ảnh/test dưới đây; kết quả release và push sẽ ghi sau khi hook kết thúc.
+F-036 và F-018 fixed; F-009 chỉ phần breadcrumb fixed, đặt tên mới vẫn ngoài D3. Mã và QA chrome hoàn tất; R-08 được ghi riêng, chưa phân loại được nguồn flaky của ba regression create/paste ngoài chrome. Không tuyên bố các ca đó ổn định hoặc đã sửa nhập liệu native.
 
 ## F-009 — chỉ breadcrumb
 
-RED 3/4 ca fail khi trigger vẫn hiện slug; GREEN 108/108 test liên quan. Tiêu đề hiện tại H1/frontmatter được ưu tiên, rồi metadata, rồi fallback filename. Draft đổi tên vẫn stem gốc; Escape không ghi, Enter gọi đúng path/stem, entry không đổi. Tạo ghi chú, slugify và đồng bộ tên file giữ nguyên. Native xác nhận tiêu đề hiển thị thay slug, bằng chứng D3-F009-after-native.png. SPEC8 193→193 / 0→0; chỉ sửa hiển thị, chưa đổi typography.
+RED 3/4 ca fail khi trigger vẫn hiện slug; GREEN 108/108 test liên quan. Tiêu đề hiện tại H1/frontmatter được ưu tiên, rồi metadata, rồi fallback filename. Draft đổi tên vẫn stem gốc; Escape không ghi, Enter gọi đúng path/stem, entry không đổi. Tạo ghi chú, slugify và đồng bộ tên file giữ nguyên. Native xác nhận tiêu đề hiển thị thay slug, bằng chứng D3-F009-after-native.png. SPEC8 193→193 / 0→0 trong commit F-009; token typography thuộc F-018. Tên trợ năng cũng theo đúng tiêu đề nhìn thấy qua aria-labelledby; hướng dẫn filename/Enter đã dịch là description riêng qua aria-describedby và sr-only, giữ aria-label fallback đang được consumer dùng để nhận diện file. RED tên trợ năng còn là filename → GREEN tên là tiêu đề và description giữ stem. Không đặt hint trong tên accessible hoặc trong text của nút. Native cuối xác nhận button mang tiêu đề, double-click vẫn mở stem thật, Escape huỷ; bằng chứng D3-native-accessible-title.ax.txt và D3-accessible-title-after-native.png. Không chạy VoiceOver trực tiếp; đã kiểm native AX, Playwright name/description và keyboard.
 
 ## F-018 — công cụ và token chrome
 
@@ -57,7 +57,7 @@ Token: caption/small/body/body-lg; hint chọn note 15→body-lg 14; empty frame
 
 | File (src/components/) | SPEC8 chữ | Cỡ cũ | Control h/w | H/w thô | Radius lẻ | Màu literal |
 |---|---:|---:|---:|---:|---:|---:|
-| `BreadcrumbBar.tsx` | 6→0 | 5→0 | 1→0 | 11→9 | 1→0 | 0→0 |
+| `BreadcrumbBar.tsx` | 6→0 | 5→0 | 1→0 | 11→9 | 1→0 | 2→0 |
 | `Editor.tsx` | 1→0 | 2→0 | 0→0 | 2→2 | 0→0 | 0→0 |
 | `editor-content/EditorContentLayout.tsx` | 1→0 | 4→0 | 0→0 | 10→10 | 5→0 | 0→0 |
 | `StatusBar.tsx` | 1→0 | 0→0 | 0→0 | 0→0 | 0→0 | 0→0 |
@@ -65,12 +65,14 @@ Token: caption/small/body/body-lg; hint chọn note 15→body-lg 14; empty frame
 | `ConflictNoteBanner.tsx` | 3→0 | 0→0 | 0→0 | 0→0 | 2→0 | 0→0 |
 | `RawEditorFindBar.tsx` | 0→0 | 3→0 | 2→0 | 5→5 | 2→0 | 0→0 |
 | `NoteMemoryEditorTabs.tsx` | 0→0 | 0→0 | 0→0 | 2→2 | 0→0 | 0→0 |
-| `FlashcardEditorTabs.tsx` | 1→0 | 2→0 | 0→0 | 0→0 | 0→0 | 0→0 |
+| `FlashcardEditorTabs.tsx` | 1→0 | 2→0 | 0→0 | 0→0 | 0→0 | 1→0 |
 | `status-bar/StatusBarBadges.tsx` | 5→0 | 0→0 | 2→0 | 2→1 | 5→0 | 0→0 |
 | `status-bar/StatusBarSections.tsx` | 4→0 | 0→0 | 0→0 | 3→1 | 0→0 | 0→0 |
 | `status-bar/VaultMenu.tsx` | 7→0 | 2→0 | 1→0 | 6→3 | 1→0 | 0→0 |
 | `status-bar/AiAgentsBadge.tsx` | 2→0 | 2→0 | 0→0 | 3→1 | 0→0 | 0→0 |
 | `status-bar/styles.ts` | 0→0 | 0→0 | 0→0 | 0→0 | 0→0 | 0→0 |
+
+Kiểm kê màu đầu dùng regex palette hẹp nên bỏ sót violet. Bảng cuối mở rộng palette, đọc lại đúng nguồn baseline bất biến 707bac53: BreadcrumbBar 2 dòng và FlashcardEditorTabs 1 dòng màu chữ literal, nay đều 0. Giữ nguyên D3-before-counts.json làm bản ghi thô ban đầu; D3-counts.json là bảng đối chiếu đã hiệu chỉnh, không đổi baseline hoặc giấu mẫu grep.
 
 SPEC §8 toàn src: **193→160** typography, **0→0** CSS data-slot; D3 typography **33→0**. Không thêm important, data-slot override, dependency, retry, skip hoặc timeout. Giữ mọi assertion hành vi; các assertion yêu cầu slug/cỡ cũ được cập nhật đúng hợp đồng UI mới và có regression riêng giữ filename/handlers.
 
@@ -103,10 +105,40 @@ Codacy CLI 0.24.0, config auto/SARIF ở /tmp, không upload: ESLint9 0 issue, T
 
 Localization: 14 khóa mới trong en, dịch trực tiếp đủ locale sau khi Lara thiếu credentials; l10n:validate pass. PostHog: không cần event mới vì chỉ đổi cách trình bày/nhãn của thao tác sẵn có. Refactoring: chỉ chuyển control chrome sang shadcn có sẵn, không tạo abstraction mới. ADR: không có; ADR-0068/0143/0144 giữ nguyên. Docs: ABSTRACTIONS cập nhật surface breadcrumb, CURRENT-STATE cập nhật D3. D4 không làm.
 
-### Modern Web Guidance
-
-Đã search/retrieve toolbar và interest-triggered-tooltips bằng query tập trung; không legacy-scan. Áp dụng toolbar “Icon-only buttons need an `aria-label`” và tooltip “Do not override author ARIA”: aria-label là tên đã dịch, tooltip bổ sung shortcut, không thay tên accessible. Giữ ActionTooltip/Radix có hover/focus/Escape và collision handling cho WKWebView; interestFor chưa được Safari hỗ trợ, không thêm polyfill/dependency trong đêm. Hướng dẫn composite toolbar đòi một tab stop/focusgroup, xung đột yêu cầu giữ phím tắt/Tab hiện có: dùng role group, giữ natural Tab thay vì tự nhận role toolbar chưa đáp ứng keyboard contract. Quyết định bảo thủ ghi trong log đêm.
-
 ## Gate phát hành
 
-Đang hoàn tất coverage/build và hook; bản ghi kết quả cuối sẽ cập nhật trước push docs.
+Node 24.12.0: pnpm lint và tsc -b exit 0; pnpm test 504 file / 5007 test pass; pnpm test:coverage pass, lines **87,50%** (ngưỡng 70%). pnpm build exit 0 (cảnh báo chunk lớn có sẵn). Rust cargo test serial **1241 passed**; cargo llvm-cov --no-clean --fail-under-lines 85 serial pass, lines **86,40%**. l10n validator pass. Pre-commit F-036/F-009/F-018 đều qua bình thường; F-018 còn chạy 2 test D3 Chromium pass.
+
+13 smoke ảnh hưởng trực tiếp bởi breadcrumb (auto-rename/save/switch/quick-open/multibyte) pass trong 2,3 phút, retries=0. Các spec dùng chữ breadcrumb làm identity filename được chuyển sang aria-label filename có sẵn, giữ đúng stem/path và mọi kiểm tra byte/file/disk/timeout. Quick-open thêm assertion tiêu đề nhìn thấy; test D3 riêng xác nhận không hiện slug. Không đổi tên ghi chú mới. Chỉ mã app trong D3; các file test ngoài D3 là consumer của hợp đồng breadcrumb, không đổi behavior app ngoài D3.
+
+Hook phát hiện hai precondition cũ ở vault-workflows; baseline 707bac53 độc lập tái hiện 2/2 lỗi (không retry). R-06 sửa test-only riêng: xác nhận cờ Trashed không ẩn note theo ADR-0045, xoá đúng file fixture sao chép rồi giữ assertion vắng mặt/Note C vẫn hiện và kiểm tra disk; mở Properties trước assertion relationships. 8/8 pass, retries=0. Không sửa app hoặc fixture gốc. Lượt hook cũ tự dùng retry=1 theo config hiện có nhưng cả hai vẫn fail; không coi retry là cách sửa. Lượt sửa pass không retry. Baseline Vite lần đầu chưa khởi động trong 60s; dùng cacheDir tạm riêng ngoài source, giữ nguyên timeout, sau đó mới lấy RED hai test thực tế.
+
+`git push origin main` lượt cuối **exit 0**, cập nhật main `707bac53→652b29af`, hook bình thường **8m30s**. Lint/build/coverage pass; **core curated 54/54, 4,6 phút, không test nào retry**, đạt ngân sách dưới5 phút. F-040 không sửa; đã flaky ở lượt push trước nhưng pass lượt cuối. Hook không chạy lại Rust vì không đổi src-tauri; kiểm tra Rust thủ công đầy đủ ở trên đã pass. CodeScene không chạy vì tích hợp chưa cấu hình.
+
+Push đầu exit1 ở hai assertion breadcrumb trong wikilink smoke mà bước cập nhật consumer đã bỏ sót: expected slug, received title, ngay precondition trước chèn/Cmd+click. Sửa đúng hợp đồng F-009: kiểm visible title và giữ stem riêng qua aria-label; giữ nguyên data-target, navigation, filename và assertion body. Focused wikilink 2/2, retries=0; gộp vào commit F-009 rồi push lại bình thường. Đây không phải bằng chứng F-039 runtime tái phát. Lượt đầu còn một F-040 pass nhờ retry cũ. [Lượt đầu](evidence/D3-pre-push-first.txt), [lượt cuối](evidence/D3-pre-push-final.txt), [wikilink không retry](evidence/D3-wikilink-contract.txt).
+
+## R-07/R-08 và giới hạn hồi quy
+
+R-07: hai ca type-create dùng mock mặc định fail trước assertion breadcrumb trên baseline 707bac53. Chuyển thiết lập sang Library filesystem/desktop fixture sẵn có, giữ nguyên kiểm tra editor/loại/frontmatter và timeout, bỏ fixed sleep; 2/2 pass không retry. Commit test riêng, không sửa app/mock. Native/input pipeline không đổi.
+
+R-08 **open, P2 — chưa xác định test/app hay liên quan D3**: lane browser rộng chạy trước khi gộp commit có 45 pass + 3 flaky (create-note-default-properties, new-note-heading-paste-regression, new-note-immediate-editability). Config retry cũ tự chạy, không thêm retry và không coi đây là pass ổn định. Ca thứ nhất chưa có breadcrumb sau Cmd+N; ca paste nhận suffix chữ sai vị trí; ca Home chưa thấy body trong file mong đợi. Probe riêng retries=0: baseline 707bac53 3/3 pass, mã cuối D3 1/3 pass (hai ca đầu fail); một probe paste có log selection lại pass và End chuyển offset20→24. Không đủ bằng chứng gọi là lỗi baseline, không kết luận End sai trên macOS hoặc đã xác định gốc. Toàn bộ log được giữ trong evidence/D3-R08-*.txt. Theo luật đêm, giữ finding mở và không sửa BlockNote/typing để mở rộng D3; core gate cuối ghi riêng bên trên. Không sửa F-040.
+
+Đã xoá đúng hai note trắng do default-mock probe sinh trong demo-vault-v2 (untitled-note-1794942136.md, untitled-note-1794942989.md), giữ fixture gốc. Kiểm cuối `git status --short -- demo-vault demo-vault-v2` và tests/fixtures rỗng; không còn instrumentation test. AGENTS và các file skill/SPEC/PLAN/OVERNIGHT-RULES của người dùng có hash giữ nguyên.
+
+## Commit
+
+- 4878968e — F-036.
+- 6b1e6200 — F-009 breadcrumb, accessible name/description và test consumer filename.
+- 247911cc — F-018, token chrome và test D3.
+- bbdaf558 — R-06, precondition regression filesystem.
+- 652b29af — R-07, fixture type-create.
+
+Các fixup đã gộp trước push trong detached checkout riêng; aggregate tree trước/sau giống hệt, không stash/ghi AGENTS hoặc các file hướng dẫn của người dùng. Mỗi finding D3 một commit. Chỉ push main với hook bình thường. Commit docs cuối chứa biên bản và log đêm.
+
+### Modern Web Guidance
+
+- **`toolbar`**: Tôi giữ tên icon qua aria-label đã dịch và chia role group theo chức năng ("Icon-only buttons need an `aria-label`"). Giữ natural Tab theo yêu cầu sản phẩm, không thêm role toolbar/focusgroup khi chưa đổi keyboard contract.
+- **`interest-triggered-tooltips`**: Tôi giữ ActionTooltip/Radix và các ARIA do control cung cấp ("Do not override author ARIA"). Nó hỗ trợ hover/focus/Escape và tránh phụ thuộc interestFor/popover hint chưa hỗ trợ Safari; không thêm dependency/polyfill.
+- **`accessibility`**: Tôi đặt aria-labelledby vào text tiêu đề và tách hướng dẫn filename thành description ("Do include a control's visible text in its accessible name"). Dùng sr-only/aria-describedby có sẵn để giữ tương thích, không đổi aria-label fallback hoặc handler rename.
+
+Đã cross-check hướng dẫn bằng search/retrieve tập trung; không legacy-scan. Không ép các API mới vào WKWebView, không tuyên bố kiểm VoiceOver hay toàn bộ accessibility của editor/vendor.

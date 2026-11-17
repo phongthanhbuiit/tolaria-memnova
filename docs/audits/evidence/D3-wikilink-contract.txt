@@ -1,0 +1,15 @@
+[2m[WebServer] [22m(node:58184) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+[2m[WebServer] [22m(node:58215) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:58225) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:58225) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [chromium] › tests/smoke/wikilink-path-fix.spec.ts:52:3 › Wikilink insertion and navigation › [[ autocomplete inserts wikilink that is not broken (7.3s)
+  ✓  2 [chromium] › tests/smoke/wikilink-path-fix.spec.ts:64:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note (6.4s)
+
+  2 passed (16.2s)

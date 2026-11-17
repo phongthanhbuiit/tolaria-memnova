@@ -22,7 +22,7 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 | F-006 | P1 | C3 | 38 phần tử form HTML thô ngoài `ui/` (vi phạm AGENTS.md) | mã | open |
 | F-007 | P2 | C4 | Thuật ngữ học tập không nhất quán (trang/ghi chú, ghi nhớ/ôn/gợi nhớ) | ảnh | open |
 | F-008 | P2 | C3 | Hai nút chính màu xanh cạnh tranh trên Trang chủ | ảnh | fixed (`70212a69`) |
-| F-009 | P2 | C1 | Ghi chú mới tên "Untitled Note 1794825081", breadcrumb hiện slug | ảnh | partial — breadcrumb fixed (`:/fix: F-009 show note titles in breadcrumb`); đặt tên mới ngoài D3 |
+| F-009 | P2 | C1 | Ghi chú mới tên "Untitled Note 1794825081", breadcrumb hiện slug | ảnh | partial — breadcrumb fixed (`6b1e6200`); đặt tên mới ngoài D3 |
 | F-010 | P2 | C3 | Mỗi hàng danh sách hiện hai ngày giống nhau, ngày đầu không nhãn | ảnh | fixed (`14154524`) |
 | F-011 | P2 | C4 | Hạn ôn hiện mốc thời gian thô, không nói quá hạn bao lâu | ảnh | open |
 | F-012 | P2 | C2 | Nhãn đỏ "Cần xử lý" không nói phải làm gì | ảnh | open |
@@ -31,7 +31,7 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 | F-015 | P2 | C3 | Màn ôn: 4 nút chấm điểm viền màu dày lạc khỏi ngôn ngữ thị giác của app | ảnh | fixed (87129845, superseded by F-028) |
 | F-016 | P2 | C4 | Màn ôn: "0/1 · 0 reviews", "in 1 min." khó hiểu | ảnh | fixed (60445d20) |
 | F-017 | P2 | C4 | "Hộp thư đến", "Library", "Notes", thư mục `views` trong sidebar tiếng Việt | ảnh | open |
-| F-018 | P2 | C5 | Thanh công cụ editor 10 icon không nhãn | ảnh | fixed (`:/fix: F-018 group and label editor chrome`) |
+| F-018 | P2 | C5 | Thanh công cụ editor 10 icon không nhãn | ảnh | fixed (`247911cc`) |
 | F-019 | P2 | C5 | 27 chỗ `outline-none`, có thể mất vòng focus | mã | open |
 | F-020 | P2 | C1 | "Trang chủ" và "Ôn tập" trên sidebar: không rõ khác nhau thế nào | nghi ngờ | open |
 | F-021 | P2 | C9 | 8 component > 850 dòng (App.tsx 1886) | mã | open |
@@ -167,7 +167,7 @@ Nguồn: kiểm kê grep toàn `src/` + đọc `learning/LearningStudyView.tsx`,
 | F-033 | P2 | Trang chủ: hai tiêu đề gần bằng cỡ ("Thư viện", "Ghi nhớ trang"); tab trông như nút | ảnh `HOME` | SPEC §7 | fixed (`6f9932a8`) |
 | F-034 | P2 | Màn hoàn thành ôn dùng `text-3xl`, lệch thang | `LearningStudyView.tsx:258` | SPEC §6 | fixed (3a1ff145) |
 | F-035 | P2 | Sửa gợi nhớ: hai thanh ngang chồng nhau, nút "Chọn nguồn" to hơn chữ xung quanh | ảnh `2026-11-16-writing-first/mnemonic.png` | SPEC §7 | fixed (e28d4857; D1) |
-| F-036 | P2 | Placeholder tiêu đề rỗng ("Heading" nghiêng đậm) trông như nội dung thật | ảnh `REVIEW` | SPEC §7 | fixed (`:/fix: F-036 distinguish empty title placeholder`) |
+| F-036 | P2 | Placeholder tiêu đề rỗng ("Heading" nghiêng đậm) trông như nội dung thật | ảnh `REVIEW` | SPEC §7 | fixed (`4878968e`) |
 | F-037 | P2 | Mục sidebar đang chọn: huy hiệu số đổi sang đặc màu, mục khác thì không — hai kiểu "đang chọn" | ảnh `WRITE` vs `HOME` | SPEC §7 | fixed (`:/fix: F-037 sidebar selection and D2 tokens`) |
 | F-038 | P3 | Độ đậm chữ dùng cả 400/500/600/700 ngoài editor | `font-bold` 21 | SPEC §1 | open |
 | F-039 | P2 | Core smoke wikilink không ổn định: Cmd+click xong H1 đích rỗng | `tests/smoke/wikilink-path-fix.spec.ts:63-70`, tái hiện cả baseline `f78b8fb9` | 90/90 không retry; full checks và pre-push dry-run sạch; [biên bản](F-039-COMPLETION.md) | fixed (`:/^fix: F-039 stabilize wikilink navigation during source saves`) |
@@ -267,7 +267,7 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 
 ## R-06 — Hai precondition cũ trong regression filesystem chặn commit D3
 
-- P2 · test-only · **fixed (`:/^test: R-06 align filesystem regression preconditions`)** theo ngoại lệ test chặn gate trong OVERNIGHT-RULES.
+- P2 · test-only · **fixed (`bbdaf558`)** theo ngoại lệ test chặn gate trong OVERNIGHT-RULES.
 - RED trên HEAD D3 và checkout độc lập baseline `707bac53`, retries=0: `vault-workflows.spec.ts` đòi ẩn file còn tồn tại chỉ vì `Trashed: true`, và tìm nhãn Related to khi Properties chưa mở. [Baseline RED](evidence/D3-R06-baseline-red.txt). Không kết luận bug app mới.
 - ADR-0045 đã bỏ Trash và yêu cầu cờ Trashed là metadata thường. Test mới xác nhận note có cờ cũ vẫn hiện và byte cờ giữ nguyên, xoá đúng file fixture tạm rồi mở lại Library, giữ assertion note biến mất/Note C vẫn hiện và thêm kiểm tra file không tồn tại. Test relationships click nút Properties trước assertion cũ. Không sửa app/fixture gốc, không thêm timeout/retry/skip hoặc hạ coverage.
 - GREEN: 8/8 filesystem regression, 30,2s, retries=0. [Log](evidence/D3-R06-green.txt). Hai ca này xuất hiện khi hook chạy lại file có helper filename của D3; sửa trong commit test riêng, không làm D4 hoặc F-040.
@@ -275,7 +275,16 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 
 ## R-07 — Type-create regression dùng mock mặc định thay bridge filesystem
 
-- P2 · test-only · **fixed (`:/^test: R-07 isolate type creation fixtures`)** theo ngoại lệ test chặn gate của luật đêm.
+- P2 · test-only · **fixed (`652b29af`)** theo ngoại lệ test chặn gate của luật đêm.
 - Baseline `707bac53` độc lập và HEAD D3 cùng fail 2/2 ở assertion `.bn-editor` visible sau tạo note trong mock mặc định, trước assertion breadcrumb. AX có entry mới và textbox; không kết luận bug app native. [Baseline RED, retries=0](evidence/D3-R07-baseline-red.txt). Hook mặc định đã tự retry2 và vẫn fail, không dùng retry làm bằng chứng pass.
 - Dùng createFixtureVaultCopy/openFixtureVaultDesktopHarness/cleanup đã có như các core creation test; test có thư viện nhỏ riêng và bridge tạo/đọc file thật, không dùng dữ liệu demo hoặc prefs thật. Bỏ fixed sleep thay bằng readiness sẵn có của helper. Giữ nguyên assertion editor visible, filename/loại Project hoặc Note và raw frontmatter, không tăng timeout/retry/skip, không sửa app/mock.
 - GREEN 2/2, 10,0s, retries=0. [Log](evidence/D3-R07-green.txt). Commit test riêng; không sửa F-040.
+
+
+## R-08 — Flaky create/paste regression, chưa phân loại test/app
+
+- P2 · **open** · ngoài phần chrome được phép sửa; chưa đủ bằng chứng kết luận không liên quan D3 hoặc là bug native.
+- Lượt browser regression rộng: 45 passed + 3 flaky trên config retry cũ (không thêm retry): create-note-default-properties chưa có breadcrumb sau Cmd+N; new-note-heading-paste-regression paste vào giữa suffix; new-note-immediate-editability chưa thấy body trong file mong đợi. [Log đầy đủ](evidence/D3-R08-browser-regression.txt).
+- Probe không retry: baseline 707bac53 3/3 pass; mã cuối D3 1/3 pass (hai ca đầu fail). [Baseline](evidence/D3-R08-baseline-probe.txt), [D3](evidence/D3-R08-current-probe.txt). Không gọi các ca này là baseline failure đã tái hiện; cần phân loại riêng để giữ phạm vi D3/không sửa BlockNote.
+- Probe paste thêm quan sát selection pass, End chuyển offset20→24; quan sát ảnh hưởng timing nên không dùng làm cách sửa hoặc bằng chứng hết flaky. [Diagnostic](evidence/D3-R08-geometry.txt). Mã test instrumentation đã gỡ; không thêm sleep, retry hoặc thay assertion.
+- Chấp nhận: xác định root test hay app rồi đạt các luồng create/paste ổn định không retry; nếu là test phải chờ đúng readiness/selection, nếu là app cần regression RED riêng. Không sửa F-040 hoặc input editor trong D3. Gate curated cuối của D3 được ghi trong biên bản riêng, không thay thế bằng pass nhờ retry của các ca này.

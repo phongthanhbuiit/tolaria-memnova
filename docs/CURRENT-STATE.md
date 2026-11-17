@@ -1,6 +1,6 @@
 # Memnova hiện tại
 
-**18/11/2026 — bước D3:** Editor actionbar chia nhóm và dùng tooltip/aria đã dịch, chrome/status bar dùng token; H1 rỗng faint/upright; breadcrumb hiện tiêu đề, filename chỉ đổi qua thao tác tường minh. [Ảnh native trước/sau, TDD, dữ liệu và gate D3](audits/STEP-D3-EDITOR-CHROME.md). Không đổi nội dung BlockNote hoặc đặt tên ghi chú mới. D4 chưa làm; chưa phải bản cài phát hành mới.
+**18/11/2026 — bước D3:** Editor actionbar chia nhóm và dùng tooltip/aria đã dịch, chrome/status bar dùng token; H1 rỗng faint/upright; breadcrumb hiện tiêu đề, filename chỉ đổi qua thao tác tường minh. [Ảnh native trước/sau, TDD, dữ liệu và gate D3](audits/STEP-D3-EDITOR-CHROME.md). Không đổi nội dung BlockNote hoặc đặt tên ghi chú mới. Core curated cuối 54/54 không retry; R-08 còn mở về ba regression create/paste chưa phân loại test/app (xem biên bản). D4 chưa làm; chưa phải bản cài phát hành mới.
 
 **18/11/2026 — bước D2:** Trang chủ dùng display/title và Tabs gạch chân, giữ một hành động chính; hàng danh sách chỉ còn một ngày theo formatter hiện có, sidebar thống nhất trạng thái chọn và badge trung tính. [Ma trận ảnh native 1440/1024, en/vi, sáng/tối và nghiệm thu D2](audits/STEP-D2-HOME-LIST-SIDEBAR.md). Giữ F-039/F-041 và dữ liệu; D3 có nghiệm thu riêng ở trên; D4 chưa thực hiện. Đây chưa phải bản cài phát hành mới.
 
