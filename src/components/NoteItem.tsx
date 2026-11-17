@@ -17,7 +17,6 @@ import { ChangeNoteContent } from './note-item/ChangeNoteContent'
 import { workspaceForEntry } from '../utils/workspaces'
 import { WorkspaceInitialsBadge } from './WorkspaceInitialsBadge'
 import { useAppLocale, useDateDisplayFormat } from '../hooks/useAppPreferences'
-import { translate } from '../lib/i18n'
 
 const TYPE_ICON_MAP: Record<string, ComponentType<SVGAttributes<SVGSVGElement>>> = {
   Project: Wrench,
@@ -53,8 +52,8 @@ function StatusDot({ noteStatus }: { noteStatus: VisibleNoteStatus }) {
   const dot = Reflect.get(NOTE_STATUS_DOT, noteStatus) as { color: string; testId: string; title: string }
   return (
     <span
-      className="mr-1.5 inline-block align-middle"
-      style={{ width: 6, height: 6, borderRadius: '50%', background: dot.color, verticalAlign: 'middle' }}
+      className="mr-2 inline-block size-2 rounded-full align-middle"
+      style={{ background: dot.color }}
       data-testid={dot.testId}
       title={dot.title}
     />
@@ -64,7 +63,7 @@ function StatusDot({ noteStatus }: { noteStatus: VisibleNoteStatus }) {
 function StateBadge({ archived }: { archived: boolean }) {
   if (archived) {
     return (
-      <span className="ml-1.5 inline-block align-middle text-muted-foreground" style={{ fontSize: 9, fontWeight: 500, background: 'var(--muted)', borderRadius: 4, padding: '1px 4px', verticalAlign: 'middle' }}>
+      <span className="ml-2 inline-block rounded-sm bg-muted px-1 align-middle text-caption font-medium text-muted-foreground">
         ARCHIVED
       </span>
     )
@@ -99,7 +98,7 @@ type NoteItemSurfaceProps = {
 }
 
 const NOTE_ITEM_BASE_CLASS_NAME = 'relative w-full border-0 border-b border-[var(--border)] bg-transparent p-0 text-left transition-colors'
-const BINARY_NOTE_STYLE: CSSProperties = { padding: '14px 16px' }
+const BINARY_NOTE_STYLE: CSSProperties = { padding: 'calc(var(--spacing) * 4)' }
 const NOTE_ITEM_ROW_CLASS_NAMES: Record<NoteItemRowState, string> = {
   binary: 'cursor-default opacity-50',
   multiSelected: 'cursor-pointer',
@@ -147,7 +146,7 @@ function NoteSnippet({ snippet }: { snippet?: string | null }) {
 
   return (
     <div
-      className="text-[12px] leading-[1.5] text-muted-foreground"
+      className="text-small text-muted-foreground"
       data-testid="note-snippet"
       style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}
     >
@@ -287,7 +286,6 @@ function StandardNoteContent({
 function NoteTitleRow({
   entry,
   isBinary,
-  isSelected,
   noteStatus,
 }: {
   entry: VaultEntry
@@ -297,11 +295,11 @@ function NoteTitleRow({
 }) {
   return (
     <div
-      className={cn('truncate pr-5 text-[13px]', isBinary ? 'text-muted-foreground' : 'text-foreground', isSelected && !isBinary ? 'font-semibold' : 'font-medium')}
+      className={cn('truncate pr-5 text-body', isBinary ? 'text-muted-foreground' : 'text-foreground', 'font-medium')}
       data-testid="note-title-row"
     >
       {hasStatusDot(noteStatus) && !isBinary && <StatusDot noteStatus={noteStatus} />}
-      <NoteTitleIcon icon={entry.icon} size={15} className="mr-1" testId="note-title-icon" />
+      <NoteTitleIcon icon={entry.icon} size={16} className="mr-1" testId="note-title-icon" />
       {entry.title}
       {!isBinary && <StateBadge archived={entry.archived} />}
     </div>
@@ -318,15 +316,13 @@ function NoteDateRow({
   const dateDisplayFormat = useDateDisplayFormat()
   const locale = useAppLocale()
   const modifiedLabel = formatTimestampForDateDisplay(getDisplayDate(entry), dateDisplayFormat, locale)
-  const createdLabel = entry.createdAt ? `${translate(locale, 'noteList.sort.created')} ${formatTimestampForDateDisplay(entry.createdAt, dateDisplayFormat, locale)}` : null
 
-  if (!modifiedLabel && !createdLabel) return null
+  if (!modifiedLabel) return null
 
   return (
-    <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 text-[10px] text-muted-foreground" data-testid="note-date-row">
+    <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 text-small text-muted-foreground" data-testid="note-date-row">
       <span>{modifiedLabel}</span>
       <span className="flex min-w-0 items-center justify-end gap-1.5 text-right">
-        {createdLabel && <span>{createdLabel}</span>}
         <WorkspaceBadge entry={entry} allEntries={allEntries} />
       </span>
     </div>
@@ -334,7 +330,7 @@ function NoteDateRow({
 }
 
 function noteItemStyle(isSelected: boolean, isMultiSelected: boolean, typeColor: string, typeLightColor: string): CSSProperties {
-  const base: CSSProperties = { padding: isSelected && !isMultiSelected ? '14px 16px 14px 13px' : '14px 16px' }
+  const base: CSSProperties = { padding: isSelected && !isMultiSelected ? 'calc(var(--spacing) * 4) calc(var(--spacing) * 4) calc(var(--spacing) * 4) calc(calc(var(--spacing) * 4) - 3px)' : 'calc(var(--spacing) * 4)' }
   if (isMultiSelected) base.backgroundColor = 'color-mix(in srgb, var(--accent-blue) 10%, transparent)'
   else if (isSelected) { base.borderLeftColor = typeColor; base.backgroundColor = typeLightColor }
   return base

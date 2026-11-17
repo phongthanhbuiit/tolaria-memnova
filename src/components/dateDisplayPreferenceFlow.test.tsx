@@ -29,9 +29,9 @@ describe('date display preference flow', () => {
     const original = JSON.stringify(entry)
     const row = <NoteItem entry={entry} isSelected={false} typeEntryMap={{}} displayPropsOverride={['Due']} onClickNote={vi.fn()} />
     const view = render(<AppPreferencesProvider locale="en">{row}</AppPreferencesProvider>)
-    expect(screen.getByTestId('note-date-row')).toHaveTextContent('Created November 16, 2026')
+    expect(screen.getByTestId('note-date-row')).toHaveTextContent(/^November 16, 2026$/)
     view.rerender(<AppPreferencesProvider locale="vi">{row}</AppPreferencesProvider>)
-    expect(screen.getByTestId('note-date-row')).toHaveTextContent('Đã tạo 16 tháng 11, 2026')
+    expect(screen.getByTestId('note-date-row')).toHaveTextContent(/^16 tháng 11, 2026$/)
     expect(screen.getByTestId('note-date-row')).not.toHaveTextContent(/November|Created/)
     expect(screen.getByTestId('property-chip-due-0')).toHaveTextContent('16 tháng 11, 2026')
     expect(JSON.stringify(entry)).toBe(original)

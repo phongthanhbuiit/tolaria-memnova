@@ -171,7 +171,7 @@ describe('NoteItem', () => {
 
     expect(screen.getByText('My Note Title')).toBeInTheDocument()
     expect(screen.getByText('my-note.md')).toBeInTheDocument()
-    expect(screen.getByTestId('change-note-filename')).toHaveClass('truncate', 'text-[12px]', 'leading-[1.5]', 'text-muted-foreground')
+    expect(screen.getByTestId('change-note-filename')).toHaveClass('truncate', 'text-small', 'text-muted-foreground')
     expect(screen.getByTestId('change-stat-added')).toHaveTextContent('+42')
     expect(screen.getByTestId('change-stat-deleted')).toHaveTextContent('-7')
   })
@@ -232,7 +232,7 @@ describe('NoteItem', () => {
     expect(screen.getByTestId('note-content-stack').className).toContain('space-y-2')
   })
 
-  it('shows created date on the right side of the date row when available', () => {
+  it('shows only the existing display date when creation and modification differ', () => {
     vi.useFakeTimers()
     vi.setSystemTime(new Date(NOW_SECONDS * 1000))
     const entry = makeEntry({
@@ -246,10 +246,11 @@ describe('NoteItem', () => {
     const dateRow = screen.getByTestId('note-date-row')
     expect(dateRow.className).toContain('grid')
     expect(dateRow).toHaveTextContent('April 8, 2025')
-    expect(dateRow).toHaveTextContent('Created April 5, 2025')
+    expect(dateRow).not.toHaveTextContent('April 5, 2025')
+    expect(dateRow).not.toHaveTextContent('Created')
   })
 
-  it('shows the workspace badge after the creation date as an outlined badge', () => {
+  it('keeps the workspace badge alongside a single date when dates match', () => {
     vi.useFakeTimers()
     vi.setSystemTime(new Date(NOW_SECONDS * 1000))
     const personalWorkspace = {
@@ -302,11 +303,25 @@ describe('NoteItem', () => {
     const dateRow = screen.getByTestId('note-date-row')
     const badge = within(dateRow).getByTestId('workspace-badge')
     expect(screen.getByTestId('note-title-row')).not.toContainElement(badge)
-    expect(dateRow).toHaveTextContent('Created April 10, 2025')
+    expect(dateRow.textContent?.match(/April 10, 2025/g)).toHaveLength(1)
+    expect(dateRow).not.toHaveTextContent('Created')
     expect(badge).toHaveTextContent('LA')
     expect(badge).toHaveClass('-mr-1.5', 'border', 'bg-transparent', 'opacity-75')
     expect(badge.getAttribute('style')).toContain('border-color: var(--accent-red)')
     expect(badge.getAttribute('style')).toContain('color: var(--accent-red)')
+  })
+
+  it('keeps the creation fallback when no modification date exists', () => {
+    const entry = makeEntry({ createdAt: NOW_SECONDS - 86400 * 5, modifiedAt: null })
+    render(<NoteItem entry={entry} isSelected={false} typeEntryMap={{}} onClickNote={vi.fn()} />)
+    expect(screen.getByTestId('note-date-row')).toHaveTextContent(/^April 5, 2025$/)
+    expect(entry.createdAt).toBe(NOW_SECONDS - 86400 * 5)
+    expect(entry.modifiedAt).toBeNull()
+  })
+
+  it('does not invent a date when both timestamps are absent', () => {
+    render(<NoteItem entry={makeEntry({ createdAt: null, modifiedAt: null })} isSelected={false} typeEntryMap={{}} onClickNote={vi.fn()} />)
+    expect(screen.queryByTestId('note-date-row')).not.toBeInTheDocument()
   })
 
   it('leaves the right side empty when no creation date exists', () => {

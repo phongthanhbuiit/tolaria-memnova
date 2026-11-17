@@ -57,6 +57,10 @@ SPEC §8 toàn src trước: typography **232**, CSS `[data-slot=]` **0**. CSS �
 
 Header dùng hai Button outline lg; nút ôn tiếp tục là hành động chính. Không thêm logic theo due count, không đổi callback, dữ liệu hoặc analytics. Thay đổi variant/size thuần trình bày, không cần RED hành vi. SPEC8: 232 → 232; CSS slot 0 → 0 (commit thứ bậc nút, chưa phải đợt dọn typography).
 
+## F-010
+
+RED: `vitest run src/components/NoteItem.test.tsx` có 3 fail / 24 tests: ngày khác nhau, ngày trùng nhau + workspace, và fallback chỉ có created đều còn dòng Created thứ hai. GREEN sau sửa bỏ Created; giữ nguyên `getDisplayDate`, formatter, locale và object đầu vào. Không đổi sort hoặc icon/type semantics. Ngày `small`, tên `body` 500, snippet `small`; chips và công cụ dùng token/component sẵn có. Assertion CSS cũ được đổi sang token mới; assertion hành vi không bị bỏ.
+
 ## Nghiệm thu
 
 Đang thực hiện; chưa tuyên bố các gate hoặc native sau sửa đã qua.

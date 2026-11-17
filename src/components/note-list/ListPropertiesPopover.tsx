@@ -88,7 +88,7 @@ function SortablePropertyItem({ id, checked, locale = 'en', onToggle }: { id: No
     <div
       ref={setNodeRef}
       style={style}
-      className="flex items-center gap-2 rounded px-1 py-1 hover:bg-muted"
+      className="flex items-center gap-2 rounded-md px-1 py-1 hover:bg-muted"
       data-testid={`list-prop-item-${id}`}
     >
       <Checkbox
@@ -99,7 +99,7 @@ function SortablePropertyItem({ id, checked, locale = 'en', onToggle }: { id: No
       />
       <label
         htmlFor={inputId}
-        className="flex flex-1 cursor-pointer items-center gap-2 text-[13px]"
+        className="flex flex-1 cursor-pointer items-center gap-2 text-body"
       >
         <span className="truncate">{id}</span>
       </label>
@@ -148,7 +148,7 @@ function ListPropertiesSearchInput({
         aria-controls={listboxId}
         aria-expanded={open}
         aria-label={translate(locale, 'noteList.properties.searchLabel')}
-        className="h-8 text-[13px]"
+        controlSize="md"
         data-testid="list-properties-combobox-input"
       />
     </div>
@@ -175,7 +175,7 @@ function ListPropertiesOptionsList({
   return (
     <div className="max-h-60 overflow-y-auto" data-testid="list-properties-scroll-area">
       {filteredItems.length === 0 ? (
-        <div className="px-1 py-2 text-[12px] text-muted-foreground">
+        <div className="px-1 py-2 text-small text-muted-foreground">
           {translate(locale, 'noteList.properties.noMatches')}
         </div>
       ) : (
@@ -236,7 +236,7 @@ function ListPropertiesPopoverPanel({
       data-testid="list-properties-popover"
     >
       <div onKeyDownCapture={onPanelKeyDown}>
-        <div className="mb-2 px-1 text-[11px] font-medium text-muted-foreground">
+        <div className="mb-2 px-1 text-caption font-medium text-muted-foreground">
           {translate(locale, 'noteList.properties.showInNoteList')}
         </div>
         <ListPropertiesSearchInput
@@ -387,7 +387,7 @@ export function ListPropertiesPopover({
           type="button"
           variant="ghost"
           size="icon-xs"
-          className={cn('h-7 w-7 text-muted-foreground', triggerClassName)}
+          className={cn('text-muted-foreground', triggerClassName)}
           title={triggerTitle}
           aria-label={triggerTitle}
           data-testid="list-properties-btn"

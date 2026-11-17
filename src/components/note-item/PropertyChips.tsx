@@ -1,3 +1,4 @@
+import { Button } from '../ui/button'
 import { createElement, useMemo, useState, type ComponentType, type MouseEvent, type ReactNode, type SVGAttributes } from 'react'
 import { Link } from '@phosphor-icons/react'
 import type { VaultEntry } from '../../types'
@@ -29,7 +30,7 @@ function renderResolvedNoteIcon(
 
   if (resolvedNoteIcon.kind === 'emoji') {
     return (
-      <span aria-hidden="true" className="inline-flex shrink-0 items-center justify-center leading-none" style={{ fontSize: 11, lineHeight: 1 }}>
+      <span aria-hidden="true" className="inline-flex shrink-0 items-center justify-center text-caption" >
         {resolvedNoteIcon.value}
       </span>
     )
@@ -46,7 +47,7 @@ function renderResolvedNoteIcon(
       src={resolvedNoteIcon.src}
       alt=""
       aria-hidden="true"
-      className="h-[11px] w-[11px] shrink-0 rounded-sm object-cover"
+      className="size-4 shrink-0 rounded-sm object-cover"
       onError={onImageError}
     />
   )
@@ -132,7 +133,7 @@ export function PropertyChips({
             return (
               <span
                 key={chipKey}
-                className="inline-flex max-w-full items-center gap-1 rounded-md bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground"
+                className="inline-flex max-w-full items-center gap-1 rounded-sm bg-muted px-1.5 py-0.5 text-caption text-muted-foreground"
                 style={chip.style}
                 data-testid={testId}
                 data-property-chip="true"
@@ -143,17 +144,17 @@ export function PropertyChips({
           }
 
           return (
-            <button
+            <Button variant="ghost" size="sm"
               type="button"
               key={chipKey}
-              className="inline-flex max-w-full cursor-pointer items-center gap-1 rounded-md border-0 bg-muted px-1.5 py-0.5 text-left text-[10px] text-muted-foreground"
+              className="inline-flex max-w-full cursor-pointer items-center gap-1 rounded-sm border-0 bg-muted px-1.5 py-0.5 text-left text-caption text-muted-foreground"
               style={chip.style}
               onClick={(event) => { void handleChipClick(event, chip, onOpenNote) }}
               data-testid={testId}
               data-property-chip="true"
             >
               {content}
-            </button>
+            </Button>
           )
         })
       )}

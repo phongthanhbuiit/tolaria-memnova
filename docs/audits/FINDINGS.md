@@ -23,7 +23,7 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 | F-007 | P2 | C4 | Thuật ngữ học tập không nhất quán (trang/ghi chú, ghi nhớ/ôn/gợi nhớ) | ảnh | open |
 | F-008 | P2 | C3 | Hai nút chính màu xanh cạnh tranh trên Trang chủ | ảnh | fixed (`fix: F-008 home primary action hierarchy`) |
 | F-009 | P2 | C1 | Ghi chú mới tên "Untitled Note 1794825081", breadcrumb hiện slug | ảnh | open |
-| F-010 | P2 | C3 | Mỗi hàng danh sách hiện hai ngày giống nhau, ngày đầu không nhãn | ảnh | open |
+| F-010 | P2 | C3 | Mỗi hàng danh sách hiện hai ngày giống nhau, ngày đầu không nhãn | ảnh | fixed (`fix: F-010 single note row date`) |
 | F-011 | P2 | C4 | Hạn ôn hiện mốc thời gian thô, không nói quá hạn bao lâu | ảnh | open |
 | F-012 | P2 | C2 | Nhãn đỏ "Cần xử lý" không nói phải làm gì | ảnh | open |
 | F-013 | P2 | C3 | Properties: khung rỗng chiếm chỗ, đẩy thao tác học xuống dưới | ảnh | fixed (975948d0, b8796a72, f1a741e0; D1) |
@@ -92,6 +92,8 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 ### F-010 — Hai ngày trùng nhau trên mỗi hàng
 - Thực tế (`WRITE`): "November 16, 2026    Created November 16, 2026" ở mọi hàng.
 - Sửa: chỉ hiện ngày theo tiêu chí sắp xếp đang chọn; dùng ngày tương đối ("Hôm qua") cho mốc gần.
+
+- D2 theo yêu cầu chủ dự án: bỏ ngày tạo thứ hai; giữ nguyên `getDisplayDate` (modified → created), formatter, locale, sort và dữ liệu. RED: 3 ca thất bại vì ngày lặp; GREEN: ca ngày khác/giống/fallback/null và workspace badge. Chuẩn hoá token chữ/control của hàng và công cụ danh sách. [Bằng chứng D2](STEP-D2-HOME-LIST-SIDEBAR.md).
 
 ### F-011 — Hạn ôn dạng mốc thô
 - Thực tế (`HOME`): "07:00 ngày 1 thg 1, 2026" cạnh nhãn "Đến hạn" (đã quá hạn hơn 10 tháng).

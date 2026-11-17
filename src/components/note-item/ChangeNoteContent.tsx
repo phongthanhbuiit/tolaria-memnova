@@ -31,8 +31,8 @@ function ChangeStatusIcon({ status }: { status: ChangeStatus }) {
   const display = Reflect.get(CHANGE_STATUS_DISPLAY, status) as typeof CHANGE_STATUS_DISPLAY[ChangeStatus]
   return (
     <span
-      className="absolute right-3 top-2.5 text-xs font-bold"
-      style={{ color: display.color, fontSize: status === 'modified' ? 18 : 14 }}
+      className="absolute right-3 top-2 text-title font-semibold"
+      style={{ color: display.color }}
       title={display.label}
       data-testid="change-status-icon"
     >
@@ -99,14 +99,14 @@ function ChangeStatsRow({ entry, changeStatus }: { entry: VaultEntry; changeStat
 
   if (badges.length === 0) {
     return (
-      <div className="text-[11px] text-muted-foreground" data-testid="change-stats-row">
+      <div className="text-caption text-muted-foreground" data-testid="change-stats-row">
         <span data-testid="change-stat-fallback">{changeStatsFallback(binary)}</span>
       </div>
     )
   }
 
   return (
-    <div className="flex items-center gap-2 text-[11px] font-medium" data-testid="change-stats-row">
+    <div className="flex items-center gap-2 text-caption font-medium" data-testid="change-stats-row">
       {badges.map((badge) => (
         <span key={badge.testId} className={badge.className} data-testid={badge.testId}>
           {badge.value}
@@ -134,17 +134,17 @@ export function ChangeNoteContent({
         <div className="space-y-1.5">
           <div
             className={cn(
-              'truncate text-[13px]',
+              'truncate text-body',
               isSelected ? 'font-semibold' : 'font-medium',
               isDeletedChange ? 'text-muted-foreground line-through opacity-70' : 'text-foreground',
             )}
             data-testid="change-note-title"
           >
-            <NoteTitleIcon icon={entry.icon} size={15} className="mr-1" testId="change-note-icon" />
+            <NoteTitleIcon icon={entry.icon} size={16} className="mr-1" testId="change-note-icon" />
             {entry.title}
           </div>
           <div
-            className={cn('truncate text-[12px] leading-[1.5] text-muted-foreground', isDeletedChange && 'opacity-70')}
+            className={cn('truncate text-small text-muted-foreground', isDeletedChange && 'opacity-70')}
             data-testid="change-note-filename"
             title={entry.filename}
           >

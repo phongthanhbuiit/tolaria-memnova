@@ -218,12 +218,12 @@ function NoteListContextMenuButton({ item }: { item: NoteListContextMenuItem }) 
     <Button
       type="button"
       variant="ghost"
-      className={`flex h-auto w-full cursor-default items-center justify-start gap-2 rounded-sm px-2 py-1.5 text-left text-sm transition-colors hover:bg-accent hover:text-accent-foreground ${item.destructive ? 'text-destructive hover:text-destructive' : ''}`}
+      className={`flex h-auto w-full cursor-default items-center justify-start gap-2 rounded-sm px-2 py-1.5 text-left text-body transition-colors hover:bg-accent hover:text-accent-foreground ${item.destructive ? 'text-destructive hover:text-destructive' : ''}`}
       onClick={item.onSelect}
     >
       <IconComponent size={16} weight={item.iconWeight} className="shrink-0" />
       <span className="min-w-0 flex-1 truncate text-left">{item.label}</span>
-      {item.shortcut && <span className="ml-4 shrink-0 text-xs text-muted-foreground">{item.shortcut}</span>}
+      {item.shortcut && <span className="ml-4 shrink-0 text-small text-muted-foreground">{item.shortcut}</span>}
     </Button>
   )
 }
