@@ -59,7 +59,7 @@ export function PagePropertyTools({
     }
   }
   return (
-    <div className="note-memory-surface space-y-2 px-3 py-3">
+    <div className="note-memory-surface space-y-2 px-0 py-3">
       <Button layout="responsive"
         variant="outline"
         size="sm"
@@ -70,12 +70,12 @@ export function PagePropertyTools({
         <SlidersHorizontal aria-hidden="true" />{translate(locale, 'properties.page')}
       </Button>
       {!ready && (
-        <p className="text-xs text-muted-foreground">
+        <p className="text-small text-text-secondary">
           {translate(locale, 'properties.readyHelp')}
         </p>
       )}
       {error && (
-        <p role="alert" className="break-words text-xs text-destructive">
+        <p role="alert" className="break-words text-small text-destructive">
           {error}
         </p>
       )}
