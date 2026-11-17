@@ -1,5 +1,24 @@
 # Log đêm 18/11/2026
 
+## Tóm tắt buổi sáng
+
+- Tổng kết bước: **DONE** D3, E1; **PARTIAL** D4A, D4B (5 file F-032 đã xong; F-038 chờ native), E2; **SKIPPED** không. F-041/D2 đã hoàn tất trước log; không có lệnh dừng.
+- Đã đóng F: **001–004, 006, 008, 010, 013–019, 022–023, 025–031, 033–037, 039, 041** (30 finding; các finding nền tảng chỉ tính đúng phạm vi).
+- Đã đóng R: **01–07, 12**; R-05 chỉ sửa test, không phải nghiệm thu IME native. F-038 sửa mã nhưng **chờ QA native legacy**, chưa tính đã đóng.
+- **P0** còn mở: không.
+- **P1** còn mở/partial: **F-005** (nhãn BlockNote), **F-024** (CSS/chữ kế thừa và native hiếm).
+- **P2** còn mở: **F-007, F-011, F-012, F-020, F-021, F-040; R-08, R-09, R-11, R-13, R-14**. Partial: **F-009** (tên mới), **F-032** (ngoài 5 file).
+- **P3** còn mở: **R-10** (Welcome vi tràn mô tả); **F-038: fixed — chờ QA native** (Home/Decks/FlashcardStudyView legacy).
+- Native còn chờ: **Telex AI + wikilink từ R-05/E2**; F-005 author-name combobox/ảnh trước tối; F-024 legacy/Linux/trạng thái hiếm; F-032 message/tool và F-038 legacy mới có fixture/diff/test.
+- Grep SPEC §8 hiện tại: **1 / 0**; match duy nhất `NoteTitleIcon.tsx:35` là fontSize glyph động đã giải trình, không phải đã sạch mọi cỡ chữ CSS/kế thừa.
+- Coverage gần nhất (E2): **FE 87,83% lines; Rust đầy đủ 86,41% lines**; 5.041 test/506 file, core 54/54 trong 4,5 phút không retry. Phiên này chỉ docs, không đo lại suite.
+- **Câu hỏi / lựa chọn đã gom** (đã chọn bảo thủ trong đêm; chi tiết/bằng chứng giữ ở các mục dưới):
+  - D3: giữ `role=group`/Tab tự nhiên thay focusgroup; giữ vendor dictionary/editor pipeline; breadcrumb dùng title cho truy cập, vẫn giữ filename/byte/path riêng. R-08 cần phiên phân loại app/test; không suy diễn là lỗi baseline.
+  - D4A: giữ glyph emoji ngoài thang chữ và F-024 partial; không ép route để chụp legacy/rare states hoặc sửa regression ngoài scope (R-09/R-10/F-040).
+  - D4B: giữ 2 animation delay inline, editorStyle scrolling contract và geometry pixel ở root 14px; không dùng important/đổi index.css ngoài scope; không đóng F-032 toàn app bằng subset.
+  - E1: chọn **Đưa vào lịch ôn / Ôn ngay** thay hai nhãn gần nghĩa; F-001 chỉ ẩn display/index, không sửa file; giữ Library/views, custom label, ID/thứ tự và tùy chọn tên chính xác; phần copy R-11 còn lại để riêng.
+  - E2: mỗi finding một commit theo yêu cầu mới, dùng variant bare giữ layout/SVG; ghi R-13/R-14, giữ dictionary/lifetime/input pipeline; không bật hotkey/đổi cài đặt hệ thống để ép chạy Telex, không tính ASCII/paste là pass IME.
+
 ## D3 — DONE (chrome; R-08 còn mở)
 
 - Cổng an toàn: fetch/status/rev-list exit 0; HEAD=origin/main=707bac53, 0 commit chưa push; không có lệnh dừng từ bước trước. Giữ AGENTS đang sửa và toàn bộ skill/SPEC/PLAN/OVERNIGHT-RULES của người dùng ngoài index.

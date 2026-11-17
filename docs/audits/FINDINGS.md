@@ -1,7 +1,24 @@
 # Findings
 
 Quy tắc ghi: xem [skill](../../.agents/skills/memnova-audit/SKILL.md). ID tăng dần, không tái sử dụng.
-Trạng thái: `open` · `rejected (lý do)` · `fixed (<commit>)`.
+Trạng thái: `open` · `partial` · `fixed — chờ QA native (phạm vi)` · `rejected (lý do)` · `fixed (<commit>)`.
+
+## Tiến độ hiện tại — tổng kết đêm 18/11/2026
+
+Đối chiếu [log đêm](OVERNIGHT-2026-11-18.md) và bằng chứng đã có tại `809a4003`; đây là cập nhật tài liệu, không phải lượt QA mới. Các bảng theo đợt bên dưới giữ mô tả/số đếm baseline; trạng thái hiện tại ưu tiên bảng này. Tổng kết bước: **DONE D3/E1; PARTIAL D4A/D4B/E2; không SKIPPED**. D4B đã xong mã trong 5 file F-032, còn F-038 chờ native legacy.
+
+| Mức | Open | Partial | Fixed — chờ QA native |
+|---|---|---|---|
+| P0 | Không | Không | Không |
+| P1 | Không | F-005, F-024 | Không |
+| P2 | F-007, F-011, F-012, F-020, F-021, F-040; R-08, R-09, R-11, R-13, R-14 | F-009, F-032 | Không |
+| P3 | R-10 | Không | F-038: Home/Decks/FlashcardStudyView legacy |
+
+**Đã đóng:** F-001–F-004, F-006, F-008, F-010, F-013–F-019, F-022–F-023, F-025–F-031, F-033–F-037, F-039, F-041 (**30 F**); R-01–R-07 và R-12 (**8 R**). F-023/F-025/F-030/F-031 là phần nền tảng A, không hàm ý các call site của F-024/F-032 đã sạch. R-05 là test-only; Telex native vẫn chưa được xác minh.
+
+**Còn chờ native/bằng chứng bổ sung:** F-005 (author-name combobox cuối, ảnh trước tối); F-024 (legacy/Linux/trạng thái hiếm); F-032 (message/tool chỉ có fixture); F-038 (các màn legacy không có route native); Telex trong AI và ô wikilink từ R-05/E2. F-005/F-024/F-032 vẫn partial vì ngoài QA còn phần mã/phạm vi chưa hoàn tất. F-038 đã sửa mã nhưng không tính đóng khi các màn legacy mới được kiểm bằng fixture/diff/test; đối chiếu giới hạn native trong [D4B](STEP-D4B-INLINE-STYLE.md).
+
+Coverage gần nhất: FE **87,83%**, Rust đầy đủ **86,41%** lines; grep SPEC §8 hiện tại **1 / 0**. Không đóng F-040 chỉ vì core E2 pass; chưa có điều tra nguyên nhân riêng theo tiêu chí finding.
 
 ## Đợt 0 — rà soát ban đầu (17/11/2026)
 
@@ -163,25 +180,25 @@ Nguồn: kiểm kê grep toàn `src/` + đọc `learning/LearningStudyView.tsx`,
 
 | ID | Mức | Tóm tắt | Bằng chứng | Sửa theo | Trạng thái |
 |---|---|---|---|---|---|
-| F-023 | P1 | Không có thang chữ: 15+ cỡ, đặt bằng 4 cách khác nhau | SPEC §0 | SPEC §1 | fixed (ddbeb0d2, nền tảng bước A; call sites B–D chưa dọn) || fixed (ddbeb0d2, foundation A; call sites B–D pending) |
+| F-023 | P1 | Không có thang chữ: 15+ cỡ, đặt bằng 4 cách khác nhau | SPEC §0 | SPEC §1 | fixed (ddbeb0d2, nền tảng bước A) |
 | F-024 | P1 | ≥ 120 chỗ chữ 8–10px, khó đọc | `text-[10px]` 45, `text-[9px]` 6, `fontSize: 8/9/10` 12… | SPEC §1 | partial (D4A: 3310fdf3…2b7268e0, grep 160→1 ngoại lệ emoji icon; còn CSS/chữ kế thừa và native trạng thái hiếm; [biên bản](STEP-D4A-TYPOGRAPHY.md)) |
-| F-025 | P1 | `--text-muted` #B4B4B4 (≈2.1:1) dùng cho nhãn đọc được; token màu chữ trùng giá trị | `src/index.css:86-90` | SPEC §2 | fixed (207e1294, nền tảng bước A; call sites B–D chưa dọn) || fixed (207e1294, foundation A; call sites B–D pending) |
+| F-025 | P1 | `--text-muted` #B4B4B4 (≈2.1:1) dùng cho nhãn đọc được; token màu chữ trùng giá trị | `src/index.css:86-90` | SPEC §2 | fixed (207e1294, nền tảng bước A) |
 | F-026 | P1 | CSS tính năng ghi đè component shadcn (`[data-slot=…]`) → cùng `Button`/`Switch` mà mỗi màn một cỡ | `learning/noteMemory.css:10-18,31,64,83-85` | SPEC §3 | fixed (a2428886) |
 | F-027 | P1 | Màn ôn thẻ: ba vùng lệch mép (`max-w-4xl` / `3xl` / `2xl`), hộp lồng hộp, nội dung cần nhớ yếu hơn tiêu đề | `LearningStudyView.tsx:138,296`, `LearningStudyFaces.tsx:71,87,149` | SPEC §6 | fixed (62053c7a + 96754f2a) |
 | F-028 | P1 | Nút chấm điểm `border-2` viền màu + nền nhuộm, cao tự do | `LearningStudyView.tsx:332`, `noteMemory.css:110-115` | SPEC §6 | fixed (87129845) |
 | F-029 | P2 | Hai màn ôn song song, hai bảng màu chấm điểm | `FlashcardStudyView.tsx:53` vs `noteMemory.css:112-115` | SPEC §6 "Gom mã" | fixed (def6ee51) |
-| F-030 | P2 | 6 chiều cao điều khiển (`h-6`…`h-12`); nút cạnh nhau khác cỡ | SPEC §0; ảnh `PROPS` ("Thuộc tính của trang" vs "+ Thêm mối quan hệ") | SPEC §3 | fixed (f8991a15, nền tảng bước A; call sites B–D chưa dọn) || fixed (f8991a15, foundation A; call sites B–D pending) |
-| F-031 | P2 | Bo góc tuỳ tiện (7 mức + inline) | SPEC §0 | SPEC §4 | fixed (8dd9f931, nền tảng bước A; call sites B–D chưa dọn) || fixed (8dd9f931, foundation A; call sites B–D pending) |
+| F-030 | P2 | 6 chiều cao điều khiển (`h-6`…`h-12`); nút cạnh nhau khác cỡ | SPEC §0; ảnh `PROPS` ("Thuộc tính của trang" vs "+ Thêm mối quan hệ") | SPEC §3 | fixed (f8991a15, nền tảng bước A) |
+| F-031 | P2 | Bo góc tuỳ tiện (7 mức + inline) | SPEC §0 | SPEC §4 | fixed (8dd9f931, nền tảng bước A) |
 | F-032 | P2 | 331 `style={{}}` inline, khó giữ đồng bộ | PulseView 26, AiPanelChrome 20, SidebarParts 18, AiMessage 18, TelemetryConsentDialog 14 | SPEC §1–4 | partial (D4B:465d8765…307256ab; 5file92→11, toàn src308→227; còn dynamic/delay và ngoài phạm vi; [biên bản](STEP-D4B-INLINE-STYLE.md)) |
 | F-033 | P2 | Trang chủ: hai tiêu đề gần bằng cỡ ("Thư viện", "Ghi nhớ trang"); tab trông như nút | ảnh `HOME` | SPEC §7 | fixed (`6f9932a8`) |
 | F-034 | P2 | Màn hoàn thành ôn dùng `text-3xl`, lệch thang | `LearningStudyView.tsx:258` | SPEC §6 | fixed (3a1ff145) |
 | F-035 | P2 | Sửa gợi nhớ: hai thanh ngang chồng nhau, nút "Chọn nguồn" to hơn chữ xung quanh | ảnh `2026-11-16-writing-first/mnemonic.png` | SPEC §7 | fixed (e28d4857; D1) |
 | F-036 | P2 | Placeholder tiêu đề rỗng ("Heading" nghiêng đậm) trông như nội dung thật | ảnh `REVIEW` | SPEC §7 | fixed (`4878968e`) |
-| F-037 | P2 | Mục sidebar đang chọn: huy hiệu số đổi sang đặc màu, mục khác thì không — hai kiểu "đang chọn" | ảnh `WRITE` vs `HOME` | SPEC §7 | fixed (`:/fix: F-037 sidebar selection and D2 tokens`) |
-| F-038 | P3 | Độ đậm chữ dùng cả 400/500/600/700 ngoài editor | `font-bold` 21 | SPEC §1 | fixed (e1fed99d…9de3e360; 44→0 khai báo ngoài thang ở chrome, chuẩn hoá UA heading/strong; [biên bản](STEP-D4B-INLINE-STYLE.md)) |
-| F-039 | P2 | Core smoke wikilink không ổn định: Cmd+click xong H1 đích rỗng | `tests/smoke/wikilink-path-fix.spec.ts:63-70`, tái hiện cả baseline `f78b8fb9` | 90/90 không retry; full checks và pre-push dry-run sạch; [biên bản](F-039-COMPLETION.md) | fixed (`:/^fix: F-039 stabilize wikilink navigation during source saves`) |
+| F-037 | P2 | Mục sidebar đang chọn: huy hiệu số đổi sang đặc màu, mục khác thì không — hai kiểu "đang chọn" | ảnh `WRITE` vs `HOME` | SPEC §7 | fixed (`707bac53`) |
+| F-038 | P3 | Độ đậm chữ dùng cả 400/500/600/700 ngoài editor | `font-bold` 21 | SPEC §1 | fixed — chờ QA native (e1fed99d…9de3e360; Home/Decks/FlashcardStudyView legacy; [giới hạn](STEP-D4B-INLINE-STYLE.md)) |
+| F-039 | P2 | Core smoke wikilink không ổn định: Cmd+click xong H1 đích rỗng | `tests/smoke/wikilink-path-fix.spec.ts:63-70`, tái hiện cả baseline `f78b8fb9` | 90/90 không retry; full checks và pre-push dry-run sạch; [biên bản](F-039-COMPLETION.md) | fixed (`95176804`) |
 | F-040 | P2 | Core smoke keyboard delete/Quick Open phụ thuộc retry | `tests/smoke/delete-note-nonblocking.spec.ts:53`, log pre-push bước C | Xác định nguyên nhân trong lane đầy đủ; không coi retry là smoke sạch | open |
-| F-041 | P1 | WebKit regression: render error react-virtuoso khi lưu ghi chú thường trước Command Palette | `note-memory-workspace.spec.ts:124-147`; HEAD trước sửa 20/20 fail | Marker 60/60, regression 10/10, lane WebKit 10/10, native chuột/bàn phím đạt; [biên bản](F-041-COMPLETION.md) | fixed (`:/^fix: F-041 stop WebKit note-list update feedback`) |
+| F-041 | P1 | WebKit regression: render error react-virtuoso khi lưu ghi chú thường trước Command Palette | `note-memory-workspace.spec.ts:124-147`; HEAD trước sửa 20/20 fail | Marker 60/60, regression 10/10, lane WebKit 10/10, native chuột/bàn phím đạt; [biên bản](F-041-COMPLETION.md) | fixed (`4c46db3c`) |
 
 D2 hoàn tất F-008/F-010/F-033/F-037: typography toàn src 232 → 193, CSS data-slot 0 → 0; ngày hiển thị vẫn modified → created theo helper cũ. [Ma trận ảnh native và số đếm từng file](STEP-D2-HOME-LIST-SIDEBAR.md). F-024/F-032 tiếp tục open cho phần ngoài D2; không làm D3/D4 hoặc F-040.
 
@@ -218,7 +235,7 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 | ID | Mức | Nguồn | Tóm tắt | Trạng thái |
 |---|---|---|---|---|
 | R-02 | P2 | review A–D1 | Minimum size của Button icon từ bước A đè kích thước nhỏ ở call site, làm nút phình/lệch hàng | fixed (`326bf5a0`) |
-| R-03 | P2 | review A–D1 | Undo ở màn ôn biến mất sau click, làm mất focus bàn phím đồng bộ | fixed (`:/^fix: R-03 retain study focus across mouse undo`) |
+| R-03 | P2 | review A–D1 | Undo ở màn ôn biến mất sau click, làm mất focus bàn phím đồng bộ | fixed (`e8cdfc3e`) |
 
 ### R-02 — Nút icon phình sau bước A
 
