@@ -337,7 +337,7 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
         <div className="flex-1 min-w-0">
           <ProgressBar current={queueIndex} total={queue.length} />
           {deckName && (
-            <p className="mt-0.5 text-[10px] text-muted-foreground truncate flex items-center gap-1">
+            <p className="mt-0.5 text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground truncate flex items-center gap-1">
               <Books size={10} />
               {deckName}
             </p>
@@ -429,7 +429,7 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
                       <div className="w-full border-t border-dashed border-border" />
                     </div>
                     <div className="relative flex justify-center text-xs uppercase">
-                      <span className="bg-card px-3 text-muted-foreground font-semibold tracking-wider text-[10px]">
+                      <span className="bg-card px-3 text-muted-foreground font-semibold tracking-wider text-(length:--text-caption) leading-(--text-caption--line-height)">
                         Đáp án / Answer
                       </span>
                     </div>
@@ -460,8 +460,8 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
 
                     {/* Vocabulary Related Relations */}
                     {isVocabulary && (synonyms || antonyms || prefixes || suffixes) && (
-                      <div className="mt-4 pt-4 border-t border-border/40 flex flex-col gap-2 text-[11px] leading-normal text-muted-foreground">
-                        <h5 className="font-semibold text-muted-foreground uppercase tracking-wider text-[9px] mb-1">
+                      <div className="mt-4 pt-4 border-t border-border/40 flex flex-col gap-2 text-(length:--text-caption) leading-(--text-caption--line-height) leading-normal text-muted-foreground">
+                        <h5 className="font-semibold text-muted-foreground uppercase tracking-wider text-(length:--text-caption) leading-(--text-caption--line-height) mb-1">
                           Từ vựng liên quan
                         </h5>
                         
@@ -561,7 +561,7 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
                   Show answer
                   <span className="ml-2 text-[var(--accent-blue-light)] text-xs font-normal">[Space]</span>
                 </Button>
-                <p className="text-[10px] text-muted-foreground">
+                <p className="text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground">
                   Rate after revealing — 1 Again · 2 Hard · 3 Good · 4 Easy
                 </p>
               </div>

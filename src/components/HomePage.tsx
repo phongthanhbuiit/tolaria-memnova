@@ -239,7 +239,7 @@ export function HomePage({
             <div className="flex items-center gap-2 mb-3">
               <span
                 className={cn(
-                  'text-[10px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full border',
+                  'text-(length:--text-caption) leading-(--text-caption--line-height) font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full border',
                   totalDue > 0
                     ? 'bg-[var(--accent-blue-light)] border-[var(--accent-blue)]/20 text-[var(--accent-blue)]'
                     : 'bg-[var(--accent-green-light)] border-[var(--accent-green)]/20 text-[var(--accent-green)]',
@@ -326,14 +326,14 @@ export function HomePage({
                     {stats.todayReviews}
                     <span className="text-sm font-bold text-muted-foreground">/{totalAtStart}</span>
                   </span>
-                  <span className="text-[9px] font-black text-muted-foreground uppercase tracking-widest mt-1">
+                  <span className="text-(length:--text-caption) leading-(--text-caption--line-height) font-black text-muted-foreground uppercase tracking-widest mt-1">
                     {translate(locale, 'home.goal_label')}
                   </span>
                 </>
               ) : (
                 <>
                   <span className="text-2xl font-black text-[var(--accent-green)] tracking-tighter leading-none">✓</span>
-                  <span className="text-[9px] font-black text-muted-foreground uppercase tracking-widest mt-1">
+                  <span className="text-(length:--text-caption) leading-(--text-caption--line-height) font-black text-muted-foreground uppercase tracking-widest mt-1">
                     Done
                   </span>
                 </>
@@ -344,7 +344,7 @@ export function HomePage({
           <div className="w-full px-4 mt-2">
             <div className="flex items-center justify-center gap-1.5 mb-1">
               <Trophy size={14} className="text-[var(--accent-yellow)]" weight="fill" />
-              <span className="px-2 py-0.5 rounded-full bg-[var(--accent-blue-light)] text-[var(--accent-blue)] text-[10px] font-black uppercase tracking-wider">
+              <span className="px-2 py-0.5 rounded-full bg-[var(--accent-blue-light)] text-[var(--accent-blue)] text-(length:--text-caption) leading-(--text-caption--line-height) font-black uppercase tracking-wider">
                 {translate(locale, 'home.level')} {level}
               </span>
             </div>
@@ -355,12 +355,12 @@ export function HomePage({
                 style={{ width: `${Math.min((currentLevelXP / nextLevelXP) * 100, 100)}%` }}
               />
             </div>
-            <p className="text-[10px] text-muted-foreground font-semibold">
+            <p className="text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground font-semibold">
               {translate(locale, 'home.xp_to_level', { current: currentLevelXP, next: nextLevelXP, level: level + 1 })}
             </p>
             {/* Goal progress hint */}
             {stats.dailyGoal > 0 && (
-              <p className="text-[10px] text-muted-foreground mt-2">
+              <p className="text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground mt-2">
                 Goal: {stats.todayReviews}/{stats.dailyGoal} reviews
                 {goalPercent >= 100 && <span className="ml-1 text-[var(--accent-green)] font-bold">✓</span>}
               </p>
@@ -377,7 +377,7 @@ export function HomePage({
                 <Brain size={20} weight="fill" />
               </div>
               <div>
-                <p className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider">
+                <p className="text-(length:--text-caption) leading-(--text-caption--line-height) uppercase font-bold text-muted-foreground tracking-wider">
                   {translate(locale, 'home.reviewed')}
                 </p>
                 <p className="text-xl font-black text-foreground tracking-tight">
@@ -392,7 +392,7 @@ export function HomePage({
                 <CheckCircle size={20} weight="fill" />
               </div>
               <div>
-                <p className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider">
+                <p className="text-(length:--text-caption) leading-(--text-caption--line-height) uppercase font-bold text-muted-foreground tracking-wider">
                   {translate(locale, 'home.accuracy')}
                 </p>
                 <p className="text-xl font-black text-foreground tracking-tight">
@@ -409,7 +409,7 @@ export function HomePage({
                 <Timer size={20} weight="fill" />
               </div>
               <div>
-                <p className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider">
+                <p className="text-(length:--text-caption) leading-(--text-caption--line-height) uppercase font-bold text-muted-foreground tracking-wider">
                   {translate(locale, 'home.study_time')}
                 </p>
                 <p className="text-xl font-black text-foreground tracking-tight">
@@ -424,7 +424,7 @@ export function HomePage({
                 <Sparkle size={20} weight="fill" />
               </div>
               <div>
-                <p className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider">
+                <p className="text-(length:--text-caption) leading-(--text-caption--line-height) uppercase font-bold text-muted-foreground tracking-wider">
                   {translate(locale, 'home.xp_earned')}
                 </p>
                 <p className="text-xl font-black text-foreground tracking-tight">
@@ -455,7 +455,7 @@ export function HomePage({
           {/* Heatmap Grid */}
           <div className="w-full overflow-x-auto py-2">
             <div className="flex flex-col gap-1 min-w-[500px]">
-              <div className="flex gap-1 justify-between text-[9px] text-muted-foreground px-1 mb-1">
+              <div className="flex gap-1 justify-between text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground px-1 mb-1">
                 <span>{translate(locale, 'home.heatmap_ago')}</span>
                 <span>{translate(locale, 'home.heatmap_today')}</span>
               </div>
@@ -509,16 +509,16 @@ export function HomePage({
                       <p className="font-bold text-foreground truncate group-hover:text-[var(--accent-blue)] transition-colors">
                         {deck.entry.title}
                       </p>
-                      <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-wider mt-0.5">
+                      <p className="text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground font-bold uppercase tracking-wider mt-0.5">
                         {translate(locale, 'decks.cards_count', { n: deck.totalCards })}
                       </p>
                     </div>
                     {deck.dueCount > 0 ? (
-                      <span className="px-3 py-1 bg-[var(--accent-blue-light)] text-[var(--accent-blue)] text-[10px] font-black rounded-full whitespace-nowrap">
+                      <span className="px-3 py-1 bg-[var(--accent-blue-light)] text-[var(--accent-blue)] text-(length:--text-caption) leading-(--text-caption--line-height) font-black rounded-full whitespace-nowrap">
                         {translate(locale, 'decks.due', { n: deck.dueCount })}
                       </span>
                     ) : (
-                      <span className="px-3 py-1 bg-[var(--accent-green-light)] text-[var(--accent-green)] text-[10px] font-black rounded-full whitespace-nowrap">
+                      <span className="px-3 py-1 bg-[var(--accent-green-light)] text-[var(--accent-green)] text-(length:--text-caption) leading-(--text-caption--line-height) font-black rounded-full whitespace-nowrap">
                         ✓ Done
                       </span>
                     )}

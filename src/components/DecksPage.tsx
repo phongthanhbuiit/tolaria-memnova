@@ -52,7 +52,7 @@ function FilterTab({
       type="button"
       onClick={onClick}
       className={cn(
-        'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-semibold transition-all duration-150',
+        'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-(length:--text-small) leading-(--text-small--line-height) font-semibold transition-all duration-150',
         active
           ? 'bg-[var(--accent-blue)] text-white shadow-sm'
           : 'text-muted-foreground hover:text-foreground hover:bg-muted',
@@ -61,7 +61,7 @@ function FilterTab({
       {label}
       <span
         className={cn(
-          'inline-flex items-center justify-center min-w-[18px] h-[18px] rounded-full text-[10px] font-black px-1',
+          'inline-flex items-center justify-center min-w-[18px] h-[18px] rounded-full text-(length:--text-caption) leading-(--text-caption--line-height) font-black px-1',
           active ? 'bg-white/25' : 'bg-muted text-muted-foreground',
         )}
       >
@@ -156,7 +156,7 @@ export function DecksPage({
           <p className="text-sm text-muted-foreground mt-1 font-medium flex items-center gap-2">
             {translate(locale, 'decks.subtitle')}
             {totalDueCards > 0 && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[var(--accent-blue-light)] text-[var(--accent-blue)] rounded-full text-[10px] font-black">
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[var(--accent-blue-light)] text-[var(--accent-blue)] rounded-full text-(length:--text-caption) leading-(--text-caption--line-height) font-black">
                 {translate(locale, 'decks.total_due', { n: totalDueCards })}
               </span>
             )}
@@ -178,7 +178,7 @@ export function DecksPage({
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={translate(locale, 'decks.search_placeholder')}
-              className="pl-8 pr-8 h-8 text-[12px] bg-muted border-border focus-visible:ring-[var(--accent-blue)] focus-visible:border-[var(--accent-blue)]"
+              className="pl-8 pr-8 h-8 text-(length:--text-small) leading-(--text-small--line-height) bg-muted border-border focus-visible:ring-[var(--accent-blue)] focus-visible:border-[var(--accent-blue)]"
               aria-label={translate(locale, 'decks.search_placeholder')}
             />
             {search && (
@@ -239,7 +239,7 @@ export function DecksPage({
             <button
               type="button"
               onClick={() => { setSearch(''); setStatusFilter('all') }}
-              className="mt-3 text-[12px] text-[var(--accent-blue)] hover:underline"
+              className="mt-3 text-(length:--text-small) leading-(--text-small--line-height) text-[var(--accent-blue)] hover:underline"
             >
               Clear filters
             </button>
@@ -264,18 +264,18 @@ export function DecksPage({
                         {deck.entry.title}
                       </h3>
                       {deck.entry.isA && (
-                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground border border-border inline-block mt-1">
+                        <span className="text-(length:--text-caption) leading-(--text-caption--line-height) px-2 py-0.5 rounded-full bg-muted text-muted-foreground border border-border inline-block mt-1">
                           {deck.entry.isA}
                         </span>
                       )}
                     </div>
 
                     {deck.dueCards > 0 ? (
-                      <span className="px-3 py-1 bg-[var(--accent-blue-light)] text-[var(--accent-blue)] text-[10px] font-black rounded-full whitespace-nowrap">
+                      <span className="px-3 py-1 bg-[var(--accent-blue-light)] text-[var(--accent-blue)] text-(length:--text-caption) leading-(--text-caption--line-height) font-black rounded-full whitespace-nowrap">
                         {translate(locale, 'decks.due', { n: deck.dueCards })}
                       </span>
                     ) : (
-                      <span className="px-3 py-1 bg-[var(--accent-green-light)] text-[var(--accent-green)] text-[10px] font-black rounded-full whitespace-nowrap flex items-center gap-1">
+                      <span className="px-3 py-1 bg-[var(--accent-green-light)] text-[var(--accent-green)] text-(length:--text-caption) leading-(--text-caption--line-height) font-black rounded-full whitespace-nowrap flex items-center gap-1">
                         <CheckCircle size={12} weight="fill" />
                         {translate(locale, 'decks.done_all')}
                       </span>
@@ -290,7 +290,7 @@ export function DecksPage({
                 <div className="space-y-4">
                   {/* Progress bar */}
                   <div className="space-y-1">
-                    <div className="flex justify-between text-[10px] font-bold text-muted-foreground">
+                    <div className="flex justify-between text-(length:--text-caption) leading-(--text-caption--line-height) font-bold text-muted-foreground">
                       <span>{translate(locale, 'decks.progress')}</span>
                       <span>{progress}%</span>
                     </div>
