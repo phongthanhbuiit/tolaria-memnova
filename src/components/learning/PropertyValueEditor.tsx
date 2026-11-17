@@ -71,6 +71,7 @@ function DateValue({ name, value, disabled, onChange, locale }: Props) {
       </PopoverTrigger>
       <PopoverContent className={`${cardEditorStyles.portal} w-auto p-0`}>
         <Calendar
+          appLocale={locale}
           mode="single"
           selected={date}
           defaultMonth={date}

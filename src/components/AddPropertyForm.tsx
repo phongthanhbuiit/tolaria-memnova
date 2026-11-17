@@ -81,6 +81,7 @@ function AddDateInput({
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start" side="bottom">
         <Calendar
+          appLocale={locale}
           mode="single"
           selected={selectedDate}
           onSelect={(day) => { if (day) onChange(dateToISO(day)) }}

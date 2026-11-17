@@ -757,6 +757,8 @@ App UI strings are resolved through `src/lib/i18n.ts`, with flat JSON catalogs i
 
 `App.tsx` owns the effective locale and passes it to localized app chrome through props. Settings and command-palette language commands call back into `saveSettings`, so UI language changes update the current session without touching vault content or reopening the vault.
 
+`Calendar` maps the effective `AppLocale` through `src/lib/calendarLocale.ts` to installed date-fns locales extended with DayPicker ARIA translations. Property editors pass their locale explicitly; other callers subscribe to the app preference. No date storage or parsing changes.
+
 `AppPreferencesProvider` also carries that effective locale to date readouts through `useAppLocale()`. `dateDisplay` accepts a locale alongside the existing format preference; its cached friendly formatter preserves calendar parts, and its explicit numeric formats remain stable. Note rows, date chips and search subtitles subscribe to locale changes; property cells and note info pass their existing locale to the same formatter. The Created prefix uses `noteList.sort.created` from the existing catalogs. This does not change date parsing, ISO editor values or storage.
 
 ## Inspector Abstraction

@@ -393,6 +393,7 @@ function DateValue({ value, onSave, locale = 'en', autoOpen = false, onCancel }:
         </div>
         <div className="pb-8">
           <Calendar
+          appLocale={locale}
             mode="single"
             selected={selectedDate}
             onSelect={handleSelect}

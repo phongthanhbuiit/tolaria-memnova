@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { format } from "date-fns/format"
 import {
   CaretDown as ChevronDownIcon,
   CaretLeft as ChevronLeftIcon,
@@ -15,6 +16,10 @@ import {
   type RootProps,
   type WeekNumberProps,
 } from "react-day-picker"
+
+import { useAppLocale } from "@/hooks/useAppPreferences"
+import { calendarLocales } from "@/lib/calendarLocale"
+import type { AppLocale } from "@/lib/i18n"
 
 import { cn } from "@/lib/utils"
 import { Button, buttonVariants } from "@/components/ui/button"
@@ -31,10 +36,12 @@ const CALENDAR_START_MONTH = new Date(1900, 0)
 const CALENDAR_END_MONTH = new Date(2100, 11)
 
 type CalendarProps = React.ComponentProps<typeof DayPicker> & {
+  appLocale?: AppLocale
   buttonVariant?: React.ComponentProps<typeof Button>["variant"]
 }
 
 function Calendar({
+  appLocale,
   className,
   classNames,
   showOutsideDays = true,
@@ -47,10 +54,13 @@ function Calendar({
   endMonth = CALENDAR_END_MONTH,
   ...props
 }: CalendarProps) {
+  const effectiveLocale = useAppLocale()
+  const dateLocale = calendarLocales[appLocale ?? effectiveLocale]
   const defaultClassNames = getDefaultClassNames()
 
   return (
     <DayPicker
+      locale={dateLocale}
       showOutsideDays={showOutsideDays}
       className={cn(
         "bg-background group/calendar p-3 [--cell-size:--spacing(8)] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent",
@@ -64,7 +74,7 @@ function Calendar({
       endMonth={endMonth}
       formatters={{
         formatMonthDropdown: (date) =>
-          date.toLocaleString("default", { month: "short" }),
+          format(date, "LLL", { locale: dateLocale }),
         ...formatters,
       }}
       classNames={getCalendarClassNames({
