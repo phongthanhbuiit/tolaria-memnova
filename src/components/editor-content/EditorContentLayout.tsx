@@ -592,7 +592,9 @@ export function EditorContentLayout(model: EditorContentModel) {
         onReturn={() => changeLearningTab('front')}
         conflict={flashcard.conflict}
         draft={flashcard.getCanonicalDocument}
-      />}
+      >
+        {showActiveContent&&flashcard.activeFace==='back'&&flashcard.isNoteMemory&&flashcard.isFSRS&&flashcard.configureBack&&flashcard.noteMemoryPageId&&flashcard.sourceBack&&!effectiveRawMode&&!diffMode&&<NoteBackSourceToolbar layout="inline" back={flashcard.sourceBack} ownerPath={path} ownerPageId={flashcard.noteMemoryPageId} locale={locale} onApplyBack={flashcard.configureBack} onNavigate={onNavigateWikilink} />}
+      </NoteMemoryEditorTabs>}
       {!noteNavigation && showLearningTabs && learningWorkspace && <TabsList variant="line" className="note-memory-workspace-tabs mx-3 mt-1" aria-label={translate(locale, learningWorkspace.client?.supportsNoteMemory ? 'learning.noteMemory.management' : 'learning.cards')}><TabsTrigger size="md" layout="responsive" value="content">{translate(locale, 'learning.content')}</TabsTrigger><TabsTrigger size="md" layout="responsive" value="cards">{translate(locale, learningWorkspace.client?.supportsNoteMemory ? 'learning.noteMemory.management' : 'learning.cards')}</TabsTrigger></TabsList>}
       {tabError && <p role="alert" className="px-4 text-sm text-destructive">{tabError}</p>}
       {showLearningTabs && <TabsContent value="cards" className="min-h-0 flex-1"><PageFlashcards key={path} path={path} locale={locale} onEditMnemonic={openMnemonic} /></TabsContent>}
@@ -604,7 +606,6 @@ export function EditorContentLayout(model: EditorContentModel) {
         onChangeFace={flashcard.setActiveFace}
         onAddBack={flashcard.handleAddBack}
       />}
-      {showActiveContent&&flashcard.activeFace==='back'&&flashcard.isNoteMemory&&flashcard.isFSRS&&flashcard.configureBack&&flashcard.noteMemoryPageId&&flashcard.sourceBack&&!effectiveRawMode&&!diffMode&&<NoteBackSourceToolbar back={flashcard.sourceBack} ownerPath={path} ownerPageId={flashcard.noteMemoryPageId} locale={locale} onApplyBack={flashcard.configureBack} onNavigate={onNavigateWikilink} />}
       {showActiveContent && (
         <div className="flex min-h-0 flex-1 flex-col">
           <EditorChrome
