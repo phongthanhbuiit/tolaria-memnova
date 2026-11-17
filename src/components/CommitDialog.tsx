@@ -127,7 +127,7 @@ export function CommitDialog({
         )}
         <Textarea
           ref={inputRef}
-          className="min-h-[84px] resize-y bg-[var(--bg-input)] py-2.5 text-[13px]"
+          className="min-h-[84px] resize-y bg-[var(--bg-input)] py-2.5 text-(length:--text-body) leading-(--text-body--line-height)"
           placeholder="Commit message..."
           value={message}
           onChange={(e) => setMessage(e.target.value)}
@@ -135,7 +135,7 @@ export function CommitDialog({
           rows={3}
         />
         <DialogFooter className="flex-row items-center justify-between sm:justify-between">
-          <span className="text-[11px] text-muted-foreground">{copy.shortcutHint}</span>
+          <span className="text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground">{copy.shortcutHint}</span>
           <div className="flex gap-2">
             <Button variant="outline" onClick={onClose}>
               Cancel

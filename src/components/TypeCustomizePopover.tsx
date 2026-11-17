@@ -120,7 +120,7 @@ function IconSection({
           value={search}
           onChange={(event) => onSearchChange(event.target.value)}
           placeholder={translate(locale, 'customize.searchIcons')}
-          className="h-7 pl-7 pr-2 py-1 text-[12px]"
+          className="h-7 pl-7 pr-2 py-1 text-(length:--text-small) leading-(--text-small--line-height)"
         />
       </div>
       <div
@@ -128,7 +128,7 @@ function IconSection({
         style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(30px, 1fr))', maxHeight: 160 }}
       >
         {filteredIcons.length === 0 ? (
-          <div className="w-full py-6 text-center text-[12px] text-muted-foreground">
+          <div className="w-full py-6 text-center text-(length:--text-small) leading-(--text-small--line-height) text-muted-foreground">
             {translate(locale, 'customize.noIconsFound')}
           </div>
         ) : (
@@ -165,7 +165,7 @@ function TemplateSection({ templateText, locale, onTemplateChange }: TemplateSec
         value={templateText}
         onChange={(event) => onTemplateChange(event.target.value)}
         placeholder={translate(locale, 'customize.templatePlaceholder')}
-        className="min-h-20 max-h-[200px] resize-y px-2 py-1.5 text-[12px] font-mono"
+        className="min-h-20 max-h-[200px] resize-y px-2 py-1.5 text-(length:--text-small) leading-(--text-small--line-height) font-mono"
         data-testid="template-textarea"
       />
     </>

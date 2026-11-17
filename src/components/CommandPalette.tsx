@@ -165,7 +165,7 @@ function CommandPaletteInput({
   return (
     <Input
       ref={inputRef}
-      className="h-auto rounded-none border-x-0 border-t-0 border-b border-border bg-transparent px-4 py-3 text-[15px] text-foreground shadow-none transition-none outline-none placeholder:text-muted-foreground focus-visible:border-border focus-visible:ring-0 md:text-[15px]"
+      className="h-auto rounded-none border-x-0 border-t-0 border-b border-border bg-transparent px-4 py-3 text-(length:--text-body-lg) leading-(--text-body-lg--line-height) text-foreground shadow-none transition-none outline-none placeholder:text-muted-foreground focus-visible:border-border focus-visible:ring-0 md:text-(length:--text-body-lg) md:leading-(--text-body-lg--line-height)"
       type="text"
       placeholder={placeholder}
       value={query}
@@ -200,7 +200,7 @@ function CommandPaletteResults({
   if (flatList.length === 0) {
     return (
       <div className="flex-1 overflow-y-auto py-1" ref={listRef}>
-        <div className="px-4 py-6 text-center text-[13px] text-muted-foreground">
+        <div className="px-4 py-6 text-center text-(length:--text-body) leading-(--text-body--line-height) text-muted-foreground">
           {emptyText}
         </div>
       </div>
@@ -224,7 +224,7 @@ function CommandPaletteResults({
       {sections.map(({ group, items, startIndex }) => {
         return (
           <div key={group}>
-            <div className="px-4 pb-1 pt-2 text-[11px] font-medium text-muted-foreground">
+            <div className="px-4 pb-1 pt-2 text-(length:--text-caption) leading-(--text-caption--line-height) font-medium text-muted-foreground">
               {localizeCommandGroup(group, locale)}
             </div>
             {items.map((command, index) => {
@@ -262,7 +262,7 @@ function CommandPaletteFooter({
   }
 }) {
   return (
-    <div className="flex items-center gap-4 border-t border-border px-4 py-1.5 text-[11px] text-muted-foreground">
+    <div className="flex items-center gap-4 border-t border-border px-4 py-1.5 text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground">
       <span>{aiMode ? footerText.aiMode.replace('{agent}', aiAgentLabel) : footerText.navigate}</span>
       <span>{aiMode ? footerText.send : footerText.select}</span>
       <span>{footerText.close}</span>
@@ -488,7 +488,7 @@ function CommandRow({ command, selected, onHover, onSelect }: CommandRowProps) {
     >
       <span className="text-sm text-foreground">{command.label}</span>
       {command.shortcut && (
-        <span className="text-[11px] text-muted-foreground">{command.shortcut}</span>
+        <span className="text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground">{command.shortcut}</span>
       )}
     </button>
   )

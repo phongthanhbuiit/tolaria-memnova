@@ -331,7 +331,7 @@ function ConflictDialogFooter({
 }) {
   return (
     <DialogFooter className="flex-row items-center justify-between sm:justify-between">
-      <span className="text-[11px] text-muted-foreground">
+      <span className="text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground">
         K = keep mine · T = keep theirs · O = open · Enter = commit
       </span>
       <div className="flex gap-2">

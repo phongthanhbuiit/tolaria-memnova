@@ -166,7 +166,7 @@ export function QuickOpenPalette({ open, entries, isLoading = false, onSelect, o
       >
         <Input
           ref={inputRef}
-          className="h-auto rounded-none border-0 border-b border-border px-4 py-3 text-[15px] shadow-none focus-visible:ring-0"
+          className="h-auto rounded-none border-0 border-b border-border px-4 py-3 text-(length:--text-body-lg) leading-(--text-body-lg--line-height) shadow-none focus-visible:ring-0"
           type="text"
           placeholder={translate(locale, 'noteList.searchPlaceholder')}
           value={query}

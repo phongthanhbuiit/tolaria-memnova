@@ -27,16 +27,16 @@ export function TelemetryConsentDialog({ onAccept, onDecline }: TelemetryConsent
         <ShieldCheck size={40} weight="duotone" style={{ color: 'var(--primary)' }} />
 
         <div style={{ textAlign: 'center' }}>
-          <h2 style={{ fontSize: 18, fontWeight: 600, color: 'var(--foreground)', margin: 0 }}>
+          <h2 className="text-(length:--text-title) leading-(--text-title--line-height)" style={{ fontWeight: 600, color: 'var(--foreground)', margin: 0 }}>
             Help improve Tolaria
           </h2>
-          <p style={{ fontSize: 13, color: 'var(--muted-foreground)', lineHeight: 1.6, marginTop: 8 }}>
+          <p className="text-(length:--text-body) leading-(--text-body--line-height)" style={{ color: 'var(--muted-foreground)',  marginTop: 8 }}>
             Send anonymous crash reports to help us fix bugs faster.
             No vault content, no personal data, no tracking.
           </p>
         </div>
 
-        <div style={{ fontSize: 12, color: 'var(--muted-foreground)', lineHeight: 1.6, width: '100%' }}>
+        <div className="text-(length:--text-small) leading-(--text-small--line-height)" style={{ color: 'var(--muted-foreground)',  width: '100%' }}>
           <p style={{ margin: '0 0 6px', fontWeight: 500, color: 'var(--foreground)' }}>What we collect:</p>
           <ul style={{ margin: 0, paddingLeft: 18 }}>
             <li>Stack traces from errors (JS &amp; Rust)</li>
@@ -50,19 +50,19 @@ export function TelemetryConsentDialog({ onAccept, onDecline }: TelemetryConsent
         </div>
 
         <div style={{ display: 'flex', gap: 12, width: '100%', marginTop: 4 }}>
-          <Button
+          <Button className="text-(length:--text-body) leading-(--text-body--line-height)"
             type="button"
             variant="outline"
-            style={{ flex: 1, fontSize: 13, padding: '10px 16px' }}
+            style={{ flex: 1,  padding: '10px 16px' }}
             onClick={onDecline}
             data-testid="telemetry-decline"
             autoFocus
           >
             No thanks
           </Button>
-          <Button
+          <Button className="text-(length:--text-body) leading-(--text-body--line-height)"
             type="button"
-            style={{ flex: 1, fontSize: 13, padding: '10px 16px', fontWeight: 500 }}
+            style={{ flex: 1,  padding: '10px 16px', fontWeight: 500 }}
             onClick={onAccept}
             data-testid="telemetry-accept"
           >
@@ -70,7 +70,7 @@ export function TelemetryConsentDialog({ onAccept, onDecline }: TelemetryConsent
           </Button>
         </div>
 
-        <p style={{ fontSize: 11, color: 'var(--muted-foreground)', margin: 0, textAlign: 'center' }}>
+        <p className="text-(length:--text-caption) leading-(--text-caption--line-height)" style={{ color: 'var(--muted-foreground)', margin: 0, textAlign: 'center' }}>
           You can change this anytime in Settings.
         </p>
       </>

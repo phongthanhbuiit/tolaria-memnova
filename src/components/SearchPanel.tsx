@@ -403,7 +403,7 @@ const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
         </svg>
         <input
           ref={ref}
-          className="flex-1 bg-transparent text-[15px] text-foreground outline-none placeholder:text-muted-foreground"
+          className="flex-1 bg-transparent text-(length:--text-body-lg) leading-(--text-body-lg--line-height) text-foreground outline-none placeholder:text-muted-foreground"
           type="text"
           placeholder="Search in all notes..."
           value={query}
@@ -539,7 +539,7 @@ function SearchResultRow({
 
 function SearchResultTitle({ icon, title }: { icon?: string | null; title: string }) {
   return (
-    <span className="min-w-0 flex-1 truncate text-[13px] font-medium text-foreground">
+    <span className="min-w-0 flex-1 truncate text-(length:--text-body) leading-(--text-body--line-height) font-medium text-foreground">
       <NoteTitleIcon icon={icon} size={14} className="mr-1" />
       {title}
     </span>
@@ -547,30 +547,30 @@ function SearchResultTitle({ icon, title }: { icon?: string | null; title: strin
 }
 
 function SearchResultTypeLabel({ noteType }: { noteType: string | null }) {
-  return noteType ? <span className="shrink-0 text-[11px] text-muted-foreground/70">{noteType}</span> : null
+  return noteType ? <span className="shrink-0 text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground/70">{noteType}</span> : null
 }
 
 function SearchResultSubtitle({ subtitle }: { subtitle: string | null }) {
-  return subtitle ? <p className="mt-0.5 pl-[22px] text-[11px] text-muted-foreground">{subtitle}</p> : null
+  return subtitle ? <p className="mt-0.5 pl-[22px] text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground">{subtitle}</p> : null
 }
 
 function SearchIdleMessage() {
   return (
     <div className="px-4 py-8 text-center">
-      <p className="text-[13px] text-muted-foreground">Search across all note contents</p>
-      <p className="mt-1 text-[11px] text-muted-foreground/60">Enter to open · Esc to close</p>
+      <p className="text-(length:--text-body) leading-(--text-body--line-height) text-muted-foreground">Search across all note contents</p>
+      <p className="mt-1 text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground/60">Enter to open · Esc to close</p>
     </div>
   )
 }
 
 function SearchLoadingMessage() {
-  return <div className="px-4 py-8 text-center text-[13px] text-muted-foreground">Searching...</div>
+  return <div className="px-4 py-8 text-center text-(length:--text-body) leading-(--text-body--line-height) text-muted-foreground">Searching...</div>
 }
 
 function SearchNoResultsMessage() {
   return (
     <div className="px-4 py-8 text-center">
-      <p className="text-[13px] text-muted-foreground">No results found</p>
+      <p className="text-(length:--text-body) leading-(--text-body--line-height) text-muted-foreground">No results found</p>
     </div>
   )
 }
@@ -578,7 +578,7 @@ function SearchNoResultsMessage() {
 function SearchResultsHeader({ count, elapsedMs }: { count: number; elapsedMs: number | null }) {
   return (
     <div className="border-b border-border/50 px-4 py-1.5">
-      <span className="text-[11px] text-muted-foreground">
+      <span className="text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground">
         {count} result{count !== 1 ? 's' : ''}{elapsedMs !== null ? ` · ${elapsedMs}ms` : ''}
       </span>
     </div>

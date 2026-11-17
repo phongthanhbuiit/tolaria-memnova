@@ -57,7 +57,7 @@ function EmojiGroupSection({
 
   return (
     <div>
-      <div className="sticky top-0 z-10 bg-popover px-1 pb-1 pt-2 text-[11px] font-medium text-muted-foreground">
+      <div className="sticky top-0 z-10 bg-popover px-1 pb-1 pt-2 text-(length:--text-caption) leading-(--text-caption--line-height) font-medium text-muted-foreground">
         {label}
       </div>
       <div className="grid grid-cols-8 gap-0.5">

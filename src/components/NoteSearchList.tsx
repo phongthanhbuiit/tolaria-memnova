@@ -102,7 +102,7 @@ function NoteSearchListItem<T extends NoteSearchResultItem>({
             {item.noteType && (
               <Badge
                 variant="secondary"
-                className="shrink-0 text-[11px]"
+                className="shrink-0 text-(length:--text-caption) leading-(--text-caption--line-height)"
                 style={item.typeColor ? { color: item.typeColor, backgroundColor: item.typeLightColor } : undefined}
               >
                 {item.noteType}
@@ -135,7 +135,7 @@ export function NoteSearchList<T extends NoteSearchResultItem>({
   if (items.length === 0) {
     return (
       <div ref={listRef} className={cn('py-1', className)}>
-        <div className="px-4 py-3 text-center text-[13px] text-muted-foreground">
+        <div className="px-4 py-3 text-center text-(length:--text-body) leading-(--text-body--line-height) text-muted-foreground">
           {emptyMessage}
         </div>
       </div>
