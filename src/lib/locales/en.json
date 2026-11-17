@@ -1057,5 +1057,7 @@
   "sidebar.builtIn.Person": "People",
   "sidebar.builtIn.Event": "Events",
   "sidebar.builtIn.Topic": "Topics",
-  "sidebar.builtIn.Type": "Types"
+  "sidebar.builtIn.Type": "Types",
+  "inspector.history.title": "History",
+  "inspector.history.viewDiff": "View diff for {hash}"
 }

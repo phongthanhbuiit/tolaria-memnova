@@ -1057,5 +1057,7 @@
   "sidebar.builtIn.Person": "Personen",
   "sidebar.builtIn.Event": "Ereignisse",
   "sidebar.builtIn.Topic": "Themen",
-  "sidebar.builtIn.Type": "Typen"
+  "sidebar.builtIn.Type": "Typen",
+  "inspector.history.title": "Verlauf",
+  "inspector.history.viewDiff": "Änderungen für {hash} anzeigen"
 }

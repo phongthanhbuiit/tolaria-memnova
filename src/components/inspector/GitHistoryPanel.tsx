@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { ArrowCounterClockwise } from '@phosphor-icons/react'
 import { useAppLocale } from '../../hooks/useAppPreferences'
-import { getLocaleDateLocale, type AppLocale } from '../../lib/i18n'
+import { getLocaleDateLocale, translate, type AppLocale } from '../../lib/i18n'
 import type { GitCommit } from '../../types'
 
 function formatRelativeDate(timestamp: number, locale: AppLocale): string {
@@ -21,7 +21,7 @@ export function GitHistoryPanel({ commits, onViewCommitDiff }: { commits: GitCom
     <div>
       <h4 className="text-caption font-medium tracking-wide mb-2 flex items-center gap-1 text-text-secondary">
         <ArrowCounterClockwise size={12} className="shrink-0" />
-        History
+        {translate(locale, 'inspector.history.title')}
       </h4>
       <div className="flex flex-col gap-2.5">
         {commits.map((c) => (
@@ -29,7 +29,7 @@ export function GitHistoryPanel({ commits, onViewCommitDiff }: { commits: GitCom
             <Button variant="ghost" size="sm" type="button"
               className="mb-0.5 w-full justify-start cursor-pointer truncate border-none bg-transparent p-0 text-left text-body text-primary hover:underline"
               onClick={() => onViewCommitDiff?.(c.hash)}
-              title={`View diff for ${c.shortHash}`}
+              title={translate(locale, 'inspector.history.viewDiff', { hash: c.shortHash })}
             >
               <span className="font-mono text-caption">{c.shortHash}</span>
               {' · '}

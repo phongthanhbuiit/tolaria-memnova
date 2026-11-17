@@ -1057,5 +1057,7 @@
   "sidebar.builtIn.Person": "Orang",
   "sidebar.builtIn.Event": "Acara",
   "sidebar.builtIn.Topic": "Topik",
-  "sidebar.builtIn.Type": "Jenis"
+  "sidebar.builtIn.Type": "Jenis",
+  "inspector.history.title": "Riwayat",
+  "inspector.history.viewDiff": "Lihat perbedaan untuk {hash}"
 }

@@ -1057,5 +1057,7 @@
   "sidebar.builtIn.Person": "Liudzi",
   "sidebar.builtIn.Event": "Padziei",
   "sidebar.builtIn.Topic": "Temy",
-  "sidebar.builtIn.Type": "Typy"
+  "sidebar.builtIn.Type": "Typy",
+  "inspector.history.title": "Historyja",
+  "inspector.history.viewDiff": "Pahladzieć źmieny {hash}"
 }

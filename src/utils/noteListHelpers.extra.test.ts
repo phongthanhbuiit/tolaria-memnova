@@ -48,12 +48,12 @@ describe('noteListHelpers extra coverage', () => {
   it('formats relative dates across future, recent, and older timestamps', () => {
     const nowSeconds = Math.floor(Date.now() / 1000)
 
-    expect(relativeDate(nowSeconds + 86400)).toBe('Apr 22')
-    expect(relativeDate(nowSeconds - 30)).toBe('now')
-    expect(relativeDate(nowSeconds - 5 * 60)).toBe('5 minutes ago')
-    expect(relativeDate(nowSeconds - 2 * 3600)).toBe('2 hours ago')
-    expect(relativeDate(nowSeconds - 3 * 86400)).toBe('3 days ago')
-    expect(relativeDate(nowSeconds - 10 * 86400)).toBe('Apr 11')
+    expect(relativeDate(nowSeconds + 86400, 'en')).toBe('Apr 22')
+    expect(relativeDate(nowSeconds - 30, 'en')).toBe('now')
+    expect(relativeDate(nowSeconds - 5 * 60, 'en')).toBe('5 minutes ago')
+    expect(relativeDate(nowSeconds - 2 * 3600, 'en')).toBe('2 hours ago')
+    expect(relativeDate(nowSeconds - 3 * 86400, 'en')).toBe('3 days ago')
+    expect(relativeDate(nowSeconds - 10 * 86400, 'en')).toBe('Apr 11')
   })
 
   it('builds note subtitles for empty, linked, and edited notes', () => {
@@ -72,9 +72,9 @@ describe('noteListHelpers extra coverage', () => {
       outgoingLinks: [],
     })
 
-    expect(formatSubtitle(modifiedEntry)).toBe('April 21, 2026 · 1,200 words · 2 links')
-    expect(formatSubtitle(emptyEntry)).toBe('Empty')
-    expect(formatSearchSubtitle(modifiedEntry)).toBe('April 21, 2026 · Created April 19, 2026 · 1,200 words · 2 links')
+    expect(formatSubtitle(modifiedEntry, undefined, 'en')).toBe('April 21, 2026 · 1,200 words · 2 links')
+    expect(formatSubtitle(emptyEntry, undefined, 'en')).toBe('Empty')
+    expect(formatSearchSubtitle(modifiedEntry, undefined, 'en')).toBe('April 21, 2026 · Created April 19, 2026 · 1,200 words · 2 links')
   })
 
   it('uses the selected locale for search dates, the Created label and older/future dates', () => {
@@ -109,10 +109,10 @@ describe('noteListHelpers extra coverage', () => {
       outgoingLinks: ['alpha', 'beta'],
     })
 
-    expect(formatSubtitle(entry)).toBe('April 21, 2026 · 1,200 words · 2 links')
-    expect(formatSearchSubtitle(entry)).toBe('April 21, 2026 · Created April 19, 2026 · 1,200 words · 2 links')
-    expect(formatSubtitle(entry, 'iso')).toBe('2026-04-21 · 1,200 words · 2 links')
-    expect(formatSearchSubtitle(entry, 'european')).toBe('21/4/2026 · Created 19/4/2026 · 1,200 words · 2 links')
+    expect(formatSubtitle(entry, undefined, 'en')).toBe('April 21, 2026 · 1,200 words · 2 links')
+    expect(formatSearchSubtitle(entry, undefined, 'en')).toBe('April 21, 2026 · Created April 19, 2026 · 1,200 words · 2 links')
+    expect(formatSubtitle(entry, 'iso', 'en')).toBe('2026-04-21 · 1,200 words · 2 links')
+    expect(formatSearchSubtitle(entry, 'european', 'en')).toBe('21/4/2026 · Created 19/4/2026 · 1,200 words · 2 links')
   })
 
   it('extracts sortable properties and labels custom property sort keys', () => {

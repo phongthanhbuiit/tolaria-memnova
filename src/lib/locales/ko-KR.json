@@ -1057,5 +1057,7 @@
   "sidebar.builtIn.Person": "사람",
   "sidebar.builtIn.Event": "이벤트",
   "sidebar.builtIn.Topic": "주제",
-  "sidebar.builtIn.Type": "유형"
+  "sidebar.builtIn.Type": "유형",
+  "inspector.history.title": "기록",
+  "inspector.history.viewDiff": "{hash} 변경 사항 보기"
 }

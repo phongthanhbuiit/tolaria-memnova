@@ -1057,5 +1057,7 @@
   "sidebar.builtIn.Person": "人物",
   "sidebar.builtIn.Event": "イベント",
   "sidebar.builtIn.Topic": "トピック",
-  "sidebar.builtIn.Type": "種類"
+  "sidebar.builtIn.Type": "種類",
+  "inspector.history.title": "履歴",
+  "inspector.history.viewDiff": "{hash} の差分を表示"
 }

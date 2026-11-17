@@ -27,3 +27,13 @@ describe('R-01 Git history relative dates', () => {
     expect(screen.getByText('Hôm nay')).toBeInTheDocument()
   })
 })
+
+it('localizes the history heading and diff tooltip while retaining the commit target', () => {
+  const onViewCommitDiff = vi.fn()
+  render(<AppPreferencesProvider locale="vi"><GitHistoryPanel commits={[{ hash: 'full-hash', shortHash: 'abc123', message: 'User commit text', author: '', date: Date.now() / 1000 }]} onViewCommitDiff={onViewCommitDiff} /></AppPreferencesProvider>)
+  expect(screen.getByRole('heading', { name: 'Lịch sử' })).toBeInTheDocument()
+  const button = screen.getByRole('button', { name: /User commit text/ })
+  expect(button).toHaveAttribute('title', 'Xem thay đổi của abc123')
+  fireEvent.click(button)
+  expect(onViewCommitDiff).toHaveBeenCalledWith('full-hash')
+})

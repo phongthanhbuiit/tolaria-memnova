@@ -33,7 +33,7 @@ export interface RelationshipGroup {
   entries: VaultEntry[]
 }
 
-export function relativeDate(ts: number | null, locale: AppLocale = 'en'): string {
+export function relativeDate(ts: number | null, locale: AppLocale): string {
   if (!ts) return ''
   const now = Math.floor(Date.now() / 1000)
   const diff = now - ts
@@ -84,7 +84,7 @@ function appendSubtitleCounts(parts: string[], entry: VaultEntry, locale: AppLoc
 export function formatSubtitle(
   entry: VaultEntry,
   dateDisplayFormat: DateDisplayFormat = DEFAULT_DATE_DISPLAY_FORMAT,
-  locale: AppLocale = 'en',
+  locale: AppLocale,
 ): string {
   const parts: string[] = []
   const date = getDisplayDate(entry)
@@ -100,7 +100,7 @@ function wasCreatedBeforeLastModification(entry: VaultEntry): boolean {
 export function formatSearchSubtitle(
   entry: VaultEntry,
   dateDisplayFormat: DateDisplayFormat = DEFAULT_DATE_DISPLAY_FORMAT,
-  locale: AppLocale = 'en',
+  locale: AppLocale,
 ): string {
   const parts: string[] = []
   const modified = entry.modifiedAt ?? entry.createdAt

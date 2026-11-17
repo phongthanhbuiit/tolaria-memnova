@@ -1057,5 +1057,7 @@
   "sidebar.builtIn.Person": "Osoby",
   "sidebar.builtIn.Event": "Wydarzenia",
   "sidebar.builtIn.Topic": "Tematy",
-  "sidebar.builtIn.Type": "Typy"
+  "sidebar.builtIn.Type": "Typy",
+  "inspector.history.title": "Historia",
+  "inspector.history.viewDiff": "Zobacz różnice dla {hash}"
 }

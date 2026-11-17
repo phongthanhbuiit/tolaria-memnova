@@ -1057,5 +1057,7 @@
   "sidebar.builtIn.Person": "人物",
   "sidebar.builtIn.Event": "事件",
   "sidebar.builtIn.Topic": "主题",
-  "sidebar.builtIn.Type": "类型"
+  "sidebar.builtIn.Type": "类型",
+  "inspector.history.title": "历史记录",
+  "inspector.history.viewDiff": "查看 {hash} 的差异"
 }

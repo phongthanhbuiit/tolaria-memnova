@@ -1057,5 +1057,7 @@
   "sidebar.builtIn.Person": "Mọi người",
   "sidebar.builtIn.Event": "Sự kiện",
   "sidebar.builtIn.Topic": "Chủ đề",
-  "sidebar.builtIn.Type": "Loại"
+  "sidebar.builtIn.Type": "Loại",
+  "inspector.history.title": "Lịch sử",
+  "inspector.history.viewDiff": "Xem thay đổi của {hash}"
 }

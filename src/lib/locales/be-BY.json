@@ -1057,5 +1057,7 @@
   "sidebar.builtIn.Person": "Людзі",
   "sidebar.builtIn.Event": "Падзеі",
   "sidebar.builtIn.Topic": "Тэмы",
-  "sidebar.builtIn.Type": "Тыпы"
+  "sidebar.builtIn.Type": "Тыпы",
+  "inspector.history.title": "Гісторыя",
+  "inspector.history.viewDiff": "Паглядзець змены {hash}"
 }
