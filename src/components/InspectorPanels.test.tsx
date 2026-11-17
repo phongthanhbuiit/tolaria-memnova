@@ -793,7 +793,7 @@ describe('GitHistoryPanel', () => {
     render(<GitHistoryPanel commits={commits} />)
     expect(screen.getByText('today')).toBeInTheDocument()
     expect(screen.getByText('yesterday')).toBeInTheDocument()
-    expect(screen.getByText('10d ago')).toBeInTheDocument()
+    expect(screen.getByText('10 days ago')).toBeInTheDocument()
   })
 })
 

@@ -1,18 +1,20 @@
 import { Button } from '@/components/ui/button'
 import { ArrowCounterClockwise } from '@phosphor-icons/react'
+import { useAppLocale } from '../../hooks/useAppPreferences'
+import { getLocaleDateLocale, type AppLocale } from '../../lib/i18n'
 import type { GitCommit } from '../../types'
 
-function formatRelativeDate(timestamp: number): string {
+function formatRelativeDate(timestamp: number, locale: AppLocale): string {
   const now = Math.floor(Date.now() / 1000)
   const days = Math.floor((now - timestamp) / 86400)
-  if (days < 1) return 'today'
-  if (days === 1) return 'yesterday'
-  if (days < 30) return `${days}d ago`
-  const months = Math.floor(days / 30)
-  return months === 1 ? '1mo ago' : `${months}mo ago`
+  const formatter = new Intl.RelativeTimeFormat(getLocaleDateLocale(locale), { numeric: 'auto' })
+  if (days < 1) return formatter.format(0, 'day')
+  if (days < 30) return formatter.format(-days, 'day')
+  return formatter.format(-Math.floor(days / 30), 'month')
 }
 
 export function GitHistoryPanel({ commits, onViewCommitDiff }: { commits: GitCommit[]; onViewCommitDiff?: (commitHash: string) => void }) {
+  const locale = useAppLocale()
   if (commits.length === 0) return null
 
   return (
@@ -34,7 +36,7 @@ export function GitHistoryPanel({ commits, onViewCommitDiff }: { commits: GitCom
               {c.message}
             </Button>
             <div className="text-small text-text-secondary">
-              {formatRelativeDate(c.date)}
+              {formatRelativeDate(c.date, locale)}
             </div>
           </div>
         ))}
