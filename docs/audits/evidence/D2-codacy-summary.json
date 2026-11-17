@@ -1,0 +1,1135 @@
+{
+  "before": [
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/NoteList.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/Sidebar.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/Sidebar.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/SidebarParts.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/note-list/ListPropertiesPopover.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/note-list/ListPropertiesPopover.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/note-list/NoteListHeader.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/note-list/NoteListLayout.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/note-list/NoteListLayout.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/note-list/NoteListLayout.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/note-list/NoteListLayout.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/sidebar/FavoritesSection.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/sidebar/FavoritesSection.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/sidebar/SidebarLoadingSections.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/sidebar/SidebarLoadingSections.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/sidebar/SidebarLoadingSections.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/sidebar/SidebarLoadingSections.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/sidebar/SidebarLoadingSections.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/sidebar/SidebarSections.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/sidebar/SidebarSections.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/sidebar/SidebarViewItem.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_nloc-medium",
+      "level": "warning",
+      "message": "FolderTree has a NLOC of 92 (threshold: 50)",
+      "file": "src/components/FolderTree.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "FolderTree has a parameter count of 15 (threshold: 8)",
+      "file": "src/components/FolderTree.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "FolderTreeBody has a parameter count of 18 (threshold: 8)",
+      "file": "src/components/FolderTree.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "StandardNoteContent has a parameter count of 11 (threshold: 8)",
+      "file": "src/components/NoteItem.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_ccn-medium",
+      "level": "warning",
+      "message": "resolveDisplayProps has a cyclomatic complexity of 17 (threshold: 15)",
+      "file": "src/components/NoteItem.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "resolveNoteItemSurfaceProps has a parameter count of 12 (threshold: 8)",
+      "file": "src/components/NoteItem.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "NoteItemContent has a parameter count of 12 (threshold: 8)",
+      "file": "src/components/NoteItem.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "NoteItem has a parameter count of 12 (threshold: 8)",
+      "file": "src/components/NoteItem.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "SidebarFavoritesNavigation has a parameter count of 10 (threshold: 8)",
+      "file": "src/components/Sidebar.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "SidebarViewsNavigation has a parameter count of 15 (threshold: 8)",
+      "file": "src/components/Sidebar.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "SidebarTypesNavigation has a parameter count of 16 (threshold: 8)",
+      "file": "src/components/Sidebar.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "SidebarFoldersNavigation has a parameter count of 16 (threshold: 8)",
+      "file": "src/components/Sidebar.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_nloc-medium",
+      "level": "warning",
+      "message": "SidebarNavigation has a NLOC of 220 (threshold: 50)",
+      "file": "src/components/Sidebar.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_ccn-medium",
+      "level": "warning",
+      "message": "SidebarNavigation has a cyclomatic complexity of 18 (threshold: 15)",
+      "file": "src/components/Sidebar.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "ClickableNavItem has a parameter count of 15 (threshold: 8)",
+      "file": "src/components/SidebarParts.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "NavItem has a parameter count of 15 (threshold: 8)",
+      "file": "src/components/SidebarParts.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_nloc-medium",
+      "level": "warning",
+      "message": "isSelectionActive has a NLOC of 72 (threshold: 50)",
+      "file": "src/components/SidebarParts.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_ccn-medium",
+      "level": "warning",
+      "message": "isSelectionActive has a cyclomatic complexity of 19 (threshold: 15)",
+      "file": "src/components/SidebarParts.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "SectionContent has a parameter count of 14 (threshold: 8)",
+      "file": "src/components/SidebarParts.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "SectionHeaderLabel has a parameter count of 11 (threshold: 8)",
+      "file": "src/components/SidebarParts.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "SectionHeader has a parameter count of 17 (threshold: 8)",
+      "file": "src/components/SidebarParts.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_nloc-medium",
+      "level": "warning",
+      "message": "FolderContextMenu has a NLOC of 61 (threshold: 50)",
+      "file": "src/components/folder-tree/FolderContextMenu.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "FolderContextMenu has a parameter count of 9 (threshold: 8)",
+      "file": "src/components/folder-tree/FolderContextMenu.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "FolderItemRow has a parameter count of 11 (threshold: 8)",
+      "file": "src/components/folder-tree/FolderItemRow.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "FolderSelectButton has a parameter count of 9 (threshold: 8)",
+      "file": "src/components/folder-tree/FolderItemRow.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "FolderNameInput has a parameter count of 10 (threshold: 8)",
+      "file": "src/components/folder-tree/FolderNameInput.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "FolderChildren has a parameter count of 15 (threshold: 8)",
+      "file": "src/components/folder-tree/FolderTreeRow.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "FolderTreeRow has a parameter count of 15 (threshold: 8)",
+      "file": "src/components/folder-tree/FolderTreeRow.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_ccn-medium",
+      "level": "warning",
+      "message": "LegacyLearningDashboard has a cyclomatic complexity of 23 (threshold: 15)",
+      "file": "src/components/learning/LearningDashboard.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_nloc-medium",
+      "level": "warning",
+      "message": "(anonymous) has a NLOC of 77 (threshold: 50)",
+      "file": "src/components/learning/NoteLearningDashboard.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_ccn-medium",
+      "level": "warning",
+      "message": "(anonymous) has a cyclomatic complexity of 18 (threshold: 15)",
+      "file": "src/components/learning/NoteLearningDashboard.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_ccn-medium",
+      "level": "warning",
+      "message": "renderRow has a cyclomatic complexity of 22 (threshold: 15)",
+      "file": "src/components/learning/NoteMemoryList.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "ListPropertiesPopoverPanel has a parameter count of 14 (threshold: 8)",
+      "file": "src/components/note-list/ListPropertiesPopover.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_nloc-medium",
+      "level": "warning",
+      "message": "ListPropertiesPopover has a NLOC of 56 (threshold: 50)",
+      "file": "src/components/note-list/ListPropertiesPopover.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "hasNoteListContextActions has a parameter count of 11 (threshold: 8)",
+      "file": "src/components/note-list/NoteListContextMenu.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "useNoteListContextMenu has a parameter count of 11 (threshold: 8)",
+      "file": "src/components/note-list/NoteListContextMenu.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "NoteListContextMenuNode has a parameter count of 14 (threshold: 8)",
+      "file": "src/components/note-list/NoteListContextMenuView.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_nloc-medium",
+      "level": "warning",
+      "message": "SearchRow has a NLOC of 52 (threshold: 50)",
+      "file": "src/components/note-list/NoteListHeader.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_nloc-medium",
+      "level": "warning",
+      "message": "NoteListHeader has a NLOC of 68 (threshold: 50)",
+      "file": "src/components/note-list/NoteListHeader.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "NoteListHeader has a parameter count of 24 (threshold: 8)",
+      "file": "src/components/note-list/NoteListHeader.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "EntityView has a parameter count of 9 (threshold: 8)",
+      "file": "src/components/note-list/NoteListViews.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "ListView has a parameter count of 9 (threshold: 8)",
+      "file": "src/components/note-list/NoteListViews.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_nloc-medium",
+      "level": "warning",
+      "message": "useNoteListContent has a NLOC of 122 (threshold: 50)",
+      "file": "src/components/note-list/useNoteListModel.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "useNoteListContent has a parameter count of 22 (threshold: 8)",
+      "file": "src/components/note-list/useNoteListModel.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_nloc-medium",
+      "level": "warning",
+      "message": "reorderFavoriteIds has a NLOC of 64 (threshold: 50)",
+      "file": "src/components/sidebar/FavoritesSection.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "ViewsSection has a parameter count of 14 (threshold: 8)",
+      "file": "src/components/sidebar/SidebarSections.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "SortableViewItem has a parameter count of 9 (threshold: 8)",
+      "file": "src/components/sidebar/SidebarSections.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "TypesSection has a parameter count of 18 (threshold: 8)",
+      "file": "src/components/sidebar/SidebarSections.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_nloc-medium",
+      "level": "warning",
+      "message": "SortableSection has a NLOC of 257 (threshold: 50)",
+      "file": "src/components/sidebar/SidebarSections.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_ccn-medium",
+      "level": "warning",
+      "message": "SortableSection has a cyclomatic complexity of 37 (threshold: 15)",
+      "file": "src/components/sidebar/SidebarSections.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_nloc-medium",
+      "level": "warning",
+      "message": "SidebarTopNav has a NLOC of 66 (threshold: 50)",
+      "file": "src/components/sidebar/SidebarTopNav.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "SidebarTopNav has a parameter count of 10 (threshold: 8)",
+      "file": "src/components/sidebar/SidebarTopNav.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "ViewContextMenu has a parameter count of 10 (threshold: 8)",
+      "file": "src/components/sidebar/SidebarViewActions.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_nloc-medium",
+      "level": "warning",
+      "message": "SidebarViewItem has a NLOC of 93 (threshold: 50)",
+      "file": "src/components/sidebar/SidebarViewItem.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "SidebarViewItem has a parameter count of 10 (threshold: 8)",
+      "file": "src/components/sidebar/SidebarViewItem.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_file-nloc-medium",
+      "level": "warning",
+      "message": "File has 795 lines of code (threshold: 730)",
+      "file": "src/components/note-list/useNoteListModel.tsx"
+    }
+  ],
+  "after": [
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/NoteList.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/Sidebar.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/Sidebar.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/SidebarParts.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/note-list/ListPropertiesPopover.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/note-list/ListPropertiesPopover.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/note-list/NoteListHeader.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/note-list/NoteListLayout.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/note-list/NoteListLayout.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/note-list/NoteListLayout.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/note-list/NoteListLayout.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/sidebar/FavoritesSection.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/sidebar/FavoritesSection.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/sidebar/SidebarLoadingSections.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/sidebar/SidebarLoadingSections.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/sidebar/SidebarLoadingSections.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/sidebar/SidebarLoadingSections.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/sidebar/SidebarLoadingSections.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/sidebar/SidebarSections.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/sidebar/SidebarSections.tsx"
+    },
+    {
+      "tool": "Semgrep",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "level": "warning",
+      "message": "It's best practice to explicitly pass props to an HTML component rather than use the spread operator.",
+      "file": "src/components/sidebar/SidebarViewItem.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_nloc-medium",
+      "level": "warning",
+      "message": "FolderTree has a NLOC of 92 (threshold: 50)",
+      "file": "src/components/FolderTree.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "FolderTree has a parameter count of 15 (threshold: 8)",
+      "file": "src/components/FolderTree.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "FolderTreeBody has a parameter count of 18 (threshold: 8)",
+      "file": "src/components/FolderTree.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "StandardNoteContent has a parameter count of 11 (threshold: 8)",
+      "file": "src/components/NoteItem.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_ccn-medium",
+      "level": "warning",
+      "message": "resolveDisplayProps has a cyclomatic complexity of 17 (threshold: 15)",
+      "file": "src/components/NoteItem.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "resolveNoteItemSurfaceProps has a parameter count of 12 (threshold: 8)",
+      "file": "src/components/NoteItem.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "NoteItemContent has a parameter count of 12 (threshold: 8)",
+      "file": "src/components/NoteItem.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "NoteItem has a parameter count of 12 (threshold: 8)",
+      "file": "src/components/NoteItem.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "SidebarFavoritesNavigation has a parameter count of 10 (threshold: 8)",
+      "file": "src/components/Sidebar.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "SidebarViewsNavigation has a parameter count of 15 (threshold: 8)",
+      "file": "src/components/Sidebar.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "SidebarTypesNavigation has a parameter count of 16 (threshold: 8)",
+      "file": "src/components/Sidebar.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "SidebarFoldersNavigation has a parameter count of 16 (threshold: 8)",
+      "file": "src/components/Sidebar.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_nloc-medium",
+      "level": "warning",
+      "message": "SidebarNavigation has a NLOC of 220 (threshold: 50)",
+      "file": "src/components/Sidebar.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_ccn-medium",
+      "level": "warning",
+      "message": "SidebarNavigation has a cyclomatic complexity of 18 (threshold: 15)",
+      "file": "src/components/Sidebar.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "ClickableNavItem has a parameter count of 15 (threshold: 8)",
+      "file": "src/components/SidebarParts.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "NavItem has a parameter count of 15 (threshold: 8)",
+      "file": "src/components/SidebarParts.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "SectionContent has a parameter count of 14 (threshold: 8)",
+      "file": "src/components/SidebarParts.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "SectionHeaderLabel has a parameter count of 10 (threshold: 8)",
+      "file": "src/components/SidebarParts.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "SectionHeader has a parameter count of 16 (threshold: 8)",
+      "file": "src/components/SidebarParts.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_nloc-medium",
+      "level": "warning",
+      "message": "FolderContextMenu has a NLOC of 61 (threshold: 50)",
+      "file": "src/components/folder-tree/FolderContextMenu.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "FolderContextMenu has a parameter count of 9 (threshold: 8)",
+      "file": "src/components/folder-tree/FolderContextMenu.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "FolderItemRow has a parameter count of 11 (threshold: 8)",
+      "file": "src/components/folder-tree/FolderItemRow.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "FolderSelectButton has a parameter count of 9 (threshold: 8)",
+      "file": "src/components/folder-tree/FolderItemRow.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "FolderNameInput has a parameter count of 10 (threshold: 8)",
+      "file": "src/components/folder-tree/FolderNameInput.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "FolderChildren has a parameter count of 15 (threshold: 8)",
+      "file": "src/components/folder-tree/FolderTreeRow.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "FolderTreeRow has a parameter count of 15 (threshold: 8)",
+      "file": "src/components/folder-tree/FolderTreeRow.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_ccn-medium",
+      "level": "warning",
+      "message": "LegacyLearningDashboard has a cyclomatic complexity of 23 (threshold: 15)",
+      "file": "src/components/learning/LearningDashboard.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_nloc-medium",
+      "level": "warning",
+      "message": "NoteLearningDashboard has a NLOC of 113 (threshold: 50)",
+      "file": "src/components/learning/NoteLearningDashboard.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_ccn-medium",
+      "level": "warning",
+      "message": "NoteLearningDashboard has a cyclomatic complexity of 22 (threshold: 15)",
+      "file": "src/components/learning/NoteLearningDashboard.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_ccn-medium",
+      "level": "warning",
+      "message": "renderRow has a cyclomatic complexity of 22 (threshold: 15)",
+      "file": "src/components/learning/NoteMemoryList.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "ListPropertiesPopoverPanel has a parameter count of 14 (threshold: 8)",
+      "file": "src/components/note-list/ListPropertiesPopover.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_nloc-medium",
+      "level": "warning",
+      "message": "ListPropertiesPopover has a NLOC of 56 (threshold: 50)",
+      "file": "src/components/note-list/ListPropertiesPopover.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "hasNoteListContextActions has a parameter count of 11 (threshold: 8)",
+      "file": "src/components/note-list/NoteListContextMenu.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "useNoteListContextMenu has a parameter count of 11 (threshold: 8)",
+      "file": "src/components/note-list/NoteListContextMenu.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "NoteListContextMenuNode has a parameter count of 14 (threshold: 8)",
+      "file": "src/components/note-list/NoteListContextMenuView.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_nloc-medium",
+      "level": "warning",
+      "message": "SearchRow has a NLOC of 52 (threshold: 50)",
+      "file": "src/components/note-list/NoteListHeader.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_nloc-medium",
+      "level": "warning",
+      "message": "NoteListHeader has a NLOC of 68 (threshold: 50)",
+      "file": "src/components/note-list/NoteListHeader.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "NoteListHeader has a parameter count of 24 (threshold: 8)",
+      "file": "src/components/note-list/NoteListHeader.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "EntityView has a parameter count of 9 (threshold: 8)",
+      "file": "src/components/note-list/NoteListViews.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "ListView has a parameter count of 9 (threshold: 8)",
+      "file": "src/components/note-list/NoteListViews.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_nloc-medium",
+      "level": "warning",
+      "message": "useNoteListContent has a NLOC of 122 (threshold: 50)",
+      "file": "src/components/note-list/useNoteListModel.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "useNoteListContent has a parameter count of 22 (threshold: 8)",
+      "file": "src/components/note-list/useNoteListModel.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_nloc-medium",
+      "level": "warning",
+      "message": "reorderFavoriteIds has a NLOC of 64 (threshold: 50)",
+      "file": "src/components/sidebar/FavoritesSection.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "ViewsSection has a parameter count of 14 (threshold: 8)",
+      "file": "src/components/sidebar/SidebarSections.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "SortableViewItem has a parameter count of 9 (threshold: 8)",
+      "file": "src/components/sidebar/SidebarSections.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "TypesSection has a parameter count of 18 (threshold: 8)",
+      "file": "src/components/sidebar/SidebarSections.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_nloc-medium",
+      "level": "warning",
+      "message": "SortableSection has a NLOC of 257 (threshold: 50)",
+      "file": "src/components/sidebar/SidebarSections.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_ccn-medium",
+      "level": "warning",
+      "message": "SortableSection has a cyclomatic complexity of 37 (threshold: 15)",
+      "file": "src/components/sidebar/SidebarSections.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_nloc-medium",
+      "level": "warning",
+      "message": "SidebarTopNav has a NLOC of 62 (threshold: 50)",
+      "file": "src/components/sidebar/SidebarTopNav.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "SidebarTopNav has a parameter count of 10 (threshold: 8)",
+      "file": "src/components/sidebar/SidebarTopNav.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "ViewContextMenu has a parameter count of 10 (threshold: 8)",
+      "file": "src/components/sidebar/SidebarViewActions.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_nloc-medium",
+      "level": "warning",
+      "message": "SidebarViewItem has a NLOC of 93 (threshold: 50)",
+      "file": "src/components/sidebar/SidebarViewItem.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_parameter-count-medium",
+      "level": "warning",
+      "message": "SidebarViewItem has a parameter count of 10 (threshold: 8)",
+      "file": "src/components/sidebar/SidebarViewItem.tsx"
+    },
+    {
+      "tool": "Lizard",
+      "rule": "Lizard_file-nloc-medium",
+      "level": "warning",
+      "message": "File has 795 lines of code (threshold: 730)",
+      "file": "src/components/note-list/useNoteListModel.tsx"
+    }
+  ],
+  "introducedSignatures": [
+    [
+      "Lizard",
+      "Lizard_nloc-medium",
+      "src/components/learning/NoteLearningDashboard.tsx",
+      "NoteLearningDashboard",
+      1
+    ],
+    [
+      "Lizard",
+      "Lizard_ccn-medium",
+      "src/components/learning/NoteLearningDashboard.tsx",
+      "NoteLearningDashboard",
+      1
+    ]
+  ],
+  "resolvedSignatures": [
+    [
+      "Lizard",
+      "Lizard_nloc-medium",
+      "src/components/SidebarParts.tsx",
+      "isSelectionActive",
+      1
+    ],
+    [
+      "Lizard",
+      "Lizard_ccn-medium",
+      "src/components/SidebarParts.tsx",
+      "isSelectionActive",
+      1
+    ],
+    [
+      "Lizard",
+      "Lizard_nloc-medium",
+      "src/components/learning/NoteLearningDashboard.tsx",
+      "(anonymous)",
+      1
+    ],
+    [
+      "Lizard",
+      "Lizard_ccn-medium",
+      "src/components/learning/NoteLearningDashboard.tsx",
+      "(anonymous)",
+      1
+    ]
+  ],
+  "analyzers": {
+    "ESLint9": [
+      0,
+      0
+    ],
+    "Semgrep": [
+      21,
+      21
+    ],
+    "Lizard": [
+      56,
+      54
+    ],
+    "Trivy": [
+      0,
+      0
+    ]
+  },
+  "errors": []
+}

@@ -1,0 +1,158 @@
+{
+  "1440": {
+    "markdownFiles": 256,
+    "markdownUnchanged": true,
+    "databaseTables": {
+      ".memnova/learning.sqlite3": {
+        "pages": 11,
+        "cards": 5,
+        "schedules": 5,
+        "sessions": 5,
+        "reviews": 4,
+        "decks": 0,
+        "deck_pages": 0,
+        "imports": 0,
+        "library_metadata": 18,
+        "page_property_definitions": 0,
+        "card_property_definitions": 0,
+        "note_card_bindings": 5,
+        "note_learning_operations": 23
+      },
+      ".memnova/backups/53e41e5e-3501-4f1c-9729-e5fbe6b6a90a/files/.memnova/learning.sqlite3": {
+        "pages": 9,
+        "cards": 3,
+        "schedules": 3,
+        "sessions": 3,
+        "reviews": 2,
+        "decks": 0,
+        "deck_pages": 0,
+        "imports": 0,
+        "library_metadata": 16,
+        "page_property_definitions": 0,
+        "card_property_definitions": 0,
+        "note_card_bindings": 3,
+        "note_learning_operations": 12
+      },
+      ".memnova/backups/a2d20830-8b65-4ea1-83b9-42e97a4dc609/files/.memnova/learning.sqlite3": {
+        "pages": 10,
+        "cards": 4,
+        "schedules": 4,
+        "sessions": 4,
+        "reviews": 2,
+        "decks": 0,
+        "deck_pages": 0,
+        "imports": 0,
+        "library_metadata": 17,
+        "page_property_definitions": 0,
+        "card_property_definitions": 0,
+        "note_card_bindings": 4,
+        "note_learning_operations": 16
+      }
+    },
+    "databaseRowsUnchanged": true,
+    "checks": {
+      ".memnova/learning.sqlite3": {
+        "integrity": [
+          [
+            "ok"
+          ]
+        ],
+        "foreignKeys": []
+      },
+      ".memnova/backups/53e41e5e-3501-4f1c-9729-e5fbe6b6a90a/files/.memnova/learning.sqlite3": {
+        "integrity": [
+          [
+            "ok"
+          ]
+        ],
+        "foreignKeys": []
+      },
+      ".memnova/backups/a2d20830-8b65-4ea1-83b9-42e97a4dc609/files/.memnova/learning.sqlite3": {
+        "integrity": [
+          [
+            "ok"
+          ]
+        ],
+        "foreignKeys": []
+      }
+    }
+  },
+  "1024": {
+    "markdownFiles": 256,
+    "markdownUnchanged": true,
+    "databaseTables": {
+      ".memnova/learning.sqlite3": {
+        "pages": 11,
+        "cards": 5,
+        "schedules": 5,
+        "sessions": 5,
+        "reviews": 4,
+        "decks": 0,
+        "deck_pages": 0,
+        "imports": 0,
+        "library_metadata": 18,
+        "page_property_definitions": 0,
+        "card_property_definitions": 0,
+        "note_card_bindings": 5,
+        "note_learning_operations": 23
+      },
+      ".memnova/backups/53e41e5e-3501-4f1c-9729-e5fbe6b6a90a/files/.memnova/learning.sqlite3": {
+        "pages": 9,
+        "cards": 3,
+        "schedules": 3,
+        "sessions": 3,
+        "reviews": 2,
+        "decks": 0,
+        "deck_pages": 0,
+        "imports": 0,
+        "library_metadata": 16,
+        "page_property_definitions": 0,
+        "card_property_definitions": 0,
+        "note_card_bindings": 3,
+        "note_learning_operations": 12
+      },
+      ".memnova/backups/a2d20830-8b65-4ea1-83b9-42e97a4dc609/files/.memnova/learning.sqlite3": {
+        "pages": 10,
+        "cards": 4,
+        "schedules": 4,
+        "sessions": 4,
+        "reviews": 2,
+        "decks": 0,
+        "deck_pages": 0,
+        "imports": 0,
+        "library_metadata": 17,
+        "page_property_definitions": 0,
+        "card_property_definitions": 0,
+        "note_card_bindings": 4,
+        "note_learning_operations": 16
+      }
+    },
+    "databaseRowsUnchanged": true,
+    "checks": {
+      ".memnova/learning.sqlite3": {
+        "integrity": [
+          [
+            "ok"
+          ]
+        ],
+        "foreignKeys": []
+      },
+      ".memnova/backups/53e41e5e-3501-4f1c-9729-e5fbe6b6a90a/files/.memnova/learning.sqlite3": {
+        "integrity": [
+          [
+            "ok"
+          ]
+        ],
+        "foreignKeys": []
+      },
+      ".memnova/backups/a2d20830-8b65-4ea1-83b9-42e97a4dc609/files/.memnova/learning.sqlite3": {
+        "integrity": [
+          [
+            "ok"
+          ]
+        ],
+        "foreignKeys": []
+      }
+    }
+  }
+}

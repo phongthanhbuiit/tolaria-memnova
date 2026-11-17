@@ -1,0 +1,322 @@
+
+ RUN  v4.0.18 /Users/thompson/Documents/tolaria-memnova
+
+stderr | src/components/learning/NoteLearningDashboard.test.tsx > defaults to note learning, exposes old cards explicitly and never mixes the lanes
+The tag <search> is unrecognized in this browser. If you meant to render a React component, start its name with an uppercase letter.
+
+ ❯ src/components/learning/NoteLearningDashboard.test.tsx (9 tests | 1 failed) 596ms
+   × defaults to note learning, exposes old cards explicitly and never mixes the lanes 246ms
+   ✓ discloses conversion and recovery above the notes 69ms
+   ✓ keeps internal retained-history paths out of the folder picker 61ms
+   ✓ clears an initial refresh error when the same mounted workspace publishes a successful snapshot 29ms
+   ✓ distinguishes future reviews from due notes and shows paths for matching titles 15ms
+   ✓ explains a folder with enabled notes but no due reviews 23ms
+   ✓ finds learning notes by title or relative path and limits study to matching notes 76ms
+   ✓ shows only due rows on demand while retaining scheduled matches in the resumable study scope 69ms
+   ✓ keeps the learning filters out of an ordinary writing-only Library 6ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/components/learning/NoteLearningDashboard.test.tsx > defaults to note learning, exposes old cards explicitly and never mixes the lanes
+TestingLibraryElementError: Unable to find an accessible element with the role "tablist" and name "Library"
+
+Here are the accessible roles:
+
+  navigation:
+
+  Name "Library":
+  [36m<nav[39m
+    [33maria-label[39m=[32m"Library"[39m
+    [33mclass[39m=[32m"mx-auto flex max-w-5xl flex-wrap items-center gap-2 border-b px-4 py-2 sm:px-8"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "Note memory · 1 due":
+  [36m<button[39m
+    [33maria-pressed[39m=[32m"true"[39m
+    [33mclass[39m=[32m"inline-flex items-center justify-center gap-[6px] rounded-md text-body font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-[16px] shrink-0 [&_svg]:shrink-0 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 min-h-(--control-lg) px-6 py-0 has-[>svg]:px-4 min-w-0 max-w-full whitespace-normal [overflow-wrap:anywhere] touch-manipulation [@media(pointer:coarse)]:min-h-[44px] [@media(pointer:coarse)]:min-w-[44px]"[39m
+    [33mdata-size[39m=[32m"lg"[39m
+    [33mdata-slot[39m=[32m"button"[39m
+    [33mdata-variant[39m=[32m"secondary"[39m
+  [36m/>[39m
+
+  Name "Old cards · 1 due":
+  [36m<button[39m
+    [33maria-pressed[39m=[32m"false"[39m
+    [33mclass[39m=[32m"inline-flex items-center justify-center gap-[6px] rounded-md text-body font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-[16px] shrink-0 [&_svg]:shrink-0 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 min-h-(--control-lg) px-6 py-0 has-[>svg]:px-4 min-w-0 max-w-full whitespace-normal [overflow-wrap:anywhere] touch-manipulation [@media(pointer:coarse)]:min-h-[44px] [@media(pointer:coarse)]:min-w-[44px]"[39m
+    [33mdata-size[39m=[32m"lg"[39m
+    [33mdata-slot[39m=[32m"button"[39m
+    [33mdata-variant[39m=[32m"ghost"[39m
+  [36m/>[39m
+
+  Name "Study due notes (1)":
+  [36m<button[39m
+    [33mclass[39m=[32m"inline-flex items-center justify-center gap-[6px] rounded-md text-body font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-[16px] shrink-0 [&_svg]:shrink-0 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-primary text-primary-foreground hover:bg-primary/90 min-h-(--control-lg) px-6 py-0 has-[>svg]:px-4 min-w-0 max-w-full whitespace-normal [overflow-wrap:anywhere] touch-manipulation [@media(pointer:coarse)]:min-h-[44px] [@media(pointer:coarse)]:min-w-[44px]"[39m
+    [33mdata-size[39m=[32m"lg"[39m
+    [33mdata-slot[39m=[32m"button"[39m
+    [33mdata-variant[39m=[32m"default"[39m
+  [36m/>[39m
+
+  Name "Advanced":
+  [36m<button[39m
+    [33maria-controls[39m=[32m"_r_0_"[39m
+    [33maria-expanded[39m=[32m"false"[39m
+    [33mclass[39m=[32m"inline-flex items-center justify-center gap-[6px] rounded-md text-body font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-[16px] shrink-0 [&_svg]:shrink-0 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 min-h-(--control-lg) px-6 py-0 has-[>svg]:px-4 min-w-0 max-w-full whitespace-normal [overflow-wrap:anywhere] touch-manipulation [@media(pointer:coarse)]:min-h-[44px] [@media(pointer:coarse)]:min-w-[44px]"[39m
+    [33mdata-size[39m=[32m"lg"[39m
+    [33mdata-slot[39m=[32m"button"[39m
+    [33mdata-variant[39m=[32m"ghost"[39m
+  [36m/>[39m
+
+  Name "A4 article":
+  [36m<button[39m
+    [33maria-describedby[39m=[32m"_r_3_-detail-0 _r_3_-status-0"[39m
+    [33maria-labelledby[39m=[32m"_r_3_-title-0"[39m
+    [33mclass[39m=[32m"inline-flex items-center gap-[6px] text-body font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-[16px] shrink-0 [&_svg]:shrink-0 outline-none focus-visible:outline-2 focus-visible:outline-ring focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 min-h-(--control-md) has-[>svg]:px-3 min-w-0 max-w-full whitespace-normal [overflow-wrap:anywhere] touch-manipulation [@media(pointer:coarse)]:min-h-[44px] [@media(pointer:coarse)]:min-w-[44px] w-full flex-wrap justify-between gap-x-4 gap-y-1 rounded-none px-2 py-2 text-left focus-visible:outline-offset-[-2px]"[39m
+    [33mdata-memory-index[39m=[32m"0"[39m
+    [33mdata-size[39m=[32m"md"[39m
+    [33mdata-slot[39m=[32m"button"[39m
+    [33mdata-variant[39m=[32m"ghost"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  main:
+
+  Name "":
+  [36m<main[39m
+    [33mclass[39m=[32m"mx-auto max-w-5xl space-y-6 p-4 sm:p-8"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  banner:
+
+  Name "":
+  [36m<header[39m
+    [33mclass[39m=[32m"flex flex-wrap items-start justify-between gap-4"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "Note memory":
+  [36m<h1[39m
+    [33mclass[39m=[32m"text-xl font-semibold"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  searchbox:
+
+  Name "Search notes":
+  [36m<input[39m
+    [33mautocapitalize[39m=[32m"off"[39m
+    [33mautocomplete[39m=[32m"off"[39m
+    [33mautocorrect[39m=[32m"off"[39m
+    [33mclass[39m=[32m"file:text-foreground placeholder:text-text-muted selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input w-full rounded-md border bg-transparent px-3 py-0 text-body transition-[color,box-shadow] outline-none file:inline-flex file:border-0 file:bg-transparent file:text-body file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 min-h-(--control-md) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive min-w-0 max-w-full whitespace-normal [overflow-wrap:anywhere] touch-manipulation [@media(pointer:coarse)]:min-h-[44px] [@media(pointer:coarse)]:min-w-[44px] ps-9 pe-10 [&::-webkit-search-cancel-button]:hidden"[39m
+    [33mdata-slot[39m=[32m"input"[39m
+    [33mid[39m=[32m"_r_1_-search"[39m
+    [33mplaceholder[39m=[32m"Title or file path"[39m
+    [33mspellcheck[39m=[32m"false"[39m
+    [33mtype[39m=[32m"search"[39m
+    [33mvalue[39m=[32m""[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  combobox:
+
+  Name "Folder":
+  [36m<button[39m
+    [33maria-autocomplete[39m=[32m"none"[39m
+    [33maria-expanded[39m=[32m"false"[39m
+    [33mclass[39m=[32m"border-input data-[placeholder]:text-text-muted [&_svg:not([class*='text-'])]:text-muted-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 dark:hover:bg-input/50 flex items-center justify-between gap-[6px] rounded-md border bg-transparent px-3 py-0 text-body transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-[6px] [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-[16px] min-h-(--control-md) min-w-0 max-w-full whitespace-normal [overflow-wrap:anywhere] touch-manipulation [@media(pointer:coarse)]:min-h-[44px] [@media(pointer:coarse)]:min-w-[44px] w-full *:data-[slot=select-value]:truncate"[39m
+    [33mdata-size[39m=[32m"md"[39m
+    [33mdata-slot[39m=[32m"select-trigger"[39m
+    [33mdata-state[39m=[32m"closed"[39m
+    [33mdir[39m=[32m"ltr"[39m
+    [33mid[39m=[32m"_r_1_-folder"[39m
+    [33mrole[39m=[32m"combobox"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  switch:
+
+  Name "Include subfolders":
+  [36m<button[39m
+    [33maria-checked[39m=[32m"true"[39m
+    [33mclass[39m=[32m"peer inline-flex h-5 w-9 shrink-0 items-center rounded-full border border-transparent shadow-xs transition-colors outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 bg-primary ui-switch-responsive"[39m
+    [33mdata-slot[39m=[32m"switch"[39m
+    [33mid[39m=[32m"_r_1_-recursive"[39m
+    [33mrole[39m=[32m"switch"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Due":
+  [36m<button[39m
+    [33maria-checked[39m=[32m"false"[39m
+    [33mclass[39m=[32m"peer inline-flex h-5 w-9 shrink-0 items-center rounded-full border border-transparent shadow-xs transition-colors outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 bg-input ui-switch-responsive"[39m
+    [33mdata-slot[39m=[32m"switch"[39m
+    [33mid[39m=[32m"_r_1_-due"[39m
+    [33mrole[39m=[32m"switch"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm tabular-nums text-muted-foreground empty:hidden"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  status:
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-sm text-muted-foreground empty:hidden"[39m
+    [33mrole[39m=[32m"status"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  list:
+
+  Name "Note memory":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Note memory"[39m
+    [33mclass[39m=[32m"note-memory-list"[39m
+    [33mrole[39m=[32m"list"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  listitem:
+
+  Name "":
+  [36m<article[39m
+    [33maria-posinset[39m=[32m"1"[39m
+    [33maria-setsize[39m=[32m"1"[39m
+    [33mclass[39m=[32m"note-memory-row border-b border-border"[39m
+    [33mrole[39m=[32m"listitem"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  time:
+
+  Name "":
+  [36m<time[39m
+    [33mclass[39m=[32m"text-xs tabular-nums text-muted-foreground"[39m
+    [33mdatetime[39m=[32m"1970-01-01T00:00:00.000Z"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<div[39m
+      [33mclass[39m=[32m"note-memory-surface app-scrollbar h-full min-h-0 overflow-y-auto"[39m
+    [36m>[39m
+      [36m<nav[39m
+        [33maria-label[39m=[32m"Library"[39m
+        [33mclass[39m=[32m"mx-auto flex max-w-5xl flex-wrap items-center gap-2 border-b px-4 py-2 sm:px-8"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33maria-pressed[39m=[32m"true"[39m
+          [33mclass[39m=[32m"inline-flex items-center justify-center gap-[6px] rounded-md text-body font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-[16px] shrink-0 [&_svg]:shrink-0 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-secondary text-secondary-foreground hover:bg-secondary/80 min-h-(--control-lg) px-6 py-0 has-[>svg]:px-4 min-w-0 max-w-full whitespace-normal [overflow-wrap:anywhere] touch-manipulation [@media(pointer:coarse)]:min-h-[44px] [@media(pointer:coarse)]:min-w-[44px]"[39m
+          [33mdata-size[39m=[32m"lg"[39m
+          [33mdata-slot[39m=[32m"button"[39m
+          [33mdata-variant[39m=[32m"secondary"[39m
+        [36m>[39m
+          [36m<svg[39m
+            [33maria-hidden[39m=[32m"true"[39m
+            [33mfill[39m=[32m"currentColor"[39m
+            [33mheight[39m=[32m"1em"[39m
+            [33mviewBox[39m=[32m"0 0 256 256"[39m
+            [33mwidth[39m=[32m"1em"[39m
+            [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+          [36m>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M248,124a56.11,56.11,0,0,0-32-50.61V72a48,48,0,0,0-88-26.49A48,48,0,0,0,40,72v1.39a56,56,0,0,0,0,101.2V176a48,48,0,0,0,88,26.49A48,48,0,0,0,216,176v-1.41A56.09,56.09,0,0,0,248,124ZM88,208a32,32,0,0,1-31.81-28.56A55.87,55.87,0,0,0,64,180h8a8,8,0,0,0,0-16H64A40,40,0,0,1,50.67,86.27,8,8,0,0,0,56,78.73V72a32,32,0,0,1,64,0v68.26A47.8,47.8,0,0,0,88,128a8,8,0,0,0,0,16,32,32,0,0,1,0,64Zm104-44h-8a8,8,0,0,0,0,16h8a55.87,55.87,0,0,0,7.81-.56A32,32,0,1,1,168,144a8,8,0,0,0,0-16,47.8,47.8,0,0,0-32,12.26V72a32,32,0,0,1,64,0v6.73a8,8,0,0,0,5.33,7.54A40,40,0,0,1,192,164Zm16-52a8,8,0,0,1-8,8h-4a36,36,0,0,1-36-36V80a8,8,0,0,1,16,0v4a20,20,0,0,0,20,20h4A8,8,0,0,1,208,112ZM60,120H56a8,8,0,0,1,0-16h4A20,20,0,0,0,80,84V80a8,8,0,0,1,16,0v4A36,36,0,0,1,60,120Z"[39m
+            [36m/>[39m
+          [36m</svg>[39m
+          [0mNote memory[0m
+          [0m ·[0m
+          [0m [0m
+          [0m1 due[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33maria-pressed[39m=[32m"false"[39m
+          [33mclass[39m=[32m"inline-flex items-center justify-center gap-[6px] rounded-md text-body font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-[16px] shrink-0 [&_svg]:shrink-0 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 min-h-(--control-lg) px-6 py-0 has-[>svg]:px-4 min-w-0 max-w-full whitespace-normal [overflow-wrap:anywhere] touch-manipulation [@media(pointer:coarse)]:min-h-[44px] [@media(pointer:coarse)]:min-w-[44px]"[39m
+          [33mdata-size[39m=[32m"lg"[39m
+          [33mdata-slot[39m=[32m"button"[39m
+          [33mdata-variant[39m=[32m"ghost"[39m
+        [36m>[39m
+          [36m<svg[39m
+            [33maria-hidden[39m=[32m"true"[39m
+            [33mfill[39m=[32m"currentColor"[39m
+            [33mheight[39m=[32m"1em"[39m
+            [33mviewBox[39m=[32m"0 0 256 256"[39m
+            [33mwidth[39m=[32m"1em"[39m
+            [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+          [36m>[39m
+            [36m<path[39m
+              [33md[39m=[32m"M230.91,172A8,8,0,0,1,228,182.91l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,36,169.09l92,53.65,92-53.65A8,8,0,0,1,230.91,172ZM220,121.09l-92,53.65L36,121.09A8,8,0,0,0,28,134.91l96,56a8,8,0,0,0,8.06,0l96-56A8,8,0,1,0,220,121.09ZM24,80a8,8,0,0,1,4-6.91l96-56a8,8,0,0,1,8.06,0l96,56a8,8,0,0,1,0,13.82l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,24,80Zm23.88,0L128,126.74,208.12,80,128,33.26Z"[39m
+            [36m/>[39m
+          [36m</svg>[39m
+          [0mOld cards[0m
+          [0m ·[0m
+          [0m [0m
+          [0m1 due[0m
+        [36m</button>[39m
+      [36m</nav>[39m
+      [36m<main[39m
+        [33mclass[39m=[32m"mx-auto max-w-5xl space-y-6 p-4 sm:p-8"[39m
+      [36m>[39m
+        [36m<header[39m
+          [33mclass[39m=[32m"flex flex-wrap items-start justify-between gap-4"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"min-w-0 space-y-1"[39m
+          [36m>[39m
+            [36m<h1[39m
+              [33mclass[39m=[32m"text-xl font-semibold"[39m
+            [36m>[39m
+              [0mNote memory[0m
+            [36m</h1>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"flex flex-wrap items-center gap-2"[39m
+          [36m>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"inline-flex items-center justify-center gap-[6px] rounded-md text-body font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-[16px] shrink-0 [&_svg]:shrink-0 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-primary text-primary-foreground hover:bg-primary/90 min-h-(--control-lg) px-6 py-0 has-[>svg]:px-4 min-w-0 max-w-full whitespace-normal [overflow-wrap:anywhere] touch-manipulation [@media(pointer:coarse)]:min-h-[44px] [@media(pointer:coarse)]:min-w-[44px]"[39m
+              [33mdata-size[39m=[32m"lg"[39m
+              [33mdata-slot[39m=[32m"button"[39m
+              [33mdata-variant[39m=[32m"default"[39m
+            [36m>[39m
+              [36m<svg[39m
+                [33maria-hidden[39m=[32m"true"[39m
+                [33mfill[39m=[32m"currentColor"[39m
+                [33mheight[39m=[32m"1em"[39m
+                [33mviewBox[39m=[32m"0 0 256 256"[39m
+                [33mwidth[39m=[32m"1em"[39m
+                [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+              ...
+ ❯ Object.getElementError node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/.pnpm/@testing-library+dom@10.4.1/node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/components/learning/NoteLearningDashboard.test.tsx:66:17
+     64|   fireEvent.click(screen.getByRole('button', { name: 'Study due notes …
+     65|   expect(workspace.requestStudy).toHaveBeenCalledWith(['a', 'b'], 'not…
+     66|   expect(screen.getByRole('tablist', { name: 'Library' })).toBeInTheDo…
+       |                 ^
+     67|   expect(screen.getByRole('tab', { name: /Note memory/ })).toHaveAttri…
+     68|   fireEvent.click(screen.getByRole('tab', { name: /Old cards/ }))
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 8 passed (9)
+   Start at  00:09:23
+   Duration  3.36s (transform 456ms, setup 69ms, import 2.14s, tests 596ms, environment 453ms)

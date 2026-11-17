@@ -1,0 +1,89 @@
+
+ RUN  v4.0.18 /Users/thompson/Documents/tolaria-memnova
+
+ ❯ src/components/NoteItem.test.tsx (24 tests | 3 failed) 184ms
+     ✓ hides the legacy flashcard separator without changing the note data 22ms
+     ✓ renders unsupported binary files as non-clickable muted rows 4ms
+     ✓ renders image files as clickable rows with an image file indicator 3ms
+     ✓ renders PDF files as clickable rows with a PDF file indicator 2ms
+     ✓ renders audio and video files as clickable media preview rows 3ms
+     ✓ renders text files as clickable rows 3ms
+     ✓ uses CSS named colors from the Type document for note type indicators 56ms
+     ✓ shows the title with filename metadata when a change status is present 3ms
+     ✓ renders the correct symbol for modified files 2ms
+     ✓ renders the correct symbol for added files 1ms
+     ✓ shows a neutral fallback when line stats are unavailable 1ms
+     ✓ renders the regular title when no change status is set 1ms
+     ✓ adds more breathing room between note sections 12ms
+     × shows only the existing display date when creation and modification differ 5ms
+     × keeps the workspace badge alongside a single date when dates match 4ms
+     × keeps the creation fallback when no modification date exists 3ms
+     ✓ does not invent a date when both timestamps are absent 2ms
+     ✓ leaves the right side empty when no creation date exists 2ms
+     ✓ colors relationship chips by target type and opens the related note on Cmd+click only 35ms
+     ✓ falls back to the built-in type icon for relationship chips when the Type has no custom icon 7ms
+     ✓ preserves exact linked note title formatting in relationship chips 2ms
+     ✓ keeps explicit wikilink aliases in relationship chips 2ms
+     ✓ opens URL chips on Cmd+click only and keeps regular clicks inert 7ms
+     ✓ renders broken relationship chips as neutral and non-interactive 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/components/NoteItem.test.tsx > NoteItem > shows only the existing display date when creation and modification differ
+Error: expect(element).not.toHaveTextContent()
+
+Expected element not to have text content:
+  April 5, 2025
+Received:
+  April 8, 2025Created April 5, 2025
+ ❯ src/components/NoteItem.test.tsx:249:25
+    247|     expect(dateRow.className).toContain('grid')
+    248|     expect(dateRow).toHaveTextContent('April 8, 2025')
+    249|     expect(dateRow).not.toHaveTextContent('April 5, 2025')
+       |                         ^
+    250|     expect(dateRow).not.toHaveTextContent('Created')
+    251|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  src/components/NoteItem.test.tsx > NoteItem > keeps the workspace badge alongside a single date when dates match
+AssertionError: expected [ 'April 10, 2025', 'April 10, 2025' ] to have a length of 1 but got 2
+
+- Expected
++ Received
+
+- 1
++ 2
+
+ ❯ src/components/NoteItem.test.tsx:306:59
+    304|     const badge = within(dateRow).getByTestId('workspace-badge')
+    305|     expect(screen.getByTestId('note-title-row')).not.toContainElement(…
+    306|     expect(dateRow.textContent?.match(/April 10, 2025/g)).toHaveLength…
+       |                                                           ^
+    307|     expect(dateRow).not.toHaveTextContent('Created')
+    308|     expect(badge).toHaveTextContent('LA')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  src/components/NoteItem.test.tsx > NoteItem > keeps the creation fallback when no modification date exists
+Error: expect(element).toHaveTextContent()
+
+Expected element to have text content:
+  /^April 5, 2025$/
+Received:
+  April 5, 2025Created April 5, 2025
+ ❯ src/components/NoteItem.test.tsx:317:49
+    315|     const entry = makeEntry({ createdAt: NOW_SECONDS - 86400 * 5, modi…
+    316|     render(<NoteItem entry={entry} isSelected={false} typeEntryMap={{}…
+    317|     expect(screen.getByTestId('note-date-row')).toHaveTextContent(/^Ap…
+       |                                                 ^
+    318|     expect(entry.createdAt).toBe(NOW_SECONDS - 86400 * 5)
+    319|     expect(entry.modifiedAt).toBeNull()
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 21 passed (24)
+   Start at  00:07:10
+   Duration  2.85s (transform 641ms, setup 49ms, import 2.29s, tests 184ms, environment 239ms)

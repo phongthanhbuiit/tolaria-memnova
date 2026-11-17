@@ -34,7 +34,7 @@ export { SidebarTopNav } from './SidebarTopNav'
 export { FavoritesSection } from './FavoritesSection'
 
 const SIDEBAR_TITLE_BAR_ACTION_CLASSNAME =
-  '!h-auto !w-auto !min-w-0 !rounded-none !p-0 text-muted-foreground hover:!bg-transparent hover:text-foreground [&_svg]:!size-4'
+  'text-muted-foreground hover:text-foreground'
 
 const SIDEBAR_COLLAPSE_SHORTCUT = getAppCommandShortcutDisplay(APP_COMMAND_IDS.viewEditorList)
 const HISTORY_BACK_SHORTCUT = getAppCommandShortcutDisplay(APP_COMMAND_IDS.viewGoBack)
@@ -110,9 +110,9 @@ export function ViewsSection({
         {onCreateView && (
           <Button
             type="button"
-            variant="ghost"
-            size="icon-xs"
-            className="h-auto w-auto min-w-0 rounded-none p-0 text-muted-foreground hover:bg-transparent hover:text-foreground"
+            variant="toolbar"
+            size="icon-sm"
+            className="text-muted-foreground hover:text-foreground"
             aria-label={translate(locale, 'sidebar.action.createView')}
             title={translate(locale, 'sidebar.action.createView')}
             onClick={(event) => { event.stopPropagation(); onCreateView() }}
@@ -283,11 +283,11 @@ export function TypesSection({
           <div className="flex items-center gap-1.5">
             <Button
               type="button"
-              variant="ghost"
-              size="icon-xs"
+              variant="toolbar"
+              size="icon-sm"
               title={translate(locale, 'sidebar.action.customizeSections')}
               aria-label={translate(locale, 'sidebar.action.customizeSections')}
-              className="h-auto w-auto min-w-0 rounded-none p-0 text-muted-foreground hover:bg-transparent hover:text-foreground"
+              className="text-muted-foreground hover:text-foreground"
               onClick={(event) => { event.stopPropagation(); setShowCustomize((value) => !value) }}
             >
               <SlidersHorizontal size={12} className="text-muted-foreground hover:text-foreground" />
@@ -295,9 +295,9 @@ export function TypesSection({
             {onCreateNewType && (
               <Button
                 type="button"
-                variant="ghost"
-                size="icon-xs"
-                className="h-auto w-auto min-w-0 rounded-none p-0 text-muted-foreground hover:bg-transparent hover:text-foreground"
+                variant="toolbar"
+                size="icon-sm"
+                className="text-muted-foreground hover:text-foreground"
                 data-testid="create-type-btn"
                 title={translate(locale, 'sidebar.action.createType')}
                 aria-label={translate(locale, 'sidebar.action.createType')}
@@ -358,8 +358,8 @@ function SidebarTitleBarAction({
       <span className="inline-flex" title={title} data-no-drag>
         <Button
           type="button"
-          variant="ghost"
-          size="icon-xs"
+          variant="toolbar"
+          size="icon-sm"
           className={SIDEBAR_TITLE_BAR_ACTION_CLASSNAME}
           onClick={(event) => { event.stopPropagation(); onClick?.() }}
           disabled={disabled}
@@ -398,7 +398,7 @@ export function SidebarTitleBar({
     <div
       ref={dragRegionRef}
       className="shrink-0 flex items-center border-b border-border"
-      style={{ height: 52, padding: '0 8px', paddingLeft: 90, cursor: 'default', justifyContent: 'flex-start' }}
+      style={{ minHeight: 'calc(var(--control-sm) * 2)', padding: '0 8px', paddingLeft: 90, cursor: 'default', justifyContent: 'flex-start' }}
     >
       <div className="flex items-center gap-5" style={{ WebkitAppRegion: 'no-drag' } as CSSProperties}>
         {onCollapse && (
@@ -450,12 +450,12 @@ export function ContextMenuOverlay({
 }) {
   if (!pos || !type) return null
 
-  const buttonClass = 'h-auto w-full justify-start gap-2 rounded-sm px-2 py-1.5 text-left text-sm font-normal'
+  const buttonClass = 'w-full justify-start gap-2 rounded-sm px-2 py-1.5 text-left text-body font-normal'
 
   return (
     <div
       ref={innerRef}
-      className="fixed z-50 rounded-md border bg-popover p-1 shadow-md"
+      className="fixed z-50 rounded-lg border bg-popover p-1 shadow-md"
       style={{ left: pos.x, top: pos.y, minWidth: 180 }}
     >
       <Button type="button" variant="ghost" size="sm" className={buttonClass} onClick={() => onStartRename(type)}>

@@ -37,7 +37,7 @@ export function FolderContextMenu({
   return (
     <div
       ref={menuRef}
-      className="fixed z-50 rounded-md border bg-popover p-1 shadow-md"
+      className="fixed z-50 rounded-lg border bg-popover p-1 shadow-md"
       style={{ left: menu.x, top: menu.y, minWidth: 180 }}
       data-testid="folder-context-menu"
     >
@@ -45,7 +45,7 @@ export function FolderContextMenu({
         <Button
           type="button"
           variant="ghost"
-          className="h-auto w-full justify-start gap-2 px-2 py-1.5 text-sm"
+          className="w-full justify-start gap-2 px-2 py-1.5 text-body"
           onClick={() => onCreateNote(menu.path, menu.rootPath)}
           data-testid="create-node-in-folder-menu-item"
         >
@@ -57,7 +57,7 @@ export function FolderContextMenu({
         <Button
           type="button"
           variant="ghost"
-          className="h-auto w-full justify-start gap-2 px-2 py-1.5 text-sm"
+          className="w-full justify-start gap-2 px-2 py-1.5 text-body"
           onClick={() => onReveal(menu.path)}
           data-testid="reveal-folder-menu-item"
         >
@@ -69,7 +69,7 @@ export function FolderContextMenu({
         <Button
           type="button"
           variant="ghost"
-          className="h-auto w-full justify-start gap-2 px-2 py-1.5 text-sm"
+          className="w-full justify-start gap-2 px-2 py-1.5 text-body"
           onClick={() => onCopyPath(menu.path)}
           data-testid="copy-folder-path-menu-item"
         >
@@ -81,7 +81,7 @@ export function FolderContextMenu({
         <Button
           type="button"
           variant="ghost"
-          className="h-auto w-full justify-start gap-2 px-2 py-1.5 text-sm"
+          className="w-full justify-start gap-2 px-2 py-1.5 text-body"
           onClick={() => onRename(menu.path)}
         >
           <PencilSimple size={14} />
@@ -92,7 +92,7 @@ export function FolderContextMenu({
         <Button
           type="button"
           variant="ghost"
-          className="h-auto w-full justify-start gap-2 px-2 py-1.5 text-sm text-destructive hover:text-destructive"
+          className="w-full justify-start gap-2 px-2 py-1.5 text-body text-destructive hover:text-destructive"
           onClick={() => onDelete?.(menu.path)}
           data-testid="delete-folder-menu-item"
         >

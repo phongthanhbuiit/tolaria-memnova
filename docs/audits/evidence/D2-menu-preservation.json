@@ -1,0 +1,17 @@
+{
+  "change": "Restore original ghost variant for the three type context-menu rows, preserving hover feedback",
+  "tests": {
+    "files": 2,
+    "passed": 10
+  },
+  "codacy": {
+    "ESLint9": 0,
+    "Semgrep": 2,
+    "Lizard": 5,
+    "Trivy": 0,
+    "sameWarningsAsEarlierScan": true,
+    "introducedHighCritical": 0
+  },
+  "firstPush": "Stopped by agent before remote update while coverage was running, to restore original hover; no hook bypass",
+  "remoteBeforeFinalPush": "4c46db3c39c7a927b5570f7cd213080d7861fe9e"
+}

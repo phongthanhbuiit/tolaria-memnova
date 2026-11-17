@@ -1,0 +1,18 @@
+
+ RUN  v4.0.18 /Users/thompson/Documents/tolaria-memnova
+
+ ✓ src/components/note-list/NoteListHeader.expand.test.tsx (2 tests) 120ms
+ ✓ src/components/note-list/NoteListViews.test.tsx (2 tests) 44ms
+ ✓ src/components/NoteItem.test.tsx (24 tests) 209ms
+stdout | src/components/note-list/NoteListSearchKeyboard.test.tsx > NoteList search keyboard behavior > debounces note-list filtering and shows loading feedback while waiting
+[mock-tauri] Vault API available: false
+
+ ✓ src/components/note-list/NoteListSearchKeyboard.test.tsx (3 tests) 407ms
+ ✓ src/components/note-list/noteListUtils.test.ts (10 tests) 3ms
+ ✓ src/components/note-list/noteListHooks.extra.test.tsx (13 tests) 31ms
+ ✓ src/components/note-list/RelationshipGroupSection.test.tsx (1 test) 24ms
+
+ Test Files  7 passed (7)
+      Tests  55 passed (55)
+   Start at  00:08:51
+   Duration  5.95s (transform 1.52s, setup 397ms, import 14.95s, tests 836ms, environment 2.80s)

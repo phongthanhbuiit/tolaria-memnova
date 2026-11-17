@@ -1,0 +1,124 @@
+{
+  "node": "24.19.0",
+  "pnpm": "10.27.0",
+  "commands": [
+    {
+      "label": "lint",
+      "command": [
+        "pnpm",
+        "lint"
+      ],
+      "exitCode": 0,
+      "seconds": 21.047013
+    },
+    {
+      "label": "types",
+      "command": [
+        "pnpm",
+        "exec",
+        "tsc",
+        "-b"
+      ],
+      "exitCode": 0,
+      "seconds": 7.499442
+    },
+    {
+      "label": "rust-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "src-tauri/Cargo.toml",
+        "--",
+        "--test-threads=1"
+      ],
+      "exitCode": 0,
+      "seconds": 60.97675
+    },
+    {
+      "label": "rust-coverage",
+      "command": [
+        "cargo",
+        "llvm-cov",
+        "--manifest-path",
+        "src-tauri/Cargo.toml",
+        "--no-clean",
+        "--fail-under-lines",
+        "85",
+        "--",
+        "--test-threads=1"
+      ],
+      "exitCode": 0,
+      "seconds": 61.131729
+    },
+    {
+      "label": "localization",
+      "command": [
+        "pnpm",
+        "l10n:validate"
+      ],
+      "exitCode": 0,
+      "seconds": 0.234183
+    },
+    {
+      "label": "tests",
+      "command": [
+        "pnpm",
+        "test"
+      ],
+      "exitCode": 0,
+      "seconds": 186.799707
+    },
+    {
+      "label": "coverage",
+      "command": [
+        "pnpm",
+        "test:coverage"
+      ],
+      "exitCode": 0,
+      "seconds": 179.533159
+    },
+    {
+      "label": "build",
+      "command": [
+        "pnpm",
+        "build"
+      ],
+      "exitCode": 0,
+      "seconds": 23.467467
+    }
+  ],
+  "frontend": {
+    "files": 502,
+    "tests": 5000,
+    "coverage": {
+      "lines": 87.49,
+      "statements": 83.71,
+      "branches": 75.76,
+      "functions": 85.35
+    }
+  },
+  "rust": {
+    "lineCoverage": 86.4
+  },
+  "webkit": {
+    "spec": "tests/integration/note-memory-workspace.spec.ts",
+    "tests": 5,
+    "passed": 5,
+    "retries": 0
+  },
+  "rendererProbe": {
+    "cases": 16,
+    "engines": [
+      "chromium",
+      "webkit"
+    ],
+    "forcedColors": "Chromium underline border checked"
+  },
+  "localization": {
+    "catalogs": 18,
+    "keys": 1028,
+    "copyChanges": false
+  },
+  "codescene": "not run (optional integration unavailable)"
+}

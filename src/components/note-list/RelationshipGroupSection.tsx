@@ -25,19 +25,19 @@ export function RelationshipGroupSection({ group, isCollapsed, sortPrefs, locale
   const contentId = `relationship-group-${group.label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
   return (
     <div>
-      <div className="flex w-full items-center justify-between bg-muted" style={{ minHeight: 32, paddingRight: 16 }}>
+      <div className="flex min-h-(--control-md) w-full items-center justify-between bg-muted pr-4">
         <Button
           type="button"
           variant="ghost"
-          size="sm"
-          className="h-8 flex-1 justify-start gap-1.5 rounded-none px-4 hover:bg-muted"
+          size="md"
+          className="flex-1 justify-start gap-1.5 rounded-none px-4 hover:bg-muted"
           onClick={onToggle}
           aria-controls={contentId}
           aria-expanded={!isCollapsed}
         >
           {isCollapsed ? <CaretRight size={12} /> : <CaretDown size={12} />}
-          <span className="font-mono-label text-muted-foreground">{humanizePropertyKey(group.label)}</span>
-          <span className="font-mono-label text-muted-foreground" style={{ fontWeight: 400 }}>{group.entries.length}</span>
+          <span className="text-caption text-muted-foreground">{humanizePropertyKey(group.label)}</span>
+          <span className="text-caption text-muted-foreground" style={{ fontWeight: 400 }}>{group.entries.length}</span>
         </Button>
         <span className="flex items-center gap-1.5">
           <SortDropdown groupLabel={group.label} current={groupConfig.option} direction={groupConfig.direction} customProperties={customProperties} locale={locale} onChange={handleSortChange} />

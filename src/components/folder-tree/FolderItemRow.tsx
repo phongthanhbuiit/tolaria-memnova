@@ -45,12 +45,12 @@ export function FolderItemRow({
   return (
     <div
       className={cn(
-        'group relative flex min-w-0 items-center gap-1 rounded transition-colors',
+        'group relative flex min-w-0 items-center gap-1 rounded-md transition-colors',
         isSelected
-          ? 'bg-[var(--accent-blue-light)] text-primary'
+          ? 'bg-primary/10 text-primary'
           : 'text-foreground hover:bg-accent',
       )}
-      style={{ paddingLeft: depthIndent, borderRadius: 4 }}
+      style={{ paddingLeft: depthIndent }}
     >
       <FolderSelectButton
         contentInset={contentInset}
@@ -98,13 +98,14 @@ function FolderSelectButton({
         <Button
           type="button"
           variant="ghost"
+          size="md"
           className={cn(
-            'h-auto min-w-0 flex-1 justify-start gap-2 rounded text-left text-[13px] font-medium hover:bg-transparent',
+            'min-w-0 flex-1 justify-start gap-2 rounded-md text-left text-body-lg font-medium hover:bg-transparent',
             isSelected ? 'text-primary hover:text-primary' : 'text-foreground hover:text-foreground',
           )}
           style={{
-            paddingTop: 6,
-            paddingBottom: 6,
+            paddingTop: 0,
+            paddingBottom: 0,
             paddingLeft: contentInset,
             paddingRight: 16,
           }}
@@ -115,9 +116,9 @@ function FolderSelectButton({
           data-testid={`folder-row:${node.path}`}
         >
           {isSelected || isExpanded ? (
-            <FolderOpen size={17} weight="fill" className="size-[17px] shrink-0" />
+            <FolderOpen size={16} weight="fill" className="size-4 shrink-0" />
           ) : (
-            <Folder size={17} className="size-[17px] shrink-0" />
+            <Folder size={16} className="size-4 shrink-0" />
           )}
           <span className="min-w-0 flex-1 truncate">{node.name}</span>
         </Button>

@@ -1,3 +1,4 @@
+import { Button } from '../ui/button'
 import type { ReactNode } from 'react'
 import { CaretDown, CaretRight } from '@phosphor-icons/react'
 import { SidebarCountPill } from '../SidebarParts'
@@ -20,17 +21,17 @@ export function SidebarGroupHeader({
 }: SidebarGroupHeaderProps) {
   return (
     <div
-      className="flex w-full items-center justify-between text-muted-foreground"
+      className="flex w-full items-center justify-between gap-2 text-muted-foreground"
       style={{ padding: count != null ? SIDEBAR_GROUP_HEADER_PADDING.withCount : SIDEBAR_GROUP_HEADER_PADDING.regular }}
     >
-      <button
+      <Button variant="toolbar" size="toolbar"
         type="button"
-        className="flex min-w-0 flex-1 cursor-pointer select-none items-center gap-1 border-none bg-transparent p-0 text-muted-foreground"
+        className="flex min-w-0 flex-1 justify-start cursor-pointer select-none items-center gap-1 border-none bg-transparent p-0 text-muted-foreground"
         onClick={onToggle}
       >
         {collapsed ? <CaretRight size={12} /> : <CaretDown size={12} />}
-        <span className="text-[10px] font-semibold" style={{ letterSpacing: 0.5 }}>{label}</span>
-      </button>
+        <span className="text-caption font-medium uppercase tracking-wide">{label}</span>
+      </Button>
       {children ?? (count != null && (
         <SidebarCountPill count={count} className="text-muted-foreground" compact style={{ background: 'var(--muted)' }} />
       ))}

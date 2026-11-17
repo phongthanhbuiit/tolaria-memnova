@@ -1,0 +1,897 @@
+{
+  "baseline": "4c46db3c39c7a927b5570f7cd213080d7861fe9e",
+  "rules": {
+    "spec8": "text-\\[[0-9.]+(?:px|rem)\\]|fontSize:",
+    "legacyType": "\\btext-(?:xs|sm|base|lg|xl|[2-9]xl)\\b",
+    "heightWidthLiteral": "(?<![\\w-])(?:min-|max-)?[hw]-(?:\\d+(?:\\.\\d+)?|\\[[^\\]]*\\d[^\\]]*\\])",
+    "radius": "\\brounded(?:-[\\w\\[\\].]+)?|borderRadius:",
+    "nonTokenTextColor": "\\btext-(?:white|black|(?:gray|slate|zinc|neutral|stone|red|green|blue|purple|amber|yellow|orange)-\\d+)|(?:\\bcolor:\\s*[\\'\\\"](?:#|rgb|hsl))"
+  },
+  "results": [
+    {
+      "file": "src/components/FolderTree.tsx",
+      "before": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 1,
+        "radius": 1,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/NoteItem.tsx",
+      "before": {
+        "spec8": 4,
+        "legacyType": 0,
+        "heightWidthLiteral": 1,
+        "radius": 2,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 1,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 1,
+        "radius": 2,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/NoteList.tsx",
+      "before": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/Sidebar.tsx",
+      "before": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/SidebarParts.tsx",
+      "before": {
+        "spec8": 8,
+        "legacyType": 0,
+        "heightWidthLiteral": 7,
+        "radius": 12,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 10,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 9,
+        "radius": 9,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/folder-tree/FolderContextMenu.tsx",
+      "before": {
+        "spec8": 0,
+        "legacyType": 5,
+        "heightWidthLiteral": 0,
+        "radius": 1,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 1,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/folder-tree/FolderItemRow.tsx",
+      "before": {
+        "spec8": 1,
+        "legacyType": 0,
+        "heightWidthLiteral": 3,
+        "radius": 3,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 3,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 3,
+        "radius": 2,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/folder-tree/FolderNameInput.tsx",
+      "before": {
+        "spec8": 1,
+        "legacyType": 0,
+        "heightWidthLiteral": 1,
+        "radius": 2,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 1,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 1,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/folder-tree/FolderTreeRow.tsx",
+      "before": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/folder-tree/folderTreeLayout.ts",
+      "before": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/learning/LearningDashboard.tsx",
+      "before": {
+        "spec8": 0,
+        "legacyType": 7,
+        "heightWidthLiteral": 4,
+        "radius": 4,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 1,
+        "controlHard": 1,
+        "controlHardLines": [
+          75
+        ]
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 4,
+        "radius": 4,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/learning/NoteCatalogFilters.tsx",
+      "before": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 3,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 2,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/learning/NoteLearningDashboard.tsx",
+      "before": {
+        "spec8": 0,
+        "legacyType": 5,
+        "heightWidthLiteral": 4,
+        "radius": 1,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 4,
+        "radius": 3,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/learning/NoteMemoryList.tsx",
+      "before": {
+        "spec8": 0,
+        "legacyType": 2,
+        "heightWidthLiteral": 2,
+        "radius": 1,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 2,
+        "radius": 1,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/note-item/ChangeNoteContent.tsx",
+      "before": {
+        "spec8": 5,
+        "legacyType": 1,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/note-item/PropertyChips.tsx",
+      "before": {
+        "spec8": 3,
+        "legacyType": 0,
+        "heightWidthLiteral": 1,
+        "radius": 3,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 3,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/note-list/FilterPills.tsx",
+      "before": {
+        "spec8": 2,
+        "legacyType": 0,
+        "heightWidthLiteral": 1,
+        "radius": 1,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 1,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/note-list/InboxFilterPills.tsx",
+      "before": {
+        "spec8": 2,
+        "legacyType": 0,
+        "heightWidthLiteral": 1,
+        "radius": 1,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 1,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/note-list/ListPropertiesPopover.tsx",
+      "before": {
+        "spec8": 4,
+        "legacyType": 0,
+        "heightWidthLiteral": 4,
+        "radius": 1,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 1,
+        "controlHard": 2,
+        "controlHardLines": [
+          151,
+          390
+        ]
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 2,
+        "radius": 1,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/note-list/NoteListChangesMenu.tsx",
+      "before": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/note-list/NoteListChangesMenuView.tsx",
+      "before": {
+        "spec8": 0,
+        "legacyType": 1,
+        "heightWidthLiteral": 0,
+        "radius": 2,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 2,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/note-list/NoteListContextMenu.tsx",
+      "before": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/note-list/NoteListContextMenuView.tsx",
+      "before": {
+        "spec8": 0,
+        "legacyType": 2,
+        "heightWidthLiteral": 1,
+        "radius": 2,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 1,
+        "radius": 2,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/note-list/NoteListHeader.tsx",
+      "before": {
+        "spec8": 3,
+        "legacyType": 0,
+        "heightWidthLiteral": 7,
+        "radius": 3,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 2,
+        "controlHard": 1,
+        "controlHardLines": [
+          250
+        ]
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 5,
+        "radius": 1,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/note-list/NoteListLayout.tsx",
+      "before": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 2,
+        "radius": 2,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 2,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 2,
+        "radius": 2,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/note-list/NoteListViews.tsx",
+      "before": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/note-list/PinnedCard.tsx",
+      "before": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/note-list/RelationshipGroupSection.tsx",
+      "before": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 1,
+        "radius": 1,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 1,
+        "controlHardLines": [
+          33
+        ]
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 1,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/note-list/TrashWarningBanner.tsx",
+      "before": {
+        "spec8": 2,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/note-list/useNoteListModel.tsx",
+      "before": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/sidebar/FavoritesSection.tsx",
+      "before": {
+        "spec8": 1,
+        "legacyType": 0,
+        "heightWidthLiteral": 2,
+        "radius": 2,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 2,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 2,
+        "radius": 1,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/sidebar/SidebarGroupHeader.tsx",
+      "before": {
+        "spec8": 1,
+        "legacyType": 0,
+        "heightWidthLiteral": 1,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 1,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/sidebar/SidebarLoadingSections.tsx",
+      "before": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 5,
+        "radius": 6,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 3,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 4,
+        "radius": 4,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/sidebar/SidebarSections.tsx",
+      "before": {
+        "spec8": 0,
+        "legacyType": 1,
+        "heightWidthLiteral": 4,
+        "radius": 6,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 2,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/sidebar/SidebarTopNav.tsx",
+      "before": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 1,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/sidebar/SidebarViewActions.tsx",
+      "before": {
+        "spec8": 1,
+        "legacyType": 1,
+        "heightWidthLiteral": 1,
+        "radius": 3,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 1,
+        "controlHard": 1,
+        "controlHardLines": [
+          53
+        ]
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 1,
+        "radius": 2,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/sidebar/SidebarViewItem.tsx",
+      "before": {
+        "spec8": 1,
+        "legacyType": 0,
+        "heightWidthLiteral": 1,
+        "radius": 2,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 2,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 1,
+        "radius": 1,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/sidebar/sidebarStyles.ts",
+      "before": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    }
+  ]
+}

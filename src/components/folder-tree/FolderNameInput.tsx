@@ -39,12 +39,12 @@ export function FolderNameInput({
   })
 
   return (
-    <div className="flex items-center gap-2 rounded" style={{ paddingTop: 6, paddingBottom: 6, paddingRight: 16, paddingLeft: leftInset, borderRadius: 4 }}>
-      <Folder size={17} className="size-[17px] shrink-0 text-muted-foreground" />
+    <div className="flex items-center gap-2 rounded-md" style={{ paddingTop: 0, paddingBottom: 0, paddingRight: 16, paddingLeft: leftInset }}>
+      <Folder size={16} className="size-4 shrink-0 text-muted-foreground" />
       <Input
         ref={inputRef}
         aria-label={ariaLabel}
-        className="h-auto min-h-0 flex-1 rounded-sm px-2 py-[3px] text-[13px] font-medium"
+        controlSize="sm" className="flex-1 px-2 text-body font-medium"
         value={value}
         onChange={(event) => setValue(event.target.value)}
         onBlur={submitOnBlur ? () => { void submitValue() } : undefined}

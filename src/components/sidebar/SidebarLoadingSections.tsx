@@ -113,9 +113,9 @@ function SidebarLoadingAction({
   return (
     <Button
       type="button"
-      variant="ghost"
+      variant="toolbar"
       size="icon-xs"
-      className="h-auto w-auto min-w-0 rounded-none p-0 text-muted-foreground hover:bg-transparent hover:text-foreground"
+      className="text-muted-foreground hover:text-foreground"
       data-testid={testId}
       title={label}
       aria-label={label}
@@ -143,7 +143,7 @@ function SidebarLoadingBar({ width }: { width: number }) {
   return (
     <span
       aria-hidden="true"
-      className="h-3.5 rounded bg-muted"
+      className="h-4 rounded-sm bg-muted"
       style={{ width }}
     />
   )
@@ -157,8 +157,8 @@ function SidebarLoadingRow({
 }: SidebarLoadingRowProps) {
   return (
     <div
-      className="flex select-none items-center gap-2 rounded"
-      style={{ padding: SIDEBAR_ITEM_PADDING.withCount, borderRadius: 4 }}
+      className="flex select-none items-center gap-2 rounded-md"
+      style={{ padding: SIDEBAR_ITEM_PADDING.withCount }}
     >
       <SidebarLoadingIcon icon={icon} iconColor={iconColor} />
       <div className="flex min-w-0 flex-1 items-center">

@@ -28,7 +28,7 @@ export function SidebarTopNav({
   loading = false,
 }: SidebarTopNavProps) {
   return (
-    <div className="border-b border-border" data-testid="sidebar-top-nav" style={{ padding: '4px 6px' }}>
+    <div className="border-b border-border" data-testid="sidebar-top-nav" style={{ padding: 'calc(var(--spacing))' }}>
       <NavItem
         icon={House}
         label={translate(locale, 'sidebar.nav.home')}
@@ -44,7 +44,6 @@ export function SidebarTopNav({
           isActive={isSelectionActive(selection, { kind: 'filter', filter: 'inbox' })}
           badgeClassName="text-muted-foreground"
           badgeStyle={{ background: 'var(--muted)' }}
-          activeBadgeClassName="bg-primary text-primary-foreground"
           onClick={() => onSelect({ kind: 'filter', filter: 'inbox' })}
         />
       )}
@@ -56,7 +55,6 @@ export function SidebarTopNav({
         isActive={isSelectionActive(selection, { kind: 'filter', filter: 'all' })}
         badgeClassName="text-muted-foreground"
         badgeStyle={{ background: 'var(--muted)' }}
-        activeBadgeClassName="bg-primary text-primary-foreground"
         onClick={() => onSelect({ kind: 'filter', filter: 'all' })}
       />
       <NavItem
@@ -65,9 +63,8 @@ export function SidebarTopNav({
         count={reviewCount}
         countLoading={loading}
         isActive={isSelectionActive(selection, { kind: 'filter', filter: 'decks' })}
-        badgeClassName="text-[var(--accent-purple)]"
-        badgeStyle={{ background: 'var(--accent-purple-light)' }}
-        activeBadgeClassName="bg-[var(--accent-purple)] text-white"
+        badgeClassName="text-muted-foreground"
+        badgeStyle={{ background: 'var(--muted)' }}
         onClick={() => onSelect({ kind: 'filter', filter: 'decks' })}
       />
       <NavItem
@@ -78,7 +75,6 @@ export function SidebarTopNav({
         isActive={isSelectionActive(selection, { kind: 'filter', filter: 'archived' })}
         badgeClassName="text-muted-foreground"
         badgeStyle={{ background: 'var(--muted)' }}
-        activeBadgeClassName="bg-primary text-primary-foreground"
         onClick={() => onSelect({ kind: 'filter', filter: 'archived' })}
       />
     </div>

@@ -1,3 +1,4 @@
+import { Button } from '../ui/button'
 import { useMemo, type ButtonHTMLAttributes, type RefObject } from 'react'
 import type { VaultEntry, ViewDefinition, ViewFile } from '../../types'
 import { Funnel } from '@phosphor-icons/react'
@@ -38,11 +39,9 @@ function resolveViewAccent(color: string | null): ViewAccent | null {
   }
 }
 
-function getViewRowStyle(showCount: boolean, isActive: boolean, accent: ViewAccent | null) {
+function getViewRowStyle(showCount: boolean) {
   return {
     padding: showCount ? SIDEBAR_ITEM_PADDING.withCount : SIDEBAR_ITEM_PADDING.regular,
-    borderRadius: 4,
-    ...(isActive && accent ? { background: accent.background, color: accent.color } : {}),
   }
 }
 
@@ -55,14 +54,12 @@ function ViewIcon({
   isActive: boolean
   accent: ViewAccent | null
 }) {
-  if (icon) return <NoteTitleIcon icon={icon} size={16} color={accent?.color} />
-  return <Funnel size={16} weight={isActive ? 'fill' : 'regular'} style={accent ? { color: accent.color } : undefined} />
+  if (icon) return <NoteTitleIcon icon={icon} size={16} color={isActive ? 'var(--primary)' : accent?.color} />
+  return <Funnel size={16} weight={isActive ? 'fill' : 'regular'} style={{ color: isActive ? 'var(--primary)' : accent?.color }} />
 }
 
 function ViewCountChip({
   count,
-  isActive,
-  accent,
 }: {
   count: number
   isActive: boolean
@@ -73,7 +70,7 @@ function ViewCountChip({
     <SidebarCountPill
       count={count}
       className="text-muted-foreground"
-      style={isActive && accent ? { background: accent.color, color: 'var(--text-inverse)' } : { background: 'var(--muted)' }}
+      style={{ background: 'var(--muted)' }}
       testId="view-count-chip"
     />
   )
@@ -118,8 +115,8 @@ export function SidebarViewItem({
     startRename,
   } = interactions
 
-  const rowClassName = `flex cursor-pointer select-none items-center gap-2 rounded transition-colors ${isActive ? 'bg-primary/10 text-primary' : 'text-foreground hover:bg-accent'}`
-  const rowStyle = getViewRowStyle(showCount, isActive, accent)
+  const rowClassName = `flex cursor-pointer select-none items-center gap-2 rounded-md transition-colors ${isActive ? 'bg-primary/10 text-primary' : 'text-foreground hover:bg-accent'}`
+  const rowStyle = getViewRowStyle(showCount)
 
   return (
     <div className="relative">
@@ -138,10 +135,10 @@ export function SidebarViewItem({
           />
         </div>
       ) : (
-        <button
+        <Button variant="ghost" size="md"
           ref={(node) => { rowRef.current = node }}
           type="button"
-          className={`${rowClassName} w-full border-0 bg-transparent text-left`}
+          className={`${rowClassName} w-full border-0 text-left`}
           style={rowStyle}
           {...dragHandleProps}
           onClick={onSelect}
@@ -150,9 +147,9 @@ export function SidebarViewItem({
           onKeyDown={handleRowKeyDown}
         >
           <ViewIcon icon={view.definition.icon} isActive={isActive} accent={accent} />
-          <span className="min-w-0 flex-1 truncate text-[13px] font-medium">{view.definition.name}</span>
+          <span className="min-w-0 flex-1 truncate text-body-lg font-medium">{view.definition.name}</span>
           <ViewCountChip count={count} isActive={isActive} accent={accent} />
-        </button>
+        </Button>
       )}
       <ViewContextMenu
         pos={contextMenuPos}

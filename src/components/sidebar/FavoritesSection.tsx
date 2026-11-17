@@ -1,3 +1,4 @@
+import { Button } from '../ui/button'
 import { useCallback, useMemo } from 'react'
 import type { VaultEntry, SidebarSelection } from '../../types'
 import {
@@ -7,7 +8,7 @@ import {
   SortableContext, arrayMove, useSortable, verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { buildTypeEntryMap, getTypeColor, getTypeLightColor } from '../../utils/typeColors'
+import { buildTypeEntryMap, getTypeColor } from '../../utils/typeColors'
 import { NoteTitleIcon } from '../NoteTitleIcon'
 import { isSelectionActive } from '../SidebarParts'
 import { SidebarGroupHeader } from './SidebarGroupHeader'
@@ -53,7 +54,6 @@ function SortableFavoriteItem({
   const typeEntry = entry.isA ? typeEntryMap[entry.isA] : undefined
   const icon = getFavoriteIcon(entry, typeEntryMap)
   const typeColor = getTypeColor(entry.isA ?? null, typeEntry?.color)
-  const typeLightColor = getTypeLightColor(entry.isA ?? null, typeEntry?.color)
 
   return (
     <div
@@ -62,19 +62,19 @@ function SortableFavoriteItem({
       {...attributes}
       {...listeners}
     >
-      <button
+      <Button variant="ghost" size="md"
         type="button"
-        className={`group/section flex cursor-pointer select-none items-center justify-between rounded transition-colors ${isActive ? '' : 'hover:bg-accent'} w-full`}
-        style={{ padding: SIDEBAR_ITEM_PADDING.withCount, borderRadius: 4, gap: 4, ...(isActive ? { background: typeLightColor } : {}) }}
+        className={`group/section flex cursor-pointer select-none items-center justify-between rounded-md transition-colors ${isActive ? 'bg-primary/10 text-primary' : 'text-foreground hover:bg-accent'} w-full`}
+        style={{ padding: SIDEBAR_ITEM_PADDING.withCount, gap: 4 }}
         onClick={onSelect}
       >
         <div className="flex min-w-0 flex-1 items-center" style={{ gap: 4 }}>
-          <NoteTitleIcon icon={icon} size={16} color={typeColor} />
-          <span className="min-w-0 truncate border-0 bg-transparent p-0 text-left text-[13px] font-medium" style={{ marginLeft: 4, color: isActive ? typeColor : undefined }}>
+          <NoteTitleIcon icon={icon} size={16} color={isActive ? 'var(--primary)' : typeColor} />
+          <span className="min-w-0 truncate border-0 bg-transparent p-0 text-left text-body-lg font-medium" style={{ marginLeft: 4, color: isActive ? 'var(--primary)' : undefined }}>
             {entry.title}
           </span>
         </div>
-      </button>
+      </Button>
     </div>
   )
 }

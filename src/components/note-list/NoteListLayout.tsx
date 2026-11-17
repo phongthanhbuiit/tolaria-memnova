@@ -22,7 +22,7 @@ const NOTE_LIST_LOADING_ROWS = [
 ]
 
 function NoteListLoadingBar({ width }: { width: number }) {
-  return <span aria-hidden="true" className="block h-4 rounded bg-muted" style={{ width }} />
+  return <span aria-hidden="true" className="block h-4 rounded-sm bg-muted" style={{ width }} />
 }
 
 function NoteListLoadingRow({
@@ -41,7 +41,7 @@ function NoteListLoadingRow({
     >
       <div className="mb-3 flex items-start justify-between gap-3">
         <NoteListLoadingBar width={title} />
-        <span aria-hidden="true" className="h-4 w-4 shrink-0 rounded bg-muted" />
+        <span aria-hidden="true" className="h-4 w-4 shrink-0 rounded-sm bg-muted" />
       </div>
       <div className="flex flex-col gap-2">
         <NoteListLoadingBar width={line} />

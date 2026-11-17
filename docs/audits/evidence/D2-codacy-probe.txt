@@ -1,0 +1,29 @@
+  Pipeline started
+  Starting tool execution
+  Starting analysis (ESLint9, 1 files)
+  Using project ESLint (ESLint9, v9.39.2)
+  Analysis complete (ESLint9, 0 issues, 0.9s)
+  Starting analysis (Semgrep, 1 files)
+  Analysis complete (Semgrep, 0 issues, 3.1s)
+  Starting analysis (Lizard, 1 files)
+  Analysis complete (Lizard, 0 issues, 0.1s)
+  Starting analysis (Trivy, 1 files)
+  Analysis complete (Trivy, 0 issues, 20.7s)
+  Pipeline complete (0 issues, 26.8s)
+
+Analysis complete: 0 issues found
+4 tools ran in 26s 846ms
+
+[90m┌──────────[39m[90m┬─────────[39m[90m┬─────────[39m[90m┬────────────────────[39m[90m┬───────[39m[90m┬────────[39m[90m┬───────────┐[39m
+[90m│[39m[37m[1m Tool     [22m[39m[90m│[39m[37m[1m Version [22m[39m[90m│[39m[37m[1m Install [22m[39m[90m│[39m[37m[1m Configuration      [22m[39m[90m│[39m[37m[1m Files [22m[39m[90m│[39m[37m[1m Issues [22m[39m[90m│[39m[37m[1m Duration  [22m[39m[90m│[39m
+[90m├──────────[39m[90m┼─────────[39m[90m┼─────────[39m[90m┼────────────────────[39m[90m┼───────[39m[90m┼────────[39m[90m┼───────────┤[39m
+[90m│[39m ESLint 9 [90m│[39m 9.39.5  [90m│[39m bundled [90m│[39m ./eslint.config.js [90m│[39m 1     [90m│[39m 0      [90m│[39m 869ms     [90m│[39m
+[90m├──────────[39m[90m┼─────────[39m[90m┼─────────[39m[90m┼────────────────────[39m[90m┼───────[39m[90m┼────────[39m[90m┼───────────┤[39m
+[90m│[39m Lizard   [90m│[39m 1.23.0  [90m│[39m codacy  [90m│[39m Codacy             [90m│[39m 1     [90m│[39m 0      [90m│[39m 62ms      [90m│[39m
+[90m├──────────[39m[90m┼─────────[39m[90m┼─────────[39m[90m┼────────────────────[39m[90m┼───────[39m[90m┼────────[39m[90m┼───────────┤[39m
+[90m│[39m Opengrep [90m│[39m 1.26.0  [90m│[39m codacy  [90m│[39m Codacy             [90m│[39m 1     [90m│[39m 0      [90m│[39m 3s 117ms  [90m│[39m
+[90m├──────────[39m[90m┼─────────[39m[90m┼─────────[39m[90m┼────────────────────[39m[90m┼───────[39m[90m┼────────[39m[90m┼───────────┤[39m
+[90m│[39m Trivy    [90m│[39m 0.72.0  [90m│[39m codacy  [90m│[39m Codacy             [90m│[39m 1     [90m│[39m 0      [90m│[39m 20s 730ms [90m│[39m
+[90m└──────────[39m[90m┴─────────[39m[90m┴─────────[39m[90m┴────────────────────[39m[90m┴───────[39m[90m┴────────[39m[90m┴───────────┘[39m
+
+Analysis results stored in /tmp/memnova-d2/codacy-probe.sarif

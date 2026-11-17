@@ -1,5 +1,7 @@
 # Memnova hiện tại
 
+**18/11/2026 — bước D2:** Trang chủ dùng display/title và Tabs gạch chân, giữ một hành động chính; hàng danh sách chỉ còn một ngày theo formatter hiện có, sidebar thống nhất trạng thái chọn và badge trung tính. [Ma trận ảnh native 1440/1024, en/vi, sáng/tối và nghiệm thu D2](audits/STEP-D2-HOME-LIST-SIDEBAR.md). Giữ F-039/F-041 và dữ liệu; D3/D4 chưa thực hiện. Đây chưa phải bản cài phát hành mới.
+
 **17/11/2026 — F-041 (P1):** sửa vòng cập nhật giữa metadata transition và layout store của react-virtuoso trên WebKit. Giữ dữ liệu thứ tự danh sách ổn định theo path, hàng đọc metadata mới qua context. [Tỉ lệ lỗi trước/sau, regression RED và native QA riêng](audits/F-041-COMPLETION.md). Chưa phải bản cài phát hành mới.
 
 **17/11/2026 — R-02/R-03:** sửa minimum size làm icon trong dòng chữ phình sau bước A; biến thể inline dùng spacing token có vùng bấm 24,5px, standard giữ 28/32/36px. [Kiểm kê 29 nơi gọi, TDD và ảnh native sáng/tối](audits/R-02-R-03-COMPLETION.md). Undo luôn giữ chỗ, disabled khi không khả dụng và click trả focus về vùng thẻ trước khi cập nhật; Space/1–4/Esc được kiểm tra riêng. D2–D4 chưa thực hiện.

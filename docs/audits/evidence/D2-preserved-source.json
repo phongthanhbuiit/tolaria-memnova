@@ -1,0 +1,22 @@
+[
+  {
+    "file": "src/components/note-list/NoteListViews.tsx",
+    "unchanged": true,
+    "sha256": "105a4eff57ca4b43ac1c1d9e3106505aab90b91c1ab808fad7390ffb311f9edf"
+  },
+  {
+    "file": "src/components/note-list/useNoteListModel.tsx",
+    "unchanged": true,
+    "sha256": "0c2e9cba617420811bb1551bb164354094853baff8dabedbdcdd37efe26eb886"
+  },
+  {
+    "file": "src/utils/noteListHelpers.ts",
+    "unchanged": true,
+    "sha256": "44caa5644a3044c899306614ab2bd913ecc4e3f912c15a1d08fa7e34b9e20b50"
+  },
+  {
+    "file": "src/hooks/appCommandDispatcher.ts",
+    "unchanged": true,
+    "sha256": "dea8ddc9f77a669d758f0b5070c443e5e02c76278afb198fc5026896a01aba65"
+  }
+]

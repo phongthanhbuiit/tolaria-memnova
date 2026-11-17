@@ -1137,11 +1137,13 @@ describe('Sidebar', () => {
     function expectFavoriteRowToMatchTypeRow(favoriteTitle = 'My Favorite Note') {
       const { favoriteLabel, favoriteRow, typeLabel, typeRow } = getFavoriteAndTypeRows(favoriteTitle)
 
-      expect(favoriteRow.className).toContain(typeRow.className)
+      expect(favoriteRow).toHaveClass('rounded-md')
+      expect(typeRow).toHaveClass('rounded-md')
       expect(favoriteRow.className).toContain('w-full')
       expect(favoriteRow.style.padding).toBe(typeRow.style.padding)
       expect(favoriteRow.style.gap).toBe(typeRow.style.gap)
-      expect(favoriteLabel.className).toContain(typeLabel.className)
+      expect(favoriteLabel).toHaveClass('text-body-lg', 'font-medium')
+      expect(typeLabel).toHaveClass('text-body-lg', 'font-medium')
       expect(favoriteLabel.className).toContain('truncate')
       return {
         favoriteRow,
@@ -1187,11 +1189,10 @@ describe('Sidebar', () => {
       const favoritesHeader = screen.getByText('FAVORITES').closest('div') as HTMLElement
       const countChip = within(favoritesHeader).getByTestId('sidebar-count-chip')
 
-      expect(favoritesHeader).toHaveStyle({ padding: '8px 8px 8px 12px' })
+      expect(favoritesHeader).toHaveStyle({ padding: 'calc(var(--spacing) * 2) calc(var(--spacing) * 2) calc(var(--spacing) * 2) calc(var(--spacing) * 3)' })
       expect(countChip).toHaveStyle({
         background: 'var(--muted)',
-        height: '18px',
-        padding: '0 6px',
+        padding: '0 calc(var(--spacing) * 2)',
       })
     })
 
@@ -1458,11 +1459,10 @@ describe('Sidebar', () => {
       const navItem = viewLabel.closest('[class*="cursor-pointer"]') as HTMLElement
       const countChip = within(navItem).getByTestId('view-count-chip')
 
-      expect(navItem).toHaveStyle({ padding: '6px 8px 6px 12px' })
+      expect(navItem).toHaveStyle({ padding: 'calc(var(--spacing)) calc(var(--spacing) * 2) calc(var(--spacing)) calc(var(--spacing) * 3)' })
       expect(countChip).toHaveStyle({
         background: 'var(--muted)',
-        height: '20px',
-        padding: '0 6px',
+        padding: '0 calc(var(--spacing) * 2)',
       })
       expect(countChip.className).toContain('text-muted-foreground')
     })
@@ -1477,17 +1477,15 @@ describe('Sidebar', () => {
       const viewItem = screen.getByText('Active Projects').closest('[class*="cursor-pointer"]') as HTMLElement
       const viewCount = within(viewItem).getByTestId('view-count-chip')
 
-      expect(topNavItem).toHaveStyle({ padding: '6px 8px 6px 12px' })
-      expect(viewItem).toHaveStyle({ padding: '6px 8px 6px 12px' })
+      expect(topNavItem).toHaveStyle({ padding: 'calc(var(--spacing)) calc(var(--spacing) * 2) calc(var(--spacing)) calc(var(--spacing) * 3)' })
+      expect(viewItem).toHaveStyle({ padding: 'calc(var(--spacing)) calc(var(--spacing) * 2) calc(var(--spacing)) calc(var(--spacing) * 3)' })
       expect(topNavCount).toHaveStyle({
         background: 'var(--muted)',
-        height: '20px',
-        padding: '0 6px',
+        padding: '0 calc(var(--spacing) * 2)',
       })
       expect(viewCount).toHaveStyle({
         background: 'var(--muted)',
-        height: '20px',
-        padding: '0 6px',
+        padding: '0 calc(var(--spacing) * 2)',
       })
     })
 
@@ -1537,14 +1535,10 @@ describe('Sidebar', () => {
       const icon = navItem.querySelector('svg')
       const countChip = within(navItem).getByTestId('view-count-chip')
 
-      expect(navItem).toHaveStyle({
-        background: 'var(--accent-blue-light)',
-        color: 'var(--accent-blue)',
-      })
-      expect(icon).toHaveStyle({ color: 'var(--accent-blue)' })
+      expect(navItem).toHaveClass('bg-primary/10', 'text-primary')
+      expect(icon).toHaveStyle({ color: 'var(--primary)' })
       expect(countChip).toHaveStyle({
-        background: 'var(--accent-blue)',
-        color: 'var(--text-inverse)',
+        background: 'var(--muted)',
       })
     })
 

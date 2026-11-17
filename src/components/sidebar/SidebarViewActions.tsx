@@ -50,7 +50,7 @@ export function ViewRenameInput({
     <Input
       ref={inputRef}
       aria-label={translate(locale, 'sidebar.view.name')}
-      className="h-6 min-w-0 flex-1 rounded border-primary bg-background px-1.5 py-0 text-[13px] font-medium"
+      controlSize="sm" className="min-w-0 flex-1 border-primary bg-background px-2 text-body font-medium"
       value={value}
       onBlur={() => { void submitValue() }}
       onChange={(event) => setValue(event.target.value)}
@@ -70,7 +70,7 @@ function ViewMenuButton({
   destructive?: boolean
   onClick: () => void
 }) {
-  const className = `h-auto w-full justify-start gap-2 rounded-sm px-2 py-1.5 text-left text-sm font-normal${destructive ? ' text-destructive hover:text-destructive' : ''}`
+  const className = `w-full justify-start gap-2 rounded-sm px-2 py-1.5 text-left text-body font-normal${destructive ? ' text-destructive hover:text-destructive' : ''}`
   return (
     <Button type="button" variant="ghost" size="sm" className={className} onClick={onClick}>
       {children}
@@ -104,7 +104,7 @@ export function ViewContextMenu({
   return (
     <div
       ref={innerRef}
-      className="fixed z-50 rounded-md border bg-popover p-1 text-popover-foreground shadow-md"
+      className="fixed z-50 rounded-lg border bg-popover p-1 text-popover-foreground shadow-md"
       style={{ left: pos.x, top: pos.y, minWidth: 200 }}
     >
       {canEdit && (

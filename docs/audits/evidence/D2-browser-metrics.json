@@ -1,0 +1,438 @@
+{
+  "cases": [
+    {
+      "engine": "chromium",
+      "width": 1024,
+      "locale": "en",
+      "theme": "light",
+      "badge": {
+        "height": 22,
+        "radius": "4px",
+        "font": "12px",
+        "line": "18px"
+      },
+      "heading": "16px",
+      "label": "12px",
+      "overflow": false,
+      "tabs": [
+        {
+          "selected": "true",
+          "underline": "solid",
+          "width": "1px"
+        },
+        {
+          "selected": "false",
+          "underline": "solid",
+          "width": "1px"
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 1024,
+      "locale": "en",
+      "theme": "dark",
+      "badge": {
+        "height": 22,
+        "radius": "4px",
+        "font": "12px",
+        "line": "18px"
+      },
+      "heading": "16px",
+      "label": "12px",
+      "overflow": false,
+      "tabs": [
+        {
+          "selected": "true",
+          "underline": "solid",
+          "width": "1px"
+        },
+        {
+          "selected": "false",
+          "underline": "solid",
+          "width": "1px"
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 1024,
+      "locale": "vi",
+      "theme": "light",
+      "badge": {
+        "height": 22,
+        "radius": "4px",
+        "font": "12px",
+        "line": "18px"
+      },
+      "heading": "16px",
+      "label": "12px",
+      "overflow": false,
+      "tabs": [
+        {
+          "selected": "true",
+          "underline": "solid",
+          "width": "1px"
+        },
+        {
+          "selected": "false",
+          "underline": "solid",
+          "width": "1px"
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 1024,
+      "locale": "vi",
+      "theme": "dark",
+      "badge": {
+        "height": 22,
+        "radius": "4px",
+        "font": "12px",
+        "line": "18px"
+      },
+      "heading": "16px",
+      "label": "12px",
+      "overflow": false,
+      "tabs": [
+        {
+          "selected": "true",
+          "underline": "solid",
+          "width": "1px"
+        },
+        {
+          "selected": "false",
+          "underline": "solid",
+          "width": "1px"
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "locale": "en",
+      "theme": "light",
+      "badge": {
+        "height": 22,
+        "radius": "4px",
+        "font": "12px",
+        "line": "18px"
+      },
+      "heading": "16px",
+      "label": "12px",
+      "overflow": false,
+      "tabs": [
+        {
+          "selected": "true",
+          "underline": "solid",
+          "width": "1px"
+        },
+        {
+          "selected": "false",
+          "underline": "solid",
+          "width": "1px"
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "locale": "en",
+      "theme": "dark",
+      "badge": {
+        "height": 22,
+        "radius": "4px",
+        "font": "12px",
+        "line": "18px"
+      },
+      "heading": "16px",
+      "label": "12px",
+      "overflow": false,
+      "tabs": [
+        {
+          "selected": "true",
+          "underline": "solid",
+          "width": "1px"
+        },
+        {
+          "selected": "false",
+          "underline": "solid",
+          "width": "1px"
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "locale": "vi",
+      "theme": "light",
+      "badge": {
+        "height": 22,
+        "radius": "4px",
+        "font": "12px",
+        "line": "18px"
+      },
+      "heading": "16px",
+      "label": "12px",
+      "overflow": false,
+      "tabs": [
+        {
+          "selected": "true",
+          "underline": "solid",
+          "width": "1px"
+        },
+        {
+          "selected": "false",
+          "underline": "solid",
+          "width": "1px"
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "locale": "vi",
+      "theme": "dark",
+      "badge": {
+        "height": 22,
+        "radius": "4px",
+        "font": "12px",
+        "line": "18px"
+      },
+      "heading": "16px",
+      "label": "12px",
+      "overflow": false,
+      "tabs": [
+        {
+          "selected": "true",
+          "underline": "solid",
+          "width": "1px"
+        },
+        {
+          "selected": "false",
+          "underline": "solid",
+          "width": "1px"
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "width": 1024,
+      "locale": "en",
+      "theme": "light",
+      "badge": {
+        "height": 22,
+        "radius": "4px",
+        "font": "12px",
+        "line": "18px"
+      },
+      "heading": "16px",
+      "label": "12px",
+      "overflow": false,
+      "tabs": [
+        {
+          "selected": "true",
+          "underline": "solid",
+          "width": "1px"
+        },
+        {
+          "selected": "false",
+          "underline": "solid",
+          "width": "1px"
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "width": 1024,
+      "locale": "en",
+      "theme": "dark",
+      "badge": {
+        "height": 22,
+        "radius": "4px",
+        "font": "12px",
+        "line": "18px"
+      },
+      "heading": "16px",
+      "label": "12px",
+      "overflow": false,
+      "tabs": [
+        {
+          "selected": "true",
+          "underline": "solid",
+          "width": "1px"
+        },
+        {
+          "selected": "false",
+          "underline": "solid",
+          "width": "1px"
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "width": 1024,
+      "locale": "vi",
+      "theme": "light",
+      "badge": {
+        "height": 22,
+        "radius": "4px",
+        "font": "12px",
+        "line": "18px"
+      },
+      "heading": "16px",
+      "label": "12px",
+      "overflow": false,
+      "tabs": [
+        {
+          "selected": "true",
+          "underline": "solid",
+          "width": "1px"
+        },
+        {
+          "selected": "false",
+          "underline": "solid",
+          "width": "1px"
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "width": 1024,
+      "locale": "vi",
+      "theme": "dark",
+      "badge": {
+        "height": 22,
+        "radius": "4px",
+        "font": "12px",
+        "line": "18px"
+      },
+      "heading": "16px",
+      "label": "12px",
+      "overflow": false,
+      "tabs": [
+        {
+          "selected": "true",
+          "underline": "solid",
+          "width": "1px"
+        },
+        {
+          "selected": "false",
+          "underline": "solid",
+          "width": "1px"
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "width": 1440,
+      "locale": "en",
+      "theme": "light",
+      "badge": {
+        "height": 22,
+        "radius": "4px",
+        "font": "12px",
+        "line": "18px"
+      },
+      "heading": "16px",
+      "label": "12px",
+      "overflow": false,
+      "tabs": [
+        {
+          "selected": "true",
+          "underline": "solid",
+          "width": "1px"
+        },
+        {
+          "selected": "false",
+          "underline": "solid",
+          "width": "1px"
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "width": 1440,
+      "locale": "en",
+      "theme": "dark",
+      "badge": {
+        "height": 22,
+        "radius": "4px",
+        "font": "12px",
+        "line": "18px"
+      },
+      "heading": "16px",
+      "label": "12px",
+      "overflow": false,
+      "tabs": [
+        {
+          "selected": "true",
+          "underline": "solid",
+          "width": "1px"
+        },
+        {
+          "selected": "false",
+          "underline": "solid",
+          "width": "1px"
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "width": 1440,
+      "locale": "vi",
+      "theme": "light",
+      "badge": {
+        "height": 22,
+        "radius": "4px",
+        "font": "12px",
+        "line": "18px"
+      },
+      "heading": "16px",
+      "label": "12px",
+      "overflow": false,
+      "tabs": [
+        {
+          "selected": "true",
+          "underline": "solid",
+          "width": "1px"
+        },
+        {
+          "selected": "false",
+          "underline": "solid",
+          "width": "1px"
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "width": 1440,
+      "locale": "vi",
+      "theme": "dark",
+      "badge": {
+        "height": 22,
+        "radius": "4px",
+        "font": "12px",
+        "line": "18px"
+      },
+      "heading": "16px",
+      "label": "12px",
+      "overflow": false,
+      "tabs": [
+        {
+          "selected": "true",
+          "underline": "solid",
+          "width": "1px"
+        },
+        {
+          "selected": "false",
+          "underline": "solid",
+          "width": "1px"
+        }
+      ]
+    }
+  ],
+  "keyboard": "manual activation passed in both engines",
+  "forcedColors": "Chromium border underline visible"
+}

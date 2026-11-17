@@ -1,0 +1,14 @@
+
+Running 5 tests using 1 worker
+
+(node:43271) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:43271) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [webkit] › tests/integration/note-memory-workspace.spec.ts:11:1 › explicit note enable, mnemonic editing, study and pause use the default workspace (9.6s)
+  ✓  2 [webkit] › tests/integration/note-memory-workspace.spec.ts:124:1 › ordinary note editing retains a literal two-face marker without enabling learning (blank lines) (6.1s)
+  ✓  3 [webkit] › tests/integration/note-memory-workspace.spec.ts:124:1 › ordinary note editing retains a literal two-face marker without enabling learning (no blank lines) (7.0s)
+  ✓  4 [webkit] › tests/integration/note-memory-workspace.spec.ts:162:1 › Home creates and verifies a backup after editing a managed note (6.1s)
+  ✓  5 [webkit] › tests/integration/note-memory-workspace.spec.ts:202:1 › saving an ordinary note keeps the note list and Command Palette usable (4.6s)
+
+  5 passed (35.3s)

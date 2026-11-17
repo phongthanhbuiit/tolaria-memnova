@@ -16,9 +16,7 @@ import {
 } from '../utils/typeVisibility'
 
 const SIDEBAR_COUNT_PILL_STYLE = {
-  borderRadius: 9999,
-  padding: '0 6px',
-  fontSize: 10,
+  padding: '0 calc(var(--spacing) * 2)',
   fontVariantNumeric: 'tabular-nums',
 } as const
 
@@ -67,10 +65,6 @@ function getNavItemIconSize(compact?: boolean) {
   return compact ? 14 : 16
 }
 
-function getNavItemTextClass(compact?: boolean) {
-  return compact ? 'text-[12px]' : 'text-[13px]'
-}
-
 function resolveBadgeClassName(
   isActive: boolean | undefined,
   activeBadgeClassName: string | undefined,
@@ -101,7 +95,7 @@ function SidebarNavIcon({
   iconSize: number
   isActive?: boolean
 }) {
-  if (emoji) return <span style={{ fontSize: iconSize, lineHeight: 1, width: iconSize, textAlign: 'center' }}>{emoji}</span>
+  if (emoji) return <span className="w-4 shrink-0 text-center text-title">{emoji}</span>
   return <Icon size={iconSize} weight={isActive ? 'fill' : 'regular'} />
 }
 
@@ -109,7 +103,6 @@ export function SidebarCountPill({
   count,
   className,
   style,
-  compact,
   testId = 'sidebar-count-chip',
 }: {
   count: number
@@ -121,8 +114,8 @@ export function SidebarCountPill({
   return (
     <span
       data-testid={testId}
-      className={cn("flex items-center justify-center", className)}
-      style={{ height: compact ? 18 : 20, ...SIDEBAR_COUNT_PILL_STYLE, ...style }}
+      className={cn("flex items-center justify-center rounded-full text-caption font-medium", className)}
+      style={{ ...SIDEBAR_COUNT_PILL_STYLE, ...style }}
     >
       {count}
     </span>
@@ -134,14 +127,13 @@ export function SidebarLoadingCountPill({ compact, testId = 'sidebar-count-skele
     <span
       aria-hidden="true"
       data-testid={testId}
-      className="inline-flex animate-pulse rounded-full bg-muted"
-      style={{ width: compact ? 22 : 28, height: compact ? 18 : 20 }}
+      className={cn("inline-flex h-4 animate-pulse rounded-full bg-muted", compact ? "w-6" : "w-8")}
     />
   )
 }
 
-function NavItemLabel({ label, compact }: { label: string; compact?: boolean }) {
-  return <span className={cn("min-w-0 flex-1 truncate text-left font-medium", getNavItemTextClass(compact))}>{label}</span>
+function NavItemLabel({ label }: { label: string; compact?: boolean }) {
+  return <span className={cn("min-w-0 flex-1 truncate text-left font-medium", "text-body-lg")}>{label}</span>
 }
 
 function NavItemCount({
@@ -185,7 +177,7 @@ function DisabledNavItem({
   padding: ReturnType<typeof getNavItemPadding>
 }) {
   return (
-    <div className="flex select-none items-center gap-2 rounded text-foreground" style={{ padding, borderRadius: 4, opacity: 0.4, cursor: 'not-allowed' }} title={disabledTooltip ?? "Coming soon"}>
+    <div className="flex select-none items-center gap-2 rounded-md text-foreground" style={{ padding, opacity: 0.4, cursor: 'not-allowed' }} title={disabledTooltip ?? "Coming soon"}>
       <SidebarNavIcon Icon={Icon} emoji={emoji} iconSize={getNavItemIconSize(compact)} />
       <NavItemLabel label={label} compact={compact} />
     </div>
@@ -228,8 +220,8 @@ function ClickableNavItem({
       type="button"
       variant="ghost"
       size="sm"
-      className={cn("h-auto w-full cursor-pointer select-none justify-start rounded text-left transition-colors", isActive ? activeClassName : "text-foreground hover:bg-accent")}
-      style={{ padding, borderRadius: 4 }}
+      className={cn("w-full cursor-pointer select-none justify-start rounded-md text-left transition-colors", isActive ? activeClassName : "text-foreground hover:bg-accent")}
+      style={{ padding }}
       onClick={onClick}
     >
       <SidebarNavIcon Icon={Icon} emoji={emoji} iconSize={getNavItemIconSize(compact)} isActive={isActive} />
@@ -371,23 +363,13 @@ function InlineRenameInput({ initialValue, onSubmit, onCancel, locale }: {
       onBlur={() => { void submitValue() }}
       onClick={(e) => e.stopPropagation()}
       aria-label={translate(locale ?? 'en', 'sidebar.section.name')}
-      className="h-auto min-h-0 flex-1 rounded border-primary bg-background px-1 py-px text-[13px] font-medium text-foreground"
+      controlSize="sm" className="flex-1 border-primary bg-background px-1 text-body font-medium text-foreground"
     />
   )
 }
 
-function getSectionHeaderBackground(isActive: boolean, sectionLightColor: string) {
-  if (!isActive) return undefined
-  return { background: sectionLightColor }
-}
-
 function getSectionHeaderIconWeight(isActive: boolean): IconProps['weight'] {
   return isActive ? 'fill' : 'regular'
-}
-
-function getSectionHeaderTitleColor(isActive: boolean, sectionColor: string) {
-  if (!isActive) return undefined
-  return sectionColor
 }
 
 function getSectionSelectHandler(isRenaming: boolean | undefined, onSelect: () => void) {
@@ -420,7 +402,6 @@ function SectionHeaderLabel({
   type,
   label,
   isActive,
-  sectionColor,
   isRenaming,
   renameInitialValue,
   onRenameSubmit,
@@ -458,24 +439,22 @@ function SectionHeaderLabel({
   }
 
   return (
-    <button
+    <Button variant="toolbar" size="toolbar"
       type="button"
-      className="min-w-0 truncate border-0 bg-transparent p-0 text-left text-[13px] font-medium"
-      style={{ marginLeft: 4, color: getSectionHeaderTitleColor(isActive, sectionColor) }}
+      className={cn("min-w-0 truncate border-0 bg-transparent p-0 text-left text-body-lg font-medium", isActive ? "text-primary" : "text-foreground")}
+      style={{ marginLeft: 4 }}
       onDoubleClick={(event) => {
         event.stopPropagation()
         onStartRename?.()
       }}
     >
       {label}
-    </button>
+    </Button>
   )
 }
 
 function SectionHeaderCountPill({
   itemCount,
-  isActive,
-  sectionColor,
 }: {
   itemCount: number
   isActive: boolean
@@ -485,13 +464,13 @@ function SectionHeaderCountPill({
   return (
     <SidebarCountPill
       count={itemCount}
-      className={!isActive ? 'text-muted-foreground' : undefined}
-      style={isActive ? { background: sectionColor, color: 'var(--text-inverse)' } : { background: 'var(--muted)' }}
+      className="text-muted-foreground"
+      style={{ background: 'var(--muted)' }}
     />
   )
 }
 
-function SectionHeader({ label, type, Icon, sectionColor, sectionLightColor, itemCount, isActive, onSelect, onContextMenu, dragHandleProps, isRenaming, renameInitialValue, onRenameSubmit, onRenameCancel, onStartRename, onSelectTypeNote, locale }: {
+function SectionHeader({ label, type, Icon, sectionColor, itemCount, isActive, onSelect, onContextMenu, dragHandleProps, isRenaming, renameInitialValue, onRenameSubmit, onRenameCancel, onStartRename, onSelectTypeNote, locale }: {
   label: string; type: string; Icon: ComponentType<IconProps>
   sectionColor: string; sectionLightColor: string; itemCount: number; isActive: boolean
   onSelect: () => void; onContextMenu: (e: React.MouseEvent) => void
@@ -527,12 +506,12 @@ function SectionHeader({ label, type, Icon, sectionColor, sectionLightColor, ite
   return (
     <div
       ref={headerRef}
-      className={cn("group/section flex cursor-pointer select-none items-center justify-between rounded transition-colors", !isActive && "hover:bg-accent")}
-      style={{ padding: SIDEBAR_ITEM_PADDING.withCount, borderRadius: 4, gap: 4, ...getSectionHeaderBackground(isActive, sectionLightColor) }}
+      className={cn("group/section flex cursor-pointer select-none items-center justify-between rounded-md transition-colors", isActive ? "bg-primary/10 text-primary" : "text-foreground hover:bg-accent")}
+      style={{ padding: SIDEBAR_ITEM_PADDING.withCount, gap: 4 }}
       {...dragHandleProps}
     >
       <div className="flex min-w-0 flex-1 items-center" style={{ gap: 4 }}>
-        <Icon size={16} weight={getSectionHeaderIconWeight(isActive)} style={{ color: sectionColor, flexShrink: 0 }} />
+        <Icon size={16} weight={getSectionHeaderIconWeight(isActive)} style={{ color: isActive ? 'var(--primary)' : sectionColor, flexShrink: 0 }} />
         <SectionHeaderLabel
           type={type}
           label={label}
@@ -574,13 +553,13 @@ function VisibilityPopoverItem({
       type="button"
       variant="ghost"
       size="sm"
-      className="h-auto w-full justify-start rounded-none px-3 py-1.5"
-      style={{ padding: '6px 12px', gap: 8 }}
+      className="w-full justify-start rounded-md px-3"
+
       onClick={() => onToggle(type)}
       aria-label={translate(locale, 'sidebar.section.toggle', { label })}
     >
       <Icon size={14} style={{ color: sectionColor }} />
-      <span className="flex-1 text-left text-[13px] text-foreground">{label}</span>
+      <span className="flex-1 text-left text-body-lg text-foreground">{label}</span>
       <ToggleSwitch on={isVisible} />
     </Button>
   )
@@ -590,7 +569,7 @@ function VisibilityMatrixHeader({ workspaces }: { workspaces: WorkspaceIdentity[
   return (
     <div
       className="grid items-center gap-2 px-3 pb-1"
-      style={{ gridTemplateColumns: `minmax(96px, 1fr) repeat(${workspaces.length}, 28px)` }}
+      style={{ gridTemplateColumns: `minmax(calc(var(--control-md) * 3), 1fr) repeat(${workspaces.length}, var(--control-sm))` }}
     >
       <div />
       {workspaces.map((workspace) => (
@@ -648,11 +627,11 @@ function VisibilityMatrixRow({
   return (
     <div
       className="grid items-center gap-2 px-3 py-1.5"
-      style={{ gridTemplateColumns: `minmax(96px, 1fr) repeat(${workspaces.length}, 28px)` }}
+      style={{ gridTemplateColumns: `minmax(calc(var(--control-md) * 3), 1fr) repeat(${workspaces.length}, var(--control-sm))` }}
     >
       <div className="flex min-w-0 items-center gap-2">
         <Icon size={14} style={{ color: sectionColor }} />
-        <span className="min-w-0 truncate text-left text-[13px] text-foreground">{label}</span>
+        <span className="min-w-0 truncate text-left text-body-lg text-foreground">{label}</span>
       </div>
       {workspaces.map((workspace) => (
         <VisibilityMatrixCell
@@ -713,10 +692,10 @@ export function VisibilityPopover({ entries, sections, isSectionVisible, onToggl
 
   return (
     <div
-      className="border border-border bg-popover text-popover-foreground"
-      style={{ position: 'absolute', top: '100%', left: 6, right: 6, zIndex: 50, borderRadius: 8, padding: '8px 0', boxShadow: '0 4px 12px var(--shadow-dialog)' }}
+      className="rounded-lg border border-border bg-popover text-popover-foreground"
+      style={{ position: 'absolute', top: '100%', left: 6, right: 6, zIndex: 50, padding: '8px 0', boxShadow: '0 4px 12px var(--shadow-dialog)' }}
     >
-      <div className="text-[12px] font-semibold text-muted-foreground" style={{ padding: '0 12px 4px' }}>{translate(locale, 'sidebar.section.showInSidebar')}</div>
+      <div className="text-small font-semibold text-muted-foreground" style={{ padding: '0 12px 4px' }}>{translate(locale, 'sidebar.section.showInSidebar')}</div>
       {showMatrix ? (
         <VisibilityMatrixPopover
           entries={entries}
@@ -742,8 +721,8 @@ export function VisibilityPopover({ entries, sections, isSectionVisible, onToggl
 
 function ToggleSwitch({ on }: { on: boolean }) {
   return (
-    <div className="flex items-center" style={{ width: 32, height: 18, borderRadius: 9, padding: 2, backgroundColor: on ? 'var(--primary)' : 'var(--muted)', justifyContent: on ? 'flex-end' : 'flex-start', transition: 'background-color 150ms' }}>
-      <div style={{ width: 14, height: 14, borderRadius: 7, backgroundColor: 'var(--background)', transition: 'transform 150ms' }} />
+    <div aria-hidden="true" className={cn('flex h-5 w-9 items-center rounded-full p-px transition-colors', on ? 'justify-end bg-primary' : 'justify-start bg-muted')}>
+      <div className="size-4 rounded-full bg-background transition-transform" />
     </div>
   )
 }

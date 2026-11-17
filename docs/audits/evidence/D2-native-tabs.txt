@@ -1,0 +1,114 @@
+Window: "Memnova D2 1440 QA", App: Memnova D2 1440 QA.
+0 standard window Memnova D2 1440 QA, Secondary Actions: Raise
+	1 scroll area
+		2 HTML content Description: Memnova, URL: localhost:5201/
+			3 container
+				4 button Collapse sidebar, Help: Collapse sidebar (⌘2)
+				5 button (disabled) Go Back, Help: Go Back (⌘←)
+				6 button (disabled) Go Forward, Help: Go Forward (⌘→)
+				7 container
+					8 button Home
+					9 button Inbox 83
+					10 button All Notes 87
+					11 button Study
+					12 button Archive
+				13 button VIEWS
+				14 button Create view
+				15 sortable Capture QA 87
+				16 button TYPES
+				17 button Customize sections
+				18 button Create new type
+				19 sortable Notes
+6
+				20 sortable Responsibilities
+2
+				21 button FOLDERS
+				22 button Create folder
+				23 button (expanded) Library, Secondary Actions: Collapse
+				24 button 00 Research folder with a long title
+				25 button 01 Research folder with a long title
+				26 button 02 Research folder with a long title
+				27 button 03 Research folder with a long title
+				28 button 04 Research folder with a long title
+				29 button 05 Research folder with a long title
+				30 button 06 Research folder with a long title
+				31 button 07 Research folder with a long title
+				32 button 08 Research folder with a long title
+				33 button 09 Research folder with a long title
+				34 button 10 Research folder with a long title
+				35 button 11 Research folder with a long title
+				36 button 12 Research folder with a long title
+				37 button 13 Research folder with a long title
+				38 button 14 Research folder with a long title
+				39 button 15 Research folder with a long title
+				40 button 16 Research folder with a long title
+				41 button 17 Research folder with a long title
+				42 button 18 Research folder with a long title
+				43 button 19 Research folder with a long title
+				44 button 20 Research folder with a long title
+				45 button 21 Research folder with a long title
+				46 button 22 Research folder with a long title
+				47 button 23 Research folder with a long title
+				48 button 24 Research folder with a long title
+				49 button 25 Research folder with a long title
+				50 button 26 Research folder with a long title
+				51 button 27 Research folder with a long title
+				52 button 28 Research folder with a long title
+				53 button 29 Research folder with a long title
+				54 button views
+			55 container
+				56 heading Library, Value: 1
+					57 text Library
+				58 text Write in any note. To study it later, turn on spaced repetition in Properties.
+				59 button All Notes
+				60 button New Note
+			61 tab group (selectable) Library
+				62 tab (selected) Note memory · 2 due, Value: on
+				63 tab (selectable) Old cards · 0 due
+			64 container Note memory · 2 due
+				65 container
+					66 heading Note memory, Value: 2
+						67 text Note memory
+					68 text Reviewed: 0 · Daily Goal: 0/20
+					69 button Study due notes (2)
+					70 button (collapsed) Advanced, Secondary Actions: Expand
+					71 container Note memory
+						72 text Search notes
+						73 search text field (settable) Search notes, Placeholder: Title or file path
+							74 text Title or file path
+						75 text Folder
+						76 combo box (collapsed, settable) Folder, Value: Library, Secondary Actions: Expand
+							77 text Library
+						78 switch (settable, boolean) Include subfolders, Value: on
+						79 text Include subfolders
+						80 switch (settable, boolean) Due, Value: off
+						81 text Due
+					82 text Notes · 5
+					83 content list Note memory
+						84 button A Note is a general-purpose document
+						85 button A native packaged note keeps useful reading context.
+						86 button Missing cue QA
+						87 button Reading 13
+						88 button UX verification
+			89 container
+				90 button Open existing Library
+				91 text |
+				92 button Check for updates
+				93 button Contribute to Tolaria
+				94 button Open Tolaria docs
+				95 button Switch to dark mode
+				96 button Open settings
+	97 close button
+	98 full screen button Help: this button also has an action to zoom the window, Secondary Actions: zoom the window
+	99 minimize button
+100 menu bar
+	101 Memnova D2 1440 QA
+	102 File
+	103 Edit
+	104 View
+	105 Go
+	106 Note
+	107 Vault
+	108 Window
+
+The focused UI element is 62 tab (selected) Note memory · 2 due, Value: on

@@ -1,0 +1,212 @@
+[
+  {
+    "file": "docs/audits/evidence/D2-after-1024-en-dark-home.png",
+    "width": 2048,
+    "height": 1400,
+    "sha256": "5b88095511c5b80134ee78fc1cad3a10c63db4e9a87ebab7aa1cd31c5b1f08b1"
+  },
+  {
+    "file": "docs/audits/evidence/D2-after-1024-en-dark-list.png",
+    "width": 2048,
+    "height": 1400,
+    "sha256": "d2b2286b7b4b6c83f87429063a45c36451bed63ac9f6af5b34e255fb372d703f"
+  },
+  {
+    "file": "docs/audits/evidence/D2-after-1024-en-light-home.png",
+    "width": 2048,
+    "height": 1400,
+    "sha256": "d69d47d585b19b34eab5c02b4ccae28ff11008a3106ebf721fff88765d5fd487"
+  },
+  {
+    "file": "docs/audits/evidence/D2-after-1024-en-light-list.png",
+    "width": 2048,
+    "height": 1400,
+    "sha256": "f561d5cebc69900af70d0ff843f7600a429dbc0d775578100107d3a91d6122c8"
+  },
+  {
+    "file": "docs/audits/evidence/D2-after-1024-vi-dark-home.png",
+    "width": 2048,
+    "height": 1400,
+    "sha256": "d055d9a9e826a6e48abddb1ef8eacebe4f737aed1de1c4b580e293dbff289219"
+  },
+  {
+    "file": "docs/audits/evidence/D2-after-1024-vi-dark-list.png",
+    "width": 2048,
+    "height": 1400,
+    "sha256": "24a1f6cc3c5930c15300f0e9052229e07c84eeb9abd5922ccb33276f534a2d50"
+  },
+  {
+    "file": "docs/audits/evidence/D2-after-1024-vi-light-folder.png",
+    "width": 2048,
+    "height": 1400,
+    "sha256": "2de41bae3b6fae73b9830fe36cf31ee69de3a15f862041ee0c918a71ad685e4d"
+  },
+  {
+    "file": "docs/audits/evidence/D2-after-1024-vi-light-home.png",
+    "width": 2048,
+    "height": 1400,
+    "sha256": "22436cab58c5d31805d862be1c6e2035c6a2d2bcfef1eadeb0870d1208a512e2"
+  },
+  {
+    "file": "docs/audits/evidence/D2-after-1024-vi-light-list.png",
+    "width": 2048,
+    "height": 1400,
+    "sha256": "8395eeed57e1fe9cb5edc2dade2a84404e58107548c9aa7649285b48fbb575de"
+  },
+  {
+    "file": "docs/audits/evidence/D2-after-1024-vi-light-type.png",
+    "width": 2048,
+    "height": 1400,
+    "sha256": "25c09d1af35635630c4cd7b4c878108ea0e9d67ded6ec304fb9f730f3ce01a87"
+  },
+  {
+    "file": "docs/audits/evidence/D2-after-1024-vi-light-view.png",
+    "width": 2048,
+    "height": 1400,
+    "sha256": "359621a950ae00532634ea1bb339aee6df448e8f971a76208717baf4e6badeda"
+  },
+  {
+    "file": "docs/audits/evidence/D2-after-1440-en-dark-home.png",
+    "width": 2880,
+    "height": 1800,
+    "sha256": "e5ebc2eedcc75139fcc1d03bd378c740c92661d4a45406bda8dc529be54ce578"
+  },
+  {
+    "file": "docs/audits/evidence/D2-after-1440-en-dark-list.png",
+    "width": 2880,
+    "height": 1800,
+    "sha256": "6e3580dffb5bfdb84bd244775abae6a84258d0a273ee7bf31238ac27d03f70af"
+  },
+  {
+    "file": "docs/audits/evidence/D2-after-1440-en-light-home.png",
+    "width": 2880,
+    "height": 1800,
+    "sha256": "49dfe700a359d73726f7af93db1173270a81f965b209f4149fb2f21f6dd00246"
+  },
+  {
+    "file": "docs/audits/evidence/D2-after-1440-en-light-list.png",
+    "width": 2880,
+    "height": 1800,
+    "sha256": "fbe21efeefaf5b84e48457ce7410d56fe99433807b15e361fdd7f0df1e13a531"
+  },
+  {
+    "file": "docs/audits/evidence/D2-after-1440-vi-dark-home.png",
+    "width": 2880,
+    "height": 1800,
+    "sha256": "2fd3b9cac5ebf97d9059d7b3de0210b99636b1535c49bf8bc207743ae71ff7dd"
+  },
+  {
+    "file": "docs/audits/evidence/D2-after-1440-vi-dark-list.png",
+    "width": 2880,
+    "height": 1800,
+    "sha256": "17a2f4a6d79f72d310d152163206a0b63f7257960a439cc4cb43b7b8697f9d5b"
+  },
+  {
+    "file": "docs/audits/evidence/D2-after-1440-vi-light-home.png",
+    "width": 2880,
+    "height": 1800,
+    "sha256": "7d82b9e193ba9b53812f9dc1ef8700051d26e83206c4f43ee012ae1e0e57d485"
+  },
+  {
+    "file": "docs/audits/evidence/D2-after-1440-vi-light-list.png",
+    "width": 2880,
+    "height": 1800,
+    "sha256": "dee06d2dc9e5bf1582b4d1d99426ead28ab2c23998ed58bc5f4c93348ef2135d"
+  },
+  {
+    "file": "docs/audits/evidence/D2-before-1024-en-dark-home.png",
+    "width": 2048,
+    "height": 1400,
+    "sha256": "87bfadd5459ea3d799dd9bea1559dc5f92be4f08b9bddc755040e122c85deb32"
+  },
+  {
+    "file": "docs/audits/evidence/D2-before-1024-en-dark-list.png",
+    "width": 2048,
+    "height": 1400,
+    "sha256": "00cb4c70431a087068d2c0587031d0cf9d7b520e0ee4ecd14b2a0427a658175c"
+  },
+  {
+    "file": "docs/audits/evidence/D2-before-1024-en-light-home.png",
+    "width": 2048,
+    "height": 1400,
+    "sha256": "257ba85c7f20ca3da2d4693d39dde7cefc9ca07c3935cff1fbb2aeae50968483"
+  },
+  {
+    "file": "docs/audits/evidence/D2-before-1024-en-light-list.png",
+    "width": 2048,
+    "height": 1400,
+    "sha256": "3cef8f80415192e787aea23a11649cf21b1583920725f689cea6e34a6352f926"
+  },
+  {
+    "file": "docs/audits/evidence/D2-before-1024-vi-dark-home.png",
+    "width": 2048,
+    "height": 1400,
+    "sha256": "32232a23b32b01a7de6da21e795522b18667a769dea001309d97b852f735bbde"
+  },
+  {
+    "file": "docs/audits/evidence/D2-before-1024-vi-dark-list.png",
+    "width": 2048,
+    "height": 1400,
+    "sha256": "8617e7e4922e2c86d696fd77e7a4105beb0246fd97002cb85870bd60ed441898"
+  },
+  {
+    "file": "docs/audits/evidence/D2-before-1024-vi-light-home.png",
+    "width": 2048,
+    "height": 1400,
+    "sha256": "1f7cc1cc4b6547094a9a9c89505f781a1d5645bb231254d4e5ebca981dc09005"
+  },
+  {
+    "file": "docs/audits/evidence/D2-before-1024-vi-light-list.png",
+    "width": 2048,
+    "height": 1400,
+    "sha256": "788b3662528a4415199a8ce292bec97136153bf1da6cad2666f64bd56cae5755"
+  },
+  {
+    "file": "docs/audits/evidence/D2-before-1440-en-dark-home.png",
+    "width": 2880,
+    "height": 1800,
+    "sha256": "b6f171522f2f2de0392b19a56f89a3b6a5f45a92f4566e929ef31ffd1c5b03d8"
+  },
+  {
+    "file": "docs/audits/evidence/D2-before-1440-en-dark-list.png",
+    "width": 2880,
+    "height": 1800,
+    "sha256": "ecf8326b8ac99b5fa3808bf1ef0260c313a77ccce57a0d0ec949e293e71cf22e"
+  },
+  {
+    "file": "docs/audits/evidence/D2-before-1440-en-light-home.png",
+    "width": 2880,
+    "height": 1800,
+    "sha256": "798f139154fc80620dab09d1431f25fbbf41f360b88082c3a80377ddf289c9bc"
+  },
+  {
+    "file": "docs/audits/evidence/D2-before-1440-en-light-list.png",
+    "width": 2880,
+    "height": 1800,
+    "sha256": "38e7c0cafc126ce9d503f45331c01391d64dbdd310aae0ab4ffebee8fa4c28e6"
+  },
+  {
+    "file": "docs/audits/evidence/D2-before-1440-vi-dark-home.png",
+    "width": 2880,
+    "height": 1800,
+    "sha256": "a73959de809c0c1c7af25812915410eb6348748275e84a3845c888a10958c282"
+  },
+  {
+    "file": "docs/audits/evidence/D2-before-1440-vi-dark-list.png",
+    "width": 2880,
+    "height": 1800,
+    "sha256": "8b7d013343e24bf9ef7195331b032e9332d66c47f901caf3267da3e34502b623"
+  },
+  {
+    "file": "docs/audits/evidence/D2-before-1440-vi-light-home.png",
+    "width": 2880,
+    "height": 1800,
+    "sha256": "1f99349aee191731a806b445b2d988e4755e801d50644d75909b600d1bbad3e1"
+  },
+  {
+    "file": "docs/audits/evidence/D2-before-1440-vi-light-list.png",
+    "width": 2880,
+    "height": 1800,
+    "sha256": "2e39bed9834ca924879b2531aa63787b3faccfdb48876a0c52702e3472bfb000"
+  }
+]

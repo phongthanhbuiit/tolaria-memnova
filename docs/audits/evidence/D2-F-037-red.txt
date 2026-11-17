@@ -1,0 +1,29 @@
+
+ RUN  v4.0.18 /Users/thompson/Documents/tolaria-memnova
+
+ ❯ src/components/sidebar/SidebarTopNav.test.tsx (1 test | 1 failed) 118ms
+   × keeps count badges neutral when selection moves between navigation items 117ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/components/sidebar/SidebarTopNav.test.tsx > keeps count badges neutral when selection moves between navigation items
+Error: expect(element).toHaveStyle()
+
+- Expected
+
+- background: var(--muted);
+ ❯ src/components/sidebar/SidebarTopNav.test.tsx:13:19
+     11|   for (const row of [all, inbox, study]) {
+     12|     const badge = within(row).getByTestId('sidebar-count-chip')
+     13|     expect(badge).toHaveStyle({ background: 'var(--muted)' })
+       |                   ^
+     14|     expect(badge).toHaveClass('text-muted-foreground')
+     15|     expect(badge).not.toHaveClass('bg-primary', 'text-primary-foregrou…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  00:20:32
+   Duration  3.10s (transform 504ms, setup 66ms, import 2.46s, tests 118ms, environment 372ms)

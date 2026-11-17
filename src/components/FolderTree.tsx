@@ -299,9 +299,9 @@ function CreateFolderButton({
   return (
     <Button
       type="button"
-      variant="ghost"
+      variant="toolbar"
       size="icon-xs"
-      className="h-auto w-auto min-w-0 rounded-none p-0 text-muted-foreground hover:bg-transparent hover:text-foreground"
+      className="text-muted-foreground hover:text-foreground"
       data-testid="create-folder-btn"
       title={translate(locale, 'sidebar.action.createFolder')}
       aria-label={translate(locale, 'sidebar.action.createFolder')}
