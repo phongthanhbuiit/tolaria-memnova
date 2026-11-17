@@ -49,10 +49,10 @@ describe('noteListHelpers extra coverage', () => {
     const nowSeconds = Math.floor(Date.now() / 1000)
 
     expect(relativeDate(nowSeconds + 86400)).toBe('Apr 22')
-    expect(relativeDate(nowSeconds - 30)).toBe('just now')
-    expect(relativeDate(nowSeconds - 5 * 60)).toBe('5m ago')
-    expect(relativeDate(nowSeconds - 2 * 3600)).toBe('2h ago')
-    expect(relativeDate(nowSeconds - 3 * 86400)).toBe('3d ago')
+    expect(relativeDate(nowSeconds - 30)).toBe('now')
+    expect(relativeDate(nowSeconds - 5 * 60)).toBe('5 minutes ago')
+    expect(relativeDate(nowSeconds - 2 * 3600)).toBe('2 hours ago')
+    expect(relativeDate(nowSeconds - 3 * 86400)).toBe('3 days ago')
     expect(relativeDate(nowSeconds - 10 * 86400)).toBe('Apr 11')
   })
 

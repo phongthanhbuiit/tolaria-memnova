@@ -41,10 +41,11 @@ export function relativeDate(ts: number | null, locale: AppLocale = 'en'): strin
     const date = new Date(ts * 1000)
     return date.toLocaleDateString(getLocaleDateLocale(locale), { month: 'short', day: 'numeric' })
   }
-  if (diff < 60) return 'just now'
-  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`
-  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`
-  if (diff < 604800) return `${Math.floor(diff / 86400)}d ago`
+  const formatter = new Intl.RelativeTimeFormat(getLocaleDateLocale(locale), { numeric: 'auto' })
+  if (diff < 60) return formatter.format(0, 'second')
+  if (diff < 3600) return formatter.format(-Math.floor(diff / 60), 'minute')
+  if (diff < 86400) return formatter.format(-Math.floor(diff / 3600), 'hour')
+  if (diff < 604800) return formatter.format(-Math.floor(diff / 86400), 'day')
   const date = new Date(ts * 1000)
   return date.toLocaleDateString(getLocaleDateLocale(locale), { month: 'short', day: 'numeric' })
 }
