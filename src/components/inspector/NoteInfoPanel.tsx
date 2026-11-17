@@ -23,9 +23,9 @@ function formatFileSize(bytes: number): string {
 
 function InfoRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="grid min-w-0 grid-cols-2 items-center gap-2 px-1.5" data-testid="readonly-property">
-      <span className="min-w-0 truncate text-[12px] text-muted-foreground">{label}</span>
-      <span className="min-w-0 truncate text-right text-[12px]" style={{ color: 'var(--text-muted)' }}>{value}</span>
+    <div className="grid min-w-0 grid-cols-2 items-center gap-2 px-2" data-testid="readonly-property">
+      <span className="min-w-0 whitespace-normal break-words text-small text-text-secondary">{label}</span>
+      <span className="min-w-0 whitespace-normal break-words text-right text-small" >{value}</span>
     </div>
   )
 }
@@ -43,11 +43,11 @@ export function NoteInfoPanel({
   const wordCount = countWords(content ?? '')
   return (
     <div>
-      <h4 className="font-mono-overline mb-2 flex items-center gap-1 text-muted-foreground">
-        <Info size={12} className="shrink-0" />
+      <h4 className="text-caption font-medium tracking-wide mb-2 flex items-center gap-1 text-text-secondary">
+        <Info size={16} className="shrink-0" />
         {translate(locale, 'inspector.info.title')}
       </h4>
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-2">
         <InfoRow label={translate(locale, 'inspector.info.modified')} value={formatDate(entry.modifiedAt, dateDisplayFormat)} />
         <InfoRow label={translate(locale, 'inspector.info.created')} value={formatDate(entry.createdAt, dateDisplayFormat)} />
         <InfoRow label={translate(locale, 'inspector.info.words')} value={String(wordCount)} />
