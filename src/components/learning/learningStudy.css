@@ -30,6 +30,18 @@
   @apply text-study text-text-primary;
 }
 .learning-study-copy .bn-editor { --editor-line-height: calc(28 / 18); }
+.learning-study-copy .editor__blocknote-container .bn-editor { max-width: none; margin: 0; padding: 0; }
+.learning-study-copy .bn-container, .learning-study-copy .bn-editor { background: transparent; }
+.learning-study-copy .bn-block-content { margin-inline-start: 0; }
+.learning-study-face:focus-visible { outline: 2px solid var(--ring); outline-offset: 4px; }
+
+/* Preserve 44px coarse-pointer hit areas without enlarging the 28px chrome. */
+@media (pointer: coarse) {
+  .study-secondary-action, .study-reveal-action { position: relative; }
+  .study-secondary-action::after, .study-reveal-action::after { content: ''; position: absolute; }
+  .study-secondary-action::after { inset: -8px; }
+  .study-reveal-action::after { inset: -2px 0; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .learning-study-dialog, .learning-study-dialog * { animation: none; transition: none; }

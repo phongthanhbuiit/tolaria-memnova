@@ -21,7 +21,7 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
-        "study-grade": "min-h-[56px] px-[12px] py-[8px]",
+        "study-grade": "min-h-[56px] px-[8px] py-[8px] min-[520px]:max-[640px]:px-[4px]",
         "study-reveal": "min-h-[40px] px-4 py-0 has-[>svg]:px-3",
         // Keep legacy names/data-size values while callers migrate screen by screen.
         default: "min-h-(--control-md) px-4 py-0 has-[>svg]:px-3",

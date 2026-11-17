@@ -173,6 +173,7 @@ export function LearningStudyView({
             <Button
               variant="ghost"
               size="icon-sm"
+              className="study-secondary-action"
               aria-label={t('learning.close')}
               disabled={study.busy || study.hasPending}
               onClick={() => {
@@ -298,7 +299,7 @@ export function LearningStudyView({
               <Button
                 ref={revealButton}
                 size="study-reveal"
-                className="w-full"
+                className="study-reveal-action w-full"
                 disabled={
                   study.busy || !!study.error || !sourceReady || !questionReady
                 }
@@ -326,6 +327,7 @@ export function LearningStudyView({
                 <Button
                   variant="ghost"
                   size="sm"
+                className="study-secondary-action"
                   disabled={study.busy || study.hasPending}
                   onClick={returnToArticle}
                 >
@@ -337,7 +339,7 @@ export function LearningStudyView({
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="ml-auto"
+                  className="study-secondary-action ml-auto"
                   disabled={!session?.canUndo || study.busy || study.hasPending}
                   onClick={() => {
                     void study.undo()
