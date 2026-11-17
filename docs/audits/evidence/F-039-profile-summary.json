@@ -1,0 +1,97 @@
+{
+  "stack": [
+    {
+      "function": "addObjectDiffToProperties",
+      "location": {
+        "scriptId": "27",
+        "lineNumber": 3087,
+        "columnNumber": 8
+      }
+    },
+    {
+      "function": "addObjectDiffToProperties",
+      "location": {
+        "scriptId": "27",
+        "lineNumber": 3121,
+        "columnNumber": 24
+      }
+    },
+    {
+      "function": "addObjectDiffToProperties",
+      "location": {
+        "scriptId": "27",
+        "lineNumber": 3121,
+        "columnNumber": 24
+      }
+    },
+    {
+      "function": "logComponentRender",
+      "location": {
+        "scriptId": "27",
+        "lineNumber": 3176,
+        "columnNumber": 132
+      }
+    }
+  ],
+  "frames": [
+    {
+      "name": "addObjectDiffToProperties",
+      "locals": {
+        "indent": 2,
+        "prevKeys": 31,
+        "nextKeys": 31,
+        "properties": 4985,
+        "firstKeys": [
+          "path",
+          "filename",
+          "title",
+          "isA"
+        ]
+      }
+    },
+    {
+      "name": "addObjectDiffToProperties",
+      "locals": {
+        "indent": 1,
+        "prevKeys": 9039,
+        "nextKeys": 9039,
+        "properties": 4985,
+        "firstKeys": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ]
+      }
+    },
+    {
+      "name": "addObjectDiffToProperties",
+      "locals": {
+        "indent": 0,
+        "prevKeys": 10,
+        "nextKeys": 10,
+        "properties": 4985,
+        "firstKeys": [
+          "activeTab",
+          "entries",
+          "findRequest",
+          "rawMode"
+        ]
+      }
+    },
+    {
+      "name": "logComponentRender",
+      "locals": {
+        "name": "RawModeEditorSection",
+        "changedKeys": [
+          "activeTab",
+          "entries",
+          "rawModeContent",
+          "onRawContentChange",
+          "onSave"
+        ]
+      }
+    }
+  ],
+  "note": "Diagnostic debugger/profile only; no production instrumentation. This sample traverses all 9039 entries while generating React development performance props."
+}

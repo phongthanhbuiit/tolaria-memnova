@@ -162,7 +162,7 @@ Nguồn: kiểm kê grep toàn `src/` + đọc `learning/LearningStudyView.tsx`,
 | F-036 | P2 | Placeholder tiêu đề rỗng ("Heading" nghiêng đậm) trông như nội dung thật | ảnh `REVIEW` | SPEC §7 | open |
 | F-037 | P2 | Mục sidebar đang chọn: huy hiệu số đổi sang đặc màu, mục khác thì không — hai kiểu "đang chọn" | ảnh `WRITE` vs `HOME` | SPEC §7 | open |
 | F-038 | P3 | Độ đậm chữ dùng cả 400/500/600/700 ngoài editor | `font-bold` 21 | SPEC §1 | open |
-| F-039 | P2 | Core smoke wikilink không ổn định: Cmd+click xong H1 đích rỗng | `tests/smoke/wikilink-path-fix.spec.ts:65-70`, tái hiện cả baseline `f78b8fb9` | Chạy ổn định không retry; phân biệt fixture/test và lỗi app trước khi sửa | open |
+| F-039 | P2 | Core smoke wikilink không ổn định: Cmd+click xong H1 đích rỗng | `tests/smoke/wikilink-path-fix.spec.ts:63-70`, tái hiện cả baseline `f78b8fb9` | 90/90 không retry; full checks và pre-push dry-run sạch; [biên bản](F-039-COMPLETION.md) | fixed (`:/^fix: F-039 stabilize wikilink navigation during source saves`) |
 | F-040 | P2 | Core smoke keyboard delete/Quick Open phụ thuộc retry | `tests/smoke/delete-note-nonblocking.spec.ts:53`, log pre-push bước C | Xác định nguyên nhân trong lane đầy đủ; không coi retry là smoke sạch | open |
 | F-041 | P2 | WebKit regression: render error react-virtuoso khi lưu ghi chú thường trước Command Palette | `note-memory-workspace.spec.ts:124-147`; tái hiện baseline b23296e9 | Phân biệt lỗi app/fixture, giữ assertion và timeout | open |
 
@@ -172,7 +172,7 @@ Ghi chú: F-015 và F-016 (Đợt 0) được thay bằng F-027/F-028 + SPEC §6
 
 ### F-039 — Smoke Cmd+click wikilink không ổn định
 
-- P2 · C9.4 · S7 · Chắc chắn về lỗi smoke; chưa kết luận đây là lỗi thao tác thật trên app.
+- P2 · C9.4 · S7 · Đã xác nhận render churn/row identity trong app khi source lưu đồng thời điều hướng; bằng chứng và regression RED → GREEN trong [biên bản](F-039-COMPLETION.md).
 - Tái hiện: 1) Chạy `pnpm exec playwright test --config playwright.smoke.config.ts tests/smoke/wikilink-path-fix.spec.ts --retries=0`. 2) Ca `@smoke` chờ H1 “Manage Sponsorships” nhưng nhận chuỗi rỗng. 3) Lặp lại trên checkout gốc `f78b8fb9`, `BASE_URL=http://127.0.0.1:41742`, cùng kết quả.
 - Tác động: release gate thất bại hoặc phụ thuộc retry; lượt đầu có 53 passed + 1 flaky trong 6,2 phút. Pre-push cuối trên `8dd9f931` có 53 passed / 1 failed trong 6,0 phút, thất bại cả retry và chặn push. Cả hai lượt vượt mục tiêu 5 phút.
 - Bằng chứng: [log baseline](evidence/F-039-smoke-baseline.txt), [log pre-push cuối](evidence/F-039-pre-push.txt), `tests/smoke/wikilink-path-fix.spec.ts:65-70`. Chi tiết trong [biên bản bước A](STEP-A-FOUNDATION.md).
@@ -183,6 +183,8 @@ Bước B cũng bị cùng gate chặn trên `715aa8b5`: 53 passed / 1 failed, 6
 Bước C trên `dc29bf7d`: F-039 thất bại cả retry (lượt đầu Grow Newsletter, retry H1 rỗng); 52 passed / 1 flaky / 1 failed, 5,6 phút. Hook chặn push. [Log](evidence/step-C-pre-push.txt).
 
 Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn bị F-039 chặn (Grow Newsletter rồi H1 rỗng); 52 passed / 1 flaky / 1 failed, 5,6 phút. F-040 cũng tái hiện ở lượt đầu rồi pass retry. Lint/build/full coverage pass; không sửa hai finding ngoài D1. [Log](evidence/step-D1-pre-push.txt).
+
+17/11/2026 — F-039 fixed trong commit `:/^fix: F-039 stabilize wikilink navigation during source saves`: cache projection của entry bất biến, key hàng theo path và chờ tín hiệu UI trong smoke. Test gốc 10/10 fail trước sửa; bản cuối đạt 30/30 trước, 30/30 đồng thời và 30/30 sau suite, không retry; suite đồng thời 54/54. Full Node 24/Rust checks và pre-push dry-run 54/54, không flaky. Người dùng cho phép sửa nguyên nhân dùng chung; F-040/F-041 vẫn open, không sửa test hoặc trạng thái hai finding đó. [Biên bản, trace/video và gate](F-039-COMPLETION.md).
 
 ### F-040 — Core smoke keyboard delete/Quick Open phụ thuộc retry
 

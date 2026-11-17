@@ -61,6 +61,10 @@ function renderNoteRow(_index: number, entry: VaultEntry) {
   return <NoteRow entry={entry} />
 }
 
+function noteRowKey(_index: number, entry: VaultEntry) {
+  return entry.path
+}
+
 // An editor change can update row selections or callbacks. Only a changed
 // list needs to republish data to Virtuoso's synchronous layout subscriptions.
 const VirtualNoteList = memo(function VirtualNoteList({ entries, virtuosoRef }: {
@@ -73,6 +77,7 @@ const VirtualNoteList = memo(function VirtualNoteList({ entries, virtuosoRef }: 
       className="app-scrollbar"
       style={{ height: '100%' }}
       data={entries}
+      computeItemKey={noteRowKey}
       overscan={200}
       itemContent={renderNoteRow}
     />

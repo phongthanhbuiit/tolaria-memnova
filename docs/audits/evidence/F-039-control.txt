@@ -1,0 +1,111 @@
+[WebServer] (node:89295) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer]
+[WebServer] > tolaria-memnova@0.1.0 dev /Users/thompson/Documents/tolaria-memnova
+[WebServer] > node scripts/prepare-drawing-fonts.mjs && vite --host 127.0.0.1 --port 41745 --strictPort
+[WebServer]
+
+[WebServer] (node:89318) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer]
+[WebServer]   VITE v7.3.2  ready in 207 ms
+[WebServer]
+
+[WebServer]   ➜  Local:   http://127.0.0.1:41745/
+
+
+Running 10 tests using 1 worker
+
+(node:89338) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:89338) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/10] [chromium] › ../../../../private/tmp/memnova-f039/control.spec.ts:74:7 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+(node:89404) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:89404) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[2/10] [chromium] › ../../../../private/tmp/memnova-f039/control.spec.ts:74:7 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+(node:89469) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:89469) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[3/10] [chromium] › ../../../../private/tmp/memnova-f039/control.spec.ts:74:7 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+(node:89540) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:89540) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[4/10] [chromium] › ../../../../private/tmp/memnova-f039/control.spec.ts:74:7 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+(node:89594) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:89594) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[5/10] [chromium] › ../../../../private/tmp/memnova-f039/control.spec.ts:74:7 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+(node:89654) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:89654) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[6/10] [chromium] › ../../../../private/tmp/memnova-f039/control.spec.ts:74:7 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+(node:89709) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:89709) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[7/10] [chromium] › ../../../../private/tmp/memnova-f039/control.spec.ts:74:7 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+(node:89760) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:89760) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[8/10] [chromium] › ../../../../private/tmp/memnova-f039/control.spec.ts:74:7 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+(node:89821) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:89821) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[9/10] [chromium] › ../../../../private/tmp/memnova-f039/control.spec.ts:74:7 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+(node:89886) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:89886) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[10/10] [chromium] › ../../../../private/tmp/memnova-f039/control.spec.ts:74:7 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+  10 passed (1.0m)

@@ -1,0 +1,112 @@
+{
+  "node": "24.19.0",
+  "pnpm": "10.34.8",
+  "gates": [
+    {
+      "label": "lint",
+      "command": [
+        "pnpm",
+        "lint"
+      ],
+      "exitCode": 0,
+      "started": "2026-11-17T12:28:54.002516+00:00",
+      "seconds": 30.86594
+    },
+    {
+      "label": "types",
+      "command": [
+        "pnpm",
+        "exec",
+        "tsc",
+        "-b"
+      ],
+      "exitCode": 0,
+      "started": "2026-11-17T12:29:24.869421+00:00",
+      "seconds": 10.090351
+    },
+    {
+      "label": "tests",
+      "command": [
+        "pnpm",
+        "test"
+      ],
+      "exitCode": 0,
+      "started": "2026-11-17T12:29:34.960659+00:00",
+      "seconds": 217.496846
+    },
+    {
+      "label": "coverage",
+      "command": [
+        "pnpm",
+        "test:coverage"
+      ],
+      "exitCode": 0,
+      "started": "2026-11-17T12:33:12.458096+00:00",
+      "seconds": 259.572424
+    },
+    {
+      "label": "rust-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "src-tauri/Cargo.toml"
+      ],
+      "exitCode": 0,
+      "started": "2026-11-17T12:37:32.031890+00:00",
+      "seconds": 19.530116
+    },
+    {
+      "label": "rust-coverage",
+      "command": [
+        "cargo",
+        "llvm-cov",
+        "--manifest-path",
+        "src-tauri/Cargo.toml",
+        "--no-clean",
+        "--fail-under-lines",
+        "85"
+      ],
+      "exitCode": 0,
+      "started": "2026-11-17T12:37:51.562531+00:00",
+      "seconds": 20.432091
+    },
+    {
+      "label": "localization",
+      "command": [
+        "pnpm",
+        "l10n:validate"
+      ],
+      "exitCode": 0,
+      "started": "2026-11-17T12:38:11.995858+00:00",
+      "seconds": 0.334449
+    }
+  ],
+  "frontend": {
+    "files": 500,
+    "tests": 4976,
+    "lineCoverage": 87.46
+  },
+  "rust": {
+    "mainTestsPassed": 1240,
+    "mainTestsIgnored": 3,
+    "lineCoverage": 86.4
+  },
+  "localization": {
+    "catalogs": 18,
+    "englishKeys": 1028
+  },
+  "precommit": {
+    "codeScene": "not run (optional integration unavailable)",
+    "relatedTests": 349,
+    "browserTests": 2
+  },
+  "prepushDryRun": {
+    "exitCode": 0,
+    "smokePassed": 54,
+    "flaky": 0,
+    "smokeMinutes": 4.8,
+    "totalSeconds": 560,
+    "remoteUnchanged": "d440a3552605bd5842cddd14343137085d81291b"
+  }
+}

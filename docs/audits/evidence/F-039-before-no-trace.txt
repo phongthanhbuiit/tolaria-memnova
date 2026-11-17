@@ -1,0 +1,373 @@
+[WebServer] (node:82606) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer]
+[WebServer] > tolaria-memnova@0.1.0 dev /Users/thompson/Documents/tolaria-memnova
+[WebServer] > node scripts/prepare-drawing-fonts.mjs && vite --host 127.0.0.1 --port 41741 --strictPort
+[WebServer]
+
+[WebServer] (node:82637) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer]
+[WebServer]   VITE v7.3.2  ready in 278 ms
+[WebServer]
+
+[WebServer]   ➜  Local:   http://127.0.0.1:41741/
+
+
+Running 10 tests using 1 worker
+
+(node:82676) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:82676) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/10] [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+  1) [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+
+    Test timeout of 30000ms exceeded.
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator:  locator('.bn-editor h1').first()
+    Expected: "Manage Sponsorships"
+    Received: ""
+
+    Call log:
+      - Expect "toHaveText" with timeout 5000ms
+      - waiting for locator('.bn-editor h1').first()
+
+
+      68 |
+      69 |     await wikilink.click({ modifiers: ['Meta'] })
+    > 70 |     await expect(page.locator('.bn-editor h1').first()).toHaveText(INSERTED_WIKILINK_TITLE, { timeout: 5000 })
+         |                                                         ^
+      71 |   })
+      72 | })
+      73 |
+        at /Users/thompson/Documents/tolaria-memnova/tests/smoke/wikilink-path-fix.spec.ts:70:57
+
+
+(node:83286) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:83286) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[2/10] [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+  2) [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+
+    Test timeout of 30000ms exceeded.
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator:  locator('.bn-editor h1').first()
+    Expected: "Manage Sponsorships"
+    Received: ""
+
+    Call log:
+      - Expect "toHaveText" with timeout 5000ms
+      - waiting for locator('.bn-editor h1').first()
+
+
+      68 |
+      69 |     await wikilink.click({ modifiers: ['Meta'] })
+    > 70 |     await expect(page.locator('.bn-editor h1').first()).toHaveText(INSERTED_WIKILINK_TITLE, { timeout: 5000 })
+         |                                                         ^
+      71 |   })
+      72 | })
+      73 |
+        at /Users/thompson/Documents/tolaria-memnova/tests/smoke/wikilink-path-fix.spec.ts:70:57
+
+
+(node:85943) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:85943) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[3/10] [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+  3) [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator:  locator('.bn-editor h1').first()
+    Expected: "Manage Sponsorships"
+    Received: "Grow Newsletter"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveText" with timeout 5000ms
+      - waiting for locator('.bn-editor h1').first()
+        2 × locator resolved to <h1 class="bn-inline-content">Grow Newsletter</h1>
+          - unexpected value "Grow Newsletter"
+
+
+      68 |
+      69 |     await wikilink.click({ modifiers: ['Meta'] })
+    > 70 |     await expect(page.locator('.bn-editor h1').first()).toHaveText(INSERTED_WIKILINK_TITLE, { timeout: 5000 })
+         |                                                         ^
+      71 |   })
+      72 | })
+      73 |
+        at /Users/thompson/Documents/tolaria-memnova/tests/smoke/wikilink-path-fix.spec.ts:70:57
+
+
+(node:86229) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:86229) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[4/10] [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+  4) [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+
+    Test timeout of 30000ms exceeded.
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator:  locator('.bn-editor h1').first()
+    Expected: "Manage Sponsorships"
+    Received: ""
+
+    Call log:
+      - Expect "toHaveText" with timeout 5000ms
+      - waiting for locator('.bn-editor h1').first()
+
+
+      68 |
+      69 |     await wikilink.click({ modifiers: ['Meta'] })
+    > 70 |     await expect(page.locator('.bn-editor h1').first()).toHaveText(INSERTED_WIKILINK_TITLE, { timeout: 5000 })
+         |                                                         ^
+      71 |   })
+      72 | })
+      73 |
+        at /Users/thompson/Documents/tolaria-memnova/tests/smoke/wikilink-path-fix.spec.ts:70:57
+
+
+(node:86668) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:86668) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[5/10] [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+  5) [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+
+    Test timeout of 30000ms exceeded.
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator:  locator('.bn-editor h1').first()
+    Expected: "Manage Sponsorships"
+    Received: ""
+
+    Call log:
+      - Expect "toHaveText" with timeout 5000ms
+      - waiting for locator('.bn-editor h1').first()
+
+
+      68 |
+      69 |     await wikilink.click({ modifiers: ['Meta'] })
+    > 70 |     await expect(page.locator('.bn-editor h1').first()).toHaveText(INSERTED_WIKILINK_TITLE, { timeout: 5000 })
+         |                                                         ^
+      71 |   })
+      72 | })
+      73 |
+        at /Users/thompson/Documents/tolaria-memnova/tests/smoke/wikilink-path-fix.spec.ts:70:57
+
+
+(node:87144) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:87144) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[6/10] [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+  6) [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+
+    Test timeout of 30000ms exceeded.
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator:  locator('.bn-editor h1').first()
+    Expected: "Manage Sponsorships"
+    Received: ""
+
+    Call log:
+      - Expect "toHaveText" with timeout 5000ms
+      - waiting for locator('.bn-editor h1').first()
+
+
+      68 |
+      69 |     await wikilink.click({ modifiers: ['Meta'] })
+    > 70 |     await expect(page.locator('.bn-editor h1').first()).toHaveText(INSERTED_WIKILINK_TITLE, { timeout: 5000 })
+         |                                                         ^
+      71 |   })
+      72 | })
+      73 |
+        at /Users/thompson/Documents/tolaria-memnova/tests/smoke/wikilink-path-fix.spec.ts:70:57
+
+
+(node:87642) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:87642) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[7/10] [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+  7) [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+
+    Test timeout of 30000ms exceeded.
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator:  locator('.bn-editor h1').first()
+    Expected: "Manage Sponsorships"
+    Received: ""
+
+    Call log:
+      - Expect "toHaveText" with timeout 5000ms
+      - waiting for locator('.bn-editor h1').first()
+
+
+      68 |
+      69 |     await wikilink.click({ modifiers: ['Meta'] })
+    > 70 |     await expect(page.locator('.bn-editor h1').first()).toHaveText(INSERTED_WIKILINK_TITLE, { timeout: 5000 })
+         |                                                         ^
+      71 |   })
+      72 | })
+      73 |
+        at /Users/thompson/Documents/tolaria-memnova/tests/smoke/wikilink-path-fix.spec.ts:70:57
+
+
+(node:87933) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:87933) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[8/10] [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+  8) [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator:  locator('.bn-editor h1').first()
+    Expected: "Manage Sponsorships"
+    Received: "Grow Newsletter"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveText" with timeout 5000ms
+      - waiting for locator('.bn-editor h1').first()
+        2 × locator resolved to <h1 class="bn-inline-content">Grow Newsletter</h1>
+          - unexpected value "Grow Newsletter"
+
+
+      68 |
+      69 |     await wikilink.click({ modifiers: ['Meta'] })
+    > 70 |     await expect(page.locator('.bn-editor h1').first()).toHaveText(INSERTED_WIKILINK_TITLE, { timeout: 5000 })
+         |                                                         ^
+      71 |   })
+      72 | })
+      73 |
+        at /Users/thompson/Documents/tolaria-memnova/tests/smoke/wikilink-path-fix.spec.ts:70:57
+
+
+(node:88096) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:88096) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[9/10] [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+  9) [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+
+    Test timeout of 30000ms exceeded.
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator:  locator('.bn-editor h1').first()
+    Expected: "Manage Sponsorships"
+    Received: ""
+
+    Call log:
+      - Expect "toHaveText" with timeout 5000ms
+      - waiting for locator('.bn-editor h1').first()
+
+
+      68 |
+      69 |     await wikilink.click({ modifiers: ['Meta'] })
+    > 70 |     await expect(page.locator('.bn-editor h1').first()).toHaveText(INSERTED_WIKILINK_TITLE, { timeout: 5000 })
+         |                                                         ^
+      71 |   })
+      72 | })
+      73 |
+        at /Users/thompson/Documents/tolaria-memnova/tests/smoke/wikilink-path-fix.spec.ts:70:57
+
+
+(node:88377) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:88377) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[10/10] [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+  10) [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+
+    Test timeout of 30000ms exceeded.
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator:  locator('.bn-editor h1').first()
+    Expected: "Manage Sponsorships"
+    Received: ""
+
+    Call log:
+      - Expect "toHaveText" with timeout 5000ms
+      - waiting for locator('.bn-editor h1').first()
+
+
+      68 |
+      69 |     await wikilink.click({ modifiers: ['Meta'] })
+    > 70 |     await expect(page.locator('.bn-editor h1').first()).toHaveText(INSERTED_WIKILINK_TITLE, { timeout: 5000 })
+         |                                                         ^
+      71 |   })
+      72 | })
+      73 |
+        at /Users/thompson/Documents/tolaria-memnova/tests/smoke/wikilink-path-fix.spec.ts:70:57
+
+
+  10 failed
+    [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+    [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+    [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+    [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+    [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+    [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+    [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+    [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+    [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+    [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note

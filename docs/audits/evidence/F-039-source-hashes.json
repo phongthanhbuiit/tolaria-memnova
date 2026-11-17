@@ -1,0 +1,44 @@
+{
+  "baseline": "d440a3552605bd5842cddd14343137085d81291b",
+  "files": [
+    {
+      "path": "src/components/note-list/NoteListViews.tsx",
+      "baselineSha256": "6f9fd522e2e40fbf139dc8882d439dc43d0fcd842d7f63224daa985aec877af8",
+      "finalSha256": "2dbb6e8065c7725b51a1c03e5eb8cf82cfcd10ef5e33e23a3d792682b8f2d65e"
+    },
+    {
+      "path": "src/components/note-list/NoteListViews.test.tsx",
+      "baselineSha256": null,
+      "finalSha256": "8ba4dfd3acacebb4942e94111d3d29257c3b0c851fef5df11eef1ace3299b2f4"
+    },
+    {
+      "path": "src/hooks/useWorkspaceGraphState.ts",
+      "baselineSha256": "9a05f0e65f6c7b6b0a2b9c6750bfcb619dbd9a71bc3511c0bfbfa99957c78923",
+      "finalSha256": "5c3df34d52da725914f64e41def8bdbb326a1ba258e7f67860fcb026d5b0c16f"
+    },
+    {
+      "path": "src/hooks/useWorkspaceGraphState.test.ts",
+      "baselineSha256": null,
+      "finalSha256": "d64714dba3411a7628b05fdba9264db995fe30afba12ee1839261c47c7f8b252"
+    },
+    {
+      "path": "tests/smoke/wikilink-path-fix.spec.ts",
+      "baselineSha256": "7e2d2753c107cb46327854714fd8a3df96aba53f7cb1e39ef44667305db29036",
+      "finalSha256": "d38498112bb83a9c37efc40a1bbfcdcba9a74ce4a8947c834e68098148cac5da"
+    }
+  ],
+  "preExistingCode": [
+    {
+      "path": "src/hooks/useWorkspaceGraphState.ts",
+      "f78b8fb9Blob": "d896ad230648f29a7873f589913972b72ad67c12",
+      "d440a355Blob": "d896ad230648f29a7873f589913972b72ad67c12",
+      "equal": true
+    },
+    {
+      "path": "src/components/note-list/NoteListViews.tsx",
+      "f78b8fb9Blob": "78c93b127b73094f0a2b75f6aa0b8c53a7c64cc3",
+      "d440a355Blob": "78c93b127b73094f0a2b75f6aa0b8c53a7c64cc3",
+      "equal": true
+    }
+  ]
+}

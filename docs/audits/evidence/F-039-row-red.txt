@@ -1,0 +1,38 @@
+
+ RUN  v4.0.18 /Users/thompson/Documents/tolaria-memnova
+
+ ❯ src/components/note-list/NoteListViews.test.tsx (1 test | 1 failed) 39ms
+     × keeps each note row mounted when a source save changes the sort order 38ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/components/note-list/NoteListViews.test.tsx > note list updates during navigation > keeps each note row mounted when a source save changes the sort order
+AssertionError: expected <span …(2)></span> to be <span data-testid="/source.md"></span> // Object.is equality
+
+- Expected
++ Received
+
+  <span
+-   data-testid="/source.md"
++   aria-current="page"
++   data-testid="/target.md"
+  >
+-   Source
++   Target
+  </span>
+
+ ❯ src/components/note-list/NoteListViews.test.tsx:28:52
+     26|     rerender(view([{ ...source, modifiedAt: 1 }, target], target.path))
+     27|
+     28|     expect(await screen.findByTestId(target.path)).toBe(targetRow)
+       |                                                    ^
+     29|     expect(screen.getByTestId(source.path)).toBe(sourceRow)
+     30|     expect(targetRow).toHaveAttribute('aria-current', 'page')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  18:52:38
+   Duration  3.65s (transform 699ms, setup 70ms, import 2.95s, tests 39ms, environment 478ms)

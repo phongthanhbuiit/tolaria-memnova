@@ -1,0 +1,111 @@
+[WebServer] (node:81270) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer]
+[WebServer] > tolaria-memnova@0.1.0 dev /Users/thompson/Documents/tolaria-memnova
+[WebServer] > node scripts/prepare-drawing-fonts.mjs && vite --host 127.0.0.1 --port 41741 --strictPort
+[WebServer]
+
+[WebServer] (node:81310) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+[WebServer]
+[WebServer]   VITE v7.3.2  ready in 207 ms
+[WebServer]
+
+[WebServer]   ➜  Local:   http://127.0.0.1:41741/
+
+
+Running 10 tests using 1 worker
+
+(node:81323) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:81323) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[1/10] [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+(node:81492) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:81492) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[2/10] [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+(node:81579) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:81579) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[3/10] [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+(node:81673) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:81673) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[4/10] [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+(node:81776) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:81776) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[5/10] [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+(node:81862) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:81862) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[6/10] [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+(node:81970) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:81970) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[7/10] [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+(node:82115) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:82115) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[8/10] [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+(node:82225) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:82225) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[9/10] [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+(node:82310) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+(node:82310) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+
+[10/10] [chromium] › tests/smoke/wikilink-path-fix.spec.ts:65:3 › Wikilink insertion and navigation › @smoke Cmd+clicking an inserted wikilink navigates to the note
+  10 passed (2.0m)

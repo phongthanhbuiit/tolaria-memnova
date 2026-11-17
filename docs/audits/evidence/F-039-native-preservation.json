@@ -1,0 +1,32 @@
+{
+  "preExistingMarkdownCompared": 254,
+  "changedPreExistingMarkdown": [],
+  "taskOwnedNotes": [
+    "grow-newsletter.md",
+    "manage-sponsorships.md"
+  ],
+  "library": "/tmp/memnova-f039/native/Library",
+  "learning": {
+    "sessions": {
+      "before": 5,
+      "after": 5,
+      "equal": true
+    },
+    "reviews": {
+      "before": 4,
+      "after": 4,
+      "equal": true
+    },
+    "schedules": {
+      "before": 5,
+      "after": 5,
+      "equal": true
+    }
+  },
+  "integrity": [
+    [
+      "ok"
+    ]
+  ],
+  "foreignKeyCheck": []
+}

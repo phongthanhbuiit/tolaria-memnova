@@ -1,0 +1,10 @@
+
+ RUN  v4.0.18 /Users/thompson/Documents/tolaria-memnova
+
+ ✓ src/hooks/useWorkspaceGraphState.test.ts (1 test) 17ms
+ ✓ src/components/note-list/NoteListViews.test.tsx (1 test) 69ms
+
+ Test Files  2 passed (2)
+      Tests  2 passed (2)
+   Start at  19:10:16
+   Duration  9.16s (transform 2.98s, setup 197ms, import 16.29s, tests 86ms, environment 1.41s)

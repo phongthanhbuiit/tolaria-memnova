@@ -1,0 +1,17 @@
+{
+  "before": [
+    {
+      "tool": "Lizard",
+      "results": 2
+    }
+  ],
+  "after": [
+    {
+      "tool": "Lizard",
+      "results": 2
+    }
+  ],
+  "newIssues": [],
+  "excluded": "tests/** and **/*.test.ts(x) remain excluded by .codacy.yaml; verified by lint and test runners instead.",
+  "review": "Two baseline Medium parameter count warnings in EntityView/ListView; no new results, no Critical/High introduced."
+}

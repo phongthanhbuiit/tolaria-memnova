@@ -23,7 +23,6 @@ async function insertWikilink(page: Page) {
     },
   })
   await page.keyboard.press('Enter')
-  await page.waitForTimeout(200)
 
   await page.keyboard.type(INSERTED_WIKILINK_QUERY)
 
@@ -33,7 +32,7 @@ async function insertWikilink(page: Page) {
   const existingCount = await matchingWikilinks.count()
   await expect(suggestionMenu.getByText(INSERTED_WIKILINK_TITLE, { exact: true })).toBeVisible()
   await page.keyboard.press('Enter')
-  await page.waitForTimeout(500)
+  await expect(suggestionMenu).toBeHidden()
 
   await expect(matchingWikilinks).toHaveCount(existingCount + 1)
   return matchingWikilinks.nth(existingCount)
@@ -43,11 +42,10 @@ test.describe('Wikilink insertion and navigation', () => {
   test.beforeEach(async ({ page }) => {
     await page.route('**/api/vault/ping', route => route.fulfill({ status: 503 }))
     await page.goto('/')
-    await page.waitForTimeout(500)
 
-    const noteItem = page.locator('.app__note-list .cursor-pointer').filter({ hasText: SOURCE_NOTE_TITLE }).first()
-    await noteItem.click()
-    await page.waitForTimeout(1000)
+    await page.getByTestId('note-list-container').getByText(SOURCE_NOTE_TITLE, { exact: true }).click()
+    await expect(page.locator('.bn-editor h1').first()).toHaveText(SOURCE_NOTE_TITLE)
+    await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveText('grow-newsletter')
   })
 
   test('[[ autocomplete inserts wikilink that is not broken', async ({ page }) => {
@@ -68,5 +66,7 @@ test.describe('Wikilink insertion and navigation', () => {
 
     await wikilink.click({ modifiers: ['Meta'] })
     await expect(page.locator('.bn-editor h1').first()).toHaveText(INSERTED_WIKILINK_TITLE, { timeout: 5000 })
+    await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveText(INSERTED_WIKILINK_TARGET)
+    await expect(page.locator('.bn-editor')).toContainText('Revenue stream from newsletter sponsorships.')
   })
 })

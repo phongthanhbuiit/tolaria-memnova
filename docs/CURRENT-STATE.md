@@ -1,5 +1,7 @@
 # Memnova hiện tại
 
+**17/11/2026 — F-039, Cmd+click wikilink ổn định khi source lưu:** giữ identity của note không đổi trong projection một workspace và key hàng danh sách theo đường dẫn. Smoke vẫn dùng fixture lớn ban đầu, đạt 30/30 trước + 30/30 đồng thời + 30/30 sau core suite, không retry; full Node 24/Rust checks và pre-push dry-run sạch. [Nguyên nhân, trace/video, native QA và kiểm tra](audits/F-039-COMPLETION.md). F-040/F-041 vẫn open; đây chưa phải bản cài phát hành mới.
+
 **17/11/2026 — R-01/F-002, ngày và số theo ngôn ngữ giao diện:** bổ sung locale bắt buộc cho formatter, Calendar có tháng/thứ/aria đã dịch, bộ lọc ngày, thời gian tương đối Git/Pulse và số từ/liên kết theo locale/số nhiều. Sáu commit sửa kết thúc tại `9c951e78`; QA native Anh/Việt sáng/tối và test hai múi giờ trong [biên bản R-01](audits/R-01-F-002-COMPLETION.md). ISO nhập/lưu, parser, sort và lịch ôn giữ nguyên. Mã đã push qua hook hiện có, nhưng core smoke còn F-039 pass nhờ retry; đây chưa phải bản cài phát hành mới.
 
 **17/11/2026 — nền tảng UI bước A:** bổ sung thang chữ chrome, kích thước điều khiển và bo góc trong token/components dùng chung; nâng tương phản màu chữ. Không chỉnh mã màn hình hoặc typography editor. [Phạm vi, số đếm SPEC §8 và ảnh QA sáng/tối](audits/STEP-A-FOUNDATION.md).

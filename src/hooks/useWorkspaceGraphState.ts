@@ -35,9 +35,20 @@ function invokeAppCommand<T>(command: string, args: Record<string, unknown>): Pr
   return isTauri() ? invoke<T>(command, args) : mockInvoke<T>(command, args)
 }
 
+const entriesWithoutWorkspace = new WeakMap<VaultEntry, VaultEntry>()
+
+function hideEntryWorkspace(entry: VaultEntry): VaultEntry {
+  if (!entry.workspace) return entry
+  const cached = entriesWithoutWorkspace.get(entry)
+  if (cached) return cached
+  const visible = { ...entry, workspace: undefined }
+  entriesWithoutWorkspace.set(entry, visible)
+  return visible
+}
+
 export function hideWorkspaceMetadata(entries: VaultEntry[]): VaultEntry[] {
   if (!entries.some((entry) => entry.workspace)) return entries
-  return entries.map((entry) => entry.workspace ? { ...entry, workspace: undefined } : entry)
+  return entries.map(hideEntryWorkspace)
 }
 
 export function useWorkspaceGraphState({
