@@ -85,9 +85,9 @@ const PULSE_EDGE_TO_EDGE_ROW_CLASS_NAME = '-mx-4 rounded-none px-4'
 function SummaryBadges({ added, modified, deleted }: { added: number; modified: number; deleted: number }) {
   return (
     <div className="flex items-center" style={{ gap: 8 }}>
-      {added > 0 && <span className="text-[11px] font-medium" style={{ color: STATUS_COLOR.added }}>+{added}</span>}
-      {modified > 0 && <span className="text-[11px] font-medium" style={{ color: STATUS_COLOR.modified }}>~{modified}</span>}
-      {deleted > 0 && <span className="text-[11px] font-medium" style={{ color: STATUS_COLOR.deleted }}>-{deleted}</span>}
+      {added > 0 && <span className="text-(length:--text-caption) leading-(--text-caption--line-height) font-medium" style={{ color: STATUS_COLOR.added }}>+{added}</span>}
+      {modified > 0 && <span className="text-(length:--text-caption) leading-(--text-caption--line-height) font-medium" style={{ color: STATUS_COLOR.modified }}>~{modified}</span>}
+      {deleted > 0 && <span className="text-(length:--text-caption) leading-(--text-caption--line-height) font-medium" style={{ color: STATUS_COLOR.deleted }}>-{deleted}</span>}
     </div>
   )
 }
@@ -128,7 +128,7 @@ function FileItem({
     >
       <Icon size={12} style={{ color, flexShrink: 0 }} weight="bold" />
       <span
-        className={`truncate text-[12px] ${file.status === 'deleted' ? 'text-muted-foreground line-through' : 'text-foreground'}`}
+        className={`truncate text-(length:--text-small) leading-(--text-small--line-height) ${file.status === 'deleted' ? 'text-muted-foreground line-through' : 'text-foreground'}`}
       >
         {file.title}
       </span>
@@ -168,12 +168,12 @@ function CommitCard({
           <div className="min-w-0 flex-1">
             <div className="flex items-center" style={{ gap: 6, marginBottom: 2 }}>
               <GitCommit size={13} className="text-muted-foreground" style={{ flexShrink: 0 }} />
-              <span className="truncate text-[13px] font-medium text-foreground">{commit.message}</span>
+              <span className="truncate text-(length:--text-body) leading-(--text-body--line-height) font-medium text-foreground">{commit.message}</span>
             </div>
             <div className="flex items-center" style={{ gap: 8 }}>
-              <span className="text-[11px] text-muted-foreground">{relativeDate(commit.date, locale)}</span>
+              <span className="text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground">{relativeDate(commit.date, locale)}</span>
               {!commitUrl && (
-                <span className="text-[11px] font-mono text-muted-foreground">{commit.shortHash}</span>
+                <span className="text-(length:--text-caption) leading-(--text-caption--line-height) font-mono text-muted-foreground">{commit.shortHash}</span>
               )}
               <SummaryBadges added={commit.added} modified={commit.modified} deleted={commit.deleted} />
             </div>
@@ -181,7 +181,7 @@ function CommitCard({
         </button>
         {commitUrl && (
           <a
-            className="mt-2 flex shrink-0 items-center text-[11px] font-mono text-primary no-underline hover:underline"
+            className="mt-2 flex shrink-0 items-center text-(length:--text-caption) leading-(--text-caption--line-height) font-mono text-primary no-underline hover:underline"
             style={{ gap: 3 }}
             href={commitUrl}
             onClick={(e) => {
@@ -239,10 +239,10 @@ function DayGroup({ label, commits, locale, onOpenNote }: {
         onKeyDown={(event) => handleActivationKey(event, toggleCollapsed)}
       >
         <Chevron size={12} className="text-muted-foreground" />
-        <span className="text-[11px] font-medium text-muted-foreground">
+        <span className="text-(length:--text-caption) leading-(--text-caption--line-height) font-medium text-muted-foreground">
           {label}
         </span>
-        <span className="text-[11px] text-muted-foreground">
+        <span className="text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground">
           ({translate(locale, 'pulse.commitCount', {
             count: commits.length,
             label: translate(locale, commits.length === 1 ? 'pulse.commitSingular' : 'pulse.commitPlural'),
@@ -297,7 +297,7 @@ function PulseHeader({
           </button>
         )}
         <Pulse size={16} className="text-primary" />
-        <span className="text-[14px] font-semibold text-foreground">{translate(locale, 'pulse.title')}</span>
+        <span className="text-(length:--text-body-lg) leading-(--text-body-lg--line-height) font-semibold text-foreground">{translate(locale, 'pulse.title')}</span>
       </div>
     </div>
   )
@@ -328,8 +328,8 @@ function EmptyState({ locale = 'en' }: { locale?: AppLocale }) {
   return (
     <div className="flex flex-1 flex-col items-center justify-center text-muted-foreground" style={{ padding: 32 }}>
       <Pulse size={32} style={{ marginBottom: 8, opacity: 0.5 }} />
-      <p className="text-[13px]">{translate(locale, 'pulse.noActivity')}</p>
-      <p className="text-[12px]" style={{ marginTop: 4 }}>
+      <p className="text-(length:--text-body) leading-(--text-body--line-height)">{translate(locale, 'pulse.noActivity')}</p>
+      <p className="text-(length:--text-small) leading-(--text-small--line-height)" style={{ marginTop: 4 }}>
         {translate(locale, 'pulse.emptyDescription')}
       </p>
     </div>
@@ -339,9 +339,9 @@ function EmptyState({ locale = 'en' }: { locale?: AppLocale }) {
 function ErrorState({ message, locale = 'en', onRetry }: { message: string; locale?: AppLocale; onRetry: () => void }) {
   return (
     <div className="flex flex-1 flex-col items-center justify-center text-muted-foreground" style={{ padding: 32 }}>
-      <p className="text-[13px]">{message}</p>
+      <p className="text-(length:--text-body) leading-(--text-body--line-height)">{message}</p>
       <button type="button"
-        className="mt-2 cursor-pointer rounded border border-border bg-transparent px-3 py-1 text-[12px] text-foreground transition-colors hover:bg-accent"
+        className="mt-2 cursor-pointer rounded border border-border bg-transparent px-3 py-1 text-(length:--text-small) leading-(--text-small--line-height) text-foreground transition-colors hover:bg-accent"
         onClick={onRetry}
       >
         {translate(locale, 'pulse.retry')}
@@ -374,7 +374,7 @@ function PulseFeed({
   if (loading) {
     return (
       <div className="flex items-center justify-center" style={{ padding: 32 }}>
-        <span className="text-[13px] text-muted-foreground">{translate(locale, 'pulse.loadingActivity')}</span>
+        <span className="text-(length:--text-body) leading-(--text-body--line-height) text-muted-foreground">{translate(locale, 'pulse.loadingActivity')}</span>
       </div>
     )
   }
@@ -401,7 +401,7 @@ function PulseFeed({
       <div ref={sentinelRef} style={{ height: 1 }} />
       {loadingMore && (
         <div className="flex items-center justify-center" style={{ padding: 12 }}>
-          <span className="text-[12px] text-muted-foreground">{translate(locale, 'pulse.loading')}</span>
+          <span className="text-(length:--text-small) leading-(--text-small--line-height) text-muted-foreground">{translate(locale, 'pulse.loading')}</span>
         </div>
       )}
     </>

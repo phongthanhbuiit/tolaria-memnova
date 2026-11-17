@@ -28,7 +28,7 @@ export function GitRepositorySelect({
   if (repositories.length <= 1) return null
 
   return (
-    <label htmlFor={triggerId} className="flex min-w-0 items-center gap-2 text-[11px] font-medium text-muted-foreground">
+    <label htmlFor={triggerId} className="flex min-w-0 items-center gap-2 text-(length:--text-caption) leading-(--text-caption--line-height) font-medium text-muted-foreground">
       <span className="shrink-0">{label}</span>
       <Select value={selectedPath} onValueChange={onChange}>
         <SelectTrigger
