@@ -104,7 +104,7 @@ function TypeSelectorValue({
   typeIconKeys: Record<string, string | null>
   locale: AppLocale
 }) {
-  if (!isA) return <span className="truncate text-muted-foreground">{translate(locale, 'inspector.properties.none')}</span>
+  if (!isA) return <span className="truncate text-text-secondary">{translate(locale, 'inspector.properties.none')}</span>
 
   return (
     <span className="flex min-w-0 items-center gap-1">
@@ -120,7 +120,7 @@ function TypeRowLabel() {
         className={PROPERTY_PANEL_LABEL_ICON_SLOT_CLASS_NAME}
         data-testid="type-row-icon-slot"
       >
-        <StackSimple size={14} className="shrink-0" data-testid="type-row-icon" />
+        <StackSimple size={16} className="shrink-0" data-testid="type-row-icon" />
       </span>
       <span className="min-w-0 truncate">Type</span>
     </span>
@@ -146,16 +146,16 @@ function MissingTypeWarning({
           <Button
             type="button"
             variant="ghost"
-            size="icon-xs"
+            size="icon-sm"
             className={cn(
-              'h-6 w-6 shrink-0 rounded-md border border-[var(--feedback-warning-border)] bg-[var(--feedback-warning-bg)] p-0 text-[var(--feedback-warning-text)] shadow-none hover:brightness-95',
+              'shrink-0 rounded-md border border-[var(--feedback-warning-border)] bg-[var(--feedback-warning-bg)] p-0 text-[var(--feedback-warning-text)] shadow-none hover:brightness-95',
               !canCreateMissingType && 'cursor-default',
             )}
             data-testid="missing-type-warning"
             aria-label={translate(locale, 'inspector.properties.missingTypeAria', { type: missingTypeName })}
             onClick={canCreateMissingType ? () => setDialogOpen(true) : undefined}
           >
-            <WarningCircle size={14} weight="fill" aria-hidden="true" />
+            <WarningCircle size={16} weight="fill" aria-hidden="true" />
           </Button>
         </TooltipTrigger>
         <TooltipContent>{translate(locale, 'inspector.properties.missingType')}</TooltipContent>
@@ -215,13 +215,13 @@ function ReadOnlyType({
   if (!isA) return null
   return (
     <div
-      className="grid min-h-7 min-w-0 grid-cols-2 items-center gap-2 px-1.5"
+      className="grid min-h-(--control-sm) min-w-0 grid-cols-2 items-center gap-2 px-2"
       style={PROPERTY_PANEL_ROW_STYLE}
     >
       <TypeRowLabel />
       <TypeRowValue missingTypeName={missingTypeName} locale={locale} onCreateMissingType={onCreateMissingType}>
         {onNavigate ? (
-          <button type="button"
+          <Button variant="ghost" size="sm" type="button"
             className="min-w-0 max-w-full truncate border-none cursor-pointer ring-inset hover:ring-1 hover:ring-current"
             style={{
               ...PROPERTY_CHIP_STYLE,
@@ -231,9 +231,9 @@ function ReadOnlyType({
               alignItems: 'center',
             }}
             onClick={() => onNavigate(isA.toLowerCase())} title={isA}
-          >{isA}</button>
+          >{isA}</Button>
         ) : (
-          <span className="text-[12px] text-secondary-foreground">{isA}</span>
+          <span className="text-body text-secondary-foreground">{isA}</span>
         )}
       </TypeRowValue>
     </div>
@@ -400,7 +400,7 @@ function EditableTypeSelector({
 
   return (
     <div
-      className="grid min-h-7 min-w-0 grid-cols-2 items-center gap-2 px-1.5"
+      className="grid min-h-(--control-sm) min-w-0 grid-cols-2 items-center gap-2 px-2"
       style={PROPERTY_PANEL_ROW_STYLE}
       data-testid="type-selector"
     >
@@ -418,7 +418,7 @@ function EditableTypeSelector({
                 aria-expanded={open}
                 aria-haspopup="listbox"
                 className={cn(
-                  'h-auto max-w-full justify-between gap-1 border-none px-2 shadow-none ring-inset [&_svg]:text-current',
+                  'max-w-full justify-between gap-[6px] border-none px-2 shadow-none ring-inset [&_svg]:text-current',
                   isA ? 'hover:ring-1 hover:ring-current' : 'bg-muted hover:bg-muted/80',
                 )}
                 style={{
@@ -432,7 +432,7 @@ function EditableTypeSelector({
                 <span className="flex min-w-0 items-center gap-1 truncate">
                   <TypeSelectorValue isA={isA} typeColorKeys={typeColorKeys} typeIconKeys={typeIconKeys} locale={locale} />
                 </span>
-                <CaretUpDown size={14} aria-hidden="true" />
+                <CaretUpDown size={16} aria-hidden="true" />
               </Button>
             </div>
           </PopoverAnchor>
@@ -446,13 +446,13 @@ function EditableTypeSelector({
             onCloseAutoFocus={(event) => event.preventDefault()}
           >
             <div className="border-b border-border p-1">
-              <Input
+              <Input controlSize="sm"
                 ref={inputRef}
                 value={query}
                 placeholder={translate(locale, 'inspector.properties.searchTypes')}
                 autoComplete="off"
                 aria-label={translate(locale, 'inspector.properties.searchTypes')}
-                className="h-8 text-sm"
+                className="text-body"
                 data-testid="type-selector-search-input"
                 onChange={(event) => handleSearchChange(event.target.value)}
                 onKeyDown={handleSearchKeyDown}
@@ -460,7 +460,7 @@ function EditableTypeSelector({
             </div>
             <div ref={listRef} className="max-h-60 overflow-y-auto p-1">
               {options.length === 0 ? (
-                <div className="px-2 py-6 text-center text-sm text-muted-foreground">
+                <div className="px-2 py-6 text-center text-body text-text-secondary">
                   {translate(locale, 'inspector.properties.noMatchingTypes')}
                 </div>
               ) : (
@@ -478,20 +478,20 @@ function EditableTypeSelector({
                         aria-selected={selected}
                         data-index={index}
                         className={cn(
-                          'h-auto w-full justify-between px-2 py-1.5 text-left font-normal',
+                          'h-auto w-full justify-between px-2 py-0 text-left font-normal',
                           highlighted && 'bg-muted',
                         )}
                         onMouseEnter={() => setHighlightedIndex(index)}
                         onClick={() => selectType(type)}
                       >
                         {type === TYPE_NONE ? (
-                          <span className="truncate text-muted-foreground">{translate(locale, 'inspector.properties.none')}</span>
+                          <span className="truncate text-text-secondary">{translate(locale, 'inspector.properties.none')}</span>
                         ) : (
                           <span className="flex min-w-0 items-center gap-2 truncate">
                             <TypeSelectorItem type={type} typeColorKeys={typeColorKeys} typeIconKeys={typeIconKeys} />
                           </span>
                         )}
-                        {selected ? <Check size={14} aria-hidden="true" /> : null}
+                        {selected ? <Check size={16} aria-hidden="true" /> : null}
                       </Button>
                     )
                   })}
