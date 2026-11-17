@@ -83,9 +83,6 @@ function composerSendButtonStyle(canSend: boolean): CSSProperties {
   return {
     background: canSend ? 'var(--primary)' : 'var(--muted)',
     color: canSend ? 'var(--primary-foreground)' : 'var(--muted-foreground)',
-    borderRadius: 8,
-    width: 30,
-    height: 30,
     cursor: canSend ? 'pointer' : 'not-allowed',
   }
 }
@@ -149,7 +146,7 @@ function ComposerSendButton({
       type="button"
       variant="ghost"
       size="icon-sm"
-      className="shrink-0 flex items-center justify-center border-none cursor-pointer transition-colors"
+      className="shrink-0 flex items-center justify-center border-none cursor-pointer transition-colors rounded-[8px] w-[30px] h-[30px]"
       style={composerSendButtonStyle(canSend)}
       onClick={() => onSend(input, extractInlineWikilinkReferences(input, entries))}
       disabled={!canSend}
@@ -221,14 +218,13 @@ function AiPanelEmptyState({
   if (agentReadiness === 'checking') {
     return (
       <div
-        className="flex flex-col items-center justify-center text-center text-muted-foreground"
-        style={{ paddingTop: 40 }}
+        className="flex flex-col items-center justify-center text-center text-muted-foreground pt-[40px]"
       >
-        <Sparkle size={24} style={{ marginBottom: 8, opacity: 0.5 }} />
-        <p className="text-(length:--text-body) leading-(--text-body--line-height)" style={{ margin: '0 0 4px' }}>
+        <Sparkle className="mb-[8px] opacity-50" size={24} />
+        <p className="text-(length:--text-body) leading-(--text-body--line-height) m-[0_0_4px]">
           {t('ai.panel.empty.checkingTitle')}
         </p>
-        <p className="text-(length:--text-caption) leading-(--text-caption--line-height)" style={{ margin: 0, opacity: 0.6 }}>
+        <p className="text-(length:--text-caption) leading-(--text-caption--line-height) m-0 opacity-60">
           {t('ai.panel.empty.checkingDescription')}
         </p>
       </div>
@@ -238,14 +234,13 @@ function AiPanelEmptyState({
   if (agentReadiness === 'missing') {
     return (
       <div
-        className="flex flex-col items-center justify-center text-center text-muted-foreground"
-        style={{ paddingTop: 40 }}
+        className="flex flex-col items-center justify-center text-center text-muted-foreground pt-[40px]"
       >
-        <Sparkle size={24} style={{ marginBottom: 8, opacity: 0.5 }} />
-        <p className="text-(length:--text-body) leading-(--text-body--line-height)" style={{ margin: '0 0 4px' }}>
+        <Sparkle className="mb-[8px] opacity-50" size={24} />
+        <p className="text-(length:--text-body) leading-(--text-body--line-height) m-[0_0_4px]">
           {t('ai.panel.empty.missingTitle', { agent: agentLabel })}
         </p>
-        <p className="text-(length:--text-caption) leading-(--text-caption--line-height)" style={{ margin: 0, opacity: 0.6 }}>
+        <p className="text-(length:--text-caption) leading-(--text-caption--line-height) m-0 opacity-60">
           {t('ai.panel.empty.missingDescription')}
         </p>
       </div>
@@ -254,17 +249,16 @@ function AiPanelEmptyState({
 
   return (
     <div
-      className="flex flex-col items-center justify-center text-center text-muted-foreground"
-      style={{ paddingTop: 40 }}
+      className="flex flex-col items-center justify-center text-center text-muted-foreground pt-[40px]"
     >
-      <Sparkle size={24} style={{ marginBottom: 8, opacity: 0.5 }} />
-      <p className="text-(length:--text-body) leading-(--text-body--line-height)" style={{ margin: '0 0 4px' }}>
+      <Sparkle className="mb-[8px] opacity-50" size={24} />
+      <p className="text-(length:--text-body) leading-(--text-body--line-height) m-[0_0_4px]">
         {hasContext
           ? t('ai.panel.empty.withContextTitle', { agent: agentLabel })
           : t('ai.panel.empty.noContextTitle', { agent: agentLabel })
         }
       </p>
-      <p className="text-(length:--text-caption) leading-(--text-caption--line-height)" style={{ margin: 0, opacity: 0.6 }}>
+      <p className="text-(length:--text-caption) leading-(--text-caption--line-height) m-0 opacity-60">
         {hasContext
           ? t('ai.panel.empty.withContextDescription')
           : t('ai.panel.empty.noContextDescription')
@@ -292,13 +286,12 @@ export const AiPanelHeader = memo(function AiPanelHeader({
 
   return (
     <div
-      className="flex shrink-0 flex-col border-b border-border"
-      style={{ padding: '8px 12px', gap: 8 }}
+      className="flex shrink-0 flex-col border-b border-border p-[8px_12px] gap-[8px]"
     >
-      <div className="flex items-center" style={{ gap: 8 }}>
+      <div className="flex items-center gap-[8px]">
         <Sparkle size={16} className="shrink-0 text-muted-foreground" />
         <div className="flex flex-1 flex-col overflow-hidden">
-          <span className="text-muted-foreground text-(length:--text-body) leading-(--text-body--line-height)" style={{ fontWeight: 600 }}>
+          <span className="text-muted-foreground text-(length:--text-body) leading-(--text-body--line-height) font-semibold">
             {t('ai.panel.title')}
           </span>
           <span className="truncate text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground">
@@ -407,14 +400,13 @@ export const AiPanelContextBar = memo(function AiPanelContextBar({
 
   return (
     <div
-      className="flex shrink-0 items-center border-b border-border text-muted-foreground text-(length:--text-caption) leading-(--text-caption--line-height)"
-      style={{ padding: '6px 12px', gap: 6 }}
+      className="flex shrink-0 items-center border-b border-border text-muted-foreground text-(length:--text-caption) leading-(--text-caption--line-height) p-[6px_12px] gap-[6px]"
       data-testid="context-bar"
     >
       <Link size={12} className="shrink-0" />
-      <span className="truncate" style={{ fontWeight: 500 }}>{activeEntry.title}</span>
+      <span className="truncate font-medium">{activeEntry.title}</span>
       {linkedCount > 0 && (
-        <span style={{ opacity: 0.6 }}>{t('ai.panel.linkedCount', { count: linkedCount })}</span>
+        <span className="opacity-60">{t('ai.panel.linkedCount', { count: linkedCount })}</span>
       )}
     </div>
   )
@@ -450,7 +442,7 @@ export const AiPanelMessageHistory = memo(function AiPanelMessageHistory({
   }, [messages, isActive, updateScrollState])
 
   return (
-    <div ref={containerRef} className="flex-1 overflow-y-auto" style={{ padding: 12 }} onScroll={updateScrollState}>
+    <div ref={containerRef} className="flex-1 overflow-y-auto p-[12px]" onScroll={updateScrollState}>
       {messages.length === 0 && !isActive && (
         <AiPanelEmptyState
           agentLabel={agentLabel}
@@ -506,8 +498,7 @@ export function AiPanelComposer({
 
   return (
     <div
-      className="flex shrink-0 flex-col"
-      style={{ padding: '6px 10px' }}
+      className="flex shrink-0 flex-col p-[6px_10px]"
     >
       <div className={cn(
         hasControls ? 'rounded-xl border border-border bg-background px-2 py-1.5 shadow-xs' : 'flex items-end gap-2',
