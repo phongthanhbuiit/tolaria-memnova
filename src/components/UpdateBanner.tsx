@@ -70,7 +70,7 @@ function renderAvailableContent(status: Extract<VisibleUpdateStatus, { state: 'a
     <>
       <Download size={14} style={iconStyle} />
       <span>
-        <strong>Tolaria {status.displayVersion}</strong> {translate(locale, 'update.available')}
+        <strong className="font-semibold">Tolaria {status.displayVersion}</strong> {translate(locale, 'update.available')}
       </span>
       <Button
         type="button"
@@ -142,7 +142,7 @@ function renderReadyContent(status: Extract<VisibleUpdateStatus, { state: 'ready
     <>
       <RefreshCw size={14} style={readyIconStyle} />
       <span>
-        <strong>Tolaria {status.displayVersion}</strong> {translate(locale, 'update.readyRestart')}
+        <strong className="font-semibold">Tolaria {status.displayVersion}</strong> {translate(locale, 'update.readyRestart')}
       </span>
       <Button className="text-(length:--text-small) leading-(--text-small--line-height)"
         type="button"
