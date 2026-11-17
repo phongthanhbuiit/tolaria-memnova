@@ -40,7 +40,7 @@ export function ActionTooltip({
         <div className="flex min-w-0 items-center gap-3">
           <span className="min-w-0 flex-1 text-caption">{copy.label}</span>
           {copy.shortcut && (
-            <span className="shrink-0 rounded border border-background/20 bg-background/10 px-1.5 py-0.5 font-mono text-caption text-background/80">
+            <span className="shrink-0 rounded-sm border border-background/20 bg-background/10 px-1.5 py-0.5 font-mono text-caption text-background/80">
               {copy.shortcut}
             </span>
           )}

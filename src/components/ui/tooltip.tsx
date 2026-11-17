@@ -53,7 +53,7 @@ function TooltipContent({
         <div
           data-slot="tooltip-visual-scale"
           className={cn(
-            "bg-foreground text-background max-w-[inherit] rounded-md px-3 py-1.5 text-small text-balance [zoom:var(--tolaria-overlay-zoom-factor,1)]",
+            "bg-foreground text-background max-w-[inherit] rounded-lg px-3 py-1.5 text-small text-balance [zoom:var(--tolaria-overlay-zoom-factor,1)]",
             className
           )}
         >
