@@ -7,6 +7,7 @@ import { ACCENT_COLOR_PICKER_COLORS } from '../utils/typeColors'
 type AccentColorIndicator = 'border' | 'check'
 
 interface AccentColorPickerProps {
+  controlSize?: 'sm'
   className?: string
   disabled?: boolean
   getOptionTestId?: (key: string) => string
@@ -25,6 +26,7 @@ function selectedBorder(indicator: AccentColorIndicator, selected: boolean): str
 }
 
 export function AccentColorPicker({
+  controlSize,
   className,
   disabled = false,
   getOptionTestId,
@@ -48,14 +50,15 @@ export function AccentColorPicker({
             key={color.key}
             type="button"
             variant="ghost"
-            size="icon-xs"
+            size={controlSize === 'sm' ? 'icon-sm' : 'icon-xs'}
             className={cn(
-              'shrink-0 rounded-full p-0 transition-transform',
+              'shrink-0 p-0 transition-transform',
+              controlSize === 'sm' ? 'rounded-md' : 'rounded-full',
               disabled ? 'cursor-not-allowed opacity-50' : selected ? 'scale-110' : 'hover:scale-105',
             )}
             style={{
-              width: size,
-              height: size,
+              width: controlSize ? undefined : size,
+              height: controlSize ? undefined : size,
               backgroundColor: color.css,
               border: selectedBorder(indicator, selected),
             }}
@@ -66,7 +69,7 @@ export function AccentColorPicker({
             onClick={(event) => handleSelect(event, color.key)}
           >
             {indicator === 'check' && selected && (
-              <Check size={Math.max(8, Math.round(size * 0.58))} weight="bold" style={{ color: 'var(--text-inverse)' }} />
+              <Check size={controlSize ? 16 : Math.max(8, Math.round(size * 0.58))} weight="bold" style={{ color: 'var(--text-inverse)' }} />
             )}
           </Button>
         )
