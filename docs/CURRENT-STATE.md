@@ -1,6 +1,8 @@
 # Memnova hiện tại
 
-**17/11/2026 — nền tảng UI bước A:** bổ sung thang chữ chrome, kích thước điều khiển và bo góc trong token/components dùng chung; nâng tương phản màu chữ. Không chỉnh mã màn hình hoặc typography editor. [Phạm vi, số đếm SPEC §8 và ảnh QA sáng/tối](audits/STEP-A-FOUNDATION.md). Các bước dọn màn hình B–D chưa thực hiện.
+**17/11/2026 — nền tảng UI bước A:** bổ sung thang chữ chrome, kích thước điều khiển và bo góc trong token/components dùng chung; nâng tương phản màu chữ. Không chỉnh mã màn hình hoặc typography editor. [Phạm vi, số đếm SPEC §8 và ảnh QA sáng/tối](audits/STEP-A-FOUNDATION.md). Các bước C–D chưa thực hiện.
+
+**17/11/2026 — màn ôn bước B:** dialog 640px, một bề mặt gợi nhớ 18/28, nút chấm trung tính dùng chung với Legacy và trạng thái hoàn thành theo SPEC §6. Giữ hành vi, phím tắt và lịch ôn. [Ảnh sáng/tối, số đo và kết quả kiểm tra](audits/STEP-B-STUDY.md).
 
 **Đối chiếu ngày 16/11/2026.** Bản local Apple Silicon mới `199e69de` đã đóng gói giao diện Thư viện và luồng viết mới; [ảnh, nghiệm thu và thông tin DMG](baselines/2026-11-16-library-writing.md). Mốc release local `8e99c7f0` trước đó đã kiểm tra backup sau khi rời editor. [Bộ cài và phạm vi nghiệm thu](baselines/2026-11-16-release-build.md). Luồng viết trước và thao tác học trong Properties nằm ở commit `5281fd90`, thay thế hàng tab `dbd3ee1c` / `f4a600ce`. Hoàn thiện nhãn ôn và thanh cuộn Properties nằm ở `e23d721d`. Sidebar, danh sách và Properties dùng cùng kiểu thanh cuộn mảnh. Nút mở phiên ghi rõ **Review this note / Ôn ghi chú này**. [Nghiệm thu chỉnh sửa cuối](baselines/2026-11-16-properties-polish.md). [Nghiệm thu và ảnh native mới](baselines/2026-11-16-writing-and-properties.md). Trích đoạn và ôn Saved View có từ `05ae7aa3`. Bản cài công khai đối chiếu theo tag v0.1.0, commit `d0b400d5`. Trang này là điểm đọc đầu tiên để xác định giao diện, dữ liệu và việc còn mở.
 
