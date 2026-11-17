@@ -21,7 +21,7 @@ export function Toast({ message, onDismiss, action }: ToastProps) {
   return (
     <div className={cn(
       "fixed bottom-8 left-1/2 -translate-x-1/2 z-[1100]",
-      "bg-secondary text-foreground px-5 py-2 rounded-lg text-[13px]",
+      "bg-secondary text-foreground px-5 py-2 rounded-lg text-(length:--text-body) leading-(--text-body--line-height)",
       "shadow-[0_4px_16px_var(--shadow-dialog)]",
       "animate-in slide-in-from-bottom-2 fade-in duration-200"
     )}>

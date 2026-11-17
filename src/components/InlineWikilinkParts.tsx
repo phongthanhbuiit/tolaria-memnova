@@ -39,14 +39,12 @@ export function InlineWikilinkChipView({
       contentEditable={false}
       data-chip-target={chip.target}
       data-testid="inline-wikilink-chip"
-      className="mx-[1px] inline-flex max-w-full items-center gap-1 rounded-full align-baseline"
+      className="mx-[1px] inline-flex max-w-full items-center gap-1 rounded-full align-baseline text-(length:--text-small) leading-(--text-small--line-height)"
       style={{
         backgroundColor,
         color,
         padding: '1px 8px 1px 6px',
-        fontSize: 12,
         fontWeight: 500,
-        lineHeight: 1.5,
       }}
     >
       {chip.entry.icon ? (
@@ -111,7 +109,7 @@ function InlineSuggestionRow({
         </span>
         <span className="truncate text-sm text-foreground">{suggestion.title}</span>
       </span>
-      <span className="ml-3 shrink-0 text-[11px] text-muted-foreground">
+      <span className="ml-3 shrink-0 text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground">
         {suggestion.entry.isA ?? 'Note'}
       </span>
     </button>
@@ -137,7 +135,7 @@ export function InlineWikilinkSuggestionList({
 }) {
   if (suggestions.length === 0) {
     return (
-      <div className="px-4 py-5 text-center text-[13px] text-muted-foreground">
+      <div className="px-4 py-5 text-center text-(length:--text-body) leading-(--text-body--line-height) text-muted-foreground">
         {emptyLabel}
       </div>
     )
@@ -225,8 +223,9 @@ export function InlineWikilinkEditorField({
           className={cn(
             'pointer-events-none absolute inset-0 text-muted-foreground',
             placeholderClassName ?? 'flex items-center',
+            !placeholderClassName && 'text-(length:--text-body) leading-(--text-body--line-height)',
           )}
-          style={placeholderClassName ? undefined : { padding: '8px 10px', fontSize: 13 }}
+          style={placeholderClassName ? undefined : { padding: '8px 10px' }}
         >
           {placeholder}
         </div>
@@ -238,7 +237,7 @@ export function InlineWikilinkEditorField({
         aria-disabled={disabled ? 'true' : undefined}
         data-testid={dataTestId}
         className={cn(
-          'min-h-[34px] w-full rounded-lg border border-border bg-transparent px-[10px] py-[8px] text-[13px] text-foreground outline-none',
+          'min-h-[34px] w-full rounded-lg border border-border bg-transparent px-[10px] py-[8px] text-(length:--text-body) leading-(--text-body--line-height) text-foreground outline-none',
           disabled && 'cursor-not-allowed opacity-60',
           editorClassName,
         )}

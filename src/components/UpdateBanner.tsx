@@ -24,7 +24,6 @@ const bannerStyle = {
   padding: '6px 12px',
   background: 'var(--accent-blue)',
   borderBottom: 'none',
-  fontSize: 13,
   color: 'var(--text-inverse)',
   flexShrink: 0,
 } satisfies CSSProperties
@@ -39,7 +38,6 @@ const primaryActionStyle = {
   padding: '3px 10px',
   background: 'var(--text-inverse)',
   color: 'var(--accent-blue)',
-  fontSize: 12,
   fontWeight: 500,
 } satisfies CSSProperties
 
@@ -59,7 +57,6 @@ const progressTrackStyle = {
 } satisfies CSSProperties
 
 const progressTextStyle = {
-  fontSize: 11,
   color: 'color-mix(in srgb, var(--text-inverse) 85%, transparent)',
 } satisfies CSSProperties
 
@@ -85,7 +82,7 @@ function renderAvailableContent(status: Extract<VisibleUpdateStatus, { state: 'a
       >
         {translate(locale, 'update.releaseNotes')} <ExternalLink size={11} />
       </Button>
-      <Button
+      <Button className="text-(length:--text-small) leading-(--text-small--line-height)"
         type="button"
         size="xs"
         data-testid="update-now-btn"
@@ -135,7 +132,7 @@ function renderDownloadingContent(status: Extract<VisibleUpdateStatus, { state: 
           }}
         />
       </div>
-      <span style={progressTextStyle}>{Math.round(status.progress * 100)}%</span>
+      <span className="text-(length:--text-caption) leading-(--text-caption--line-height)" style={progressTextStyle}>{Math.round(status.progress * 100)}%</span>
     </>
   )
 }
@@ -147,7 +144,7 @@ function renderReadyContent(status: Extract<VisibleUpdateStatus, { state: 'ready
       <span>
         <strong>Tolaria {status.displayVersion}</strong> {translate(locale, 'update.readyRestart')}
       </span>
-      <Button
+      <Button className="text-(length:--text-small) leading-(--text-small--line-height)"
         type="button"
         size="xs"
         data-testid="update-restart-btn"
@@ -180,5 +177,5 @@ function renderBannerContent(status: VisibleUpdateStatus, actions: UpdateActions
 export function UpdateBanner({ status, actions, locale = 'en' }: UpdateBannerProps) {
   if (!isUpdateBannerVisible(status)) return null
 
-  return <div data-testid="update-banner" style={bannerStyle}>{renderBannerContent(status, actions, locale)}</div>
+  return <div className="text-(length:--text-body) leading-(--text-body--line-height)" data-testid="update-banner" style={bannerStyle}>{renderBannerContent(status, actions, locale)}</div>
 }

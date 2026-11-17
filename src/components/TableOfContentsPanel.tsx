@@ -156,7 +156,7 @@ function TocRow({
       <Button
         type="button"
         variant="ghost"
-        className="h-auto flex-1 justify-start gap-2 rounded text-left text-[13px] font-medium text-foreground hover:bg-transparent hover:text-foreground"
+        className="h-auto flex-1 justify-start gap-2 rounded text-left text-(length:--text-body) leading-(--text-body--line-height) font-medium text-foreground hover:bg-transparent hover:text-foreground"
         style={{
           paddingTop: 6,
           paddingBottom: 6,
@@ -236,7 +236,7 @@ function TableOfContentsHeader({ locale = 'en', onClose }: Pick<TableOfContentsP
       style={{ height: 52, padding: '6px 12px', gap: 8, cursor: 'default' }}
     >
       <ListBullets size={16} className="shrink-0 text-muted-foreground" />
-      <span className="text-muted-foreground" style={{ fontSize: 13, fontWeight: 600 }}>
+      <span className="text-muted-foreground text-(length:--text-body) leading-(--text-body--line-height)" style={{ fontWeight: 600 }}>
         {translate(locale, 'tableOfContents.title')}
       </span>
       <span className="flex-1" />

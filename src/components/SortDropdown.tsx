@@ -236,7 +236,7 @@ function SortDropdownTrigger({
       data-testid={`sort-button-${groupLabel}`}
     >
       <DirectionIcon size={12} data-testid={`sort-direction-icon-${groupLabel}`} />
-      <span className="text-[10px] font-medium">{currentLabel}</span>
+      <span className="text-(length:--text-caption) leading-(--text-caption--line-height) font-medium">{currentLabel}</span>
     </button>
   )
 }
@@ -379,7 +379,7 @@ function SortRow({ index, groupLabel, value, label, current, direction, buttonRe
     <>
       {showSeparator && <div className="mx-2 my-1 border-t border-border" data-testid="sort-separator" />}
       <div
-        className={cn('flex items-center justify-between gap-1 rounded px-1 text-[12px] text-popover-foreground hover:bg-accent', isActive && 'bg-accent font-medium')}
+        className={cn('flex items-center justify-between gap-1 rounded px-1 text-(length:--text-small) leading-(--text-small--line-height) text-popover-foreground hover:bg-accent', isActive && 'bg-accent font-medium')}
         style={{ minHeight: 28 }}
       >
         <button

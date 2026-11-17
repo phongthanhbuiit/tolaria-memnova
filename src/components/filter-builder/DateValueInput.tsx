@@ -73,7 +73,7 @@ export function DateValueInput({ value, onChange }: { value: string; onChange: (
       </div>
       {previewLabel && (
         <div
-          className="pl-1 text-[11px] text-muted-foreground"
+          className="pl-1 text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground"
           data-testid={resolvedPreview ? 'date-value-preview' : 'date-value-preview-unrecognized'}
         >
           {resolvedPreview ? translate(locale, 'filters.date.resolvesTo', { date: previewLabel }) : previewLabel}

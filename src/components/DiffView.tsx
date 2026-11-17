@@ -33,7 +33,7 @@ export function DiffView({ diff }: DiffViewProps) {
   }
 
   return (
-    <div className="font-mono text-[13px] leading-relaxed py-3">
+    <div className="font-mono text-(length:--text-body) leading-(--text-body--line-height) leading-relaxed py-3">
       {diff.split('\n').map((line, i) => (
         <DiffLine key={line} line={line} lineNumber={i + 1} />
       ))}

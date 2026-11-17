@@ -82,8 +82,8 @@ function FilePreviewFallback({ icon, title, description, onOpenExternal }: FileP
     >
       <Icon size={34} className="text-muted-foreground" aria-hidden="true" />
       <div className="space-y-1">
-        <h2 className="m-0 text-[15px] font-semibold text-foreground">{title}</h2>
-        <p className="m-0 max-w-md text-[13px] leading-6 text-muted-foreground">{description}</p>
+        <h2 className="m-0 text-(length:--text-title) leading-(--text-title--line-height) font-semibold text-foreground">{title}</h2>
+        <p className="m-0 max-w-md text-(length:--text-body) leading-(--text-body--line-height) leading-6 text-muted-foreground">{description}</p>
       </div>
       <Button type="button" variant="outline" size="sm" onClick={onOpenExternal}>
         <ArrowSquareOut size={15} />
@@ -120,8 +120,8 @@ function FilePreviewHeader({
       <div className="flex min-w-0 items-center gap-2">
         <FilePreviewHeaderIcon previewKind={previewKind} />
         <div className="min-w-0">
-          <h1 className="m-0 truncate text-[14px] font-semibold text-foreground">{entry.title}</h1>
-          <p className="m-0 text-[11px] text-muted-foreground">{fileTypeLabel}</p>
+          <h1 className="m-0 truncate text-(length:--text-body-lg) leading-(--text-body-lg--line-height) font-semibold text-foreground">{entry.title}</h1>
+          <p className="m-0 text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground">{fileTypeLabel}</p>
         </div>
       </div>
       <div className="flex items-center gap-1">

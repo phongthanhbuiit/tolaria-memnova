@@ -140,7 +140,7 @@ function HorizontalMenuBar() {
               type="button"
               variant="ghost"
               size="sm"
-              className="h-full rounded-none px-3 text-[13px] font-normal text-foreground/75 hover:bg-foreground/10 hover:text-foreground"
+              className="h-full rounded-none px-3 text-(length:--text-body) leading-(--text-body--line-height) font-normal text-foreground/75 hover:bg-foreground/10 hover:text-foreground"
               data-no-drag
             >
               {section.label}

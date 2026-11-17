@@ -111,7 +111,7 @@ function TextValueInput({ value, onChange, regexEnabled, regexSupported, invalid
           variant={regexEnabled ? 'secondary' : 'outline'}
           size="sm"
           className={cn(
-            'h-8 shrink-0 px-2 font-mono text-[11px]',
+            'h-8 shrink-0 px-2 font-mono text-(length:--text-caption) leading-(--text-caption--line-height)',
             !regexEnabled && 'text-muted-foreground',
           )}
           onClick={onToggleRegex}
@@ -216,13 +216,13 @@ function FilterGroupView({ group, fields, depth, onChange, onRemove }: {
           type="button"
           variant="outline"
           size="sm"
-          className="h-6 rounded-full px-2.5 text-[11px] font-medium"
+          className="h-6 rounded-full px-2.5 text-(length:--text-caption) leading-(--text-caption--line-height) font-medium"
           onClick={toggleMode}
           title={`Switch to ${mode === 'all' ? 'OR' : 'AND'}`}
         >
           {mode === 'all' ? 'AND' : 'OR'}
         </Button>
-        <span className="text-[11px] text-muted-foreground">
+        <span className="text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground">
           {mode === 'all' ? 'Match all conditions' : 'Match any condition'}
         </span>
         {onRemove && (

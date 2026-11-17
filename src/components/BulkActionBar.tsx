@@ -80,7 +80,7 @@ function BulkActionBarInner({ count, isArchivedView, onOrganize, onArchive, onDe
       }}
       data-testid="bulk-action-bar"
     >
-      <span style={{ fontSize: 13, fontWeight: 500 }}>
+      <span className="text-(length:--text-body) leading-(--text-body--line-height)" style={{ fontWeight: 500 }}>
         {count} selected
       </span>
       <div className="flex items-center gap-1.5">
