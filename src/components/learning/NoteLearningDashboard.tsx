@@ -10,6 +10,7 @@ import {
 } from '@phosphor-icons/react'
 import { useEffect, useId, useState, type ReactNode } from 'react'
 import { Button } from '../ui/button'
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '../ui/tabs'
 import { translate, type AppLocale } from '../../lib/i18n'
 import type { LearningPage } from '../../lib/learning/types'
 import { NoteCatalogFilters } from './NoteCatalogFilters'
@@ -58,44 +59,31 @@ export function NoteLearningDashboard({
   return (
     <div ref={setScrollParent} className="note-memory-surface app-scrollbar h-full min-h-0 overflow-y-auto">
       {libraryHeader}
-      <nav
-        className="mx-auto flex max-w-5xl flex-wrap items-center gap-2 border-b px-4 py-2 sm:px-8"
-        aria-label={t('learning.library')}
-      >
-        <Button size="lg" layout="responsive"
-          variant={lane === 'notes' ? 'secondary' : 'ghost'}
-          aria-pressed={lane === 'notes'}
-          onClick={() => {
-            setLane('notes')
-            trackEvent('memnova_learning_lane_selected', { lane: 'notes' })
-          }}
-        >
-          <Brain aria-hidden="true" />
-          {t('learning.noteMemory.notes')} ·{' '}
-          {translate(locale, 'decks.due', { n: due.notes.length })}
-        </Button>
-        <Button size="lg" layout="responsive"
-          variant={lane === 'legacy' ? 'secondary' : 'ghost'}
-          aria-pressed={lane === 'legacy'}
-          onClick={() => {
-            setLane('legacy')
-            trackEvent('memnova_learning_lane_selected', { lane: 'legacy' })
-          }}
-        >
-          <Stack aria-hidden="true" />
-          {t('learning.noteMemory.legacyCards')} ·{' '}
-          {translate(locale, 'decks.due', { n: due.legacy.length })}
-        </Button>
-      </nav>
-      {lane === 'legacy' ? (
-        legacy
-      ) : (
+      <Tabs value={lane} activationMode="manual" onValueChange={value => {
+        const selected = value === 'legacy' ? 'legacy' : 'notes'
+        setLane(selected)
+        trackEvent('memnova_learning_lane_selected', { lane: selected })
+      }} className="gap-0">
+        <div className="mx-auto w-full max-w-5xl border-b px-4 sm:px-8">
+          <TabsList variant="line" aria-label={t('learning.library')} className="max-w-full flex-wrap justify-start gap-2 p-0">
+            <TabsTrigger value="notes" size="md" layout="responsive" className="rounded-none after:bg-transparent after:border-b after:border-current data-[state=active]:text-primary dark:data-[state=active]:text-primary">
+              <Brain aria-hidden="true" />{t('learning.noteMemory.notes')} ·{' '}
+              {translate(locale, 'decks.due', { n: due.notes.length })}
+            </TabsTrigger>
+            <TabsTrigger value="legacy" size="md" layout="responsive" className="rounded-none after:bg-transparent after:border-b after:border-current data-[state=active]:text-primary dark:data-[state=active]:text-primary">
+              <Stack aria-hidden="true" />{t('learning.noteMemory.legacyCards')} ·{' '}
+              {translate(locale, 'decks.due', { n: due.legacy.length })}
+            </TabsTrigger>
+          </TabsList>
+        </div>
+        <TabsContent value="legacy">{legacy}</TabsContent>
+        <TabsContent value="notes">
         <main className="mx-auto max-w-5xl space-y-6 p-4 sm:p-8">
           <header className="flex flex-wrap items-start justify-between gap-4">
             <div className="min-w-0 space-y-1">
-              <Heading className="text-xl font-semibold">{t('learning.noteMemory.notes')}</Heading>
+              <Heading className="text-title font-semibold">{t('learning.noteMemory.notes')}</Heading>
               {mode === 'home' && workspace.stats && (
-                <p className="text-xs tabular-nums text-muted-foreground">
+                <p className="text-small tabular-nums text-muted-foreground">
                   {t('home.reviewed')}: {workspace.stats.todayReviews} ·{' '}
                   {t('home.daily_goal')}: {workspace.stats.todayReviews}/
                   {workspace.stats.dailyGoal}
@@ -133,21 +121,22 @@ export function NoteLearningDashboard({
           </div>
           {catalog.hasLearningNotes && <NoteCatalogFilters catalog={catalog} locale={locale} />}
           {!catalog.hasFolderNotes && (
-            <p className="rounded-md border border-dashed p-4 text-sm text-muted-foreground">
+            <p className="rounded-lg border border-dashed p-4 text-body text-muted-foreground">
               <BookOpen aria-hidden="true" className="mb-2 size-5" />{t('learning.noteMemory.emptyHelp')}
             </p>
           )}
-          <p className="text-sm tabular-nums text-muted-foreground empty:hidden">
+          <p className="text-body tabular-nums text-muted-foreground empty:hidden">
             {rows.length > 0 && <>{t('noteList.title.notes')} · {rows.length.toLocaleString(locale)}</>}
           </p>
-          <p role="status" className="text-sm text-muted-foreground empty:hidden">
+          <p role="status" className="text-body text-muted-foreground empty:hidden">
             {catalog.hasFolderNotes && (catalog.query && !rows.length
               ? t('noteList.empty.noMatching')
               : !catalog.query && !dueCount && t('learning.noteMemory.noDue'))}
           </p>
           <NoteMemoryList rows={rows} pages={workspace.pages} clock={workspace.clock} locale={locale} onOpenPage={onOpenPage} scrollParent={scrollParent} />
         </main>
-      )}
+        </TabsContent>
+      </Tabs>
       <NoteConversionDialog
         client={workspace.client}
         open={conversion}

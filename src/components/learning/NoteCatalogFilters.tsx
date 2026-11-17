@@ -14,8 +14,8 @@ export function NoteCatalogFilters({ catalog, locale }: { catalog: ReturnType<ty
   const searchInput = useRef<HTMLInputElement>(null)
   const t = (key: TranslationKey) => translate(locale, key)
   return <search aria-label={t('learning.noteMemory.notes')} className="flex flex-wrap items-end gap-x-4 gap-y-3 border-y border-border py-3">
-    <div className="min-w-0 flex-[2_1_15rem] space-y-1.5">
-      <Label htmlFor={id + '-search'}>{t('noteList.searchAction')}</Label>
+    <div className="min-w-0 flex-[2_1_15rem] space-y-2">
+      <Label className="text-small" htmlFor={id + '-search'}>{t('noteList.searchAction')}</Label>
       <div className="relative">
         <MagnifyingGlass aria-hidden="true" className="pointer-events-none absolute start-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
         <Input layout="responsive" id={id + '-search'} ref={searchInput} type="search" autoComplete="off" value={catalog.search}
@@ -27,11 +27,11 @@ export function NoteCatalogFilters({ catalog, locale }: { catalog: ReturnType<ty
         </Button>}
       </div>
     </div>
-    <div className="min-w-0 flex-[1_1_12rem] space-y-1.5">
-      <Label htmlFor={id + '-folder'}>{t('learning.noteMemory.folder')}</Label>
+    <div className="min-w-0 flex-[1_1_12rem] space-y-2">
+      <Label className="text-small" htmlFor={id + '-folder'}>{t('learning.noteMemory.folder')}</Label>
       <Select value={catalog.currentFolder ? `folder:${catalog.currentFolder}` : 'root'}
         onValueChange={value => catalog.setFolder(value === 'root' ? '' : value.slice(7))}>
-        <SelectTrigger size="md" layout="responsive" id={id + '-folder'} className="w-full *:data-[slot=select-value]:truncate">
+        <SelectTrigger size="md" layout="responsive" id={id + '-folder'} className="w-full">
           <SelectValue />
         </SelectTrigger>
         <SelectContent className="note-memory-portal">
@@ -40,17 +40,17 @@ export function NoteCatalogFilters({ catalog, locale }: { catalog: ReturnType<ty
         </SelectContent>
       </Select>
     </div>
-    <div className="flex min-h-9 flex-wrap items-center gap-x-4 gap-y-2">
+    <div className="flex min-h-(--control-md) flex-wrap items-center gap-x-4 gap-y-2">
       <div className="flex items-center gap-2">
         <Switch size="responsive" id={id + '-recursive'} checked={catalog.recursive} onCheckedChange={catalog.setRecursive} />
-        <Label htmlFor={id + '-recursive'}>{t('learning.noteMemory.includeSubfolders')}</Label>
+        <Label className="text-small" htmlFor={id + '-recursive'}>{t('learning.noteMemory.includeSubfolders')}</Label>
       </div>
       <div className="flex items-center gap-2">
         <Switch size="responsive" id={id + '-due'} checked={catalog.dueOnly} onCheckedChange={value => {
           catalog.setDueOnly(value)
           trackEvent('memnova_library_due_filter_changed', { enabled: Number(value) })
         }} />
-        <Label htmlFor={id + '-due'}>{t('decks.filter.due')}</Label>
+        <Label className="text-small" htmlFor={id + '-due'}>{t('decks.filter.due')}</Label>
       </div>
     </div>
   </search>

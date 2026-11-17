@@ -556,17 +556,10 @@ describe('NoteList rendering', () => {
     ]
 
     for (const button of buttons) {
-      expect(button).toHaveAttribute('data-variant', 'ghost')
-      expect(button).toHaveClass(
-        '!h-auto',
-        '!w-auto',
-        '!min-w-0',
-        '!rounded-none',
-        '!p-0',
-        '!text-muted-foreground',
-        'hover:!bg-transparent',
-        'hover:!text-foreground',
-      )
+      expect(button).toHaveAttribute('data-variant', 'toolbar')
+      expect(button).toHaveAttribute('data-size', 'icon-sm')
+      expect(button).toHaveClass('text-muted-foreground')
+      expect(button.className).not.toContain('!')
       expect(button).not.toHaveAttribute('tabindex', '-1')
     }
   })

@@ -63,8 +63,13 @@ it('defaults to note learning, exposes old cards explicitly and never mixes the 
   )
   fireEvent.click(screen.getByRole('button', { name: 'Study due notes (1)' }))
   expect(workspace.requestStudy).toHaveBeenCalledWith(['a', 'b'], 'notes')
-  fireEvent.click(screen.getByRole('button', { name: /Old cards/ }))
-  expect(screen.getByText('Old dashboard')).toBeInTheDocument()
+  expect(screen.getByRole('tablist', { name: 'Library' })).toBeInTheDocument()
+  expect(screen.getByRole('tab', { name: /Note memory/ })).toHaveAttribute('aria-selected', 'true')
+  fireEvent.mouseDown(screen.getByRole('tab', { name: /Old cards/ }), { button: 0, ctrlKey: false })
+  expect(screen.getByRole('tabpanel', { name: /Old cards/ })).toHaveTextContent('Old dashboard')
+  expect(screen.queryByRole('button', { name: /Study due notes/ })).not.toBeInTheDocument()
+  fireEvent.mouseDown(screen.getByRole('tab', { name: /Note memory/ }), { button: 0, ctrlKey: false })
+  expect(screen.getByRole('tabpanel', { name: /Note memory/ })).toBeInTheDocument()
 })
 it('discloses conversion and recovery above the notes', () => {
   render(

@@ -13,8 +13,8 @@ import { GitRepositorySelect } from '../GitRepositorySelect'
 import type { GitRepositoryOption } from '../../utils/gitRepositories'
 import { isMac } from '../../utils/platform'
 
-const NOTE_LIST_ACTION_BUTTON_CLASSNAME = '!h-auto !w-auto !min-w-0 !rounded-none !p-0 !text-muted-foreground hover:!bg-transparent hover:!text-foreground focus-visible:!bg-transparent data-[state=open]:!bg-transparent data-[state=open]:!text-foreground [&_svg]:!size-4'
-const NOTE_LIST_EXPAND_BUTTON_CLASSNAME = 'rounded text-muted-foreground hover:bg-accent hover:text-foreground focus-visible:bg-accent [&_svg]:size-4'
+const NOTE_LIST_ACTION_BUTTON_CLASSNAME = 'text-muted-foreground hover:text-foreground data-[state=open]:text-foreground'
+const NOTE_LIST_EXPAND_BUTTON_CLASSNAME = 'text-muted-foreground hover:bg-accent hover:text-foreground focus-visible:bg-accent'
 const COLLAPSED_SIDEBAR_MAC_CHROME_PADDING = 80
 const PROPERTY_TRIGGER_TITLE_KEYS: Record<string, TranslationKey> = {
   'Customize columns': 'noteList.properties.customizeColumns',
@@ -95,20 +95,20 @@ function HeaderTitle({
 
   if (typeDocument && handleClick) {
     return (
-      <button
+      <Button variant="toolbar" size="toolbar"
         type="button"
-        className="m-0 min-w-0 flex-1 truncate border-0 bg-transparent p-0 text-left text-[14px] font-semibold"
+        className="m-0 min-w-0 flex-1 justify-start truncate border-0 bg-transparent p-0 text-left text-title font-semibold"
         onClick={handleClick}
         data-testid="type-header-link"
       >
         {title}
-      </button>
+      </Button>
     )
   }
 
   return (
     <h3
-      className="m-0 min-w-0 flex-1 truncate text-[14px] font-semibold"
+      className="m-0 min-w-0 flex-1 truncate text-title font-semibold"
     >
       {title}
     </h3>
@@ -188,7 +188,7 @@ function HeaderActions({
   return (
     <div className="ml-3 flex shrink-0 items-center justify-end gap-2" style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}>
       {!isEntityView && <SortDropdown groupLabel="__list__" current={listSort} direction={listDirection} customProperties={customProperties} locale={locale} onChange={onSortChange} />}
-      <Button type="button" variant="ghost" size="icon-xs" className={NOTE_LIST_ACTION_BUTTON_CLASSNAME} onClick={onToggleSearch} title={translate(locale, 'noteList.searchAction')} aria-label={translate(locale, 'noteList.searchAction')}>
+      <Button type="button" variant="toolbar" size="icon-sm" className={NOTE_LIST_ACTION_BUTTON_CLASSNAME} onClick={onToggleSearch} title={translate(locale, 'noteList.searchAction')} aria-label={translate(locale, 'noteList.searchAction')}>
         <MagnifyingGlass size={16} />
       </Button>
       {propertyPicker && (
@@ -199,7 +199,7 @@ function HeaderActions({
           locale={locale}
         />
       )}
-      <Button type="button" variant="ghost" size="icon-xs" className={NOTE_LIST_ACTION_BUTTON_CLASSNAME} onClick={onCreateNote} title={translate(locale, 'noteList.createNote')} aria-label={translate(locale, 'noteList.createNote')}>
+      <Button type="button" variant="toolbar" size="icon-sm" className={NOTE_LIST_ACTION_BUTTON_CLASSNAME} onClick={onCreateNote} title={translate(locale, 'noteList.createNote')} aria-label={translate(locale, 'noteList.createNote')}>
         <Plus size={16} />
       </Button>
     </div>
@@ -247,14 +247,14 @@ function SearchRow({
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
           onKeyDown={onSearchKeyDown}
-          className="h-8 pr-16 text-[13px]"
+          className="pr-16"
         />
         {hasSearch && (
           <Button
             type="button"
             variant="ghost"
             size="icon-inline"
-            className="absolute inset-y-1 right-8 rounded text-muted-foreground hover:bg-accent hover:text-foreground focus-visible:bg-accent [&_svg]:size-3"
+            className="absolute inset-y-1 right-8 rounded-md text-muted-foreground hover:bg-accent hover:text-foreground focus-visible:bg-accent [&_svg]:size-3"
             onMouseDown={(event) => event.preventDefault()}
             onClick={handleClearSearch}
             title={clearLabel}

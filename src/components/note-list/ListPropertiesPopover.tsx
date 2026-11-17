@@ -385,8 +385,8 @@ export function ListPropertiesPopover({
       <PopoverTrigger asChild>
         <Button
           type="button"
-          variant="ghost"
-          size="icon-xs"
+          variant="toolbar"
+          size="icon-sm"
           className={cn('text-muted-foreground', triggerClassName)}
           title={triggerTitle}
           aria-label={triggerTitle}

@@ -2,6 +2,7 @@ import { useId, useLayoutEffect, useMemo, useRef, type KeyboardEvent } from 'rea
 import { Virtuoso, type VirtuosoHandle } from 'react-virtuoso'
 import { Button } from '../ui/button'
 import { NoteMemoryStatus } from './NoteMemoryStatus'
+import './NoteMemoryList.css'
 import { translate, type AppLocale } from '../../lib/i18n'
 import type { LearningPage, NoteLearningSummary } from '../../lib/learning/types'
 
@@ -71,11 +72,11 @@ export function NoteMemoryList({ rows, pages, clock, locale, onOpenPage, scrollP
         }}>
         <span className="min-w-0 flex-[1_1_12rem]">
           <span id={labelId} className="block font-medium">{page?.title ?? row.view.path}</span>
-          <span id={detailId} className="block text-xs font-normal text-muted-foreground">{row.view.path}</span>
+          <span id={detailId} className="block text-small font-normal text-muted-foreground">{row.view.path}</span>
         </span>
         <span id={statusId} className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 font-normal">
           <NoteMemoryStatus state={row.view.state} due={dueAt} clock={clock} locale={locale} />
-          {dueText && <time dateTime={dueAt} className="text-xs tabular-nums text-muted-foreground"><span className="sr-only">{translate(locale,'properties.due')}: </span>{dueText}</time>}
+          {dueText && <time dateTime={dueAt} className="text-small tabular-nums text-muted-foreground"><span className="sr-only">{translate(locale,'properties.due')}: </span>{dueText}</time>}
         </span>
       </Button>
     </article>

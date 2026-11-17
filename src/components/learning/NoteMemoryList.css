@@ -1,0 +1,7 @@
+@reference "../../index.css";
+
+/* Scope the compact catalog badge to Home; shared dialogs keep their own geometry.
+   The shared badge styles are unlayered, so this specialization must be as well. */
+.note-memory-list .note-memory-status {
+  @apply rounded-sm text-small py-px;
+}

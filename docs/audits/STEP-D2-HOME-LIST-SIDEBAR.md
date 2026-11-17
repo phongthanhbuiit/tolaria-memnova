@@ -61,6 +61,14 @@ Header dùng hai Button outline lg; nút ôn tiếp tục là hành động chí
 
 RED: `vitest run src/components/NoteItem.test.tsx` có 3 fail / 24 tests: ngày khác nhau, ngày trùng nhau + workspace, và fallback chỉ có created đều còn dòng Created thứ hai. GREEN sau sửa bỏ Created; giữ nguyên `getDisplayDate`, formatter, locale và object đầu vào. Không đổi sort hoặc icon/type semantics. Ngày `small`, tên `body` 500, snippet `small`; chips và công cụ dùng token/component sẵn có. Assertion CSS cũ được đổi sang token mới; assertion hành vi không bị bỏ.
 
+## F-033
+
+Thư viện dùng `display`; tiêu đề mục dùng `title`. Thay hai lane button bằng Tabs line có sẵn, giữ scope, query, analytics và lifecycle nội dung. Dùng manual activation vì việc chọn lane gửi analytics; mũi tên chỉ chuyển focus, Enter/Space mới chọn. Radix quản lý roving focus trên WKWebView; không thêm focusgroup (Safari chưa hỗ trợ), dependency hoặc polyfill. Underline dùng border pseudo-element để vẫn thấy trong forced colors. TabsContent không có padding/border/background; wrapper main giữ layout. Bộ lọc md/nhãn small; metadata small, badge trạng thái chỉ trong danh sách Home bo sm và cao 22px bằng padding token trong `NoteMemoryList.css` mới, chỉ scope danh sách Home (không đổi shared CSS ngoài D2).
+
+RED: test tablist/tabpanel thất bại trên button cũ; GREEN 40/40 ca dashboard + note-list. Test dùng mouseDown như các Radix Tabs đang có trong repo, giữ kiểm tra lane và requestStudy. F-010 hook cuối: 78 file / 895 tests pass; test locale vẫn kiểm dữ liệu không đổi.
+
+Kiểm native phát hiện utility trong cascade layer không thắng shared CSS unlayered của status badge. Đã chuyển phần specialization vào CSS của riêng NoteMemoryList (vẫn dùng `@apply` token, không raw font-size, important hoặc data-slot). Không thay shared badge hay các dialog ngoài D2.
+
 ## Nghiệm thu
 
 Đang thực hiện; chưa tuyên bố các gate hoặc native sau sửa đã qua.
