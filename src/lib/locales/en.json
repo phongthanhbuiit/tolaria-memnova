@@ -1011,5 +1011,11 @@
   "properties.noteMemoryHelp": "Custom properties do not mark this note as learned or change its review schedule.",
   "editor.noteMemory.backToNote": "Back to note",
   "editor.noteMemory.editMnemonic": "Edit mnemonic",
-  "learning.noteMemory.studyThisNote": "Review this note"
+  "learning.noteMemory.studyThisNote": "Review this note",
+  "filters.date.pickDate": "Pick a date",
+  "filters.date.openPicker": "Open date picker",
+  "filters.date.openPickerForDate": "Open date picker ({date})",
+  "filters.date.resolvesTo": "Resolves to {date}",
+  "filters.date.unrecognized": "Not recognized",
+  "filters.date.inputPlaceholder": "YYYY-MM-DD or a relative date"
 }

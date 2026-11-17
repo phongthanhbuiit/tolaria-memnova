@@ -1011,5 +1011,11 @@
   "properties.noteMemoryHelp": "自訂屬性不會將此筆記標記為已學會，也不會變更複習排程。",
   "editor.noteMemory.backToNote": "返回筆記",
   "editor.noteMemory.editMnemonic": "編輯記憶提示",
-  "learning.noteMemory.studyThisNote": "複習此筆記"
+  "learning.noteMemory.studyThisNote": "複習此筆記",
+  "filters.date.pickDate": "選擇日期",
+  "filters.date.openPicker": "開啟日期選擇器",
+  "filters.date.openPickerForDate": "開啟日期選擇器（{date}）",
+  "filters.date.resolvesTo": "對應日期：{date}",
+  "filters.date.unrecognized": "無法辨識",
+  "filters.date.inputPlaceholder": "YYYY-MM-DD 或相對日期"
 }

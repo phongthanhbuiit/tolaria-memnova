@@ -1011,5 +1011,11 @@
   "properties.noteMemoryHelp": "Пользовательские свойства не отмечают заметку как выученную и не меняют расписание повторений.",
   "editor.noteMemory.backToNote": "Вернуться к заметке",
   "editor.noteMemory.editMnemonic": "Изменить мнемонику",
-  "learning.noteMemory.studyThisNote": "Повторить эту заметку"
+  "learning.noteMemory.studyThisNote": "Повторить эту заметку",
+  "filters.date.pickDate": "Выбрать дату",
+  "filters.date.openPicker": "Открыть календарь",
+  "filters.date.openPickerForDate": "Открыть календарь ({date})",
+  "filters.date.resolvesTo": "Соответствует дате {date}",
+  "filters.date.unrecognized": "Не распознано",
+  "filters.date.inputPlaceholder": "YYYY-MM-DD или относительная дата"
 }

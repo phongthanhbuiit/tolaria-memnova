@@ -1011,5 +1011,11 @@
   "properties.noteMemoryHelp": "사용자 지정 속성은 이 노트를 학습 완료로 표시하거나 복습 일정을 변경하지 않습니다.",
   "editor.noteMemory.backToNote": "노트로 돌아가기",
   "editor.noteMemory.editMnemonic": "암기 힌트 편집",
-  "learning.noteMemory.studyThisNote": "이 노트 복습"
+  "learning.noteMemory.studyThisNote": "이 노트 복습",
+  "filters.date.pickDate": "날짜 선택",
+  "filters.date.openPicker": "날짜 선택기 열기",
+  "filters.date.openPickerForDate": "날짜 선택기 열기({date})",
+  "filters.date.resolvesTo": "해당 날짜: {date}",
+  "filters.date.unrecognized": "인식할 수 없음",
+  "filters.date.inputPlaceholder": "YYYY-MM-DD 또는 상대 날짜"
 }

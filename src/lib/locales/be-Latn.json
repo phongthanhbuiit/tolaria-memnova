@@ -1011,5 +1011,11 @@
   "properties.noteMemoryHelp": "Karystalnickija ŭłaścivaści nie paznačajuć natatku jak vyvučanuju i nie źmianiajuć raskład paŭtarenniaŭ.",
   "editor.noteMemory.backToNote": "Viarnucca da natatki",
   "editor.noteMemory.editMnemonic": "Źmianić mniemoniku",
-  "learning.noteMemory.studyThisNote": "Paŭtaryć hetu natatku"
+  "learning.noteMemory.studyThisNote": "Paŭtaryć hetu natatku",
+  "filters.date.pickDate": "Vybrać datu",
+  "filters.date.openPicker": "Adkryć kaliandar",
+  "filters.date.openPickerForDate": "Adkryć kaliandar ({date})",
+  "filters.date.resolvesTo": "Adpaviadaje dacie {date}",
+  "filters.date.unrecognized": "Nie raspaznana",
+  "filters.date.inputPlaceholder": "YYYY-MM-DD abo adnosnaja data"
 }

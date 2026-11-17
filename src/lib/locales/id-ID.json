@@ -1011,5 +1011,11 @@
   "properties.noteMemoryHelp": "Properti khusus tidak menandai catatan ini sebagai sudah dipelajari atau mengubah jadwal ulasannya.",
   "editor.noteMemory.backToNote": "Kembali ke catatan",
   "editor.noteMemory.editMnemonic": "Edit mnemonik",
-  "learning.noteMemory.studyThisNote": "Ulangi catatan ini"
+  "learning.noteMemory.studyThisNote": "Ulangi catatan ini",
+  "filters.date.pickDate": "Pilih tanggal",
+  "filters.date.openPicker": "Buka pemilih tanggal",
+  "filters.date.openPickerForDate": "Buka pemilih tanggal ({date})",
+  "filters.date.resolvesTo": "Sesuai dengan {date}",
+  "filters.date.unrecognized": "Tidak dikenali",
+  "filters.date.inputPlaceholder": "YYYY-MM-DD atau tanggal relatif"
 }

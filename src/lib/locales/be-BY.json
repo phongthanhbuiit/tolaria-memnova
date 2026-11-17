@@ -1011,5 +1011,11 @@
   "properties.noteMemoryHelp": "Карыстальніцкія ўласцівасці не пазначаюць нататку як вывучаную і не змяняюць расклад паўтарэнняў.",
   "editor.noteMemory.backToNote": "Вярнуцца да нататкі",
   "editor.noteMemory.editMnemonic": "Змяніць мнемоніку",
-  "learning.noteMemory.studyThisNote": "Паўтарыць гэту нататку"
+  "learning.noteMemory.studyThisNote": "Паўтарыць гэту нататку",
+  "filters.date.pickDate": "Выбраць дату",
+  "filters.date.openPicker": "Адкрыць каляндар",
+  "filters.date.openPickerForDate": "Адкрыць каляндар ({date})",
+  "filters.date.resolvesTo": "Адпавядае даце {date}",
+  "filters.date.unrecognized": "Не распазнана",
+  "filters.date.inputPlaceholder": "YYYY-MM-DD або адносная дата"
 }

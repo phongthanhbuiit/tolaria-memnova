@@ -1011,5 +1011,11 @@
   "properties.noteMemoryHelp": "Le proprietà personalizzate non contrassegnano questa nota come appresa e non ne modificano il calendario dei ripassi.",
   "editor.noteMemory.backToNote": "Torna alla nota",
   "editor.noteMemory.editMnemonic": "Modifica il suggerimento mnemonico",
-  "learning.noteMemory.studyThisNote": "Ripassa questa nota"
+  "learning.noteMemory.studyThisNote": "Ripassa questa nota",
+  "filters.date.pickDate": "Scegli una data",
+  "filters.date.openPicker": "Apri il calendario",
+  "filters.date.openPickerForDate": "Apri il calendario ({date})",
+  "filters.date.resolvesTo": "Corrisponde a {date}",
+  "filters.date.unrecognized": "Non riconosciuto",
+  "filters.date.inputPlaceholder": "YYYY-MM-DD o una data relativa"
 }

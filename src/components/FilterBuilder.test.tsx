@@ -148,7 +148,7 @@ describe('FilterBuilder value inputs', () => {
     expect(screen.getByTestId('date-value-input')).toHaveValue('2024-06-01')
     const dateButton = screen.getByTestId('date-picker-trigger')
     expect(dateButton).toBeInTheDocument()
-    expect(dateButton).toHaveAttribute('title', 'Jun 1, 2024')
+    expect(dateButton).toHaveAttribute('title', 'June 1, 2024')
   })
 
   it('renders date picker placeholder when no date is selected', () => {
@@ -170,7 +170,7 @@ describe('FilterBuilder value inputs', () => {
     })
 
     expect(screen.getByTestId('date-value-input')).toHaveValue('10 days ago')
-    expect(screen.getByTestId('date-picker-trigger')).toHaveAttribute('title', 'Mar 28, 2026')
+    expect(screen.getByTestId('date-picker-trigger')).toHaveAttribute('title', 'March 28, 2026')
   })
 
   it('keeps filter controls top-aligned when the date preview adds a second line', async () => {

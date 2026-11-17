@@ -1011,5 +1011,11 @@
   "properties.noteMemoryHelp": "Własne właściwości nie oznaczają notatki jako nauczonej ani nie zmieniają harmonogramu powtórek.",
   "editor.noteMemory.backToNote": "Wróć do notatki",
   "editor.noteMemory.editMnemonic": "Edytuj mnemotechnikę",
-  "learning.noteMemory.studyThisNote": "Powtórz tę notatkę"
+  "learning.noteMemory.studyThisNote": "Powtórz tę notatkę",
+  "filters.date.pickDate": "Wybierz datę",
+  "filters.date.openPicker": "Otwórz kalendarz",
+  "filters.date.openPickerForDate": "Otwórz kalendarz ({date})",
+  "filters.date.resolvesTo": "Odpowiada dacie {date}",
+  "filters.date.unrecognized": "Nie rozpoznano",
+  "filters.date.inputPlaceholder": "YYYY-MM-DD lub data względna"
 }

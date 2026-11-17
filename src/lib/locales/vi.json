@@ -1011,5 +1011,11 @@
   "properties.noteMemoryHelp": "Thuộc tính tùy chỉnh không đánh dấu ghi chú đã thuộc và không thay đổi lịch ôn tập.",
   "editor.noteMemory.backToNote": "Quay lại ghi chú",
   "editor.noteMemory.editMnemonic": "Sửa gợi nhớ",
-  "learning.noteMemory.studyThisNote": "Ôn ghi chú này"
+  "learning.noteMemory.studyThisNote": "Ôn ghi chú này",
+  "filters.date.pickDate": "Chọn ngày",
+  "filters.date.openPicker": "Mở bộ chọn ngày",
+  "filters.date.openPickerForDate": "Mở bộ chọn ngày ({date})",
+  "filters.date.resolvesTo": "Tương ứng với {date}",
+  "filters.date.unrecognized": "Không nhận dạng được",
+  "filters.date.inputPlaceholder": "YYYY-MM-DD hoặc ngày tương đối"
 }

@@ -1011,5 +1011,11 @@
   "properties.noteMemoryHelp": "自定义属性不会将此笔记标记为已学会，也不会更改复习计划。",
   "editor.noteMemory.backToNote": "返回笔记",
   "editor.noteMemory.editMnemonic": "编辑记忆提示",
-  "learning.noteMemory.studyThisNote": "复习此笔记"
+  "learning.noteMemory.studyThisNote": "复习此笔记",
+  "filters.date.pickDate": "选择日期",
+  "filters.date.openPicker": "打开日期选择器",
+  "filters.date.openPickerForDate": "打开日期选择器（{date}）",
+  "filters.date.resolvesTo": "对应日期：{date}",
+  "filters.date.unrecognized": "无法识别",
+  "filters.date.inputPlaceholder": "YYYY-MM-DD 或相对日期"
 }

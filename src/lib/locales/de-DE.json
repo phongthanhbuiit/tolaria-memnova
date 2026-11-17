@@ -1011,5 +1011,11 @@
   "properties.noteMemoryHelp": "Benutzerdefinierte Eigenschaften markieren diese Notiz nicht als gelernt und ändern ihren Wiederholungsplan nicht.",
   "editor.noteMemory.backToNote": "Zurück zur Notiz",
   "editor.noteMemory.editMnemonic": "Merkhilfe bearbeiten",
-  "learning.noteMemory.studyThisNote": "Diese Notiz wiederholen"
+  "learning.noteMemory.studyThisNote": "Diese Notiz wiederholen",
+  "filters.date.pickDate": "Datum auswählen",
+  "filters.date.openPicker": "Kalender öffnen",
+  "filters.date.openPickerForDate": "Kalender öffnen ({date})",
+  "filters.date.resolvesTo": "Entspricht dem {date}",
+  "filters.date.unrecognized": "Nicht erkannt",
+  "filters.date.inputPlaceholder": "YYYY-MM-DD oder relatives Datum"
 }

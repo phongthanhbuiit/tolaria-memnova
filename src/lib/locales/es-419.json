@@ -1011,5 +1011,11 @@
   "properties.noteMemoryHelp": "Las propiedades personalizadas no marcan esta nota como aprendida ni cambian su calendario de repaso.",
   "editor.noteMemory.backToNote": "Volver a la nota",
   "editor.noteMemory.editMnemonic": "Editar recurso mnemotécnico",
-  "learning.noteMemory.studyThisNote": "Repasar esta nota"
+  "learning.noteMemory.studyThisNote": "Repasar esta nota",
+  "filters.date.pickDate": "Elegir una fecha",
+  "filters.date.openPicker": "Abrir el calendario",
+  "filters.date.openPickerForDate": "Abrir el calendario ({date})",
+  "filters.date.resolvesTo": "Corresponde al {date}",
+  "filters.date.unrecognized": "No reconocido",
+  "filters.date.inputPlaceholder": "YYYY-MM-DD o una fecha relativa"
 }

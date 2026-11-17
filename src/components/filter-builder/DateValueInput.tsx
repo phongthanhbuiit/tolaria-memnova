@@ -5,11 +5,15 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Calendar } from '@/components/ui/calendar'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { useAppLocale } from '@/hooks/useAppPreferences'
+import { translate } from '@/lib/i18n'
+import { formatDateForDisplay } from '@/utils/dateDisplay'
 import { parseDateFilterInput } from '@/utils/filterDates'
 
 const DATE_PREVIEW_DEBOUNCE_MS = 250
 
 export function DateValueInput({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  const locale = useAppLocale()
   const selected = value ? parseDateFilterInput(value) ?? undefined : undefined
   const [showPreview, setShowPreview] = useState(false)
   const [debouncedValue, setDebouncedValue] = useState(value)
@@ -22,9 +26,9 @@ export function DateValueInput({ value, onChange }: { value: string; onChange: (
   const previewValue = showPreview ? debouncedValue.trim() : ''
   const resolvedPreview = previewValue ? parseDateFilterInput(previewValue) : null
   const previewLabel = resolvedPreview
-    ? format(resolvedPreview, 'MMMM d, yyyy')
+    ? formatDateForDisplay(resolvedPreview, 'friendly', locale)
     : previewValue
-      ? 'Not recognized'
+      ? translate(locale, 'filters.date.unrecognized')
       : null
 
   return (
@@ -32,7 +36,7 @@ export function DateValueInput({ value, onChange }: { value: string; onChange: (
       <div className="flex min-w-0 items-center gap-1">
         <Input
           className="h-8 flex-1 min-w-0 text-sm"
-          placeholder='YYYY-MM-DD or "10 days ago"'
+          placeholder={translate(locale, 'filters.date.inputPlaceholder')}
           value={value}
           onChange={(e) => {
             setShowPreview(true)
@@ -50,8 +54,10 @@ export function DateValueInput({ value, onChange }: { value: string; onChange: (
               size="sm"
               data-testid="date-picker-trigger"
               className="h-8 w-8 shrink-0 px-0"
-              title={selected ? format(selected, 'MMM d, yyyy') : 'Pick a date'}
-              aria-label={selected ? `Open date picker (${format(selected, 'MMM d, yyyy')})` : 'Open date picker'}
+              title={selected ? formatDateForDisplay(selected, 'friendly', locale) : translate(locale, 'filters.date.pickDate')}
+              aria-label={selected
+                ? translate(locale, 'filters.date.openPickerForDate', { date: formatDateForDisplay(selected, 'friendly', locale) })
+                : translate(locale, 'filters.date.openPicker')}
             >
               <CalendarBlank size={14} className="shrink-0 text-muted-foreground" />
             </Button>
@@ -70,7 +76,7 @@ export function DateValueInput({ value, onChange }: { value: string; onChange: (
           className="pl-1 text-[11px] text-muted-foreground"
           data-testid={resolvedPreview ? 'date-value-preview' : 'date-value-preview-unrecognized'}
         >
-          {resolvedPreview ? `Resolves to ${previewLabel}` : previewLabel}
+          {resolvedPreview ? translate(locale, 'filters.date.resolvesTo', { date: previewLabel }) : previewLabel}
         </div>
       )}
     </div>

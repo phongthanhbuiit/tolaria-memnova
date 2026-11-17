@@ -1011,5 +1011,11 @@
   "properties.noteMemoryHelp": "カスタムプロパティでは、このノートを習得済みにしたり復習予定を変更したりできません。",
   "editor.noteMemory.backToNote": "ノートに戻る",
   "editor.noteMemory.editMnemonic": "記憶のヒントを編集",
-  "learning.noteMemory.studyThisNote": "このノートを復習"
+  "learning.noteMemory.studyThisNote": "このノートを復習",
+  "filters.date.pickDate": "日付を選択",
+  "filters.date.openPicker": "日付選択を開く",
+  "filters.date.openPickerForDate": "日付選択を開く（{date}）",
+  "filters.date.resolvesTo": "該当する日付：{date}",
+  "filters.date.unrecognized": "認識できません",
+  "filters.date.inputPlaceholder": "YYYY-MM-DD または相対日付"
 }
