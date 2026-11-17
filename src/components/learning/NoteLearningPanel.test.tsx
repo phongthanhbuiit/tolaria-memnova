@@ -28,7 +28,7 @@ it('keeps opening an ordinary note read-only until explicit enable', async () =>
   workspace.cards = []
   render(<><NoteMemorySwitch path="/library/a.md" locale="en" /><NoteLearningPanel path="/library/a.md" locale="en" /></>)
   expect(workspace.client.ensurePage).not.toHaveBeenCalled()
-  fireEvent.click(screen.getByRole('switch', { name: 'Spaced repetition' }))
+  fireEvent.click(screen.getByRole('switch', { name: 'Include in review schedule' }))
   await waitFor(() =>
     expect(workspace.setNoteEnabled).toHaveBeenCalledWith('/library/a.md', true)
   )
@@ -48,9 +48,9 @@ it('pauses an enabled note explicitly and offers only the selected note for stud
     },
   ]
   render(<><NoteMemorySwitch path="/library/a.md" locale="en" /><NoteLearningPanel path="/library/a.md" locale="en" /></>)
-  fireEvent.click(screen.getByRole('button', { name: 'Review this note' }))
+  fireEvent.click(screen.getByRole('button', { name: 'Review now' }))
   expect(workspace.requestStudy).toHaveBeenCalledWith(['a'], 'notes')
-  fireEvent.click(screen.getByRole('switch', { name: 'Spaced repetition' }))
+  fireEvent.click(screen.getByRole('switch', { name: 'Include in review schedule' }))
   await waitFor(() =>
     expect(workspace.setNoteEnabled).toHaveBeenCalledWith(
       '/library/a.md',
@@ -78,7 +78,7 @@ it('offers a draft mnemonic action without enabling or grading any source', asyn
   workspace.notes = [{ view: { path: 'a.md', pageId: 'a', state: 'draft', config: { enabled: true }, hasBack: false } }]
   const edit = vi.fn().mockResolvedValue(undefined)
   render(<NoteLearningPanel path="/library/a.md" locale="en" onEditMnemonic={edit} />)
-  expect(screen.queryByRole('button', { name: 'Review this note', exact: true })).toBeNull()
+  expect(screen.queryByRole('button', { name: 'Review now', exact: true })).toBeNull()
   fireEvent.click(screen.getByRole('button', { name: 'Add mnemonic', exact: true }))
   await waitFor(() => expect(edit).toHaveBeenCalledOnce())
   expect(workspace.setNoteEnabled).not.toHaveBeenCalled()
@@ -89,7 +89,7 @@ it('labels paused notes with resume and keeps mutation errors across a successfu
   workspace.notes = [{ view: { path: 'a.md', pageId: 'a', state: 'disabled', config: { enabled: false }, hasBack: true } }]
   workspace.setNoteEnabled.mockRejectedValueOnce(Error('write rejected'))
   const view = render(<NoteMemorySwitch path="/library/a.md" locale="en" />)
-  fireEvent.click(screen.getByRole('switch', { name: 'Spaced repetition' }))
+  fireEvent.click(screen.getByRole('switch', { name: 'Include in review schedule' }))
   await screen.findByRole('alert')
   await workspace.refresh()
   workspace.clock++
@@ -112,7 +112,7 @@ it('allows editing a retained mnemonic while paused without restarting learning'
   render(<NoteLearningPanel path="/library/a.md" locale="en" compact onEditMnemonic={edit} />)
   fireEvent.click(screen.getByRole('button', { name: 'Edit mnemonic', exact: true }))
   await waitFor(() => expect(edit).toHaveBeenCalledOnce())
-  expect(screen.queryByRole('button', { name: 'Review this note', exact: true })).toBeNull()
+  expect(screen.queryByRole('button', { name: 'Review now', exact: true })).toBeNull()
   expect(workspace.setNoteEnabled).not.toHaveBeenCalled()
 })
 
@@ -134,9 +134,22 @@ it.each([
   workspace.pages = [{ id: 'a', path: 'a.md' }]
   workspace.notes = [{ view: { path: 'a.md', pageId: 'a', state: 'ready', config: { enabled: true }, hasBack: true, schedule: { due } } }]
   render(<NoteLearningPanel path="/library/a.md" locale="en" compact />)
-  const review = screen.getByRole('button', { name: 'Review this note' })
+  const review = screen.getByRole('button', { name: 'Review now' })
   expect(review).toHaveAttribute('data-variant', variant)
   expect(review).toBeEnabled()
   fireEvent.click(review)
   expect(workspace.requestStudy).toHaveBeenCalledWith(['a'], 'notes')
+})
+
+it('distinguishes scheduling from immediate review in Vietnamese without changing actions', async () => {
+  workspace.pages = [{ id: 'a', path: 'a.md' }]
+  workspace.notes = [{ view: { path: 'a.md', pageId: 'a', state: 'ready', config: { enabled: true }, hasBack: true } }]
+  render(<><NoteMemorySwitch path="/library/a.md" locale="vi" /><NoteLearningPanel path="/library/a.md" locale="vi" /></>)
+  const schedule = screen.getByRole('switch', { name: 'Đưa vào lịch ôn' })
+  expect(schedule).toBeChecked()
+  fireEvent.click(screen.getByRole('button', { name: 'Ôn ngay' }))
+  expect(workspace.requestStudy).toHaveBeenCalledWith(['a'], 'notes')
+  expect(workspace.setNoteEnabled).not.toHaveBeenCalled()
+  fireEvent.click(schedule)
+  await waitFor(() => expect(workspace.setNoteEnabled).toHaveBeenCalledWith('/library/a.md', false))
 })

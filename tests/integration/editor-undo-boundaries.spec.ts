@@ -82,7 +82,7 @@ test('face switches and raw exit isolate history while same-face edits remain re
     await openNote(page, 'Alpha Project')
     const properties = page.getByRole('button', { name: 'Open the properties panel', exact: true })
     if (await properties.isVisible()) await properties.click()
-    const repeat = page.getByRole('switch', { name: 'Spaced repetition', exact: true })
+    const repeat = page.getByRole('switch', { name: 'Include in review schedule', exact: true })
     await repeat.click()
     await expect(repeat).toBeChecked()
     await expect(page.locator('.bn-editor')).toContainText('Article front.')

@@ -96,17 +96,17 @@ describe('FlashcardPanel', () => {
 
   it('renders the spaced repetition toggle', () => {
     render(<FlashcardPanel entry={makeEntry()} />)
-    expect(screen.getByRole('switch', { name: /spaced repetition/i })).toBeInTheDocument()
+    expect(screen.getByRole('switch', { name: /include in review schedule/i })).toBeInTheDocument()
   })
 
   it('shows toggle as unchecked when fsrsEnabled is false', () => {
     render(<FlashcardPanel entry={makeEntry({ fsrsEnabled: false })} />)
-    expect(screen.getByRole('switch', { name: /spaced repetition/i })).not.toBeChecked()
+    expect(screen.getByRole('switch', { name: /include in review schedule/i })).not.toBeChecked()
   })
 
   it('shows toggle as checked when fsrsEnabled is true', () => {
     render(<FlashcardPanel entry={makeEnabledEntry()} />)
-    expect(screen.getByRole('switch', { name: /spaced repetition/i })).toBeChecked()
+    expect(screen.getByRole('switch', { name: /include in review schedule/i })).toBeChecked()
   })
 
   // ---------------------------------------------------------------------------
@@ -288,7 +288,7 @@ describe('FlashcardPanel', () => {
     const entry = makeEntry({ fsrsEnabled: false })
     render(<FlashcardPanel entry={entry} onUpdateFrontmatter={onUpdate} />)
 
-    fireEvent.click(screen.getByRole('switch', { name: /spaced repetition/i }))
+    fireEvent.click(screen.getByRole('switch', { name: /include in review schedule/i }))
 
     await waitFor(() => {
       expect(onUpdate).toHaveBeenCalledWith('/vault/note.md', '_fsrs_enabled', true)
@@ -300,7 +300,7 @@ describe('FlashcardPanel', () => {
     const entry = makeEnabledEntry()
     render(<FlashcardPanel entry={entry} onUpdateFrontmatter={onUpdate} />)
 
-    fireEvent.click(screen.getByRole('switch', { name: /spaced repetition/i }))
+    fireEvent.click(screen.getByRole('switch', { name: /include in review schedule/i }))
 
     await waitFor(() => {
       expect(onUpdate).toHaveBeenCalledWith('/vault/note.md', '_fsrs_enabled', false)
@@ -311,7 +311,7 @@ describe('FlashcardPanel', () => {
     const entry = makeEntry()
     render(<FlashcardPanel entry={entry} />) // no onUpdateFrontmatter
     // Toggle is disabled — clicking should do nothing
-    fireEvent.click(screen.getByRole('switch', { name: /spaced repetition/i }))
+    fireEvent.click(screen.getByRole('switch', { name: /include in review schedule/i }))
     // No assertion error = no handler called
   })
 

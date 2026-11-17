@@ -3,7 +3,7 @@ const revealLabels = { en: 'Show mnemonic', vi: 'Xem gợi nhớ', 'de-DE': 'Mer
 
 test('note controls use the system type scale and expose a primary study action', async ({ page }) => {
   await page.goto('/tests/fixtures/note-memory-layout.html')
-  const study = page.getByRole('button', { name: 'Review this note', exact: true })
+  const study = page.getByRole('button', { name: 'Review now', exact: true })
   await expect(study).toBeEnabled()
   expect(await study.evaluate(element => getComputedStyle(element).fontSize)).toBe('13px')
   await expect(study).toHaveAttribute('data-variant', 'default')
@@ -61,7 +61,7 @@ test('coarse targets, contrast, reduced motion and keyboard focus remain usable'
   const page = await context.newPage()
   try {
     await page.goto('/tests/fixtures/note-memory-layout.html')
-    await page.getByRole('button', { name: 'Review this note', exact: true }).waitFor()
+    await page.getByRole('button', { name: 'Review now', exact: true }).waitFor()
     const metrics = []
     for (const theme of ['light','dark'] as const) {
       await page.evaluate(theme => window.setNoteLayoutCase?.({ surface: 'panel', locale: 'en', theme }), theme)
@@ -94,7 +94,7 @@ test('coarse targets, contrast, reduced motion and keyboard focus remain usable'
 
 test('editable drawing fits a compact editor', async ({ page }) => {
   await page.goto('/tests/fixtures/note-memory-layout.html')
-  await page.getByRole('button', { name: 'Review this note', exact: true }).waitFor()
+  await page.getByRole('button', { name: 'Review now', exact: true }).waitFor()
   await page.evaluate(() => window.setNoteLayoutCase?.({ surface: 'whiteboard', locale: 'en', theme: 'light' }))
   await expect(page.locator('.excalidraw canvas').first()).toBeVisible()
 })
