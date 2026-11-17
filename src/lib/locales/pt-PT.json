@@ -1026,5 +1026,19 @@
   "noteList.subtitle.links.few": "{count} ligações",
   "noteList.subtitle.links.many": "{count} ligações",
   "noteList.subtitle.links.other": "{count} ligações",
-  "filters.date.inputPlaceholder": "YYYY-MM-DD ou uma data relativa"
+  "filters.date.inputPlaceholder": "YYYY-MM-DD ou uma data relativa",
+  "editor.toolbar.fileActions": "Ações do ficheiro",
+  "editor.schedule.dueToday": "Para hoje",
+  "editor.schedule.due": "Para {date}",
+  "editor.schedule.nextReview": "FSRS: próxima data de revisão",
+  "editor.schedule.reviewDeck": "Rever baralho",
+  "editor.schedule.reviewDeckHelp": "Rever baralho — estudar todas as notas pendentes deste baralho",
+  "editor.schedule.options": "Opções de agendamento",
+  "editor.schedule.label": "Agendar",
+  "editor.schedule.thisNote": "Apenas esta nota",
+  "editor.schedule.thisNoteHelp": "Ativar FSRS nesta nota",
+  "editor.schedule.asDeck": "Agendar como baralho",
+  "editor.schedule.asDeckHelp": "Ativar FSRS em todas as notas do baralho",
+  "editor.schedule.reviewNoteHelp": "Agendar revisão da nota com repetição espaçada",
+  "editor.schedule.reviewNote": "Agendar revisão"
 }

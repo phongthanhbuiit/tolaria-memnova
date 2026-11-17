@@ -1026,5 +1026,19 @@
   "noteList.subtitle.links.few": "{count} tautan",
   "noteList.subtitle.links.many": "{count} tautan",
   "noteList.subtitle.links.other": "{count} tautan",
-  "filters.date.inputPlaceholder": "YYYY-MM-DD atau tanggal relatif"
+  "filters.date.inputPlaceholder": "YYYY-MM-DD atau tanggal relatif",
+  "editor.toolbar.fileActions": "Tindakan berkas",
+  "editor.schedule.dueToday": "Jatuh tempo hari ini",
+  "editor.schedule.due": "Jatuh tempo {date}",
+  "editor.schedule.nextReview": "FSRS: tanggal tinjauan berikutnya",
+  "editor.schedule.reviewDeck": "Tinjau dek",
+  "editor.schedule.reviewDeckHelp": "Tinjau dek — pelajari semua catatan yang jatuh tempo di dek ini",
+  "editor.schedule.options": "Opsi jadwal",
+  "editor.schedule.label": "Jadwalkan",
+  "editor.schedule.thisNote": "Hanya catatan ini",
+  "editor.schedule.thisNoteHelp": "Aktifkan FSRS pada catatan ini",
+  "editor.schedule.asDeck": "Jadwalkan sebagai dek",
+  "editor.schedule.asDeckHelp": "Aktifkan FSRS pada semua catatan anggota",
+  "editor.schedule.reviewNoteHelp": "Jadwalkan tinjauan catatan dengan pengulangan berjarak",
+  "editor.schedule.reviewNote": "Jadwalkan tinjauan"
 }

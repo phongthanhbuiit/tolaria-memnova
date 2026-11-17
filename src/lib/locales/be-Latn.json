@@ -1026,5 +1026,19 @@
   "noteList.subtitle.links.few": "{count} spasyłki",
   "noteList.subtitle.links.many": "{count} spasyłak",
   "noteList.subtitle.links.other": "{count} spasyłki",
-  "filters.date.inputPlaceholder": "YYYY-MM-DD abo adnosnaja data"
+  "filters.date.inputPlaceholder": "YYYY-MM-DD abo adnosnaja data",
+  "editor.toolbar.fileActions": "Dziejańni z fajlam",
+  "editor.schedule.dueToday": "Da paŭtareńnia siońnia",
+  "editor.schedule.due": "Da paŭtareńnia {date}",
+  "editor.schedule.nextReview": "FSRS: nastupnaja data paŭtareńnia",
+  "editor.schedule.reviewDeck": "Paŭtaryć kalodu",
+  "editor.schedule.reviewDeckHelp": "Paŭtaryć kalodu — vyvučyć usie natatki, termin paŭtareńnia jakich nastaŭ",
+  "editor.schedule.options": "Paramietry raskładu",
+  "editor.schedule.label": "Zaplanavać",
+  "editor.schedule.thisNote": "Tolki hetaja natatka",
+  "editor.schedule.thisNoteHelp": "Uklučyć FSRS dla hetaj natatki",
+  "editor.schedule.asDeck": "Zaplanavać jak kalodu",
+  "editor.schedule.asDeckHelp": "Uklučyć FSRS dla ŭsich natatak kalody",
+  "editor.schedule.reviewNoteHelp": "Zaplanavać intervalnaje paŭtareńnie natatki",
+  "editor.schedule.reviewNote": "Zaplanavać paŭtareńnie"
 }

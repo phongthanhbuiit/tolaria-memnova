@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 /**
  * FlashcardEditorTabs.tsx
  *
@@ -37,7 +38,7 @@ interface TabProps {
 
 function Tab({ label, icon, isActive, onClick, testId }: TabProps) {
   return (
-    <button
+    <Button variant="ghost" size="sm"
       type="button"
       role="tab"
       aria-selected={isActive}
@@ -45,7 +46,7 @@ function Tab({ label, icon, isActive, onClick, testId }: TabProps) {
       onClick={onClick}
       className={cn(
         'flashcard-tab',
-        'relative flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium',
+        'relative flex items-center gap-1.5 px-3 py-1.5 text-small font-medium',
         'rounded-md transition-all duration-150 select-none',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
         isActive
@@ -61,25 +62,25 @@ function Tab({ label, icon, isActive, onClick, testId }: TabProps) {
           className="absolute inset-x-0 -bottom-px h-px bg-background"
         />
       )}
-    </button>
+    </Button>
   )
 }
 
 function AddBackButton({ onClick }: { onClick: () => void }) {
   return (
-    <button
+    <Button variant="ghost" size="sm"
       type="button"
       onClick={onClick}
       data-testid="flashcard-add-back"
       className={cn(
-        'ml-1 flex items-center gap-1 px-2 py-1 text-xs',
+        'ml-1 flex items-center gap-1 px-2 py-1 text-small',
         'rounded-md text-muted-foreground border border-dashed border-border',
         'hover:text-foreground hover:border-foreground/30 transition-colors duration-150',
       )}
     >
       <Plus size={11} aria-hidden="true" />
       <span>Add back</span>
-    </button>
+    </Button>
   )
 }
 
@@ -129,9 +130,9 @@ export const FlashcardEditorTabs = memo(function FlashcardEditorTabs({
           aria-label="Flashcard — FSRS enabled"
           title="FSRS spaced repetition active"
           className={cn(
-            'inline-flex items-center gap-1 rounded-full px-2 py-0.5',
-            'text-[10px] font-medium tracking-wide',
-            'bg-violet-500/10 text-violet-500 border border-violet-500/20',
+            'inline-flex items-center gap-1 rounded-sm px-2 py-0.5',
+            'text-caption font-medium tracking-wide',
+            'bg-primary/10 text-primary border border-primary/20',
           )}
         >
           <Cards size={11} weight="duotone" aria-hidden="true" />

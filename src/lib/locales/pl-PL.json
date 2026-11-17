@@ -1026,5 +1026,19 @@
   "noteList.subtitle.links.few": "{count} linki",
   "noteList.subtitle.links.many": "{count} linków",
   "noteList.subtitle.links.other": "{count} linku",
-  "filters.date.inputPlaceholder": "YYYY-MM-DD lub data względna"
+  "filters.date.inputPlaceholder": "YYYY-MM-DD lub data względna",
+  "editor.toolbar.fileActions": "Operacje na pliku",
+  "editor.schedule.dueToday": "Do powtórki dzisiaj",
+  "editor.schedule.due": "Do powtórki {date}",
+  "editor.schedule.nextReview": "FSRS: następny termin powtórki",
+  "editor.schedule.reviewDeck": "Powtórz talię",
+  "editor.schedule.reviewDeckHelp": "Powtórz talię — ucz się wszystkich notatek z tej talii oczekujących na powtórkę",
+  "editor.schedule.options": "Opcje harmonogramu",
+  "editor.schedule.label": "Zaplanuj",
+  "editor.schedule.thisNote": "Tylko ta notatka",
+  "editor.schedule.thisNoteHelp": "Włącz FSRS dla tej notatki",
+  "editor.schedule.asDeck": "Zaplanuj jako talię",
+  "editor.schedule.asDeckHelp": "Włącz FSRS dla wszystkich notatek w talii",
+  "editor.schedule.reviewNoteHelp": "Zaplanuj powtórkę notatki metodą powtórek interwałowych",
+  "editor.schedule.reviewNote": "Zaplanuj powtórkę"
 }

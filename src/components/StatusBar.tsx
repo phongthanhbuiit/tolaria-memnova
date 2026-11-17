@@ -238,9 +238,10 @@ function StatusBarFooter(props: StatusBarFooterProps) {
   return (
     <footer
       data-testid="status-bar"
+      className="text-small"
       style={{
-        minHeight: 30,
-        height: stacked ? 'auto' : 30,
+        minHeight: 'var(--control-md)',
+        height: stacked ? 'auto' : 'var(--control-md)',
         flexShrink: 0,
         display: 'flex',
         flexWrap: stacked ? 'wrap' : 'nowrap',
@@ -251,7 +252,6 @@ function StatusBarFooter(props: StatusBarFooterProps) {
         background: 'var(--sidebar)',
         borderTop: '1px solid var(--border)',
         padding: stacked ? '4px 8px' : '0 8px',
-        fontSize: 12,
         color: 'var(--muted-foreground)',
         position: 'relative',
         zIndex: STATUS_BAR_STACKING_Z_INDEX,

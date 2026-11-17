@@ -1026,5 +1026,19 @@
   "noteList.subtitle.links.few": "{count} links",
   "noteList.subtitle.links.many": "{count} links",
   "noteList.subtitle.links.other": "{count} links",
-  "filters.date.inputPlaceholder": "YYYY-MM-DD or a relative date"
+  "filters.date.inputPlaceholder": "YYYY-MM-DD or a relative date",
+  "editor.toolbar.fileActions": "File actions",
+  "editor.schedule.dueToday": "Due today",
+  "editor.schedule.due": "Due {date}",
+  "editor.schedule.nextReview": "FSRS: next review date",
+  "editor.schedule.reviewDeck": "Review Deck",
+  "editor.schedule.reviewDeckHelp": "Review Deck — study all due notes in this deck",
+  "editor.schedule.options": "Schedule options",
+  "editor.schedule.label": "Schedule",
+  "editor.schedule.thisNote": "This note only",
+  "editor.schedule.thisNoteHelp": "Enable FSRS on this note",
+  "editor.schedule.asDeck": "Schedule as Deck",
+  "editor.schedule.asDeckHelp": "Enable FSRS on all member notes",
+  "editor.schedule.reviewNoteHelp": "Schedule note for spaced repetition review",
+  "editor.schedule.reviewNote": "Schedule for review"
 }

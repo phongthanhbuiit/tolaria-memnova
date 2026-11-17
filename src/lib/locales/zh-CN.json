@@ -1026,5 +1026,19 @@
   "noteList.subtitle.links.few": "{count} 个链接",
   "noteList.subtitle.links.many": "{count} 个链接",
   "noteList.subtitle.links.other": "{count} 个链接",
-  "filters.date.inputPlaceholder": "YYYY-MM-DD 或相对日期"
+  "filters.date.inputPlaceholder": "YYYY-MM-DD 或相对日期",
+  "editor.toolbar.fileActions": "文件操作",
+  "editor.schedule.dueToday": "今天到期",
+  "editor.schedule.due": "到期日期：{date}",
+  "editor.schedule.nextReview": "FSRS：下次复习日期",
+  "editor.schedule.reviewDeck": "复习卡组",
+  "editor.schedule.reviewDeckHelp": "复习卡组 — 学习此卡组中所有到期笔记",
+  "editor.schedule.options": "计划选项",
+  "editor.schedule.label": "安排计划",
+  "editor.schedule.thisNote": "仅此笔记",
+  "editor.schedule.thisNoteHelp": "为此笔记启用 FSRS",
+  "editor.schedule.asDeck": "按卡组安排计划",
+  "editor.schedule.asDeckHelp": "为所有成员笔记启用 FSRS",
+  "editor.schedule.reviewNoteHelp": "安排笔记的间隔重复复习",
+  "editor.schedule.reviewNote": "安排复习"
 }

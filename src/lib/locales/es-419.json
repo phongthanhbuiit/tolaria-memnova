@@ -1026,5 +1026,19 @@
   "noteList.subtitle.links.few": "{count} enlaces",
   "noteList.subtitle.links.many": "{count} enlaces",
   "noteList.subtitle.links.other": "{count} enlaces",
-  "filters.date.inputPlaceholder": "YYYY-MM-DD o una fecha relativa"
+  "filters.date.inputPlaceholder": "YYYY-MM-DD o una fecha relativa",
+  "editor.toolbar.fileActions": "Acciones del archivo",
+  "editor.schedule.dueToday": "Para hoy",
+  "editor.schedule.due": "Para el {date}",
+  "editor.schedule.nextReview": "FSRS: próxima fecha de repaso",
+  "editor.schedule.reviewDeck": "Repasar mazo",
+  "editor.schedule.reviewDeckHelp": "Repasar mazo — estudiar todas las notas pendientes de este mazo",
+  "editor.schedule.options": "Opciones de programación",
+  "editor.schedule.label": "Programar",
+  "editor.schedule.thisNote": "Solo esta nota",
+  "editor.schedule.thisNoteHelp": "Activar FSRS en esta nota",
+  "editor.schedule.asDeck": "Programar como mazo",
+  "editor.schedule.asDeckHelp": "Activar FSRS en todas las notas del mazo",
+  "editor.schedule.reviewNoteHelp": "Programar el repaso de la nota con repetición espaciada",
+  "editor.schedule.reviewNote": "Programar repaso"
 }

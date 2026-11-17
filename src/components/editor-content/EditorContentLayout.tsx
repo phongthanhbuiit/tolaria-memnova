@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import type React from 'react'
 import { useCallback, useEffect, useLayoutEffect, useId, useRef, useState } from 'react'
 import { cn } from '@/lib/utils'
@@ -94,11 +95,11 @@ const LOADING_BREADCRUMB_ENTRY: VaultEntry = {
 function EditorLoadingSkeleton() {
   return (
     <div data-testid="editor-content-skeleton" className="flex flex-1 flex-col gap-3 py-5 animate-pulse" style={{ minHeight: 0 }}>
-      <div className="h-6 w-2/5 rounded bg-muted" />
-      <div className="h-4 w-4/5 rounded bg-muted" />
-      <div className="h-4 w-3/5 rounded bg-muted" />
-      <div className="h-4 w-4/5 rounded bg-muted" />
-      <div className="h-4 w-2/5 rounded bg-muted" />
+      <div className="h-6 w-2/5 rounded-sm bg-muted" />
+      <div className="h-4 w-4/5 rounded-sm bg-muted" />
+      <div className="h-4 w-3/5 rounded-sm bg-muted" />
+      <div className="h-4 w-4/5 rounded-sm bg-muted" />
+      <div className="h-4 w-2/5 rounded-sm bg-muted" />
     </div>
   )
 }
@@ -118,14 +119,14 @@ function DiffModeView({ diffContent, locale = 'en', onToggleDiff }: { diffConten
 
   return (
     <div className="flex-1 overflow-auto">
-      <button type="button"
-        className="flex items-center gap-1.5 px-4 py-2 text-xs text-primary bg-muted border-b border-border cursor-pointer hover:bg-accent transition-colors w-full border-t-0 border-l-0 border-r-0"
+      <Button variant="ghost" size="sm" type="button"
+        className="flex items-center gap-1.5 px-4 py-2 text-small text-primary bg-muted border-b border-border cursor-pointer hover:bg-accent transition-colors w-full border-t-0 border-l-0 border-r-0"
         onClick={onToggleDiff}
         title={label}
       >
-        <span style={{ fontSize: 14, lineHeight: 1 }}>&larr;</span>
+        <span className="text-body-lg leading-none">&larr;</span>
         {label}
-      </button>
+      </Button>
       <DiffView diff={diffContent ?? ''} />
     </div>
   )
@@ -596,7 +597,7 @@ export function EditorContentLayout(model: EditorContentModel) {
         {showActiveContent&&flashcard.activeFace==='back'&&flashcard.isNoteMemory&&flashcard.isFSRS&&flashcard.configureBack&&flashcard.noteMemoryPageId&&flashcard.sourceBack&&!effectiveRawMode&&!diffMode&&<NoteBackSourceToolbar layout="inline" back={flashcard.sourceBack} ownerPath={path} ownerPageId={flashcard.noteMemoryPageId} locale={locale} onApplyBack={flashcard.configureBack} onNavigate={onNavigateWikilink} />}
       </NoteMemoryEditorTabs>}
       {!noteNavigation && showLearningTabs && learningWorkspace && <TabsList variant="line" className="note-memory-workspace-tabs mx-3 mt-1" aria-label={translate(locale, learningWorkspace.client?.supportsNoteMemory ? 'learning.noteMemory.management' : 'learning.cards')}><TabsTrigger size="md" layout="responsive" value="content">{translate(locale, 'learning.content')}</TabsTrigger><TabsTrigger size="md" layout="responsive" value="cards">{translate(locale, learningWorkspace.client?.supportsNoteMemory ? 'learning.noteMemory.management' : 'learning.cards')}</TabsTrigger></TabsList>}
-      {tabError && <p role="alert" className="px-4 text-sm text-destructive">{tabError}</p>}
+      {tabError && <p role="alert" className="px-4 text-body text-destructive">{tabError}</p>}
       {showLearningTabs && <TabsContent value="cards" className="min-h-0 flex-1"><PageFlashcards key={path} path={path} locale={locale} onEditMnemonic={openMnemonic} /></TabsContent>}
       <TabsContent value={contentTab} id={memoryPanelId} forceMount {...(!showLearningTabs && { role: undefined, 'aria-labelledby': undefined, tabIndex: undefined })} className="flex min-h-0 flex-1 flex-col data-[state=inactive]:hidden">
       {/* Flashcard tab bar — only shown when FSRS is enabled on the active note */}
@@ -632,8 +633,8 @@ export function EditorContentLayout(model: EditorContentModel) {
             vaultPath={vaultPath}
             locale={locale}
           />
-          {flashcard.viewLoading && !effectiveRawMode && !linkedBack && <p role="status" className="px-4 py-2 text-sm text-muted-foreground">{translate(locale, 'learning.loading')}</p>}
-          {flashcard.isNoteMemory && flashcard.activeFace === 'back' && flashcard.emptyBack && !flashcard.linkedBack && !effectiveRawMode && <p className="px-4 py-2 text-sm text-muted-foreground">{translate(locale, 'editor.noteMemory.mnemonicHelp')}</p>}
+          {flashcard.viewLoading && !effectiveRawMode && !linkedBack && <p role="status" className="px-4 py-2 text-body text-muted-foreground">{translate(locale, 'learning.loading')}</p>}
+          {flashcard.isNoteMemory && flashcard.activeFace === 'back' && flashcard.emptyBack && !flashcard.linkedBack && !effectiveRawMode && <p className="px-4 py-2 text-body text-muted-foreground">{translate(locale, 'editor.noteMemory.mnemonicHelp')}</p>}
           {linkedBack&&<LinkedNoteBackPreview back={linkedBack} ownerPageId={flashcard.noteMemoryPageId} locale={locale} style={cssVars as React.CSSProperties} />}
           <div className="flex min-h-0 flex-1 flex-col" hidden={Boolean(linkedBack)} inert={Boolean(linkedBack)||flashcard.viewLoading || undefined} aria-hidden={Boolean(linkedBack)||flashcard.viewLoading || undefined} style={flashcard.viewLoading ? { visibility: 'hidden' } : undefined}>
           <EditorCanvas

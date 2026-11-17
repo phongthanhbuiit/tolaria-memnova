@@ -1026,5 +1026,19 @@
   "noteList.subtitle.links.few": "{count} liens",
   "noteList.subtitle.links.many": "{count} liens",
   "noteList.subtitle.links.other": "{count} liens",
-  "filters.date.inputPlaceholder": "YYYY-MM-DD ou une date relative"
+  "filters.date.inputPlaceholder": "YYYY-MM-DD ou une date relative",
+  "editor.toolbar.fileActions": "Actions sur le fichier",
+  "editor.schedule.dueToday": "À réviser aujourd’hui",
+  "editor.schedule.due": "À réviser le {date}",
+  "editor.schedule.nextReview": "FSRS : prochaine date de révision",
+  "editor.schedule.reviewDeck": "Réviser le paquet",
+  "editor.schedule.reviewDeckHelp": "Réviser le paquet — étudier toutes les notes à réviser de ce paquet",
+  "editor.schedule.options": "Options de planification",
+  "editor.schedule.label": "Planifier",
+  "editor.schedule.thisNote": "Cette note uniquement",
+  "editor.schedule.thisNoteHelp": "Activer FSRS pour cette note",
+  "editor.schedule.asDeck": "Planifier comme paquet",
+  "editor.schedule.asDeckHelp": "Activer FSRS pour toutes les notes du paquet",
+  "editor.schedule.reviewNoteHelp": "Planifier la révision de la note par répétition espacée",
+  "editor.schedule.reviewNote": "Planifier la révision"
 }

@@ -183,7 +183,7 @@ function useEditorModeExclusion({
 }
 
 function EditorEmptyState({ locale = 'en', onCreateNote, onQuickOpen }: Pick<EditorProps, 'locale' | 'onCreateNote' | 'onQuickOpen'>) {
-  const breadcrumbBarHeight = 52
+  const breadcrumbBarHeight = 'calc(var(--control-sm) * 2)'
   const { onMouseDown } = useDragRegion()
 
   return (
@@ -197,18 +197,18 @@ function EditorEmptyState({ locale = 'en', onCreateNote, onQuickOpen }: Pick<Edi
         style={{ height: breadcrumbBarHeight }}
       />
       <div className="flex flex-1 flex-col items-center justify-center gap-3 px-4 text-center">
-        <p className="m-0 text-[15px] text-muted-foreground">{translate(locale, 'editor.empty.selectNote')}</p>
+        <p className="m-0 text-body-lg text-muted-foreground">{translate(locale, 'editor.empty.selectNote')}</p>
         <div className="flex flex-wrap items-center justify-center gap-2">
           {onCreateNote && (
             <Button type="button" size="sm" onClick={() => onCreateNote()}>
               {translate(locale, 'command.note.newNote')}
-              <kbd aria-hidden="true" className="font-sans text-xs">{getAppCommandShortcutDisplay(APP_COMMAND_IDS.fileNewNote)}</kbd>
+              <kbd aria-hidden="true" className="font-sans text-caption">{getAppCommandShortcutDisplay(APP_COMMAND_IDS.fileNewNote)}</kbd>
             </Button>
           )}
           {onQuickOpen && (
             <Button type="button" size="sm" variant="outline" onClick={() => onQuickOpen()}>
               {translate(locale, 'capture.open')}
-              <kbd aria-hidden="true" className="font-sans text-xs text-muted-foreground">{getAppCommandShortcutDisplay(APP_COMMAND_IDS.fileQuickOpen)}</kbd>
+              <kbd aria-hidden="true" className="font-sans text-caption text-muted-foreground">{getAppCommandShortcutDisplay(APP_COMMAND_IDS.fileQuickOpen)}</kbd>
             </Button>
           )}
         </div>

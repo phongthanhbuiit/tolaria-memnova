@@ -105,8 +105,8 @@ function BuildNumberButton({
   locale: AppLocale
 }) {
   const className = compact
-    ? 'h-6 min-w-0 gap-1 rounded-sm px-1 py-0.5 text-[12px] font-medium text-muted-foreground hover:bg-[var(--hover)] hover:text-foreground'
-    : 'h-auto gap-1 rounded-sm px-1 py-0.5 text-[12px] font-medium text-muted-foreground hover:bg-[var(--hover)] hover:text-foreground'
+    ? 'min-w-0 gap-1 rounded-md px-1 py-0.5 text-small font-medium text-muted-foreground hover:bg-[var(--hover)] hover:text-foreground'
+    : 'gap-1 rounded-md px-1 py-0.5 text-small font-medium text-muted-foreground hover:bg-[var(--hover)] hover:text-foreground'
 
   return (
     <ActionTooltip copy={{ label: translate(locale, 'status.update.check') }} side="top">
@@ -235,8 +235,8 @@ function StatusLinkButton({
   tooltipKey,
 }: StatusLinkButtonProps) {
   const className = compact
-    ? 'h-6 w-6 rounded-sm p-0 text-muted-foreground hover:text-foreground'
-    : 'h-6 px-2 text-[12px] font-medium text-muted-foreground hover:text-foreground'
+    ? 'rounded-md p-0 text-muted-foreground hover:text-foreground'
+    : 'px-2 text-small font-medium text-muted-foreground hover:text-foreground'
 
   return (
     <ActionTooltip copy={{ label: translate(locale, tooltipKey) }} side="top">
@@ -526,7 +526,7 @@ export function StatusBarSecondarySection({
             type="button"
             variant="ghost"
             size="xs"
-            className="h-auto rounded-sm px-1 py-0.5 text-[12px] font-medium text-muted-foreground hover:bg-[var(--hover)] hover:text-foreground"
+            className="rounded-md px-1 py-0.5 text-small font-medium text-muted-foreground hover:bg-[var(--hover)] hover:text-foreground"
             onClick={onZoomReset}
             aria-label={translate(locale, 'status.zoom.reset')}
             data-testid="status-zoom"

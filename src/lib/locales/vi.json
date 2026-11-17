@@ -1026,5 +1026,19 @@
   "noteList.subtitle.links.few": "{count} liên kết",
   "noteList.subtitle.links.many": "{count} liên kết",
   "noteList.subtitle.links.other": "{count} liên kết",
-  "filters.date.inputPlaceholder": "YYYY-MM-DD hoặc ngày tương đối"
+  "filters.date.inputPlaceholder": "YYYY-MM-DD hoặc ngày tương đối",
+  "editor.toolbar.fileActions": "Thao tác tệp",
+  "editor.schedule.dueToday": "Đến hạn hôm nay",
+  "editor.schedule.due": "Đến hạn {date}",
+  "editor.schedule.nextReview": "FSRS: ngày ôn tập tiếp theo",
+  "editor.schedule.reviewDeck": "Ôn bộ thẻ",
+  "editor.schedule.reviewDeckHelp": "Ôn bộ thẻ — học tất cả ghi chú đến hạn trong bộ này",
+  "editor.schedule.options": "Tùy chọn lịch ôn",
+  "editor.schedule.label": "Lên lịch",
+  "editor.schedule.thisNote": "Chỉ ghi chú này",
+  "editor.schedule.thisNoteHelp": "Bật FSRS cho ghi chú này",
+  "editor.schedule.asDeck": "Lên lịch cho bộ thẻ",
+  "editor.schedule.asDeckHelp": "Bật FSRS cho mọi ghi chú thành viên",
+  "editor.schedule.reviewNoteHelp": "Lên lịch ôn ghi chú theo phương pháp lặp lại ngắt quãng",
+  "editor.schedule.reviewNote": "Lên lịch ôn tập"
 }

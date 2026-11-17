@@ -1026,5 +1026,19 @@
   "noteList.subtitle.links.few": "{count} спасылкі",
   "noteList.subtitle.links.many": "{count} спасылак",
   "noteList.subtitle.links.other": "{count} спасылкі",
-  "filters.date.inputPlaceholder": "YYYY-MM-DD або адносная дата"
+  "filters.date.inputPlaceholder": "YYYY-MM-DD або адносная дата",
+  "editor.toolbar.fileActions": "Дзеянні з файлам",
+  "editor.schedule.dueToday": "Да паўтарэння сёння",
+  "editor.schedule.due": "Да паўтарэння {date}",
+  "editor.schedule.nextReview": "FSRS: наступная дата паўтарэння",
+  "editor.schedule.reviewDeck": "Паўтарыць калоду",
+  "editor.schedule.reviewDeckHelp": "Паўтарыць калоду — вывучыць усе нататкі, тэрмін паўтарэння якіх настаў",
+  "editor.schedule.options": "Параметры раскладу",
+  "editor.schedule.label": "Запланаваць",
+  "editor.schedule.thisNote": "Толькі гэта нататка",
+  "editor.schedule.thisNoteHelp": "Уключыць FSRS для гэтай нататкі",
+  "editor.schedule.asDeck": "Запланаваць як калоду",
+  "editor.schedule.asDeckHelp": "Уключыць FSRS для ўсіх нататак калоды",
+  "editor.schedule.reviewNoteHelp": "Запланаваць інтэрвальнае паўтарэнне нататкі",
+  "editor.schedule.reviewNote": "Запланаваць паўтарэнне"
 }

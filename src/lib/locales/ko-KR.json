@@ -1026,5 +1026,19 @@
   "noteList.subtitle.links.few": "{count} 개 링크",
   "noteList.subtitle.links.many": "{count} 개 링크",
   "noteList.subtitle.links.other": "{count} 개 링크",
-  "filters.date.inputPlaceholder": "YYYY-MM-DD 또는 상대 날짜"
+  "filters.date.inputPlaceholder": "YYYY-MM-DD 또는 상대 날짜",
+  "editor.toolbar.fileActions": "파일 작업",
+  "editor.schedule.dueToday": "오늘 복습 예정",
+  "editor.schedule.due": "복습 예정: {date}",
+  "editor.schedule.nextReview": "FSRS: 다음 복습 날짜",
+  "editor.schedule.reviewDeck": "덱 복습",
+  "editor.schedule.reviewDeckHelp": "덱 복습 — 이 덱에서 복습할 때가 된 모든 노트 학습",
+  "editor.schedule.options": "일정 옵션",
+  "editor.schedule.label": "일정 설정",
+  "editor.schedule.thisNote": "이 노트만",
+  "editor.schedule.thisNoteHelp": "이 노트에 FSRS 활성화",
+  "editor.schedule.asDeck": "덱으로 일정 설정",
+  "editor.schedule.asDeckHelp": "모든 구성원 노트에 FSRS 활성화",
+  "editor.schedule.reviewNoteHelp": "간격 반복으로 노트 복습 일정 설정",
+  "editor.schedule.reviewNote": "복습 일정 설정"
 }

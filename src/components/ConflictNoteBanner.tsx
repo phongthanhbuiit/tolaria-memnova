@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import { Warning as AlertTriangle } from '@phosphor-icons/react'
 import { translate, type AppLocale } from '../lib/i18n'
 
@@ -11,6 +12,7 @@ export function ConflictNoteBanner({ onKeepMine, onKeepTheirs, locale = 'en' }: 
   return (
     <div
       data-testid="conflict-note-banner"
+      className="text-small"
       style={{
         display: 'flex',
         alignItems: 'center',
@@ -18,7 +20,6 @@ export function ConflictNoteBanner({ onKeepMine, onKeepTheirs, locale = 'en' }: 
         padding: '4px 16px',
         background: 'var(--muted)',
         borderBottom: '1px solid var(--border)',
-        fontSize: 12,
         color: 'var(--accent-orange)',
         flexShrink: 0,
       }}
@@ -26,44 +27,20 @@ export function ConflictNoteBanner({ onKeepMine, onKeepTheirs, locale = 'en' }: 
       <AlertTriangle size={13} />
       <span>{translate(locale, 'editor.banner.conflict')}</span>
       <div style={{ marginLeft: 'auto', display: 'flex', gap: 4 }}>
-        <button type="button"
+        <Button variant="outline" size="sm" type="button"
           data-testid="conflict-keep-mine-btn"
           onClick={onKeepMine}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 4,
-            padding: '2px 8px',
-            background: 'transparent',
-            border: '1px solid var(--border)',
-            borderRadius: 4,
-            fontSize: 11,
-            color: 'var(--foreground)',
-            cursor: 'pointer',
-          }}
           title={translate(locale, 'editor.banner.keepMineTooltip')}
         >
           {translate(locale, 'editor.banner.keepMine')}
-        </button>
-        <button type="button"
+        </Button>
+        <Button variant="outline" size="sm" type="button"
           data-testid="conflict-keep-theirs-btn"
           onClick={onKeepTheirs}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 4,
-            padding: '2px 8px',
-            background: 'transparent',
-            border: '1px solid var(--border)',
-            borderRadius: 4,
-            fontSize: 11,
-            color: 'var(--foreground)',
-            cursor: 'pointer',
-          }}
           title={translate(locale, 'editor.banner.keepTheirsTooltip')}
         >
           {translate(locale, 'editor.banner.keepTheirs')}
-        </button>
+        </Button>
       </div>
     </div>
   )

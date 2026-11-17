@@ -1,0 +1,344 @@
+{
+  "baseline": "707bac537d5abac434c741ce454a11f13fcd79e3",
+  "rules": {
+    "spec8": "text-\\[[0-9.]+(?:px|rem)\\]|fontSize:",
+    "legacyType": "\\btext-(?:xs|sm|base|lg|xl|[2-9]xl)\\b",
+    "heightWidthLiteral": "(?<![\\w-])(?:min-|max-)?[hw]-(?:\\d+(?:\\.\\d+)?|\\[[^\\]]*\\d[^\\]]*\\])",
+    "radius": "\\brounded(?:-[\\w\\[\\].]+)?|borderRadius:",
+    "nonTokenTextColor": "\\btext-(?:white|black|(?:gray|slate|zinc|neutral|stone|red|green|blue|purple|amber|yellow|orange)-\\d+)|(?:\\bcolor:\\s*[\\'\\\"](?:#|rgb|hsl))"
+  },
+  "results": [
+    {
+      "file": "src/components/BreadcrumbBar.tsx",
+      "before": {
+        "spec8": 6,
+        "legacyType": 5,
+        "heightWidthLiteral": 11,
+        "radius": 3,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 1,
+        "controlHard": 1,
+        "controlHardLines": [
+          642
+        ]
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 9,
+        "radius": 3,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/Editor.tsx",
+      "before": {
+        "spec8": 1,
+        "legacyType": 2,
+        "heightWidthLiteral": 2,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 2,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/editor-content/EditorContentLayout.tsx",
+      "before": {
+        "spec8": 1,
+        "legacyType": 4,
+        "heightWidthLiteral": 10,
+        "radius": 5,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 5,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 10,
+        "radius": 5,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/StatusBar.tsx",
+      "before": {
+        "spec8": 1,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/ArchivedNoteBanner.tsx",
+      "before": {
+        "spec8": 2,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 1,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 1,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/ConflictNoteBanner.tsx",
+      "before": {
+        "spec8": 3,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 2,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 2,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/RawEditorFindBar.tsx",
+      "before": {
+        "spec8": 0,
+        "legacyType": 3,
+        "heightWidthLiteral": 5,
+        "radius": 2,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 2,
+        "controlHard": 2,
+        "controlHardLines": [
+          330,
+          421
+        ]
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 5,
+        "radius": 2,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/NoteMemoryEditorTabs.tsx",
+      "before": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 2,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 2,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/FlashcardEditorTabs.tsx",
+      "before": {
+        "spec8": 1,
+        "legacyType": 2,
+        "heightWidthLiteral": 0,
+        "radius": 3,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 3,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/status-bar/StatusBarBadges.tsx",
+      "before": {
+        "spec8": 5,
+        "legacyType": 0,
+        "heightWidthLiteral": 2,
+        "radius": 7,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 5,
+        "controlHard": 2,
+        "controlHardLines": [
+          158,
+          427
+        ]
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 1,
+        "radius": 6,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/status-bar/StatusBarSections.tsx",
+      "before": {
+        "spec8": 4,
+        "legacyType": 0,
+        "heightWidthLiteral": 3,
+        "radius": 4,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 1,
+        "radius": 4,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/status-bar/VaultMenu.tsx",
+      "before": {
+        "spec8": 7,
+        "legacyType": 2,
+        "heightWidthLiteral": 6,
+        "radius": 10,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 1,
+        "controlHard": 1,
+        "controlHardLines": [
+          389
+        ]
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 3,
+        "radius": 10,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/status-bar/AiAgentsBadge.tsx",
+      "before": {
+        "spec8": 2,
+        "legacyType": 2,
+        "heightWidthLiteral": 3,
+        "radius": 1,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 1,
+        "radius": 1,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    },
+    {
+      "file": "src/components/status-bar/styles.ts",
+      "before": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      },
+      "after": {
+        "spec8": 0,
+        "legacyType": 0,
+        "heightWidthLiteral": 0,
+        "radius": 0,
+        "nonTokenTextColor": 0,
+        "radiusOffScale": 0,
+        "controlHard": 0,
+        "controlHardLines": []
+      }
+    }
+  ]
+}

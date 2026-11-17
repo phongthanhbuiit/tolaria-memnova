@@ -1026,5 +1026,19 @@
   "noteList.subtitle.links.few": "{count} ссылки",
   "noteList.subtitle.links.many": "{count} ссылок",
   "noteList.subtitle.links.other": "{count} ссылки",
-  "filters.date.inputPlaceholder": "YYYY-MM-DD или относительная дата"
+  "filters.date.inputPlaceholder": "YYYY-MM-DD или относительная дата",
+  "editor.toolbar.fileActions": "Действия с файлом",
+  "editor.schedule.dueToday": "К повторению сегодня",
+  "editor.schedule.due": "К повторению {date}",
+  "editor.schedule.nextReview": "FSRS: следующая дата повторения",
+  "editor.schedule.reviewDeck": "Повторить колоду",
+  "editor.schedule.reviewDeckHelp": "Повторить колоду — изучить все заметки, срок повторения которых наступил",
+  "editor.schedule.options": "Параметры расписания",
+  "editor.schedule.label": "Запланировать",
+  "editor.schedule.thisNote": "Только эта заметка",
+  "editor.schedule.thisNoteHelp": "Включить FSRS для этой заметки",
+  "editor.schedule.asDeck": "Запланировать как колоду",
+  "editor.schedule.asDeckHelp": "Включить FSRS для всех заметок колоды",
+  "editor.schedule.reviewNoteHelp": "Запланировать интервальное повторение заметки",
+  "editor.schedule.reviewNote": "Запланировать повторение"
 }

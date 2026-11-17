@@ -31,7 +31,7 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 | F-015 | P2 | C3 | Màn ôn: 4 nút chấm điểm viền màu dày lạc khỏi ngôn ngữ thị giác của app | ảnh | fixed (87129845, superseded by F-028) |
 | F-016 | P2 | C4 | Màn ôn: "0/1 · 0 reviews", "in 1 min." khó hiểu | ảnh | fixed (60445d20) |
 | F-017 | P2 | C4 | "Hộp thư đến", "Library", "Notes", thư mục `views` trong sidebar tiếng Việt | ảnh | open |
-| F-018 | P2 | C5 | Thanh công cụ editor 10 icon không nhãn | ảnh | open |
+| F-018 | P2 | C5 | Thanh công cụ editor 10 icon không nhãn | ảnh | fixed (`:/fix: F-018 group and label editor chrome`) |
 | F-019 | P2 | C5 | 27 chỗ `outline-none`, có thể mất vòng focus | mã | open |
 | F-020 | P2 | C1 | "Trang chủ" và "Ôn tập" trên sidebar: không rõ khác nhau thế nào | nghi ngờ | open |
 | F-021 | P2 | C9 | 8 component > 850 dòng (App.tsx 1886) | mã | open |
@@ -131,6 +131,8 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 ### F-018 — Thanh công cụ editor
 - Thực tế (`WRITE`): 10 icon liền nhau, một số khó đoán. Cần kiểm tooltip + phím tắt khi chạy app.
 - Sửa: tooltip có tên + phím tắt cho từng nút; gom nút ít dùng vào "…".
+
+- D3: giữ nhãn/tooltip đã có của icon chính; thêm nhóm chức năng, dịch nhánh Schedule/Review Deck và focus tooltip thanh tìm. Token hoá chrome/status bar; 10 icon AX/tooltip tiếng Việt kiểm riêng. [Nghiệm thu D3](STEP-D3-EDITOR-CHROME.md).
 
 ### F-019 — `outline-none`
 - Thực tế: 27 chỗ. Mở từng chỗ, kiểm có `focus-visible:ring` thay thế không.

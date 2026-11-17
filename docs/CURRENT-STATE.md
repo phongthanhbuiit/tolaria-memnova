@@ -1,6 +1,8 @@
 # Memnova hiện tại
 
-**18/11/2026 — bước D2:** Trang chủ dùng display/title và Tabs gạch chân, giữ một hành động chính; hàng danh sách chỉ còn một ngày theo formatter hiện có, sidebar thống nhất trạng thái chọn và badge trung tính. [Ma trận ảnh native 1440/1024, en/vi, sáng/tối và nghiệm thu D2](audits/STEP-D2-HOME-LIST-SIDEBAR.md). Giữ F-039/F-041 và dữ liệu; D3/D4 chưa thực hiện. Đây chưa phải bản cài phát hành mới.
+**18/11/2026 — bước D3:** Editor actionbar chia nhóm và dùng tooltip/aria đã dịch, chrome/status bar dùng token; H1 rỗng faint/upright; breadcrumb hiện tiêu đề, filename chỉ đổi qua thao tác tường minh. [Ảnh native trước/sau, TDD, dữ liệu và gate D3](audits/STEP-D3-EDITOR-CHROME.md). Không đổi nội dung BlockNote hoặc đặt tên ghi chú mới. D4 chưa làm; chưa phải bản cài phát hành mới.
+
+**18/11/2026 — bước D2:** Trang chủ dùng display/title và Tabs gạch chân, giữ một hành động chính; hàng danh sách chỉ còn một ngày theo formatter hiện có, sidebar thống nhất trạng thái chọn và badge trung tính. [Ma trận ảnh native 1440/1024, en/vi, sáng/tối và nghiệm thu D2](audits/STEP-D2-HOME-LIST-SIDEBAR.md). Giữ F-039/F-041 và dữ liệu; D3 có nghiệm thu riêng ở trên; D4 chưa thực hiện. Đây chưa phải bản cài phát hành mới.
 
 **17/11/2026 — F-041 (P1):** sửa vòng cập nhật giữa metadata transition và layout store của react-virtuoso trên WebKit. Giữ dữ liệu thứ tự danh sách ổn định theo path, hàng đọc metadata mới qua context. [Tỉ lệ lỗi trước/sau, regression RED và native QA riêng](audits/F-041-COMPLETION.md). Chưa phải bản cài phát hành mới.
 

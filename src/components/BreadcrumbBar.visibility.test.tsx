@@ -58,12 +58,12 @@ describe('BreadcrumbBar filename visibility', () => {
     expect(screen.getByText('Test Note')).toBeVisible()
   })
 
-  it('keeps breadcrumb action buttons on the zero-padding footprint', () => {
+  it('keeps breadcrumb action buttons on the shared small icon footprint', () => {
     const { container } = render(<BreadcrumbBar entry={baseEntry} {...defaultProps} />)
     const buttons = container.querySelectorAll('.breadcrumb-bar__actions button')
     expect(buttons.length).toBeGreaterThan(0)
     for (const button of buttons) {
-      expect(button).toHaveClass('w-auto', 'h-auto', 'min-w-0', 'p-0', 'rounded-none')
+      expect(button).toHaveClass('w-(--control-sm)', 'h-(--control-sm)', 'p-0', 'rounded-md')
       expect(button).toHaveClass('bg-transparent', 'hover:bg-transparent')
     }
   })

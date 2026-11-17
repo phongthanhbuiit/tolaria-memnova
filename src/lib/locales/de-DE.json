@@ -1026,5 +1026,19 @@
   "noteList.subtitle.links.few": "{count} Links",
   "noteList.subtitle.links.many": "{count} Links",
   "noteList.subtitle.links.other": "{count} Links",
-  "filters.date.inputPlaceholder": "YYYY-MM-DD oder relatives Datum"
+  "filters.date.inputPlaceholder": "YYYY-MM-DD oder relatives Datum",
+  "editor.toolbar.fileActions": "Dateiaktionen",
+  "editor.schedule.dueToday": "Heute fällig",
+  "editor.schedule.due": "Fällig am {date}",
+  "editor.schedule.nextReview": "FSRS: nächster Wiederholungstermin",
+  "editor.schedule.reviewDeck": "Stapel wiederholen",
+  "editor.schedule.reviewDeckHelp": "Stapel wiederholen — alle fälligen Notizen in diesem Stapel lernen",
+  "editor.schedule.options": "Planungsoptionen",
+  "editor.schedule.label": "Planen",
+  "editor.schedule.thisNote": "Nur diese Notiz",
+  "editor.schedule.thisNoteHelp": "FSRS für diese Notiz aktivieren",
+  "editor.schedule.asDeck": "Als Stapel planen",
+  "editor.schedule.asDeckHelp": "FSRS für alle Notizen im Stapel aktivieren",
+  "editor.schedule.reviewNoteHelp": "Notiz für zeitlich verteiltes Wiederholen einplanen",
+  "editor.schedule.reviewNote": "Wiederholung planen"
 }

@@ -281,7 +281,7 @@ describe('StatusBar', () => {
     const activeItem = screen.getByTestId('vault-menu-item-Main Vault')
     const defaultLabel = within(activeItem).getByTestId('vault-menu-default-label')
     const activeBadge = within(activeItem).getByTestId('vault-menu-workspace-badge-Main Vault')
-    expect(within(activeItem).getByTestId('vault-menu-item-label-Main Vault').className).toContain('text-[12px]')
+    expect(within(activeItem).getByTestId('vault-menu-item-label-Main Vault').className).toContain('text-small')
     expect(within(activeItem).getByTestId('vault-menu-item-label-Main Vault').getAttribute('style')).toContain('background: transparent')
     expect(defaultLabel).toHaveTextContent('Default')
     expect(activeBadge).toHaveTextContent('MV')
@@ -292,7 +292,7 @@ describe('StatusBar', () => {
     expect(workBadge.getAttribute('style')).toContain('border-color: var(--accent-green)')
 
     const createAction = screen.getByTestId('vault-menu-create-empty')
-    expect(createAction.className).toContain('text-[12px]')
+    expect(createAction.className).toContain('text-small')
     expect(createAction.getAttribute('style')).toContain('color: var(--muted-foreground)')
   })
 
@@ -529,7 +529,7 @@ describe('StatusBar', () => {
 
     expect(screen.getByTestId('status-bar')).toHaveStyle({
       flexWrap: 'nowrap',
-      height: '30px',
+      height: 'var(--control-md)',
     })
     expect(screen.getByTestId('status-commit-push')).toBeInTheDocument()
     expect(screen.getByTestId('status-pulse')).toBeInTheDocument()
@@ -545,7 +545,7 @@ describe('StatusBar', () => {
 
     expect(screen.getByTestId('status-bar')).toHaveStyle({
       flexWrap: 'nowrap',
-      height: '30px',
+      height: 'var(--control-md)',
     })
     expect(screen.getByTestId('status-commit-push')).toBeInTheDocument()
     expect(screen.getByTestId('status-pulse')).toBeInTheDocument()

@@ -1,0 +1,12 @@
+
+ RUN  v4.0.18 /Users/thompson/Documents/tolaria-memnova
+
+ ✓ src/components/BreadcrumbBar.visibility.test.tsx (5 tests) 121ms
+ ✓ src/components/BreadcrumbBar.test.tsx (59 tests) 1023ms
+ ✓ src/components/BreadcrumbBar.chrome.test.tsx (3 tests) 309ms
+
+ Test Files  3 passed (3)
+      Tests  67 passed (67)
+   Start at  01:25:26
+   Duration  4.32s (transform 1.69s, setup 222ms, import 7.97s, tests 1.45s, environment 1.46s)
+

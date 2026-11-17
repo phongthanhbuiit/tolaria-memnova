@@ -1,3 +1,5 @@
+import { ActionTooltip } from '@/components/ui/action-tooltip'
+import { TooltipProvider } from '@/components/ui/tooltip'
 import { CaretDown as ChevronDown, CaretRight as ChevronRight, CaretUp as ChevronUp, X } from '@phosphor-icons/react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { EditorView } from '@codemirror/view'
@@ -309,16 +311,17 @@ function FindControls({
 }: FindControlsProps) {
   return (
     <div className="flex min-w-0 items-center gap-1.5">
-      <Button
+      <ActionTooltip copy={{ label: replaceOpen ? translate(locale, 'editor.find.hideReplace') : translate(locale, 'editor.find.showReplace') }} side="bottom">
+<Button
         type="button"
         variant="ghost"
         size="icon-xs"
         aria-label={replaceOpen ? translate(locale, 'editor.find.hideReplace') : translate(locale, 'editor.find.showReplace')}
-        title={replaceOpen ? translate(locale, 'editor.find.hideReplace') : translate(locale, 'editor.find.showReplace')}
         onClick={() => onReplaceOpenChange(!replaceOpen)}
       >
         <ChevronRight className={cn('transition-transform', replaceOpen && 'rotate-90')} />
       </Button>
+      </ActionTooltip>
       <Input
         ref={findInputRef}
         type="search"
@@ -327,70 +330,75 @@ function FindControls({
         value={query}
         onChange={handleFindChange}
         onKeyDown={handleFindKeyDown}
-        className="h-7 min-w-[12rem] flex-1 rounded px-2 text-xs"
+        controlSize="sm" className="min-w-0 flex-1 rounded-md px-2 text-small"
         data-testid="raw-editor-find-input"
       />
       <span
-        className="min-w-[4.75rem] text-right text-xs text-muted-foreground"
+        className="min-w-[4.75rem] text-right text-small text-muted-foreground"
         aria-live="polite"
         data-testid="raw-editor-find-count"
       >
         {status}
       </span>
-      <Button
+      <ActionTooltip copy={{ label: translate(locale, 'editor.find.previousMatch') }} side="bottom">
+<Button
         type="button"
         variant="ghost"
         size="icon-xs"
         aria-label={translate(locale, 'editor.find.previousMatch')}
-        title={translate(locale, 'editor.find.previousMatch')}
         disabled={!hasMatches}
         onClick={movePrevious}
       >
         <ChevronUp />
       </Button>
-      <Button
+      </ActionTooltip>
+      <ActionTooltip copy={{ label: translate(locale, 'editor.find.nextMatch') }} side="bottom">
+<Button
         type="button"
         variant="ghost"
         size="icon-xs"
         aria-label={translate(locale, 'editor.find.nextMatch')}
-        title={translate(locale, 'editor.find.nextMatch')}
         disabled={!hasMatches}
         onClick={moveNext}
       >
         <ChevronDown />
       </Button>
-      <Button
+      </ActionTooltip>
+      <ActionTooltip copy={{ label: translate(locale, 'editor.find.regex') }} side="bottom">
+<Button
         type="button"
         variant={regex ? 'secondary' : 'ghost'}
         size="xs"
         aria-label={translate(locale, 'editor.find.regex')}
         aria-pressed={regex}
-        title={translate(locale, 'editor.find.regex')}
         onClick={toggleRegex}
       >
         .*
       </Button>
-      <Button
+      </ActionTooltip>
+      <ActionTooltip copy={{ label: translate(locale, 'editor.find.matchCase') }} side="bottom">
+<Button
         type="button"
         variant={caseSensitive ? 'secondary' : 'ghost'}
         size="xs"
         aria-label={translate(locale, 'editor.find.matchCase')}
         aria-pressed={caseSensitive}
-        title={translate(locale, 'editor.find.matchCase')}
         onClick={toggleCaseSensitive}
       >
         Aa
       </Button>
-      <Button
+      </ActionTooltip>
+      <ActionTooltip copy={{ label: translate(locale, 'editor.find.close') }} side="bottom">
+<Button
         type="button"
         variant="ghost"
         size="icon-xs"
         aria-label={translate(locale, 'editor.find.close')}
-        title={translate(locale, 'editor.find.close')}
         onClick={close}
       >
         <X />
       </Button>
+      </ActionTooltip>
     </div>
   )
 }
@@ -418,7 +426,7 @@ function ReplaceControls({
         placeholder={translate(locale, 'editor.find.replacePlaceholder')}
         value={replacement}
         onChange={(event) => setReplacement(event.target.value)}
-        className="h-7 min-w-[12rem] flex-1 rounded px-2 text-xs"
+        controlSize="sm" className="min-w-0 flex-1 rounded-md px-2 text-small"
         data-testid="raw-editor-replace-input"
       />
       <Button
@@ -485,6 +493,7 @@ export function RawEditorFindBar(props: RawEditorFindBarProps) {
   if (!open) return null
 
   return (
+    <TooltipProvider>
     <div
       ref={barRef}
       className="flex shrink-0 flex-col gap-1.5 border-b px-3 py-2"
@@ -523,5 +532,6 @@ export function RawEditorFindBar(props: RawEditorFindBarProps) {
         />
       )}
     </div>
+    </TooltipProvider>
   )
 }

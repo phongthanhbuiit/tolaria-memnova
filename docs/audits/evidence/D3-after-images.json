@@ -1,0 +1,146 @@
+[
+  {
+    "case": "1440-en-light-note",
+    "pixels": [
+      2880,
+      1800
+    ],
+    "before_sha256": "60475a2eda63cc6a1415e7495561640cc9347ab4861346923bd51f8b0795741f",
+    "after_sha256": "1cb1b623c007ecc3b0a3c84276ed639834ad759fe256e40832798253552e65aa"
+  },
+  {
+    "case": "1440-en-light-empty",
+    "pixels": [
+      2880,
+      1800
+    ],
+    "before_sha256": "bdd544c9d79dcae723b01de4468e05fdfa0c82d0fe1221742457ecfe8cbc6a9e",
+    "after_sha256": "b88a90956a0794c26aba83064420f7ae6d494fe0e00c519e7ba5592f3e048d98"
+  },
+  {
+    "case": "1440-en-dark-note",
+    "pixels": [
+      2880,
+      1800
+    ],
+    "before_sha256": "40fb3330243588564401299f61f58b7b73c29efab7db8d954b29fbb3fbd66162",
+    "after_sha256": "84d72b5e5c2033f3da41971ce562c22c902f0f99afc21e1262a37c91efeba96a"
+  },
+  {
+    "case": "1440-en-dark-empty",
+    "pixels": [
+      2880,
+      1800
+    ],
+    "before_sha256": "224543105ebcef31f5c6e72389571a08888e3c3a5b79416ee8717fe0ce4341ae",
+    "after_sha256": "a34ab80a1c2130d41de5350c25dccf26992b30c92bf44b446602a87d4fab26b6"
+  },
+  {
+    "case": "1440-vi-light-note",
+    "pixels": [
+      2880,
+      1800
+    ],
+    "before_sha256": "ae2c19c8231343be2c2cf1a54ff9faa2c38b4a26deb16998877c13d45dbb5169",
+    "after_sha256": "117f2e874701e88e6f1b2dd136a31d01677387927e47d26312ab55e412487c5e"
+  },
+  {
+    "case": "1440-vi-light-empty",
+    "pixels": [
+      2880,
+      1800
+    ],
+    "before_sha256": "ac9d9776cde73a86c1bab3b20dee8219114541220649a101a8f0ce2b92753ee5",
+    "after_sha256": "01f96ca4028b4fbc033c7d28b242825a90a7a99426db84efa567e34acc241ef3"
+  },
+  {
+    "case": "1440-vi-dark-note",
+    "pixels": [
+      2880,
+      1800
+    ],
+    "before_sha256": "1a1b6f2a2d559141d0517807453acda6b02357f5dcbcc8db192a0f100a100482",
+    "after_sha256": "6e1f96a2f642ca1dd320a9e55694f251b0fa46f94f6dadc82376d06ff4e09fa1"
+  },
+  {
+    "case": "1440-vi-dark-empty",
+    "pixels": [
+      2880,
+      1800
+    ],
+    "before_sha256": "4ae2e842d7b178bff6395435f4ede589621e94b391226940d24e73040cd86954",
+    "after_sha256": "149ae7d625126a812b9c2f9785a6d8ada00636ae7ca78c39cd1c50c68a03a6f3"
+  },
+  {
+    "case": "1024-en-light-note",
+    "pixels": [
+      2048,
+      1400
+    ],
+    "before_sha256": "0bc57a3530728d6dc1b2c63d4c43f4fec0b965c184e1a17c546c15e964757466",
+    "after_sha256": "eeb847cefb92d6598d528096964c60d689fd427ea02df70d2ab59db2bcf85218"
+  },
+  {
+    "case": "1024-en-light-empty",
+    "pixels": [
+      2048,
+      1400
+    ],
+    "before_sha256": "40b88f9690162d9e7125daaacb88d173087a7cc5a66192d9222737e79a9a20e7",
+    "after_sha256": "5dee0ccb335fab7f9382cb15a96c712067904ca6d501351e388845e255fecd16"
+  },
+  {
+    "case": "1024-en-dark-note",
+    "pixels": [
+      2048,
+      1400
+    ],
+    "before_sha256": "32c053d6bee3eb1f7f2ee067c70b42eb161c860f787d5f8c781bb744e460d6a8",
+    "after_sha256": "3af4842729e9d34aa76f8a180a5543bab4fc531bf0db2df832b4d75d52004876"
+  },
+  {
+    "case": "1024-en-dark-empty",
+    "pixels": [
+      2048,
+      1400
+    ],
+    "before_sha256": "83b3dede79ed87817df194a7fec46b24cd646d8e4caa3a1c69f2107fecfbaa38",
+    "after_sha256": "da4ead274822d0b3896fdadfcc7cdcafbaee608c0e5771b89bbc4125360a2d8c"
+  },
+  {
+    "case": "1024-vi-light-note",
+    "pixels": [
+      2048,
+      1400
+    ],
+    "before_sha256": "5a16ed89645eb9c30822164dc806906b165181b8848a4c33022db020e05f89de",
+    "after_sha256": "ee8cbc03d0ebd68b4a7c1a4c091632acb5f90d5af0784c1fe48d92a5b6d2f3d8"
+  },
+  {
+    "case": "1024-vi-light-empty",
+    "pixels": [
+      2048,
+      1400
+    ],
+    "before_sha256": "dff7aefbca7d02c0dd9086329b9304c428dd14191b5b618c59edcda6706a424f",
+    "after_sha256": "f5e7a8780979bb3137fd09a3fd477ccc7c601091de85d5ec1118e6f8c7f3e989"
+  },
+  {
+    "case": "1024-vi-dark-note",
+    "pixels": [
+      2048,
+      1400
+    ],
+    "before_sha256": "6b497cb141a887bc93cd62bd5861e36c1095ca7833ca841c965d8b396da3eea2",
+    "after_sha256": "49d74bdd83102a885d258b2e0d635a208a3987e1391c3ee9ecd98f2f00f39522"
+  },
+  {
+    "case": "1024-vi-dark-empty",
+    "pixels": [
+      2048,
+      1400
+    ],
+    "before_sha256": "985c890690f4e9e8a30f646eaf232803904e6c0480c069580badaf0d1204238d",
+    "after_sha256": "dda8aec03febad61dfcdf2c4d8d3ac024915dbc5f10581ba18c841aa3796b2af"
+  }
+]

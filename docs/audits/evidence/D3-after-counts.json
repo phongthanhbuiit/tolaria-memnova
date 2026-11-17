@@ -1,0 +1,100 @@
+{
+  "src/components/BreadcrumbBar.tsx": {
+    "spec8": 0,
+    "legacyType": 0,
+    "heightWidthLiteral": 9,
+    "radius": 3,
+    "nonTokenTextColor": 0
+  },
+  "src/components/Editor.tsx": {
+    "spec8": 0,
+    "legacyType": 0,
+    "heightWidthLiteral": 2,
+    "radius": 0,
+    "nonTokenTextColor": 0
+  },
+  "src/components/editor-content/EditorContentLayout.tsx": {
+    "spec8": 0,
+    "legacyType": 0,
+    "heightWidthLiteral": 10,
+    "radius": 5,
+    "nonTokenTextColor": 0
+  },
+  "src/components/StatusBar.tsx": {
+    "spec8": 0,
+    "legacyType": 0,
+    "heightWidthLiteral": 0,
+    "radius": 0,
+    "nonTokenTextColor": 0
+  },
+  "src/components/ArchivedNoteBanner.tsx": {
+    "spec8": 0,
+    "legacyType": 0,
+    "heightWidthLiteral": 0,
+    "radius": 0,
+    "nonTokenTextColor": 0
+  },
+  "src/components/ConflictNoteBanner.tsx": {
+    "spec8": 0,
+    "legacyType": 0,
+    "heightWidthLiteral": 0,
+    "radius": 0,
+    "nonTokenTextColor": 0
+  },
+  "src/components/RawEditorFindBar.tsx": {
+    "spec8": 0,
+    "legacyType": 0,
+    "heightWidthLiteral": 5,
+    "radius": 2,
+    "nonTokenTextColor": 0
+  },
+  "src/components/NoteMemoryEditorTabs.tsx": {
+    "spec8": 0,
+    "legacyType": 0,
+    "heightWidthLiteral": 2,
+    "radius": 0,
+    "nonTokenTextColor": 0
+  },
+  "src/components/FlashcardEditorTabs.tsx": {
+    "spec8": 0,
+    "legacyType": 0,
+    "heightWidthLiteral": 0,
+    "radius": 3,
+    "nonTokenTextColor": 0
+  },
+  "src/components/status-bar/StatusBarBadges.tsx": {
+    "spec8": 0,
+    "legacyType": 0,
+    "heightWidthLiteral": 1,
+    "radius": 6,
+    "nonTokenTextColor": 0
+  },
+  "src/components/status-bar/StatusBarSections.tsx": {
+    "spec8": 0,
+    "legacyType": 0,
+    "heightWidthLiteral": 1,
+    "radius": 4,
+    "nonTokenTextColor": 0
+  },
+  "src/components/status-bar/VaultMenu.tsx": {
+    "spec8": 0,
+    "legacyType": 0,
+    "heightWidthLiteral": 3,
+    "radius": 10,
+    "nonTokenTextColor": 0
+  },
+  "src/components/status-bar/AiAgentsBadge.tsx": {
+    "spec8": 0,
+    "legacyType": 0,
+    "heightWidthLiteral": 1,
+    "radius": 1,
+    "nonTokenTextColor": 0
+  },
+  "src/components/status-bar/styles.ts": {
+    "spec8": 0,
+    "legacyType": 0,
+    "heightWidthLiteral": 0,
+    "radius": 0,
+    "nonTokenTextColor": 0
+  }
+}

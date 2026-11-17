@@ -110,13 +110,13 @@ interface VaultPathSelection extends VaultMenuInteractionOptions {
 function getVaultTriggerClassName(open: boolean, compact: boolean) {
   if (compact) {
     return open
-      ? 'h-6 w-6 rounded-sm bg-[var(--hover)] p-0 text-foreground hover:bg-[var(--hover)]'
-      : 'h-6 w-6 rounded-sm p-0 text-muted-foreground hover:bg-[var(--hover)] hover:text-foreground'
+      ? 'rounded-md bg-[var(--hover)] p-0 text-foreground hover:bg-[var(--hover)]'
+      : 'rounded-md p-0 text-muted-foreground hover:bg-[var(--hover)] hover:text-foreground'
   }
 
   return open
-    ? 'h-auto gap-1 rounded-sm bg-[var(--hover)] px-1 py-0.5 text-[12px] font-medium text-foreground hover:bg-[var(--hover)]'
-    : 'h-auto gap-1 rounded-sm px-1 py-0.5 text-[12px] font-medium text-muted-foreground hover:bg-[var(--hover)] hover:text-foreground'
+    ? 'gap-1 rounded-md bg-[var(--hover)] px-1 py-0.5 text-small font-medium text-foreground hover:bg-[var(--hover)]'
+    : 'gap-1 rounded-md px-1 py-0.5 text-small font-medium text-muted-foreground hover:bg-[var(--hover)] hover:text-foreground'
 }
 
 function buildVaultActions({
@@ -216,8 +216,8 @@ function WorkspaceMountCheckbox({
 
 function vaultMenuItemClassName(isActive: boolean, multiWorkspaceEnabled: boolean): string {
   return [
-    'min-w-0 max-w-[190px] flex-none justify-start rounded-sm px-2 font-normal',
-    multiWorkspaceEnabled ? 'py-1.5 text-[12px]' : 'py-1 text-xs',
+    'min-w-0 max-w-[190px] flex-none justify-start rounded-md px-2 font-normal',
+    multiWorkspaceEnabled ? 'py-1.5 text-small' : 'py-1 text-small',
     isActive
       ? 'text-foreground hover:bg-[var(--hover)] hover:text-foreground'
       : 'text-muted-foreground hover:bg-[var(--hover)] hover:text-foreground',
@@ -265,7 +265,7 @@ function DefaultVaultLabel({ isDefault, locale }: { isDefault: boolean; locale: 
   if (!isDefault) return null
 
   return (
-    <span className="text-[10px] font-medium text-muted-foreground" data-testid="vault-menu-default-label">
+    <span className="text-caption font-medium text-muted-foreground" data-testid="vault-menu-default-label">
       {translate(locale, 'workspace.manager.default')}
     </span>
   )
@@ -378,7 +378,7 @@ function VaultMenuRemoveButton({
     <Button
       type="button"
       variant="ghost"
-      size="icon-xs"
+      size="icon-sm"
       onClick={(event) => {
         event.stopPropagation()
         onRequestRemove()
@@ -386,7 +386,7 @@ function VaultMenuRemoveButton({
       title={removeLabel}
       aria-label={removeLabel}
       data-testid={`vault-menu-remove-${vault.label}`}
-      className="ml-0.5 h-6 w-6 shrink-0 rounded-sm text-muted-foreground opacity-0 pointer-events-none transition-opacity hover:bg-[var(--hover)] hover:text-foreground focus-visible:opacity-100 focus-visible:pointer-events-auto group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto"
+      className="ml-0.5 shrink-0 rounded-md text-muted-foreground opacity-0 pointer-events-none transition-opacity hover:bg-[var(--hover)] hover:text-foreground focus-visible:opacity-100 focus-visible:pointer-events-auto group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto"
     >
       <X size={10} />
     </Button>
@@ -423,7 +423,7 @@ function VaultMenuItem({
   return (
     <div
       ref={itemRef}
-      className="group relative flex w-full items-center rounded-sm hover:bg-[var(--hover)]"
+      className="group relative flex w-full items-center rounded-md hover:bg-[var(--hover)]"
       data-testid={`vault-menu-item-${vault.label}`}
     >
       {multiWorkspaceEnabled && (
@@ -553,7 +553,7 @@ function VaultMenuHeader({
 }) {
   return (
     <div className="flex items-center justify-between gap-3 px-2 py-1.5">
-      <span className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+      <span className="text-caption font-semibold uppercase tracking-wide text-muted-foreground">
         {translate(locale, 'status.vault.availableHeader')}
       </span>
       {onOpenVaultSettings && (
@@ -561,7 +561,7 @@ function VaultMenuHeader({
           type="button"
           variant="ghost"
           size="xs"
-          className="h-auto rounded-sm px-1 py-0.5 text-[11px] font-medium text-muted-foreground hover:bg-[var(--hover)] hover:text-foreground"
+          className="rounded-md px-1 py-0.5 text-caption font-medium text-muted-foreground hover:bg-[var(--hover)] hover:text-foreground"
           onClick={onOpenVaultSettings}
           data-testid="vault-menu-manage-vaults"
         >
@@ -587,7 +587,7 @@ function VaultMenuAction({
       variant="ghost"
       size="xs"
       onClick={onClick}
-      className={`h-auto w-full justify-start rounded-sm px-2 py-1 font-normal ${multiWorkspaceEnabled ? 'text-[12px]' : 'text-xs'}`}
+      className={`w-full justify-start rounded-md px-2 py-1 font-normal ${multiWorkspaceEnabled ? 'text-small' : 'text-small'}`}
       style={{ color: accent ? 'var(--accent-blue)' : 'var(--muted-foreground)' }}
       data-testid={testId}
     >
@@ -660,7 +660,7 @@ function VaultMenuPopover({
         marginBottom: 4,
         background: 'var(--sidebar)',
         border: '1px solid var(--border)',
-        borderRadius: 6,
+        borderRadius: 'var(--radius-lg)',
         padding: 4,
         minWidth: menuMinWidth,
         boxShadow: '0 4px 12px var(--shadow-dialog)',

@@ -127,8 +127,8 @@ function canShowSwitcherCue(statuses: AiAgentsStatus, defaultAgent: AiAgentId): 
 
 function triggerButtonClassName(compact: boolean): string {
   return compact
-    ? 'h-6 w-6 rounded-sm p-0 text-[12px] font-medium'
-    : 'h-6 px-2 text-[12px] font-medium'
+    ? 'rounded-md p-0 text-small font-medium'
+    : 'px-2 text-small font-medium'
 }
 
 function CompactSeparator({ compact }: { compact: boolean }) {
@@ -193,7 +193,7 @@ const AiAgentsBadgeButton = forwardRef<HTMLButtonElement, AiAgentsBadgeButtonPro
       ref={ref}
       type="button"
       variant="ghost"
-      size="xs"
+      size={compact ? "icon-sm" : "sm"}
       className={triggerButtonClassName(compact)}
       aria-label={ariaLabel}
       title={title}
@@ -273,7 +273,7 @@ function AgentMenuContent({
             <DropdownMenuRadioItem key={definition.id} value={definition.id} className="gap-2">
               <AiAgentIcon agent={definition.id} size={16} />
               <span>{definition.label}</span>
-              <span className="ml-auto text-xs text-muted-foreground">
+              <span className="ml-auto text-small text-muted-foreground">
                 {statusText(statuses, definition)}
               </span>
             </DropdownMenuRadioItem>
@@ -319,7 +319,7 @@ function ModelTargetMenuSection({
         {targets.map((target) => (
           <DropdownMenuRadioItem key={target.id} value={target.id}>
             <span>{target.label}</span>
-            <span className="ml-auto text-xs text-muted-foreground">
+            <span className="ml-auto text-small text-muted-foreground">
               {target.provider.kind === 'ollama' || target.provider.kind === 'lm_studio'
                 ? translate(locale, 'status.ai.localChat')
                 : translate(locale, 'status.ai.apiChat')}

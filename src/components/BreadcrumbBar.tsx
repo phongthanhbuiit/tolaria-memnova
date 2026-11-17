@@ -86,7 +86,7 @@ interface BreadcrumbBarProps {
   fsrsDueDate?: string | null
 }
 
-const BREADCRUMB_ICON_CLASS = 'size-[16px]'
+const BREADCRUMB_ICON_CLASS = 'size-4'
 const TITLE_ACTION_GAP_PX = 24
 
 function focusFilenameInput(
@@ -156,7 +156,7 @@ function IconActionButton({
       <Button
         type="button"
         variant="toolbar"
-        size="toolbar"
+        size="icon-sm"
         className={cn('text-muted-foreground [&_svg:not([class*=size-])]:size-4', className)}
         style={style}
         onClick={onClick}
@@ -637,7 +637,7 @@ function FilenameInput({
       onChange={(event) => onDraftStemChange(event.target.value)}
       onBlur={onBlur}
       onKeyDown={onKeyDown}
-      className="h-7 w-[180px] text-sm"
+      controlSize="sm" className="w-auto max-w-full text-body"
       data-testid="breadcrumb-filename-input"
       aria-label={translate(locale, 'editor.filename.rename')}
     />
@@ -670,7 +670,7 @@ function FilenameTrigger({
       type="button"
       variant="ghost"
       size="xs"
-      className="h-auto min-w-0 gap-1 px-0 py-0 text-sm font-medium text-foreground hover:bg-transparent hover:text-foreground"
+      className="min-w-0 gap-1 px-0 py-0 text-body font-medium text-foreground hover:bg-transparent hover:text-foreground"
       onDoubleClick={onStartEditing}
       onKeyDown={handleKeyDown}
       data-testid="breadcrumb-filename-trigger"
@@ -803,18 +803,20 @@ function BreadcrumbTitleSkeleton() {
     <span
       aria-hidden="true"
       data-testid="breadcrumb-title-skeleton"
-      className="h-4 w-36 animate-pulse rounded bg-muted"
+      className="h-4 w-36 animate-pulse rounded-sm bg-muted"
     />
   )
 }
 
 function ScheduleForReviewAction({
+  locale = 'en',
   onScheduleForReview,
   onScheduleAsDeck,
   onStartDeckSession,
   hasDeckMembers,
   fsrsDueDate,
 }: {
+  locale?: AppLocale
   onScheduleForReview?: () => void
   onScheduleAsDeck?: () => void
   onStartDeckSession?: () => void
@@ -825,39 +827,39 @@ function ScheduleForReviewAction({
 
   if (fsrsDueDate) {
     // Already scheduled — show due date pill with optional "Review Deck" option
-    const label = fsrsDueDate === 'today' ? 'Due today' : `Due ${fsrsDueDate}`
+    const label = fsrsDueDate === 'today' ? translate(locale, 'editor.schedule.dueToday') : translate(locale, 'editor.schedule.due', { date: fsrsDueDate })
     return (
       <div className="flex items-center gap-1">
-        <ActionTooltip copy={{ label: 'FSRS: next review date' }} side="bottom">
-          <button
+        <ActionTooltip copy={{ label: translate(locale, 'editor.schedule.nextReview') }} side="bottom">
+          <Button variant="outline" size="sm"
             type="button"
             onClick={onScheduleForReview}
             className={cn(
-              'flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium',
-              'bg-violet-500/10 text-violet-500 border border-violet-500/20',
-              'hover:bg-violet-500/20 transition-colors cursor-pointer',
+              'flex items-center gap-1 rounded-md px-2 py-0.5 text-caption font-medium',
+              'bg-primary/10 text-primary border border-primary/20',
+              'hover:bg-primary/20 transition-colors cursor-pointer',
             )}
             aria-label={label}
           >
             <Cards size={12} weight="fill" />
             <span>{label}</span>
-          </button>
+          </Button>
         </ActionTooltip>
         {hasDeckMembers && onStartDeckSession && (
-          <ActionTooltip copy={{ label: 'Review Deck — study all due notes in this deck' }} side="bottom">
-            <button
+          <ActionTooltip copy={{ label: translate(locale, 'editor.schedule.reviewDeckHelp') }} side="bottom">
+            <Button variant="outline" size="sm"
               type="button"
               onClick={onStartDeckSession}
               data-testid="breadcrumb-review-deck"
               className={cn(
-                'flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium',
-                'bg-violet-600/20 text-violet-400 border border-violet-500/30',
-                'hover:bg-violet-600/30 transition-colors cursor-pointer',
+                'flex items-center gap-1 rounded-md px-2 py-0.5 text-caption font-medium',
+                'bg-primary/10 text-primary border border-primary/20',
+                'hover:bg-primary/20 transition-colors cursor-pointer',
               )}
-              aria-label="Review Deck"
+              aria-label={translate(locale, 'editor.schedule.reviewDeck')}
             >
-              <Cards size={11} weight="duotone" aria-hidden="true" /> Review Deck
-            </button>
+              <Cards size={11} weight="duotone" aria-hidden="true" /> {translate(locale, 'editor.schedule.reviewDeck')}
+            </Button>
           </ActionTooltip>
         )}
       </div>
@@ -869,32 +871,34 @@ function ScheduleForReviewAction({
     // Note has children via belongsTo: show dropdown with two options
     return (
       <DropdownMenu>
+        <ActionTooltip copy={{ label: translate(locale, 'editor.schedule.options') }} side="bottom">
         <DropdownMenuTrigger asChild>
           <Button
             type="button"
-            variant="toolbar"
-            size="toolbar"
-            className="gap-1 text-[11px] text-muted-foreground hover:text-foreground border border-dashed border-border hover:border-foreground/30 transition-colors"
-            aria-label="Schedule options"
+            variant="ghost"
+            size="sm"
+            className="gap-1 text-caption text-muted-foreground hover:text-foreground border border-dashed border-border hover:border-foreground/30 transition-colors"
+            aria-label={translate(locale, 'editor.schedule.options')}
             data-testid="breadcrumb-schedule-review"
           >
             <Cards size={13} />
-            <span>Schedule</span>
+            <span>{translate(locale, 'editor.schedule.label')}</span>
           </Button>
         </DropdownMenuTrigger>
+        </ActionTooltip>
         <DropdownMenuContent align="end" className="w-52">
           <DropdownMenuItem onClick={onScheduleForReview}>
             <Cards size={14} className="mr-2 text-muted-foreground" />
             <div>
-              <div className="text-xs font-medium">This note only</div>
-              <div className="text-[10px] text-muted-foreground">Enable FSRS on this note</div>
+              <div className="text-small font-medium">{translate(locale, 'editor.schedule.thisNote')}</div>
+              <div className="text-caption text-muted-foreground">{translate(locale, 'editor.schedule.thisNoteHelp')}</div>
             </div>
           </DropdownMenuItem>
           <DropdownMenuItem onClick={onScheduleAsDeck}>
             <Cards size={14} className="mr-2 text-muted-foreground" aria-hidden="true" />
             <div>
-              <div className="text-xs font-medium">Schedule as Deck</div>
-              <div className="text-[10px] text-muted-foreground">Enable FSRS on all member notes</div>
+              <div className="text-small font-medium">{translate(locale, 'editor.schedule.asDeck')}</div>
+              <div className="text-caption text-muted-foreground">{translate(locale, 'editor.schedule.asDeckHelp')}</div>
             </div>
           </DropdownMenuItem>
         </DropdownMenuContent>
@@ -904,18 +908,18 @@ function ScheduleForReviewAction({
 
   // Simple single-action button
   return (
-    <ActionTooltip copy={{ label: 'Schedule note for spaced repetition review' }} side="bottom">
+    <ActionTooltip copy={{ label: translate(locale, 'editor.schedule.reviewNoteHelp') }} side="bottom">
       <Button
         type="button"
-        variant="toolbar"
-        size="toolbar"
-        className="gap-1 text-[11px] text-muted-foreground hover:text-foreground border border-dashed border-border hover:border-foreground/30 transition-colors"
+        variant="ghost"
+        size="sm"
+        className="gap-1 text-caption text-muted-foreground hover:text-foreground border border-dashed border-border hover:border-foreground/30 transition-colors"
         onClick={onScheduleForReview}
-        aria-label="Schedule for review"
+        aria-label={translate(locale, 'editor.schedule.reviewNote')}
         data-testid="breadcrumb-schedule-review"
       >
         <Cards size={13} />
-        <span>Schedule</span>
+        <span>{translate(locale, 'editor.schedule.label')}</span>
       </Button>
     </ActionTooltip>
   )
@@ -963,7 +967,9 @@ function BreadcrumbActions({
       data-overflow-collapsed={overflowCollapsed}
       style={{ gap: 8 }}
     >
+      <div role="group" aria-label={translate(locale, 'command.group.note')} className="flex items-center gap-2">
       <ScheduleForReviewAction
+        locale={locale}
         onScheduleForReview={onScheduleForReview}
         onScheduleAsDeck={onScheduleAsDeck}
         onStartDeckSession={onStartDeckSession}
@@ -972,6 +978,8 @@ function BreadcrumbActions({
       />
       <FavoriteAction favorite={entry.favorite} locale={locale} onToggleFavorite={onToggleFavorite} />
       <OrganizedAction organized={entry.organized} locale={locale} onToggleOrganized={onToggleOrganized} />
+      </div>
+      <div role="group" aria-label={translate(locale, 'command.group.view')} className="flex items-center gap-2 border-l border-border pl-2">
       <OverflowToolbarAction>
         <NeighborhoodAction entry={entry} locale={locale} onEnterNeighborhood={onEnterNeighborhood} />
       </OverflowToolbarAction>
@@ -986,9 +994,14 @@ function BreadcrumbActions({
           onToggleTableOfContents={onToggleTableOfContents}
         />
       </OverflowToolbarAction>
-      <OverflowToolbarAction>
-        <FilePathActions entry={entry} locale={locale} onRevealFile={onRevealFile} onCopyFilePath={onCopyFilePath} />
-      </OverflowToolbarAction>
+      </div>
+      {(onRevealFile || onCopyFilePath) && (
+        <div role="group" aria-label={translate(locale, 'editor.toolbar.fileActions')} className="breadcrumb-bar__overflowable-action flex items-center gap-2 border-l border-border pl-2">
+          <OverflowToolbarAction>
+            <FilePathActions entry={entry} locale={locale} onRevealFile={onRevealFile} onCopyFilePath={onCopyFilePath} />
+          </OverflowToolbarAction>
+        </div>
+      )}
       <BreadcrumbOverflowMenu
         entry={entry}
         showDiffToggle={showDiffToggle}
@@ -1072,7 +1085,7 @@ function BreadcrumbOverflowMenu({
           <Button
             type="button"
             variant="toolbar"
-            size="toolbar"
+            size="icon-sm"
             className="breadcrumb-bar__overflow-menu text-muted-foreground hover:text-foreground"
             aria-label={translate(locale, 'editor.toolbar.moreActions')}
             data-testid="breadcrumb-overflow-menu-trigger"
@@ -1160,7 +1173,7 @@ function BreadcrumbTitle({
 }: Pick<BreadcrumbBarProps, 'content' | 'entry' | 'locale' | 'loadingTitle' | 'onRenameFilename'>) {
   const typeLabel = entry.isA ?? 'Note'
   return (
-    <div className="breadcrumb-bar__title-content flex items-center gap-1.5 min-w-0 text-sm text-muted-foreground">
+    <div className="breadcrumb-bar__title-content flex items-center gap-1.5 min-w-0 text-body text-muted-foreground">
       <WorkspaceCrumb entry={entry} />
       <span className="shrink-0">{typeLabel}</span>
       <BreadcrumbSeparator />
@@ -1210,7 +1223,7 @@ export const BreadcrumbBar = memo(function BreadcrumbBar({
         data-title-hidden=""
         className="breadcrumb-bar flex shrink-0 items-center border-b border-transparent"
         style={{
-          height: 52,
+          height: 'calc(var(--control-sm) * 2)',
           background: 'var(--background)',
           padding: '6px 16px 6px var(--breadcrumb-bar-left-padding, 16px)',
           boxSizing: 'border-box',

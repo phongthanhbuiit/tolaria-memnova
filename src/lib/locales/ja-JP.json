@@ -1026,5 +1026,19 @@
   "noteList.subtitle.links.few": "{count} 件のリンク",
   "noteList.subtitle.links.many": "{count} 件のリンク",
   "noteList.subtitle.links.other": "{count} 件のリンク",
-  "filters.date.inputPlaceholder": "YYYY-MM-DD または相対日付"
+  "filters.date.inputPlaceholder": "YYYY-MM-DD または相対日付",
+  "editor.toolbar.fileActions": "ファイル操作",
+  "editor.schedule.dueToday": "今日が期限",
+  "editor.schedule.due": "期限：{date}",
+  "editor.schedule.nextReview": "FSRS：次回の復習日",
+  "editor.schedule.reviewDeck": "デッキを復習",
+  "editor.schedule.reviewDeckHelp": "デッキを復習 — このデッキの期限が来たすべてのノートを学習",
+  "editor.schedule.options": "スケジュール設定",
+  "editor.schedule.label": "予定を設定",
+  "editor.schedule.thisNote": "このノートのみ",
+  "editor.schedule.thisNoteHelp": "このノートで FSRS を有効にする",
+  "editor.schedule.asDeck": "デッキとして予定を設定",
+  "editor.schedule.asDeckHelp": "すべてのメンバーノートで FSRS を有効にする",
+  "editor.schedule.reviewNoteHelp": "間隔反復によるノートの復習を予定する",
+  "editor.schedule.reviewNote": "復習を予定"
 }

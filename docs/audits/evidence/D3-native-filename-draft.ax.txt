@@ -1,0 +1,131 @@
+Window: "Memnova D2 1440 QA", App: Memnova D3 QA.
+0 standard window Memnova D2 1440 QA, Secondary Actions: Raise
+	1 scroll area
+		2 HTML content Description: Memnova, URL: localhost:5201/
+			3 container
+				4 button Thu gọn thanh bên, Help: Thu gọn thanh bên (⌘2)
+				5 button Quay lại, Help: Quay lại (⌘←)
+				6 button (disabled) Tiếp theo, Help: Tiếp theo (⌘→)
+				7 container
+					8 button Trang chủ
+					9 button Hộp thư đến 85
+					10 button Tất cả ghi chú 89
+					11 button Ôn tập
+					12 button Kho lưu trữ
+				13 button CHẾ ĐỘ XEM
+				14 button Tạo chế độ xem
+				15 sortable Capture QA 89
+				16 button LOẠI
+				17 button Tùy chỉnh các mục
+				18 button Tạo loại mới
+				19 sortable Notes
+6
+				20 sortable Responsibilities
+2
+				21 button THƯ MỤC
+				22 button Tạo thư mục
+				23 button (expanded) Library, Secondary Actions: Collapse
+				24 button 00 Research folder with a long title
+				25 button 01 Research folder with a long title
+				26 button 02 Research folder with a long title
+				27 button 03 Research folder with a long title
+				28 button 04 Research folder with a long title
+				29 button 05 Research folder with a long title
+				30 button 06 Research folder with a long title
+				31 button 07 Research folder with a long title
+				32 button 08 Research folder with a long title
+				33 button 09 Research folder with a long title
+				34 button 10 Research folder with a long title
+				35 button 11 Research folder with a long title
+				36 button 12 Research folder with a long title
+				37 button 13 Research folder with a long title
+				38 button 14 Research folder with a long title
+				39 button 15 Research folder with a long title
+				40 button 16 Research folder with a long title
+				41 button 17 Research folder with a long title
+				42 button 18 Research folder with a long title
+				43 button 19 Research folder with a long title
+				44 button 20 Research folder with a long title
+				45 button 21 Research folder with a long title
+				46 button 22 Research folder with a long title
+				47 button 23 Research folder with a long title
+				48 button 24 Research folder with a long title
+				49 button 25 Research folder with a long title
+				50 button 26 Research folder with a long title
+				51 button 27 Research folder with a long title
+				52 button 28 Research folder with a long title
+				53 button 29 Research folder with a long title
+				54 button views
+			55 heading Hộp thư đến, Value: 3
+				56 text Hộp thư đến
+			57 pop up button Đã sửa đổi, Help: Sắp xếp theo Đã sửa đổi
+			58 button Tìm ghi chú
+			59 pop up button Tùy chỉnh các cột của Hộp thư đến
+			60 button Tạo ghi chú mới
+			61 container (settable) Notes
+				62 container
+					63 text Empty Title D3 ngày 18 tháng 11, 2026
+					64 text (selected) An Explicit Display Title — D3 A paragraph for checking editor chrome without changing its content.
+ngày 18 tháng 11, 2026
+					65 text Grow Newsletter Build a sustainable audience through high-quality weekly essays. manage-sponsorships
+ngày 17 tháng 11, 2026
+					66 text Manage Sponsorships Revenue stream from newsletter sponsorships. Matteo Cellini handles day-to-day operations. Inbound leads via sponsorship page Qualification call Proposal and ne...
+ngày 17 tháng 11, 2026
+					67 text UX verification An ordinary document for writing and reference. A small blue bookmark recalls this document.
+ngày 17 tháng 11, 2026
+					68 text Reading 13 Reference material for ordinary writing. Native mnemonic preserves the reading context.
+ngày 16 tháng 11, 2026
+					69 text Reading 2 Reference material for ordinary writing.
+ngày 16 tháng 11, 2026
+					70 text Reading 27 Reference material for ordinary writing.
+ngày 16 tháng 11, 2026
+			71 text Note
+			72 text field (settable) Đổi tên tệp, Value: breadcrumb-slug-d3
+			73 container Ghi chú
+				74 button Thêm vào mục yêu thích
+				75 button Đặt ghi chú là đã sắp xếp
+			76 container Giao diện
+				77 button Mở vùng lân cận của ghi chú
+				78 button Mở trình soạn thảo thô
+				79 button Chuyển sang độ rộng ghi chú rộng
+				80 button Mở mục lục
+			81 container Thao tác tệp
+				82 button Hiển thị trong Finder
+				83 button Sao chép đường dẫn tệp
+			84 pop up button Thêm hành động ghi chú
+			85 button Mở bảng thuộc tính
+			86 container Rich text editor
+				87 text entry area (settable) Secondary Actions: Show Writing Tools, Value: **An Explicit Display Title — D3**
+A paragraph for checking editor chrome without changing its content.
+
+
+					88 heading (settable, integer) An Explicit Display Title — D3, Value: 1
+						89 text (settable) An Explicit Display Title — D3
+					90 text (settable) A paragraph for checking editor chrome without changing its content.
+					91 text Enter text or type '/' for commands
+			92 container
+				93 button Mở thư viện có sẵn
+				94 text |
+				95 button Kiểm tra cập nhật
+				96 button Đóng góp cho Tolaria
+				97 button Mở tài liệu Tolaria
+				98 button Chuyển sang giao diện tối
+				99 button Mở cài đặt
+	100 close button
+	101 full screen button Help: this button also has an action to zoom the window, Secondary Actions: zoom the window
+	102 minimize button
+103 menu bar
+	104 Memnova D3 QA
+	105 File
+	106 Edit
+	107 View
+	108 Go
+	109 Note
+	110 Vault
+	111 Window
+
+Selected text: ```
+breadcrumb-slug-d3
+```
+
+Note: Pay special attention to the content selected by the user. If the user asks a question or refers to the content they are looking at on-screen, they might be referring to the selected content (but they might be referring to something else that's visible, too).

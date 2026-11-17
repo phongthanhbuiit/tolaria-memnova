@@ -1026,5 +1026,19 @@
   "noteList.subtitle.links.few": "{count} collegamenti",
   "noteList.subtitle.links.many": "{count} collegamenti",
   "noteList.subtitle.links.other": "{count} collegamenti",
-  "filters.date.inputPlaceholder": "YYYY-MM-DD o una data relativa"
+  "filters.date.inputPlaceholder": "YYYY-MM-DD o una data relativa",
+  "editor.toolbar.fileActions": "Azioni file",
+  "editor.schedule.dueToday": "In scadenza oggi",
+  "editor.schedule.due": "Scadenza {date}",
+  "editor.schedule.nextReview": "FSRS: prossima data di ripasso",
+  "editor.schedule.reviewDeck": "Ripassa il mazzo",
+  "editor.schedule.reviewDeckHelp": "Ripassa il mazzo — studia tutte le note in scadenza in questo mazzo",
+  "editor.schedule.options": "Opzioni di pianificazione",
+  "editor.schedule.label": "Pianifica",
+  "editor.schedule.thisNote": "Solo questa nota",
+  "editor.schedule.thisNoteHelp": "Attiva FSRS per questa nota",
+  "editor.schedule.asDeck": "Pianifica come mazzo",
+  "editor.schedule.asDeckHelp": "Attiva FSRS per tutte le note del mazzo",
+  "editor.schedule.reviewNoteHelp": "Pianifica il ripasso della nota con ripetizione dilazionata",
+  "editor.schedule.reviewNote": "Pianifica il ripasso"
 }

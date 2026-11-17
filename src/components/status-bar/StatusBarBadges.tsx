@@ -156,8 +156,8 @@ function StatusBarAction({
         variant="ghost"
         size="xs"
         className={cn(
-          'h-auto gap-1 rounded-sm px-1 py-0.5 text-[12px] font-medium text-muted-foreground hover:bg-[var(--hover)] hover:text-foreground',
-          compact && 'h-6 gap-0.5 px-0.5',
+          'gap-1 rounded-md px-1 py-0.5 text-small font-medium text-muted-foreground hover:bg-[var(--hover)] hover:text-foreground',
+          compact && 'gap-0.5 px-0.5',
           disabled && 'cursor-not-allowed opacity-40 hover:bg-transparent hover:text-muted-foreground',
           className,
         )}
@@ -424,7 +424,7 @@ function PullAction({
           onPull?.()
           onClose()
         }}
-        className="h-6 gap-1 rounded-sm border-border bg-transparent px-2 text-[11px] text-foreground hover:bg-[var(--hover)]"
+        className="gap-1 rounded-md border-border bg-transparent px-2 text-caption text-foreground hover:bg-[var(--hover)]"
         data-testid="git-status-pull-btn"
       >
         <ArrowDown size={11} />{translate(locale, 'status.sync.pull')}
@@ -452,6 +452,7 @@ function GitStatusPopup({
   return (
     <div
       data-testid="git-status-popup"
+      className="text-small"
       style={{
         position: 'absolute',
         bottom: '100%',
@@ -459,12 +460,11 @@ function GitStatusPopup({
         marginBottom: 4,
         background: 'var(--sidebar)',
         border: '1px solid var(--border)',
-        borderRadius: 6,
+        borderRadius: 'var(--radius-lg)',
         padding: 8,
         minWidth: 220,
         boxShadow: '0 4px 12px var(--shadow-dialog)',
         zIndex: 1000,
-        fontSize: 12,
         color: 'var(--foreground)',
       }}
     >
@@ -482,10 +482,10 @@ export function CommitBadge({ info, locale = 'en' }: { info: LastCommitInfo; loc
 
   if (commitUrl) {
     return (
-      <button
+      <Button variant="ghost" size="sm"
         type="button"
         onClick={() => openExternalUrl(commitUrl)}
-        style={{ ...ICON_STYLE, color: 'var(--muted-foreground)', textDecoration: 'none', cursor: 'pointer', padding: '2px 4px', borderRadius: 3, border: 0, background: 'transparent' }}
+        style={{ ...ICON_STYLE, color: 'var(--muted-foreground)', textDecoration: 'none', cursor: 'pointer', padding: '2px 4px', background: 'transparent' }}
         title={translate(locale, 'status.commit.openOnGitHub', { hash: info.shortHash })}
         data-testid="status-commit-link"
         onMouseEnter={(event) => { event.currentTarget.style.color = 'var(--foreground)' }}
@@ -493,7 +493,7 @@ export function CommitBadge({ info, locale = 'en' }: { info: LastCommitInfo; loc
       >
         <GitCommitHorizontal size={13} />
         {info.shortHash}
-      </button>
+      </Button>
     )
   }
 
@@ -526,14 +526,14 @@ export function OfflineBadge({
           ...ICON_STYLE,
           color: 'var(--destructive)',
           background: 'var(--feedback-error-bg)',
-          borderRadius: 999,
+          borderRadius: 'var(--radius-sm)',
           padding: '2px 6px',
           fontWeight: 600,
         }}
         title={translate(locale, 'status.offline.title')}
         data-testid="status-offline"
       >
-        <span aria-hidden="true" style={{ fontSize: 10, lineHeight: 1 }}>
+        <span aria-hidden="true" className="text-caption leading-none">
           ●
         </span>
         {compact ? null : translate(locale, 'status.offline.label')}
@@ -610,7 +610,7 @@ export function NoRemoteBadge({
           ...ICON_STYLE,
           color: 'var(--muted-foreground)',
           background: 'var(--hover)',
-          borderRadius: 999,
+          borderRadius: 'var(--radius-sm)',
           padding: '2px 6px',
           fontWeight: 600,
         }}
@@ -732,18 +732,16 @@ export function ChangesBadge({
         <span style={ICON_STYLE}>
           <GitDiff size={13} style={{ color: 'var(--accent-orange)' }} />
           <span
+            className="text-caption min-w-4"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
               background: 'var(--accent-orange)',
               color: 'var(--text-inverse)',
-              borderRadius: 9,
+              borderRadius: 'var(--radius-sm)',
               padding: '0 5px',
-              fontSize: 11,
               fontWeight: 600,
-              minWidth: 16,
-              lineHeight: '16px',
             }}
           >
             {count}

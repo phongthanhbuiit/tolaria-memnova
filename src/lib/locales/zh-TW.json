@@ -1026,5 +1026,19 @@
   "noteList.subtitle.links.few": "{count} 個連結",
   "noteList.subtitle.links.many": "{count} 個連結",
   "noteList.subtitle.links.other": "{count} 個連結",
-  "filters.date.inputPlaceholder": "YYYY-MM-DD 或相對日期"
+  "filters.date.inputPlaceholder": "YYYY-MM-DD 或相對日期",
+  "editor.toolbar.fileActions": "檔案操作",
+  "editor.schedule.dueToday": "今天到期",
+  "editor.schedule.due": "到期日期：{date}",
+  "editor.schedule.nextReview": "FSRS：下次複習日期",
+  "editor.schedule.reviewDeck": "複習牌組",
+  "editor.schedule.reviewDeckHelp": "複習牌組 — 學習此牌組中所有到期筆記",
+  "editor.schedule.options": "排程選項",
+  "editor.schedule.label": "排程",
+  "editor.schedule.thisNote": "僅此筆記",
+  "editor.schedule.thisNoteHelp": "為此筆記啟用 FSRS",
+  "editor.schedule.asDeck": "以牌組排程",
+  "editor.schedule.asDeckHelp": "為所有成員筆記啟用 FSRS",
+  "editor.schedule.reviewNoteHelp": "安排筆記的間隔重複複習",
+  "editor.schedule.reviewNote": "安排複習"
 }
