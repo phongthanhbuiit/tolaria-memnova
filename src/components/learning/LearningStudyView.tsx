@@ -34,6 +34,7 @@ export function LearningStudyView({
   const { open, busy, error, reload } = study
   const session = study.session
   const item = session?.current
+  const terminal = !item && (session?.status === 'completed' || !!session?.waitingUntil)
   const isNote = item?.content?.kind === 'note'
   const noteDetails =
     item?.content?.kind === 'note' ? item.content.details : null
@@ -168,6 +169,7 @@ export function LearningStudyView({
                 ? `${session.completedCount}/${session.initialCount} · ${translate(locale, 'home.daily_goal_reviews', { n: session.reviewCount })}`
                 : t('learning.loading')}
             </DialogDescription>
+            {!terminal && (
             <Button
               variant="ghost"
               size="icon-sm"
@@ -179,6 +181,7 @@ export function LearningStudyView({
             >
               <X aria-hidden="true" />
             </Button>
+            )}
           </div>
 
           {session && (
@@ -246,9 +249,9 @@ export function LearningStudyView({
             </p>
           )}
           {session?.status === 'completed' && (
-            <div className="py-16 text-center">
-              <h2 className="text-3xl font-semibold">{t('decks.done_all')}</h2>
-              <p className="mt-4 text-muted-foreground">
+            <div className="learning-study-terminal">
+              <h2 className="text-display">{t('decks.done_all')}</h2>
+              <p className="text-body-lg text-text-secondary">
                 {translate(locale, 'home.daily_goal_reviews', {
                   n: session.reviewCount,
                 })}
@@ -256,9 +259,9 @@ export function LearningStudyView({
             </div>
           )}
           {session?.waitingUntil && !item && (
-            <div role="status" className="py-16 text-center">
-              <h2 className="text-xl font-semibold">{t('learning.wait')}</h2>
-              <p className="mt-3 text-muted-foreground">
+            <div role="status" className="learning-study-terminal">
+              <h2 className="text-display">{t('learning.wait')}</h2>
+              <p className="text-body-lg text-text-secondary">
                 {new Intl.DateTimeFormat(locale, {
                   hour: 'numeric',
                   minute: '2-digit',
@@ -286,6 +289,11 @@ export function LearningStudyView({
         </div>
         <footer className="learning-study-footer">
           <div className="flex flex-col gap-[8px]">
+            {terminal && (
+              <Button disabled={study.busy || study.hasPending} onClick={() => { void study.close() }}>
+                {t('learning.close')}
+              </Button>
+            )}
             {item?.page && !revealed && (
               <Button
                 ref={revealButton}

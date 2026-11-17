@@ -89,8 +89,8 @@ function SessionComplete({ onClose }: { onClose: () => void }) {
         <Confetti size={36} weight="duotone" className="text-[var(--accent-blue)]" />
       </div>
       <div>
-        <h2 className="text-xl font-bold mb-2">Session complete!</h2>
-        <p className="text-sm text-muted-foreground">All cards reviewed. Great work!</p>
+        <h2 className="text-display mb-[8px]">Session complete!</h2>
+        <p className="text-body-lg text-text-secondary">All cards reviewed. Great work!</p>
       </div>
       <Button
         type="button"
