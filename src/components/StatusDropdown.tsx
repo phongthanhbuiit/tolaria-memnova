@@ -1,3 +1,5 @@
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 import { useState, useRef, useCallback, useMemo } from 'react'
 import { createPortal } from 'react-dom'
 import { getStatusStyle, SUGGESTED_STATUSES, setStatusColor, getStatusColorKey } from '../utils/statusStyles'
@@ -11,22 +13,16 @@ import {
 import { getAnchoredDropdownStyle, useAnchoredDropdownPosition } from './anchoredDropdown'
 
 const PROPERTY_DROPDOWN_WIDTH = 208
-const SELECTED_SWATCH_CHECK_STYLE = { color: 'var(--text-inverse)', fontSize: 8, lineHeight: 1 } as const
+const SELECTED_SWATCH_CHECK_STYLE = { color: 'var(--text-inverse)' } as const
 
 export function StatusPill({ status, className }: { status: string; className?: string }) {
   const style = getStatusStyle(status)
   return (
     <span
-      className={`inline-block min-w-0 truncate${className ? ` ${className}` : ''}`}
+      className={`inline-block min-w-0 truncate rounded-sm px-2 text-body font-medium${className ? ` ${className}` : ''}`}
       style={{
         backgroundColor: style.bg,
         color: style.color,
-        borderRadius: 16,
-        padding: '1px 6px',
-        fontFamily: "'Inter', sans-serif",
-        fontSize: 10,
-        fontWeight: 600,
-        letterSpacing: '0',
         maxWidth: 160,
       }}
       title={status}
@@ -39,20 +35,20 @@ export function StatusPill({ status, className }: { status: string; className?: 
 function ColorPickerRow({ status, onColorChange }: { status: string; onColorChange: (status: string, colorKey: string) => void }) {
   const currentKey = getStatusColorKey(status)
   return (
-    <div className="flex items-center gap-1 px-3 py-1.5" data-testid={`color-picker-${status}`}>
+    <div className="flex flex-wrap items-center gap-1 px-3 py-2" data-testid={`color-picker-${status}`}>
       {ACCENT_COLORS.map(c => (
-        <button type="button"
+        <Button variant="ghost" size="icon-sm" type="button"
           key={c.key}
-          className="flex size-4 shrink-0 items-center justify-center rounded-full border-none p-0 transition-transform hover:scale-125"
+          className="flex shrink-0 items-center justify-center rounded-md border-none p-0 transition-transform hover:scale-125"
           style={{ backgroundColor: c.css }}
           onClick={(e) => { e.stopPropagation(); onColorChange(status, c.key) }}
           title={c.label}
           data-testid={`color-option-${c.key}`}
         >
           {currentKey === c.key && (
-            <span style={SELECTED_SWATCH_CHECK_STYLE}>{'\u2713'}</span>
+            <span className="text-caption" style={SELECTED_SWATCH_CHECK_STYLE}>{'\u2713'}</span>
           )}
-        </button>
+        </Button>
       ))}
     </div>
   )
@@ -81,20 +77,20 @@ function StatusOption({
       <div
         className="flex w-full items-center gap-1 px-2 py-1 transition-colors"
         style={{
-          borderRadius: 4,
+          borderRadius: 'var(--radius-md)',
           backgroundColor: highlighted ? 'var(--muted)' : 'transparent',
         }}
       >
-        <button type="button"
-          className="flex min-w-0 flex-1 items-center border-none bg-transparent p-0 text-left"
+        <Button variant="ghost" size="sm" type="button"
+          className="flex min-w-0 flex-1 items-center border-none bg-transparent p-0 text-left justify-start"
           onClick={() => onSelect(status)}
           onMouseEnter={onMouseEnter}
           data-testid={`status-option-${status}`}
         >
           <StatusPill status={status} />
-        </button>
-        <button type="button"
-          className="flex size-4 shrink-0 items-center justify-center rounded-full border-none p-0"
+        </Button>
+        <Button variant="ghost" size="icon-sm" type="button"
+          className="flex shrink-0 items-center justify-center rounded-md border-none p-0"
           style={{ backgroundColor: style.color }}
           onClick={() => onToggleColor(status)}
           onMouseEnter={onMouseEnter}
@@ -107,17 +103,10 @@ function StatusOption({
   )
 }
 
-const SECTION_LABEL_STYLE = {
-  fontFamily: "'Inter', sans-serif",
-  fontSize: 9,
-  fontWeight: 500,
-  letterSpacing: '0',
-}
-
 function SectionLabel({ children }: { children: string }) {
   return (
     <div className="px-2 py-1">
-      <span className="text-muted-foreground" style={SECTION_LABEL_STYLE}>{children}</span>
+      <span className="text-caption tracking-wide text-text-secondary">{children}</span>
     </div>
   )
 }
@@ -308,7 +297,7 @@ export function StatusDropdown({
     <span ref={anchorRef} data-testid="status-dropdown">
       {createPortal(
         <>
-          <button
+          <Button variant="ghost" size="sm"
             type="button"
             aria-label="Close status menu"
             className="fixed inset-0 z-[12000] cursor-default border-0 bg-transparent p-0"
@@ -322,9 +311,9 @@ export function StatusDropdown({
             data-testid="status-dropdown-popover"
           >
             <div className="border-b border-border px-2 py-1.5">
-              <input
+              <Input controlSize="sm"
                 ref={inputRef}
-                className="w-full border-none bg-transparent text-[12px] text-foreground outline-none placeholder:text-muted-foreground"
+                className="w-full border-none bg-transparent text-body text-foreground outline-none placeholder:text-text-secondary"
                 placeholder="Type a status..."
                 value={query}
                 onChange={e => handleQueryChange(e.target.value)}
@@ -349,7 +338,7 @@ export function StatusDropdown({
                 onMouseEnter={() => setHighlightIndex(allFiltered.length)}
               />
               {allFiltered.length === 0 && !showCreateOption && (
-                <div className="px-2 py-2 text-center text-[11px] text-muted-foreground">
+                <div className="px-2 py-2 text-center text-caption text-text-secondary">
                   No matching statuses
                 </div>
               )}
@@ -392,10 +381,10 @@ function CreateSection({ show, query, showDivider, highlighted, onSave, onMouseE
   return (
     <>
       {showDivider && <div className="my-1 h-px bg-border" />}
-      <button type="button"
-        className="flex w-full items-center gap-1.5 border-none bg-transparent px-2 py-1 text-left text-[11px] transition-colors"
+      <Button variant="ghost" size="sm" type="button"
+        className="flex w-full items-center gap-[6px] border-none bg-transparent px-2 py-0 text-left text-body transition-colors"
         style={{
-          borderRadius: 4,
+          borderRadius: 'var(--radius-md)',
           backgroundColor: highlighted ? 'var(--muted)' : 'transparent',
           color: 'var(--muted-foreground)',
         }}
@@ -404,7 +393,7 @@ function CreateSection({ show, query, showDivider, highlighted, onSave, onMouseE
         data-testid="status-create-option"
       >
         Create <StatusPill status={trimmed} />
-      </button>
+      </Button>
     </>
   )
 }
