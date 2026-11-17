@@ -1040,5 +1040,13 @@
   "editor.schedule.asDeck": "按卡组安排计划",
   "editor.schedule.asDeckHelp": "为所有成员笔记启用 FSRS",
   "editor.schedule.reviewNoteHelp": "安排笔记的间隔重复复习",
-  "editor.schedule.reviewNote": "安排复习"
+  "editor.schedule.reviewNote": "安排复习",
+  "inspector.propertyLabel.type": "类型",
+  "inspector.propertyLabel.status": "状态",
+  "inspector.propertyLabel.date": "日期",
+  "inspector.propertyLabel.url": "URL",
+  "inspector.propertyLabel.icon": "图标",
+  "inspector.propertyLabel.belongsTo": "属于",
+  "inspector.propertyLabel.relatedTo": "关联",
+  "inspector.propertyLabel.has": "包含"
 }

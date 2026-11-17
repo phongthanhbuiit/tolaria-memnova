@@ -1040,5 +1040,13 @@
   "editor.schedule.asDeck": "Als Stapel planen",
   "editor.schedule.asDeckHelp": "FSRS für alle Notizen im Stapel aktivieren",
   "editor.schedule.reviewNoteHelp": "Notiz für zeitlich verteiltes Wiederholen einplanen",
-  "editor.schedule.reviewNote": "Wiederholung planen"
+  "editor.schedule.reviewNote": "Wiederholung planen",
+  "inspector.propertyLabel.type": "Typ",
+  "inspector.propertyLabel.status": "Status",
+  "inspector.propertyLabel.date": "Datum",
+  "inspector.propertyLabel.url": "URL",
+  "inspector.propertyLabel.icon": "Symbol",
+  "inspector.propertyLabel.belongsTo": "Gehört zu",
+  "inspector.propertyLabel.relatedTo": "Verknüpft mit",
+  "inspector.propertyLabel.has": "Hat"
 }

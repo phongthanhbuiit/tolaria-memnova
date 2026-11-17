@@ -1040,5 +1040,13 @@
   "editor.schedule.asDeck": "Schedule as Deck",
   "editor.schedule.asDeckHelp": "Enable FSRS on all member notes",
   "editor.schedule.reviewNoteHelp": "Schedule note for spaced repetition review",
-  "editor.schedule.reviewNote": "Schedule for review"
+  "editor.schedule.reviewNote": "Schedule for review",
+  "inspector.propertyLabel.type": "Type",
+  "inspector.propertyLabel.status": "Status",
+  "inspector.propertyLabel.date": "Date",
+  "inspector.propertyLabel.url": "URL",
+  "inspector.propertyLabel.icon": "Icon",
+  "inspector.propertyLabel.belongsTo": "Belongs to",
+  "inspector.propertyLabel.relatedTo": "Related to",
+  "inspector.propertyLabel.has": "Has"
 }

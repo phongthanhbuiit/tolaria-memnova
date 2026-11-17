@@ -1040,5 +1040,13 @@
   "editor.schedule.asDeck": "Запланаваць як калоду",
   "editor.schedule.asDeckHelp": "Уключыць FSRS для ўсіх нататак калоды",
   "editor.schedule.reviewNoteHelp": "Запланаваць інтэрвальнае паўтарэнне нататкі",
-  "editor.schedule.reviewNote": "Запланаваць паўтарэнне"
+  "editor.schedule.reviewNote": "Запланаваць паўтарэнне",
+  "inspector.propertyLabel.type": "Тып",
+  "inspector.propertyLabel.status": "Стан",
+  "inspector.propertyLabel.date": "Дата",
+  "inspector.propertyLabel.url": "URL",
+  "inspector.propertyLabel.icon": "Значок",
+  "inspector.propertyLabel.belongsTo": "Належыць да",
+  "inspector.propertyLabel.relatedTo": "Звязана з",
+  "inspector.propertyLabel.has": "Змяшчае"
 }

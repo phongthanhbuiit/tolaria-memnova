@@ -1040,5 +1040,13 @@
   "editor.schedule.asDeck": "Planifier comme paquet",
   "editor.schedule.asDeckHelp": "Activer FSRS pour toutes les notes du paquet",
   "editor.schedule.reviewNoteHelp": "Planifier la révision de la note par répétition espacée",
-  "editor.schedule.reviewNote": "Planifier la révision"
+  "editor.schedule.reviewNote": "Planifier la révision",
+  "inspector.propertyLabel.type": "Type",
+  "inspector.propertyLabel.status": "Statut",
+  "inspector.propertyLabel.date": "Date",
+  "inspector.propertyLabel.url": "URL",
+  "inspector.propertyLabel.icon": "Icône",
+  "inspector.propertyLabel.belongsTo": "Appartient à",
+  "inspector.propertyLabel.relatedTo": "Lié à",
+  "inspector.propertyLabel.has": "Contient"
 }

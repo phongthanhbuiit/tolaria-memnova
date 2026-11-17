@@ -92,7 +92,7 @@ function AddDateInput({
   )
 }
 
-function AddStatusInput({ value, onChange, vaultStatuses }: { value: string; onChange: (v: string) => void; vaultStatuses: string[] }) {
+function AddStatusInput({ value, onChange, vaultStatuses, locale }: { locale: AppLocale; value: string; onChange: (v: string) => void; vaultStatuses: string[] }) {
   const [showDropdown, setShowDropdown] = useState(false)
   return (
     <span className="relative inline-flex min-w-[60px] flex-1 items-center">
@@ -101,7 +101,7 @@ function AddStatusInput({ value, onChange, vaultStatuses }: { value: string; onC
         onClick={() => setShowDropdown(true)}
         data-testid="add-property-status-trigger"
       >
-        {value ? <StatusPill status={value} /> : <span className="text-text-secondary">Status{'\u2026'}</span>}
+        {value ? <StatusPill status={value} /> : <span className="text-text-secondary">{translate(locale, 'inspector.propertyLabel.status')}{'\u2026'}</span>}
       </Button>
       {showDropdown && (
         <StatusDropdown
@@ -144,7 +144,7 @@ function AddPropertyValueInput({ displayMode, value, onChange, onKeyDown, vaultS
       return <AddNumberInput value={value} onChange={onChange} onKeyDown={onKeyDown} />
     case 'boolean': return <AddBooleanInput value={value} locale={locale} onChange={onChange} />
     case 'date': return <AddDateInput value={value} locale={locale} onChange={onChange} />
-    case 'status': return <AddStatusInput value={value} onChange={onChange} vaultStatuses={vaultStatuses} />
+    case 'status': return <AddStatusInput locale={locale} value={value} onChange={onChange} vaultStatuses={vaultStatuses} />
     case 'tags': return (
       <Input controlSize="sm" className={ADD_INPUT_CLASS} type="text" placeholder="tag1, tag2, ..." value={value}
         onChange={(e) => onChange(e.target.value)} onKeyDown={onKeyDown}

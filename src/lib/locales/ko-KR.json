@@ -1040,5 +1040,13 @@
   "editor.schedule.asDeck": "덱으로 일정 설정",
   "editor.schedule.asDeckHelp": "모든 구성원 노트에 FSRS 활성화",
   "editor.schedule.reviewNoteHelp": "간격 반복으로 노트 복습 일정 설정",
-  "editor.schedule.reviewNote": "복습 일정 설정"
+  "editor.schedule.reviewNote": "복습 일정 설정",
+  "inspector.propertyLabel.type": "유형",
+  "inspector.propertyLabel.status": "상태",
+  "inspector.propertyLabel.date": "날짜",
+  "inspector.propertyLabel.url": "URL",
+  "inspector.propertyLabel.icon": "아이콘",
+  "inspector.propertyLabel.belongsTo": "소속",
+  "inspector.propertyLabel.relatedTo": "관련 항목",
+  "inspector.propertyLabel.has": "포함"
 }

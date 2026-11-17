@@ -1040,5 +1040,13 @@
   "editor.schedule.asDeck": "Programar como mazo",
   "editor.schedule.asDeckHelp": "Activar FSRS en todas las notas del mazo",
   "editor.schedule.reviewNoteHelp": "Programar el repaso de la nota con repetición espaciada",
-  "editor.schedule.reviewNote": "Programar repaso"
+  "editor.schedule.reviewNote": "Programar repaso",
+  "inspector.propertyLabel.type": "Tipo",
+  "inspector.propertyLabel.status": "Estado",
+  "inspector.propertyLabel.date": "Fecha",
+  "inspector.propertyLabel.url": "URL",
+  "inspector.propertyLabel.icon": "Ícono",
+  "inspector.propertyLabel.belongsTo": "Pertenece a",
+  "inspector.propertyLabel.relatedTo": "Relacionado con",
+  "inspector.propertyLabel.has": "Tiene"
 }

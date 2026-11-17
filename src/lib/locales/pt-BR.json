@@ -1040,5 +1040,13 @@
   "editor.schedule.asDeck": "Agendar como baralho",
   "editor.schedule.asDeckHelp": "Ativar FSRS em todas as notas do baralho",
   "editor.schedule.reviewNoteHelp": "Agendar revisão da nota com repetição espaçada",
-  "editor.schedule.reviewNote": "Agendar revisão"
+  "editor.schedule.reviewNote": "Agendar revisão",
+  "inspector.propertyLabel.type": "Tipo",
+  "inspector.propertyLabel.status": "Status",
+  "inspector.propertyLabel.date": "Data",
+  "inspector.propertyLabel.url": "URL",
+  "inspector.propertyLabel.icon": "Ícone",
+  "inspector.propertyLabel.belongsTo": "Pertence a",
+  "inspector.propertyLabel.relatedTo": "Relacionado a",
+  "inspector.propertyLabel.has": "Tem"
 }

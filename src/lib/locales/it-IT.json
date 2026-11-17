@@ -1040,5 +1040,13 @@
   "editor.schedule.asDeck": "Pianifica come mazzo",
   "editor.schedule.asDeckHelp": "Attiva FSRS per tutte le note del mazzo",
   "editor.schedule.reviewNoteHelp": "Pianifica il ripasso della nota con ripetizione dilazionata",
-  "editor.schedule.reviewNote": "Pianifica il ripasso"
+  "editor.schedule.reviewNote": "Pianifica il ripasso",
+  "inspector.propertyLabel.type": "Tipo",
+  "inspector.propertyLabel.status": "Stato",
+  "inspector.propertyLabel.date": "Data",
+  "inspector.propertyLabel.url": "URL",
+  "inspector.propertyLabel.icon": "Icona",
+  "inspector.propertyLabel.belongsTo": "Appartiene a",
+  "inspector.propertyLabel.relatedTo": "Correlato a",
+  "inspector.propertyLabel.has": "Ha"
 }

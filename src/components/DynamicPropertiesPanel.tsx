@@ -21,7 +21,7 @@ import {
   PROPERTY_PANEL_PLACEHOLDER_VALUE_CLASS_NAME,
   PROPERTY_PANEL_ROW_STYLE,
 } from './propertyPanelLayout'
-import { humanizePropertyKey } from '../utils/propertyLabels'
+import { propertyDisplayLabel } from '../utils/propertyLabels'
 import { translate, type AppLocale } from '../lib/i18n'
 import { canonicalSystemMetadataKey, hasSystemMetadataKey } from '../utils/systemMetadata'
 
@@ -48,7 +48,7 @@ function PropertyRow({ propKey, value, editingKey, displayMode, autoMode, vaultS
     <div className={PROPERTY_ROW_CLASS_NAME} style={PROPERTY_PANEL_ROW_STYLE} data-testid="editable-property">
       <span className={PROPERTY_PANEL_LABEL_CLASS_NAME}>
         <DisplayModeSelector propKey={propKey} currentMode={displayMode} autoMode={autoMode} onSelect={onDisplayModeChange} />
-        <span className="min-w-0 flex-1 truncate">{humanizePropertyKey(propKey)}</span>
+        <span className="min-w-0 flex-1 truncate">{propertyDisplayLabel(propKey, locale)}</span>
         {onDelete && (
           <Button variant="ghost" size="icon-sm" type="button" className="border-none bg-transparent p-0 text-body leading-none text-text-secondary opacity-0 transition-all hover:text-destructive group-hover/prop:opacity-100 focus-visible:opacity-100" onClick={() => onDelete(propKey)} title={translate(locale, 'inspector.properties.deleteProperty')}>&times;</Button>
         )}
@@ -213,7 +213,7 @@ function TypeDerivedPropertySlot({
             data-testid={`type-derived-property-icon-${displayMode}`}
           />
         </span>
-        <span className="min-w-0 truncate text-text-secondary">{humanizePropertyKey(propKey)}</span>
+        <span className="min-w-0 truncate text-text-secondary">{propertyDisplayLabel(propKey, locale)}</span>
       </span>
       <span className={PROPERTY_PANEL_PLACEHOLDER_VALUE_CLASS_NAME}>{'\u2014'}</span>
     </Button>
@@ -411,16 +411,18 @@ function PendingSuggestedPropertyRow({
 function SuggestedPropertyRows({
   properties,
   onAdd,
+  locale,
 }: {
+  locale: AppLocale
   properties: Array<{ key: string; label: string }>
   onAdd: (key: string) => void
 }) {
   return (
     <div className="col-span-full grid min-w-0 grid-cols-[repeat(auto-fit,minmax(min(100%,7rem),1fr))] gap-2">
-      {properties.map(({ key, label }) => (
+      {properties.map(({ key }) => (
         <SuggestedPropertySlot
           key={key}
-          label={label}
+          label={propertyDisplayLabel(key, locale)}
           displayMode={getSuggestedDisplayMode(key)}
           onAdd={() => onAdd(key)}
         />
@@ -580,7 +582,7 @@ function DynamicPropertiesPanelContent({
           onSaveList={handleSaveList}
           onDisplayModeChange={handleDisplayModeChange}
         />
-        <SuggestedPropertyRows properties={missingSuggested} onAdd={onAddSuggestedProperty} />
+        <SuggestedPropertyRows locale={locale} properties={missingSuggested} onAdd={onAddSuggestedProperty} />
         {!showAddDialog && (
           <AddPropertyButton
             locale={locale}

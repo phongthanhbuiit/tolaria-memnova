@@ -243,16 +243,16 @@ describe('DynamicPropertiesPanel', () => {
     expect(screen.getByText('some-team')).toBeInTheDocument()
   })
 
-  it('localizes UI actions without translating stored property names', () => {
+  it('localizes system display labels alongside UI actions', () => {
     renderPanel({
       frontmatter: { Status: 'Active', 'Belongs to': 'some-team' },
       onAddProperty,
       locale: 'zh-CN',
     })
 
-    expect(screen.getByText('Type')).toBeInTheDocument()
-    expect(screen.getByText('Status')).toBeInTheDocument()
-    expect(screen.getByText('Belongs to')).toBeInTheDocument()
+    expect(screen.getByText('类型')).toBeInTheDocument()
+    expect(screen.getByText('状态')).toBeInTheDocument()
+    expect(screen.getByText('属于')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: '添加属性' })).toBeInTheDocument()
   })
 
@@ -965,4 +965,12 @@ describe('DynamicPropertiesPanel', () => {
       expect(screen.getByPlaceholderText('Value')).toBeInTheDocument()
     })
   })
+})
+
+it('localizes system property labels while preserving raw custom keys and save identity', () => {
+  const onUpdate = vi.fn()
+  renderPanel({ locale: 'vi', frontmatter: { Status: 'Active', Date: '2026-11-18', URL: 'https://example.com', icon: '📚', 'My custom label': 'Original' }, onUpdateProperty: onUpdate })
+  for (const name of ['Trạng thái', 'Ngày', 'URL', 'Biểu tượng', 'My custom label']) expect(screen.getByText(name, { exact: true })).toBeInTheDocument()
+  expect(screen.queryByText('Status', { exact: true })).not.toBeInTheDocument()
+  expect(onUpdate).not.toHaveBeenCalled()
 })

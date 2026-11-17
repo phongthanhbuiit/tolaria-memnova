@@ -1040,5 +1040,13 @@
   "editor.schedule.asDeck": "以牌組排程",
   "editor.schedule.asDeckHelp": "為所有成員筆記啟用 FSRS",
   "editor.schedule.reviewNoteHelp": "安排筆記的間隔重複複習",
-  "editor.schedule.reviewNote": "安排複習"
+  "editor.schedule.reviewNote": "安排複習",
+  "inspector.propertyLabel.type": "類型",
+  "inspector.propertyLabel.status": "狀態",
+  "inspector.propertyLabel.date": "日期",
+  "inspector.propertyLabel.url": "URL",
+  "inspector.propertyLabel.icon": "圖示",
+  "inspector.propertyLabel.belongsTo": "屬於",
+  "inspector.propertyLabel.relatedTo": "關聯",
+  "inspector.propertyLabel.has": "包含"
 }

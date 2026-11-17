@@ -1040,5 +1040,13 @@
   "editor.schedule.asDeck": "Zaplanavać jak kalodu",
   "editor.schedule.asDeckHelp": "Uklučyć FSRS dla ŭsich natatak kalody",
   "editor.schedule.reviewNoteHelp": "Zaplanavać intervalnaje paŭtareńnie natatki",
-  "editor.schedule.reviewNote": "Zaplanavać paŭtareńnie"
+  "editor.schedule.reviewNote": "Zaplanavać paŭtareńnie",
+  "inspector.propertyLabel.type": "Typ",
+  "inspector.propertyLabel.status": "Stan",
+  "inspector.propertyLabel.date": "Data",
+  "inspector.propertyLabel.url": "URL",
+  "inspector.propertyLabel.icon": "Značok",
+  "inspector.propertyLabel.belongsTo": "Naležyć da",
+  "inspector.propertyLabel.relatedTo": "Zviazana z",
+  "inspector.propertyLabel.has": "Źmiaščaje"
 }

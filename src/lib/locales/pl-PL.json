@@ -1040,5 +1040,13 @@
   "editor.schedule.asDeck": "Zaplanuj jako talię",
   "editor.schedule.asDeckHelp": "Włącz FSRS dla wszystkich notatek w talii",
   "editor.schedule.reviewNoteHelp": "Zaplanuj powtórkę notatki metodą powtórek interwałowych",
-  "editor.schedule.reviewNote": "Zaplanuj powtórkę"
+  "editor.schedule.reviewNote": "Zaplanuj powtórkę",
+  "inspector.propertyLabel.type": "Typ",
+  "inspector.propertyLabel.status": "Status",
+  "inspector.propertyLabel.date": "Data",
+  "inspector.propertyLabel.url": "URL",
+  "inspector.propertyLabel.icon": "Ikona",
+  "inspector.propertyLabel.belongsTo": "Należy do",
+  "inspector.propertyLabel.relatedTo": "Powiązane z",
+  "inspector.propertyLabel.has": "Zawiera"
 }

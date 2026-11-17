@@ -19,7 +19,7 @@ import {
   PROPERTY_PANEL_LABEL_CLASS_NAME,
   PROPERTY_PANEL_PLACEHOLDER_LABEL_CLASS_NAME,
 } from '../propertyPanelLayout'
-import { humanizePropertyKey } from '../../utils/propertyLabels'
+import { propertyDisplayLabel } from '../../utils/propertyLabels'
 import { translate, type AppLocale } from '../../lib/i18n'
 import { canonicalFrontmatterKey } from '../../utils/systemMetadata'
 import { Button } from '@/components/ui/button'
@@ -71,7 +71,7 @@ interface TitleSelectionState {
   trimmed: string
 }
 
-function RelationshipSectionRow({ label, children, dataTestId, placeholder = false }: {
+function RelationshipSectionRow({ label, children, dataTestId, locale, placeholder = false }: {
   label: string
   children: ReactNode
   dataTestId?: string
@@ -84,7 +84,7 @@ function RelationshipSectionRow({ label, children, dataTestId, placeholder = fal
   return (
     <div className={RELATIONSHIP_SECTION_ROW_CLASS_NAME} style={{ gridColumn: '1 / -1' }} data-testid={dataTestId}>
       <span className={`${labelClassName} min-h-(--control-sm)`} data-testid="relationship-section-label">
-        <span className={labelTextClassName}>{humanizePropertyKey(label)}</span>
+        <span className={labelTextClassName}>{propertyDisplayLabel(label, locale)}</span>
       </span>
       <div className={RELATIONSHIP_SECTION_VALUE_CLASS_NAME}>{children}</div>
     </div>

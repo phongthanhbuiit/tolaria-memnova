@@ -1040,5 +1040,13 @@
   "editor.schedule.asDeck": "Запланировать как колоду",
   "editor.schedule.asDeckHelp": "Включить FSRS для всех заметок колоды",
   "editor.schedule.reviewNoteHelp": "Запланировать интервальное повторение заметки",
-  "editor.schedule.reviewNote": "Запланировать повторение"
+  "editor.schedule.reviewNote": "Запланировать повторение",
+  "inspector.propertyLabel.type": "Тип",
+  "inspector.propertyLabel.status": "Статус",
+  "inspector.propertyLabel.date": "Дата",
+  "inspector.propertyLabel.url": "URL",
+  "inspector.propertyLabel.icon": "Значок",
+  "inspector.propertyLabel.belongsTo": "Принадлежит",
+  "inspector.propertyLabel.relatedTo": "Связано с",
+  "inspector.propertyLabel.has": "Содержит"
 }

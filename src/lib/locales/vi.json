@@ -1040,5 +1040,13 @@
   "editor.schedule.asDeck": "Lên lịch cho bộ thẻ",
   "editor.schedule.asDeckHelp": "Bật FSRS cho mọi ghi chú thành viên",
   "editor.schedule.reviewNoteHelp": "Lên lịch ôn ghi chú theo phương pháp lặp lại ngắt quãng",
-  "editor.schedule.reviewNote": "Lên lịch ôn tập"
+  "editor.schedule.reviewNote": "Lên lịch ôn tập",
+  "inspector.propertyLabel.type": "Loại",
+  "inspector.propertyLabel.status": "Trạng thái",
+  "inspector.propertyLabel.date": "Ngày",
+  "inspector.propertyLabel.url": "URL",
+  "inspector.propertyLabel.icon": "Biểu tượng",
+  "inspector.propertyLabel.belongsTo": "Thuộc về",
+  "inspector.propertyLabel.relatedTo": "Liên quan đến",
+  "inspector.propertyLabel.has": "Có"
 }

@@ -1040,5 +1040,13 @@
   "editor.schedule.asDeck": "Jadwalkan sebagai dek",
   "editor.schedule.asDeckHelp": "Aktifkan FSRS pada semua catatan anggota",
   "editor.schedule.reviewNoteHelp": "Jadwalkan tinjauan catatan dengan pengulangan berjarak",
-  "editor.schedule.reviewNote": "Jadwalkan tinjauan"
+  "editor.schedule.reviewNote": "Jadwalkan tinjauan",
+  "inspector.propertyLabel.type": "Jenis",
+  "inspector.propertyLabel.status": "Status",
+  "inspector.propertyLabel.date": "Tanggal",
+  "inspector.propertyLabel.url": "URL",
+  "inspector.propertyLabel.icon": "Ikon",
+  "inspector.propertyLabel.belongsTo": "Milik",
+  "inspector.propertyLabel.relatedTo": "Terkait dengan",
+  "inspector.propertyLabel.has": "Memiliki"
 }

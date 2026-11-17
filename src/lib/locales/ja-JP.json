@@ -1040,5 +1040,13 @@
   "editor.schedule.asDeck": "デッキとして予定を設定",
   "editor.schedule.asDeckHelp": "すべてのメンバーノートで FSRS を有効にする",
   "editor.schedule.reviewNoteHelp": "間隔反復によるノートの復習を予定する",
-  "editor.schedule.reviewNote": "復習を予定"
+  "editor.schedule.reviewNote": "復習を予定",
+  "inspector.propertyLabel.type": "種類",
+  "inspector.propertyLabel.status": "状態",
+  "inspector.propertyLabel.date": "日付",
+  "inspector.propertyLabel.url": "URL",
+  "inspector.propertyLabel.icon": "アイコン",
+  "inspector.propertyLabel.belongsTo": "所属先",
+  "inspector.propertyLabel.relatedTo": "関連先",
+  "inspector.propertyLabel.has": "含む"
 }
