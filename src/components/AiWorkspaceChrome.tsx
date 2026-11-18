@@ -18,13 +18,13 @@ export function GuidanceWarning({
   if (!status || !vaultAiGuidanceNeedsRestore(status)) return null
 
   return (
-    <div className="flex shrink-0 items-center gap-2 border-y border-border bg-muted/50 px-3 py-2 text-(length:--text-small) leading-(--text-small--line-height) text-muted-foreground">
+    <div className="flex shrink-0 flex-wrap items-center gap-2 border-y border-border bg-muted/50 px-3 py-2 text-(length:--text-small) leading-(--text-small--line-height) text-muted-foreground">
       <WarningCircle size={15} className="shrink-0 text-amber-600" />
-      <span className="min-w-0 flex-1">
+      <span className="min-w-0 flex-1 wrap-anywhere">
         {translate(locale, 'ai.workspace.guidanceWarning', { summary: getVaultAiGuidanceSummary(status) })}
       </span>
       {status.canRestore && onRestore && (
-        <Button type="button" variant="outline" size="xs" onClick={onRestore}>
+        <Button type="button" variant="outline" size="xs" layout="responsive" onClick={onRestore}>
           {translate(locale, 'ai.workspace.restoreGuidance')}
         </Button>
       )}

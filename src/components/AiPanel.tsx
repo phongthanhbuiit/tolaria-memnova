@@ -128,7 +128,7 @@ function AiPanelFrame({
     <aside
       ref={panelRef}
       tabIndex={-1}
-      className={`flex flex-1 flex-col overflow-hidden ${surface === 'sidebar' ? 'bg-sidebar text-sidebar-foreground' : 'bg-background text-foreground'}`}
+      className={`flex min-w-0 flex-1 flex-col overflow-hidden ${surface === 'sidebar' ? 'bg-sidebar text-sidebar-foreground' : 'bg-background text-foreground'}`}
       style={aiPanelFrameStyle(isActive, showLeftBorder)}
       data-testid="ai-panel"
       data-ai-active={isActive || undefined}

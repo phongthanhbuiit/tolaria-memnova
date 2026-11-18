@@ -631,7 +631,7 @@ function ConversationSession({
   })
 
   return (
-    <div className={active ? 'flex min-h-0 flex-1 flex-col' : 'hidden'} data-testid={`ai-workspace-session-${conversation.id}`}>
+    <div className={active ? 'flex min-h-0 min-w-0 flex-1 flex-col' : 'hidden'} data-testid={`ai-workspace-session-${conversation.id}`}>
       <ConversationWorkspaceHeader
         conversation={conversation}
         locale={locale}

@@ -57,8 +57,8 @@ function writeStoredSideWorkspaceWidth(width: number): void {
 export function workspaceClassName(mode: AiWorkspaceMode, expanded = false): string {
   if (mode === 'side') {
     return cn(
-      'z-20 flex h-full min-h-0 overflow-hidden border-l border-sidebar-border bg-sidebar text-sidebar-foreground',
-      expanded ? 'absolute inset-0 border-l-0' : 'relative shrink-0',
+      'z-20 flex h-full min-h-0 max-w-full overflow-hidden border-l border-sidebar-border bg-sidebar text-sidebar-foreground',
+      expanded ? 'absolute inset-0 border-l-0' : 'relative',
     )
   }
 
