@@ -78,10 +78,12 @@ export function LearningStudyView({
   study,
   root,
   locale,
+  onOpenRawSource,
 }: {
   study: ReturnType<typeof useLearningStudy>
   root: string
   locale: AppLocale
+  onOpenRawSource?: (path: string) => void
 }) {
   const { onOpenAutoFocus, onCloseAutoFocus } = useLearningDialogFocus()
   const { open, busy, error, reload } = study
@@ -334,6 +336,7 @@ export function LearningStudyView({
             study={study}
             root={root}
             locale={locale}
+            onOpenRawSource={onOpenRawSource}
             faces={{
               snapshotKey: key,
               revealed,

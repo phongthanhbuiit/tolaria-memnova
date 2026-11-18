@@ -15,17 +15,19 @@ import { literalNoteMarkerCodec, preProcessLiteralNoteMarkers } from './literalN
 import { restoreWikilinksInBlocks } from './wikilinks'
 import { serializeMathAwareBlocks } from './mathMarkdown'
 import { mermaidMarkdownCodec } from './mermaidMarkdown'
+import { preProcessUnsupportedDrawings, unsupportedDrawingCodec } from './unsupportedDrawingMarkdown'
 import { excalidrawMarkdownCodec } from './excalidrawMarkdown'
 
 const EDITOR_DURABLE_MARKDOWN_CODECS = [
   mermaidMarkdownCodec,
   excalidrawMarkdownCodec,
   literalNoteMarkerCodec,
+  unsupportedDrawingCodec,
 ] as const
 
 export function preProcessDurableEditorMarkdown({ markdown }: { markdown: string }): string {
   const withDurableBlocks = preProcessDurableMarkdownBlocks({
-    markdown: preProcessLiteralNoteMarkers(markdown),
+    markdown: preProcessUnsupportedDrawings(preProcessLiteralNoteMarkers(markdown)),
     codecs: EDITOR_DURABLE_MARKDOWN_CODECS,
   })
   return preProcessFileAttachmentMarkdown({ markdown: withDurableBlocks })

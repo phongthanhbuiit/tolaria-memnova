@@ -16,7 +16,7 @@ Latest combined targeted run143tests/11files passed11.78s, including existing sa
 
 ## Browser/visual evidence
 
-Real tldraw-independent rich editor plus browser learning model and real copied fixture filesystem: type article, immediately select mnemonic, type mnemonic, return to article, CmdS, and enter raw mode. Persisted file retains both last edits, one delimiter and byte-identical original metadata including a large integer. Passed8.4s/11.4s whole command with zero retries while other read-only checks ran. Earlier isolated pass5.3s/7.4s. Article/raw screenshots under/tmp/memnova-m15-editor-*.png were viewed; article uses existing system buttons/icons and normal note width. No cosmetic or mock-heavy test added to curated54 core smoke.
+Real legacy canvas format-independent rich editor plus browser learning model and real copied fixture filesystem: type article, immediately select mnemonic, type mnemonic, return to article, CmdS, and enter raw mode. Persisted file retains both last edits, one delimiter and byte-identical original metadata including a large integer. Passed8.4s/11.4s whole command with zero retries while other read-only checks ran. Earlier isolated pass5.3s/7.4s. Article/raw screenshots under/tmp/memnova-m15-editor-*.png were viewed; article uses existing system buttons/icons and normal note width. No cosmetic or mock-heavy test added to curated54 core smoke.
 
 Native M15 acceptance is NOT YET RUN; the M15–M18 checkpoint and M23 must cover the integrated native UI. M14 native canvas evidence does not substitute for the new persistence/editor path. Default conversion/learning entry remains staged until M20.
 

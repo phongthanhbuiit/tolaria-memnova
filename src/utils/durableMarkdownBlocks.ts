@@ -95,7 +95,7 @@ function decodePayload(codec: DurableBlockCodec, encoded: string): unknown | nul
   }
 }
 
-function durableToken(codec: DurableBlockCodec, payload: unknown): string {
+export function durableToken(codec: DurableBlockCodec, payload: unknown): string {
   return `${codec.tokenPrefix}${encodePayload(payload)}${codec.tokenSuffix}`
 }
 

@@ -10,7 +10,8 @@ import { useEditorDictionary } from './editorDictionary'
 import { createArrowLigaturesExtension } from './arrowLigaturesExtension'
 import { createMathInputExtension } from './mathInputExtension'
 import { preProcessDurableEditorMarkdown, injectDurableEditorMarkdownBlocks } from '../utils/editorDurableMarkdown'
-import { projectLegacyDrawingMarkdown } from '../utils/snippetMarkdown'
+import { hideUnsupportedDrawings } from '../utils/unsupportedDrawingMarkdown'
+import { DrawingSourceButton } from './UnsupportedDrawing'
 import { resolveImageUrls } from '../utils/vaultImages'
 import { preProcessWikilinks, injectWikilinks } from '../utils/wikilinks'
 import { preProcessMathMarkdown, injectMathInBlocks } from '../utils/mathMarkdown'
@@ -32,6 +33,7 @@ interface BlockNoteReadOnlyProps {
   onReady?: () => void
   onRenderStatus?: (status: DocumentRenderStatus) => void
   locale?: AppLocale
+  onOpenRawSource?: () => void
 }
 export function BlockNoteReadOnly(props: BlockNoteReadOnlyProps) {
   const { verifiedMedia,content,vaultPath,notePath,onImageClick,preserveBody = false,locale = 'en',onReady,onRenderStatus } = props
@@ -52,7 +54,7 @@ export function BlockNoteReadOnly(props: BlockNoteReadOnlyProps) {
   const resolveVerified = verified?.resolve
   useRegisterEditorResources(editor,vaultPath ?? undefined,notePath,undefined,resolveVerified)
   const displayContent = useMemo(
-    () => projectLegacyDrawingMarkdown(content, translate(locale, 'learning.legacyDrawingUnavailable')),
+    () => hideUnsupportedDrawings(content, translate(locale, 'learning.legacyDrawingUnavailable')),
     [content, locale],
   )
   const [prevContent, setPrevContent] = useState(displayContent)
@@ -146,7 +148,10 @@ export function BlockNoteReadOnly(props: BlockNoteReadOnlyProps) {
     )
   }
 
-  if (renderError) return <pre className="whitespace-pre-wrap break-words text-sm">{displayContent}</pre>
+  const sourceButton = props.onOpenRawSource && displayContent !== content
+    ? <DrawingSourceButton locale={locale} openSource={props.onOpenRawSource} />
+    : null
+  if (renderError) return <><pre className="whitespace-pre-wrap break-words text-sm">{displayContent}</pre>{sourceButton}</>
 
   const handleEditorClick = (e: React.MouseEvent) => {
     const target = e.target as HTMLElement
@@ -189,6 +194,7 @@ export function BlockNoteReadOnly(props: BlockNoteReadOnlyProps) {
         getRootElement={() => undefined}
       >
         {view}
+        {sourceButton}
       </MantineProvider>
     </div>
   )

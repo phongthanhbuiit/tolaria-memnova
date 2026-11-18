@@ -20,7 +20,7 @@ Kiến trúc hiện tại phù hợp nghiệp vụ: note thường giữ nguyên
 - `src/utils/wikilinks.ts:495`: `extractSnippet` lọc từng dòng, bỏ fence nhưng giữ payload bên trong.
 - `src-tauri/src/vault/parsing.rs:82` và `:150`: cùng kiểu xử lý ở native.
 - Ảnh native M24 `native-parser-restart.png` đã được xem lại: hàng “Canvas memory QA” hiện `{"store":{"asset:...` trong snippet. Đây là ảnh nghiệm thu cũ ở source release hiện tại, không phải phiên native mới.
-- Probe mới chạy trực tiếp hàm TS: đầu vào `# Canvas note`, đoạn `Visible prose.` và fence `tldraw` chứa JSON; mong đợi `Visible prose.`, thực tế `Visible prose. {"store":{"shape:private":{"typeName":"shape"}}}`. Test RED.
+- Probe mới chạy trực tiếp hàm TS: đầu vào `# Canvas note`, đoạn `Visible prose.` và fence `legacy canvas format` chứa JSON; mong đợi `Visible prose.`, thực tế `Visible prose. {"store":{"shape:private":{"typeName":"shape"}}}`. Test RED.
 - Tác động: danh sách khó đọc, có thể đưa từ khóa cấu trúc canvas vào những bộ lọc dùng snippet. Không phải bằng chứng rò rỉ ra mạng hay mất dữ liệu.
 - Sửa ở projection snippet, không sửa nội dung `.md`. Cần parity TS/Rust và dev adapter. Không xóa toàn bộ code block thông thường: test cũ có contract riêng.
 
@@ -79,7 +79,7 @@ Probe là test tạm phục vụ audit, đã xóa sau chạy; không để suite
 
 Số 4891 frontend /1239 Rust, coverage 87.33%/86.37% và 54 smoke là **bằng chứng lịch sử M25**, không phải lần chạy mới. Xem [M25](../../baselines/2026-10-19-note-memory-m25.md) và [ledger cũ](../../MEMNOVA-NOTE-MEMORY-IMPLEMENTATION.md).
 
-Giữ nguyên các giới hạn M25: license production tldraw chưa xác minh cấu hình, non-macOS/signed installer/VoiceOver chưa nghiệm thu; force-kill không thuộc bảo đảm normal-close. U11 phải báo đúng các mục này, không xem thêm icon là đã giải quyết license.
+Giữ nguyên các giới hạn M25: license production legacy canvas format chưa xác minh cấu hình, non-macOS/signed installer/VoiceOver chưa nghiệm thu; force-kill không thuộc bảo đảm normal-close. U11 phải báo đúng các mục này, không xem thêm icon là đã giải quyết license.
 
 Tham khảo accessibility: [Web Interface Guidelines](https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md). Áp dụng phù hợp desktop app; không tự thêm URL routing, đổi typography/brand hoặc dependency theo checklist web.
 
@@ -133,7 +133,7 @@ Mỗi task dưới đây đủ nhỏ để model triển khai riêng. Không suy
 ### U01 — snippet không hiển thị payload nội bộ
 
 - Phạm vi: `src/utils/wikilinks.ts`, `src/utils/wikilinks.test.ts`, `src-tauri/src/vault/parsing.rs`; tìm các caller/dev adapters để cùng semantics. Tách helper nhỏ nếu cần, không trộn learning service vào vault parser.
-- RED TS/Rust: prose + valid tldraw; canvas-only; hai canvas; LF/CRLF; fence có metadata width/id; fence dài/nested; ordinary code block giữ contract cũ. Repro tối thiểu: `# Canvas note\n\nVisible prose.\n\n```tldraw\n{"store":{}}\n```\n` phải cho `Visible prose.`.
+- RED TS/Rust: prose + valid legacy canvas format; canvas-only; hai canvas; LF/CRLF; fence có metadata width/id; fence dài/nested; ordinary code block giữ contract cũ. Repro tối thiểu: `# Canvas note\n\nVisible prose.\n\n```legacy canvas format\n{"store":{}}\n```\n` phải cho `Visible prose.`.
 - Chỉ bỏ payload durable fence trong snippet projection; heading fallback cũng không lấy dữ liệu từ fence. Invalid/unclosed fence không được làm mất prose bên ngoài; xác định boundary theo parser hiện có, không regex tham lam.
 - Không tự cắt mọi note tại marker FLASHCARD:BACK. Nếu muốn front-only snippet, phải có nhận diện note-memory hợp lệ và test literal ordinary marker; tách riêng quyết định đó khỏi fix payload.
 - Test focused: `pnpm exec vitest run src/utils/wikilinks.test.ts`; `cargo test --manifest-path src-tauri/Cargo.toml extract_snippet`. Browser note-list save/reopen và native reload để kiểm tra parity, file hashes không đổi do render.
@@ -152,7 +152,7 @@ Mỗi task dưới đây đủ nhỏ để model triển khai riêng. Không suy
 
 - Phạm vi: `noteMemory.css`, `cardEditor.css`, `cardEditorStyles.ts`, `EditorIconButton.tsx`; reuse shadcn hiện có. Không chỉnh Button toàn app khi chỉ cần scope feature.
 - Tạo class/variant feature rõ nghĩa cho utility button, status badge, action row nếu thật sự được dùng nhiều nơi; tránh wrapper framework tổng quát.
-- Thêm scope cho toolbar nguồn; giữ icon size/wrapping/target như contract mục 4. Hợp nhất rule trùng, không selector ảnh hưởng nội dung BlockNote/tldraw.
+- Thêm scope cho toolbar nguồn; giữ icon size/wrapping/target như contract mục 4. Hợp nhất rule trùng, không selector ảnh hưởng nội dung BlockNote/legacy canvas format.
 - Icon-only cần tooltip + localized aria-label; button có chữ không bắt buộc tooltip. Không set aria-label khác nhãn hiển thị gây lệch voice control.
 - Kiểm tra desktop/coarse, light/dark, focus-visible, reduced-motion. CSS thuần không bắt buộc TDD; behavior mới phải có regression.
 - DoD: bảng computed-style cùng loại control nhất quán; portal không mất style; không đổi editor text/serialized data. Thêm toolbar vào fixture để test thực sự bao phủ R03.
@@ -232,7 +232,7 @@ Mỗi task dưới đây đủ nhỏ để model triển khai riêng. Không suy
 - Codacy touched files, baseline/new findings và Medium disposition; CodeScene khi configured, unavailable ghi NOT RUN; không tự hạ thresholds.
 - Native QA disposable Library: ordinary → enable → edit article/back → source link/cancel → save/reopen → study/grade/undo → pause/resume; pending recovery, conversion, props và width. File/table hash chứng minh expected mutation.
 - Last stroke → normal quit/reopen và canvas unmount cleanup regression vẫn pass; không tự chạy toàn performance matrix mỗi CSS commit, nhưng release kiểm tra đường bị thay đổi.
-- Tldraw production notice: xác minh cấu hình license nếu có quyền/cấu hình; nếu chưa có, báo rõ release deployment limitation, không ẩn watermark hay mua/đăng ký thay user.
+- legacy canvas format production notice: xác minh cấu hình license nếu có quyền/cấu hình; nếu chưa có, báo rõ release deployment limitation, không ẩn watermark hay mua/đăng ký thay user.
 - Cập nhật guide, architecture/abstractions nếu component/hook mới; báo cáo `docs/baselines/<date>-ux-u11.md` ghi từng task/commit/tests/native/limitations.
 - Commit/push main bằng hook bình thường. Sau push xác minh remote SHA, clean tree/demo fixtures, dừng QA processes của task. Chỉ khi đó task release DONE.
 

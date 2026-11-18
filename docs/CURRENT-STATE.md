@@ -8,7 +8,7 @@
 
 **18/11/2026 — Đợt 2, Lô 2:** Thẻ legacy tự cuộn tới câu trả lời và tránh lặp tên thẻ trong câu hỏi. Phiên hoàn tất hiện số thẻ theo mức chấm cuối và hạn ôn gần nhất. Trang Ôn tập có tiêu đề, tab Bộ thẻ và disclosure Nâng cao. Cách ghi khoảng ôn tiếng Việt và biểu tượng quay lại ghi chú rõ hơn. [Findings và ảnh nghiệm thu](audits/FINDINGS.md#đợt-2--lô-2).
 
-**18/11/2026 — Đợt 2, Lô 1:** Quick Open nhận ký tự ngay khi mở và hiển thị trọn hàng kết quả. Thuộc tính xếp nhãn và giá trị dài trong chiều rộng panel, hàng Loại có lưới riêng, lịch hiển thị sáu tuần. Panel AI giữ trọn điều khiển khi thu cửa sổ. Dialog xóa ghi chú dùng câu số ít/số nhiều, đặt Hủy trước Xóa. Thẻ cũ chứa bản vẽ tldraw hiển thị thông báo tiếng Việt ở chế độ ôn, dữ liệu nguồn giữ nguyên. [Findings và ảnh nghiệm thu](audits/FINDINGS.md#đợt-2--lô-1).
+**18/11/2026 — Đợt 2, Lô 1:** Quick Open nhận ký tự ngay khi mở và hiển thị trọn hàng kết quả. Thuộc tính xếp nhãn và giá trị dài trong chiều rộng panel, hàng Loại có lưới riêng, lịch hiển thị sáu tuần. Panel AI giữ trọn điều khiển khi thu cửa sổ. Dialog xóa ghi chú dùng câu số ít/số nhiều, đặt Hủy trước Xóa. Thẻ cũ chứa bản vẽ legacy canvas format hiển thị thông báo tiếng Việt ở chế độ ôn, dữ liệu nguồn giữ nguyên. [Findings và ảnh nghiệm thu](audits/FINDINGS.md#đợt-2--lô-1).
 
 **18/11/2026 — Welcome:** R-10 cho phép mô tả nút tạo Library xuống dòng trong nút, và màn hình chào cuộn được khi cửa sổ thấp. Kiểm vi, en và ru-RU ở 1440×900, 1024×700 và 480×400. [Ma trận QA và ảnh trước/sau](audits/OVERNIGHT-2026-11-18.md#r-10--done).
 
@@ -74,7 +74,7 @@ Sidebar, danh sách ghi chú và Properties dùng cùng kiểu thanh cuộn nati
 |---|---|
 | **v0.1.0 cho Mac Apple Silicon** | Bản ký ad hoc. Viết Markdown, wikilink, thuộc tính tùy chỉnh, Inbox, Saved Views và ôn ghi chú. Bản cài giữ nội dung hình vẽ cũ trong Markdown nhưng chưa hiển thị hay sửa hình. [Tải và cài đặt](../README.md) |
 | **main từ 05ae7aa3** | Lưu trích đoạn từ editor hoặc URL và ôn theo Saved View. Hai tính năng này có trong mã nguồn sau tag v0.1.0. |
-| **main từ a69159c5** | Gõ `/Excalidraw` trong editor để thêm hình mới. Dữ liệu hình và ảnh nhúng lưu trong khối Markdown. Study hiển thị hình ở chế độ chỉ xem. Chưa có chuyển đổi tự động từ tldraw. [Quyết định về Excalidraw](adr/0165-excalidraw-note-drawings.md) |
+| **main từ a69159c5** | Gõ `/Excalidraw` trong editor để thêm hình mới. Dữ liệu hình và ảnh nhúng lưu trong khối Markdown. Study hiển thị hình ở chế độ chỉ xem. Các khối định dạng cũ giữ nguyên nội dung, có thể xem ở chế độ mã nguồn. [Quyết định về Excalidraw](adr/0165-excalidraw-note-drawings.md) |
 
 ## Nội dung, lịch học và sao lưu
 

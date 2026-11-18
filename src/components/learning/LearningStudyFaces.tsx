@@ -35,11 +35,13 @@ export function LearningStudyFaces({
   root,
   locale,
   faces,
+  onOpenRawSource,
 }: {
   study: ReturnType<typeof useLearningStudy>
   root: string
   locale: AppLocale
   faces: FaceState
+  onOpenRawSource?: (path: string) => void
 }) {
   const item = study.session?.current
   if (!item) return null
@@ -73,6 +75,9 @@ export function LearningStudyFaces({
   const imageUrl = isNote
     ? null
     : learningMediaUrl(item.card.properties.image, root, ownerPath)
+  const openSource = (path: string | undefined) => path && onOpenRawSource
+    ? () => { void study.close().then(() => onOpenRawSource(path)) }
+    : undefined
   const t = (key: TranslationKey) => translate(locale, key)
   return (
     <div
@@ -107,6 +112,7 @@ export function LearningStudyFaces({
             preserveBody
             locale={locale}
             vaultPath={root}
+            onOpenRawSource={!study.busy && !study.hasPending ? openSource(ownerPath) : undefined}
             notePath={item.page ? `${root}/${item.page.path}` : undefined}
           />
         </div>
@@ -172,6 +178,7 @@ export function LearningStudyFaces({
               preserveBody
               locale={locale}
               vaultPath={root}
+              onOpenRawSource={!study.busy && !study.hasPending ? openSource(answerPage ? `${root}/${answerPage.path}` : undefined) : undefined}
               notePath={answerPage ? `${root}/${answerPage.path}` : undefined}
             />
           </div>

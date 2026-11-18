@@ -1,3 +1,5 @@
+import { notePathsMatch } from '../utils/notePathIdentity'
+import { DrawingSourceContext } from './drawingSourceContext'
 import { useRef, useEffect, useCallback, useMemo, memo, useState, type ReactNode } from 'react'
 import { useEditorTabSwap } from '../hooks/useEditorTabSwap'
 import { useCreateBlockNote } from '@blocknote/react'
@@ -120,6 +122,8 @@ interface EditorProps {
   leftPanelsCollapsed?: boolean
   /** Mutable ref that Editor registers its raw-mode toggle into, for command palette access. */
   rawToggleRef?: React.MutableRefObject<() => void>
+  rawSourceRequest?: { path: string } | null
+  onRawSourceOpened?: () => void
   /** Mutable ref that Editor registers editor find commands into, for shortcuts and menus. */
   findInNoteRef?: React.MutableRefObject<((options?: { replace?: boolean }) => void) | null>
   /** Mutable ref that Editor registers its diff-mode toggle into, for command palette access. */
@@ -564,59 +568,61 @@ function EditorLayout({
                   onRevealFile={onRevealFile}
                 />
               )
-            : <EditorContent
-              activeTab={activeTab}
-              activeTabPath={activeTabPath}
-              isLoadingNewTab={isLoadingNewTab}
-              isVaultLoading={isVaultLoading}
-              entries={entries}
-              editor={editor}
-              diffMode={diffMode}
-              diffContent={diffContent}
-              diffLoading={diffLoading}
-              onToggleDiff={handleToggleDiffExclusive}
-              rawMode={rawMode}
-              onToggleRaw={handleToggleRawExclusive}
-              onRawContentChange={flashcard?.handleRawContentChange ?? onContentChange}
-              onSave={onSave}
-              activeStatus={activeStatus}
-              showDiffToggle={showDiffToggle}
-              showAIChat={showAIChat}
-              onToggleAIChat={onToggleAIChat}
-              showTableOfContents={showTableOfContents}
-              onToggleTableOfContents={onToggleTableOfContents}
-              inspectorCollapsed={inspectorCollapsed}
-              onToggleInspector={onToggleInspector}
-              onNavigateWikilink={onNavigateWikilink}
-              onEditorChange={handleEditorChange}
-              onToggleFavorite={onToggleFavorite}
-              onToggleOrganized={onToggleOrganized}
-              onEnterNeighborhood={onEnterNeighborhood}
-              onRevealFile={onRevealFile}
-              onCopyFilePath={onCopyFilePath}
-              onCopyDeepLink={onCopyDeepLink}
-              onExportPdf={() => onExportPdf?.('breadcrumb')}
-              onDeleteNote={onDeleteNote}
-              onArchiveNote={onArchiveNote}
-              onUnarchiveNote={onUnarchiveNote}
-              vaultPath={vaultPath}
-              rawModeContent={rawModeContent}
-              findRequest={findRequest}
-              rawLatestContentRef={rawLatestContentRef}
-              onRenameFilename={onRenameFilename}
-              noteWidth={noteWidth}
-              onToggleNoteWidth={onToggleNoteWidth}
-              isConflicted={isConflicted}
-              onKeepMine={onKeepMine}
-              onKeepTheirs={onKeepTheirs}
-              onScheduleForReview={onScheduleForReview}
-              onScheduleAsDeck={onScheduleAsDeck}
-              onStartDeckSession={onStartDeckSession}
-              hasDeckMembers={hasDeckMembers}
-              fsrsDueDate={fsrsDueDate}
-              locale={locale}
-              flashcard={flashcard}
-            />)
+            : <DrawingSourceContext.Provider value={{ locale: locale ?? 'en', openSource: handleToggleRawExclusive }}>
+              <EditorContent
+                activeTab={activeTab}
+                activeTabPath={activeTabPath}
+                isLoadingNewTab={isLoadingNewTab}
+                isVaultLoading={isVaultLoading}
+                entries={entries}
+                editor={editor}
+                diffMode={diffMode}
+                diffContent={diffContent}
+                diffLoading={diffLoading}
+                onToggleDiff={handleToggleDiffExclusive}
+                rawMode={rawMode}
+                onToggleRaw={handleToggleRawExclusive}
+                onRawContentChange={flashcard?.handleRawContentChange ?? onContentChange}
+                onSave={onSave}
+                activeStatus={activeStatus}
+                showDiffToggle={showDiffToggle}
+                showAIChat={showAIChat}
+                onToggleAIChat={onToggleAIChat}
+                showTableOfContents={showTableOfContents}
+                onToggleTableOfContents={onToggleTableOfContents}
+                inspectorCollapsed={inspectorCollapsed}
+                onToggleInspector={onToggleInspector}
+                onNavigateWikilink={onNavigateWikilink}
+                onEditorChange={handleEditorChange}
+                onToggleFavorite={onToggleFavorite}
+                onToggleOrganized={onToggleOrganized}
+                onEnterNeighborhood={onEnterNeighborhood}
+                onRevealFile={onRevealFile}
+                onCopyFilePath={onCopyFilePath}
+                onCopyDeepLink={onCopyDeepLink}
+                onExportPdf={() => onExportPdf?.('breadcrumb')}
+                onDeleteNote={onDeleteNote}
+                onArchiveNote={onArchiveNote}
+                onUnarchiveNote={onUnarchiveNote}
+                vaultPath={vaultPath}
+                rawModeContent={rawModeContent}
+                findRequest={findRequest}
+                rawLatestContentRef={rawLatestContentRef}
+                onRenameFilename={onRenameFilename}
+                noteWidth={noteWidth}
+                onToggleNoteWidth={onToggleNoteWidth}
+                isConflicted={isConflicted}
+                onKeepMine={onKeepMine}
+                onKeepTheirs={onKeepTheirs}
+                onScheduleForReview={onScheduleForReview}
+                onScheduleAsDeck={onScheduleAsDeck}
+                onStartDeckSession={onStartDeckSession}
+                hasDeckMembers={hasDeckMembers}
+                fsrsDueDate={fsrsDueDate}
+                locale={locale}
+                flashcard={flashcard}
+              />
+              </DrawingSourceContext.Provider>)
         }
         {(showTableOfContents || !inspectorCollapsed) && <ResizeHandle onResize={onInspectorResize} />}
         <EditorRightPanel
@@ -702,6 +708,14 @@ export const Editor = memo(function Editor(props: EditorProps) {
     rawToggleRef: props.rawToggleRef,
     diffToggleRef: props.diffToggleRef,
   })
+  const { rawSourceRequest, onRawSourceOpened } = props
+  const activeSourcePath = runtime.activeTab?.entry.path
+  const { rawMode, handleToggleRawExclusive } = runtime
+  useEffect(() => {
+    if (!rawSourceRequest || !notePathsMatch(rawSourceRequest.path, activeSourcePath)) return
+    if (!rawMode) handleToggleRawExclusive()
+    onRawSourceOpened?.()
+  }, [rawSourceRequest, activeSourcePath, rawMode, handleToggleRawExclusive, onRawSourceOpened])
   const findRequest = useEditorFindCommand({
     activeTab: runtime.activeTab,
     findInNoteRef: props.findInNoteRef,

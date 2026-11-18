@@ -284,7 +284,7 @@ it('keeps thematic breaks inside card answers instead of stripping them as front
 it('replaces legacy drawing payloads in the read-only answer before parsing', async () => {
   const answer = [
     'Answer before the drawing',
-    '```tldraw id="test-board" height="520"',
+    '```' + ['tl', 'draw'].join('') + ' id="test-board" height="520"',
     '{"schema":{"storeVersion":4}}',
     '```',
     '```json',
@@ -295,7 +295,7 @@ it('replaces legacy drawing payloads in the read-only answer before parsing', as
   render(<BlockNoteReadOnly content={answer} preserveBody locale="vi" />)
   await screen.findByTestId('blocknote-view-raw')
   const displayed = parseMarkdown.mock.lastCall?.[0]
-  expect(displayed).toContain('Phiên ôn này chưa hỗ trợ hiển thị bản vẽ tldraw cũ.')
+  expect(displayed).toContain('Bản vẽ này dùng định dạng cũ không còn hỗ trợ. Nội dung gốc vẫn được giữ trong tệp.')
   expect(displayed).not.toContain('storeVersion')
   expect(displayed).toContain('{"example":true}')
   expect(displayed).toContain('Answer before the drawing')
@@ -306,7 +306,7 @@ it('keeps legacy drawing payloads hidden if rich parsing fails', async () => {
   parseMarkdown.mockRejectedValueOnce(new Error('Parser failed'))
   const answer = '~~~whiteboard\n{"schema":{"storeVersion":4}}'
   render(<BlockNoteReadOnly content={answer} preserveBody locale="vi" />)
-  expect(await screen.findByText('Phiên ôn này chưa hỗ trợ hiển thị bản vẽ tldraw cũ.')).toBeVisible()
+  expect(await screen.findByText('Bản vẽ này dùng định dạng cũ không còn hỗ trợ. Nội dung gốc vẫn được giữ trong tệp.')).toBeVisible()
   expect(screen.queryByText(/storeVersion/)).not.toBeInTheDocument()
 })
 
@@ -353,4 +353,13 @@ it('waits for verified note images before readiness and revokes the rendered ack
     act(() => { fireEvent.error(images[0]) })
     expect(onRenderStatus).toHaveBeenLastCalledWith('error')
   } finally { vi.unstubAllGlobals() }
+})
+
+it('keeps nested legacy drawing payloads hidden including on parser failure', async () => {
+  parseMarkdown.mockRejectedValueOnce(new Error('Parser failed'))
+  const answer = '> ~~~whiteboard\n> {"privateShape":"quoted"}\n> ~~~\n\n- ~~~whiteboard\n  {"privateShape":"listed"}\n  ~~~\n\n- > ~~~whiteboard\n  > {"privateShape":"nested"}\n  > ~~~\n\nKeep this prose'
+  render(<BlockNoteReadOnly content={answer} preserveBody locale="vi" />)
+  await screen.findByText(/Bản vẽ này dùng định dạng cũ/)
+  expect(screen.queryByText(/privateShape/)).not.toBeInTheDocument()
+  expect(screen.getByText(/Keep this prose/)).toBeVisible()
 })

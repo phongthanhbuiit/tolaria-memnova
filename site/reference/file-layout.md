@@ -32,7 +32,7 @@ Type is not inferred from folder location. It comes from frontmatter, and relati
 
 PDFs, images, and other non-Markdown files stay as normal files. Folder browsing can show them in place, and Settings controls whether PDFs, images, and unsupported files appear in All Notes.
 
-Whiteboards are Markdown files with durable tldraw data, so they belong with notes rather than in `attachments/`.
+Excalidraw drawings are stored in their Markdown notes. Unsupported legacy drawing blocks are preserved in their original files and can be inspected in raw mode.
 
 Type definitions are Markdown notes with `type: Type` in frontmatter. New type documents are normal notes, and existing type documents in older folders still work.
 

@@ -15,6 +15,6 @@ In id erat non orci commodo lobortis. Proin neque massa, cursus ut, gravida ut, 
 
 <!-- FLASHCARD:BACK -->
 
-```tldraw id="test-board" height="520"
-{"schema":{"schemaVersion":1,"storeVersion":4,"recordVersions":{"asset":{"version":1,"subTypeKey":"type","subTypeVersions":{"image":3,"video":3,"bookmark":1}},"camera":{"version":1},"document":{"version":2},"instance":{"version":24},"instance_page_state":{"version":5},"page":{"version":1},"shape":{"version":3,"subTypeKey":"type","subTypeVersions":{"group":0,"text":19,"bookmark":2,"draw":1,"image":3,"note":6,"line":4,"frame":0,"arrow":3,"highlight":0,"embed":4,"paragraph":5,"video":2,"video-shape":1,"image-shape":1,"draw-shape":1,"note-shape":1,"arrow-shape":1,"text-shape":1,"group-shape":1}},"instance_presence":{"version":5},"pointer":{"version":1}}},"records":[{"x":100,"y":100,"rotation":0,"isLocked":false,"opacity":1,"meta":{},"id":"shape:box1","type":"draw","parentId":"page:page","index":"a1","props":{"segments":[{"type":"free","points":[{"x":0,"y":0,"z":0.5},{"x":100,"y":100,"z":0.5}]}]}}]}
+```excalidraw id="test-board" height="520"
+{"type":"excalidraw","version":2,"elements":[{"id":"fixture-stroke","type":"freedraw","x":100,"y":100,"width":100,"height":100,"strokeColor":"#222222","backgroundColor":"#aaaaaa","version":1,"versionNonce":123,"isDeleted":false,"points":[[0,0],[100,100]],"pressures":[0.5,0.5],"simulatePressure":false,"lastCommittedPoint":null}],"files":{}}
 ```

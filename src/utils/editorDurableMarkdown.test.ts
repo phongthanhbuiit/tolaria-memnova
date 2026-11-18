@@ -1,3 +1,4 @@
+import { snippetMarkdown } from './snippetMarkdown'
 import { describe, expect, it, vi } from 'vitest'
 import {
   injectDurableEditorMarkdownBlocks,
@@ -66,4 +67,28 @@ it.each(['\n', '\r\n'])('isolates an ordinary comment adjacent to prose with %j 
   const saved = serializeDurableEditorBlocks(serializer, blocks)
   expect(saved).toBe(`Before\n\n${marker}\n\nAfter`)
   expect(saved).not.toContain('@@MEMNOVA_')
+})
+
+it.each(['whiteboard', ['tl', 'draw'].join('')])('keeps an unsupported drawing opaque and round-trips its source (%s)', language => {
+  const drawing = `~~~${language} id="original"\r\n{"schema":{},"store":{"marker":"[link]"}}\r\n~~~`
+  const preprocessed = preProcessDurableEditorMarkdown({ markdown: drawing }).trim()
+  expect(preprocessed).not.toContain('{"schema":')
+  const blocks = injectDurableEditorMarkdownBlocks([{ type: 'paragraph', content: [{ type: 'text', text: preprocessed }] }])
+  expect(blocks[0]).toMatchObject({ type: 'unsupportedDrawing', props: { source: drawing } })
+  const blocksToMarkdownLossy = vi.fn(() => '')
+  expect(serializeDurableEditorBlocks({ blocksToMarkdownLossy }, blocks)).toBe(drawing)
+  expect(blocksToMarkdownLossy).not.toHaveBeenCalled()
+})
+
+it('preserves each source line of an unsupported fence in a blockquote', () => {
+  const source = '> ~~~whiteboard\r\n> {"snapshot":true}\r\n> ~~~'
+  const text = preProcessDurableEditorMarkdown({ markdown: source }).trim()
+  const blocks = injectDurableEditorMarkdownBlocks([{ type: 'paragraph', content: [{ type: 'text', text }] }])
+  expect(blocks[0]).toMatchObject({ type: 'unsupportedDrawing', props: { source } })
+  expect(serializeDurableEditorBlocks({ blocksToMarkdownLossy: () => '' }, blocks)).toBe(source)
+})
+
+it('does not treat an indented code sample as an Excalidraw snippet fence', () => {
+  const code = '    ~~~excalidraw\n    literal code\n    ~~~'
+  expect(snippetMarkdown(code)).toBe(code)
 })

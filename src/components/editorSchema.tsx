@@ -1,4 +1,6 @@
 /* eslint-disable react-refresh/only-export-components -- module-level schema, not a component file */
+import { DrawingNotice } from './UnsupportedDrawing'
+import { UNSUPPORTED_DRAWING_TYPE } from '../utils/unsupportedDrawingMarkdown'
 import {
   audioParse,
   createCodeBlockSpec,
@@ -387,6 +389,11 @@ const ExcalidrawBlock = createReactBlockSpec(
   },
 )
 
+const unsupportedDrawingBlock = createReactBlockSpec(
+  { type: UNSUPPORTED_DRAWING_TYPE, propSchema: { source: { default: '' } }, content: 'none' },
+  { render: DrawingNotice },
+)()
+
 const codeBlock = createCodeBlockSpec(createTolariaCodeBlockOptions())
 const audioBlock = AudioBlockSpec()
 const mathBlock = MathBlock()
@@ -408,6 +415,7 @@ export const schema = BlockNoteSchema.create({
     mermaidBlock,
     excalidrawBlock,
     codeBlock,
+    unsupportedDrawing: unsupportedDrawingBlock,
     video: videoBlock,
   },
 })

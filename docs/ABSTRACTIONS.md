@@ -632,18 +632,18 @@ Defined in `src/utils/durableMarkdownBlocks.ts`, `src/utils/editorDurableMarkdow
 - `serializeDurableEditorBlocks()` wraps the math-aware serializer so math, wikilinks, Mermaid diagrams, and whiteboards share the same Markdown-first save path.
 - The `/mermaid` slash command inserts a placeholder rectangle diagram using the same schema-backed Markdown storage path, avoiding an invalid empty diagram state.
 
-### Tldraw Whiteboards
+### legacy canvas format Whiteboards
 
-Defined in `src/utils/durableMarkdownBlocks.ts`, `src/utils/editorDurableMarkdown.ts`, `src/utils/tldrawMarkdown.ts`, `src/components/TldrawWhiteboard.tsx`, `src/components/editorSchema.tsx`, and styled in `src/components/EditorTheme.css`:
+Defined in `src/utils/durableMarkdownBlocks.ts`, `src/utils/editorDurableMarkdown.ts`, the former drawing codec, the former drawing component, `src/components/editorSchema.tsx`, and styled in `src/components/EditorTheme.css`:
 
-- Fenced `tldraw` blocks become `tldrawBlock` schema nodes before BlockNote sees the Markdown body.
-- Each `tldrawBlock` stores a stable `boardId` plus the tldraw document snapshot JSON. Session state such as camera, selected tool, and current selection is not persisted into the note.
-- The rich editor renders the block with the `tldraw` package and saves debounced document snapshot changes back into the block props, so normal Tolaria autosave writes the board into the `.md` file.
+- Fenced `legacy canvas format` blocks become `legacyDrawingBlock` schema nodes before BlockNote sees the Markdown body.
+- Each `legacyDrawingBlock` stores a stable `boardId` plus the legacy canvas format document snapshot JSON. Session state such as camera, selected tool, and current selection is not persisted into the note.
+- The rich editor renders the block with the `legacy canvas format` package and saves debounced document snapshot changes back into the block props, so normal Tolaria autosave writes the board into the `.md` file.
 - Whiteboard prop writes re-resolve the live BlockNote block by id before mutating it, and disappear as no-ops if a note reload or mode switch has already removed that block.
-- The tldraw runtime receives Tolaria's resolved light/dark mode as its user color scheme, so embedded whiteboards follow the app appearance and update while mounted.
-- Embedded whiteboards expose a session-only full-window workspace that reuses the same tldraw store and Markdown snapshot; expanding or closing it does not persist camera, tool, or size state.
-- Mermaid and tldraw both register small codecs with the shared durable fenced-block pipeline; scanner, token, block injection, and mixed serialization mechanics live in one owner.
-- The `/whiteboard` slash command inserts an empty tldraw block using the same Markdown-durable storage path. Preview images are intentionally omitted; thumbnails can be added later as derived cache artifacts.
+- The legacy canvas format runtime receives Tolaria's resolved light/dark mode as its user color scheme, so embedded whiteboards follow the app appearance and update while mounted.
+- Embedded whiteboards expose a session-only full-window workspace that reuses the same legacy canvas format store and Markdown snapshot; expanding or closing it does not persist camera, tool, or size state.
+- Mermaid and legacy canvas format both register small codecs with the shared durable fenced-block pipeline; scanner, token, block injection, and mixed serialization mechanics live in one owner.
+- The `/whiteboard` slash command inserts an empty legacy canvas format block using the same Markdown-durable storage path. Preview images are intentionally omitted; thumbnails can be added later as derived cache artifacts.
 
 ### Formatting Surface Policy
 
@@ -672,7 +672,7 @@ Defined in `src/components/tolariaEditorFormatting.tsx` and `src/components/tola
 ```mermaid
 flowchart LR
     A["📄 Raw markdown\n(from disk)"] --> B["splitFrontmatter()\n→ yaml + body"]
-    B --> C["preProcessDurableEditorMarkdown(body)\nmermaid/tldraw fences + file links → tokens"]
+    B --> C["preProcessDurableEditorMarkdown(body)\nmermaid/legacy canvas format fences + file links → tokens"]
     C --> D["preProcessWikilinks(body)\n[[target]] → ‹token›"]
     D --> E["preProcessMathMarkdown(body)\n$...$ / $$...$$ → tokens"]
     E --> F["tryParseMarkdownToBlocks()\n→ BlockNote block tree"]
@@ -683,7 +683,7 @@ flowchart LR
     style H fill:#d4edda,stroke:#28a745,color:#000
 ```
 
-> Wikilink placeholder tokens use `\u2039` and `\u203A`; math, Mermaid, tldraw, and standalone file-attachment link placeholders use ASCII sentinels with URI-encoded payloads.
+> Wikilink placeholder tokens use `\u2039` and `\u203A`; math, Mermaid, legacy canvas format, and standalone file-attachment link placeholders use ASCII sentinels with URI-encoded payloads.
 
 ### BlockNote-to-Markdown Pipeline (Save)
 
@@ -1090,7 +1090,7 @@ The native counterpart is `learning::note_memory::{parse_document,patch_face,pat
 
 `page_content::prepare_generic_save` adds binding/pending guards to the generic write path, while prepare_save remains available for read-only validation. note_guard centralizes pending-page protection for legacy card/file writers. The source coordinator rechecks path/hash before completion, after a failed completion and before commit; an externally changed source is conflict even if completion also failed. Browser/native useful-content checks share twelve readiness vectors, including empty/corrupt boards and literal fenced examples.
 
-`note_snapshot::resolve_study` selects the bound-note or unchanged legacy source contract. Note StudyContent carries raw owner frontmatter, explicit back source, per-face media and a combined fingerprint; failures retain note kind with absent details. Legacy failures keep owner context where available. `Store::read_note_face` previews one static face with identity/media validation and no mutation. `note_media::MediaSnapshot` bounds and deduplicates local byte reads within a snapshot, resolves portable paths and rejects foreign/private/symlink media. `note_memory::media_sources` collects explicit Markdown/HTML media and shape-referenced tldraw assets. Frontend LearningClient.readNoteFace is Library-bound. Browser note fixtures are text-only and do not certify binary media.
+`note_snapshot::resolve_study` selects the bound-note or unchanged legacy source contract. Note StudyContent carries raw owner frontmatter, explicit back source, per-face media and a combined fingerprint; failures retain note kind with absent details. Legacy failures keep owner context where available. `Store::read_note_face` previews one static face with identity/media validation and no mutation. `note_media::MediaSnapshot` bounds and deduplicates local byte reads within a snapshot, resolves portable paths and rejects foreign/private/symlink media. `note_memory::media_sources` collects explicit Markdown/HTML media and shape-referenced legacy canvas format assets. Frontend LearningClient.readNoteFace is Library-bound. Browser note fixtures are text-only and do not certify binary media.
 
 `note_backup::{verify_current,verify}` validate note metadata on an existing connection and never initialize/mutate a Library. Both backup preflight and detached verify/restore use the same gate. `note_write_journal::decode_note_write` validates immutable identity/kind/phase/receipt/source using no filesystem access; it is shared by resume and backup. `ReconcileReceipt::validate` verifies the atomic revision step, without treating historical source hashes as current file state. Interrupted operations remain intact and block healthy snapshot publication rather than being silently repaired.
 
@@ -1106,9 +1106,9 @@ LearningClient's conversion apply/resume/details/compatibility methods retain th
 
 `editorDocumentFlush` registers synchronous document producers by weak editor identity and block ID. `flushEditorDocuments` guards reentrant serialization and propagates errors for retry. Whiteboards register user-document snapshot producers, flush before teardown as a fallback and never register for read-only rendering. Rich Markdown serialization invokes producers before reading blocks; useEditorTabSwap invokes them before its pending-change guard and caches the resulting document. Existing durable autosave/navigation remains the persistence owner.
 
-`whiteboardSnapshot` validates/loads raw source without an invalid-to-empty fallback. `useWhiteboardDocument` registers M12 producers only after successful loading and exposes retry/error state. `documentRenderGate` aggregates expected canvas identities; DocumentRenderBoundary publishes loading/ready/error via a scoped context. TldrawWhiteboard reports readiness only after both successful load and mount. The extracted BlockNoteReadOnly preserves raw parse failures and does not call onReady for errors or missing/unready canvases; its original module re-exports it for compatibility.
+`whiteboardSnapshot` validates/loads raw source without an invalid-to-empty fallback. `useWhiteboardDocument` registers M12 producers only after successful loading and exposes retry/error state. `documentRenderGate` aggregates expected canvas identities; DocumentRenderBoundary publishes loading/ready/error via a scoped context. former drawing component reports readiness only after both successful load and mount. The extracted BlockNoteReadOnly preserves raw parse failures and does not call onReady for errors or missing/unready canvases; its original module re-exports it for compatibility.
 
-`editorResourceScope` and useEditorResources bind a weak editor visit to its Library/note and notify mounted boards when that visit changes. createWhiteboardAssets reuses uploadImageFile and resolves portable asset://memnova/attachments URIs only within the current Library. canvasMedia handles real Tauri whole-path encoding and reports preserved legacy/online/unavailable sources. insertCanvasVocabulary resolves against the vocabulary note's own base and copies non-attachment images through the existing pipeline. canvasFileImports awaits the existing tldraw file-asset handler, then atomically adds completed assets/shapes without document placeholders. Document capture uses getStoreSnapshot('document'); explicit flush does not wait for buffered user events. Native menu Save now shares handleTrackedSave with editor Save.
+`editorResourceScope` and useEditorResources bind a weak editor visit to its Library/note and notify mounted boards when that visit changes. createWhiteboardAssets reuses uploadImageFile and resolves portable asset://memnova/attachments URIs only within the current Library. canvasMedia handles real Tauri whole-path encoding and reports preserved legacy/online/unavailable sources. insertCanvasVocabulary resolves against the vocabulary note's own base and copies non-attachment images through the existing pipeline. canvasFileImports awaits the existing legacy canvas format file-asset handler, then atomically adds completed assets/shapes without document placeholders. Document capture uses getStoreSnapshot('document'); explicit flush does not wait for buffered user events. Native menu Save now shares handleTrackedSave with editor Save.
 
 `NoteEditorDocument` synchronously patches one face, retains raw metadata/other-face bytes, filters local echoes and keeps dirty conflicts. `NoteEditorPersistence` serializes immutable native intents, retries uncertain writes before newer content, and never adopts a later disk hash as its base. Its scoped registration covers autosave, CmdS and navigation fallback. `useEditorProjection` distinguishes article/mnemonic at a single path; `NoteMemoryEditorTabs` supplies the localized Back to note action, ordinary button navigation and conflict/error recovery. Its optional children slot places the existing source actions in the same context row.
 
@@ -1153,12 +1153,12 @@ M23 refines the ADR0162 literal-marker preprocessing: isolate temporary comment 
 
 Recovery Retry can return a nonterminal outcome without throwing. `useNoteRecovery` retains that result as unresolved UI feedback, keeps the draft and decision controls, and never refreshes as if the operation committed. The dialog reuses the translated needsRecovery copy; changing Library or beginning a new decision clears the prior feedback.
 
-M24 (ADR0164) patches the installed tldraw FocusManager to bind body event handlers once and remove those exact callbacks on disposal. Application editor ownership and serialization remain unchanged. The production-renderer scale regression exercises actual editor mount/unmount across notes and Libraries; its CDP listener/heap counters complement native persistence checks and are not presented as WebKit memory measurements.
+M24 (ADR0164) patches the installed legacy canvas format FocusManager to bind body event handlers once and remove those exact callbacks on disposal. Application editor ownership and serialization remain unchanged. The production-renderer scale regression exercises actual editor mount/unmount across notes and Libraries; its CDP listener/heap counters complement native persistence checks and are not presented as WebKit memory measurements.
 
 M24 durable-token regression: URI encoding alone leaves Markdown delimiters in opaque payloads. Percent-escape those remaining delimiters before inline parsing; decode/serialization and persisted fences stay compatible. Real BlockNote parser tests cover shape IDs, literal asterisks/tildes and Unicode. This prevents internal token paragraphs without flattening styled text or changing user source data.
 ## Snippet projection (UX U01)
 
-`snippetMarkdown` / native `vault::snippet::snippet_markdown` remove only closed tldraw fence ranges from display snippets before existing Markdown stripping and heading fallback. They never write source or schedule data. Ordinary and unclosed fences keep prior semantics; outer ordinary fences protect literal nested examples. The shared `tests/fixtures/durable-snippets.json` corpus keeps frontend/dev-adapter and native results aligned.
+`snippetMarkdown` / native `vault::snippet::snippet_markdown` remove only closed legacy canvas format fence ranges from display snippets before existing Markdown stripping and heading fallback. They never write source or schedule data. Ordinary and unclosed fences keep prior semantics; outer ordinary fences protect literal nested examples. The shared `tests/fixtures/durable-snippets.json` corpus keeps frontend/dev-adapter and native results aligned.
 
 Read errors in `useLearningLibrary.load` follow the same Library generation/read sequence guard as successful snapshots. Both manual and background refresh publish through this single state; dashboard/panel do not retain duplicate read-error state. A successful current snapshot clears read errors. Panel mutation errors remain local until another explicit mutation attempt.
 
@@ -1190,4 +1190,6 @@ Learning catalog visibility: `noteWorkspace.isPublicNotePath` excludes `.memnova
 
 `Button` and `Input` support `variant="bare"` for migrating existing styled controls without imposing default typography, dimensions or SVG sizing. They retain shared keyboard focus outlines and forward refs, values, native attributes and event handlers. New controls should use the standard variants; raw form implementations stay inside `src/components/ui/`.
 
-`projectLegacyDrawingMarkdown` reuses the snippet fence scanner for the read-only renderer. It replaces legacy tldraw/whiteboard fences with localized display text before parsing and in the text fallback. Card and note storage continue to use the original Markdown.
+`projectLegacyDrawingMarkdown` reuses the snippet fence scanner for the read-only renderer. It replaces legacy legacy canvas format/whiteboard fences with localized display text before parsing and in the text fallback. Card and note storage continue to use the original Markdown.
+
+The unsupported drawing Markdown codec preserves legacy fenced source for editor serialization. Read-only study renders the notice instead of passing the payload to BlockNote. `DrawingSourceContext` routes the rich editor's source action to its existing raw-mode controller.

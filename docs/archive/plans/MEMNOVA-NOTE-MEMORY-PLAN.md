@@ -15,7 +15,7 @@ Mục tiêu: app vẫn là ứng dụng ghi chú. Người dùng viết một b�
 1. Trang Markdown mặc định là ghi chú thường; mở trang, thêm ảnh/canvas hoặc đặt trang trong folder không tự bật học.
 2. Một trang được bật học có tối đa một liên kết tới card học của chính trang đó. ID ổn định, không dùng tên/path làm danh tính.
 3. Mặt trước là nội dung chính của trang. Mặt sau là **gợi nhớ**, không mặc định diễn giải là đáp án cho một câu hỏi ngắn.
-4. Mặt sau mặc định nằm trong cùng `.md`, sau marker cũ `<!-- FLASHCARD:BACK -->`. Whiteboard dùng tldraw có sẵn, lưu snapshot trong fenced block Markdown có sẵn.
+4. Mặt sau mặc định nằm trong cùng `.md`, sau marker cũ `<!-- FLASHCARD:BACK -->`. Whiteboard dùng legacy canvas format có sẵn, lưu snapshot trong fenced block Markdown có sẵn.
 5. Hai mặt là cách trình bày trong editor; không tạo hai mục trong cây thư mục. Không tự tạo folder canvas cho từng folder ghi chú.
 6. SQLite giữ binding, lịch học, review, session và trạng thái phục hồi. Nội dung trang và cấu hình nguồn mặt sau có bản chính ở Markdown. Không có hai editor ghi hai bản nội dung độc lập.
 7. Có thể chọn trang khác làm mặt sau. Liên kết nguồn không bật học cho nguồn, không nhân bản card, không tự chấm nguồn.
@@ -41,8 +41,8 @@ Mục tiêu: app vẫn là ứng dụng ghi chú. Người dùng viết một b�
 | `src/utils/flashcardMarkdown.ts` | Có marker và splitter/joiner; hiện tìm substring và trim, chưa đủ để giữ nguyên hai mặt có code fence/indentation. Cần contract mới và regression trước khi dùng làm đường ghi chính. |
 | `src/hooks/useFlashcardEditorFace.ts`, `src/components/Editor.tsx` | Có editor mặt trước/sau, nhưng bị `disableLegacy` khi learning ready. Không chỉ bỏ điều kiện này: hook cũ dựa `_fsrs_enabled`, chưa biết binding mới và flush canvas. |
 | `src/components/FlashcardEditorTabs.tsx` | Có giao diện cũ; còn raw button, English hardcode và nhãn FSRS. Tái sử dụng ý tưởng, cập nhật shadcn/l10n khi chạm vào. |
-| `src/components/TldrawWhiteboard.tsx`, `src/components/editorSchema.tsx` | Có canvas, chế độ read-only và fullscreen. Dùng lại, không thêm thư viện vẽ. |
-| `src/utils/tldrawMarkdown.ts`, `src/utils/editorDurableMarkdown.ts` | Snapshot canvas đã đi qua đường lưu Markdown. Cần giữ định dạng và kiểm tra portable assets. |
+| the former drawing component, `src/components/editorSchema.tsx` | Có canvas, chế độ read-only và fullscreen. Dùng lại, không thêm thư viện vẽ. |
+| the former drawing codec, `src/utils/editorDurableMarkdown.ts` | Snapshot canvas đã đi qua đường lưu Markdown. Cần giữ định dạng và kiểm tra portable assets. |
 | `src/components/learning/CardForm.tsx`, `PageFlashcards.tsx` | Form card SQLite và danh sách nhiều card là luồng tương thích; không dùng làm editor chính cho bài A4. |
 | `src/components/learning/LearningStudyView.tsx` | Hiện dùng `card.front`, `card.back`/whole-page; ảnh property hiện ở front; reveal vẫn giữ front. Note study cần resolver và face state riêng. |
 | `src-tauri/src/learning/pages.rs`, `page_identity.rs`, `page_content.rs` | Dùng lại UUID, kiểm soát path, serializing nguồn với migration. Không dùng frontend để ghi SQL. |
@@ -51,7 +51,7 @@ Mục tiêu: app vẫn là ứng dụng ghi chú. Người dùng viết một b�
 | `src-tauri/src/git/learning_guard.rs`, `vault_watcher.rs` | `.memnova` bị loại khỏi Git/watcher. Mặt sau trong `.md` đi theo đường nội dung thông thường. |
 | `src/lib/learning/propertyValues.ts`, `PagePropertyEditor.tsx` | Tái sử dụng property editor và bảo toàn unknown/opaque values; không dựng editor property thứ ba. |
 
-Đã chạy trong lượt đánh giá trước kế hoạch: 28 test thuộc splitter, tldraw codec, durable Markdown và component whiteboard, đều pass trong 2,75s. Đây không phải baseline của triển khai mới. Báo cáo release `docs/baselines/2026-10-18-card-editor-review-fixes.md` là bằng chứng lịch sử, không được dùng thay kết quả M00/M25.
+Đã chạy trong lượt đánh giá trước kế hoạch: 28 test thuộc splitter, legacy canvas format codec, durable Markdown và component whiteboard, đều pass trong 2,75s. Đây không phải baseline của triển khai mới. Báo cáo release `docs/baselines/2026-10-18-card-editor-review-fixes.md` là bằng chứng lịch sử, không được dùng thay kết quả M00/M25.
 
 Ba rủi ro cần regression riêng: debounce canvas bị hủy khi unmount; snapshot lỗi rơi về bảng trắng; một luồng chèn ảnh lưu URL runtime vào snapshot. Chưa coi chúng là native bug đã tái hiện cho tới khi có RED hoặc bằng chứng runtime.
 
@@ -89,7 +89,7 @@ Quy tắc:
 ### 3.2 Phân chia hai mặt
 
 - Marker hợp lệ là dòng độc lập `<!-- FLASHCARD:BACK -->` ngoài frontmatter, fenced code và HTML comment khác; cho phép CRLF và khoảng trắng cuối dòng. V1 không coi marker thụt đầu dòng, nằm trong inline code/quote/list là dấu chia.
-- Parser nhận biết fence backtick/tilde và độ dài fence; không split chuỗi marker nằm trong JSON tldraw, code sample hoặc frontmatter.
+- Parser nhận biết fence backtick/tilde và độ dài fence; không split chuỗi marker nằm trong JSON legacy canvas format, code sample hoặc frontmatter.
 - Một marker hợp lệ: front là trước marker, back là sau marker. Không marker: full body là front, back rỗng. Nhiều marker hợp lệ: báo ambiguous, giữ toàn bộ raw; không tự cắt mất phần sau.
 - TS và Rust dùng cùng corpus golden fixture. Mỗi fixture chỉ rõ byte ranges, line endings, diagnostics và source mode. Không viết hai regex khác hành vi.
 - Duy trì một frontmatter ở đầu file. `---` trong back là nội dung, không phải metadata thứ hai.

@@ -176,3 +176,12 @@
 - F-009 fixed ở `bec1cf64` (Lô 4), F-005 accepted theo quyết định 18/11. W2-09 chuyển sang W4-02. F-021/F-032 giữ nguyên.
 - Check: đối chiếu bảng, chi tiết và lịch sử Git. `git diff --check` đạt. Pha tài liệu.
 - Review chỉ đọc: vòng 1 thiếu tóm tắt F-042–078. Vòng 2 ĐẠT sau khi bổ sung dải trạng thái và dẫn commit F-056. Bằng chứng: FINDINGS.md:19,42,46,94,122,456,499,544,635.
+
+## W4 · Pha 1 — W4-01
+
+- Excalidraw là renderer duy nhất. Dữ liệu fence cũ giữ nguyên để mở raw, không qua renderer bản vẽ. Fixture `demo-vault-v2/WhiteboardTest.md` chuyển có chủ đích sang nét vẽ Excalidraw tương đương. ADR-0166 kế thừa ADR-0107.
+- RED 4 ca, GREEN 18 ca ở `editorDurableMarkdown.test.ts` và `FlashcardStudyView.test.tsx`. Chromium `unsupported-drawing.spec.ts` xác nhận nút mở raw và tệp không đổi.
+- Native vi 1440×900, sáng + tối, kiểm editor và mặt sau phiên ôn. Mở mã nguồn từ màn ôn đưa về đúng ghi chú. [Ảnh](review-shots/2026-11-19-W4/).
+- Grep SPEC §8: 1 → 1 / 0 → 0. Grep tên engine cũ sạch ngoài ADR và audit. Câu hỏi cho người dùng: không có.
+- Review vòng 1 phát hiện fence trong blockquote/danh sách và ảnh sáng chưa cuộn tới câu trả lời. Hai regression bổ sung RED → GREEN, 20/20 test. Đã thay ảnh sáng hiển thị cả thông báo và nút.
+- Review vòng 3 ĐẠT. Regression blockquote lồng trong danh sách và code thụt bốn khoảng trắng RED → GREEN 21/21. Nút mở raw và ảnh native hai theme đã đối chiếu.

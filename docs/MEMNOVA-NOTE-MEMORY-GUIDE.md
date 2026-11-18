@@ -48,7 +48,7 @@ Bất kỳ ai có quyền đọc thư mục sao lưu đều có thể đọc ghi
 
 Nghiệm thu dùng Library tổng hợp, không dữ liệu thật: native macOS lưu hai mặt/canvas, linked source, grade/undo, conversion/recovery và restore sang root độc lập, cùng browser/tests thực. Xem [M23](baselines/2026-10-19-note-memory-m23.md), [M24](baselines/2026-10-19-note-memory-m24.md) và báo cáo release cuối để biết command, kết quả và phần chưa chạy.
 
-Timing/heap trong Chromium không đại diện tuyệt đối cho WebKit native. Physical touch, VoiceOver, hệ điều hành khác và bản cài đặt phát hành có ký số không được suy ra từ những phép thử này. Các lần kiểm tra canvas ở M23/M24 dùng tldraw. Mã nguồn hiện dùng [Excalidraw](adr/0165-excalidraw-note-drawings.md).
+Timing/heap trong Chromium không đại diện tuyệt đối cho WebKit native. Physical touch, VoiceOver, hệ điều hành khác và bản cài đặt phát hành có ký số không được suy ra từ những phép thử này. Các lần kiểm tra canvas ở M23/M24 dùng legacy canvas format. Mã nguồn hiện dùng [Excalidraw](adr/0165-excalidraw-note-drawings.md).
 
 ## Giao diện ghi nhớ sau đợt UX
 

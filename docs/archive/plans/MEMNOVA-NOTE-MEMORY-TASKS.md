@@ -54,7 +54,7 @@ Thực thi mặc định theo mã tăng dần. Bảng cho biết dependency th�
 
 **Mục tiêu:** có bằng chứng trước thay đổi và fixture cho tất cả dạng dữ liệu, không dùng Library thật.
 
-**Đọc:** AGENTS; docs/ARCHITECTURE.md và ABSTRACTIONS phần editor/learning; ADR-0137–0146 liên quan; baseline release gần nhất; `Editor.tsx`, `useFlashcardEditorFace`, `flashcardMarkdown`, `TldrawWhiteboard`, learning store và test helpers.
+**Đọc:** AGENTS; docs/ARCHITECTURE.md và ABSTRACTIONS phần editor/learning; ADR-0137–0146 liên quan; baseline release gần nhất; `Editor.tsx`, `useFlashcardEditorFace`, `flashcardMarkdown`, `former drawing component`, learning store và test helpers.
 
 **Làm:** ghi HEAD/branch/toolchain; chạy focused tests editor faces/durable blocks/learning; kiểm tra các integration hiện có và cách chạy native isolated. Tạo fixture tổng hợp: note thường, bài A4 hai mặt, front/back CRLF, canvas có shapes, empty/invalid canvas, ảnh tên Unicode, note linked, một card đã sửa khác Markdown, nhiều card/page, opaque properties, review đã undo, session paused. Không tạo snapshot từ dữ liệu thật. Đo baseline production open/save ordinary note theo fixture và cách đo M24, giữ cấu hình để so lại; không đợi tới cuối đợt mới đo baseline.
 
@@ -66,7 +66,7 @@ Thực thi mặc định theo mã tăng dần. Bảng cho biết dependency th�
 
 **Phạm vi:** `src/utils/flashcardMarkdown.ts`, helper codec mới nếu cần, tests và shared golden corpus dưới `tests/fixtures/note-memory/`. Tạo ADR mới theo số còn trống ở thời điểm code, ghi quyết định note-first/inline canvas/binding SQLite; không sửa ADR lịch sử. Codec cũ có thể giữ adapter cho legacy callers; không âm thầm áp parsing mới lên importer cũ.
 
-**RED/behavior:** marker trong tldraw JSON/code/frontmatter/inline code không split; marker hợp lệ ngoài fence; nhiều marker diagnostics; no-op byte exact; sửa front không đổi back/metadata; indented code back; BOM/LF/CRLF; unknown properties/duplicate owned keys/version mới hơn. Toggle disabled không gọi removeFlashcardBack.
+**RED/behavior:** marker trong legacy canvas format JSON/code/frontmatter/inline code không split; marker hợp lệ ngoài fence; nhiều marker diagnostics; no-op byte exact; sửa front không đổi back/metadata; indented code back; BOM/LF/CRLF; unknown properties/duplicate owned keys/version mới hơn. Toggle disabled không gọi removeFlashcardBack.
 
 **Làm:** trả ranges/diagnostics thay vì chỉ trimmed strings; patch từng mặt/owned scalar keys; thêm cấu hình version1 trong plan. Ngăn field hệ thống bị tạo/rename từ generic properties. Không dùng parser Markdown UI để tự rewrite full source.
 
@@ -196,7 +196,7 @@ Thực thi mặc định theo mã tăng dần. Bảng cho biết dependency th�
 
 **Mục tiêu:** nét vẽ cuối không mất khi lật/chuyển note ngay.
 
-**Phạm vi:** `TldrawWhiteboard.tsx`, `editorSchema.tsx`, flush contract editor, `useEditorSave`/`useAppSave` nếu cần. Tái sử dụng autosave; helper nhỏ và keyed theo editor/board.
+**Phạm vi:** `former drawing component`, `editorSchema.tsx`, flush contract editor, `useEditorSave`/`useAppSave` nếu cần. Tái sử dụng autosave; helper nhỏ và keyed theo editor/board.
 
 **RED:** fake timer vẽ → chưa tới 350ms → flush/lật/unmount; snapshot cuối phải tới serializer; nhiều board/note → không ghi nhầm; rejected file save giữ dirty và chặn navigation. Viết test hành vi không chỉ assert clearTimeout bị gọi.
 
@@ -220,7 +220,7 @@ Thực thi mặc định theo mã tăng dần. Bảng cho biết dependency th�
 
 **Mục tiêu:** ảnh vẫn hiện khi đóng/mở app hoặc chuyển/restore Library.
 
-**Phạm vi:** `TldrawWhiteboard.tsx`, `vaultAttachments.ts`, asset adapter phù hợp API tldraw đang cài, attachment commands hiện có, codec snapshot nếu cần. Đọc package source/types phiên bản cài trước khi dùng API; không nâng tldraw vì tiện.
+**Phạm vi:** `former drawing component`, `vaultAttachments.ts`, asset adapter phù hợp API legacy canvas format đang cài, attachment commands hiện có, codec snapshot nếu cần. Đọc package source/types phiên bản cài trước khi dùng API; không nâng legacy canvas format vì tiện.
 
 **Tests:** file picker/paste/drop/Vocab Image; tên Unicode/space; render runtime asset URL nhưng serialized path portable; ephemeral blob không là nguồn duy nhất; missing/foreign-library/path traversal rejected; old asset URL giữ nếu chưa chuyển được; move root/restart/restore real bytes. Image import late result không vào note khác.
 
@@ -362,7 +362,7 @@ Các lệnh bên dưới chọn phạm vi, không thay release gate. Không ch�
 
 ```bash
 # Codec hiện có và codec mới liên quan
-pnpm exec vitest run src/utils/flashcardMarkdown.test.ts src/utils/tldrawMarkdown.test.ts src/utils/editorDurableMarkdown.test.ts
+pnpm exec vitest run src/utils/flashcardMarkdown.test.ts <former-drawing-codec-test> src/utils/editorDurableMarkdown.test.ts
 
 # Một test/case đang sửa
 pnpm exec vitest run <file.test.tsx> -t '<tên hành vi>'

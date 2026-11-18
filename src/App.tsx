@@ -1440,6 +1440,15 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
     flushEditor: flushEditorStateBeforeAction,
     onError: setToastMessage,
   })
+  const [rawSourceRequest, setRawSourceRequest] = useState<{ path: string } | null>(null)
+  const clearRawSourceRequest = useCallback(() => setRawSourceRequest(null), [])
+  const openStudyRawSource = (path: string) => {
+    const entry = visibleEntries.find(candidate => notePathsMatch(candidate.path, path))
+    if (!entry) return
+    handleSetSelection({ kind: 'filter', filter: 'all' })
+    setRawSourceRequest({ path: entry.path })
+    void notes.handleSelectNote(entry)
+  }
   const flushLearning = useCallback(async () => {
     for (const tab of notes.tabs) {
       if (normalizeNotePathForIdentity(tab.entry.path).startsWith(`${normalizeNotePathForIdentity(learning.root)}/`)) await flushEditorStateBeforeAction(tab.entry.path)
@@ -1753,6 +1762,8 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
                   noteWidth={activeNoteWidth}
                   onToggleNoteWidth={handleToggleNoteWidth}
                   rawToggleRef={rawToggleRef}
+                  rawSourceRequest={rawSourceRequest}
+                  onRawSourceOpened={clearRawSourceRequest}
                   tableOfContentsToggleRef={tableOfContentsToggleRef}
                   pdfExportRef={pdfExportRef}
                   findInNoteRef={findInNoteRef}
@@ -1780,7 +1791,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
           )}
         </div>
         <UpdateBanner status={updateStatus} actions={updateActions} locale={appLocale} />
-        <LearningStudyView study={learningStudy} root={learning.root} locale={appLocale} />
+        <LearningStudyView study={learningStudy} root={learning.root} locale={appLocale} onOpenRawSource={openStudyRawSource} />
         <LearningMigration locale={appLocale} onRestore={openLearningLibrary} />
         <RenameDetectedBanner renames={detectedRenames} onUpdate={handleUpdateWikilinks} onDismiss={handleDismissRenames} />
         <StatusBar noteCount={visibleEntries.length} modifiedCount={gitModifiedCount} vaultPath={resolvedPath} defaultWorkspacePath={defaultWorkspacePath} vaults={vaultSwitcher.allVaults} multiWorkspaceEnabled={multiWorkspaceEnabled} onSwitchVault={vaultSwitcher.switchVault} onSetDefaultWorkspace={vaultSwitcher.setDefaultWorkspace} onOpenSettings={handleOpenSettings} onOpenVaultSettings={handleOpenVaultSettings} onOpenFeedback={openFeedback} onOpenDocs={openDocs} onOpenLocalFolder={vaultSwitcher.handleOpenLocalFolder} onCreateEmptyVault={vaultSwitcher.handleCreateEmptyVault} onCloneVault={dialogs.openCloneVault} onCloneGettingStarted={cloneGettingStartedVault} onClickPending={() => handleSetSelection({ kind: 'filter', filter: 'changes' })} onClickPulse={() => handleSetSelection({ kind: 'filter', filter: 'pulse' })} onCommitPush={handleCommitPush} commitActionPending={commitFlow.isOpeningCommitDialog} gitFeaturesEnabled={gitFeaturesEnabled} onInitializeGit={openGitSetupDialog} isOffline={networkStatus.isOffline} isGitVault={isGitVault} isVaultReloading={vault.isReloading || isVaultContentLoading} syncStatus={autoSync.syncStatus} lastSyncTime={autoSync.lastSyncTime} conflictCount={autoSync.conflictFiles.length} remoteStatus={autoSync.remoteStatus} repositories={gitRepositories} selectedRepositoryPath={gitSurfaces.syncRepositoryPath} onRepositoryChange={gitSurfaces.setSyncRepositoryPath} onTriggerSync={handlePullSelectedRepository} onPullAndPush={handlePullAndPushSelectedRepository} onOpenConflictResolver={conflictFlow.handleOpenConflictResolver} zoomLevel={zoom.zoomLevel} themeMode={documentThemeMode} onZoomReset={zoom.zoomReset} onToggleThemeMode={settingsLoaded ? handleToggleThemeMode : undefined} buildNumber={buildNumber} onCheckForUpdates={handleCheckForUpdates} onRemoveVault={vaultSwitcher.removeVault} onReorderVaults={vaultSwitcher.reorderVaults} onUpdateWorkspaceIdentity={vaultSwitcher.updateWorkspaceIdentity} aiFeaturesEnabled={aiFeaturesEnabled} mcpStatus={mcpSetupDialog.status} onInstallMcp={mcpSetupDialog.openDialog} locale={appLocale} />

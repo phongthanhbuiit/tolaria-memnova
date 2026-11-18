@@ -45,7 +45,7 @@ Receipt U11 ghi final core phase299.801815s so với gate300s; lượt trước3
 
 - VoiceOver, touch vật lý, Windows/Linux, signed installer chưa kiểm chứng. Không cần khóa phát triển macOS vì các nền tảng ngoài target.
 - Virtual list có keyboard navigation nhưng chưa có chứng cứ VoiceOver khi range mount/unmount, focus bị lọc/đổi row, hoặc quay từ note về danh sách.
-- License production tldraw chưa được xác minh; native có notice. Không kết luận đã đủ điều kiện phát hành signed build.
+- License production legacy canvas format chưa được xác minh; native có notice. Không kết luận đã đủ điều kiện phát hành signed build.
 - Không thấy defect mới có bằng chứng ở schema, scheduler, properties hoặc linked-source independence trong phạm vi review này. Đây không phải kiểm toán toàn repository.
 
 UI review tham chiếu [Web Interface Guidelines](https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md), áp dụng phù hợp desktop app, không yêu cầu thêm router/URL state hay design system khác.
@@ -109,7 +109,7 @@ DoD: bằng chứng mouse/keyboard + kết quả VoiceOver thực chạy hoặc 
 
 ### R05 — readiness của bản phát hành
 
-1. Kiểm tra config license tldraw qua code/build env mà không in secret. Không mua/đăng ký/che notice. Nếu chưa cấu hình, ghi thiếu điều kiện production cụ thể.
+1. Kiểm tra config license legacy canvas format qua code/build env mà không in secret. Không mua/đăng ký/che notice. Nếu chưa cấu hình, ghi thiếu điều kiện production cụ thể.
 2. Chỉ test OS/package thuộc target release thực tế; macOS debug QA không thay signed installer. Kiểm tra mở Library, edit/save, canvas, link, study trên artifact dự định phát hành.
 3. CodeScene nếu có auth; thiếu ghi NOT RUN theo AGENTS/ADR0137. Không bắt user cung cấp token để tiếp tục bug fix.
 
@@ -152,7 +152,7 @@ Kết quả **144 tests/8files PASS,4.46s**. Log `/tmp/memnova-post-ux-focused.l
 | Giao diện, bàn phím và khả năng tiếp cận | 15% | 7 | Nút Học nổi bật, trạng thái có chữ, kiểm tra tương phản và danh sách 1.000 mục đạt. Nút Thử lại bị bỏ qua khi Tab. VoiceOver và đổi thứ tự mục đang focus còn cần kiểm tra. |
 | Bắt đầu sử dụng và tài liệu công khai | 15% | 5 | Màn chào ưu tiên tạo/mở Library cục bộ. README và hướng dẫn công khai dẫn theo luồng Tolaria cũ. Từ trang Git, người đọc thiếu chỉ dẫn giữ lịch học khi sao lưu. |
 | Hiệu năng và độ tin cậy của kiểm thử | 10% | 8 | Có phép đo p95 và kiểm tra qua nhiều kích thước cửa sổ. Bản web dùng cho QA hiển thị sai năm. Lần chạy core gần nhất còn khoảng 26 giây trước ngưỡng 300 giây. |
-| Sẵn sàng phát hành tới người dùng mới | 10% | 6 | Có bằng chứng native macOS debug. Trong hồ sơ đã đọc, việc cài artifact có chữ ký và cấu hình tldraw production cho bản Memnova dự kiến phát hành còn mở. Cần đối chiếu kênh tải và nền tảng hứa hỗ trợ. |
+| Sẵn sàng phát hành tới người dùng mới | 10% | 6 | Có bằng chứng native macOS debug. Trong hồ sơ đã đọc, việc cài artifact có chữ ký và cấu hình legacy canvas format production cho bản Memnova dự kiến phát hành còn mở. Cần đối chiếu kênh tải và nền tảng hứa hỗ trợ. |
 
 **Cách tính.** Tổng điểm từng hàng nhân trọng số bằng 7,70. Điểm tối đa cần cả kết quả tác vụ và bằng chứng trên môi trường đích. Chỉ có điểm phát hành phản ánh mức tin cậy vào bộ cài. CodeScene là phép đo riêng. [Hồ sơ native và release gần nhất](../../baselines/2026-10-19-editor-undo.md) · [Phép đo hiệu năng M24, dùng số ở mục “Final parser correction”](../../baselines/2026-10-19-note-memory-m24.md)
 
