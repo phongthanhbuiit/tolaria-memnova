@@ -232,12 +232,13 @@ function SortDropdownTrigger({
         onToggle()
       }}
       title={translate(locale, 'noteList.sort.by', { label: currentLabel })}
+      aria-label={translate(locale, 'noteList.sort.by', { label: currentLabel })}
       aria-haspopup="menu"
       aria-expanded={open}
       data-testid={`sort-button-${groupLabel}`}
     >
       <DirectionIcon size={12} data-testid={`sort-direction-icon-${groupLabel}`} />
-      <span className="text-(length:--text-caption) leading-(--text-caption--line-height) font-medium">{currentLabel}</span>
+      <span className={cn('text-caption font-medium', groupLabel === '__list__' && 'hidden @min-[320px]:inline')}>{currentLabel}</span>
     </Button>
   )
 }

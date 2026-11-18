@@ -582,3 +582,8 @@ W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
 
 - P2 · Hàng không đồng nhất: View "Active Projects" và tệp "laputa-reference.png" không có icon, lệch lề; nhãn "Type" tiếng Anh (do app sinh); nhãn Measure/Procedure chữ màu nhạt trên nền nhạt, khó đọc. Ảnh đối chiếu: 11a, 11c.
 - Đạt khi: Mọi hàng có icon và thẳng lề; nhãn do app sinh dịch ("Loại", "Chế độ xem", "Tệp"); tương phản nhãn ≥ 4.5:1 sáng/tối.
+
+### F-072 · W3-06 · Danh sách ghi chú
+
+- P2 · Tiêu đề cột bị cắt "Chưa s..." dù còn chỗ (nút sắp xếp "Đã sửa đổi" chiếm chỗ). Ảnh đối chiếu: 05.
+- Đạt khi: Tiêu đề hiện đủ ở bề rộng mặc định; nút sắp xếp thu thành icon + tooltip khi chật.
