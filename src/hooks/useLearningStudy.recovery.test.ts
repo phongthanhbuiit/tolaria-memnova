@@ -104,3 +104,23 @@ it('replays an uncertain receipt even when the displayed source later disappears
  expect(rateCard.mock.calls[1][0]).toEqual(original)
  expect(result.current.session?.reviewCount).toBe(1)
 })
+
+it.each([true, false])('settles typed accuracy when a lost rating receipt is durable: %s', async persisted => {
+  let reviewId: string | null = null
+  const rateCard = vi.fn(async (request: { reviewId: string }) => {
+    reviewId = request.reviewId
+    throw Error('Response lost')
+  })
+  const getSession = vi.fn(async () => persisted
+    ? { ...session, current: null, status: 'completed' as const, reviewCount: 1, revision: 1, lastReviewId: reviewId }
+    : session)
+  const client = { vaultPath: '/qa', libraryId: 'qa', startSession: vi.fn().mockResolvedValue(session), rateCard, getSession } as unknown as LearningClient
+  const { result } = renderHook(() => useLearningStudy(client, async () => {}))
+  await act(() => result.current.start({ pageIds: null }, { mode: 'typed' }))
+  await act(() => result.current.rate(3, true))
+  await act(() => result.current.reload())
+  await act(() => result.current.reload())
+  expect(result.current.presentation.mode).toBe('typed')
+  expect(result.current.accuracy).toEqual({ answered: Number(persisted), correct: Number(persisted) })
+  expect(rateCard).toHaveBeenCalledTimes(1)
+})

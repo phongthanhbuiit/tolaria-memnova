@@ -6,7 +6,7 @@ import type { LearningCard } from '../../lib/learning/types'
 import { Button } from '../ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 
-const modes: readonly FlashcardStudyMode[] = ['flip']
+const modes: readonly FlashcardStudyMode[] = ['flip', 'typed']
 
 export function DeckStudyControls({
   library, deck, cards, due, locale, label, onStart, primary,

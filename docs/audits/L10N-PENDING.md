@@ -20,3 +20,15 @@
 - `learning.studyMode.typed`
 - `learning.studyMode.choice`
 - `learning.studyMode.challenge`
+
+## W4-04
+
+- `learning.answers.correct`
+- `learning.answers.close`
+- `learning.answers.wrong`
+- `learning.answers.yours`
+- `learning.answers.expected`
+- `learning.answers.placeholder`
+- `learning.answers.check`
+- `learning.answers.suggestion`
+- `learning.answers.accuracy`

@@ -1,3 +1,5 @@
+import { plainCardAnswer, SUGGESTED_RATING, type AnswerQuality } from '../../lib/learning/flashcardAnswers'
+import { TypedStudyAnswer } from './TypedStudyAnswer'
 import type { ReviewStudyMode } from '../../lib/learning/flashcardStudyMode'
 import { BlockNoteReadOnly } from '../BlockNoteReadOnly'
 import { useDraftStudyArticle } from './useDraftStudyArticle'
@@ -35,7 +37,7 @@ import './learningStudy.css'
 
 const gradeLabels = ['learning.again', 'learning.hard', 'learning.good', 'learning.easy'] as const
 
-function StudyCompletion({ session, locale, mode }: { session: StudySession; locale: AppLocale; mode: ReviewStudyMode }) {
+function StudyCompletion({ session, locale, mode, accuracy }: { session: StudySession; locale: AppLocale; mode: ReviewStudyMode; accuracy?: { answered: number; correct: number } }) {
   const dateDisplayFormat = useDateDisplayFormat()
   const numbers = new Intl.NumberFormat(getLocaleDateLocale(locale))
   const { summary } = session
@@ -43,6 +45,11 @@ function StudyCompletion({ session, locale, mode }: { session: StudySession; loc
   return (
     <div className="learning-study-terminal">
       {session.scope?.lane !== 'notes' && <p className="text-small text-text-secondary">{translate(locale, `learning.studyMode.${mode}`)}</p>}
+      {mode !== 'flip' && !!accuracy?.answered && (
+        <p className="text-body-lg text-text-secondary">
+          {translate(locale, 'learning.answers.accuracy', { rate: numbers.format(Math.round(accuracy.correct / accuracy.answered * 100)) })}
+        </p>
+      )}
       <p className="text-body-lg text-text-secondary">
         {translate(locale, 'home.daily_goal_reviews', { n: numbers.format(session.reviewCount) })}
       </p>
@@ -70,7 +77,7 @@ function StudyCompletion({ session, locale, mode }: { session: StudySession; loc
   )
 }
 
-function useContinueStudy(session: StudySession | null) {
+function useContinueStudy(session: StudySession | null, presentation: ReturnType<typeof useLearningStudy>['presentation']) {
   const workspace = useLearningWorkspace()
   if (session?.status !== 'completed' || workspace?.phase !== 'ready') return undefined
 
@@ -78,7 +85,9 @@ function useContinueStudy(session: StudySession | null) {
   const { lane = 'legacy', pageIds } = session.scope
   if (!due[lane].some(card => pageIds === null || pageIds.includes(card.pageId))) return undefined
 
-  return () => workspace.requestStudy(pageIds ?? undefined, lane)
+  return () => presentation?.mode && presentation.mode !== 'flip'
+    ? workspace.requestStudy(pageIds ?? undefined, lane, presentation)
+    : workspace.requestStudy(pageIds ?? undefined, lane)
 }
 
 export function LearningStudyView({
@@ -100,7 +109,7 @@ export function LearningStudyView({
   const { open, busy, error, reload } = study
   const session = study.session
   const item = session?.current
-  const continueStudy = useContinueStudy(session)
+  const continueStudy = useContinueStudy(session, study.presentation)
   const terminal = !item && (session?.status === 'completed' || !!session?.waitingUntil)
   const isNote = item?.content?.kind === 'note'
   const noteDetails =
@@ -130,8 +139,9 @@ export function LearningStudyView({
     (isNote
       ? !!noteDetails && !!answerPage
       : item.card.answerMode === 'inline' || !!answerPage)
+  const presentationVersion = study.presentation?.mode !== 'flip' ? study.presentationVersion ?? 0 : 0
   const key = item
-    ? `${root}:${study.libraryKey}:${noteDetails?.fingerprint}:${session?.id}:${session?.currentIndex}:${item.card.id}:${item.card.revision}:${item.card.schedule.revision}:${item.page?.fingerprint}:${item.answerPage?.fingerprint}:${mnemonicFirst}:${override?.sessionKey === sessionKey ? override.version : 0}`
+    ? `${root}:${study.libraryKey}:${noteDetails?.fingerprint}:${session?.id}:${session?.currentIndex}:${item.card.id}:${item.card.revision}:${item.card.schedule.revision}:${item.page?.fingerprint}:${item.answerPage?.fingerprint}:${mnemonicFirst}:${override?.sessionKey === sessionKey ? override.version : 0}:${presentationVersion}`
     : ''
   const faces = useStudyFaces(key, isNote, open, mnemonicFirst)
   const {
@@ -149,6 +159,19 @@ export function LearningStudyView({
     revealButton,
     returnToArticle,
   } = faces
+  const [assessment, setAssessment] = useState<{ key: string; quality: AnswerQuality } | null>(null)
+  const quality = assessment?.key === key ? assessment.quality : null
+  const typedAnswer = !isNote && item && study.presentation?.mode === 'typed' ? plainCardAnswer(item.card) : null
+  const suggest = quality ? SUGGESTED_RATING[quality] : null
+  const assess = (quality: AnswerQuality) => {
+    setAssessment({ key, quality })
+    reveal()
+    answerRendered()
+  }
+  const grade = (rating: FSRSRating) => {
+    if (quality) void study.rate(rating, quality === 'correct')
+    else void study.rate(rating)
+  }
   const t = (key: TranslationKey) => translate(locale, key)
   const preview = useMemo(() => {
     try {
@@ -243,13 +266,17 @@ export function LearningStudyView({
             )
           )
             return
-          if (event.key === ' ' && !revealed && !missingMnemonic) {
+          if (event.key === ' ' && !revealed && !missingMnemonic && !typedAnswer) {
             event.preventDefault()
             reveal()
           }
+          if (revealed && answerReady && suggest !== null && event.key === 'Enter') {
+            event.preventDefault()
+            grade(suggest)
+          }
           if (revealed && answerReady && /^[1-4]$/.test(event.key)) {
             event.preventDefault()
-            void study.rate(Number(event.key) as FSRSRating)
+            grade(Number(event.key) as FSRSRating)
           }
         }}
       >
@@ -351,7 +378,7 @@ export function LearningStudyView({
               {t(study.busy ? 'learning.loading' : 'learning.error')}
             </p>
           )}
-          {session?.status === 'completed' && <StudyCompletion session={session} locale={locale} mode={study.presentation?.mode ?? 'flip'} />}
+          {session?.status === 'completed' && <StudyCompletion session={session} locale={locale} mode={study.presentation?.mode ?? 'flip'} accuracy={study.accuracy} />}
           {session?.waitingUntil && !item && (
             <div role="status" className="learning-study-terminal">
               <h2 className="text-display">{t('learning.wait')}</h2>
@@ -388,6 +415,7 @@ export function LearningStudyView({
             locale={locale}
             onOpenRawSource={onOpenRawSource}
             mnemonicFirst={mnemonicFirst}
+            suppressLegacyAnswer={Boolean(typedAnswer)}
             faces={{
               snapshotKey: key,
               revealed,
@@ -400,6 +428,11 @@ export function LearningStudyView({
               answerStatus,
             }}
           />
+          {typedAnswer && (
+            <TypedStudyAnswer key={key} answer={typedAnswer} locale={locale}
+              disabled={study.busy || study.hasPending || !!study.error || !sourceReady || !questionReady}
+              onResult={assess} />
+          )}
         </div>
         <footer className="learning-study-footer">
           <div className="flex flex-col gap-[8px]">
@@ -416,7 +449,7 @@ export function LearningStudyView({
                 )}
               </div>
             )}
-            {item?.page && !revealed && !missingMnemonic && (
+            {item?.page && !revealed && !missingMnemonic && !typedAnswer && (
               <Button
                 ref={revealButton}
                 size="study-reveal"
@@ -435,12 +468,17 @@ export function LearningStudyView({
               </Button>
             )}
 
+            {revealed && suggest !== null && (
+              <p className="text-small text-text-secondary">
+                {translate(locale, 'learning.answers.suggestion', { grade: t(gradeLabels[suggest - 1]) })}
+              </p>
+            )}
             {item?.page && revealed && (
               <GradeButtons
                 locale={locale}
                 interval={interval}
                 disabled={study.busy || study.hasPending || !!study.error || !preview || !sourceReady || !questionReady || !answerReady}
-                onGrade={rating => { void study.rate(rating) }}
+                onGrade={grade}
               />
             )}
             <div className="flex items-center gap-[8px]">

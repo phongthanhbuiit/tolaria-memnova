@@ -6,14 +6,20 @@ import { scheduleReview } from '../lib/learning/scheduler'
 import type { FSRSRating } from '../lib/fsrs'
 import { trackEvent } from '../lib/telemetry'
 
-type State = { libraryKey: string; open: boolean; busy: boolean; session: StudySession | null; error: string | null; presentation: ReviewPresentation }
-const initial = (libraryKey: string): State => ({ libraryKey, open: false, busy: false, session: null, error: null, presentation: { mode: 'flip' } })
+type Accuracy = { answered: number; correct: number }
+
+function studyAccuracy(scores: Map<string, boolean>): Accuracy {
+  return { answered: scores.size, correct: [...scores.values()].filter(Boolean).length }
+}
+
+type State = { libraryKey: string; open: boolean; busy: boolean; session: StudySession | null; error: string | null; presentation: ReviewPresentation; presentationVersion: number; accuracy: Accuracy }
+const initial = (libraryKey: string): State => ({ libraryKey, open: false, busy: false, session: null, error: null, presentation: { mode: 'flip' }, presentationVersion: 0, accuracy: { answered: 0, correct: 0 } })
 
 export function useLearningStudy(client: LearningClient | null, onCommitted: () => Promise<void>) {
   const libraryKey = client ? `${client.vaultPath}:${client.libraryId}` : ''
   const [state, setState] = useState<State & { owner?: object }>(() => initial(''))
   // A new visit gets its own operation state, including A -> B -> A transitions.
-  const visit = useMemo(() => ({ libraryKey, saving: false, pending: null as RateRequest | null, started: Date.now(), scope: { pageIds: null } as SessionScope, needsRefresh: false, presentation: { mode: 'flip' } as ReviewPresentation }), [libraryKey])
+  const visit = useMemo(() => ({ libraryKey, saving: false, pending: null as RateRequest | null, started: Date.now(), scope: { pageIds: null } as SessionScope, needsRefresh: false, presentation: { mode: 'flip' } as ReviewPresentation, presentationVersion: 0, scoreSession: '', scores: new Map<string, boolean>(), pendingScore: undefined as boolean | undefined }), [libraryKey])
   const active = useRef<typeof visit | null>(visit)
   useEffect(() => {
     active.current = visit
@@ -35,7 +41,11 @@ export function useLearningStudy(client: LearningClient | null, onCommitted: () 
   const accept = useCallback((session: StudySession) => {
     if (!isCurrent()) return false
     visit.started = Date.now()
-    update({ session, open: true })
+    if (visit.scoreSession !== session.id) {
+      visit.scoreSession = session.id
+      visit.scores.clear()
+    }
+    update({ session, open: true, accuracy: studyAccuracy(visit.scores) })
     return true
   }, [isCurrent, visit, update])
   const refreshCommitted = useCallback(async () => {
@@ -49,7 +59,8 @@ export function useLearningStudy(client: LearningClient | null, onCommitted: () 
     await run(async () => {
       visit.scope = scope
       visit.presentation = presentation
-      update({ open: true, session: null, presentation })
+      visit.presentationVersion++
+      update({ open: true, session: null, presentation, presentationVersion: visit.presentationVersion })
       const session = await client.startSession(scope)
       if (!accept(session)) return
       trackEvent('memnova_study_started', { scoped: scope.pageIds === null ? 0 : 1, cards: session.initialCount, mode: presentation.mode })
@@ -64,12 +75,17 @@ export function useLearningStudy(client: LearningClient | null, onCommitted: () 
       const session = await client.getSession(id)
       if (!accept(session)) return
       // Explicit reload reconciles an uncertain write against durable state.
-      const uncertain = visit.pending !== null
+      const pending = visit.pending
+      if (pending && session.lastReviewId === pending.reviewId && typeof visit.pendingScore === 'boolean') {
+        visit.scores.set(pending.reviewId, visit.pendingScore)
+        update({ accuracy: studyAccuracy(visit.scores) })
+      }
       visit.pending = null
-      if (uncertain || visit.needsRefresh) await refreshCommitted()
+      visit.pendingScore = undefined
+      if (pending || visit.needsRefresh) await refreshCommitted()
     })
-  }, [client, current.session, start, visit, run, accept, refreshCommitted])
-  const rate = useCallback(async (rating: FSRSRating) => {
+  }, [client, current.session, start, visit, run, accept, refreshCommitted, update])
+  const rate = useCallback(async (rating: FSRSRating, correct?: boolean) => {
     const session = current.session
     const item = session?.current
     const page = item?.page
@@ -78,12 +94,18 @@ export function useLearningStudy(client: LearningClient | null, onCommitted: () 
       if (!visit.pending) {
         if (!item || !page) return
         const now = new Date()
+        visit.pendingScore = correct
         visit.pending = { reviewId: crypto.randomUUID(), sessionId: session.id, sessionRevision: session.revision, cardId: item.card.id, cardRevision: item.card.revision, sourceFingerprint: page.fingerprint, ...(item.answerPage ? { answerFingerprint: item.answerPage.fingerprint } : {}), rating, durationMs: Math.min(86_400_000, Math.max(0, now.getTime() - visit.started)), reviewedAt: now.getTime(), schedule: scheduleReview(item.card.schedule, rating, now) }
       }
       const request = visit.pending
       const result = await client.rateCard(request)
       if (!accept(result.session)) return
       visit.pending = null
+      if (typeof visit.pendingScore === 'boolean') {
+        visit.scores.set(request.reviewId, visit.pendingScore)
+        update({ accuracy: studyAccuracy(visit.scores) })
+      }
+      visit.pendingScore = undefined
       if (!result.replayed) {
         trackEvent('memnova_review_saved', { rating: request.rating, engine: 'ts-fsrs@5.4.2' })
         if (result.session.status === 'completed') {
@@ -92,7 +114,7 @@ export function useLearningStudy(client: LearningClient | null, onCommitted: () 
       }
       await refreshCommitted()
     })
-  }, [client, current.session, visit, run, accept, refreshCommitted])
+  }, [client, current.session, visit, run, accept, refreshCommitted, update])
   const undo = useCallback(async () => {
     const session = current.session
     if (!client || !session?.lastReviewId || visit.pending) return
@@ -101,10 +123,12 @@ export function useLearningStudy(client: LearningClient | null, onCommitted: () 
       visit.needsRefresh = true
       const result = await client.undoReview(session.id, reviewId, session.revision)
       if (!accept(result)) return
+      visit.scores.delete(reviewId)
+      update({ accuracy: studyAccuracy(visit.scores) })
       trackEvent('memnova_review_undone')
       await refreshCommitted()
     })
-  }, [client, current.session, visit, run, accept, refreshCommitted])
+  }, [client, current.session, visit, run, accept, refreshCommitted, update])
   const close = useCallback(async () => {
     if (!client || visit.pending) return
     await run(async () => {
@@ -117,5 +141,5 @@ export function useLearningStudy(client: LearningClient | null, onCommitted: () 
     const session = current.session
     await run(async () => { accept(await client.skipSessionCard(session.id, session.revision)) })
   }, [client, current.session, visit, run, accept])
-  return { libraryKey, presentation: current.presentation, open: current.open, busy: current.busy, session: current.session, error: current.error, start, reload, rate, undo, close, skip, retry: () => visit.pending ? rate(visit.pending.rating) : reload(), hasPending: visit.pending !== null }
+  return { libraryKey, presentation: current.presentation, presentationVersion: current.presentationVersion, accuracy: current.accuracy, open: current.open, busy: current.busy, session: current.session, error: current.error, start, reload, rate, undo, close, skip, retry: () => visit.pending ? rate(visit.pending.rating) : reload(), hasPending: visit.pending !== null }
 }

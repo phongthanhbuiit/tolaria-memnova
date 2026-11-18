@@ -586,3 +586,17 @@ it('returns to the first face even when switching back to a previously revealed 
   expect(screen.getByRole('button', { name: 'Show article', exact: true })).toBeEnabled()
   expect(screen.queryByRole('button', { name: /^Good/ })).not.toBeInTheDocument()
 })
+
+it('requires a new typed answer after reopening a paused session', () => {
+  const study = fixture()
+  const typed = { ...study, presentation: { mode: 'typed' as const }, presentationVersion: 1 }
+  const { rerender } = render(<LearningStudyView study={typed} root="/library" locale="en" />)
+  const input = screen.getByRole('textbox', { name: 'Your answer' })
+  fireEvent.change(input, { target: { value: 'Answer text' } })
+  fireEvent.keyDown(input, { key: 'Enter' })
+  expect(screen.getByRole('button', { name: /^Good/ })).toBeEnabled()
+  rerender(<LearningStudyView study={{ ...typed, open: false }} root="/library" locale="en" />)
+  rerender(<LearningStudyView study={{ ...typed, presentationVersion: 2 }} root="/library" locale="en" />)
+  expect(screen.getByRole('textbox', { name: 'Your answer' })).toHaveValue('')
+  expect(screen.queryByRole('button', { name: /^Good/ })).not.toBeInTheDocument()
+})

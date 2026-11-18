@@ -1197,3 +1197,5 @@ The unsupported drawing Markdown codec preserves legacy fenced source for editor
 Note study front order is an app preference (`note_review_front_order`) with a per-session override in the renderer. Face readiness, keyboard rating and duplicate-review protection continue through the existing study session.
 
 `DeckStudyControls` selects a flashcard mode at each deck entry point. The Library/deck preference configures presentation for the existing legacy study lane, while scheduling continues through `useLearningStudy`.
+
+Typed flashcard feedback normalizes whitespace and case, then checks Vietnamese diacritics separately. An IME-safe answer input sends an assessment to the existing grade controls. Only an explicit grade commits the review.

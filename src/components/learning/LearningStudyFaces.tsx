@@ -37,6 +37,7 @@ export function LearningStudyFaces({
   faces,
   onOpenRawSource,
   mnemonicFirst = false,
+  suppressLegacyAnswer = false,
 }: {
   study: ReturnType<typeof useLearningStudy>
   root: string
@@ -44,6 +45,7 @@ export function LearningStudyFaces({
   faces: FaceState
   onOpenRawSource?: (path: string) => void
   mnemonicFirst?: boolean
+  suppressLegacyAnswer?: boolean
 }) {
   const item = study.session?.current
   if (!item) return null
@@ -59,6 +61,7 @@ export function LearningStudyFaces({
     answerStatus,
   } = faces
   const isNote = item.content?.kind === 'note'
+  const legacyAnswerVisible = revealed && !suppressLegacyAnswer
   const articleHidden = isNote && (mnemonicFirst ? !revealed : revealed)
   const mnemonicHidden = isNote && !articleHidden
   const noteDetails =
@@ -162,7 +165,7 @@ export function LearningStudyFaces({
           </Button>
         </LearningError>
       )}
-      {(isNote ? (mnemonicFirst || backVisited) : revealed) && sourceReady && (
+      {(isNote ? (mnemonicFirst || backVisited) : legacyAnswerVisible) && sourceReady && (
         <div
           ref={!mnemonicFirst ? mnemonicRegion : undefined}
           tabIndex={-1}
