@@ -21,7 +21,6 @@ import { useLearningWorkspace } from './LearningContext'
 import { NoteConversionDialog } from './NoteConversionDialog'
 import { NoteRecoveryDialog } from './NoteRecoveryDialog'
 import { focusLearningDialogTrigger } from './useLearningDialogFocus'
-import { BackupPanel } from './BackupPanel'
 import { trackEvent } from '../../lib/telemetry'
 
 interface Props {
@@ -112,7 +111,7 @@ export function NoteLearningDashboard({
           </header>
           {workspace.error && <LearningError error={workspace.error} locale={locale}><Button size="lg" layout="responsive" variant="outline" onClick={() => { void workspace.reconnect() }}><ArrowClockwise aria-hidden="true" />{t('learning.retry')}</Button></LearningError>}
           <div id={advancedId} hidden={!advanced} className="space-y-3">
-            {advanced && <>
+            {advanced && (
               <div className="flex flex-wrap gap-2">
                 <Button size="lg" layout="responsive" variant="outline" onClickCapture={focusLearningDialogTrigger} onClick={() => setConversion(true)}>
                   <Swap aria-hidden="true" />{t('learning.noteMemory.title')}
@@ -121,8 +120,7 @@ export function NoteLearningDashboard({
                   <ClockCounterClockwise aria-hidden="true" />{t('learning.noteMemory.recoveryTitle')}
                 </Button>
               </div>
-              <BackupPanel locale={locale} />
-            </>}
+            )}
           </div>
           {catalog.hasLearningNotes && <NoteCatalogFilters catalog={catalog} locale={locale} />}
           {!catalog.hasFolderNotes && (

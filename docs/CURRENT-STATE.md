@@ -1,6 +1,6 @@
 # Memnova hiện tại
 
-**18/11/2026 — Đợt 2, Lô 3:** Khi mở đồng thời Thuộc tính và AI, cửa sổ chật tự thu danh sách ghi chú. AI chuyển sang dạng nổi khi không còn đủ chiều rộng cho bố cục song song. [Findings](audits/FINDINGS.md#đợt-2--lô-3).
+**18/11/2026 — Đợt 2, Lô 3:** Khi mở đồng thời Thuộc tính và AI, cửa sổ chật tự thu danh sách ghi chú. AI chuyển sang dạng nổi khi không còn đủ chiều rộng cho bố cục song song. Tạo, xác minh và khôi phục bản sao lưu nằm trong Cài đặt › Thư viện. [Findings](audits/FINDINGS.md#đợt-2--lô-3).
 
 **18/11/2026 — Đợt 2, Lô 2:** Thẻ legacy tự cuộn tới câu trả lời và tránh lặp tên thẻ trong câu hỏi. Phiên hoàn tất hiện số thẻ theo mức chấm cuối và hạn ôn gần nhất. Trang Ôn tập có tiêu đề, tab Bộ thẻ và disclosure Nâng cao. Cách ghi khoảng ôn tiếng Việt và biểu tượng quay lại ghi chú rõ hơn. [Findings và ảnh nghiệm thu](audits/FINDINGS.md#đợt-2--lô-2).
 

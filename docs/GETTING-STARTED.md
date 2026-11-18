@@ -512,7 +512,7 @@ For ordinary notes and one-page/two-face learning, follow [the current user guid
 4. Choose **Study** from a page, deck or Home. Reveal the answer with the mouse or Space, then choose Again/Hard/Good/Easy (1–4). Again returns at its actual learning deadline. Closing pauses the durable session. Reopening the same scope resumes it; Undo restores the last eligible rating. A save error leaves a stable request available for retry. Reload state if the lesson/schedule changed elsewhere.
 5. Home statistics use committed reviews. Daily-goal progress counts all reviews, including Again. Known imported activity is not counted twice. Backups are under Home → **Advanced**. Restore opens a verified copy in a fresh directory and never overwrites the original Library.
 
-`.memnova/learning.sqlite3` is durable user data, not a disposable cache. Do not delete it or Git-sync its live WAL/SHM files. Keep verified Library backups containing both Markdown/media and learning data. Original import backups and partial-import checkpoints remain available for recovery. Generic note/Git commands cannot edit private backup internals.
+`.memnova/learning.sqlite3` is durable user data, not a disposable cache. Do not delete it or Git-sync its live WAL/SHM files. Use Settings › Vaults to create, verify, and restore Library backups containing both Markdown/media and learning data. Original import backups and partial-import checkpoints remain available for recovery. Generic note/Git commands cannot edit private backup internals.
 
 ### Isolated native QA
 

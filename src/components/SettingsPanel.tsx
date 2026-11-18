@@ -59,6 +59,8 @@ import {
   SettingsSwitchRow,
 } from './SettingsControls'
 import { SettingsFooter } from './SettingsFooter'
+import { BackupPanel } from './learning/BackupPanel'
+import { useLearningWorkspace } from './learning/LearningContext'
 import { VaultContentSettingsSection } from './VaultContentSettingsSection'
 import { WorkspaceSettingsSection } from './WorkspaceSettingsSection'
 import {
@@ -634,6 +636,7 @@ function SettingsSyncAndAppearanceSections({
   uiLanguage,
   setUiLanguage,
 }: SettingsBodyProps) {
+  const workspace = useLearningWorkspace()
   return (
     <>
       <SettingsSection id={SETTINGS_SECTION_IDS.sync} showDivider={false}>
@@ -658,6 +661,7 @@ function SettingsSyncAndAppearanceSections({
           {...{ onRemoveVault, onReorderVaults, onSetDefaultWorkspace, onUpdateWorkspaceIdentity }}
           vaults={vaults}
         />
+        {workspace?.root && <BackupPanel locale={locale} />}
       </SettingsSection>
       <SettingsSection id={SETTINGS_SECTION_IDS.autogit}>
         <GitSettingsSection

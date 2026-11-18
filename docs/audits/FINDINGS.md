@@ -498,3 +498,9 @@ W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
 - P2 · Mở một ghi chú, rồi mở Thuộc tính và AI. Hai panel chia chiều ngang với editor, tiêu đề và breadcrumb bị cắt ở 1440×900. [Ảnh audit](review-shots/2026-11-18/18-bang-ai-rong-light.png).
 - Đạt khi editor giữ tối thiểu khoảng 480 px ở 1440×900 và 1024×700, hai panel vẫn mở được và các thao tác hiện có vẫn khả dụng.
 - **fixed (commit W2-10)**. Khi hai công cụ mở, danh sách tự thu ở cửa sổ chật, AI nằm nổi khi cột editor không chứa được cả hai panel. Kiểm tra native vi [1440 sáng](review-shots/2026-11-18/W2-10-after-1440-light.png) · [1440 tối](review-shots/2026-11-18/W2-10-after-1440-dark.png) · [1024 sáng](review-shots/2026-11-18/W2-10-after-1024-light.png) · [1024 tối](review-shots/2026-11-18/W2-10-after-1024-dark.png).
+
+### F-058 · W2-15 · Công cụ sao lưu và khôi phục nằm ở Trang chủ
+
+- P2 · Mở Trang chủ → Nâng cao. Công cụ sao lưu, xác minh và khôi phục ở cùng nhóm hành động trên Trang chủ. [Ảnh audit](review-shots/2026-11-18/02-trang-chu-light.png).
+- Đạt khi nhóm công cụ chuyển sang Cài đặt › Thư viện. Giữ thao tác, dữ liệu và khả năng khôi phục khi Library lỗi. Phạm vi chỉ gồm chuyển công cụ sao lưu và khôi phục.
+- **fixed (commit W2-15)**. Cùng bảng công cụ nằm trong Thư viện. Lối cứu hộ trên màn lỗi vẫn khả dụng. Playwright RED → GREEN cho tạo/xác minh, khóa khôi phục và tải lại. QA native tạo, xác minh, khôi phục vào Library tạm mới. SHA-256 ghi chú mẫu trùng bản gốc. [1440 sáng](review-shots/2026-11-18/W2-15-after-1440-light.png) · [1440 tối](review-shots/2026-11-18/W2-15-after-1440-dark.png) · [1024 sáng](review-shots/2026-11-18/W2-15-after-1024-light.png) · [1024 tối](review-shots/2026-11-18/W2-15-after-1024-dark.png).
