@@ -1,0 +1,311 @@
+{
+  "browser": "Chromium",
+  "result": "4 passed, 0 retries",
+  "method": "Checked literal localized strings with text rectangles constrained by the viewport and clipping ancestors. Legacy setup used the normal renderer with a simulated migration state. The date fixture kept its original ISO value.",
+  "measurements": {
+    "en": {
+      "actions": [
+        {
+          "label": "Add property",
+          "clipping": 0
+        },
+        {
+          "label": "+ Add relationship",
+          "clipping": 0
+        },
+        {
+          "label": "Edit properties",
+          "clipping": 0
+        }
+      ],
+      "date": [
+        {
+          "label": "November 18, 2026",
+          "clipping": 0
+        }
+      ],
+      "layouts": [
+        {
+          "width": 1440,
+          "height": 900,
+          "editorWidth": 590
+        },
+        {
+          "width": 1024,
+          "height": 700,
+          "editorWidth": 524
+        }
+      ],
+      "backups": [
+        {
+          "label": "Vaults",
+          "clipping": 0
+        },
+        {
+          "label": "Backup history",
+          "clipping": 0
+        },
+        {
+          "label": "Create backup",
+          "clipping": 0
+        },
+        {
+          "label": "Verify backup",
+          "clipping": 0
+        },
+        {
+          "label": "Restore backup",
+          "clipping": 0
+        }
+      ],
+      "untyped": [
+        {
+          "label": "Choose Initialize properties to set the note type to Note.",
+          "clipping": 0
+        },
+        {
+          "label": "Initialize properties",
+          "clipping": 0
+        }
+      ],
+      "setup": [
+        {
+          "label": "Finish setting up the Library to change how properties are displayed.",
+          "clipping": 0
+        },
+        {
+          "label": "Set up Library",
+          "clipping": 0
+        }
+      ]
+    },
+    "vi": {
+      "actions": [
+        {
+          "label": "Thêm thuộc tính",
+          "clipping": 0
+        },
+        {
+          "label": "+ Thêm mối quan hệ",
+          "clipping": 0
+        },
+        {
+          "label": "Chỉnh sửa thuộc tính",
+          "clipping": 0
+        }
+      ],
+      "date": [
+        {
+          "label": "18 tháng 11, 2026",
+          "clipping": 0
+        }
+      ],
+      "layouts": [
+        {
+          "width": 1440,
+          "height": 900,
+          "editorWidth": 590
+        },
+        {
+          "width": 1024,
+          "height": 700,
+          "editorWidth": 524
+        }
+      ],
+      "backups": [
+        {
+          "label": "Thư viện",
+          "clipping": 0
+        },
+        {
+          "label": "Lịch sử sao lưu",
+          "clipping": 0
+        },
+        {
+          "label": "Tạo bản sao lưu",
+          "clipping": 0
+        },
+        {
+          "label": "Xác minh bản sao lưu",
+          "clipping": 0
+        },
+        {
+          "label": "Khôi phục bản sao lưu",
+          "clipping": 0
+        }
+      ],
+      "untyped": [
+        {
+          "label": "Chọn Khởi tạo thuộc tính để đặt Loại là Note.",
+          "clipping": 0
+        },
+        {
+          "label": "Khởi tạo thuộc tính",
+          "clipping": 0
+        }
+      ],
+      "setup": [
+        {
+          "label": "Hoàn tất thiết lập thư viện để đổi cách hiển thị thuộc tính.",
+          "clipping": 0
+        },
+        {
+          "label": "Thiết lập thư viện",
+          "clipping": 0
+        }
+      ]
+    },
+    "de-DE": {
+      "actions": [
+        {
+          "label": "Eigenschaft hinzufügen",
+          "clipping": 0
+        },
+        {
+          "label": "+ Beziehung hinzufügen",
+          "clipping": 0
+        },
+        {
+          "label": "Eigenschaften bearbeiten",
+          "clipping": 0
+        }
+      ],
+      "date": [
+        {
+          "label": "18. November 2026",
+          "clipping": 0
+        }
+      ],
+      "layouts": [
+        {
+          "width": 1440,
+          "height": 900,
+          "editorWidth": 590
+        },
+        {
+          "width": 1024,
+          "height": 700,
+          "editorWidth": 524
+        }
+      ],
+      "backups": [
+        {
+          "label": "Bibliotheken",
+          "clipping": 0
+        },
+        {
+          "label": "Sicherungsverlauf",
+          "clipping": 0
+        },
+        {
+          "label": "Sicherung erstellen",
+          "clipping": 0
+        },
+        {
+          "label": "Sicherung prüfen",
+          "clipping": 0
+        },
+        {
+          "label": "Sicherung wiederherstellen",
+          "clipping": 0
+        }
+      ],
+      "untyped": [
+        {
+          "label": "Wähle „Eigenschaften initialisieren“, um den Notiztyp auf „Note“ zu setzen.",
+          "clipping": 0
+        },
+        {
+          "label": "Eigenschaften initialisieren",
+          "clipping": 0
+        }
+      ],
+      "setup": [
+        {
+          "label": "Schließe die Einrichtung der Bibliothek ab, um die Darstellung der Eigenschaften zu ändern.",
+          "clipping": 0
+        },
+        {
+          "label": "Bibliothek einrichten",
+          "clipping": 0
+        }
+      ]
+    },
+    "ja-JP": {
+      "actions": [
+        {
+          "label": "プロパティを追加",
+          "clipping": 0
+        },
+        {
+          "label": "+ 関係を追加",
+          "clipping": 0
+        },
+        {
+          "label": "プロパティを編集",
+          "clipping": 0
+        }
+      ],
+      "date": [
+        {
+          "label": "2026年11月18日",
+          "clipping": 0
+        }
+      ],
+      "layouts": [
+        {
+          "width": 1440,
+          "height": 900,
+          "editorWidth": 590
+        },
+        {
+          "width": 1024,
+          "height": 700,
+          "editorWidth": 524
+        }
+      ],
+      "backups": [
+        {
+          "label": "ライブラリ",
+          "clipping": 0
+        },
+        {
+          "label": "バックアップ履歴",
+          "clipping": 0
+        },
+        {
+          "label": "バックアップを作成",
+          "clipping": 0
+        },
+        {
+          "label": "バックアップを検証",
+          "clipping": 0
+        },
+        {
+          "label": "バックアップを復元",
+          "clipping": 0
+        }
+      ],
+      "untyped": [
+        {
+          "label": "「プロパティを初期化」を選ぶと、ノートの種類が「Note」になります。",
+          "clipping": 0
+        },
+        {
+          "label": "プロパティを初期化",
+          "clipping": 0
+        }
+      ],
+      "setup": [
+        {
+          "label": "プロパティの表示方法を変更するには、ライブラリの設定を完了してください。",
+          "clipping": 0
+        },
+        {
+          "label": "ライブラリを設定",
+          "clipping": 0
+        }
+      ]
+    }
+  }
+}

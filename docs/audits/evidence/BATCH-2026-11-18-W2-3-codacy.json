@@ -1,0 +1,126 @@
+{
+  "baseline": "2edb7911886b907eb62f5e120582f09e10e924f0",
+  "tool": "Codacy Analysis CLI 0.24.0 with repository exclusions and auto config",
+  "before": {
+    "paths": [
+      "src/App.css",
+      "src/App.tsx",
+      "src/components/DynamicPropertiesPanel.tsx",
+      "src/components/Editor.tsx",
+      "src/components/Inspector.tsx",
+      "src/components/SettingsPanel.tsx",
+      "src/components/inspector/RelationshipsPanel.tsx",
+      "src/components/learning/LearningDashboard.tsx",
+      "src/components/learning/NoteLearningDashboard.tsx",
+      "src/components/learning/NoteMemoryInspector.tsx",
+      "src/components/learning/NoteMemorySwitch.tsx",
+      "src/components/learning/PagePropertyTools.tsx",
+      "src/components/learning/PropertyValueEditor.tsx",
+      "src/hooks/useAppWindowControls.ts",
+      "src/hooks/useMainWindowSizeConstraints.ts",
+      "src/lib/locales/be-BY.json",
+      "src/lib/locales/be-Latn.json",
+      "src/lib/locales/de-DE.json",
+      "src/lib/locales/en.json",
+      "src/lib/locales/es-419.json",
+      "src/lib/locales/es-ES.json",
+      "src/lib/locales/fr-FR.json",
+      "src/lib/locales/id-ID.json",
+      "src/lib/locales/it-IT.json",
+      "src/lib/locales/ja-JP.json",
+      "src/lib/locales/ko-KR.json",
+      "src/lib/locales/pl-PL.json",
+      "src/lib/locales/pt-BR.json",
+      "src/lib/locales/pt-PT.json",
+      "src/lib/locales/ru-RU.json",
+      "src/lib/locales/vi.json",
+      "src/lib/locales/zh-CN.json",
+      "src/lib/locales/zh-TW.json",
+      "src/utils/dateDisplay.ts",
+      "tests/integration/memnova-learning.spec.ts"
+    ],
+    "issuesByTool": {
+      "ESLint9": 0,
+      "Semgrep": 10,
+      "Lizard": 35,
+      "Trivy": 0,
+      "Stylelint": 0
+    },
+    "errors": []
+  },
+  "after": {
+    "paths": [
+      "src/App.css",
+      "src/App.tsx",
+      "src/components/DynamicPropertiesPanel.tsx",
+      "src/components/Editor.tsx",
+      "src/components/Inspector.tsx",
+      "src/components/SettingsPanel.tsx",
+      "src/components/inspector/RelationshipsPanel.tsx",
+      "src/components/learning/LearningDashboard.tsx",
+      "src/components/learning/NoteLearningDashboard.tsx",
+      "src/components/learning/NoteMemoryInspector.tsx",
+      "src/components/learning/NoteMemorySwitch.tsx",
+      "src/components/learning/PagePropertyTools.tsx",
+      "src/components/learning/PropertyValueEditor.tsx",
+      "src/hooks/useAppWindowControls.ts",
+      "src/hooks/useMainWindowSizeConstraints.ts",
+      "src/lib/locales/be-BY.json",
+      "src/lib/locales/be-Latn.json",
+      "src/lib/locales/de-DE.json",
+      "src/lib/locales/en.json",
+      "src/lib/locales/es-419.json",
+      "src/lib/locales/es-ES.json",
+      "src/lib/locales/fr-FR.json",
+      "src/lib/locales/id-ID.json",
+      "src/lib/locales/it-IT.json",
+      "src/lib/locales/ja-JP.json",
+      "src/lib/locales/ko-KR.json",
+      "src/lib/locales/pl-PL.json",
+      "src/lib/locales/pt-BR.json",
+      "src/lib/locales/pt-PT.json",
+      "src/lib/locales/ru-RU.json",
+      "src/lib/locales/vi.json",
+      "src/lib/locales/zh-CN.json",
+      "src/lib/locales/zh-TW.json",
+      "src/utils/dateDisplay.ts",
+      "tests/integration/memnova-learning.spec.ts"
+    ],
+    "issuesByTool": {
+      "ESLint9": 0,
+      "Semgrep": 10,
+      "Lizard": 39,
+      "Trivy": 0,
+      "Stylelint": 0
+    },
+    "errors": []
+  },
+  "newIssuesByPathAndRule": [
+    {
+      "path": "src/components/DynamicPropertiesPanel.tsx",
+      "rule": "Lizard_nloc-medium",
+      "severity": "Warning",
+      "count": 1
+    },
+    {
+      "path": "src/components/Inspector.tsx",
+      "rule": "Lizard_parameter-count-medium",
+      "severity": "Warning",
+      "count": 1
+    },
+    {
+      "path": "src/components/learning/NoteMemoryInspector.tsx",
+      "rule": "Lizard_nloc-medium",
+      "severity": "Warning",
+      "count": 1
+    },
+    {
+      "path": "src/hooks/useMainWindowSizeConstraints.ts",
+      "rule": "Lizard_parameter-count-medium",
+      "severity": "Warning",
+      "count": 1
+    }
+  ],
+  "existingCritical": "Lizard reports 81 parameters for EditorLayout at both revisions (threshold 80).",
+  "review": "New warnings are function length or parameter counts in UI composition and window sizing. Reviewed the four paths and retained the scoped changes. Zero added Critical or High."
+}
