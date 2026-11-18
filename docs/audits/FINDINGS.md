@@ -530,3 +530,8 @@ W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
 - P2 · Mở AI khi Library chưa có GEMINI.md, banner ghép tiếng Việt với “Gemini guidance can be created”. [Ảnh audit](review-shots/2026-11-18/18-bang-ai-rong-light.png).
 - Đạt khi lý do và thao tác tạo hoặc khôi phục được diễn đạt theo ngôn ngữ ứng dụng.
 - **fixed (commit W2-19)**. Banner và trạng thái hướng dẫn dùng catalog. Khi thiếu GEMINI.md, câu chỉ rõ chọn Khôi phục để tạo tệp. Test vi RED → GREEN.
+
+### F-063 · W2-21 · Lớp phủ của hộp thoại và thanh trạng thái
+
+- P3 · Mở phiên ôn Thẻ cũ. Ảnh audit cho thấy thanh trạng thái qua nền bán trong suốt. Đạt khi lớp phủ kéo tới mép dưới và nằm trên thanh trạng thái. [Ảnh audit](review-shots/2026-11-18/13-flashcard-mat-truoc-light.png).
+- **Đã đạt trên baseline**. Native vi 1440×900 cho thấy thanh trạng thái được làm tối trong [theme sáng](review-shots/2026-11-18/W2-21-verified-light.png) và [theme tối](review-shots/2026-11-18/W2-21-verified-dark.png). Playwright Chromium/WebKit đo overlay kín viewport ở zoom 80%, 100%, 150%. Thêm kiểm tra lớp phủ ở mép dưới trong luồng ôn của app.

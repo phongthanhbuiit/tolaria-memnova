@@ -163,3 +163,15 @@ test('backup catalog survives reload and requires verification before restore', 
   await expect(panel.getByRole('combobox', { name: 'Backup history', exact: true })).toHaveText(choice)
   await expect(panel.getByRole('button', { name: 'Restore backup', exact: true })).toBeDisabled()
 })
+
+test('the study backdrop covers the status bar', async ({ page }) => {
+  await addCard(page, 'Backdrop fixture')
+  await page.getByRole('region', { name: 'Flashcards', exact: true }).getByRole('button', { name: 'Study', exact: true }).click()
+  await expect(page.getByRole('dialog')).toBeVisible()
+  const coverage = await page.getByTestId('status-bar').evaluate(footer => {
+    const { left, top, bottom } = footer.getBoundingClientRect()
+    const foreground = document.elementFromPoint(left + 8, (top + bottom) / 2)
+    return foreground?.getAttribute('data-slot')
+  })
+  expect(coverage).toBe('dialog-overlay')
+})
