@@ -36,8 +36,11 @@ test.describe('responsive note deletion', () => {
     })
 
     await triggerShortcutCommand(page, APP_COMMAND_IDS.noteDelete)
-    await expect(page.getByTestId('confirm-delete-dialog')).toBeVisible({ timeout: 5_000 })
+    const confirmation = page.getByRole('alertdialog', { name: 'Delete this note permanently?' })
+    await expect(confirmation).toBeVisible({ timeout: 5_000 })
+    await expect(confirmation.getByRole('button', { name: 'Cancel' })).toBeFocused()
 
+    await page.keyboard.press('Tab')
     await expect(page.getByTestId('confirm-delete-btn')).toBeFocused()
     await page.keyboard.press('Enter')
 
@@ -79,7 +82,11 @@ test.describe('responsive note deletion', () => {
 
     await deleteItem.click()
 
-    await expect(page.getByTestId('confirm-delete-dialog')).toBeVisible({ timeout: 5_000 })
-    await expect(page.getByTestId('confirm-delete-btn')).toBeFocused()
+    const confirmation = page.getByRole('alertdialog', { name: 'Delete this note permanently?' })
+    await expect(confirmation).toBeVisible({ timeout: 5_000 })
+    await expect(confirmation.getByRole('button', { name: 'Cancel' })).toBeFocused()
+    await page.keyboard.press('Enter')
+    await expect(confirmation).toBeHidden()
+    await expect(page.getByRole('heading', { name: 'Alpha Project', level: 1 })).toBeVisible()
   })
 })

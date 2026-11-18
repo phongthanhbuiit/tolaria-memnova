@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { renderHook, act } from '@testing-library/react'
 import { useDeleteActions } from './useDeleteActions'
+import type { AppLocale } from '../lib/i18n'
 
 vi.mock('../mock-tauri', () => ({
   isTauri: () => false,
@@ -30,9 +31,10 @@ describe('useDeleteActions', () => {
     mockInvokeFn.mockReset()
   })
 
-  function renderDeleteActions(options: { resolveVaultPathForPath?: (path: string) => string | null | undefined; onBeforeDelete?: (path: string) => Promise<void> } = {}) {
+  function renderDeleteActions(options: { locale?: AppLocale; resolveVaultPathForPath?: (path: string) => string | null | undefined; onBeforeDelete?: (path: string) => Promise<void> } = {}) {
     return renderHook(() =>
       useDeleteActions({
+        locale: options.locale,
         onDeselectNote,
         onBeforeDelete: options.onBeforeDelete,
         removeEntry,
@@ -175,7 +177,17 @@ describe('useDeleteActions', () => {
       const { result } = renderDeleteActions()
       await openDeleteDialog(result, ['/vault/a.md'])
       expect(result.current.confirmDelete).not.toBeNull()
-      expect(result.current.confirmDelete?.title).toBe('Delete permanently?')
+      expect(result.current.confirmDelete?.title).toBe('Delete this note permanently?')
+    })
+
+    it('uses Vietnamese singular copy for one note and plural copy for a selection', async () => {
+      const { result } = renderDeleteActions({ locale: 'vi' })
+      await openDeleteDialog(result, ['/vault/a.md'])
+      expect(result.current.confirmDelete?.title).toBe('Xóa vĩnh viễn ghi chú này?')
+      expect(result.current.confirmDelete?.message).toContain('Ghi chú này và mặt gợi nhớ')
+      act(() => result.current.handleBulkDeletePermanently(['/vault/a.md', '/vault/b.md']))
+      expect(result.current.confirmDelete?.title).toBe('Xóa vĩnh viễn 2 ghi chú?')
+      expect(result.current.confirmDelete?.message).toContain('các ghi chú đã chọn')
     })
 
     it('onConfirm deletes the note and clears dialog', async () => {
@@ -188,7 +200,7 @@ describe('useDeleteActions', () => {
 
   describe('handleBulkDeletePermanently', () => {
     it.each([
-      { paths: ['/vault/a.md'], expectedTitle: 'Delete 1 note permanently?' },
+      { paths: ['/vault/a.md'], expectedTitle: 'Delete this note permanently?' },
       { paths: ['/vault/a.md', '/vault/b.md'], expectedTitle: 'Delete 2 notes permanently?' },
     ])('sets confirmDelete title for $expectedTitle', ({ paths, expectedTitle }) => {
       const { result } = renderDeleteActions()

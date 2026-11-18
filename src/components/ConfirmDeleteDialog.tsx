@@ -10,6 +10,16 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog'
+import { useAppLocale } from '../hooks/useAppPreferences'
+import { translate } from '../lib/i18n'
 
 interface ConfirmDeleteDialogProps {
   open: boolean
@@ -195,3 +205,51 @@ export const ConfirmDeleteDialog = memo(function ConfirmDeleteDialog({
     </Dialog>
   )
 })
+
+export function ConfirmNoteDeleteDialog({ open, title, message, onConfirm, onCancel }: Omit<ConfirmDeleteDialogProps, 'confirmLabel'>) {
+  const locale = useAppLocale()
+  const previousFocus = useRef<HTMLElement | null>(null)
+
+  return (
+    <AlertDialog open={open} onOpenChange={(isOpen) => { if (!isOpen) onCancel() }}>
+      <AlertDialogContent
+        data-testid="confirm-delete-dialog"
+        onOpenAutoFocus={() => {
+          const active = document.activeElement
+          previousFocus.current = active instanceof HTMLElement ? active : null
+        }}
+        onCloseAutoFocus={(event) => {
+          if (previousFocus.current?.isConnected) {
+            event.preventDefault()
+            previousFocus.current.focus({ preventScroll: true })
+          }
+        }}
+      >
+        <DialogHeader className="text-left">
+          <AlertDialogTitle className="flex items-center gap-2 text-title">
+            <Trash className="size-4 shrink-0 text-destructive" aria-hidden="true" />
+            {title}
+          </AlertDialogTitle>
+          <AlertDialogDescription className="text-body-lg text-text-secondary">
+            {message}
+          </AlertDialogDescription>
+        </DialogHeader>
+        <div className="flex flex-wrap justify-end gap-2">
+          <AlertDialogCancel asChild>
+            <Button variant="ghost" size="md" data-confirm-delete-cancel="true">
+              {translate(locale, 'common.cancel')}
+            </Button>
+          </AlertDialogCancel>
+          <AlertDialogAction asChild onClick={(event) => {
+            event.preventDefault()
+            onConfirm()
+          }}>
+            <Button variant="destructive" size="md" data-testid="confirm-delete-btn" data-confirm-delete-primary="true">
+              {translate(locale, 'editor.noteMemory.deleteConfirmAction')}
+            </Button>
+          </AlertDialogAction>
+        </div>
+      </AlertDialogContent>
+    </AlertDialog>
+  )
+}

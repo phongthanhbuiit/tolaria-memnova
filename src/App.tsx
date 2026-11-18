@@ -73,7 +73,7 @@ import {
   useSelectionSanitizer,
 } from './hooks/useNeighborhoodSelection'
 import { ConflictResolverModal } from './components/ConflictResolverModal'
-import { ConfirmDeleteDialog } from './components/ConfirmDeleteDialog'
+import { ConfirmDeleteDialog, ConfirmNoteDeleteDialog } from './components/ConfirmDeleteDialog'
 import { DeleteProgressNotice } from './components/DeleteProgressNotice'
 import { UpdateBanner } from './components/UpdateBanner'
 import { invoke } from '@tauri-apps/api/core'
@@ -1858,11 +1858,10 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
         <McpSetupDialog open={mcpSetupDialog.open} status={mcpSetupDialog.status} busyAction={mcpSetupDialog.busyAction} manualConfigSnippet={mcpSetupDialog.manualConfigSnippet} manualConfigLoading={mcpSetupDialog.manualConfigLoading} manualConfigError={mcpSetupDialog.manualConfigError} locale={appLocale} onClose={mcpSetupDialog.closeDialog} onConnect={mcpSetupDialog.connect} onCopyManualConfig={mcpSetupDialog.copyManualConfig} onDisconnect={mcpSetupDialog.disconnect} onLoadManualConfig={mcpSetupDialog.loadManualConfig} />
         <CloneVaultModal key={dialogs.showCloneVault ? 'clone-open' : 'clone-closed'} open={dialogs.showCloneVault} onClose={dialogs.closeCloneVault} onVaultCloned={vaultSwitcher.handleVaultCloned} />
         {deleteActions.confirmDelete && (
-          <ConfirmDeleteDialog
+          <ConfirmNoteDeleteDialog
             open={true}
             title={deleteActions.confirmDelete.title}
             message={deleteActions.confirmDelete.message}
-            confirmLabel={deleteActions.confirmDelete.confirmLabel}
             onConfirm={deleteActions.confirmDelete.onConfirm}
             onCancel={() => deleteActions.setConfirmDelete(null)}
           />

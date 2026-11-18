@@ -423,3 +423,11 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 - Đạt khi cảnh báo, nút khôi phục, trình soạn thảo và nút gửi đều nằm trong panel ở 1440×900 và kích thước cửa sổ nhỏ nhất.
 - Phiên chat co theo panel và nhóm điều khiển xuống dòng khi cần. Native vi sáng/tối: 1440×900 có cả Thuộc tính và AI, 480×400 ở chế độ viết. Nhập bản nháp ở 480×400 để kiểm nút gửi, không gửi ra ngoài.
 - Ảnh native: [trước sáng](review-shots/2026-11-18/W2-06-before-light.png) · [trước tối](review-shots/2026-11-18/W2-06-before-dark.png) · [sau sáng](review-shots/2026-11-18/W2-06-after-light.png) · [sau tối](review-shots/2026-11-18/W2-06-after-dark.png) · [480×400 sáng](review-shots/2026-11-18/W2-06-minimum-light.png) · [480×400 tối](review-shots/2026-11-18/W2-06-minimum-dark.png).
+
+### F-048 · W2-07 · Dialog xóa ghi chú lẫn tiếng Anh và sai số lượng
+
+- P1 · **fixed (commit W2-07)**. Native vi 1440×900, menu Thêm hành động ghi chú → Xóa ghi chú này: tiêu đề và nút còn tiếng Anh, xóa đứng trước hủy, nội dung số nhiều khi xóa một ghi chú.
+- Đạt khi xác nhận dùng shadcn AlertDialog, copy vi đúng số lượng và thứ tự Hủy → Xóa.
+- AlertDialog hiển thị Hủy trước Xóa vĩnh viễn và đặt focus ban đầu vào Hủy. Enter kích hoạt nút đang focus. Native vi 1440×900: xác nhận một ghi chú ở sáng và hai ghi chú ở tối, Hủy/Esc giữ ghi chú. Vitest 23/23, Playwright 6/6 qua các lần chạy riêng. Ca giữ gợi nhớ đổi bước mở editor từ tab cũ sang nút Sửa gợi nhớ đang dùng và giữ các assertion lưu/xóa.
+- Catalog en/vi hoàn tất, bốn khóa ghi vào [L10N-PENDING](L10N-PENDING.md), validator đạt 18 catalog. Dùng sự kiện `note_deleted` đã có.
+- Ảnh native: [trước sáng](review-shots/2026-11-18/W2-07-before-light.png) · [trước tối](review-shots/2026-11-18/W2-07-before-dark.png) · [một ghi chú sáng](review-shots/2026-11-18/W2-07-after-light.png) · [hai ghi chú tối](review-shots/2026-11-18/W2-07-after-dark.png).

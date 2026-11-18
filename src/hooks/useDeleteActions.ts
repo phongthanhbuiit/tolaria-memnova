@@ -7,7 +7,6 @@ import { translate, type AppLocale } from '../lib/i18n'
 interface ConfirmDeleteState {
   title: string
   message: string
-  confirmLabel?: string
   onConfirm: () => void
 }
 
@@ -194,28 +193,27 @@ export function useDeleteActions({
     setToastMessage,
   })
 
-  const handleDeleteNote = useCallback(async (path: string) => {
-    setConfirmDelete({
-      title: 'Delete permanently?',
-      message: translate(locale, 'editor.noteMemory.deleteConfirmation'),
-      onConfirm: async () => {
-        setConfirmDelete(null)
-        await deleteNoteFromDisk(path)
-      },
-    })
-  }, [deleteNoteFromDisk, locale])
-
   const handleBulkDeletePermanently = useCallback((paths: string[]) => {
     const count = paths.length
+    if (!count) return
+
     setConfirmDelete({
-      title: `Delete ${count} ${count === 1 ? 'note' : 'notes'} permanently?`,
-      message: translate(locale, 'editor.noteMemory.deleteConfirmation'),
+      title: count === 1
+        ? translate(locale, 'editor.noteMemory.deleteConfirmTitle')
+        : translate(locale, 'editor.noteMemory.deleteConfirmBulkTitle', { count }),
+      message: translate(locale, count === 1
+        ? 'editor.noteMemory.deleteConfirmationSingle'
+        : 'editor.noteMemory.deleteConfirmation'),
       onConfirm: async () => {
         setConfirmDelete(null)
         await deleteNotesFromDisk(paths)
       },
     })
   }, [deleteNotesFromDisk, locale])
+
+  const handleDeleteNote = useCallback(async (path: string) => {
+    handleBulkDeletePermanently([path])
+  }, [handleBulkDeletePermanently])
 
   return {
     confirmDelete,
