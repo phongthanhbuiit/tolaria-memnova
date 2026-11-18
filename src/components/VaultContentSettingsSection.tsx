@@ -1,8 +1,8 @@
 import { Article } from '@phosphor-icons/react'
-import type { TranslationKey, TranslationValues } from '../lib/i18n'
+import type { AppLocale, TranslationKey, TranslationValues } from '../lib/i18n'
 import type { NoteWidthMode } from '../types'
 import type { AllNotesFileVisibility } from '../utils/allNotesFileVisibility'
-import { DATE_DISPLAY_FORMATS, type DateDisplayFormat } from '../utils/dateDisplay'
+import { DATE_DISPLAY_FORMATS, formatDatePartsForDisplay, type DateDisplayFormat } from '../utils/dateDisplay'
 import {
   SectionHeading,
   SelectControl,
@@ -15,6 +15,7 @@ type Translate = (key: TranslationKey, values?: TranslationValues) => string
 
 interface VaultContentSettingsSectionProps {
   t: Translate
+  locale: AppLocale
   dateDisplayFormat: DateDisplayFormat
   setDateDisplayFormat: (value: DateDisplayFormat) => void
   defaultNoteWidth: NoteWidthMode
@@ -48,15 +49,16 @@ function buildNoteWidthOptions(t: Translate): Array<{ value: NoteWidthMode; labe
   }))
 }
 
-function buildDateDisplayOptions(t: Translate): Array<{ value: DateDisplayFormat; label: string }> {
+function buildDateDisplayOptions(t: Translate, locale: AppLocale): Array<{ value: DateDisplayFormat; label: string }> {
   return DATE_DISPLAY_FORMATS.map((value) => ({
     value,
-    label: t(Reflect.get(DATE_DISPLAY_LABEL_KEYS, value) as Parameters<Translate>[0]),
+    label: t(DATE_DISPLAY_LABEL_KEYS[value], { example: formatDatePartsForDisplay({ year: 2026, month: 5, day: 11 }, value, locale) }),
   }))
 }
 
 export function VaultContentSettingsSection({
   t,
+  locale,
   dateDisplayFormat,
   setDateDisplayFormat,
   defaultNoteWidth,
@@ -90,7 +92,7 @@ export function VaultContentSettingsSection({
             ariaLabel={t('settings.dateDisplay.default')}
             value={dateDisplayFormat}
             onValueChange={(value) => setDateDisplayFormat(value as DateDisplayFormat)}
-            options={buildDateDisplayOptions(t)}
+            options={buildDateDisplayOptions(t, locale)}
             testId="settings-date-display-format"
           />
         </SettingsRow>

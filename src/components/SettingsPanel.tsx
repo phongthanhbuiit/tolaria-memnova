@@ -701,6 +701,7 @@ function SettingsSyncAndAppearanceSections({
 
 function SettingsContentSections({
   t,
+  locale,
   dateDisplayFormat,
   setDateDisplayFormat,
   defaultNoteWidth,
@@ -718,6 +719,7 @@ function SettingsContentSections({
     <SettingsSection id={SETTINGS_SECTION_IDS.content}>
       <VaultContentSettingsSection
         t={t}
+        locale={locale}
         dateDisplayFormat={dateDisplayFormat}
         setDateDisplayFormat={setDateDisplayFormat}
         defaultNoteWidth={defaultNoteWidth}

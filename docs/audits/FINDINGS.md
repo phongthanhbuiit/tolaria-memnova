@@ -562,3 +562,8 @@ W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
 
 - P2 · Nút tròn AI ở góc dưới phải đè lên nút "Ôn ngay" của panel Thuộc tính. Ảnh đối chiếu: W2-18-after-1440-light.
 - Đạt khi: Nút nổi không bao giờ che điều khiển: ẩn hoặc dời khi panel phải mở/khi chồng lên vùng có nút; kiểm 1440×900 và 1024×700.
+
+### F-068 · W3-02 · Ngày tháng
+
+- P2 · Vẫn 4 kiểu: danh sách "ngày 18 tháng 11, 2026", ví dụ trong Cài đặt "11 tháng 5 năm 2026", Thuộc tính "18/11/2026", tổng kết phiên "15:41 ngày 26 thg 11, 2026" (tiếp F-059). Ảnh đối chiếu: 10, 17b, W2-18-after, W2-13-after.
+- Đạt khi: Ví dụ trong Cài đặt khớp đúng chuỗi app hiển thị; danh sách, tổng kết phiên, nút ôn dùng cùng formatter; ngày có giờ cùng một mẫu. Giá trị lưu giữ ISO.

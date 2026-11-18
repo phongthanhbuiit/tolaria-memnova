@@ -37,9 +37,16 @@ for (const { timeZone, overdue, today, future } of cases) {
         const time = row.locator('time')
         await expect(time).toHaveAttribute('datetime', due)
         await expect(time).toContainText(expected)
-        const absolute = await page.evaluate(({ due, timeZone }) => new Intl.DateTimeFormat('vi-VN', {
-          dateStyle: 'medium', timeStyle: 'short', timeZone,
-        }).format(new Date(due)), { due, timeZone })
+        const absolute = await page.evaluate(({ due, timeZone }) => {
+          const date = new Date(due)
+          const day = new Intl.DateTimeFormat('vi-VN', {
+            year: 'numeric', month: 'long', day: 'numeric', timeZone,
+          }).format(date)
+          const time = new Intl.DateTimeFormat('vi-VN', {
+            hour: 'numeric', minute: '2-digit', timeZone,
+          }).format(date)
+          return `${day} · ${time}`
+        }, { due, timeZone })
         await row.hover()
         await expect(page.getByRole('tooltip')).toHaveText(absolute)
         await page.keyboard.press('Escape')

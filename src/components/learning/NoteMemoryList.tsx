@@ -1,3 +1,4 @@
+import { useDateDisplayFormat } from '../../hooks/useAppPreferences'
 import { useId, useLayoutEffect, useMemo, useRef, type KeyboardEvent } from 'react'
 import { Virtuoso, type VirtuosoHandle } from 'react-virtuoso'
 import { Button } from '../ui/button'
@@ -25,7 +26,8 @@ function destination(key: string, shift: boolean, position: number, count: numbe
 export function NoteMemoryList({ rows, pages, clock, locale, onOpenPage, scrollParent }: Props) {
   const listId = useId()
   const pagesById = useMemo(() => new Map(pages.map(page => [page.id, page])), [pages])
-  const formatDue = useMemo(() => createReviewDueFormatter(locale, clock), [locale, clock])
+  const dateDisplayFormat = useDateDisplayFormat()
+  const formatDue = useMemo(() => createReviewDueFormatter(locale, clock, dateDisplayFormat), [locale, clock, dateDisplayFormat])
   const available = useMemo(() => rows.flatMap((row,index) => pagesById.get(row.view.pageId)?.available ? [index] : []), [rows,pagesById])
   const list = useRef<VirtuosoHandle>(null), buttons = useRef(new Map<string, HTMLButtonElement>())
   const pendingFocus = useRef<string | null>(null)

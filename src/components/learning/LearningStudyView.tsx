@@ -1,3 +1,5 @@
+import { formatDateTimeForDisplay } from '../../utils/dateDisplay'
+import { useDateDisplayFormat } from '../../hooks/useAppPreferences'
 import { useLearningDialogFocus } from './useLearningDialogFocus'
 import './noteMemory.css'
 import { useEffect, useMemo } from 'react'
@@ -28,6 +30,7 @@ import './learningStudy.css'
 const gradeLabels = ['learning.again', 'learning.hard', 'learning.good', 'learning.easy'] as const
 
 function StudyCompletion({ session, locale }: { session: StudySession; locale: AppLocale }) {
+  const dateDisplayFormat = useDateDisplayFormat()
   const numbers = new Intl.NumberFormat(getLocaleDateLocale(locale))
   const { summary } = session
   const dueAt = summary?.nextDueAt
@@ -51,7 +54,7 @@ function StudyCompletion({ session, locale }: { session: StudySession; locale: A
           <dt className="text-text-secondary">{translate(locale, 'learning.session.nextReview')}</dt>
           <dd className="mt-1">
             <time dateTime={new Date(dueAt).toISOString()}>
-              {new Intl.DateTimeFormat(getLocaleDateLocale(locale), { dateStyle: 'medium', timeStyle: 'short' }).format(dueAt)}
+              {formatDateTimeForDisplay(new Date(dueAt), dateDisplayFormat, locale)}
             </time>
           </dd>
         </dl>
