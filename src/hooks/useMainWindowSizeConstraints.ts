@@ -9,6 +9,7 @@ const MAIN_WINDOW_NOTE_LIST_MIN_WIDTH = 220
 const MAIN_WINDOW_INSPECTOR_MIN_WIDTH = 240
 
 export type MainWindowPaneVisibility = {
+  allowPanelOverlay?: boolean
   sidebarVisible: boolean
   noteListVisible: boolean
   inspectorCollapsed: boolean
@@ -18,6 +19,7 @@ export type MainWindowPaneVisibility = {
 }
 
 export function getMainWindowMinWidth({
+  allowPanelOverlay,
   sidebarVisible,
   noteListVisible,
   inspectorCollapsed,
@@ -25,6 +27,11 @@ export function getMainWindowMinWidth({
   noteListWidth,
   inspectorWidth,
 }: MainWindowPaneVisibility): number {
+  // Both side panels can stack when the saved pane widths do not fit.
+  if (allowPanelOverlay && !inspectorCollapsed) return EDITOR_ONLY_MAIN_WINDOW_MIN_WIDTH
+    + (sidebarVisible ? MAIN_WINDOW_SIDEBAR_MIN_WIDTH : 0)
+    + (noteListVisible ? MAIN_WINDOW_NOTE_LIST_MIN_WIDTH : 0)
+
   let minWidth = EDITOR_ONLY_MAIN_WINDOW_MIN_WIDTH
 
   if (sidebarVisible) minWidth += getPaneWidth(sidebarWidth, MAIN_WINDOW_SIDEBAR_MIN_WIDTH)
@@ -57,6 +64,7 @@ export async function applyMainWindowSizeConstraints(
 
 export function useMainWindowSizeConstraints({
   enabled = true,
+  allowPanelOverlay,
   sidebarVisible,
   noteListVisible,
   inspectorCollapsed,
@@ -65,6 +73,7 @@ export function useMainWindowSizeConstraints({
   inspectorWidth,
 }: MainWindowSizeConstraintsOptions): void {
   const minWidth = getMainWindowMinWidth({
+    allowPanelOverlay,
     sidebarVisible,
     noteListVisible,
     inspectorCollapsed,

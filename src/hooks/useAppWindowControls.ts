@@ -15,6 +15,7 @@ import { isWindows } from '../utils/platform'
 interface UseAppWindowControlsParams {
   layout: ReturnType<typeof useLayoutPanels>
   windowMode: boolean
+  aiPanelOpen?: boolean
 }
 
 interface AppWindowControls {
@@ -33,6 +34,7 @@ interface AppWindowControls {
 }
 
 export function useAppWindowControls({
+  aiPanelOpen,
   layout,
   windowMode,
 }: UseAppWindowControlsParams): AppWindowControls {
@@ -56,6 +58,7 @@ export function useAppWindowControls({
     if (windowMode) return
 
     const minWidth = getMainWindowMinWidth({
+      allowPanelOverlay: aiPanelOpen,
       sidebarVisible: nextSidebarVisible,
       noteListVisible: nextNoteListVisible,
       inspectorCollapsed: nextInspectorCollapsed,
@@ -67,6 +70,7 @@ export function useAppWindowControls({
     void applyMainWindowSizeConstraints(minWidth, { growToFit: !isWindows() })
       .catch((err) => console.warn('[window] Size constraints failed:', err))
   }, [
+    aiPanelOpen,
     layout.inspectorCollapsed,
     layout.inspectorWidth,
     layout.noteListWidth,
@@ -96,6 +100,7 @@ export function useAppWindowControls({
 
   useMainWindowSizeConstraints({
     enabled: !windowMode,
+    allowPanelOverlay: aiPanelOpen,
     sidebarVisible,
     noteListVisible,
     inspectorCollapsed: layout.inspectorCollapsed,

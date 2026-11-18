@@ -84,3 +84,40 @@
 .ai-highlight {
   animation: ai-highlight-glow 0.8s ease-out;
 }
+
+/* Reserve editor space when both right-hand tools are open. */
+.editor__side-panels > :has(> aside) {
+  max-inline-size: max(240px, calc(100% - 800px));
+}
+
+.editor__side-panels > [data-ai-workspace-mode="side"][data-ai-workspace-expanded="false"] {
+  flex-shrink: 0;
+  max-inline-size: max(320px, calc(100% - 980px));
+}
+
+@container editor (width < 1040px) {
+  .editor__side-panels > :has(> aside) {
+    max-inline-size: max(240px, calc(100% - 480px));
+  }
+
+  .editor__side-panels > [data-ai-workspace-mode="side"][data-ai-workspace-expanded="false"] {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-end: 0;
+    z-index: 35;
+    max-inline-size: max(320px, calc(100% - 480px));
+  }
+}
+
+@media (width < 1500px) {
+  .app:has(.editor__side-panels) > .app__note-list,
+  .app:has(.editor__side-panels) > .app__note-list + div {
+    display: none;
+  }
+}
+
+@media (width < 1220px) {
+  .app:has(.editor__side-panels) > .app__sidebar {
+    max-inline-size: 220px;
+  }
+}

@@ -1162,6 +1162,7 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
     zoom,
   } = useAppWindowControls({
     layout,
+    aiPanelOpen: effectiveShowAIChat,
     windowMode: Boolean(noteWindowParams) || aiWorkspaceWindow,
   })
 

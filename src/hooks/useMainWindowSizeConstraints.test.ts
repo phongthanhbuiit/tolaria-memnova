@@ -64,6 +64,19 @@ describe('getMainWindowMinWidth', () => {
       },
       expectedWidth: 1500,
     },
+    {
+      name: 'permits a compact window when both right-hand tools can overlay',
+      visibility: {
+        allowPanelOverlay: true,
+        sidebarVisible: true,
+        noteListVisible: true,
+        inspectorCollapsed: false,
+        sidebarWidth: 360,
+        noteListWidth: 340,
+        inspectorWidth: 320,
+      },
+      expectedWidth: 920,
+    },
   ] as const
 
   it.each(minWidthCases)('$name', ({ visibility, expectedWidth }) => {

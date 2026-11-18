@@ -490,3 +490,11 @@ W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
 - P2 · Playwright en, vi, de-DE, ja-JP. Trong Library tạm, mở phiên thẻ cũ có một thẻ, thêm thẻ đến hạn cùng ghi chú sau khi bắt đầu, chấm thẻ đầu rồi chọn Ôn tiếp. Phiên mới chọn luồng Ghi nhớ nên không nhận thẻ cũ đến hạn.
 - Đạt khi Ôn tiếp mở đúng luồng và phạm vi của phiên đã xong, kể cả khi scope đã lưu lược trường `lane` theo định dạng legacy.
 - UI mặc định luồng legacy trước khi kiểm thẻ đến hạn và mở phiên nối tiếp. Giữ scope lưu, thuật toán xếp lịch và phím ôn.
+
+## Đợt 2 — Lô 3
+
+### F-057 · W2-10 · Editor bị ép hẹp khi mở Thuộc tính và AI
+
+- P2 · Mở một ghi chú, rồi mở Thuộc tính và AI. Hai panel chia chiều ngang với editor, tiêu đề và breadcrumb bị cắt ở 1440×900. [Ảnh audit](review-shots/2026-11-18/18-bang-ai-rong-light.png).
+- Đạt khi editor giữ tối thiểu khoảng 480 px ở 1440×900 và 1024×700, hai panel vẫn mở được và các thao tác hiện có vẫn khả dụng.
+- **fixed (commit W2-10)**. Khi hai công cụ mở, danh sách tự thu ở cửa sổ chật, AI nằm nổi khi cột editor không chứa được cả hai panel. Kiểm tra native vi [1440 sáng](review-shots/2026-11-18/W2-10-after-1440-light.png) · [1440 tối](review-shots/2026-11-18/W2-10-after-1440-dark.png) · [1024 sáng](review-shots/2026-11-18/W2-10-after-1024-light.png) · [1024 tối](review-shots/2026-11-18/W2-10-after-1024-dark.png).

@@ -552,7 +552,7 @@ function EditorLayout({
 
   return (
     <div className="editor flex flex-col min-h-0 overflow-hidden bg-background text-foreground">
-      <div className="relative flex flex-1 min-h-0">
+      <div className={showAIChat && !inspectorCollapsed ? "editor__side-panels relative flex flex-1 min-h-0" : "relative flex flex-1 min-h-0"}>
         {emptyState ?? (activeBinaryTab
             ? (
                 <FilePreview
