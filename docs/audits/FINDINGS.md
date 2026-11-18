@@ -402,3 +402,10 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 - Đạt khi mỗi thuộc tính có một hàng hoặc một cặp nhãn trên giá trị, chữ đọc được và panel không cuộn ngang ở bề rộng mặc định.
 - Nhãn và giá trị đã lưu dùng trọn chiều rộng. Ngày, URL và văn bản dài xuống dòng. Lịch ôn dùng một cặp dòng cho lần ôn tới. Native vi 1440×900: nhãn dài, hai ngày và URL đều đọc được, chỉ cuộn dọc.
 - Ảnh native: [trước sáng](review-shots/2026-11-18/W2-03-before-light.png) · [trước tối](review-shots/2026-11-18/W2-03-before-dark.png) · [sau sáng](review-shots/2026-11-18/W2-03-after-light.png) · [sau tối](review-shots/2026-11-18/W2-03-after-dark.png).
+
+### F-045 · W2-04 · Pill Loại chồng lên nhãn Trạng thái
+
+- P1 · **fixed (commit W2-04)** theo [ảnh gốc](review-shots/2026-11-18/08-thuoc-tinh-chon-ngay-light.png). Sau W2-03, fixture hẹp đã tách hàng khỏi Trạng thái, nhưng hàng Loại đổi từ ngang sang dọc vì kế thừa số cột của lưới ngoài.
+- Đạt khi mỗi hàng Loại có vị trí riêng, không chồng nhãn Trạng thái khi mở hoặc đóng dialog, kể cả khi thu panel.
+- Hàng Loại dùng lưới riêng hai cột, chiếm cả hàng của lưới cha. Native vi 1440×900, panel hẹp, sáng/tối: Loại và Trạng thái tách rõ khi mở và đóng dialog.
+- Ảnh native: [trước sáng](review-shots/2026-11-18/W2-04-before-light.png) · [trước tối](review-shots/2026-11-18/W2-04-before-dark.png) · [sau sáng](review-shots/2026-11-18/W2-04-after-light.png) · [sau tối](review-shots/2026-11-18/W2-04-after-dark.png).

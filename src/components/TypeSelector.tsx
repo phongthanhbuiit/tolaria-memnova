@@ -13,7 +13,6 @@ import { PROPERTY_CHIP_STYLE } from './propertyChipStyles'
 import {
   PROPERTY_PANEL_LABEL_CLASS_NAME,
   PROPERTY_PANEL_LABEL_ICON_SLOT_CLASS_NAME,
-  PROPERTY_PANEL_ROW_STYLE,
 } from './propertyPanelLayout'
 import { translate, type AppLocale } from '../lib/i18n'
 
@@ -215,8 +214,7 @@ function ReadOnlyType({
   if (!isA) return null
   return (
     <div
-      className="grid min-h-(--control-sm) min-w-0 grid-cols-2 items-center gap-2 px-2"
-      style={PROPERTY_PANEL_ROW_STYLE}
+      className="col-span-full grid min-h-(--control-sm) min-w-0 grid-cols-2 items-center gap-2 px-2"
     >
       <TypeRowLabel locale={locale} />
       <TypeRowValue missingTypeName={missingTypeName} locale={locale} onCreateMissingType={onCreateMissingType}>
@@ -400,8 +398,7 @@ function EditableTypeSelector({
 
   return (
     <div
-      className="grid min-h-(--control-sm) min-w-0 grid-cols-2 items-center gap-2 px-2"
-      style={PROPERTY_PANEL_ROW_STYLE}
+      className="col-span-full grid min-h-(--control-sm) min-w-0 grid-cols-2 items-center gap-2 px-2"
       data-testid="type-selector"
     >
       <TypeRowLabel locale={locale} />

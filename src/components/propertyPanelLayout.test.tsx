@@ -86,8 +86,7 @@ describe('property panel shared grid layout', () => {
 
     expect(layoutGrid).not.toBeNull()
     expect(layoutGrid?.style.gridTemplateColumns).toBe('repeat(auto-fit, minmax(calc(min(100%, max(7rem, (100% - 0.5rem) / 2))), 1fr))')
-    expect(typeRow.style.gridTemplateColumns).toBe('subgrid')
-    expect(typeRow.style.gridColumn).toBe('1 / -1')
+    expect(typeRow).toHaveClass('col-span-full', 'grid-cols-2')
 
     screen.getAllByTestId('editable-property').forEach((row) => {
       expect(row).toHaveClass('col-span-full', 'grid-cols-1')
