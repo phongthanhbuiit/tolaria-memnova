@@ -1,0 +1,31 @@
+18/11/2026 | Memnova Learning Copy QA, net.memnova.qa.learningcopy
+Debug WKWebView, vi, private preferences and Seeded QA Library copied from E1.
+
+Clicked Trang chủ
+  heading Thư viện
+  text Viết như bình thường. Khi muốn ôn một ghi chú, mở Thuộc tính và bật “Đưa vào lịch ôn”.
+  tab (selected) Ghi nhớ · 2 đến hạn
+  heading Ghi nhớ
+  text Ghi chú · 5
+  Visual: Quá hạn 2 ngày and Còn 6 ngày in the due column
+
+Tab to scheduled row
+  text 11:57 ngày 16 thg 11, 2026
+  focused button A Note is a general-purpose document
+
+Tab/Shift+Tab in sidebar
+  text Xem tổng quan thư viện và tiến độ ôn tập.
+  focused button Trang chủ
+  Escape dismissed the tooltip.
+  text Duyệt các ghi chú trong lịch ôn.
+  focused button Ôn tập
+  Return showed the Ghi nhớ heading without the Home stats.
+
+Clicked Nâng cao, then Bản nháp và phục hồi
+  heading Bản nháp và phục hồi
+  text Không có bản nháp cần phục hồi.
+  Escaped the dialog without selecting or applying any operation.
+
+Native app exited.
+After QA, 89 Markdown files matched the copied source, and the SQLite exports
+of schedules (5), reviews (4), and cards (5) were byte-identical.

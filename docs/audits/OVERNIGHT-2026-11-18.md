@@ -130,3 +130,14 @@
 - Codacy CLI local 91 → 90 issues, Critical có sẵn ở EditorLayout và 0 Critical/High mới. ESLint9, Semgrep/Opengrep, Trivy, Stylelint và Lizard hoàn tất trong phạm vi tệp mã app. CodeScene: not run (optional integration unavailable).
 - Câu hỏi cho người dùng / quyết định đã chọn. Giữ identity của editor và ngữ nghĩa undo/selection khi đổi locale. Dùng `en` cho `be-BY`, `be-Latn` và `id-ID` do BlockNote thiếu dictionary. Dùng catalog hiện hành cho Quick Open và giữ nhãn dữ liệu fixture trong phép quét.
 - [Biên bản](STEP-I18N-A11Y-2.md) · [Bằng chứng native](evidence/I18N-A11Y-2-native-AX.txt).
+
+## LEARNING-COPY — PARTIAL
+
+- Cổng an toàn đạt. HEAD = origin/main = `68dc3bb8`, 0 commit chờ push. Tệp riêng AGENTS.md, .agents và PLAN/SPEC/OVERNIGHT-RULES giữ ngoài index.
+- Commit F-007 `25fdd409`, F-011 `dad0db41`, F-012 `27e39775`, F-020 `3fef6852`. Push mã **ok**, `68dc3bb8 → 3fef6852` qua hook thường trong 10 phút 40 giây.
+- F-007, F-011 và F-020 **fixed**. F-012 **fixed — chờ QA native (nhãn pending/invalid/deleted)**. Fixture kiểm ba nhãn và layout 480 px ở hai theme. Native mở được đường dẫn Nâng cao → Bản nháp và phục hồi, dữ liệu thử không có bản nháp đang chờ.
+- Lint, tsc, build và 5.045 test frontend trong 506 tệp đạt. Coverage frontend **87,85%**. Smoke curated đạt **54/54 trong 5,4 phút** ở hook. Lượt đo riêng với `--retries=0` đạt **54/54 trong 4,9 phút**. Rust 1.241 unit + 1 integration đạt, 3 ignored sẵn có, coverage **86,41%**. F-011 hai múi giờ đạt 2/2 Chromium + 2/2 WebKit. F-020 đạt 1/1 Chromium + 1/1 WebKit. Hai spec chạy với retries=0.
+- QA native vi trên bundle debug riêng. Xem được Ghi nhớ, hạn ôn quá hạn/tương lai, tooltip ngày tuyệt đối và hai tooltip sidebar khi Tab. Đã kiểm click, Escape, Enter và thoát app QA. 89/89 Markdown giữ SHA-256. Bản xuất SQLite của 5 lịch, 4 lượt ôn và 5 thẻ khớp từng byte. Demo-vault và demo-vault-v2 sạch.
+- Grep SPEC §8 **1 → 1 / 0 → 0**. Codacy CLI local **9 → 9** Medium, 0 Critical/High mới. CodeScene: not run (optional integration unavailable). Dịch trực tiếp bảy key mới trong 18 catalog, validator đạt 1.109 khóa. PostHog không thêm event cho thay đổi trình bày.
+- Câu hỏi cho người dùng / quyết định đã chọn. Dùng ngày lịch địa phương và tháng tròn cho hạn lâu, mốc tuyệt đối giữ ở tooltip. Giữ “Trang chủ” cho Home và “gợi nhớ” cho mnemonic. Dùng ba nhãn hướng dẫn theo trạng thái và đường dẫn phục hồi hiện có. Dùng shared Tooltip và giữ đích điều hướng của sidebar.
+- [Biên bản và ảnh trước/sau](STEP-LEARNING-COPY.md) · [Bảng 201 key vi.json](GLOSSARY.md) · [AX native](evidence/LEARNING-COPY-native-AX.txt).

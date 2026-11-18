@@ -5,16 +5,16 @@ Trạng thái: `open` · `partial` · `fixed — chờ QA native (phạm vi)` ·
 
 ## Tiến độ hiện tại — tổng kết đêm 18/11/2026
 
-Đối chiếu [log đêm](OVERNIGHT-2026-11-18.md) và bằng chứng của từng bước. Các bảng theo đợt bên dưới giữ mô tả và số đếm baseline. Bảng này ghi trạng thái hiện tại. Tổng kết **DONE D3/E1/R-08/TEST-STABILITY** và **PARTIAL D4A/D4B/E2/I18N-A11Y-2**. D4B đã xong mã trong 5 file F-032, còn F-038 chờ native legacy.
+Đối chiếu [log đêm](OVERNIGHT-2026-11-18.md) và bằng chứng của từng bước. Các bảng theo đợt bên dưới giữ mô tả và số đếm baseline. Bảng này ghi trạng thái hiện tại. Tổng kết **DONE D3/E1/R-08/TEST-STABILITY** và **PARTIAL D4A/D4B/E2/I18N-A11Y-2/LEARNING-COPY**. D4B đã xong mã trong 5 file F-032, còn F-038 chờ native legacy.
 
 | Mức | Open | Partial | Fixed — chờ QA native |
 |---|---|---|---|
 | P0 | Không | Không | Không |
 | P1 | Không | F-005, F-024 | Không |
-| P2 | F-007, F-011, F-012, F-020, F-021; R-15 | F-009, F-032 | R-11: editor thuộc tính |
+| P2 | F-021; R-15 | F-009, F-032 | F-012: nhãn pending/invalid/deleted; R-11: editor thuộc tính |
 | P3 | R-10 | Không | F-038: Home/Decks/FlashcardStudyView legacy |
 
-**Đã đóng:** F-001–F-004, F-006, F-008, F-010, F-013–F-019, F-022–F-023, F-025–F-031, F-033–F-037, F-039–F-041 (**31 F**) và R-01–R-09, R-12–R-14 (**12 R**). F-023/F-025/F-030/F-031 là phần nền tảng A. R-05 là test-only. Telex native vẫn chưa được xác minh.
+**Đã đóng:** F-001–F-004, F-006–F-008, F-010–F-011, F-013–F-020, F-022–F-023, F-025–F-031, F-033–F-037, F-039–F-041 (**34 F**) và R-01–R-09, R-12–R-14 (**12 R**). F-023/F-025/F-030/F-031 là phần nền tảng A. R-05 là test-only. Telex native vẫn chưa được xác minh.
 
 **Còn chờ native/bằng chứng bổ sung:** F-005 (author-name combobox cuối, ảnh trước tối); F-024 (legacy/Linux/trạng thái hiếm); F-032 (message/tool chỉ có fixture); F-038 (các màn legacy không có route native); Telex trong AI và ô wikilink từ R-05/E2. F-005/F-024/F-032 vẫn partial vì ngoài QA còn phần mã/phạm vi chưa hoàn tất. F-038 đã sửa mã nhưng không tính đóng khi các màn legacy mới được kiểm bằng fixture/diff/test; đối chiếu giới hạn native trong [D4B](STEP-D4B-INLINE-STYLE.md).
 
@@ -37,12 +37,12 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 | F-004 | P1 | C4 | Công tắc "Ôn tập ghi chú này" và nút "Ôn ghi chú này" gần như trùng tên | ảnh | fixed (`e8dfc0c2`) |
 | F-005 | P1 | C5 | Nút chỉ có icon thiếu `aria-label` (~58 chỗ) | mã | partial (E2 `f6601cbc`); riêng R-13 đã sửa |
 | F-006 | P1 | C3 | 38 phần tử form HTML thô ngoài `ui/` (vi phạm AGENTS.md) | mã | fixed (`f5462464`) |
-| F-007 | P2 | C4 | Thuật ngữ học tập không nhất quán (trang/ghi chú, ghi nhớ/ôn/gợi nhớ) | ảnh | open |
+| F-007 | P2 | C4 | Thuật ngữ học tập không nhất quán (trang/ghi chú, ghi nhớ/ôn/gợi nhớ) | ảnh | fixed (`25fdd409`) |
 | F-008 | P2 | C3 | Hai nút chính màu xanh cạnh tranh trên Trang chủ | ảnh | fixed (`70212a69`) |
 | F-009 | P2 | C1 | Ghi chú mới tên "Untitled Note 1794825081", breadcrumb hiện slug | ảnh | partial — breadcrumb fixed (`6b1e6200`); đặt tên mới ngoài D3 |
 | F-010 | P2 | C3 | Mỗi hàng danh sách hiện hai ngày giống nhau, ngày đầu không nhãn | ảnh | fixed (`14154524`) |
-| F-011 | P2 | C4 | Hạn ôn hiện mốc thời gian thô, không nói quá hạn bao lâu | ảnh | open |
-| F-012 | P2 | C2 | Nhãn đỏ "Cần xử lý" không nói phải làm gì | ảnh | open |
+| F-011 | P2 | C4 | Hạn ôn hiện mốc thời gian thô, không nói quá hạn bao lâu | ảnh | fixed (`dad0db41`) |
+| F-012 | P2 | C2 | Nhãn đỏ "Cần xử lý" không nói phải làm gì | ảnh | fixed — chờ QA native (nhãn pending/invalid/deleted, `27e39775`) |
 | F-013 | P2 | C3 | Properties: khung rỗng chiếm chỗ, đẩy thao tác học xuống dưới | ảnh | fixed (975948d0, b8796a72, f1a741e0; D1) |
 | F-014 | P2 | C3 | Nút ôn chính trong Properties trông như nút phụ/vô hiệu | ảnh | fixed (7be04257; D1) |
 | F-015 | P2 | C3 | Màn ôn: 4 nút chấm điểm viền màu dày lạc khỏi ngôn ngữ thị giác của app | ảnh | fixed (87129845, superseded by F-028) |
@@ -50,7 +50,7 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 | F-017 | P2 | C4 | "Hộp thư đến", "Library", "Notes", thư mục `views` trong sidebar tiếng Việt | ảnh | fixed (`5ef69069`) |
 | F-018 | P2 | C5 | Thanh công cụ editor 10 icon không nhãn | ảnh | fixed (`247911cc`) |
 | F-019 | P2 | C5 | 27 chỗ `outline-none`, có thể mất vòng focus | mã | fixed (`9463246e`) |
-| F-020 | P2 | C1 | "Trang chủ" và "Ôn tập" trên sidebar: không rõ khác nhau thế nào | nghi ngờ | open |
+| F-020 | P2 | C1 | "Trang chủ" và "Ôn tập" trên sidebar: không rõ khác nhau thế nào | ảnh | fixed (`3fef6852`) |
 | F-021 | P2 | C9 | 8 component > 850 dòng (App.tsx 1886) | mã | open |
 | F-022 | P3 | C4 | Chữ nội bộ lộ ra: "Lịch ôn · chỉ đọc", "Thuộc tính của trang" trong panel "Thuộc tính" | ảnh | fixed (`b8351fef`) |
 
@@ -99,7 +99,7 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 
 ### F-007 — Thuật ngữ học tập
 - Thực tế: "Ghi nhớ trang", "Ôn tập", "Ôn ghi chú đến hạn", "Thẻ cũ", "Gợi nhớ", "Thuộc tính của trang" — vừa "trang" vừa "ghi chú" cho cùng một thứ.
-- Sửa: lập bảng thuật ngữ (1 khái niệm = 1 từ mỗi ngôn ngữ) trong `docs/audits/GLOSSARY.md`, chủ dự án duyệt, rồi mới sửa locale.
+- Lựa chọn người dùng đã áp dụng vào 28 giá trị `vi.json`. Kiểm key và placeholder cùng bảng 201 key trước/sau. [Thuật ngữ](GLOSSARY.md) · [Biên bản](STEP-LEARNING-COPY.md).
 
 ### F-008 — Hai nút chính trên Trang chủ
 - Thực tế (`HOME`): "Ghi chú mới" và "Ôn ghi chú đến hạn (4)" cùng kiểu nút đặc màu xanh.
@@ -122,11 +122,11 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 
 ### F-011 — Hạn ôn dạng mốc thô
 - Thực tế (`HOME`): "07:00 ngày 1 thg 1, 2026" cạnh nhãn "Đến hạn" (đã quá hạn hơn 10 tháng).
-- Sửa: "Quá hạn 10 tháng" / "Đến hạn hôm nay" / "Còn 3 ngày"; mốc đầy đủ đưa vào tooltip.
+- Sửa thành ngày tương đối. Tooltip ngày giờ tuyệt đối mở khi hover hoặc focus. Hai múi giờ Chromium/WebKit đều đạt, có mốc DST. [Biên bản](STEP-LEARNING-COPY.md).
 
 ### F-012 — "Cần xử lý" không có hướng dẫn
 - Thực tế (`HOME`): nhãn đỏ, không tooltip nhìn thấy, không hành động. Phụ thuộc quyết định ở F-001.
-- Chấp nhận: bấm/di chuột vào nhãn nêu lý do và có ít nhất một hành động khắc phục.
+- Nhãn hiển thị hướng xử lý theo từng trạng thái. Kiểm được ba nhãn bằng fixture và đường dẫn phục hồi trên native. Library native thử không có trạng thái cần xử lý để đối chiếu trực tiếp. [Biên bản](STEP-LEARNING-COPY.md).
 
 ### F-013 — Properties nhiều khung rỗng
 - Thực tế (`PROPS`): 4 dòng "—" + 3 khung nét đứt "Thêm" + 2 nút lớn chiếm ~60% chiều cao trước khi tới phần học.
@@ -164,7 +164,7 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 - Chấp nhận: Tab qua mọi điều khiển đều thấy vòng focus ở cả hai theme.
 
 ### F-020 — Trang chủ và Ôn tập
-- Nghi ngờ: Trang chủ đã chứa danh sách học + nút ôn; mục "Ôn tập" riêng có thể trùng. Chạy app, so hai màn rồi mới kết luận.
+- Hai màn có phần Ghi nhớ chung. Trang chủ có thêm tổng quan Thư viện và tiến độ, Ôn tập mở danh sách để duyệt. Mô tả tooltip phân biệt hai đích và test xác nhận hành vi điều hướng. [Biên bản](STEP-LEARNING-COPY.md).
 
 ### F-021 — Component quá lớn
 - `App.tsx` 1886 · `AiWorkspace.tsx` 1403 · `SingleEditorView.tsx` 1389 · `BreadcrumbBar.tsx` 1247 · `SettingsPanel.tsx` 1221 · `inspector/RelationshipsPanel.tsx` 986 · `status-bar/StatusBarBadges.tsx` 862 · `tolariaEditorFormatting.tsx` 851.
