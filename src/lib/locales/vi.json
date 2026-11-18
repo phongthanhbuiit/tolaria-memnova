@@ -1172,5 +1172,11 @@
   "a11y.whiteboardHelp": "Trợ giúp",
   "editor.untitledNote": "Chưa có tiêu đề",
   "ai.guidance.restored": "Đã khôi phục hướng dẫn AI của Memnova",
-  "ai.guidance.restoreFailed": "Không thể khôi phục hướng dẫn AI của Memnova: {error}"
+  "ai.guidance.restoreFailed": "Không thể khôi phục hướng dẫn AI của Memnova: {error}",
+  "command.navigation.revealFolder": "Hiển thị thư mục trong Finder",
+  "command.note.openDefaultApp": "Mở bằng ứng dụng mặc định",
+  "command.note.copyFilePath": "Sao chép đường dẫn tệp",
+  "command.view.toggleTableOfContents": "Bật/tắt mục lục",
+  "command.navigation.startReview": "Bắt đầu phiên ôn",
+  "command.navigation.startReviewCount": "Bắt đầu phiên ôn ({count} đến hạn)"
 }

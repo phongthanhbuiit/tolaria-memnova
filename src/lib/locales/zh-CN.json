@@ -1172,5 +1172,11 @@
   "a11y.whiteboardHelp": "帮助",
   "editor.untitledNote": "无标题",
   "ai.guidance.restored": "已还原 Memnova AI 指引",
-  "ai.guidance.restoreFailed": "无法还原 Memnova AI 指引：{error}"
+  "ai.guidance.restoreFailed": "无法还原 Memnova AI 指引：{error}",
+  "command.navigation.revealFolder": "Reveal Folder in Finder",
+  "command.note.openDefaultApp": "Open in Default App",
+  "command.note.copyFilePath": "Copy File Path",
+  "command.view.toggleTableOfContents": "Toggle Table of Contents",
+  "command.navigation.startReview": "Start Review Session",
+  "command.navigation.startReviewCount": "Start Review Session ({count} due)"
 }

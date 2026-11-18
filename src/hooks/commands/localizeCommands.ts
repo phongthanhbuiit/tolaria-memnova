@@ -36,6 +36,11 @@ const STATIC_LABEL_KEYS: Partial<Record<string, TranslationKey>> = {
   'set-note-icon': 'command.note.setIcon',
   'change-note-type': 'command.note.changeType',
   'move-note-to-folder': 'command.note.moveToFolder',
+  'reveal-selected-folder': 'command.navigation.revealFolder',
+  'copy-selected-folder-path': 'sidebar.action.copyFolderPathMenu',
+  'open-active-file-external': 'command.note.openDefaultApp',
+  'copy-active-file-path': 'command.note.copyFilePath',
+  'toggle-table-of-contents': 'command.view.toggleTableOfContents',
   'copy-active-deep-link': 'command.note.copyDeepLink',
   'export-note-pdf': 'command.note.exportPdf',
   'remove-note-icon': 'command.note.removeIcon',
@@ -215,7 +220,10 @@ export function localizeCommandActions(commands: CommandAction[], locale: AppLoc
   const t = createTranslator(locale)
   return commands.map((command) => {
     const key = STATIC_LABEL_KEYS[command.id]
-    const label = key
+    const dueCount = command.id === 'start-review-session' ? command.label.match(/\((\d+) due\)$/)?.[1] : undefined
+    const label = command.id === 'start-review-session'
+      ? dueCount ? t('command.navigation.startReviewCount', { count: dueCount }) : t('command.navigation.startReview')
+      : key
       ? t(key)
       : localizeNoteStateCommand(command, t)
         ?? localizeViewStateCommand(command, t)

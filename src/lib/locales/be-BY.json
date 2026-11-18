@@ -1172,5 +1172,11 @@
   "a11y.whiteboardHelp": "Даведка",
   "editor.untitledNote": "Без назвы",
   "ai.guidance.restored": "Інструкцыі Memnova для ШІ адноўлены",
-  "ai.guidance.restoreFailed": "Не ўдалося аднавіць інструкцыі Memnova для ШІ: {error}"
+  "ai.guidance.restoreFailed": "Не ўдалося аднавіць інструкцыі Memnova для ШІ: {error}",
+  "command.navigation.revealFolder": "Reveal Folder in Finder",
+  "command.note.openDefaultApp": "Open in Default App",
+  "command.note.copyFilePath": "Copy File Path",
+  "command.view.toggleTableOfContents": "Toggle Table of Contents",
+  "command.navigation.startReview": "Start Review Session",
+  "command.navigation.startReviewCount": "Start Review Session ({count} due)"
 }

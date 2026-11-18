@@ -1172,5 +1172,11 @@
   "a11y.whiteboardHelp": "Hilfe",
   "editor.untitledNote": "Ohne Titel",
   "ai.guidance.restored": "Die KI-Anleitung von Memnova wurde wiederhergestellt",
-  "ai.guidance.restoreFailed": "Die KI-Anleitung von Memnova konnte nicht wiederhergestellt werden: {error}"
+  "ai.guidance.restoreFailed": "Die KI-Anleitung von Memnova konnte nicht wiederhergestellt werden: {error}",
+  "command.navigation.revealFolder": "Reveal Folder in Finder",
+  "command.note.openDefaultApp": "Open in Default App",
+  "command.note.copyFilePath": "Copy File Path",
+  "command.view.toggleTableOfContents": "Toggle Table of Contents",
+  "command.navigation.startReview": "Start Review Session",
+  "command.navigation.startReviewCount": "Start Review Session ({count} due)"
 }

@@ -567,3 +567,8 @@ W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
 
 - P2 · Vẫn 4 kiểu: danh sách "ngày 18 tháng 11, 2026", ví dụ trong Cài đặt "11 tháng 5 năm 2026", Thuộc tính "18/11/2026", tổng kết phiên "15:41 ngày 26 thg 11, 2026" (tiếp F-059). Ảnh đối chiếu: 10, 17b, W2-18-after, W2-13-after.
 - Đạt khi: Ví dụ trong Cài đặt khớp đúng chuỗi app hiển thị; danh sách, tổng kết phiên, nút ôn dùng cùng formatter; ngày có giờ cùng một mẫu. Giá trị lưu giữ ISO.
+
+### F-069 · W3-03 · Command Palette
+
+- P2 · Lệnh còn tiếng Anh: "Start Review Session", "Copy File Path", "Toggle Table of Contents". Ảnh đối chiếu: 11b.
+- Đạt khi: Grep toàn bộ đăng ký lệnh, mọi nhãn qua catalog; test quét không còn nhãn lệnh cứng.

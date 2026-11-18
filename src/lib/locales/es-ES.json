@@ -1172,5 +1172,11 @@
   "a11y.whiteboardHelp": "Ayuda",
   "editor.untitledNote": "Sin título",
   "ai.guidance.restored": "Se han restaurado las instrucciones de IA de Memnova",
-  "ai.guidance.restoreFailed": "No se han podido restaurar las instrucciones de IA de Memnova: {error}"
+  "ai.guidance.restoreFailed": "No se han podido restaurar las instrucciones de IA de Memnova: {error}",
+  "command.navigation.revealFolder": "Reveal Folder in Finder",
+  "command.note.openDefaultApp": "Open in Default App",
+  "command.note.copyFilePath": "Copy File Path",
+  "command.view.toggleTableOfContents": "Toggle Table of Contents",
+  "command.navigation.startReview": "Start Review Session",
+  "command.navigation.startReviewCount": "Start Review Session ({count} due)"
 }

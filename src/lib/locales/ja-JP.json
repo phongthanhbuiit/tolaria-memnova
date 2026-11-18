@@ -1172,5 +1172,11 @@
   "a11y.whiteboardHelp": "ヘルプ",
   "editor.untitledNote": "無題",
   "ai.guidance.restored": "Memnova の AI ガイドを復元しました",
-  "ai.guidance.restoreFailed": "Memnova の AI ガイドを復元できませんでした：{error}"
+  "ai.guidance.restoreFailed": "Memnova の AI ガイドを復元できませんでした：{error}",
+  "command.navigation.revealFolder": "Reveal Folder in Finder",
+  "command.note.openDefaultApp": "Open in Default App",
+  "command.note.copyFilePath": "Copy File Path",
+  "command.view.toggleTableOfContents": "Toggle Table of Contents",
+  "command.navigation.startReview": "Start Review Session",
+  "command.navigation.startReviewCount": "Start Review Session ({count} due)"
 }
