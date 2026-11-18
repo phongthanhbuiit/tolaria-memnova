@@ -497,3 +497,13 @@ it('uses a single future marker in Vietnamese grade intervals', () => {
   expect(again).toHaveTextContent('1 phút nữa')
   expect(again).not.toHaveTextContent('sau 1 phút nữa')
 })
+
+it('distinguishes the return-to-note and undo icons without changing their names', () => {
+  render(<LearningStudyView study={noteFixture()} root="/library" locale="en" />)
+  fireEvent.click(screen.getByRole('button', { name: 'Show mnemonic' }))
+  const back = screen.getByRole('button', { name: 'Back to note' }).querySelector('svg')
+  const undo = screen.getByRole('button', { name: 'Undo' }).querySelector('svg')
+  expect(back).toHaveAttribute('aria-hidden', 'true')
+  expect(undo).toHaveAttribute('aria-hidden', 'true')
+  expect(back?.innerHTML).not.toBe(undo?.innerHTML)
+})

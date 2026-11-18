@@ -13,7 +13,7 @@ import type { useLearningStudy } from '../../hooks/useLearningStudy'
 import { getLocaleDateLocale, translate, type AppLocale, type TranslationKey } from '../../lib/i18n'
 import { previewSchedule } from '../../lib/learning/scheduler'
 import type { FSRSRating } from '../../lib/fsrs'
-import { ArrowClockwise, ArrowUUpLeft, Eye, X } from '@phosphor-icons/react'
+import { ArrowClockwise, ArrowLeft, ArrowUUpLeft, Eye, X } from '@phosphor-icons/react'
 
 import { LearningError } from './LearningError'
 import { GradeButtons } from './GradeButtons'
@@ -379,7 +379,7 @@ export function LearningStudyView({
                   disabled={study.busy || study.hasPending}
                   onClick={returnToArticle}
                 >
-                  <ArrowUUpLeft aria-hidden />
+                  <ArrowLeft aria-hidden="true" />
                   {t('editor.noteMemory.backToNote')}
                 </Button>
               )}
