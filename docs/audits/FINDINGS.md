@@ -572,3 +572,8 @@ W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
 
 - P2 · Lệnh còn tiếng Anh: "Start Review Session", "Copy File Path", "Toggle Table of Contents". Ảnh đối chiếu: 11b.
 - Đạt khi: Grep toàn bộ đăng ký lệnh, mọi nhãn qua catalog; test quét không còn nhãn lệnh cứng.
+
+### F-070 · W3-04 · Trang chủ
+
+- P2 · Tiêu đề trang là "Thư viện" trong khi sidebar ghi "Trang chủ"; "Chuẩn bị dữ liệu học tập" xuất hiện 3 lần (nút đầu mục, tiêu đề thẻ, nút trong thẻ). Ảnh đối chiếu: 02.
+- Đạt khi: Tiêu đề khớp mục sidebar; một lời kêu gọi duy nhất cho chuẩn bị dữ liệu.
