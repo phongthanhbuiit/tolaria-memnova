@@ -1195,3 +1195,5 @@ Learning catalog visibility: `noteWorkspace.isPublicNotePath` excludes `.memnova
 The unsupported drawing Markdown codec preserves legacy fenced source for editor serialization. Read-only study renders the notice instead of passing the payload to BlockNote. `DrawingSourceContext` routes the rich editor's source action to its existing raw-mode controller.
 
 Note study front order is an app preference (`note_review_front_order`) with a per-session override in the renderer. Face readiness, keyboard rating and duplicate-review protection continue through the existing study session.
+
+`DeckStudyControls` selects a flashcard mode at each deck entry point. The Library/deck preference configures presentation for the existing legacy study lane, while scheduling continues through `useLearningStudy`.

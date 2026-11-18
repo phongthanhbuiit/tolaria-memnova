@@ -12,3 +12,11 @@
 - `learning.noteOrder.showArticle`
 - `learning.noteOrder.backToMnemonic`
 - `learning.noteOrder.missing`
+
+## W4-03
+
+- `learning.studyMode.label`
+- `learning.studyMode.flip`
+- `learning.studyMode.typed`
+- `learning.studyMode.choice`
+- `learning.studyMode.challenge`

@@ -194,3 +194,8 @@
 - Review vòng 1 phát hiện case backend Draft thiếu cả hai mặt và ảnh sai cửa sổ. Vòng sửa dùng API `readNoteFace` chỉ đọc, giữ trạng thái chặn chấm điểm và thêm test đúng payload native (RED → GREEN 81/81). Đã chụp lại đúng cửa sổ W4, xác minh Space và giá trị `article` trong settings của Library QA.
 - Chromium: 5 ca đầu-cuối đạt. Ca sao lưu cũ tìm nút trong Trang chủ, đã chuyển test sang vị trí Cài đặt › Thư viện từ W2-15 và xác minh đạt, giữ kiểm chứng byte tệp.
 - Review vòng 3 ĐẠT. Đổi công tắc hai lần sau khi lật phải về mặt đầu mới. Regression RED → GREEN, 97/97 trong các suite tập trung. Câu hỏi cho người dùng: không có.
+
+## W4 · Pha 3 — W4-03
+
+- Lật thẻ giữ luồng chấm cũ. Bộ chọn theo Library/bộ thẻ, thông tin kiểu ôn vào tổng kết và PostHog. ADR-0167. Grep SPEC §8: 1 → 1 / 0 → 0.
+- RED thiếu bộ lưu lựa chọn, GREEN test phân biệt hai Bộ thẻ và hai Library. Ảnh và kiểm tra đủ kiểu ghép ở cuối Pha 3.

@@ -1,5 +1,6 @@
 import { useCallback, useMemo } from 'react'
 import { notePathsForCards, studyScopeForWorkspace, workspaceDue, type ResolveViewStudyScope } from '../lib/learning/noteWorkspace'
+import type { ReviewPresentation } from '../lib/learning/flashcardStudyMode'
 import type { StudyLane } from '../lib/learning/types'
 import { trackEvent } from '../lib/telemetry'
 import type { useLearningLibrary } from './useLearningLibrary'
@@ -18,7 +19,7 @@ export function useWorkspaceStudyRequests({ learning, activePath, savedViewOpen,
   const study = useLearningStudy(client, refresh)
   const { start } = study
   const supportsNotes = Boolean(client?.supportsNoteMemory)
-  const requestStudy = useCallback(async (scope?: string[] | ResolveViewStudyScope, lane?: StudyLane) => {
+  const requestStudy = useCallback(async (scope?: string[] | ResolveViewStudyScope, lane?: StudyLane, presentation?: ReviewPresentation) => {
     if (phase !== 'ready') { await openMigration(); return }
     try {
       if (activePath) await flushEditor(activePath)
@@ -37,7 +38,7 @@ export function useWorkspaceStudyRequests({ learning, activePath, savedViewOpen,
         await refresh()
         pageIds = scope
       }
-      await start(studyScopeForWorkspace(supportsNotes, pageIds, lane))
+      await start(studyScopeForWorkspace(supportsNotes, pageIds, lane), presentation)
     } catch (error) {
       onError(String(error))
     }

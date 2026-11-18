@@ -1,3 +1,4 @@
+import { DeckStudyControls } from './DeckStudyControls'
 import { useEffect, useState } from 'react'
 import { Button } from '../ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
@@ -48,7 +49,10 @@ export function LegacyPageFlashcards({ path, locale }: { path: string; locale: A
   }
   return <section className="h-full overflow-y-auto bg-background p-4 sm:p-8" aria-label={t('learning.cards')}>
     <div className="mx-auto max-w-3xl space-y-5">
-      <header className="flex flex-wrap items-start justify-between gap-3"><div><h2 className="text-xl font-semibold">{t('learning.cards')}</h2><p className="mt-1 text-sm text-muted-foreground">{t('learning.questionHelp')}</p></div><div className="flex gap-2"><Button size="md" layout="responsive" variant="outline" disabled={!current || busy} onClick={() => workspace.requestStudy(current ? [current.id] : [], 'legacy')}>{t('learning.study')}</Button>{!client?.supportsNoteMemory && <Button size="md" layout="responsive" disabled={!current || busy} onClick={() => setEditing('new')}>{t('learning.addCard')}</Button>}</div></header>
+      <header className="flex flex-wrap items-start justify-between gap-3"><div><h2 className="text-xl font-semibold">{t('learning.cards')}</h2><p className="mt-1 text-sm text-muted-foreground">{t('learning.questionHelp')}</p></div><div className="flex gap-2">{current ? <DeckStudyControls key={current.id} library={root} deck={current.id} cards={cards}
+        due={busy ? 0 : cards.filter(card => card.status === 'active' && Date.parse(card.schedule.due) <= workspace.clock).length}
+        locale={locale} label={t('learning.study')} onStart={presentation => workspace.requestStudy([current.id], 'legacy', presentation)} />
+        : <Button size="md" variant="outline" disabled>{t('learning.study')}</Button>}{!client?.supportsNoteMemory && <Button size="md" layout="responsive" disabled={!current || busy} onClick={() => setEditing('new')}>{t('learning.addCard')}</Button>}</div></header>
       <Select value={filter} onValueChange={setFilter}><SelectTrigger size="md" layout="responsive" className="w-48" aria-label={t('learning.cards')}><SelectValue /></SelectTrigger><SelectContent><SelectItem size="md" layout="responsive" value="all">{t('decks.filter.all')}</SelectItem>{(['draft', 'active', 'suspended', 'trashed'] as const).map(value => <SelectItem size="md" layout="responsive" key={value} value={value}>{t(`learning.${value === 'trashed' ? 'trash' : value}`)}</SelectItem>)}</SelectContent></Select>
       {error && <div role="alert" className="rounded-lg border border-destructive p-3"><p>{t('learning.error')}</p><pre className="whitespace-pre-wrap break-words text-xs">{error}</pre><Button size="md" layout="responsive" variant="outline" onClick={() => { setError(null); setAttempt(value => value + 1); void workspace.refresh().catch(error => setError(String(error))) }}>{t('learning.retry')}</Button></div>}
       {outsideLibrary && <div role="alert" className="rounded-lg border border-destructive p-3"><p>{t('learning.error')}</p><p className="mt-2 break-all text-xs">{path}</p></div>}

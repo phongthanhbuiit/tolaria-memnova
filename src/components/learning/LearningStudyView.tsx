@@ -1,3 +1,4 @@
+import type { ReviewStudyMode } from '../../lib/learning/flashcardStudyMode'
 import { BlockNoteReadOnly } from '../BlockNoteReadOnly'
 import { useDraftStudyArticle } from './useDraftStudyArticle'
 import { Switch } from '../ui/switch'
@@ -34,13 +35,14 @@ import './learningStudy.css'
 
 const gradeLabels = ['learning.again', 'learning.hard', 'learning.good', 'learning.easy'] as const
 
-function StudyCompletion({ session, locale }: { session: StudySession; locale: AppLocale }) {
+function StudyCompletion({ session, locale, mode }: { session: StudySession; locale: AppLocale; mode: ReviewStudyMode }) {
   const dateDisplayFormat = useDateDisplayFormat()
   const numbers = new Intl.NumberFormat(getLocaleDateLocale(locale))
   const { summary } = session
   const dueAt = summary?.nextDueAt
   return (
     <div className="learning-study-terminal">
+      {session.scope?.lane !== 'notes' && <p className="text-small text-text-secondary">{translate(locale, `learning.studyMode.${mode}`)}</p>}
       <p className="text-body-lg text-text-secondary">
         {translate(locale, 'home.daily_goal_reviews', { n: numbers.format(session.reviewCount) })}
       </p>
@@ -349,7 +351,7 @@ export function LearningStudyView({
               {t(study.busy ? 'learning.loading' : 'learning.error')}
             </p>
           )}
-          {session?.status === 'completed' && <StudyCompletion session={session} locale={locale} />}
+          {session?.status === 'completed' && <StudyCompletion session={session} locale={locale} mode={study.presentation?.mode ?? 'flip'} />}
           {session?.waitingUntil && !item && (
             <div role="status" className="learning-study-terminal">
               <h2 className="text-display">{t('learning.wait')}</h2>

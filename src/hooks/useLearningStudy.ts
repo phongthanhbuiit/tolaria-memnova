@@ -1,3 +1,4 @@
+import type { ReviewPresentation } from '../lib/learning/flashcardStudyMode'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { LearningClient } from '../lib/learning/client'
 import type { RateRequest, SessionScope, StudySession } from '../lib/learning/types'
@@ -5,14 +6,14 @@ import { scheduleReview } from '../lib/learning/scheduler'
 import type { FSRSRating } from '../lib/fsrs'
 import { trackEvent } from '../lib/telemetry'
 
-type State = { libraryKey: string; open: boolean; busy: boolean; session: StudySession | null; error: string | null }
-const initial = (libraryKey: string): State => ({ libraryKey, open: false, busy: false, session: null, error: null })
+type State = { libraryKey: string; open: boolean; busy: boolean; session: StudySession | null; error: string | null; presentation: ReviewPresentation }
+const initial = (libraryKey: string): State => ({ libraryKey, open: false, busy: false, session: null, error: null, presentation: { mode: 'flip' } })
 
 export function useLearningStudy(client: LearningClient | null, onCommitted: () => Promise<void>) {
   const libraryKey = client ? `${client.vaultPath}:${client.libraryId}` : ''
   const [state, setState] = useState<State & { owner?: object }>(() => initial(''))
   // A new visit gets its own operation state, including A -> B -> A transitions.
-  const visit = useMemo(() => ({ libraryKey, saving: false, pending: null as RateRequest | null, started: Date.now(), scope: { pageIds: null } as SessionScope, needsRefresh: false }), [libraryKey])
+  const visit = useMemo(() => ({ libraryKey, saving: false, pending: null as RateRequest | null, started: Date.now(), scope: { pageIds: null } as SessionScope, needsRefresh: false, presentation: { mode: 'flip' } as ReviewPresentation }), [libraryKey])
   const active = useRef<typeof visit | null>(visit)
   useEffect(() => {
     active.current = visit
@@ -43,20 +44,21 @@ export function useLearningStudy(client: LearningClient | null, onCommitted: () 
     await onCommitted()
     visit.needsRefresh = false
   }, [isCurrent, visit, onCommitted])
-  const start = useCallback(async (scope: SessionScope = { pageIds: null }) => {
+  const start = useCallback(async (scope: SessionScope = { pageIds: null }, presentation: ReviewPresentation = { mode: 'flip' }) => {
     if (!client || visit.pending) return
     await run(async () => {
       visit.scope = scope
-      update({ open: true, session: null })
+      visit.presentation = presentation
+      update({ open: true, session: null, presentation })
       const session = await client.startSession(scope)
       if (!accept(session)) return
-      trackEvent('memnova_study_started', { scoped: scope.pageIds === null ? 0 : 1, cards: session.initialCount })
+      trackEvent('memnova_study_started', { scoped: scope.pageIds === null ? 0 : 1, cards: session.initialCount, mode: presentation.mode })
       if (visit.needsRefresh) await refreshCommitted()
     })
   }, [client, visit, run, update, accept, refreshCommitted])
   const reload = useCallback(async () => {
     if (!client) return
-    if (!current.session) { await start(visit.scope); return }
+    if (!current.session) { await start(visit.scope, visit.presentation); return }
     const id = current.session.id
     await run(async () => {
       const session = await client.getSession(id)
@@ -82,7 +84,12 @@ export function useLearningStudy(client: LearningClient | null, onCommitted: () 
       const result = await client.rateCard(request)
       if (!accept(result.session)) return
       visit.pending = null
-      if (!result.replayed) trackEvent('memnova_review_saved', { rating: request.rating, engine: 'ts-fsrs@5.4.2' })
+      if (!result.replayed) {
+        trackEvent('memnova_review_saved', { rating: request.rating, engine: 'ts-fsrs@5.4.2' })
+        if (result.session.status === 'completed') {
+          trackEvent('memnova_study_completed', { mode: visit.presentation.mode, cards: result.session.completedCount })
+        }
+      }
       await refreshCommitted()
     })
   }, [client, current.session, visit, run, accept, refreshCommitted])
@@ -110,5 +117,5 @@ export function useLearningStudy(client: LearningClient | null, onCommitted: () 
     const session = current.session
     await run(async () => { accept(await client.skipSessionCard(session.id, session.revision)) })
   }, [client, current.session, visit, run, accept])
-  return { libraryKey, open: current.open, busy: current.busy, session: current.session, error: current.error, start, reload, rate, undo, close, skip, retry: () => visit.pending ? rate(visit.pending.rating) : reload(), hasPending: visit.pending !== null }
+  return { libraryKey, presentation: current.presentation, open: current.open, busy: current.busy, session: current.session, error: current.error, start, reload, rate, undo, close, skip, retry: () => visit.pending ? rate(visit.pending.rating) : reload(), hasPending: visit.pending !== null }
 }
