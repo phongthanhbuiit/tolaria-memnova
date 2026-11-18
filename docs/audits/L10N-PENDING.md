@@ -13,3 +13,12 @@
 - `quickOpen.kind.view`
 - `quickOpen.kind.file`
 - `quickOpen.kind.type`
+
+## W3-09
+
+- `settings.language.description`
+- `settings.language.summary`
+- `settings.sidebarTypePluralization.label`
+- `settings.sidebarTypePluralization.description`
+- `settings.releaseChannelDescription`
+- `settings.releaseAlpha`

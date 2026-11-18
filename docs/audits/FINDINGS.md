@@ -597,3 +597,8 @@ W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
 
 - P3 · Ở theme tối, nút "Lưu" chữ trắng trên nền xanh nhạt (tương phản thấp), trong khi nút chính ở Trang chủ dùng chữ tối. Ảnh đối chiếu: 17a-dark, 02-dark.
 - Đạt khi: Một token primary-foreground cho theme tối; tương phản ≥ 4.5:1.
+
+### F-075 · W3-09 · Cài đặt copy
+
+- P3 · Mô tả dài/kỹ thuật: Ngôn ngữ 4 dòng; "Sử dụng dạng số nhiều cho tên loại trong thanh bên"; "Kênh Alpha". Ảnh đối chiếu: 17a, 17b.
+- Đạt khi: Mỗi mô tả ≤ 2 dòng ở 1440, nói lợi ích cho người dùng; en + vi viết lại.
