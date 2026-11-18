@@ -20,6 +20,8 @@ Trạng thái: `open` · `partial` · `fixed — chờ QA native (phạm vi)` ·
 
 Coverage dòng gần nhất (R-10): FE **87,85%**, Rust đầy đủ **86,41%**. Grep SPEC §8 hiện tại **1 / 0**.
 
+Đóng lô 18/11/2026. R-15 đã dịch đủ catalog. F-024 và R-16 giữ trạng thái fixed. F-005 còn nhãn nội bộ Excalidraw và F-032 còn mã ngoài 10 file đã xử lý nên vẫn partial. [Báo cáo lô](BATCH-2026-11-18.md).
+
 ## Đợt 0 — rà soát ban đầu (17/11/2026)
 
 Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồn. **Chưa chạy app trực tiếp**, nên mỗi finding ghi rõ độ chắc:
@@ -87,6 +89,7 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 - Chấp nhận: hai nhãn không dùng chung động từ; mọi locale được cập nhật; `pnpm l10n:validate` pass.
 
 ### F-005 — Nút icon thiếu tên truy cập
+- Đóng lô `21870f47` đã dịch nút chọn biểu tượng và nút menu bảng vẽ cho mọi catalog. QA xác nhận en, vi, de-DE và ja-JP. Nhãn nội bộ Excalidraw vẫn thuộc phần còn lại của finding. [QA lô](BATCH-2026-11-18.md).
 - **Bổ sung trong lô, 18/11/2026:** Quét JSX theo cả thuộc tính và nội dung nhiều dòng, mở thêm các trạng thái qua test quét. Đã bổ sung tên tiếng Việt cho mũi tên tăng/giảm của [menu sắp xếp](../../src/components/SortDropdown.tsx), [các nút chọn biểu tượng](../../src/components/TypeCustomizePopover.tsx), [nút và combobox sửa biểu tượng](../../src/components/IconEditableValue.tsx), [combobox loại thẻ legacy](../../src/components/inspector/FlashcardPanel.tsx) và [tên trường đi kèm giá trị trong combobox chọn kho lưu trữ](../../src/components/WorkspaceSelector.tsx). Combobox chọn trường lọc đã được R-14 gắn nhãn cho từng hàng, nay được quét lại cùng bộ chọn toán tử. R-13 đã dịch hai nút BlockNote và qua kiểm tra lại khi chuyển ngôn ngữ.
 - **Bảng vẽ nhúng:** Axe `button-name` phát hiện nút menu mặc định Excalidraw thiếu tên. [Lớp nhúng](../../src/components/ExcalidrawWhiteboard.tsx) giờ gắn nhãn catalog, còn nút và menu gốc vẫn xử lý chuột, Enter và Escape. Axe kiểm lại không báo vi phạm `button-name` trong các trạng thái bảng vẽ đã mở. Vẫn partial vì Excalidraw còn tên màn hình đọc tiếng Anh cho công cụ phụ, phóng to/thu nhỏ, hoàn tác/làm lại, trợ giúp và bộ chọn màu nền. SDK 0.18.1 áp dụng `langCode` cho cả nội dung hiển thị và thuộc tính ngôn ngữ của tài liệu. Bản sửa này chỉ gắn nhãn nút menu và giữ nguyên giao diện bảng vẽ.
 - **E2 — partial (`f6601cbc`), 18/11/2026:** nhãn/tooltip icon của app đã dịch đủ catalog; mở rộng test sang mọi HTML button kể cả role combobox, 22/22 GREEN. Axe app/learning không còn button-name violation trong các trạng thái đã quét. Native BlockNote vẫn có hai nhãn English, ghi R-13 nên chưa đóng yêu cầu mọi nút được dịch. [Biên bản E2](STEP-E2-A11Y-FORMS.md).
@@ -191,7 +194,7 @@ Nguồn: kiểm kê grep toàn `src/` + đọc `learning/LearningStudyView.tsx`,
 | F-029 | P2 | Hai màn ôn song song, hai bảng màu chấm điểm | `FlashcardStudyView.tsx:53` vs `noteMemory.css:112-115` | SPEC §6 "Gom mã" | fixed (def6ee51) |
 | F-030 | P2 | 6 chiều cao điều khiển (`h-6`…`h-12`); nút cạnh nhau khác cỡ | SPEC §0; ảnh `PROPS` ("Thuộc tính của trang" vs "+ Thêm mối quan hệ") | SPEC §3 | fixed (f8991a15, nền tảng bước A) |
 | F-031 | P2 | Bo góc tuỳ tiện (7 mức + inline) | SPEC §0 | SPEC §4 | fixed (8dd9f931, nền tảng bước A) |
-| F-032 | P2 | 331 `style={{}}` inline, khó giữ đồng bộ | PulseView 26, AiPanelChrome 20, SidebarParts 18, AiMessage 18, TelemetryConsentDialog 14 | SPEC §1–4 | partial (D4B:465d8765…307256ab; 5file92→11, toàn src308→227; còn dynamic/delay và ngoài phạm vi; [biên bản](STEP-D4B-INLINE-STYLE.md)) |
+| F-032 | P2 | 331 `style={{}}` inline, khó giữ đồng bộ | PulseView 26, AiPanelChrome 20, SidebarParts 18, AiMessage 18, TelemetryConsentDialog 14 | SPEC §1–4 | partial — D4B dọn 5 file, lô `23cdf9c7…3f1cbb7e` dọn thêm 10 file, 77→17 object trong phạm vi và 72/72 cặp ảnh giống từng pixel. [D4B](STEP-D4B-INLINE-STYLE.md) · [Đóng lô](BATCH-2026-11-18.md) |
 | F-033 | P2 | Trang chủ: hai tiêu đề gần bằng cỡ ("Thư viện", "Ghi nhớ trang"); tab trông như nút | ảnh `HOME` | SPEC §7 | fixed (`6f9932a8`) |
 | F-034 | P2 | Màn hoàn thành ôn dùng `text-3xl`, lệch thang | `LearningStudyView.tsx:258` | SPEC §6 | fixed (3a1ff145) |
 | F-035 | P2 | Sửa gợi nhớ: hai thanh ngang chồng nhau, nút "Chọn nguồn" to hơn chữ xung quanh | ảnh `2026-11-16-writing-first/mnemonic.png` | SPEC §7 | fixed (e28d4857; D1) |
@@ -365,8 +368,8 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 
 ## R-15 — Chuỗi tiếng Anh chưa đưa vào catalog
 
-- P2 · i18n · **fixed en/vi** (`:/^fix: R-15 localize formatting and view filter labels`). Native vi từng hiện “Paragraph”, “Match all conditions”, “Add filter” và “Add group”. Các chuỗi này nằm ngoài phép so khớp nguyên giá trị với catalog ở R-11. [AX ban đầu](evidence/I18N-A11Y-2-native-AX.txt).
-- Đưa 42 khóa vào catalog cho kiểu khối, nhãn và tooltip định dạng, toán tử, chế độ khớp, các nút, ô giá trị và trạng thái tìm trường rỗng. Tên trường Markdown, giá trị và payload `all`/`any` giữ nguyên. Dịch trực tiếp en/vi, dùng giá trị tiếng Anh tạm cho 16 catalog còn lại và ghi đủ khóa chờ đóng lô. Validator đạt 18 catalog, 1.151 khóa. [Khóa chờ dịch](L10N-PENDING.md).
+- P2 · i18n · **fixed đủ locale** (`91ff4da7`, `21870f47`). Native vi từng hiện “Paragraph”, “Match all conditions”, “Add filter” và “Add group”. Các chuỗi này nằm ngoài phép so khớp nguyên giá trị với catalog ở R-11. [AX ban đầu](evidence/I18N-A11Y-2-native-AX.txt).
+- Đưa 42 khóa vào catalog cho kiểu khối, nhãn và tooltip định dạng, toán tử, chế độ khớp, các nút, ô giá trị và trạng thái tìm trường rỗng. Tên trường Markdown, giá trị và payload `all`/`any` giữ nguyên. Đã thay giá trị tiếng Anh tạm trong 16 catalog, giữ placeholder và ký hiệu Markdown. Validator cuối lô đạt 18 catalog và 1.153 khóa. [QA lô](BATCH-2026-11-18.md).
 - Hai test hồi quy RED → GREEN. WKWebView native vi 1440×900 xác nhận menu kiểu khối, đổi VÀ/HOẶC, thêm điều kiện, thêm nhóm lồng, chọn toán tử bằng Down/Enter và đóng bằng Escape. SPEC §8 giữ **1 / 0**. [Thanh định dạng sáng trước](evidence/R-15-toolbar-before.png) · [sau](evidence/R-15-toolbar-after.png) · [tối trước](evidence/R-15-toolbar-before-dark.png) · [sau](evidence/R-15-toolbar-after-dark.png). [View sáng trước](evidence/R-15-filter-before.png) · [sau](evidence/R-15-filter-after.png) · [tối trước](evidence/R-15-filter-before-dark.png) · [sau](evidence/R-15-filter-after-dark.png).
 - Chromium kiểm nhãn vi và thanh định dạng en đạt. Hai ca trong `filter-wikilink-autocomplete.spec.ts` đều dừng ở bước mở View trên cả baseline `c89e0aa7` lẫn bản sửa. Bản chạy đối chiếu dùng nút Tạo View và ô chọn trường hiện hành trên fixture tạm, giữ nguyên assertion nhập văn bản/wikilink, đạt 2/2 không retry.
 

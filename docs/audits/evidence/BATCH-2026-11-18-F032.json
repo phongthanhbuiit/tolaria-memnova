@@ -1,0 +1,374 @@
+[
+  {
+    "case": "chromium-action-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-action-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-autocomplete-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-autocomplete-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-autocomplete-responsive-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-autocomplete-responsive-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-badges-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-badges-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-badges-offline-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-badges-offline-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-controls-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-controls-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-notes-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-notes-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-notes-loading-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-notes-loading-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-raw-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-raw-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-raw-warning-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-raw-warning-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-settings-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-settings-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-sidebar-context-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-sidebar-context-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-sidebar-custom-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-sidebar-custom-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-sidebar-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-sidebar-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-vault-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-vault-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-vault-multi-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-vault-multi-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-welcome-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-welcome-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-welcome-offline-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "chromium-welcome-offline-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-action-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-action-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-autocomplete-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-autocomplete-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-autocomplete-responsive-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-autocomplete-responsive-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-badges-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-badges-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-badges-offline-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-badges-offline-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-controls-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-controls-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-notes-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-notes-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-notes-loading-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-notes-loading-light",
+    "changedPixels": 0,
+    "computedDifferences": [
+      [
+        20,
+        "DIV",
+        null,
+        {
+          "opacity": [
+            "1",
+            "0.999177"
+          ]
+        }
+      ]
+    ]
+  },
+  {
+    "case": "webkit-raw-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-raw-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-raw-warning-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-raw-warning-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-settings-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-settings-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-sidebar-context-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-sidebar-context-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-sidebar-custom-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-sidebar-custom-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-sidebar-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-sidebar-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-vault-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-vault-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-vault-multi-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-vault-multi-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-welcome-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-welcome-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-welcome-offline-dark",
+    "changedPixels": 0,
+    "computedDifferences": []
+  },
+  {
+    "case": "webkit-welcome-offline-light",
+    "changedPixels": 0,
+    "computedDifferences": []
+  }
+]

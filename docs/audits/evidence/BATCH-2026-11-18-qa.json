@@ -1,0 +1,1330 @@
+{
+  "en": {
+    "findings": {
+      "block-menu": "- menu \"Paragraph\":\n  - menuitem \"Paragraph\":\n    - img\n    - text: Paragraph\n  - menuitem \"Heading 1\":\n    - img\n    - text: Heading 1\n  - menuitem \"Heading 2\":\n    - img\n    - text: Heading 2\n  - menuitem \"Heading 3\":\n    - img\n    - text: Heading 3\n  - menuitem \"Heading 4\":\n    - img\n    - text: Heading 4\n  - menuitem \"Heading 5\":\n    - img\n    - text: Heading 5\n  - menuitem \"Heading 6\":\n    - img\n    - text: Heading 6\n  - menuitem \"Quote\":\n    - img\n    - text: Quote\n  - menuitem \"Bullet List\":\n    - img\n    - text: Bullet List\n  - menuitem \"Numbered List\":\n    - img\n    - text: Numbered List\n  - menuitem \"Checklist\":\n    - img\n    - text: Checklist\n  - menuitem \"Code Block\":\n    - img\n    - text: Code Block",
+      "nested-filters": "- dialog \"Create View\":\n  - heading \"Create View\" [level=2]\n  - paragraph: Create a saved view by choosing a name and filter rules.\n  - text: Name\n  - textbox \"Name\":\n    - /placeholder: e.g. Active Projects, Reading List...\n  - text: Filters\n  - button \"OR\"\n  - text: Match any condition Filter field\n  - combobox \"Filter field\": type\n  - combobox \"Filter operator\": equals\n  - textbox \"value\"\n  - button \"Treat value as regex\": .*\n  - button \"Remove filter\":\n    - img\n  - text: Filter field\n  - combobox \"Filter field\": type\n  - combobox \"Filter operator\": equals\n  - textbox \"value\"\n  - button \"Treat value as regex\": .*\n  - button \"Remove filter\":\n    - img\n  - button \"AND\"\n  - text: Match all conditions\n  - button \"Remove group\":\n    - img\n  - text: Filter field\n  - combobox \"Filter field\": type\n  - combobox \"Filter operator\": equals\n  - textbox \"value\"\n  - button \"Treat value as regex\": .*\n  - button \"Remove filter\":\n    - img\n  - button \"Add filter\":\n    - img\n    - text: Add filter\n  - button \"Add group\":\n    - img\n    - text: Add group\n  - button \"Add filter\":\n    - img\n    - text: Add filter\n  - button \"Add group\":\n    - img\n    - text: Add group\n  - button \"Cancel\"\n  - button \"Create\" [disabled]",
+      "operator-menu": "- listbox:\n  - option \"equals\" [selected]\n  - option \"does not equal\"\n  - option \"contains\"\n  - option \"does not contain\"\n  - option \"is empty\"\n  - option \"is not empty\"\n  - option \"before\"\n  - option \"after\"",
+      "icon": "Choose icon book",
+      "whiteboard": "- group \"Excalidraw\":\n  - button \"Drawing menu\"\n  - region \"Shapes\":\n    - text: To move canvas, hold mouse wheel or spacebar while dragging, or use the hand tool\n    - heading \"Shapes\" [level=2]\n    - checkbox \"Keep selected tool active after drawing\"\n    - radio \"Hand (panning tool) — H\"\n    - radio \"Selection\" [checked]\n    - text: \"1\"\n    - radio \"Rectangle\"\n    - text: \"2\"\n    - radio \"Diamond\"\n    - text: \"3\"\n    - radio \"Ellipse\"\n    - text: \"4\"\n    - radio \"Arrow\"\n    - text: \"5\"\n    - radio \"Line\"\n    - text: \"6\"\n    - radio \"Draw\"\n    - text: \"7\"\n    - radio \"Text\"\n    - text: \"8\"\n    - radio \"Insert image\"\n    - text: \"9\"\n    - radio \"Eraser\"\n    - text: \"0\"\n    - button \"More tools\"\n  - checkbox \"Library\"\n  - text: Library\n  - contentinfo:\n    - region \"Canvas actions\":\n      - heading \"Canvas actions\" [level=2]\n      - button \"Zoom out\"\n      - button \"Reset zoom\": 100%\n      - button \"Zoom in\"\n      - button \"Undo\" [disabled]\n      - button \"Redo\" [disabled]\n    - button \"Help\"\n  - img\n  - text: Drawing canvas"
+    },
+    "limits": [
+      {
+        "surface": "block-menu",
+        "result": {
+          "width": 163.484375,
+          "scrollWidth": 161,
+          "clientWidth": 161,
+          "regionOutsideViewport": 0,
+          "checks": [
+            {
+              "text": "Paragraph",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Heading 1",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Heading 2",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Heading 3",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Heading 4",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Heading 5",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Heading 6",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Quote",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Bullet List",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Numbered List",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Checklist",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Code Block",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            }
+          ]
+        }
+      },
+      {
+        "surface": "nested-filters",
+        "result": {
+          "width": 600,
+          "scrollWidth": 598,
+          "clientWidth": 598,
+          "regionOutsideViewport": 0,
+          "checks": [
+            {
+              "text": "Match any condition",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "equals",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "equals",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "value",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "equals",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "equals",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "value",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Match all conditions",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "equals",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "equals",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "value",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Add filter",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Add group",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Add filter",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Add group",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            }
+          ]
+        }
+      },
+      {
+        "surface": "operator-menu",
+        "result": {
+          "width": 140.895751953125,
+          "scrollWidth": 145,
+          "clientWidth": 145,
+          "regionOutsideViewport": 0,
+          "checks": [
+            {
+              "text": "equals",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "equals",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "does not equal",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "does not equal",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "contains",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "contains",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "does not contain",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "does not contain",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "is empty",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "is empty",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "is not empty",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "is not empty",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "before",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "before",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "after",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "after",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            }
+          ]
+        }
+      },
+      {
+        "surface": "settings",
+        "result": {
+          "width": 1440,
+          "scrollWidth": 1440,
+          "clientWidth": 1440,
+          "regionOutsideViewport": 0,
+          "checks": [
+            {
+              "text": "Settings",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Appearance",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Appearance",
+              "outside": 0,
+              "clipped": false,
+              "intentional": true
+            }
+          ]
+        }
+      }
+    ],
+    "consoleErrors": []
+  },
+  "vi": {
+    "findings": {
+      "block-menu": "- menu \"Đoạn văn\":\n  - menuitem \"Đoạn văn\":\n    - img\n    - text: Đoạn văn\n  - menuitem \"Tiêu đề 1\":\n    - img\n    - text: Tiêu đề 1\n  - menuitem \"Tiêu đề 2\":\n    - img\n    - text: Tiêu đề 2\n  - menuitem \"Tiêu đề 3\":\n    - img\n    - text: Tiêu đề 3\n  - menuitem \"Tiêu đề 4\":\n    - img\n    - text: Tiêu đề 4\n  - menuitem \"Tiêu đề 5\":\n    - img\n    - text: Tiêu đề 5\n  - menuitem \"Tiêu đề 6\":\n    - img\n    - text: Tiêu đề 6\n  - menuitem \"Trích dẫn\":\n    - img\n    - text: Trích dẫn\n  - menuitem \"Danh sách dấu đầu dòng\":\n    - img\n    - text: Danh sách dấu đầu dòng\n  - menuitem \"Danh sách đánh số\":\n    - img\n    - text: Danh sách đánh số\n  - menuitem \"Danh sách kiểm tra\":\n    - img\n    - text: Danh sách kiểm tra\n  - menuitem \"Khối mã\":\n    - img\n    - text: Khối mã",
+      "nested-filters": "- dialog \"Tạo chế độ xem\":\n  - heading \"Tạo chế độ xem\" [level=2]\n  - paragraph: Chọn tên và quy tắc lọc để tạo chế độ xem đã lưu.\n  - text: Tên\n  - textbox \"Tên\":\n    - /placeholder: \"Ví dụ: Dự án đang thực hiện, Danh sách đọc…\"\n  - text: Bộ lọc\n  - button \"HOẶC\"\n  - text: Khớp ít nhất một điều kiện Trường lọc\n  - combobox \"Trường lọc\": type\n  - combobox \"Toán tử lọc\": bằng\n  - textbox \"Giá trị\"\n  - button \"Dùng giá trị như biểu thức chính quy\": .*\n  - button \"Xóa bộ lọc\":\n    - img\n  - text: Trường lọc\n  - combobox \"Trường lọc\": type\n  - combobox \"Toán tử lọc\": bằng\n  - textbox \"Giá trị\"\n  - button \"Dùng giá trị như biểu thức chính quy\": .*\n  - button \"Xóa bộ lọc\":\n    - img\n  - button \"VÀ\"\n  - text: Khớp tất cả điều kiện\n  - button \"Xóa nhóm\":\n    - img\n  - text: Trường lọc\n  - combobox \"Trường lọc\": type\n  - combobox \"Toán tử lọc\": bằng\n  - textbox \"Giá trị\"\n  - button \"Dùng giá trị như biểu thức chính quy\": .*\n  - button \"Xóa bộ lọc\":\n    - img\n  - button \"Thêm bộ lọc\":\n    - img\n    - text: Thêm bộ lọc\n  - button \"Thêm nhóm\":\n    - img\n    - text: Thêm nhóm\n  - button \"Thêm bộ lọc\":\n    - img\n    - text: Thêm bộ lọc\n  - button \"Thêm nhóm\":\n    - img\n    - text: Thêm nhóm\n  - button \"Hủy\"\n  - button \"Tạo\" [disabled]",
+      "operator-menu": "- listbox:\n  - option \"bằng\" [selected]\n  - option \"khác\"\n  - option \"chứa\"\n  - option \"không chứa\"\n  - option \"để trống\"\n  - option \"không trống\"\n  - option \"trước ngày\"\n  - option \"sau ngày\"",
+      "icon": "Chọn biểu tượng book",
+      "whiteboard": "- group \"Excalidraw\":\n  - button \"Menu bảng vẽ\"\n  - region \"Shapes\":\n    - text: To move canvas, hold mouse wheel or spacebar while dragging, or use the hand tool\n    - heading \"Shapes\" [level=2]\n    - checkbox \"Keep selected tool active after drawing\"\n    - radio \"Hand (panning tool) — H\"\n    - radio \"Selection\" [checked]\n    - text: \"1\"\n    - radio \"Rectangle\"\n    - text: \"2\"\n    - radio \"Diamond\"\n    - text: \"3\"\n    - radio \"Ellipse\"\n    - text: \"4\"\n    - radio \"Arrow\"\n    - text: \"5\"\n    - radio \"Line\"\n    - text: \"6\"\n    - radio \"Draw\"\n    - text: \"7\"\n    - radio \"Text\"\n    - text: \"8\"\n    - radio \"Insert image\"\n    - text: \"9\"\n    - radio \"Eraser\"\n    - text: \"0\"\n    - button \"More tools\"\n  - checkbox \"Library\"\n  - text: Library\n  - contentinfo:\n    - region \"Canvas actions\":\n      - heading \"Canvas actions\" [level=2]\n      - button \"Zoom out\"\n      - button \"Reset zoom\": 100%\n      - button \"Zoom in\"\n      - button \"Undo\" [disabled]\n      - button \"Redo\" [disabled]\n    - button \"Help\"\n  - img\n  - text: Drawing canvas"
+    },
+    "limits": [
+      {
+        "surface": "block-menu",
+        "result": {
+          "width": 221.96875,
+          "scrollWidth": 220,
+          "clientWidth": 220,
+          "regionOutsideViewport": 0,
+          "checks": [
+            {
+              "text": "Đoạn văn",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Tiêu đề 1",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Tiêu đề 2",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Tiêu đề 3",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Tiêu đề 4",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Tiêu đề 5",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Tiêu đề 6",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Trích dẫn",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Danh sách dấu đầu dòng",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Danh sách đánh số",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Danh sách kiểm tra",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Khối mã",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            }
+          ]
+        }
+      },
+      {
+        "surface": "nested-filters",
+        "result": {
+          "width": 600,
+          "scrollWidth": 598,
+          "clientWidth": 598,
+          "regionOutsideViewport": 0,
+          "checks": [
+            {
+              "text": "Khớp ít nhất một điều kiện",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "bằng",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "bằng",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Giá trị",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "bằng",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "bằng",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Giá trị",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Khớp tất cả điều kiện",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "bằng",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "bằng",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Giá trị",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Thêm bộ lọc",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Thêm nhóm",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Thêm bộ lọc",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Thêm nhóm",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            }
+          ]
+        }
+      },
+      {
+        "surface": "operator-menu",
+        "result": {
+          "width": 116.5916748046875,
+          "scrollWidth": 120,
+          "clientWidth": 120,
+          "regionOutsideViewport": 0,
+          "checks": [
+            {
+              "text": "bằng",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "bằng",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "khác",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "khác",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "chứa",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "chứa",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "không chứa",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "không chứa",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "để trống",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "để trống",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "không trống",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "không trống",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "trước ngày",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "trước ngày",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "sau ngày",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "sau ngày",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            }
+          ]
+        }
+      },
+      {
+        "surface": "settings",
+        "result": {
+          "width": 1440,
+          "scrollWidth": 1440,
+          "clientWidth": 1440,
+          "regionOutsideViewport": 0,
+          "checks": [
+            {
+              "text": "Cài đặt",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Giao diện",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Giao diện",
+              "outside": 0,
+              "clipped": false,
+              "intentional": true
+            }
+          ]
+        }
+      }
+    ],
+    "consoleErrors": []
+  },
+  "de-DE": {
+    "findings": {
+      "block-menu": "- menu \"Absatz\":\n  - menuitem \"Absatz\":\n    - img\n    - text: Absatz\n  - menuitem \"Überschrift 1\":\n    - img\n    - text: Überschrift 1\n  - menuitem \"Überschrift 2\":\n    - img\n    - text: Überschrift 2\n  - menuitem \"Überschrift 3\":\n    - img\n    - text: Überschrift 3\n  - menuitem \"Überschrift 4\":\n    - img\n    - text: Überschrift 4\n  - menuitem \"Überschrift 5\":\n    - img\n    - text: Überschrift 5\n  - menuitem \"Überschrift 6\":\n    - img\n    - text: Überschrift 6\n  - menuitem \"Zitat\":\n    - img\n    - text: Zitat\n  - menuitem \"Aufzählung\":\n    - img\n    - text: Aufzählung\n  - menuitem \"Nummerierte Liste\":\n    - img\n    - text: Nummerierte Liste\n  - menuitem \"Aufgabenliste\":\n    - img\n    - text: Aufgabenliste\n  - menuitem \"Codeblock\":\n    - img\n    - text: Codeblock",
+      "nested-filters": "- dialog \"Ansicht erstellen\":\n  - heading \"Ansicht erstellen\" [level=2]\n  - paragraph: Erstellen Sie eine gespeicherte Ansicht, indem Sie einen Namen und Filterregeln auswählen.\n  - text: Name\n  - textbox \"Name\":\n    - /placeholder: z. B. Aktive Projekte, Leseliste …\n  - text: Filter\n  - button \"ODER\"\n  - text: Mindestens eine Bedingung erfüllen Filterfeld\n  - combobox \"Filterfeld\": type\n  - combobox \"Filteroperator\": ist gleich\n  - textbox \"Wert\"\n  - button \"Wert als regulären Ausdruck verwenden\": .*\n  - button \"Filter entfernen\":\n    - img\n  - text: Filterfeld\n  - combobox \"Filterfeld\": type\n  - combobox \"Filteroperator\": ist gleich\n  - textbox \"Wert\"\n  - button \"Wert als regulären Ausdruck verwenden\": .*\n  - button \"Filter entfernen\":\n    - img\n  - button \"UND\"\n  - text: Alle Bedingungen erfüllen\n  - button \"Gruppe entfernen\":\n    - img\n  - text: Filterfeld\n  - combobox \"Filterfeld\": type\n  - combobox \"Filteroperator\": ist gleich\n  - textbox \"Wert\"\n  - button \"Wert als regulären Ausdruck verwenden\": .*\n  - button \"Filter entfernen\":\n    - img\n  - button \"Filter hinzufügen\":\n    - img\n    - text: Filter hinzufügen\n  - button \"Gruppe hinzufügen\":\n    - img\n    - text: Gruppe hinzufügen\n  - button \"Filter hinzufügen\":\n    - img\n    - text: Filter hinzufügen\n  - button \"Gruppe hinzufügen\":\n    - img\n    - text: Gruppe hinzufügen\n  - button \"Abbrechen\"\n  - button \"Erstellen\" [disabled]",
+      "operator-menu": "- listbox:\n  - option \"ist gleich\" [selected]\n  - option \"ist ungleich\"\n  - option \"enthält\"\n  - option \"enthält nicht\"\n  - option \"ist leer\"\n  - option \"ist nicht leer\"\n  - option \"vor\"\n  - option \"nach\"",
+      "icon": "Symbol book auswählen",
+      "whiteboard": "- group \"Excalidraw\":\n  - button \"Zeichenmenü\"\n  - region \"Shapes\":\n    - text: To move canvas, hold mouse wheel or spacebar while dragging, or use the hand tool\n    - heading \"Shapes\" [level=2]\n    - checkbox \"Keep selected tool active after drawing\"\n    - radio \"Hand (panning tool) — H\"\n    - radio \"Selection\" [checked]\n    - text: \"1\"\n    - radio \"Rectangle\"\n    - text: \"2\"\n    - radio \"Diamond\"\n    - text: \"3\"\n    - radio \"Ellipse\"\n    - text: \"4\"\n    - radio \"Arrow\"\n    - text: \"5\"\n    - radio \"Line\"\n    - text: \"6\"\n    - radio \"Draw\"\n    - text: \"7\"\n    - radio \"Text\"\n    - text: \"8\"\n    - radio \"Insert image\"\n    - text: \"9\"\n    - radio \"Eraser\"\n    - text: \"0\"\n    - button \"More tools\"\n  - checkbox \"Library\"\n  - text: Library\n  - contentinfo:\n    - region \"Canvas actions\":\n      - heading \"Canvas actions\" [level=2]\n      - button \"Zoom out\"\n      - button \"Reset zoom\": 100%\n      - button \"Zoom in\"\n      - button \"Undo\" [disabled]\n      - button \"Redo\" [disabled]\n    - button \"Help\"\n  - img\n  - text: Drawing canvas"
+    },
+    "limits": [
+      {
+        "surface": "block-menu",
+        "result": {
+          "width": 184.921875,
+          "scrollWidth": 183,
+          "clientWidth": 183,
+          "regionOutsideViewport": 0,
+          "checks": [
+            {
+              "text": "Absatz",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Überschrift 1",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Überschrift 2",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Überschrift 3",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Überschrift 4",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Überschrift 5",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Überschrift 6",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Zitat",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Aufzählung",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Nummerierte Liste",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Aufgabenliste",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Codeblock",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            }
+          ]
+        }
+      },
+      {
+        "surface": "nested-filters",
+        "result": {
+          "width": 600,
+          "scrollWidth": 598,
+          "clientWidth": 598,
+          "regionOutsideViewport": 0,
+          "checks": [
+            {
+              "text": "Mindestens eine Bedingung erfüllen",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "ist gleich",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "ist gleich",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Wert",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "ist gleich",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "ist gleich",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Wert",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Alle Bedingungen erfüllen",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "ist gleich",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "ist gleich",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Wert",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Filter hinzufügen",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Gruppe hinzufügen",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Filter hinzufügen",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Gruppe hinzufügen",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            }
+          ]
+        }
+      },
+      {
+        "surface": "operator-menu",
+        "result": {
+          "width": 116.1138916015625,
+          "scrollWidth": 120,
+          "clientWidth": 120,
+          "regionOutsideViewport": 0,
+          "checks": [
+            {
+              "text": "ist gleich",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "ist gleich",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "ist ungleich",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "ist ungleich",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "enthält",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "enthält",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "enthält nicht",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "enthält nicht",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "ist leer",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "ist leer",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "ist nicht leer",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "ist nicht leer",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "vor",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "vor",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "nach",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "nach",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            }
+          ]
+        }
+      },
+      {
+        "surface": "settings",
+        "result": {
+          "width": 1440,
+          "scrollWidth": 1440,
+          "clientWidth": 1440,
+          "regionOutsideViewport": 0,
+          "checks": [
+            {
+              "text": "Einstellungen",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Darstellung",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "Darstellung",
+              "outside": 0,
+              "clipped": false,
+              "intentional": true
+            }
+          ]
+        }
+      }
+    ],
+    "consoleErrors": []
+  },
+  "ja-JP": {
+    "findings": {
+      "block-menu": "- menu \"段落\":\n  - menuitem \"段落\":\n    - img\n    - text: 段落\n  - menuitem \"見出し 1\":\n    - img\n    - text: 見出し 1\n  - menuitem \"見出し 2\":\n    - img\n    - text: 見出し 2\n  - menuitem \"見出し 3\":\n    - img\n    - text: 見出し 3\n  - menuitem \"見出し 4\":\n    - img\n    - text: 見出し 4\n  - menuitem \"見出し 5\":\n    - img\n    - text: 見出し 5\n  - menuitem \"見出し 6\":\n    - img\n    - text: 見出し 6\n  - menuitem \"引用\":\n    - img\n    - text: 引用\n  - menuitem \"箇条書き\":\n    - img\n    - text: 箇条書き\n  - menuitem \"番号付きリスト\":\n    - img\n    - text: 番号付きリスト\n  - menuitem \"チェックリスト\":\n    - img\n    - text: チェックリスト\n  - menuitem \"コードブロック\":\n    - img\n    - text: コードブロック",
+      "nested-filters": "- dialog \"ビューを作成\":\n  - heading \"ビューを作成\" [level=2]\n  - paragraph: 名前とフィルタールールを選択して、保存されたビューを作成します。\n  - text: 名前\n  - textbox \"名前\":\n    - /placeholder: 例：アクティブなプロジェクト、読書リスト…\n  - text: フィルター\n  - button \"または\"\n  - text: いずれかの条件に一致 フィルターの項目\n  - combobox \"フィルターの項目\": type\n  - combobox \"フィルター演算子\": 等しい\n  - textbox \"値\"\n  - button \"値を正規表現として扱う\": .*\n  - button \"フィルターを削除\":\n    - img\n  - text: フィルターの項目\n  - combobox \"フィルターの項目\": type\n  - combobox \"フィルター演算子\": 等しい\n  - textbox \"値\"\n  - button \"値を正規表現として扱う\": .*\n  - button \"フィルターを削除\":\n    - img\n  - button \"かつ\"\n  - text: すべての条件に一致\n  - button \"グループを削除\":\n    - img\n  - text: フィルターの項目\n  - combobox \"フィルターの項目\": type\n  - combobox \"フィルター演算子\": 等しい\n  - textbox \"値\"\n  - button \"値を正規表現として扱う\": .*\n  - button \"フィルターを削除\":\n    - img\n  - button \"フィルターを追加\":\n    - img\n    - text: フィルターを追加\n  - button \"グループを追加\":\n    - img\n    - text: グループを追加\n  - button \"フィルターを追加\":\n    - img\n    - text: フィルターを追加\n  - button \"グループを追加\":\n    - img\n    - text: グループを追加\n  - button \"キャンセル\"\n  - button \"作成\" [disabled]",
+      "operator-menu": "- listbox:\n  - option \"等しい\" [selected]\n  - option \"等しくない\"\n  - option \"含む\"\n  - option \"含まない\"\n  - option \"空である\"\n  - option \"空でない\"\n  - option \"より前\"\n  - option \"より後\"",
+      "icon": "アイコン book を選択",
+      "whiteboard": "- group \"Excalidraw\":\n  - button \"描画メニュー\"\n  - region \"Shapes\":\n    - text: To move canvas, hold mouse wheel or spacebar while dragging, or use the hand tool\n    - heading \"Shapes\" [level=2]\n    - checkbox \"Keep selected tool active after drawing\"\n    - radio \"Hand (panning tool) — H\"\n    - radio \"Selection\" [checked]\n    - text: \"1\"\n    - radio \"Rectangle\"\n    - text: \"2\"\n    - radio \"Diamond\"\n    - text: \"3\"\n    - radio \"Ellipse\"\n    - text: \"4\"\n    - radio \"Arrow\"\n    - text: \"5\"\n    - radio \"Line\"\n    - text: \"6\"\n    - radio \"Draw\"\n    - text: \"7\"\n    - radio \"Text\"\n    - text: \"8\"\n    - radio \"Insert image\"\n    - text: \"9\"\n    - radio \"Eraser\"\n    - text: \"0\"\n    - button \"More tools\"\n  - checkbox \"Library\"\n  - text: Library\n  - contentinfo:\n    - region \"Canvas actions\":\n      - heading \"Canvas actions\" [level=2]\n      - button \"Zoom out\"\n      - button \"Reset zoom\": 100%\n      - button \"Zoom in\"\n      - button \"Undo\" [disabled]\n      - button \"Redo\" [disabled]\n    - button \"Help\"\n  - img\n  - text: Drawing canvas"
+    },
+    "limits": [
+      {
+        "surface": "block-menu",
+        "result": {
+          "width": 164.140625,
+          "scrollWidth": 162,
+          "clientWidth": 162,
+          "regionOutsideViewport": 0,
+          "checks": [
+            {
+              "text": "段落",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "見出し 1",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "見出し 2",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "見出し 3",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "見出し 4",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "見出し 5",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "見出し 6",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "引用",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "箇条書き",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "番号付きリスト",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "チェックリスト",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "コードブロック",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            }
+          ]
+        }
+      },
+      {
+        "surface": "nested-filters",
+        "result": {
+          "width": 600,
+          "scrollWidth": 598,
+          "clientWidth": 598,
+          "regionOutsideViewport": 0,
+          "checks": [
+            {
+              "text": "いずれかの条件に一致",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "等しい",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "等しい",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "値",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "等しい",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "等しい",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "値",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "すべての条件に一致",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "等しい",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "等しい",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "値",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "フィルターを追加",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "グループを追加",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "フィルターを追加",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "グループを追加",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            }
+          ]
+        }
+      },
+      {
+        "surface": "operator-menu",
+        "result": {
+          "width": 117.2314453125,
+          "scrollWidth": 120,
+          "clientWidth": 120,
+          "regionOutsideViewport": 0,
+          "checks": [
+            {
+              "text": "等しい",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "等しい",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "等しくない",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "等しくない",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "含む",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "含む",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "含まない",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "含まない",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "空である",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "空である",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "空でない",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "空でない",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "より前",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "より前",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "より後",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "より後",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            }
+          ]
+        }
+      },
+      {
+        "surface": "settings",
+        "result": {
+          "width": 1440,
+          "scrollWidth": 1440,
+          "clientWidth": 1440,
+          "regionOutsideViewport": 0,
+          "checks": [
+            {
+              "text": "設定",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "外観",
+              "outside": 0,
+              "clipped": false,
+              "intentional": false
+            },
+            {
+              "text": "外観",
+              "outside": 0,
+              "clipped": false,
+              "intentional": true
+            }
+          ]
+        }
+      }
+    ],
+    "consoleErrors": []
+  }
+}

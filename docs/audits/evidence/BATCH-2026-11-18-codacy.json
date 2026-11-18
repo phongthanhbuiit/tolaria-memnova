@@ -1,0 +1,80 @@
+{
+  "baseline": "dcc809fda5cc8c3f2097fbbdb78b666b87ca6a9d",
+  "tool": "Codacy Analysis CLI 0.24.0 local",
+  "scope": [
+    "src/components/AiActionCard.tsx",
+    "src/components/Editor.css",
+    "src/components/ExcalidrawWhiteboard.tsx",
+    "src/components/FilterBuilder.tsx",
+    "src/components/IconEditableValue.tsx",
+    "src/components/NoteAutocomplete.tsx",
+    "src/components/RawEditorView.tsx",
+    "src/components/SettingsControls.tsx",
+    "src/components/SettingsPanel.tsx",
+    "src/components/SortDropdown.tsx",
+    "src/components/TypeCustomizePopover.tsx",
+    "src/components/WelcomeScreen.tsx",
+    "src/components/WikilinkSuggestionMenu.css",
+    "src/components/WorkspaceSelector.tsx",
+    "src/components/filter-builder/FilterFieldOptionsList.tsx",
+    "src/components/inspector/FlashcardPanel.tsx",
+    "src/components/note-list/NoteListLayout.tsx",
+    "src/components/sidebar/SidebarSections.tsx",
+    "src/components/status-bar/StatusBarBadges.tsx",
+    "src/components/status-bar/VaultMenu.tsx",
+    "src/components/tolariaEditorFormatting.tsx",
+    "src/components/tolariaEditorFormattingConfig.ts",
+    "src/hooks/useEditorSaveWithLinks.ts",
+    "src/hooks/useVaultLoader.ts",
+    "src/index.css",
+    "src/lib/locales/be-BY.json",
+    "src/lib/locales/be-Latn.json",
+    "src/lib/locales/de-DE.json",
+    "src/lib/locales/en.json",
+    "src/lib/locales/es-419.json",
+    "src/lib/locales/es-ES.json",
+    "src/lib/locales/fr-FR.json",
+    "src/lib/locales/id-ID.json",
+    "src/lib/locales/it-IT.json",
+    "src/lib/locales/ja-JP.json",
+    "src/lib/locales/ko-KR.json",
+    "src/lib/locales/pl-PL.json",
+    "src/lib/locales/pt-BR.json",
+    "src/lib/locales/pt-PT.json",
+    "src/lib/locales/ru-RU.json",
+    "src/lib/locales/vi.json",
+    "src/lib/locales/zh-CN.json",
+    "src/lib/locales/zh-TW.json"
+  ],
+  "exclusions": "Project exclusions for test files and tests/** retained. No cloud upload.",
+  "runs": {
+    "before": {
+      "issueCounts": {
+        "Semgrep": 30,
+        "Lizard": 47,
+        "Stylelint": 239,
+        "ESLint9": 0,
+        "Trivy": 0
+      },
+      "total": 316,
+      "highOrCritical": 0,
+      "analyzerErrors": 0,
+      "exitCode": 1
+    },
+    "after": {
+      "issueCounts": {
+        "Semgrep": 30,
+        "Lizard": 45,
+        "Stylelint": 239,
+        "ESLint9": 0,
+        "Trivy": 0
+      },
+      "total": 314,
+      "highOrCritical": 0,
+      "analyzerErrors": 0,
+      "exitCode": 1
+    }
+  },
+  "newWarningLocations": [],
+  "review": "CommitBadge NLOC attribution changes within StatusBarBadges after static CSS removal. Remaining differences are existing length thresholds and presentation-only changes. No added Critical or High."
+}
