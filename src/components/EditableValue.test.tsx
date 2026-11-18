@@ -35,11 +35,11 @@ describe('EditableValue', () => {
     expect(onStartEdit).toHaveBeenCalled()
   })
 
-  it('uses a full-width truncating layout in view mode', () => {
+  it('uses a full-width wrapping layout in view mode', () => {
     render(<EditableValue value="A very long property value" onSave={onSave} onCancel={onCancel} isEditing={false} onStartEdit={onStartEdit} />)
     const value = screen.getByText('A very long property value')
     expect(value.parentElement).toHaveClass('w-full', 'overflow-hidden')
-    expect(value).toHaveClass('truncate')
+    expect(value).toHaveClass('wrap-anywhere')
   })
 
   it('left-aligns plain text values in view mode', () => {
@@ -259,12 +259,12 @@ describe('UrlValue', () => {
     expect(openExternalUrl).toHaveBeenCalledWith('https://example.com')
   })
 
-  it('uses a flexible truncating layout for long URL values', () => {
+  it('uses a flexible wrapping layout for long URL values', () => {
     render(<UrlValue value="https://example.com/very/long/path/that/needs/truncation" onSave={onSave} onCancel={onCancel} isEditing={false} onStartEdit={onStartEdit} />)
     const link = screen.getByTestId('url-link')
     const value = screen.getByText('https://example.com/very/long/path/that/needs/truncation')
     expect(link).toHaveClass('flex-1', 'overflow-hidden')
-    expect(value).toHaveClass('truncate')
+    expect(value).toHaveClass('wrap-anywhere')
   })
 
   it('does not open malformed URL', () => {

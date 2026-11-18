@@ -371,12 +371,13 @@ function DateValue({ value, onSave, locale = 'en', autoOpen = false, onCancel }:
           type="button"
           variant="ghost"
           size="sm"
-          className={`min-w-0 justify-start border-none text-left transition-colors hover:opacity-80${formatted ? ' bg-muted text-accent-foreground' : ' bg-transparent text-text-secondary'}`}
+          layout="responsive"
+          className={`min-w-0 max-w-full justify-start border-none text-left transition-colors hover:opacity-80${formatted ? ' bg-muted text-accent-foreground' : ' bg-transparent text-text-secondary'}`}
           style={PROPERTY_CHIP_STYLE}
           title={value}
           data-testid="date-display"
         >
-          <span className={`min-w-0 truncate${!formatted ? ' text-text-secondary' : ''}`}>{formatted || pickDateLabel}</span>
+          <span className={`min-w-0 wrap-anywhere${!formatted ? ' text-text-secondary' : ''}`}>{formatted || pickDateLabel}</span>
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto overflow-hidden p-0" align="end" side="bottom" data-testid="date-picker-popover">

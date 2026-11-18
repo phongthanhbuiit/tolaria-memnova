@@ -549,13 +549,13 @@ describe('DynamicPropertiesPanel', () => {
     })
   })
 
-  describe('property row 50/50 layout', () => {
-    it('uses CSS grid with two equal columns on editable rows', () => {
-      renderEditablePanel({ url: 'https://example.com/very/long/path/that/should/be/truncated' })
+  describe('property row layout', () => {
+    it('stacks each editable property label and value in a full-width row', () => {
+      renderEditablePanel({ url: 'https://example.com/very/long/path/that/can/wrap' })
       const editableRows = screen.getAllByTestId('editable-property')
       editableRows.forEach(row => {
         expect(row.className).toContain('grid')
-        expect(row.className).toContain('grid-cols-2')
+        expect(row).toHaveClass('col-span-full', 'grid-cols-1')
       })
     })
   })
@@ -663,13 +663,13 @@ describe('DynamicPropertiesPanel', () => {
       expect(screen.getByTestId('url-link')).toHaveTextContent('https://example.com')
     })
 
-    it('gives long URL values a truncating value-cell layout inside the properties panel', () => {
+    it('gives long URL values a wrapping value-cell layout inside the properties panel', () => {
       renderEditablePanel({ url: 'https://example.com/very/long/path/that/should/truncate' })
 
       const link = screen.getByTestId('url-link')
       const value = screen.getByText('https://example.com/very/long/path/that/should/truncate')
       expect(link).toHaveClass('flex-1', 'overflow-hidden')
-      expect(value).toHaveClass('truncate')
+      expect(value).toHaveClass('wrap-anywhere')
     })
 
     it('renders bare domain values as URL links', () => {

@@ -395,3 +395,10 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 - Đạt khi từ một đến khoảng tám hàng hiển thị đầy đủ ở cả hai theme, kết quả tiếp theo cuộn theo chiều dọc.
 - Danh sách dùng vùng cuộn dọc với giới hạn tám hàng theo chiều cao điều khiển hiện tại. Native vi 1440×900: tám hàng thấy đủ ở hai theme, truy vấn đúng tên thấy một hàng trọn vẹn.
 - Ảnh native: [trước sáng](review-shots/2026-11-18/W2-02-before-light.png) · [trước tối](review-shots/2026-11-18/W2-02-before-dark.png) · [sau sáng](review-shots/2026-11-18/W2-02-after-light.png) · [sau tối](review-shots/2026-11-18/W2-02-after-dark.png) · [một kết quả](review-shots/2026-11-18/W2-02-after-single-light.png).
+
+### F-044 · W2-03 · Thuộc tính cắt nhãn và giá trị
+
+- P1 · **fixed (commit W2-03)**. [Ảnh gốc](review-shots/2026-11-18/07-thuoc-tinh-xem-light.png) cho thấy nhãn ngày bị cắt và thanh cuộn ngang. Fixture vi có ngày địa phương, nhãn dài và URL dài.
+- Đạt khi mỗi thuộc tính có một hàng hoặc một cặp nhãn trên giá trị, chữ đọc được và panel không cuộn ngang ở bề rộng mặc định.
+- Nhãn và giá trị đã lưu dùng trọn chiều rộng. Ngày, URL và văn bản dài xuống dòng. Lịch ôn dùng một cặp dòng cho lần ôn tới. Native vi 1440×900: nhãn dài, hai ngày và URL đều đọc được, chỉ cuộn dọc.
+- Ảnh native: [trước sáng](review-shots/2026-11-18/W2-03-before-light.png) · [trước tối](review-shots/2026-11-18/W2-03-before-dark.png) · [sau sáng](review-shots/2026-11-18/W2-03-after-light.png) · [sau tối](review-shots/2026-11-18/W2-03-after-dark.png).

@@ -80,14 +80,14 @@ export function UrlValue({
 
   return (
     <span className="group/url flex w-full min-w-0 items-center gap-1">
-      <Button variant="ghost" size="sm"
+      <Button variant="ghost" size="sm" layout="responsive"
         type="button"
         className="inline-flex min-w-0 flex-1 cursor-pointer items-center justify-start overflow-hidden rounded-md border-0 bg-transparent px-2 text-left text-body text-[var(--accent-blue)] underline decoration-[var(--accent-blue)]/40 transition-colors hover:decoration-[var(--accent-blue)]"
         onClick={handleOpen}
         title={value}
         data-testid="url-link"
       >
-        <span className="min-w-0 truncate">{value || '\u2014'}</span>
+        <span className="min-w-0 wrap-anywhere">{value || '\u2014'}</span>
       </Button>
       <Button variant="ghost" size="sm" type="button"
         className="shrink-0 border-none bg-transparent p-0 text-body leading-none text-text-secondary opacity-0 transition-all hover:text-foreground group-hover/url:opacity-100 focus-visible:opacity-100"
@@ -140,13 +140,13 @@ export function EditableValue({
   }
 
   return (
-    <Button variant="ghost" size="sm"
+    <Button variant="ghost" size="sm" layout="responsive"
       type="button"
       className="inline-flex w-full min-w-0 cursor-pointer items-center justify-start overflow-hidden rounded-md border-0 bg-transparent px-0 text-left text-body text-secondary-foreground transition-colors hover:bg-muted"
       onClick={onStartEdit}
       title={value || 'Click to edit'}
     >
-      <span className="min-w-0 truncate">{value || '\u2014'}</span>
+      <span className="min-w-0 wrap-anywhere">{value || '\u2014'}</span>
     </Button>
   )
 }

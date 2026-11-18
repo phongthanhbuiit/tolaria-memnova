@@ -54,8 +54,8 @@ export function NoteMemoryInspector({
       )}
       {data?.view.schedule && (
         <dl className="grid grid-cols-[minmax(0,1fr)_auto] gap-x-3 gap-y-2 text-small">
-          <dt className="text-text-secondary">{t('properties.due')}</dt>
-          <dd className="max-w-40 break-words text-right">
+          <dt className="col-span-full text-text-secondary">{t('properties.due')}</dt>
+          <dd className="col-span-full -mt-1 wrap-anywhere">
             {dueLabel(data.view.schedule.due, locale)}
           </dd>
           <dt className="text-text-secondary">{t('properties.reps')}</dt>

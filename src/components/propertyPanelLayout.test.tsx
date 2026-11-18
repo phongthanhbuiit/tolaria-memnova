@@ -74,7 +74,7 @@ function renderPropertiesPanel(props: ComponentProps<typeof DynamicPropertiesPan
 }
 
 describe('property panel shared grid layout', () => {
-  it('uses a shared font-responsive column grid with subgridded rows', () => {
+  it('keeps metadata aligned and lets editable properties use the full panel width', () => {
     renderPropertiesPanel({
       entry,
       frontmatter: { VeryLongPropertyName: 'Value', Status: 'Active' },
@@ -90,12 +90,11 @@ describe('property panel shared grid layout', () => {
     expect(typeRow.style.gridColumn).toBe('1 / -1')
 
     screen.getAllByTestId('editable-property').forEach((row) => {
-      expect(row.style.gridTemplateColumns).toBe('subgrid')
-      expect(row.style.gridColumn).toBe('1 / -1')
+      expect(row).toHaveClass('col-span-full', 'grid-cols-1')
     })
   })
 
-  it('groups suggested actions compactly while keeping the add-property row on the shared grid', () => {
+  it('puts each suggested action on a separate row while keeping the add-property row on the shared grid', () => {
     renderPropertiesPanel({
       entry,
       frontmatter: {},
@@ -103,7 +102,7 @@ describe('property panel shared grid layout', () => {
     })
 
     screen.getAllByTestId('suggested-property').forEach((row) => {
-      expect(row.parentElement).toHaveClass('grid-cols-[repeat(auto-fit,minmax(min(100%,7rem),1fr))]', 'col-span-full')
+      expect(row.parentElement).toHaveClass('grid-cols-1', 'col-span-full')
       expect(row).toHaveAttribute('data-size', 'sm')
     })
 

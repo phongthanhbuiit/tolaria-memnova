@@ -32,7 +32,7 @@ export function containsWikilinks(value: FrontmatterValue): boolean {
   return false
 }
 
-const PROPERTY_ROW_CLASS_NAME = 'group/prop grid min-h-(--control-sm) min-w-0 grid-cols-2 items-center gap-2 rounded-md px-2 transition-colors hover:bg-muted focus:bg-muted focus:ring-1 focus:ring-primary'
+const PROPERTY_ROW_CLASS_NAME = 'group/prop col-span-full grid min-h-(--control-sm) min-w-0 grid-cols-1 items-center gap-1 rounded-md px-2 py-1 transition-colors hover:bg-muted focus:bg-muted focus:ring-1 focus:ring-primary'
 
 function PropertyRow({ propKey, value, editingKey, displayMode, autoMode, vaultStatuses, vaultTags, locale, onStartEdit, onSave, onSaveList, onUpdate, onDelete, onDisplayModeChange }: {
   propKey: string; value: FrontmatterValue; editingKey: string | null
@@ -45,10 +45,10 @@ function PropertyRow({ propKey, value, editingKey, displayMode, autoMode, vaultS
   locale: AppLocale
 }) {
   return (
-    <div className={PROPERTY_ROW_CLASS_NAME} style={PROPERTY_PANEL_ROW_STYLE} data-testid="editable-property">
+    <div className={PROPERTY_ROW_CLASS_NAME} data-testid="editable-property">
       <span className={PROPERTY_PANEL_LABEL_CLASS_NAME}>
         <DisplayModeSelector propKey={propKey} currentMode={displayMode} autoMode={autoMode} onSelect={onDisplayModeChange} />
-        <span className="min-w-0 flex-1 truncate">{propertyDisplayLabel(propKey, locale)}</span>
+        <span className="min-w-0 flex-1 wrap-anywhere">{propertyDisplayLabel(propKey, locale)}</span>
         {onDelete && (
           <Button variant="ghost" size="icon-sm" type="button" className="border-none bg-transparent p-0 text-body leading-none text-text-secondary opacity-0 transition-all hover:text-destructive group-hover/prop:opacity-100 focus-visible:opacity-100" onClick={() => onDelete(propKey)} aria-label={translate(locale, 'inspector.properties.deleteProperty')} title={translate(locale, 'inspector.properties.deleteProperty')}>&times;</Button>
         )}
@@ -122,6 +122,7 @@ function SuggestedPropertySlot({ label, displayMode, onAdd }: {
       type="button"
       variant="ghost"
       size="sm"
+      layout="responsive"
       className={`${PROPERTY_PANEL_INTERACTIVE_ROW_CLASS_NAME} grid-cols-[minmax(0,1fr)_auto]`}
       onClick={onAdd}
       data-testid="suggested-property"
@@ -213,7 +214,7 @@ function TypeDerivedPropertySlot({
             data-testid={`type-derived-property-icon-${displayMode}`}
           />
         </span>
-        <span className="min-w-0 truncate text-text-secondary">{propertyDisplayLabel(propKey, locale)}</span>
+        <span className="min-w-0 wrap-anywhere text-text-secondary">{propertyDisplayLabel(propKey, locale)}</span>
       </span>
       <span className={PROPERTY_PANEL_PLACEHOLDER_VALUE_CLASS_NAME}>{'\u2014'}</span>
     </Button>
@@ -418,7 +419,7 @@ function SuggestedPropertyRows({
   onAdd: (key: string) => void
 }) {
   return (
-    <div className="col-span-full grid min-w-0 grid-cols-[repeat(auto-fit,minmax(min(100%,7rem),1fr))] gap-2">
+    <div className="col-span-full grid min-w-0 grid-cols-1 gap-1">
       {properties.map(({ key }) => (
         <SuggestedPropertySlot
           key={key}
