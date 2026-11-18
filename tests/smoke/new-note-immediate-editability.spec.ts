@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { test, expect, type Page } from '@playwright/test'
+import { expectRichEditorCaret } from '../helpers/editorCaret'
 import {
   createFixtureVaultCopy,
   openFixtureVaultDesktopHarness,
@@ -56,9 +57,11 @@ test('the New Note command from Home opens a focused plain Markdown note', async
   await expect(page.locator('.app__dashboard')).toBeVisible()
   await triggerMenuCommand(page, 'file-new-note')
   await expect(page.locator('.bn-editor')).toBeVisible()
-  await expectEditorFocused(page)
+  await expectRichEditorCaret(page, 'heading')
   await page.keyboard.type('Ordinary journal')
+  await expect(page.getByRole('heading', { name: 'Ordinary journal', level: 1 })).toBeVisible()
   await page.keyboard.press('Enter')
+  await expectRichEditorCaret(page, 'paragraph')
   await page.keyboard.type('Ideas from the train.')
   const written = path.join(tempVaultDir, 'ordinary-journal.md')
   await expect.poll(() => fs.existsSync(written) ? fs.readFileSync(written, 'utf8') : '').toContain('Ideas from the train.')

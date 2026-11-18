@@ -1,5 +1,6 @@
 import fs from 'fs'
 import { test, expect, type Page } from '@playwright/test'
+import { expectRichEditorCaret } from '../helpers/editorCaret'
 import { createFixtureVaultCopy, openFixtureVaultTauri, removeFixtureVaultCopy } from '../helpers/fixtureVault'
 import { triggerMenuCommand } from './testBridge'
 
@@ -53,13 +54,6 @@ function collectEditorCrashMessages(page: Page): string[] {
   return messages
 }
 
-async function expectEditorFocused(page: Page): Promise<void> {
-  await expect.poll(async () => page.evaluate(() => {
-    const active = document.activeElement as HTMLElement | null
-    return Boolean(active?.isContentEditable || active?.closest('[contenteditable="true"]'))
-  }), { timeout: 5_000 }).toBe(true)
-}
-
 async function createUntitledNote(page: Page): Promise<void> {
   await page.locator('body').click()
   await triggerMenuCommand(page, 'file-new-note')
@@ -67,7 +61,7 @@ async function createUntitledNote(page: Page): Promise<void> {
   await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', /untitled-note-\d+(?:-\d+)?/i, {
     timeout: 5_000,
   })
-  await expectEditorFocused(page)
+  await expectRichEditorCaret(page, 'heading')
 }
 
 async function expectActiveFilename(page: Page, { title }: TitleInput): Promise<void> {
@@ -138,6 +132,8 @@ test('new-note first typing and rich heading paste remain stable through saves',
   const titleHeading = page.locator('.bn-editor [data-content-type="heading"]').first()
   await titleHeading.click()
   await page.keyboard.press('End')
+  // The paste handler reads the editor model after ProseMirror observes the browser selection.
+  await expectRichEditorCaret(page, 'heading', true)
   await dispatchRichHeadingPaste(page, {
     text: ' Rich Paste Payload',
     html: '<h1>Rich <em>Paste</em> Payload</h1><table><tr><td>structured</td></tr></table>',
