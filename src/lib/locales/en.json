@@ -355,7 +355,7 @@
   "ai.workspace.status.done": "Done",
   "ai.workspace.status.error": "Error",
   "ai.workspace.permissionMode": "Permission mode",
-  "ai.workspace.guidanceWarning": "Vault guidance needs attention: {summary}",
+  "ai.workspace.guidanceWarning": "Library guidance needs attention: {summary}",
   "ai.workspace.targetLabel": "AI target",
   "ai.workspace.targetLocalAgents": "Local agents",
   "ai.workspace.targetLocalModels": "Local models",

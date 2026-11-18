@@ -356,7 +356,7 @@
   "ai.workspace.status.done": "Hoàn tất",
   "ai.workspace.status.error": "Lỗi",
   "ai.workspace.permissionMode": "Chế độ quyền",
-  "ai.workspace.guidanceWarning": "Hướng dẫn Vault cần được chú ý: {summary}",
+  "ai.workspace.guidanceWarning": "Hướng dẫn của thư viện cần được kiểm tra: {summary}",
   "ai.workspace.targetLabel": "Mục tiêu AI",
   "ai.workspace.targetLocalAgents": "Tác tử cục bộ",
   "ai.workspace.targetLocalModels": "Mô hình cục bộ",
