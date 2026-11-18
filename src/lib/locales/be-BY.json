@@ -1072,6 +1072,7 @@
   "a11y.removeValue": "Выдаліць {value}",
   "a11y.removeRelation": "Выдаліць са сувязі",
   "a11y.changePropertyType": "Змяніць тып {property}",
+  "a11y.filterField": "Поле фільтра",
   "a11y.removeFilter": "Выдаліць фільтр",
   "a11y.removeGroup": "Выдаліць групу",
   "a11y.regexValue": "Выкарыстоўваць значэнне як рэгулярны выраз",

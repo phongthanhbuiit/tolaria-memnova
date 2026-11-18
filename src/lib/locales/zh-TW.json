@@ -1072,6 +1072,7 @@
   "a11y.removeValue": "移除 {value}",
   "a11y.removeRelation": "從關係中移除",
   "a11y.changePropertyType": "變更 {property} 的類型",
+  "a11y.filterField": "篩選欄位",
   "a11y.removeFilter": "移除篩選條件",
   "a11y.removeGroup": "移除群組",
   "a11y.regexValue": "將值視為正規表示式",

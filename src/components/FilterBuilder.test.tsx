@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { render, screen, fireEvent, act } from '@testing-library/react'
+import { render, screen, fireEvent, act, within } from '@testing-library/react'
+import { AppPreferencesProvider } from '../hooks/useAppPreferences'
 import { FilterBuilder } from './FilterBuilder'
 import type { FilterGroup } from '../types'
 
@@ -33,6 +34,39 @@ describe('FilterBuilder value inputs', () => {
     fireEvent.focus(input)
     return input
   }
+
+  it('associates a Vietnamese field label with each condition input', () => {
+    render(
+      <AppPreferencesProvider locale="vi">
+        <FilterBuilder
+          group={{ all: [
+            { field: 'title', op: 'contains', value: 'QA' },
+            { any: [{ field: 'status', op: 'equals', value: 'Active' }] },
+          ] }}
+          onChange={onChange}
+          availableFields={['title', 'status']}
+        />
+      </AppPreferencesProvider>,
+    )
+    const rows = screen.getAllByTestId('filter-row')
+    const name = 'Trường lọc'
+    const first = within(rows[0]).getByRole('combobox', { name, exact: true })
+    const second = within(rows[1]).getByRole('combobox', { name, exact: true })
+    expect(within(rows[0]).getByLabelText(name)).toBe(first)
+    expect(within(rows[1]).getByLabelText(name)).toBe(second)
+    expect(first.id).not.toBe(second.id)
+    expect(first).toHaveValue('title')
+    expect(second).toHaveValue('status')
+    fireEvent.focus(second)
+    fireEvent.change(second, { target: { value: 'title' } })
+    fireEvent.keyDown(second, { key: 'Enter' })
+    expect(onChange).toHaveBeenLastCalledWith({
+      all: [
+        { field: 'title', op: 'contains', value: 'QA' },
+        { any: [{ field: 'title', op: 'equals', value: 'Active' }] },
+      ],
+    })
+  })
 
   it('renders a plain text input for text operators', () => {
     renderBuilder()

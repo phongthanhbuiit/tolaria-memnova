@@ -1072,6 +1072,7 @@
   "a11y.removeValue": "Vydalić {value}",
   "a11y.removeRelation": "Vydalić sa suviazi",
   "a11y.changePropertyType": "Źmianić typ {property}",
+  "a11y.filterField": "Pole filtra",
   "a11y.removeFilter": "Vydalić filtr",
   "a11y.removeGroup": "Vydalić hrupu",
   "a11y.regexValue": "Vykarystoŭvać značeńnie jak rehuliarny vyraz",

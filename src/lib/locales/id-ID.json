@@ -1072,6 +1072,7 @@
   "a11y.removeValue": "Hapus {value}",
   "a11y.removeRelation": "Hapus dari relasi",
   "a11y.changePropertyType": "Ubah jenis {property}",
+  "a11y.filterField": "Kolom filter",
   "a11y.removeFilter": "Hapus filter",
   "a11y.removeGroup": "Hapus grup",
   "a11y.regexValue": "Gunakan nilai sebagai ekspresi reguler",

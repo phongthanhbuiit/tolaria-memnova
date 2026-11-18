@@ -1072,6 +1072,7 @@
   "a11y.removeValue": "Eliminar {value}",
   "a11y.removeRelation": "Eliminar de la relación",
   "a11y.changePropertyType": "Cambiar tipo de {property}",
+  "a11y.filterField": "Campo del filtro",
   "a11y.removeFilter": "Eliminar filtro",
   "a11y.removeGroup": "Eliminar grupo",
   "a11y.regexValue": "Usar el valor como expresión regular",

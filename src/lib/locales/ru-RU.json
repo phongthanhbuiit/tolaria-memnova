@@ -1072,6 +1072,7 @@
   "a11y.removeValue": "Удалить {value}",
   "a11y.removeRelation": "Удалить из связи",
   "a11y.changePropertyType": "Изменить тип {property}",
+  "a11y.filterField": "Поле фильтра",
   "a11y.removeFilter": "Удалить фильтр",
   "a11y.removeGroup": "Удалить группу",
   "a11y.regexValue": "Использовать значение как регулярное выражение",

@@ -1072,6 +1072,7 @@
   "a11y.removeValue": "{value} 제거",
   "a11y.removeRelation": "관계에서 제거",
   "a11y.changePropertyType": "{property} 유형 변경",
+  "a11y.filterField": "필터 필드",
   "a11y.removeFilter": "필터 제거",
   "a11y.removeGroup": "그룹 제거",
   "a11y.regexValue": "값을 정규식으로 사용",

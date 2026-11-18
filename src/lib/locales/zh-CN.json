@@ -1072,6 +1072,7 @@
   "a11y.removeValue": "移除 {value}",
   "a11y.removeRelation": "从关系中移除",
   "a11y.changePropertyType": "更改 {property} 的类型",
+  "a11y.filterField": "筛选字段",
   "a11y.removeFilter": "移除筛选条件",
   "a11y.removeGroup": "移除分组",
   "a11y.regexValue": "将值视为正则表达式",

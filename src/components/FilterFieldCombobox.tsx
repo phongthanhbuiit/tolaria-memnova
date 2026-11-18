@@ -1,7 +1,10 @@
 import { CaretUpDown } from '@phosphor-icons/react'
 import { useCallback, useEffect, useId, useMemo, useRef, useState, type ChangeEvent, type KeyboardEvent, type RefObject } from 'react'
 import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import { Popover, PopoverAnchor, PopoverContent } from '@/components/ui/popover'
+import { useAppLocale } from '../hooks/useAppPreferences'
+import { translate } from '../lib/i18n'
 import { FilterFieldOptionsList } from './filter-builder/FilterFieldOptionsList'
 
 const CONTENT_FIELDS = new Set(['body'])
@@ -169,6 +172,7 @@ function FilterFieldInput({
   query,
   value,
   listboxId,
+  label,
   highlightedIndex,
   onFocus,
   onChange,
@@ -179,14 +183,18 @@ function FilterFieldInput({
   query: FilterFieldQuery
   value: FilterFieldName
   listboxId: ListboxId
+  label: string
   highlightedIndex: number
   onFocus: () => void
   onChange: (event: ChangeEvent<HTMLInputElement>) => void
   onKeyDown: (event: KeyboardEvent<HTMLInputElement>) => void
 }) {
+  const inputId = `${listboxId}-input`
   return (
     <>
+      <Label htmlFor={inputId} className="sr-only">{label}</Label>
       <Input
+        id={inputId}
         ref={inputRef}
         value={open ? query : value}
         onFocus={onFocus}
@@ -261,6 +269,7 @@ function FilterFieldPopoverPanel({
 }
 
 export function FilterFieldCombobox({ value, fields, onChange }: FilterFieldComboboxProps) {
+  const locale = useAppLocale()
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState(value)
   const [hasTyped, setHasTyped] = useState(false)
@@ -367,6 +376,7 @@ export function FilterFieldCombobox({ value, fields, onChange }: FilterFieldComb
             query={query}
             value={value}
             listboxId={listboxId}
+            label={translate(locale, 'a11y.filterField')}
             highlightedIndex={highlightedIndex}
             onFocus={openCombobox}
             onChange={handleInputChange}

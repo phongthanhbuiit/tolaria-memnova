@@ -1072,6 +1072,7 @@
   "a11y.removeValue": "Xóa {value}",
   "a11y.removeRelation": "Xóa khỏi quan hệ",
   "a11y.changePropertyType": "Đổi kiểu của {property}",
+  "a11y.filterField": "Trường lọc",
   "a11y.removeFilter": "Xóa bộ lọc",
   "a11y.removeGroup": "Xóa nhóm",
   "a11y.regexValue": "Dùng giá trị như biểu thức chính quy",

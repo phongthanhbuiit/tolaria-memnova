@@ -1072,6 +1072,7 @@
   "a11y.removeValue": "{value} を削除",
   "a11y.removeRelation": "関連から削除",
   "a11y.changePropertyType": "{property} の種類を変更",
+  "a11y.filterField": "フィルターの項目",
   "a11y.removeFilter": "フィルターを削除",
   "a11y.removeGroup": "グループを削除",
   "a11y.regexValue": "値を正規表現として扱う",
