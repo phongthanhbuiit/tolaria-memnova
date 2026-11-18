@@ -555,3 +555,10 @@ W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
 
 - P3 · Mở sidebar tối với màu Loại Topics là indigo. Đo foreground so với nền sidebar được 1,37:1. Đạt khi icon không dưới 3:1. [Ảnh audit](review-shots/2026-11-18/07-thuoc-tinh-xem-dark.png).
 - **fixed (commit W2-25)**. Trong theme tối, màu biểu tượng lấy từ màu Loại và màu chữ sidebar đã có. Playwright Chromium đo cùng cấu hình indigo từ 1,37:1 lên 7,28:1. Native vi 1440×900 [sáng](review-shots/2026-11-18/W2-25-after-light.png) · [tối](review-shots/2026-11-18/W2-25-after-dark.png).
+
+## Đợt 3
+
+### F-067 · W3-01 · Nút AI nổi
+
+- P2 · Nút tròn AI ở góc dưới phải đè lên nút "Ôn ngay" của panel Thuộc tính. Ảnh đối chiếu: W2-18-after-1440-light.
+- Đạt khi: Nút nổi không bao giờ che điều khiển: ẩn hoặc dời khi panel phải mở/khi chồng lên vùng có nút; kiểm 1440×900 và 1024×700.
