@@ -1,3 +1,4 @@
+import { getLocaleDateLocale, translate, type AppLocale } from './i18n'
 import type { VaultEntry } from '../types'
 
 export type VaultAiGuidanceFileState = 'checking' | 'managed' | 'missing' | 'broken' | 'custom'
@@ -76,50 +77,26 @@ function isMissingOrBroken(state: VaultAiGuidanceFileState): boolean {
   return state === 'missing' || state === 'broken'
 }
 
-function formatGuidanceFileList(names: string[]): string {
-  if (names.length < 2) return names.join('')
-  if (names.length === 2) return `${names[0]} and ${names[1]}`
-  return `${names.slice(0, -1).join(', ')}, and ${names[names.length - 1]}`
-}
-
-function getBrokenGuidanceSummary(status: VaultAiGuidanceStatus): string | null {
-  if (isMissingOrBroken(status.agentsState)) {
-    return 'Tolaria guidance missing or broken'
-  }
-  if (isMissingOrBroken(status.claudeState)) {
-    return 'Claude compatibility shim missing or broken'
-  }
-  if (status.geminiState === 'missing') {
-    return 'Gemini guidance can be created'
-  }
-  if (status.geminiState === 'broken') {
-    return 'Gemini guidance missing or broken'
-  }
+function getBrokenGuidanceSummary(status: VaultAiGuidanceStatus, locale: AppLocale): string | null {
+  if (isMissingOrBroken(status.agentsState)) return translate(locale, 'ai.guidance.agentsBroken')
+  if (isMissingOrBroken(status.claudeState)) return translate(locale, 'ai.guidance.claudeBroken')
+  if (status.geminiState === 'missing') return translate(locale, 'ai.guidance.geminiMissing')
+  if (status.geminiState === 'broken') return translate(locale, 'ai.guidance.geminiBroken')
   return null
 }
 
-function getCustomGuidanceSummary(status: VaultAiGuidanceStatus): string | null {
+export function getVaultAiGuidanceSummary(status: VaultAiGuidanceStatus, locale: AppLocale = 'en'): string {
+  if (isVaultAiGuidanceStatusChecking(status)) return translate(locale, 'ai.guidance.checking')
+  const brokenSummary = getBrokenGuidanceSummary(status, locale)
+  if (brokenSummary) return brokenSummary
   const customNames = [
     status.agentsState === 'custom' ? 'AGENTS.md' : null,
     status.claudeState === 'custom' ? 'CLAUDE.md' : null,
     status.geminiState === 'custom' ? 'GEMINI.md' : null,
   ].filter((name): name is string => name !== null)
-  if (customNames.length > 1) {
-    return `Custom ${formatGuidanceFileList(customNames)} active`
-  }
-  if (status.agentsState === 'custom') return 'Using custom AGENTS.md'
-  if (status.claudeState === 'custom') return 'Using custom CLAUDE.md'
-  if (status.geminiState === 'custom') return 'Using custom GEMINI.md'
-  return null
-}
-
-export function getVaultAiGuidanceSummary(status: VaultAiGuidanceStatus): string {
-  if (isVaultAiGuidanceStatusChecking(status)) return 'Checking vault guidance…'
-  const brokenSummary = getBrokenGuidanceSummary(status)
-  if (brokenSummary) return brokenSummary
-  const customSummary = getCustomGuidanceSummary(status)
-  if (customSummary) return customSummary
-  return 'Tolaria guidance ready'
+  if (!customNames.length) return translate(locale, 'ai.guidance.ready')
+  const files = new Intl.ListFormat(getLocaleDateLocale(locale), { type: 'conjunction' }).format(customNames)
+  return translate(locale, 'ai.guidance.custom', { files })
 }
 
 export function buildVaultAiGuidanceRefreshKey(entries: VaultEntry[]): string {

@@ -1159,5 +1159,12 @@
   "filters.addGroup": "Добавить группу",
   "filters.fields.noResults": "Нет результатов",
   "a11y.chooseIcon": "Выбрать значок {icon}",
-  "a11y.whiteboardMenu": "Меню рисования"
+  "a11y.whiteboardMenu": "Меню рисования",
+  "ai.guidance.checking": "Checking vault guidance…",
+  "ai.guidance.agentsBroken": "Memnova guidance missing or broken",
+  "ai.guidance.claudeBroken": "Claude compatibility shim missing or broken",
+  "ai.guidance.geminiMissing": "GEMINI.md is missing. Choose Restore to create the guidance file.",
+  "ai.guidance.geminiBroken": "Gemini guidance is damaged. Choose Restore to repair it.",
+  "ai.guidance.custom": "Using custom {files}",
+  "ai.guidance.ready": "Memnova guidance is ready"
 }

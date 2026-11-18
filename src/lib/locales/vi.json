@@ -1159,5 +1159,12 @@
   "filters.addGroup": "Thêm nhóm",
   "filters.fields.noResults": "Không có kết quả",
   "a11y.chooseIcon": "Chọn biểu tượng {icon}",
-  "a11y.whiteboardMenu": "Menu bảng vẽ"
+  "a11y.whiteboardMenu": "Menu bảng vẽ",
+  "ai.guidance.checking": "Đang kiểm tra tệp hướng dẫn của thư viện…",
+  "ai.guidance.agentsBroken": "Hướng dẫn Memnova bị thiếu hoặc lỗi",
+  "ai.guidance.claudeBroken": "Tệp tương thích Claude bị thiếu hoặc lỗi",
+  "ai.guidance.geminiMissing": "Chưa có GEMINI.md. Chọn Khôi phục để tạo tệp hướng dẫn.",
+  "ai.guidance.geminiBroken": "Tệp hướng dẫn Gemini bị lỗi. Chọn Khôi phục để sửa.",
+  "ai.guidance.custom": "Đang dùng tệp tùy chỉnh {files}",
+  "ai.guidance.ready": "Hướng dẫn Memnova đã sẵn sàng"
 }

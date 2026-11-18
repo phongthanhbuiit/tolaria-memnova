@@ -1159,5 +1159,12 @@
   "filters.addGroup": "グループを追加",
   "filters.fields.noResults": "結果がありません",
   "a11y.chooseIcon": "アイコン {icon} を選択",
-  "a11y.whiteboardMenu": "描画メニュー"
+  "a11y.whiteboardMenu": "描画メニュー",
+  "ai.guidance.checking": "Checking vault guidance…",
+  "ai.guidance.agentsBroken": "Memnova guidance missing or broken",
+  "ai.guidance.claudeBroken": "Claude compatibility shim missing or broken",
+  "ai.guidance.geminiMissing": "GEMINI.md is missing. Choose Restore to create the guidance file.",
+  "ai.guidance.geminiBroken": "Gemini guidance is damaged. Choose Restore to repair it.",
+  "ai.guidance.custom": "Using custom {files}",
+  "ai.guidance.ready": "Memnova guidance is ready"
 }

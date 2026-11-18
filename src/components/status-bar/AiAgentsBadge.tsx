@@ -61,7 +61,7 @@ function badgeTooltip(
   guidanceStatus?: VaultAiGuidanceStatus,
 ): string {
   const guidanceSummary = guidanceStatus && !isVaultAiGuidanceStatusChecking(guidanceStatus)
-    ? getVaultAiGuidanceSummary(guidanceStatus)
+    ? getVaultAiGuidanceSummary(guidanceStatus, locale)
     : null
   if (!hasAnyInstalledAiAgent(statuses)) return translate(locale, 'status.ai.noAgentsTooltip')
   const definition = getAiAgentDefinition(defaultAgent)
@@ -222,7 +222,7 @@ function GuidanceMenuSection({
       <DropdownMenuSeparator />
       <DropdownMenuLabel>{translate(locale, 'status.ai.vaultGuidance')}</DropdownMenuLabel>
       <DropdownMenuItem disabled data-testid="status-ai-guidance-summary">
-        {getVaultAiGuidanceSummary(guidanceStatus)}
+        {getVaultAiGuidanceSummary(guidanceStatus, locale)}
       </DropdownMenuItem>
       {vaultAiGuidanceNeedsRestore(guidanceStatus) && guidanceStatus.canRestore && (
         <DropdownMenuItem

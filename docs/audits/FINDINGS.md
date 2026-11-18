@@ -524,3 +524,9 @@ W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
 - P2 · Cài đặt còn tên Tolaria và mô tả Alpha theo thao tác đẩy lên nhánh phát triển. [Ảnh audit](review-shots/2026-11-18/17a-cai-dat-tab-dau-dark.png).
 - Đạt khi catalog en/vi dùng Memnova và giải thích sự khác nhau giữa bản ổn định và bản thử nghiệm.
 - **fixed (commit W2-16)**. Nhãn catalog dùng Memnova. Hai mô tả kênh phát hành chờ dịch ngoài en/vi. Validator đạt cả 18 catalog.
+
+### F-062 · W2-19 · Cảnh báo hướng dẫn Gemini chưa dịch
+
+- P2 · Mở AI khi Library chưa có GEMINI.md, banner ghép tiếng Việt với “Gemini guidance can be created”. [Ảnh audit](review-shots/2026-11-18/18-bang-ai-rong-light.png).
+- Đạt khi lý do và thao tác tạo hoặc khôi phục được diễn đạt theo ngôn ngữ ứng dụng.
+- **fixed (commit W2-19)**. Banner và trạng thái hướng dẫn dùng catalog. Khi thiếu GEMINI.md, câu chỉ rõ chọn Khôi phục để tạo tệp. Test vi RED → GREEN.

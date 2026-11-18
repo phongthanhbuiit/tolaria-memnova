@@ -85,7 +85,7 @@ describe('vaultAiGuidance helpers', () => {
     })
 
     expect(vaultAiGuidanceNeedsRestore(restoreable)).toBe(true)
-    expect(getVaultAiGuidanceSummary(restoreable)).toBe('Tolaria guidance missing or broken')
+    expect(getVaultAiGuidanceSummary(restoreable)).toBe('Memnova guidance missing or broken')
     expect(vaultAiGuidanceUsesCustomFiles(custom)).toBe(true)
     expect(getVaultAiGuidanceSummary(custom)).toBe('Using custom AGENTS.md')
   })
@@ -105,7 +105,8 @@ describe('vaultAiGuidance helpers', () => {
     })
 
     expect(vaultAiGuidanceNeedsRestore(missing)).toBe(true)
-    expect(getVaultAiGuidanceSummary(missing)).toBe('Gemini guidance can be created')
+    expect(getVaultAiGuidanceSummary(missing)).toBe('GEMINI.md is missing. Choose Restore to create the guidance file.')
+    expect(getVaultAiGuidanceSummary(missing, 'vi')).toBe('Chưa có GEMINI.md. Chọn Khôi phục để tạo tệp hướng dẫn.')
     expect(vaultAiGuidanceUsesCustomFiles(custom)).toBe(true)
     expect(getVaultAiGuidanceSummary(custom)).toBe('Using custom GEMINI.md')
   })
