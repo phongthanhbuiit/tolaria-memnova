@@ -94,7 +94,7 @@ function RelationshipSectionRow({ label, children, dataTestId, locale, placehold
 function RelationshipActionRow({ children, label }: { children: ReactNode; label: string }) {
   return (
     <div className={RELATIONSHIP_ACTION_ROW_CLASS_NAME} style={{ gridColumn: '1 / -1' }}>
-      <div role="group" aria-label={label} className="grid min-w-0 gap-1">{children}</div>
+      <div role="group" aria-label={label} className="flex min-w-0 flex-wrap items-center gap-1 [&>button]:w-auto">{children}</div>
     </div>
   )
 }
@@ -724,7 +724,7 @@ interface AddRelationshipFormProps {
 function AddRelationshipButton({ locale, onClick }: { locale: AppLocale; onClick: () => void }) {
   return (
     <Button layout="responsive" type="button" variant="ghost" size="sm" className="w-full justify-start px-2 text-text-secondary" onClick={onClick}>
-      {translate(locale, 'inspector.relationship.addRelationship')}
+      <Plus aria-hidden="true" />{translate(locale, 'inspector.relationship.addRelationship')}
     </Button>
   )
 }
@@ -881,7 +881,7 @@ function updateRefsForAddition(refs: string[], refToAdd: string): FrontmatterVal
 
 function DisabledLinkButton({ locale }: { locale: AppLocale }) {
   return (
-    <Button layout="responsive" variant="ghost" size="sm" type="button" className="w-full justify-start px-2" disabled>{translate(locale, 'inspector.relationship.addRelationship')}</Button>
+    <Button layout="responsive" variant="ghost" size="sm" type="button" className="w-full justify-start px-2" disabled><Plus aria-hidden="true" />{translate(locale, 'inspector.relationship.addRelationship')}</Button>
   )
 }
 

@@ -610,7 +610,7 @@
   "inspector.properties.valuePlaceholder": "值",
   "inspector.properties.propertyName": "屬性名稱",
   "inspector.relationship.add": "新增",
-  "inspector.relationship.addRelationship": "+ 新增關係",
+  "inspector.relationship.addRelationship": "新增關係",
   "inspector.relationship.name": "關係名稱",
   "inspector.relationship.noteTitle": "筆記標題",
   "inspector.relationship.createAndOpen": "建立並開啟",

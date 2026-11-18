@@ -602,3 +602,8 @@ W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
 
 - P3 · Mô tả dài/kỹ thuật: Ngôn ngữ 4 dòng; "Sử dụng dạng số nhiều cho tên loại trong thanh bên"; "Kênh Alpha". Ảnh đối chiếu: 17a, 17b.
 - Đạt khi: Mỗi mô tả ≤ 2 dòng ở 1440, nói lợi ích cho người dùng; en + vi viết lại.
+
+### F-076 · W3-10 · Thuộc tính
+
+- P3 · "+ Thêm mối quan hệ" dùng dấu "+" chữ, các nút khác dùng icon; thứ tự 3 lối thêm/sửa ở cuối còn rời. Ảnh đối chiếu: W2-18-after-1440-light.
+- Đạt khi: Cùng kiểu icon; ba lối nằm một nhóm thẳng hàng.

@@ -610,7 +610,7 @@
   "inspector.properties.valuePlaceholder": "Значэнне",
   "inspector.properties.propertyName": "Імя ўласцівасці",
   "inspector.relationship.add": "Дадаць",
-  "inspector.relationship.addRelationship": "+ Дадаць сувязь",
+  "inspector.relationship.addRelationship": "Дадаць сувязь",
   "inspector.relationship.name": "Імя сувязі",
   "inspector.relationship.noteTitle": "Загаловак нататкі",
   "inspector.relationship.createAndOpen": "Стварыць і адкрыць",

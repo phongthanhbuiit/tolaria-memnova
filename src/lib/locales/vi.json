@@ -610,7 +610,7 @@
   "inspector.properties.valuePlaceholder": "Giá trị",
   "inspector.properties.propertyName": "Tên thuộc tính",
   "inspector.relationship.add": "Thêm",
-  "inspector.relationship.addRelationship": "+ Thêm mối quan hệ",
+  "inspector.relationship.addRelationship": "Thêm mối quan hệ",
   "inspector.relationship.name": "Tên mối quan hệ",
   "inspector.relationship.noteTitle": "Tiêu đề ghi chú",
   "inspector.relationship.createAndOpen": "Tạo & mở",

@@ -610,7 +610,7 @@
   "inspector.properties.valuePlaceholder": "Значение",
   "inspector.properties.propertyName": "Название свойства",
   "inspector.relationship.add": "Добавить",
-  "inspector.relationship.addRelationship": "+ Добавить связь",
+  "inspector.relationship.addRelationship": "Добавить связь",
   "inspector.relationship.name": "Название связи",
   "inspector.relationship.noteTitle": "Название заметки",
   "inspector.relationship.createAndOpen": "Создать и открыть",

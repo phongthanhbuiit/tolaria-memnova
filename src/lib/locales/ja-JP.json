@@ -610,7 +610,7 @@
   "inspector.properties.valuePlaceholder": "値",
   "inspector.properties.propertyName": "プロパティ名",
   "inspector.relationship.add": "追加",
-  "inspector.relationship.addRelationship": "+ 関係を追加",
+  "inspector.relationship.addRelationship": "関係を追加",
   "inspector.relationship.name": "関係名",
   "inspector.relationship.noteTitle": "ノートのタイトル",
   "inspector.relationship.createAndOpen": "作成して開く",

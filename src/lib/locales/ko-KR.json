@@ -610,7 +610,7 @@
   "inspector.properties.valuePlaceholder": "값",
   "inspector.properties.propertyName": "속성 이름",
   "inspector.relationship.add": "추가",
-  "inspector.relationship.addRelationship": "+ 관계 추가",
+  "inspector.relationship.addRelationship": "관계 추가",
   "inspector.relationship.name": "관계 이름",
   "inspector.relationship.noteTitle": "노트 제목",
   "inspector.relationship.createAndOpen": "생성 및 열기",

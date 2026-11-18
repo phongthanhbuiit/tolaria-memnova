@@ -611,7 +611,7 @@
   "inspector.properties.valuePlaceholder": "Značennie",
   "inspector.properties.propertyName": "Imia ŭlascivasci",
   "inspector.relationship.add": "Dadać",
-  "inspector.relationship.addRelationship": "+ Dadać suviaź",
+  "inspector.relationship.addRelationship": "Dadać suviaź",
   "inspector.relationship.name": "Imia suviazi",
   "inspector.relationship.noteTitle": "Zahalovak natatki",
   "inspector.relationship.createAndOpen": "Stvaryć i adkryć",

@@ -657,7 +657,7 @@
   "inspector.properties.valuePlaceholder": "Value",
   "inspector.properties.propertyName": "Property name",
   "inspector.relationship.add": "Add",
-  "inspector.relationship.addRelationship": "+ Add relationship",
+  "inspector.relationship.addRelationship": "Add relationship",
   "inspector.relationship.name": "Relationship name",
   "inspector.relationship.noteTitle": "Note title",
   "inspector.relationship.createAndOpen": "Create & open",

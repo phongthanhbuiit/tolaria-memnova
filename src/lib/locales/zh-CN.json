@@ -610,7 +610,7 @@
   "inspector.properties.valuePlaceholder": "值",
   "inspector.properties.propertyName": "属性名称",
   "inspector.relationship.add": "添加",
-  "inspector.relationship.addRelationship": "+ 添加关系",
+  "inspector.relationship.addRelationship": "添加关系",
   "inspector.relationship.name": "关系名称",
   "inspector.relationship.noteTitle": "笔记标题",
   "inspector.relationship.createAndOpen": "创建并打开",

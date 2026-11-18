@@ -199,21 +199,21 @@ describe('DynamicRelationshipsPanel', () => {
     expect(screen.getByText('Luca')).toBeInTheDocument()
   })
 
-  it('renders + Add relationship button when onAddProperty provided', () => {
+  it('renders Add relationship button when onAddProperty provided', () => {
     renderRelationshipsPanel({ onAddProperty })
-    expect(screen.getByText('+ Add relationship')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Add relationship', exact: true })).toBeInTheDocument()
   })
 
   it('opens add relationship form when button clicked', () => {
     renderRelationshipsPanel({ onAddProperty })
-    fireEvent.click(screen.getByText('+ Add relationship'))
+    fireEvent.click(screen.getByRole('button', { name: 'Add relationship', exact: true }))
     expect(screen.getByPlaceholderText('Relationship name')).toBeInTheDocument()
     expect(screen.getByPlaceholderText('Note title')).toBeInTheDocument()
   })
 
   it('adds relationship via form', () => {
     renderRelationshipsPanel({ onAddProperty })
-    fireEvent.click(screen.getByText('+ Add relationship'))
+    fireEvent.click(screen.getByRole('button', { name: 'Add relationship', exact: true }))
     fireEvent.change(screen.getByPlaceholderText('Relationship name'), { target: { value: 'Related to' } })
     fireEvent.change(screen.getByPlaceholderText('Note title'), { target: { value: 'AI' } })
     fireEvent.click(screen.getByTestId('submit-add-relationship'))
@@ -242,7 +242,7 @@ describe('DynamicRelationshipsPanel', () => {
       vaultPath: '/personal',
       onAddProperty,
     })
-    fireEvent.click(screen.getByText('+ Add relationship'))
+    fireEvent.click(screen.getByRole('button', { name: 'Add relationship', exact: true }))
     fireEvent.change(screen.getByPlaceholderText('Relationship name'), { target: { value: 'Mentions' } })
     const noteInput = screen.getByPlaceholderText('Note title')
     fireEvent.focus(noteInput)
@@ -256,9 +256,9 @@ describe('DynamicRelationshipsPanel', () => {
 
   it('cancels add relationship form', () => {
     renderRelationshipsPanel({ onAddProperty })
-    fireEvent.click(screen.getByText('+ Add relationship'))
+    fireEvent.click(screen.getByRole('button', { name: 'Add relationship', exact: true }))
     fireEvent.click(screen.getByText('Cancel'))
-    expect(screen.getByText('+ Add relationship')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Add relationship', exact: true })).toBeInTheDocument()
   })
 
   describe('suggested relationship slots', () => {
@@ -572,7 +572,7 @@ describe('DynamicRelationshipsPanel', () => {
 
     it('shows "Create & open" option in target input when title does not exist', () => {
       renderRelationshipsPanel({ onAddProperty, onCreateAndOpenNote })
-      fireEvent.click(screen.getByText('+ Add relationship'))
+      fireEvent.click(screen.getByRole('button', { name: 'Add relationship', exact: true }))
       fireEvent.change(screen.getByPlaceholderText('Relationship name'), { target: { value: 'Mentions' } })
       const noteInput = screen.getByPlaceholderText('Note title')
       fireEvent.focus(noteInput)
@@ -582,14 +582,14 @@ describe('DynamicRelationshipsPanel', () => {
 
     it('submits from the relationship-name input on Enter and cancels the form from the note input on Escape', () => {
       renderRelationshipsPanel({ onAddProperty, onCreateAndOpenNote })
-      fireEvent.click(screen.getByText('+ Add relationship'))
+      fireEvent.click(screen.getByRole('button', { name: 'Add relationship', exact: true }))
       fireEvent.change(screen.getByPlaceholderText('Relationship name'), { target: { value: 'Mentions' } })
       fireEvent.change(screen.getByPlaceholderText('Note title'), { target: { value: 'AI' } })
       fireEvent.keyDown(screen.getByPlaceholderText('Relationship name'), { key: 'Enter' })
 
       expect(onAddProperty).toHaveBeenCalledWith('Mentions', '[[topic/ai]]')
 
-      fireEvent.click(screen.getByText('+ Add relationship'))
+      fireEvent.click(screen.getByRole('button', { name: 'Add relationship', exact: true }))
       fireEvent.keyDown(screen.getByPlaceholderText('Note title'), { key: 'Escape' })
       expect(screen.queryByPlaceholderText('Relationship name')).not.toBeInTheDocument()
     })
@@ -597,7 +597,7 @@ describe('DynamicRelationshipsPanel', () => {
     it('hides the target dropdown after blur once the grace timeout expires', () => {
       vi.useFakeTimers()
       renderRelationshipsPanel({ onAddProperty, onCreateAndOpenNote })
-      fireEvent.click(screen.getByText('+ Add relationship'))
+      fireEvent.click(screen.getByRole('button', { name: 'Add relationship', exact: true }))
       fireEvent.change(screen.getByPlaceholderText('Relationship name'), { target: { value: 'Mentions' } })
 
       const noteInput = screen.getByPlaceholderText('Note title')
@@ -616,7 +616,7 @@ describe('DynamicRelationshipsPanel', () => {
 
     it('creates note and adds relationship via form', async () => {
       renderRelationshipsPanel({ onAddProperty, onCreateAndOpenNote })
-      fireEvent.click(screen.getByText('+ Add relationship'))
+      fireEvent.click(screen.getByRole('button', { name: 'Add relationship', exact: true }))
       fireEvent.change(screen.getByPlaceholderText('Relationship name'), { target: { value: 'Mentions' } })
       const noteInput = screen.getByPlaceholderText('Note title')
       fireEvent.focus(noteInput)

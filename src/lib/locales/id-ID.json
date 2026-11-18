@@ -610,7 +610,7 @@
   "inspector.properties.valuePlaceholder": "Nilai",
   "inspector.properties.propertyName": "Nama properti",
   "inspector.relationship.add": "Tambah",
-  "inspector.relationship.addRelationship": "+ Tambah hubungan",
+  "inspector.relationship.addRelationship": "Tambah hubungan",
   "inspector.relationship.name": "Nama hubungan",
   "inspector.relationship.noteTitle": "Judul catatan",
   "inspector.relationship.createAndOpen": "Buat & buka",
