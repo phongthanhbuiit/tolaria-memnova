@@ -1,7 +1,7 @@
 # Findings
 
 Quy tắc ghi: xem [skill](../../.agents/skills/memnova-audit/SKILL.md). ID tăng dần, không tái sử dụng.
-Trạng thái: `open` · `partial` · `fixed — chờ QA native (phạm vi)` · `rejected (lý do)` · `fixed (<commit>)`.
+Trạng thái: `open` · `partial` · `fixed — chờ QA native (phạm vi)` · `accepted (lý do)` · `rejected (lý do)` · `fixed (<commit>)`.
 
 ## Tiến độ hiện tại — tổng kết đêm 18/11/2026
 
@@ -10,17 +10,19 @@ Trạng thái: `open` · `partial` · `fixed — chờ QA native (phạm vi)` ·
 | Mức | Open | Partial | Fixed — chờ QA native |
 |---|---|---|---|
 | P0 | Không | Không | Không |
-| P1 | Không | F-005 | Không |
-| P2 | F-021 | F-009, F-032 | F-012 (pending/invalid/deleted), R-11 (editor thuộc tính) |
+| P1 | Không | Không | Không |
+| P2 | F-021 | F-032 | F-012 (pending/invalid/deleted), R-11 (editor thuộc tính) |
 | P3 | Không | Không | F-038 (Home/Decks/FlashcardStudyView legacy) |
 
-**Đã đóng:** F-001–F-004, F-006–F-008, F-010–F-011, F-013–F-020, F-022–F-031, F-033–F-037, F-039–F-041 (**35 F**) và R-01–R-10, R-12–R-16 (**15 R**). F-023/F-025/F-030/F-031 là phần nền tảng A. R-05 là test-only. Telex native vẫn chưa được xác minh.
+**Đã đóng:** F-001–F-004, F-006–F-011, F-013–F-020, F-022–F-031, F-033–F-037, F-039–F-041 (**36 F**) và F-005 (**accepted**, xem chi tiết) và R-01–R-10, R-12–R-16 (**15 R**). F-023/F-025/F-030/F-031 là phần nền tảng A. R-05 là test-only. Telex native vẫn chưa được xác minh.
 
-**Còn chờ native/bằng chứng bổ sung:** F-005 (nhãn nội bộ Excalidraw còn tiếng Anh, ảnh trước tối của E2); F-032 (message/tool chỉ có fixture); F-038 (các màn legacy không có route native); Telex trong AI và ô wikilink từ R-05/E2. F-005/F-032 vẫn partial vì ngoài QA còn phần mã/phạm vi chưa hoàn tất. F-038 đã sửa mã nhưng không tính đóng khi các màn legacy mới được kiểm bằng fixture/diff/test; đối chiếu giới hạn native trong [D4B](STEP-D4B-INLINE-STYLE.md).
+**Đợt 2–3:** F-042–F-062 và F-064–F-077 đã sửa. F-063 đạt trên baseline. F-078 rejected sau đối chiếu WebKit và native.
+
+**Còn chờ native/bằng chứng bổ sung:** F-032 (message/tool chỉ có fixture); F-038 (các màn legacy không có route native); Telex trong AI và ô wikilink từ R-05/E2. F-032 vẫn partial vì ngoài QA còn phần mã/phạm vi chưa hoàn tất. F-038 đã sửa mã nhưng không tính đóng khi các màn legacy mới được kiểm bằng fixture/diff/test; đối chiếu giới hạn native trong [D4B](STEP-D4B-INLINE-STYLE.md).
 
 Coverage dòng gần nhất (R-10): FE **87,85%**, Rust đầy đủ **86,41%**. Grep SPEC §8 hiện tại **1 / 0**.
 
-Đóng lô 18/11/2026. R-15 đã dịch đủ catalog. F-024 và R-16 giữ trạng thái fixed. F-005 còn nhãn nội bộ Excalidraw và F-032 còn mã ngoài 10 file đã xử lý nên vẫn partial. [Báo cáo lô](BATCH-2026-11-18.md).
+Đóng lô 18/11/2026. R-15 đã dịch đủ catalog. F-024 và R-16 giữ trạng thái fixed. Ở mốc đó, F-005 còn nhãn nội bộ Excalidraw và F-032 còn mã ngoài 10 file đã xử lý. W4 đã chấp nhận phần còn lại của F-005. [Báo cáo lô](BATCH-2026-11-18.md).
 
 ## Đợt 0 — rà soát ban đầu (17/11/2026)
 
@@ -37,11 +39,11 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 | F-002 | P1 | C4 | Ngày trong danh sách ghi chú là tiếng Anh khi UI tiếng Việt | ảnh | fixed (9c951e78) |
 | F-003 | P1 | C4 | Nhãn Properties tiếng Anh lẫn trong UI tiếng Việt | ảnh | fixed (`1a262b64`) |
 | F-004 | P1 | C4 | Công tắc "Ôn tập ghi chú này" và nút "Ôn ghi chú này" gần như trùng tên | ảnh | fixed (`e8dfc0c2`) |
-| F-005 | P1 | C5 | Nút chỉ có icon thiếu `aria-label` (~58 chỗ) | mã | partial — nút nội bộ Excalidraw còn tiếng Anh |
+| F-005 | P1 | C5 | Nút chỉ có icon thiếu `aria-label` (~58 chỗ) | mã | accepted — Excalidraw SDK thiếu bản dịch, người dùng chấp nhận 18/11 |
 | F-006 | P1 | C3 | 38 phần tử form HTML thô ngoài `ui/` (vi phạm AGENTS.md) | mã | fixed (`f5462464`) |
 | F-007 | P2 | C4 | Thuật ngữ học tập không nhất quán (trang/ghi chú, ghi nhớ/ôn/gợi nhớ) | ảnh | fixed (`25fdd409`) |
 | F-008 | P2 | C3 | Hai nút chính màu xanh cạnh tranh trên Trang chủ | ảnh | fixed (`70212a69`) |
-| F-009 | P2 | C1 | Ghi chú mới tên "Untitled Note 1794825081", breadcrumb hiện slug | ảnh | partial — breadcrumb fixed (`6b1e6200`); đặt tên mới ngoài D3 |
+| F-009 | P2 | C1 | Ghi chú mới tên "Untitled Note 1794825081", breadcrumb hiện slug | ảnh | fixed (`bec1cf64`, Lô 4) |
 | F-010 | P2 | C3 | Mỗi hàng danh sách hiện hai ngày giống nhau, ngày đầu không nhãn | ảnh | fixed (`14154524`) |
 | F-011 | P2 | C4 | Hạn ôn hiện mốc thời gian thô, không nói quá hạn bao lâu | ảnh | fixed (`dad0db41`) |
 | F-012 | P2 | C2 | Nhãn đỏ "Cần xử lý" không nói phải làm gì | ảnh | fixed — chờ QA native (nhãn pending/invalid/deleted, `27e39775`) |
@@ -89,11 +91,12 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 - Chấp nhận: hai nhãn không dùng chung động từ; mọi locale được cập nhật; `pnpm l10n:validate` pass.
 
 ### F-005 — Nút icon thiếu tên truy cập
+- **accepted — Excalidraw SDK thiếu bản dịch, người dùng chấp nhận 18/11/2026**. Quyết định W4 đóng phần còn lại sau bản sửa locale Lô 4 (`3e2e4eb6`).
 - Lô 4 · Truyền locale ứng dụng vào Excalidraw và kiểm tra đổi ngôn ngữ khi đang vẽ. RED: sau en → vi, nút vẫn đọc “Zoom in”.
 - **Fixed phần Lô 4 (F-005)**. SDK nhận locale của ứng dụng, bật catalog vi-VN có sẵn, dùng catalog Memnova cho hai nhãn truy cập tiếng Việt còn thiếu và giữ thuộc tính lang của app. Đổi en → vi → en giữ hình và lịch sử hoàn tác trong regression. Chuỗi SDK chưa có bản dịch dùng tiếng Anh. Native vi [sáng](review-shots/2026-11-18/F-005-after-light.png) · [tối](review-shots/2026-11-18/F-005-after-dark.png).
 - Đóng lô `21870f47` đã dịch nút chọn biểu tượng và nút menu bảng vẽ cho mọi catalog. QA xác nhận en, vi, de-DE và ja-JP. Nhãn nội bộ Excalidraw vẫn thuộc phần còn lại của finding. [QA lô](BATCH-2026-11-18.md).
 - **Bổ sung trong lô, 18/11/2026:** Quét JSX theo cả thuộc tính và nội dung nhiều dòng, mở thêm các trạng thái qua test quét. Đã bổ sung tên tiếng Việt cho mũi tên tăng/giảm của [menu sắp xếp](../../src/components/SortDropdown.tsx), [các nút chọn biểu tượng](../../src/components/TypeCustomizePopover.tsx), [nút và combobox sửa biểu tượng](../../src/components/IconEditableValue.tsx), [combobox loại thẻ legacy](../../src/components/inspector/FlashcardPanel.tsx) và [tên trường đi kèm giá trị trong combobox chọn kho lưu trữ](../../src/components/WorkspaceSelector.tsx). Combobox chọn trường lọc đã được R-14 gắn nhãn cho từng hàng, nay được quét lại cùng bộ chọn toán tử. R-13 đã dịch hai nút BlockNote và qua kiểm tra lại khi chuyển ngôn ngữ.
-- **Bảng vẽ nhúng:** Axe `button-name` phát hiện nút menu mặc định Excalidraw thiếu tên. [Lớp nhúng](../../src/components/ExcalidrawWhiteboard.tsx) giờ gắn nhãn catalog, còn nút và menu gốc vẫn xử lý chuột, Enter và Escape. Axe kiểm lại không báo vi phạm `button-name` trong các trạng thái bảng vẽ đã mở. Vẫn partial vì Excalidraw còn tên màn hình đọc tiếng Anh cho công cụ phụ, phóng to/thu nhỏ, hoàn tác/làm lại, trợ giúp và bộ chọn màu nền. SDK 0.18.1 áp dụng `langCode` cho cả nội dung hiển thị và thuộc tính ngôn ngữ của tài liệu. Bản sửa này chỉ gắn nhãn nút menu và giữ nguyên giao diện bảng vẽ.
+- **Bảng vẽ nhúng:** Axe `button-name` phát hiện nút menu mặc định Excalidraw thiếu tên. [Lớp nhúng](../../src/components/ExcalidrawWhiteboard.tsx) giờ gắn nhãn catalog, còn nút và menu gốc vẫn xử lý chuột, Enter và Escape. Axe kiểm lại không báo vi phạm `button-name` trong các trạng thái bảng vẽ đã mở. Lúc đó còn partial vì Excalidraw còn tên màn hình đọc tiếng Anh cho công cụ phụ, phóng to/thu nhỏ, hoàn tác/làm lại, trợ giúp và bộ chọn màu nền. SDK 0.18.1 áp dụng `langCode` cho cả nội dung hiển thị và thuộc tính ngôn ngữ của tài liệu. Bản sửa này chỉ gắn nhãn nút menu và giữ nguyên giao diện bảng vẽ.
 - **E2 — partial (`f6601cbc`), 18/11/2026:** nhãn/tooltip icon của app đã dịch đủ catalog; mở rộng test sang mọi HTML button kể cả role combobox, 22/22 GREEN. Axe app/learning không còn button-name violation trong các trạng thái đã quét. Native BlockNote vẫn có hai nhãn English, ghi R-13 nên chưa đóng yêu cầu mọi nút được dịch. [Biên bản E2](STEP-E2-A11Y-FORMS.md).
 - Thực tế: grep `size="icon` không kèm `aria-label` cùng dòng ≈ 58. Phép đếm một dòng nên có dương tính giả — mở từng file xác nhận.
 - Chấp nhận: axe qua Playwright không còn lỗi `button-name` trên S1–S11; mỗi nút icon có tooltip trùng `aria-label`.
@@ -116,7 +119,7 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 
 ### F-009 — Tên ghi chú mặc định
 - Lô 4 · Nhãn “Chưa có tiêu đề” cho ghi chú mới có tên sinh tự động và chưa có H1. Tên tệp vẫn dùng cho thao tác đổi tên và tự đồng bộ khi viết H1.
-- **Fixed phần Lô 4 (F-009)**. Danh sách và breadcrumb dùng nhãn ở lớp hiển thị. RED 2 ca → GREEN 183 test liên quan. Native tạo ghi chú, xác minh stem untitled-note-1794998298, nhập H1 rồi mở lại wave-four-qa-heading.md. [Sáng](review-shots/2026-11-18/F-009-after-light.png) · [Tối](review-shots/2026-11-18/F-009-after-dark.png) · [Sau khi nhập H1](review-shots/2026-11-18/F-009-after-h1-light.png).
+- **fixed (`bec1cf64`, Lô 4)**. Danh sách và breadcrumb dùng nhãn ở lớp hiển thị. RED 2 ca → GREEN 183 test liên quan. Native tạo ghi chú, xác minh stem untitled-note-1794998298, nhập H1 rồi mở lại wave-four-qa-heading.md. [Sáng](review-shots/2026-11-18/F-009-after-light.png) · [Tối](review-shots/2026-11-18/F-009-after-dark.png) · [Sau khi nhập H1](review-shots/2026-11-18/F-009-after-h1-light.png).
 - Thực tế (`REVIEW`, `HOME`): tiêu đề "Untitled Note 1794825081", breadcrumb "untitled-note-1794825081"; (`WRITE`) breadcrumb "pomodoro" thay vì tiêu đề "Pomodoro".
 - Sửa: tiêu đề mặc định đã dịch ("Chưa đặt tên"), số chống trùng chỉ nằm ở tên file; breadcrumb hiện tiêu đề.
 - Lưu ý: chạm cách đặt tên file → đọc ADR liên quan trước, không đổi tên file đã có.
@@ -450,7 +453,7 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 
 ## Đợt 2 · Lô 2
 
-W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
+W2-09 được bỏ qua ở đợt 2 và chuyển thành tính năng W4-02 theo quyết định 18/11/2026.
 
 ### F-050 · W2-11 · Mặt sau thẻ nằm ngoài vùng nhìn
 
@@ -493,7 +496,7 @@ W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
 
 - P2 · Playwright en, vi, de-DE, ja-JP. Trong Library tạm, mở phiên thẻ cũ có một thẻ, thêm thẻ đến hạn cùng ghi chú sau khi bắt đầu, chấm thẻ đầu rồi chọn Ôn tiếp. Phiên mới chọn luồng Ghi nhớ nên không nhận thẻ cũ đến hạn.
 - Đạt khi Ôn tiếp mở đúng luồng và phạm vi của phiên đã xong, kể cả khi scope đã lưu lược trường `lane` theo định dạng legacy.
-- UI mặc định luồng legacy trước khi kiểm thẻ đến hạn và mở phiên nối tiếp. Giữ scope lưu, thuật toán xếp lịch và phím ôn.
+- **fixed (`e39d174b`, W2-13)**. UI mặc định luồng legacy trước khi kiểm thẻ đến hạn và mở phiên nối tiếp. Giữ scope lưu, thuật toán xếp lịch và phím ôn.
 
 ## Đợt 2 — Lô 3
 

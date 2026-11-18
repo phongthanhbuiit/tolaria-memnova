@@ -169,3 +169,10 @@
 - Codacy CLI local **5 → 5** cảnh báo Medium, **0 Critical/High mới**. CodeScene: not run (optional integration unavailable). Localization: no UI copy changes. Validator đạt 18 catalog và 1.109 khóa. PostHog không cần event cho chỉnh bố cục. Demo-vault và demo-vault-v2 sạch.
 - Câu hỏi cho người dùng / quyết định đã chọn. Dùng layout responsive của Button, cho khối chữ co lại và ưu tiên ngắt ở khoảng trắng. Welcome cuộn dọc khi thiếu chiều cao. Giữ token hiện có, kích thước cửa sổ và hành vi mở/tạo Library.
 - Hook push đầu phát hiện ca H1 lỗi ở lượt đầu và qua retry hiện có. Dừng lượt push trước khi công bố để ghi R-16 vào cùng commit rồi chạy lại hook. [Bằng chứng](evidence/R-16-smoke.txt).
+
+## W4 · Pha 0 — DONE
+
+- Mốc đầu `ac40a759` khớp origin/main, 0 commit chờ push. Dùng Node 24.12.0.
+- F-009 fixed ở `bec1cf64` (Lô 4), F-005 accepted theo quyết định 18/11. W2-09 chuyển sang W4-02. F-021/F-032 giữ nguyên.
+- Check: đối chiếu bảng, chi tiết và lịch sử Git. `git diff --check` đạt. Pha tài liệu.
+- Review chỉ đọc: vòng 1 thiếu tóm tắt F-042–078. Vòng 2 ĐẠT sau khi bổ sung dải trạng thái và dẫn commit F-056. Bằng chứng: FINDINGS.md:19,42,46,94,122,456,499,544,635.
