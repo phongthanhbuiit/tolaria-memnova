@@ -546,3 +546,8 @@ W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
 - P3 · Thanh trạng thái có MCP chưa kết nối và số thay đổi chờ lưu. Đạt khi tooltip MCP nói lý do, chỉ rõ cách mở thiết lập nếu khả dụng, còn bộ đếm dùng màu trung tính.
 - **fixed (commit W2-24)**. Tooltip giải thích tình trạng MCP và hiện lời chỉ dẫn khi có thể mở thiết lập. Số thay đổi có nền và chữ trung tính. Vitest RED → GREEN 69 test.
 - QA native tiếng Việt ở 1440×900. [Sáng](review-shots/2026-11-18/W2-24-after-light.png) · [Tối](review-shots/2026-11-18/W2-24-after-dark.png).
+
+### F-066 · W2-25 · Icon Topics thiếu tương phản ở theme tối
+
+- P3 · Mở sidebar tối với màu Loại Topics là indigo. Đo foreground so với nền sidebar được 1,37:1. Đạt khi icon không dưới 3:1. [Ảnh audit](review-shots/2026-11-18/07-thuoc-tinh-xem-dark.png).
+- **fixed (commit W2-25)**. Trong theme tối, màu biểu tượng lấy từ màu Loại và màu chữ sidebar đã có. Playwright Chromium đo cùng cấu hình indigo từ 1,37:1 lên 7,28:1. Native vi 1440×900 [sáng](review-shots/2026-11-18/W2-25-after-light.png) · [tối](review-shots/2026-11-18/W2-25-after-dark.png).

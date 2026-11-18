@@ -515,7 +515,17 @@ function SectionHeader({ label, type, Icon, sectionColor, itemCount, isActive, o
       {...dragHandleProps}
     >
       <div className="flex min-w-0 flex-1 items-center gap-[4px]">
-        <Icon className="shrink-0" size={16} weight={getSectionHeaderIconWeight(isActive)} style={{ color: isActive ? 'var(--primary)' : sectionColor }} />
+        <Icon
+          className={cn(
+            'shrink-0',
+            isActive
+              ? 'text-primary'
+              : 'text-(--section-icon-color) [[data-theme=dark]_&]:text-[color:color-mix(in_srgb,var(--sidebar-foreground)_70%,var(--section-icon-color))]',
+          )}
+          size={16}
+          weight={getSectionHeaderIconWeight(isActive)}
+          style={{ '--section-icon-color': sectionColor } as React.CSSProperties}
+        />
         <SectionHeaderLabel
           type={type}
           label={label}
