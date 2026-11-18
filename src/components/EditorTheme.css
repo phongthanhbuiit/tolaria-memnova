@@ -116,11 +116,42 @@
   color: var(--headings-h1-color);
   letter-spacing: var(--headings-h1-letter-spacing);
 }
-.editor__blocknote-container [data-content-type="heading"]:not([data-level])[data-is-empty-and-focused] .bn-inline-content:has(> .ProseMirror-trailingBreak:only-child)::before,
-.editor__blocknote-container [data-content-type="heading"]:not([data-level])[data-is-only-empty-block] .bn-inline-content:has(> .ProseMirror-trailingBreak:only-child)::before,
-.editor__blocknote-container [data-content-type="heading"][data-level="1"][data-is-empty-and-focused] .bn-inline-content:has(> .ProseMirror-trailingBreak:only-child)::before,
-.editor__blocknote-container [data-content-type="heading"][data-level="1"][data-is-only-empty-block] .bn-inline-content:has(> .ProseMirror-trailingBreak:only-child)::before {
-  content: "Title" !important;
+/* BlockNote 0.46 captures placeholder strings when mounting the view. Keep its
+   decorations and update only the generated text when the locale changes. */
+.editor__blocknote-container .bn-editor .bn-block-content .bn-inline-content:has(> .ProseMirror-trailingBreak:only-child)::before {
+  content: var(--editor-block-placeholder, none);
+}
+
+.editor__blocknote-container .bn-block-content[data-content-type="heading"] {
+  --editor-block-placeholder: var(--editor-heading-placeholder);
+}
+
+.editor__blocknote-container .bn-block-content[data-content-type="bulletListItem"] {
+  --editor-block-placeholder: var(--editor-list-placeholder);
+}
+
+.editor__blocknote-container .bn-block-content[data-content-type="numberedListItem"] {
+  --editor-block-placeholder: var(--editor-numbered-list-placeholder);
+}
+
+.editor__blocknote-container .bn-block-content[data-content-type="checkListItem"] {
+  --editor-block-placeholder: var(--editor-checklist-placeholder);
+}
+
+.editor__blocknote-container .bn-block-content[data-content-type="toggleListItem"] {
+  --editor-block-placeholder: var(--editor-toggle-placeholder);
+}
+
+.editor__blocknote-container .bn-editor .bn-block-content[data-is-only-empty-block] .bn-inline-content:has(> .ProseMirror-trailingBreak:only-child)::before {
+  content: var(--editor-document-placeholder, none);
+}
+
+.editor__blocknote-container .bn-editor .bn-block-content[data-is-empty-and-focused] .bn-inline-content:has(> .ProseMirror-trailingBreak:only-child)::before {
+  content: var(--editor-paragraph-placeholder);
+}
+
+.editor__blocknote-container .bn-editor .bn-block-content[data-content-type="heading"]:is(:not([data-level]), [data-level="1"]):is([data-is-empty-and-focused], [data-is-only-empty-block]) .bn-inline-content:has(> .ProseMirror-trailingBreak:only-child)::before {
+  content: var(--editor-title-placeholder, "Title");
 }
 
 .editor__blocknote-container .bn-block-outer:has(> .bn-block > [data-content-type="heading"][data-level="2"]) {

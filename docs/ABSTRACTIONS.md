@@ -585,7 +585,7 @@ External vault mutations are any disk writes Tolaria did not just perform throug
 
 ## BlockNote Customization
 
-The editor uses [BlockNote](https://www.blocknotejs.org/) for rich text editing, with CodeMirror 6 available as a raw editing alternative.
+The editor uses [BlockNote](https://www.blocknotejs.org/) for rich text editing, with CodeMirror 6 available as a raw editing alternative. The writable editor owns a copy of the installed BlockNote dictionary. Locale changes synchronize that copy and repaint the editor chrome without recreating the editor or its ProseMirror view. CSS variables supply translated placeholder text to BlockNote's existing empty-block decorations. Belarusian (both scripts) and Indonesian use the package's English dictionary. Regional Spanish and Portuguese locales share the corresponding package dictionary.
 
 ### Custom Wikilink Inline Content
 

@@ -6,6 +6,7 @@ import { useDocumentThemeMode } from '../hooks/useDocumentThemeMode'
 import { getRuntimeStyleNonce } from '../lib/runtimeStyleNonce'
 import { useEditorTheme } from '../hooks/useTheme'
 import { schema } from './editorSchema'
+import { useEditorDictionary } from './editorDictionary'
 import { createArrowLigaturesExtension } from './arrowLigaturesExtension'
 import { createMathInputExtension } from './mathInputExtension'
 import { preProcessDurableEditorMarkdown, injectDurableEditorMarkdownBlocks } from '../utils/editorDurableMarkdown'
@@ -35,8 +36,10 @@ export function BlockNoteReadOnly(props: BlockNoteReadOnlyProps) {
   const { verifiedMedia,content,vaultPath,notePath,onImageClick,preserveBody = false,locale = 'en',onReady,onRenderStatus } = props
   const theme = useDocumentThemeMode()
   const { cssVars } = useEditorTheme()
+  const dictionary = useEditorDictionary(locale)
   const editor = useCreateBlockNote({
     schema,
+    dictionary,
     _tiptapOptions: { injectNonce: getRuntimeStyleNonce() },
     extensions: [createArrowLigaturesExtension(), createMathInputExtension()],
   })

@@ -77,6 +77,7 @@ import {
   selectedEditorPlainText,
   selectedEditorRange,
 } from './editorRichCopy'
+import { editorPlaceholderStyles } from './editorDictionary'
 
 const TEST_TABLE_MARKDOWN = `| Head 1 | Head 2 | Head 3 |
 | --- | --- | --- |
@@ -1346,7 +1347,7 @@ export function SingleEditorView({ editor, entries, onNavigateWikilink, onChange
       role="application"
       aria-label="Rich text editor"
       className={`editor__blocknote-container${isDragOver ? ' editor__blocknote-container--drag-over' : ''}`}
-      style={cssVars as React.CSSProperties}
+      style={{ ...cssVars, ...editorPlaceholderStyles(locale) } as React.CSSProperties}
       onCopyCapture={handleCopyCapture}
       onFocusCapture={handleFocusCapture}
       onMouseLeave={clearCopyTarget}

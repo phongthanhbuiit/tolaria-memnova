@@ -26,6 +26,7 @@ import { EditorContent } from './EditorContent'
 import { EditorMemoryProbe } from './EditorMemoryProbe'
 import { FilePreview } from './FilePreview'
 import { schema } from './editorSchema'
+import { useEditorDictionary } from './editorDictionary'
 import { useRightPanelExclusion } from './useRightPanelExclusion'
 import type { RawEditorFindRequest } from './RawEditorFindBar'
 import {
@@ -218,6 +219,7 @@ function EditorEmptyState({ locale = 'en', onCreateNote, onQuickOpen }: Pick<Edi
 }
 
 interface EditorSetupParams {
+  locale?: AppLocale
   tabs: Tab[]
   activeTabPath: string | null
   vaultPath?: string
@@ -232,7 +234,7 @@ interface EditorSetupParams {
 }
 
 function useEditorSetup({
-  tabs, activeTabPath, vaultPath, onContentChange,
+  locale = 'en', tabs, activeTabPath, vaultPath, onContentChange,
   onLoadDiff, onLoadDiffAtCommit, pendingCommitDiffRequest, onPendingCommitDiffHandled, getNoteStatus,
   rawToggleRef, diffToggleRef,
 }: EditorSetupParams) {
@@ -240,8 +242,10 @@ function useEditorSetup({
   const flushPendingEditorChangeRef = useRef<(() => boolean) | null>(null)
   useEffect(() => { vaultPathRef.current = vaultPath }, [vaultPath])
 
+  const dictionary = useEditorDictionary(locale)
   const editor = useCreateBlockNote({
     schema,
+    dictionary,
     domAttributes: RICH_EDITOR_BIDI_DOM_ATTRIBUTES,
     uploadFile: (file: File) => uploadImageFile(file, vaultPathRef.current),
     _tiptapOptions: { injectNonce: RUNTIME_STYLE_NONCE },
@@ -685,6 +689,7 @@ function buildEditorLayoutProps(
 
 export const Editor = memo(function Editor(props: EditorProps) {
   const runtime = useEditorSetup({
+    locale: props.locale,
     tabs: props.tabs,
     activeTabPath: props.activeTabPath,
     vaultPath: props.vaultPath,
