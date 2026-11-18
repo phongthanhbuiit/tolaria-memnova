@@ -765,6 +765,8 @@
   "decks.search_placeholder": "Search decks…",
   "decks.total_due": "{n} due today",
   "sidebar.nav.home": "Inicio",
+  "sidebar.nav.homeHelp": "Consulta el resumen de la biblioteca y tu progreso de repaso.",
+  "sidebar.nav.decksHelp": "Explora las notas de tu calendario de repaso.",
   "sidebar.nav.decks": "Mazos",
   "home.greeting_morning": "Buenos días",
   "home.greeting_afternoon": "Buenas tardes",

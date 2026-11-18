@@ -409,6 +409,8 @@
   "savedViews.reordered": "Views reordered",
   "locale.en": "English",
   "sidebar.nav.home": "Home",
+  "sidebar.nav.homeHelp": "See your library overview and review progress.",
+  "sidebar.nav.decksHelp": "Browse notes in your review schedule.",
   "sidebar.nav.decks": "Study",
   "sidebar.nav.inbox": "Inbox",
   "sidebar.nav.allNotes": "All Notes",

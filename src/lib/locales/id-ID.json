@@ -765,6 +765,8 @@
   "decks.search_placeholder": "Search decks…",
   "decks.total_due": "{n} due today",
   "sidebar.nav.home": "Beranda",
+  "sidebar.nav.homeHelp": "Lihat ringkasan pustaka dan kemajuan ulasan.",
+  "sidebar.nav.decksHelp": "Jelajahi catatan dalam jadwal ulasan.",
   "sidebar.nav.decks": "Dek",
   "home.greeting_morning": "Selamat pagi",
   "home.greeting_afternoon": "Selamat siang",

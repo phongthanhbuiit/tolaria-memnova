@@ -765,6 +765,8 @@
   "decks.search_placeholder": "Search decks…",
   "decks.total_due": "{n} due today",
   "sidebar.nav.home": "ホーム",
+  "sidebar.nav.homeHelp": "ライブラリの概要と復習の進捗を確認します。",
+  "sidebar.nav.decksHelp": "復習予定に入っているノートを閲覧します。",
   "sidebar.nav.decks": "デッキ",
   "home.greeting_morning": "おはようございます",
   "home.greeting_afternoon": "こんにちは",

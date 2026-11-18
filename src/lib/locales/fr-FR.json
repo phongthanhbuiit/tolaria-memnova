@@ -765,6 +765,8 @@
   "decks.search_placeholder": "Search decks…",
   "decks.total_due": "{n} due today",
   "sidebar.nav.home": "Accueil",
+  "sidebar.nav.homeHelp": "Vue d’ensemble de la bibliothèque et de vos révisions.",
+  "sidebar.nav.decksHelp": "Parcourez les notes de votre programme de révision.",
   "sidebar.nav.decks": "Paquets",
   "home.greeting_morning": "Bonjour",
   "home.greeting_afternoon": "Bon après-midi",

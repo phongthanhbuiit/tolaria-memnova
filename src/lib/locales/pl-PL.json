@@ -765,6 +765,8 @@
   "decks.search_placeholder": "Search decks…",
   "decks.total_due": "{n} due today",
   "sidebar.nav.home": "Start",
+  "sidebar.nav.homeHelp": "Zobacz przegląd biblioteki i postęp powtórek.",
+  "sidebar.nav.decksHelp": "Przeglądaj notatki w harmonogramie powtórek.",
   "sidebar.nav.decks": "Talie",
   "home.greeting_morning": "Dzień dobry",
   "home.greeting_afternoon": "Miłego popołudnia",

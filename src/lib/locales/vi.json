@@ -765,6 +765,8 @@
   "decks.search_placeholder": "Tìm bộ thẻ…",
   "decks.total_due": "{n} bộ đến hạn hôm nay",
   "sidebar.nav.home": "Trang chủ",
+  "sidebar.nav.homeHelp": "Xem tổng quan thư viện và tiến độ ôn tập.",
+  "sidebar.nav.decksHelp": "Duyệt các ghi chú trong lịch ôn.",
   "sidebar.nav.decks": "Ôn tập",
   "home.greeting_morning": "Chào buổi sáng",
   "home.greeting_afternoon": "Chào buổi chiều",

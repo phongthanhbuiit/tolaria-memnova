@@ -765,6 +765,8 @@
   "decks.search_placeholder": "Search decks…",
   "decks.total_due": "{n} due today",
   "sidebar.nav.home": "Главная",
+  "sidebar.nav.homeHelp": "Обзор библиотеки и прогресса повторения.",
+  "sidebar.nav.decksHelp": "Просмотр заметок в расписании повторения.",
   "sidebar.nav.decks": "Колоды",
   "home.greeting_morning": "Доброе утро",
   "home.greeting_afternoon": "Добрый день",

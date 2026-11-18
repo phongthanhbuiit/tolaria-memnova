@@ -765,6 +765,8 @@
   "decks.search_placeholder": "Search decks…",
   "decks.total_due": "{n} due today",
   "sidebar.nav.home": "Start",
+  "sidebar.nav.homeHelp": "Übersicht über Bibliothek und Wiederholungsfortschritt.",
+  "sidebar.nav.decksHelp": "Notizen im Wiederholungsplan durchsuchen.",
   "sidebar.nav.decks": "Stapel",
   "home.greeting_morning": "Guten Morgen",
   "home.greeting_afternoon": "Guten Tag",

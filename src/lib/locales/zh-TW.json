@@ -765,6 +765,8 @@
   "decks.search_placeholder": "Search decks…",
   "decks.total_due": "{n} due today",
   "sidebar.nav.home": "首頁",
+  "sidebar.nav.homeHelp": "查看資料庫概況與複習進度。",
+  "sidebar.nav.decksHelp": "瀏覽複習排程中的筆記。",
   "sidebar.nav.decks": "牌組",
   "home.greeting_morning": "早安",
   "home.greeting_afternoon": "午安",

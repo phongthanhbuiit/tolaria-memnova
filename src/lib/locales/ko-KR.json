@@ -765,6 +765,8 @@
   "decks.search_placeholder": "Search decks…",
   "decks.total_due": "{n} due today",
   "sidebar.nav.home": "홈",
+  "sidebar.nav.homeHelp": "라이브러리 개요와 복습 진행 상황을 확인합니다.",
+  "sidebar.nav.decksHelp": "복습 일정에 포함된 노트를 탐색합니다.",
   "sidebar.nav.decks": "덱",
   "home.greeting_morning": "좋은 아침이에요",
   "home.greeting_afternoon": "좋은 오후예요",

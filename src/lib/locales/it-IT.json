@@ -765,6 +765,8 @@
   "decks.search_placeholder": "Search decks…",
   "decks.total_due": "{n} due today",
   "sidebar.nav.home": "Home",
+  "sidebar.nav.homeHelp": "Visualizza la panoramica della biblioteca e i progressi del ripasso.",
+  "sidebar.nav.decksHelp": "Sfoglia le note nel programma di ripasso.",
   "sidebar.nav.decks": "Mazzi",
   "home.greeting_morning": "Buongiorno",
   "home.greeting_afternoon": "Buon pomeriggio",

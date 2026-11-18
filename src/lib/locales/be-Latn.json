@@ -765,6 +765,8 @@
   "decks.search_placeholder": "Search decks…",
   "decks.total_due": "{n} due today",
   "sidebar.nav.home": "Haloŭnaia",
+  "sidebar.nav.homeHelp": "Ahład biblijateki i prahresu paŭtareńnia.",
+  "sidebar.nav.decksHelp": "Prahład natatak u raskładzie paŭtareńnia.",
   "sidebar.nav.decks": "Kalody",
   "home.greeting_morning": "Dobraj ranicy",
   "home.greeting_afternoon": "Dobry dzien",

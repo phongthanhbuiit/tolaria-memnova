@@ -1,4 +1,4 @@
-import { useEffect, useRef, type ComponentType, type MouseEvent as ReactMouseEvent } from 'react'
+import { useEffect, useId, useRef, type ComponentType, type MouseEvent as ReactMouseEvent } from 'react'
 import type { SidebarSelection, VaultEntry, WorkspaceIdentity } from '../types'
 import { cn } from '@/lib/utils'
 import { getTypeColor, getTypeLightColor } from '../utils/typeColors'
@@ -8,6 +8,7 @@ import { useSidebarInlineRenameInput } from './sidebar/sidebarHooks'
 import { Button } from './ui/button'
 import { Checkbox } from './ui/checkbox'
 import { Input } from './ui/input'
+import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'
 import { translate, type AppLocale } from '../lib/i18n'
 import { WorkspaceInitialsBadge } from './WorkspaceInitialsBadge'
 import {
@@ -183,6 +184,7 @@ function ClickableNavItem({
   Icon,
   emoji,
   label,
+  description,
   count,
   countLoading,
   isActive,
@@ -198,6 +200,7 @@ function ClickableNavItem({
   Icon: ComponentType<IconProps>
   emoji?: string | null
   label: string
+  description?: string
   count?: number
   countLoading?: boolean
   isActive?: boolean
@@ -210,7 +213,8 @@ function ClickableNavItem({
   compact?: boolean
   padding: ReturnType<typeof getNavItemPadding>
 }) {
-  return (
+  const descriptionId = useId()
+  const button = (
     <Button
       type="button"
       variant="ghost"
@@ -218,9 +222,11 @@ function ClickableNavItem({
       className={cn("w-full cursor-pointer select-none justify-start rounded-md text-left transition-colors", isActive ? activeClassName : "text-foreground hover:bg-accent")}
       style={{ padding }}
       onClick={onClick}
+      aria-describedby={description ? descriptionId : undefined}
     >
       <SidebarNavIcon Icon={Icon} emoji={emoji} iconSize={getNavItemIconSize(compact)} isActive={isActive} />
       <NavItemLabel label={label} compact={compact} />
+      {description && <span id={descriptionId} hidden>{description}</span>}
       <NavItemCount
         count={count}
         countLoading={countLoading}
@@ -230,12 +236,17 @@ function ClickableNavItem({
       />
     </Button>
   )
+  return description ? <Tooltip>
+    <TooltipTrigger asChild>{button}</TooltipTrigger>
+    <TooltipContent side="right" sideOffset={6}>{description}</TooltipContent>
+  </Tooltip> : button
 }
 
-export function NavItem({ icon: Icon, emoji, label, count, countLoading, isActive, activeClassName = 'bg-primary/10 text-primary', badgeClassName, badgeStyle, activeBadgeClassName, activeBadgeStyle, onClick, disabled, disabledTooltip, compact }: {
+export function NavItem({ icon: Icon, emoji, label, description, count, countLoading, isActive, activeClassName = 'bg-primary/10 text-primary', badgeClassName, badgeStyle, activeBadgeClassName, activeBadgeStyle, onClick, disabled, disabledTooltip, compact }: {
   icon: ComponentType<IconProps>
   emoji?: string | null
   label: string
+  description?: string
   count?: number
   countLoading?: boolean
   isActive?: boolean
@@ -268,6 +279,7 @@ export function NavItem({ icon: Icon, emoji, label, count, countLoading, isActiv
       Icon={Icon}
       emoji={emoji}
       label={label}
+      description={description}
       count={count}
       countLoading={countLoading}
       isActive={isActive}
