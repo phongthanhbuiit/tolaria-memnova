@@ -886,6 +886,7 @@
   "properties.duplicate": "此屬性已存在。",
   "properties.addItem": "新增項目",
   "properties.kind.text": "文字",
+  "properties.kind.tags": "標籤",
   "properties.kind.number": "數字",
   "properties.kind.boolean": "布林值",
   "properties.kind.date": "日期",

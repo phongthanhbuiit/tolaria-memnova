@@ -886,6 +886,7 @@
   "properties.duplicate": "Questa proprietà esiste già.",
   "properties.addItem": "Aggiungi elemento",
   "properties.kind.text": "Testo",
+  "properties.kind.tags": "Tag",
   "properties.kind.number": "Numero",
   "properties.kind.boolean": "Booleano",
   "properties.kind.date": "Data",

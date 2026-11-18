@@ -217,7 +217,7 @@ function NoteListBody({
       className="relative flex flex-1 flex-col overflow-hidden outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:-outline-offset-2 focus-visible:outline-ring"
       style={{ minHeight: 0 }}
       role="listbox"
-      aria-label="Notes"
+      aria-label={translate(locale, 'noteList.title.notes')}
       tabIndex={0}
       onBlur={handleNoteListBlur}
       onKeyDown={handleListKeyDown}

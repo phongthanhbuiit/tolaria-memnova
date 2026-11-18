@@ -4,7 +4,7 @@ import { getAppStorageItem } from '../constants/appStorage'
 import { isValidCssColor, isColorKeyName } from './colorUtils'
 import { dateFromParts, parseDashDateParts, parseSlashDateParts, type DateParts } from './dateStringParts'
 import { DEFAULT_DATE_DISPLAY_FORMAT, formatDateValueForDisplay, type DateDisplayFormat } from './dateDisplay'
-import type { AppLocale } from '../lib/i18n'
+import type { AppLocale, TranslationKey } from '../lib/i18n'
 import { updateVaultConfigField } from './vaultConfigStore'
 import { canonicalSystemMetadataKey } from './systemMetadata'
 
@@ -156,13 +156,13 @@ export const DISPLAY_MODE_ICONS: Record<PropertyDisplayMode, typeof Type> = {
   text: Type, number: Hash, date: CalendarIcon, boolean: ToggleLeft, status: Circle, url: Link, tags: Tag, color: Palette,
 }
 
-export const DISPLAY_MODE_OPTIONS: { value: PropertyDisplayMode; label: string }[] = [
-  { value: 'text', label: 'Text' },
-  { value: 'number', label: 'Number' },
-  { value: 'date', label: 'Date' },
-  { value: 'boolean', label: 'Boolean' },
-  { value: 'status', label: 'Status' },
-  { value: 'url', label: 'URL' },
-  { value: 'tags', label: 'Tags' },
-  { value: 'color', label: 'Color' },
+export const DISPLAY_MODE_OPTIONS: { value: PropertyDisplayMode; labelKey: TranslationKey }[] = [
+  { value: 'text', labelKey: 'properties.kind.text' },
+  { value: 'number', labelKey: 'properties.kind.number' },
+  { value: 'date', labelKey: 'properties.kind.date' },
+  { value: 'boolean', labelKey: 'properties.kind.boolean' },
+  { value: 'status', labelKey: 'inspector.propertyLabel.status' },
+  { value: 'url', labelKey: 'inspector.propertyLabel.url' },
+  { value: 'tags', labelKey: 'properties.kind.tags' },
+  { value: 'color', labelKey: 'customize.color' },
 ]

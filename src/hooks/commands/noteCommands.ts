@@ -280,7 +280,7 @@ function buildFileActionCommands(config: NoteCommandsConfig): CommandAction[] {
   return [
     buildActivePathCommand(config, {
       id: 'reveal-active-file',
-      label: 'Reveal in Finder',
+      label: translate(config.locale ?? 'en', 'editor.toolbar.revealFile'),
       keywords: ['file', 'folder', 'finder', 'reveal', 'show', 'filesystem'],
       enabled: !!config.onRevealActiveFile,
       run: (path) => config.onRevealActiveFile?.(path),

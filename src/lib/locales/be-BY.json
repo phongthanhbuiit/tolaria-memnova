@@ -886,6 +886,7 @@
   "properties.duplicate": "Такая ўласцівасць ужо існуе.",
   "properties.addItem": "Дадаць элемент",
   "properties.kind.text": "Тэкст",
+  "properties.kind.tags": "Тэгі",
   "properties.kind.number": "Лік",
   "properties.kind.boolean": "Лагічнае значэнне",
   "properties.kind.date": "Дата",

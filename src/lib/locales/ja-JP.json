@@ -886,6 +886,7 @@
   "properties.duplicate": "このプロパティは既に存在します。",
   "properties.addItem": "項目を追加",
   "properties.kind.text": "テキスト",
+  "properties.kind.tags": "タグ",
   "properties.kind.number": "数値",
   "properties.kind.boolean": "真偽値",
   "properties.kind.date": "日付",

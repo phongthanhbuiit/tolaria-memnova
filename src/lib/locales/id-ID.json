@@ -886,6 +886,7 @@
   "properties.duplicate": "Properti ini sudah ada.",
   "properties.addItem": "Tambah item",
   "properties.kind.text": "Teks",
+  "properties.kind.tags": "Tag",
   "properties.kind.number": "Angka",
   "properties.kind.boolean": "Boolean",
   "properties.kind.date": "Tanggal",

@@ -886,6 +886,7 @@
   "properties.duplicate": "此属性已存在。",
   "properties.addItem": "添加项目",
   "properties.kind.text": "文本",
+  "properties.kind.tags": "标签",
   "properties.kind.number": "数字",
   "properties.kind.boolean": "布尔值",
   "properties.kind.date": "日期",

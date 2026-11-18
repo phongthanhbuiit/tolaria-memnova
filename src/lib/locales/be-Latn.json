@@ -886,6 +886,7 @@
   "properties.duplicate": "Takaja ŭłaścivaść užo isnuje.",
   "properties.addItem": "Dadać element",
   "properties.kind.text": "Tekst",
+  "properties.kind.tags": "Tehi",
   "properties.kind.number": "Lik",
   "properties.kind.boolean": "Łahičnaje značennie",
   "properties.kind.date": "Data",

@@ -201,7 +201,7 @@ export function AddPropertyForm({ onAdd, onCancel, vaultStatuses, locale = 'en' 
             return (
               <SelectItem key={opt.value} value={opt.value}>
                 <OptIcon className="size-[16px] text-text-secondary" />
-                {opt.label}
+                {translate(locale, opt.labelKey)}
               </SelectItem>
             )
           })}

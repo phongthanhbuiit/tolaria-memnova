@@ -886,6 +886,7 @@
   "properties.duplicate": "Diese Eigenschaft existiert bereits.",
   "properties.addItem": "Eintrag hinzufügen",
   "properties.kind.text": "Text",
+  "properties.kind.tags": "Schlagwörter",
   "properties.kind.number": "Zahl",
   "properties.kind.boolean": "Boolescher Wert",
   "properties.kind.date": "Datum",

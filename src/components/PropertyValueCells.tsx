@@ -533,6 +533,7 @@ function DisplayModeOption({
   onSelect: (mode: PropertyDisplayMode) => void
   option: typeof DISPLAY_MODE_OPTIONS[number]
 }) {
+  const locale = useAppLocale()
   const OptIcon = DISPLAY_MODE_ICONS[option.value]
   return (
     <Button variant="ghost" size="sm"
@@ -545,7 +546,7 @@ function DisplayModeOption({
         {currentMode === option.value ? '\u2713' : ''}
       </span>
       <OptIcon className="size-[16px] text-text-secondary" />
-      {option.label}
+      {translate(locale, option.labelKey)}
       {option.value === autoMode && (
         <span className="ml-auto text-caption text-text-secondary">auto</span>
       )}

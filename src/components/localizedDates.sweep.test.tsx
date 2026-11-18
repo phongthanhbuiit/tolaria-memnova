@@ -41,7 +41,7 @@ it('R-01 sweeps real Vietnamese date surfaces, including their accessible labels
 
   mount(<AddPropertyForm locale="vi" onAdd={vi.fn()} onCancel={vi.fn()} vaultStatuses={[]} />)
   fireEvent.keyDown(screen.getByTestId('add-property-type-trigger'), { key: 'ArrowDown' })
-  fireEvent.click(screen.getByRole('option', { name: /Date/ }))
+  fireEvent.click(screen.getByRole('option', { name: 'Ngày', exact: true }))
   fireEvent.click(screen.getByTestId('add-property-date-trigger'))
   expect(screen.getByRole('combobox', { name: 'Chọn tháng' })).toBeInTheDocument()
   scan()

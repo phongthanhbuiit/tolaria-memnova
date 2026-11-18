@@ -886,6 +886,7 @@
   "properties.duplicate": "Ta właściwość już istnieje.",
   "properties.addItem": "Dodaj element",
   "properties.kind.text": "Tekst",
+  "properties.kind.tags": "Tagi",
   "properties.kind.number": "Liczba",
   "properties.kind.boolean": "Wartość logiczna",
   "properties.kind.date": "Data",

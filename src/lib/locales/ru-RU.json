@@ -886,6 +886,7 @@
   "properties.duplicate": "Это свойство уже существует.",
   "properties.addItem": "Добавить элемент",
   "properties.kind.text": "Текст",
+  "properties.kind.tags": "Теги",
   "properties.kind.number": "Число",
   "properties.kind.boolean": "Логическое значение",
   "properties.kind.date": "Дата",

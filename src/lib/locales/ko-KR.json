@@ -886,6 +886,7 @@
   "properties.duplicate": "이미 있는 속성입니다.",
   "properties.addItem": "항목 추가",
   "properties.kind.text": "텍스트",
+  "properties.kind.tags": "태그",
   "properties.kind.number": "숫자",
   "properties.kind.boolean": "불리언",
   "properties.kind.date": "날짜",
