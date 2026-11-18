@@ -1,3 +1,5 @@
+import { createChoiceQuestion } from '../../lib/learning/flashcardQuestions'
+import { MultipleChoiceStudy } from './MultipleChoiceStudy'
 import { plainCardAnswer, SUGGESTED_RATING, type AnswerQuality } from '../../lib/learning/flashcardAnswers'
 import { TypedStudyAnswer } from './TypedStudyAnswer'
 import type { ReviewStudyMode } from '../../lib/learning/flashcardStudyMode'
@@ -162,6 +164,11 @@ export function LearningStudyView({
   const [assessment, setAssessment] = useState<{ key: string; quality: AnswerQuality } | null>(null)
   const quality = assessment?.key === key ? assessment.quality : null
   const typedAnswer = !isNote && item && study.presentation?.mode === 'typed' ? plainCardAnswer(item.card) : null
+  const presentation = study.presentation
+  const choiceQuestion = useMemo(() => !isNote && item && presentation?.mode === 'choice' && presentation.cards
+    ? createChoiceQuestion(item.card, presentation.cards)
+    : null, [item, isNote, presentation])
+  const interactiveAnswer = Boolean(typedAnswer || choiceQuestion)
   const suggest = quality ? SUGGESTED_RATING[quality] : null
   const assess = (quality: AnswerQuality) => {
     setAssessment({ key, quality })
@@ -266,7 +273,7 @@ export function LearningStudyView({
             )
           )
             return
-          if (event.key === ' ' && !revealed && !missingMnemonic && !typedAnswer) {
+          if (event.key === ' ' && !revealed && !missingMnemonic && !interactiveAnswer) {
             event.preventDefault()
             reveal()
           }
@@ -415,7 +422,7 @@ export function LearningStudyView({
             locale={locale}
             onOpenRawSource={onOpenRawSource}
             mnemonicFirst={mnemonicFirst}
-            suppressLegacyAnswer={Boolean(typedAnswer)}
+            suppressLegacyAnswer={interactiveAnswer}
             faces={{
               snapshotKey: key,
               revealed,
@@ -428,6 +435,10 @@ export function LearningStudyView({
               answerStatus,
             }}
           />
+          {choiceQuestion && (
+            <MultipleChoiceStudy key={key} question={choiceQuestion} locale={locale} onResult={assess}
+              disabled={study.busy || study.hasPending || !!study.error || !sourceReady || !questionReady} />
+          )}
           {typedAnswer && (
             <TypedStudyAnswer key={key} answer={typedAnswer} locale={locale}
               disabled={study.busy || study.hasPending || !!study.error || !sourceReady || !questionReady}
@@ -449,7 +460,7 @@ export function LearningStudyView({
                 )}
               </div>
             )}
-            {item?.page && !revealed && !missingMnemonic && !typedAnswer && (
+            {item?.page && !revealed && !missingMnemonic && !interactiveAnswer && (
               <Button
                 ref={revealButton}
                 size="study-reveal"

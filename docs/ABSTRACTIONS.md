@@ -1199,3 +1199,5 @@ Note study front order is an app preference (`note_review_front_order`) with a p
 `DeckStudyControls` selects a flashcard mode at each deck entry point. The Library/deck preference configures presentation for the existing legacy study lane, while scheduling continues through `useLearningStudy`.
 
 Typed flashcard feedback normalizes whitespace and case, then checks Vietnamese diacritics separately. An IME-safe answer input sends an assessment to the existing grade controls. Only an explicit grade commits the review.
+
+`flashcardQuestions` builds a deck-local pool of distinct short answers. `MultipleChoiceStudy` uses `StudyChoiceOptions` for pointer and A–D selection. Feedback feeds the same explicit grading and visit accuracy path as typed answers.

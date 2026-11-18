@@ -32,3 +32,10 @@
 - `learning.answers.check`
 - `learning.answers.suggestion`
 - `learning.answers.accuracy`
+
+## W4-05
+
+- `learning.choice.selectDeck`
+- `learning.choice.label`
+- `learning.choice.requiresCards`
+- `learning.challenge.timeout`

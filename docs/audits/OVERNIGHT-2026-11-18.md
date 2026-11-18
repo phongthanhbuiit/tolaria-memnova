@@ -205,3 +205,8 @@
 - Gõ đáp án có so sánh và gợi ý mức chấm. Chặn Enter trong IME và phím xác nhận IME đến muộn trên Safari; chỉ Enter tiếp theo hoặc 1–4 mới ghi lịch. Thẻ không đủ điều kiện giữ Lật thẻ.
 - RED logic/màn nhập trước khi thêm; kiểm phần tách dấu tiếng Việt, đề dài hoặc media, phím IME và xác nhận rõ ràng. Grep SPEC §8: 1 → 1 / 0 → 0.
 - GREEN 34/34 Vitest, Chromium kiểm không ghi điểm khi nhập IME và ghi rating 2 khi xác nhận Enter. Native vi 1440×900, sáng/tối nhận “ha noi” là Gần đúng. Mở lại phiên phải nhập lại đáp án, test RED → GREEN bảo vệ nút chấm.
+
+## W4 · Pha 3 — W4-05
+
+- Trắc nghiệm chọn ba đáp án nhiễu khác biệt trong bộ thẻ. A–D hoặc chuột chỉ hiện phản hồi. Chấm bằng luồng FSRS hiện có. Bộ không đủ đáp án có mô tả lý do và thẻ có media lật như cũ.
+- RED thiếu hàm chọn phương án, GREEN 33/33 Vitest. Chromium 2/2 kiểm bốn lựa chọn, ghi rating 4 chỉ sau khi bấm phím và trạng thái tắt của bộ ít thẻ. Grep SPEC §8: 1 → 1 / 0 → 0.
