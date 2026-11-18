@@ -562,53 +562,73 @@ W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
 
 - P2 · Nút tròn AI ở góc dưới phải đè lên nút "Ôn ngay" của panel Thuộc tính. Ảnh đối chiếu: W2-18-after-1440-light.
 - Đạt khi: Nút nổi không bao giờ che điều khiển: ẩn hoặc dời khi panel phải mở/khi chồng lên vùng có nút; kiểm 1440×900 và 1024×700.
+- **fixed (commit W3-01)**. Ẩn nút AI nổi khi Thuộc tính đang mở trên ghi chú. WebKit đạt ở 1024×700 trong hai theme. Cửa sổ native mở rộng khi panel mở, ảnh bổ sung ghi bề rộng thực 1310×700. Native tiếng Việt ở 1440×900. [sáng](review-shots/2026-11-18-sau-W2/W3-01-after-1440-light.png) · [tối](review-shots/2026-11-18-sau-W2/W3-01-after-1440-dark.png) · [1310 sáng](review-shots/2026-11-18-sau-W2/W3-01-after-1310x700-light.png) · [1310 tối](review-shots/2026-11-18-sau-W2/W3-01-after-1310x700-dark.png).
 
 ### F-068 · W3-02 · Ngày tháng
 
 - P2 · Vẫn 4 kiểu: danh sách "ngày 18 tháng 11, 2026", ví dụ trong Cài đặt "11 tháng 5 năm 2026", Thuộc tính "18/11/2026", tổng kết phiên "15:41 ngày 26 thg 11, 2026" (tiếp F-059). Ảnh đối chiếu: 10, 17b, W2-18-after, W2-13-after.
 - Đạt khi: Ví dụ trong Cài đặt khớp đúng chuỗi app hiển thị; danh sách, tổng kết phiên, nút ôn dùng cùng formatter; ngày có giờ cùng một mẫu. Giá trị lưu giữ ISO.
+- **fixed (commit W3-02)**. Dùng cùng bộ định dạng cho ví dụ trong Cài đặt và các ngày ôn. Giá trị lưu giữ ISO. Test kiểm tra hạn ôn và năm/tháng/ngày hiển thị ở hai múi giờ. Native tiếng Việt ở 1440×900. [sáng](review-shots/2026-11-18-sau-W2/W3-02-after-light.png) · [tối](review-shots/2026-11-18-sau-W2/W3-02-after-dark.png).
 
 ### F-069 · W3-03 · Command Palette
 
 - P2 · Lệnh còn tiếng Anh: "Start Review Session", "Copy File Path", "Toggle Table of Contents". Ảnh đối chiếu: 11b.
 - Đạt khi: Grep toàn bộ đăng ký lệnh, mọi nhãn qua catalog; test quét không còn nhãn lệnh cứng.
+- **fixed (commit W3-03)**. Sáu lệnh còn tiếng Anh đã qua catalog, gồm cả ba lệnh trong ảnh. Test quét đăng ký và xác nhận nhãn tĩnh đi qua bản dịch tiếng Việt. Native tiếng Việt ở 1440×900. [sáng](review-shots/2026-11-18-sau-W2/W3-03-after-light.png) · [tối](review-shots/2026-11-18-sau-W2/W3-03-after-dark.png).
 
 ### F-070 · W3-04 · Trang chủ
 
 - P2 · Tiêu đề trang là "Thư viện" trong khi sidebar ghi "Trang chủ"; "Chuẩn bị dữ liệu học tập" xuất hiện 3 lần (nút đầu mục, tiêu đề thẻ, nút trong thẻ). Ảnh đối chiếu: 02.
 - Đạt khi: Tiêu đề khớp mục sidebar; một lời kêu gọi duy nhất cho chuẩn bị dữ liệu.
+- **fixed (commit W3-04)**. Tiêu đề dùng chung nhãn với sidebar. Chỉ giữ một nút chuẩn bị trong thẻ Thẻ cũ khi Library cần chuẩn bị dữ liệu. Native tiếng Việt ở 1440×900. [sáng](review-shots/2026-11-18-sau-W2/W3-04-after-light.png) · [tối](review-shots/2026-11-18-sau-W2/W3-04-after-dark.png).
 
 ### F-071 · W3-05 · Quick Open
 
 - P2 · Hàng không đồng nhất: View "Active Projects" và tệp "laputa-reference.png" không có icon, lệch lề; nhãn "Type" tiếng Anh (do app sinh); nhãn Measure/Procedure chữ màu nhạt trên nền nhạt, khó đọc. Ảnh đối chiếu: 11a, 11c.
 - Đạt khi: Mọi hàng có icon và thẳng lề; nhãn do app sinh dịch ("Loại", "Chế độ xem", "Tệp"); tương phản nhãn ≥ 4.5:1 sáng/tối.
+- **fixed (commit W3-05)**. Biểu tượng và nhãn dùng chung bố cục, với nhãn Loại, Chế độ xem và Tệp từ catalog. Kiểm tra WebKit tương phản nhãn ≥ 4,5:1 ở hai theme. Native tiếng Việt ở 1440×900. [sáng](review-shots/2026-11-18-sau-W2/W3-05-after-light.png) · [tối](review-shots/2026-11-18-sau-W2/W3-05-after-dark.png).
 
 ### F-072 · W3-06 · Danh sách ghi chú
 
 - P2 · Tiêu đề cột bị cắt "Chưa s..." dù còn chỗ (nút sắp xếp "Đã sửa đổi" chiếm chỗ). Ảnh đối chiếu: 05.
 - Đạt khi: Tiêu đề hiện đủ ở bề rộng mặc định; nút sắp xếp thu thành icon + tooltip khi chật.
+- **fixed (commit W3-06)**. Giữ tiêu đề đủ ở bề rộng mặc định. Khi cột hẹp, nút sắp xếp chỉ hiện icon và giữ tooltip. Native tiếng Việt ở 1440×900. [sáng](review-shots/2026-11-18-sau-W2/W3-06-after-light.png) · [tối](review-shots/2026-11-18-sau-W2/W3-06-after-dark.png).
 
 ### F-073 · W3-07 · Cài đặt › Thư viện
 
 - P2 · Khối "Lịch sử sao lưu" nằm ngoài khung thẻ như các mục khác; hai nút bị tắt không nói lý do; nút "Khôi phục" tắt trông như nút xanh nhạt. Ảnh đối chiếu: 17a.
 - Đạt khi: Cùng kiểu thẻ với các mục khác; nút tắt có lý do (vd. "Chưa có bản sao lưu"); trạng thái tắt rõ ràng, giống các nút tắt khác.
+- **fixed (commit W3-07)**. Lịch sử sao lưu nằm trong khung thẻ. Hai nút chia sẻ lý do bị tắt, nút Khôi phục dùng kiểu viền khi tắt. Native tiếng Việt ở 1440×900. [sáng](review-shots/2026-11-18-sau-W2/W3-07-after-light.png) · [tối](review-shots/2026-11-18-sau-W2/W3-07-after-dark.png).
 
 ### F-074 · W3-08 · Nút chính tối
 
 - P3 · Ở theme tối, nút "Lưu" chữ trắng trên nền xanh nhạt (tương phản thấp), trong khi nút chính ở Trang chủ dùng chữ tối. Ảnh đối chiếu: 17a-dark, 02-dark.
 - Đạt khi: Một token primary-foreground cho theme tối; tương phản ≥ 4.5:1.
+- **fixed (commit W3-08)**. Theme tối dùng chung primary-foreground. Đo tương phản WebKit ≥ 4,5:1 ở hai theme. Native tiếng Việt ở 1440×900. [sáng](review-shots/2026-11-18-sau-W2/W3-08-after-light.png) · [tối](review-shots/2026-11-18-sau-W2/W3-08-after-dark.png).
 
 ### F-075 · W3-09 · Cài đặt copy
 
 - P3 · Mô tả dài/kỹ thuật: Ngôn ngữ 4 dòng; "Sử dụng dạng số nhiều cho tên loại trong thanh bên"; "Kênh Alpha". Ảnh đối chiếu: 17a, 17b.
 - Đạt khi: Mỗi mô tả ≤ 2 dòng ở 1440, nói lợi ích cho người dùng; en + vi viết lại.
+- **fixed (commit W3-09)**. Rút mô tả Ngôn ngữ, số nhiều và kênh phát hành bằng tiếng Anh và tiếng Việt. Copy chờ các locale còn lại được ghi trong L10N-PENDING.md. Native tiếng Việt ở 1440×900. [sáng](review-shots/2026-11-18-sau-W2/W3-09-after-light.png) · [tối](review-shots/2026-11-18-sau-W2/W3-09-after-dark.png).
 
 ### F-076 · W3-10 · Thuộc tính
 
 - P3 · "+ Thêm mối quan hệ" dùng dấu "+" chữ, các nút khác dùng icon; thứ tự 3 lối thêm/sửa ở cuối còn rời. Ảnh đối chiếu: W2-18-after-1440-light.
 - Đạt khi: Cùng kiểu icon; ba lối nằm một nhóm thẳng hàng.
+- **fixed (commit W3-10)**. Ba thao tác thuộc cùng nhóm. Nút thêm quan hệ dùng icon dấu cộng. Native tiếng Việt ở 1440×900. [sáng](review-shots/2026-11-18-sau-W2/W3-10-after-light.png) · [tối](review-shots/2026-11-18-sau-W2/W3-10-after-dark.png).
 
 ### F-077 · W3-11 · Tổng kết phiên
 
 - P3 · "Hoàn tác" nằm dưới nút "Đóng", lệch bố cục chân dialog. Ảnh đối chiếu: W2-13-after-light.
 - Đạt khi: Chân dialog một hàng: Hoàn tác bên trái (ghost), Đóng bên phải.
+- **fixed (commit W3-11)**. Hoàn tác nằm trái và Đóng nằm phải trong một hàng. Native đã chấm thẻ QA rồi dùng Hoàn tác trong hai theme. Native tiếng Việt ở 1440×900. [sáng](review-shots/2026-11-18-sau-W2/W3-11-after-light.png) · [tối](review-shots/2026-11-18-sau-W2/W3-11-after-dark.png).
+
+### F-078 · W3-12 · Chung
+
+- Kiểm · (a) Ảnh 02 sáng: sidebar và 2 nút đầu trang nhạt như bị tắt, ảnh tối thì bình thường; (b) ảnh W2-18 1440: chỉ mở Thuộc tính mà sidebar + danh sách đều ẩn. Ảnh đối chiếu: 02-light, W2-18-after-1440-light.
+- Đạt khi: Tái hiện 5 lần; lỗi thật thì sửa + test, không thì ghi rejected kèm bằng chứng.
+
+- **rejected**. Kiểm tra 5 lượt bằng WebKit, tiếng Việt ở 1440×900. Hai nút Trang chủ khả dụng và nút Tất cả ghi chú mở được danh sách. Mở Thuộc tính vẫn thấy sidebar và danh sách. Đối chiếu thêm trên native ở hai theme. [WebKit Trang chủ](review-shots/2026-11-18-sau-W2/W3-12-after-webkit-light-home.png) · [WebKit Thuộc tính](review-shots/2026-11-18-sau-W2/W3-12-after-webkit-light-properties.png).
+- Native 1440×900. [Trang chủ sáng](review-shots/2026-11-18-sau-W2/W3-12-after-native-light-home.png) · [Trang chủ tối](review-shots/2026-11-18-sau-W2/W3-12-after-native-dark-home.png) · [Thuộc tính sáng](review-shots/2026-11-18-sau-W2/W3-12-after-native-light-properties.png) · [Thuộc tính tối](review-shots/2026-11-18-sau-W2/W3-12-after-native-dark-properties.png).
+- **Viên tím — rejected làm lỗi giao diện app.** Khi có viên tím, macOS báo hai cửa sổ riêng, cửa sổ phụ 66×20 trùng vùng viên tím. Khi vừa mở app, chỉ thấy cửa sổ chính với ba nút macOS. Tổ hợp Cmd+Shift+4 đã thử nhưng không tạo được tệp ảnh. Ảnh bằng chứng lấy từ công cụ chụp macOS. [Lúc khởi động](review-shots/2026-11-18-sau-W2/W3-12-after-native-titlebar-startup.png) · [Có lớp phủ](review-shots/2026-11-18-sau-W2/W3-12-after-native-titlebar-overlay.png).
