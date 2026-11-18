@@ -96,9 +96,9 @@ test('permanently deleted note does not appear in All Notes', async ({ page }) =
 test('create note saves file to disk with correct slug', async ({ page }) => {
   const beforeFiles = new Set(fs.readdirSync(tempVaultDir))
 
-  // "Create new note" instantly creates "Untitled note" and opens in editor
+  // "Create new note" shows the display title and opens the backing file in the editor
   await page.locator('button[title="Create new note"]').click()
-  await expect(noteList(page).getByText(/Untitled Note \d+/).first()).toBeVisible({ timeout: 5_000 })
+  await expect(noteList(page).getByText('Untitled', { exact: true })).toBeVisible({ timeout: 5_000 })
 
   // Save to disk via Cmd+S
   await page.keyboard.press('Meta+s')

@@ -18,8 +18,9 @@ test('create note via Cmd+N does not crash', async ({ page }) => {
 
   expect(errors).toHaveLength(0)
   const noteList = page.locator('[data-testid="note-list-container"]')
-  await expect(noteList.getByText(/Untitled Note/i).first()).toBeVisible({ timeout: 5000 })
+  await expect(noteList.getByText('Untitled', { exact: true }).first()).toBeVisible({ timeout: 5000 })
   await expect(page.getByRole('textbox').last()).toBeVisible()
+  await expect(page.getByTestId('breadcrumb-filename-trigger')).toHaveAttribute('aria-label', /untitled-note-\d+/i)
 })
 
 test('create note via sidebar + button does not crash', async ({ page }) => {

@@ -33,6 +33,10 @@
       "src/lib/vaultAiGuidance.ts",
       "tests/integration/a11y-button-names.spec.ts",
       "tests/integration/memnova-learning.spec.ts",
+      "tests/integration/vault-workflows.spec.ts",
+      "tests/smoke/create-empty-vault-flows.spec.ts",
+      "tests/smoke/create-note-crash.spec.ts",
+      "tests/smoke/fix-crash-create-note.spec.ts",
       "tests/smoke/vault-ai-guidance-restore.spec.ts"
     ],
     "issuesByTool": {
@@ -87,6 +91,10 @@
       "src/utils/untitledNoteDisplay.ts",
       "tests/integration/a11y-button-names.spec.ts",
       "tests/integration/memnova-learning.spec.ts",
+      "tests/integration/vault-workflows.spec.ts",
+      "tests/smoke/create-empty-vault-flows.spec.ts",
+      "tests/smoke/create-note-crash.spec.ts",
+      "tests/smoke/fix-crash-create-note.spec.ts",
       "tests/smoke/vault-ai-guidance-restore.spec.ts"
     ],
     "issuesByTool": {

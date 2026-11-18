@@ -36,7 +36,7 @@ interface EntryOptions {
 }
 
 function untitledNoteRow(page: Page) {
-  return page.getByText(/^Untitled Note(?: \d+)?$/i).first()
+  return page.getByTestId('note-list-container').getByText('Untitled', { exact: true }).first()
 }
 
 async function expectFreshVaultSeedEntries(page: Page) {
