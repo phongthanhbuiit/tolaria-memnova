@@ -439,15 +439,13 @@ function SettingsPanelInner({
   return (
     <div
       ref={backdropRef}
-      className="fixed inset-0 z-[1300] flex items-center justify-center"
-      style={{ background: 'var(--shadow-overlay)' }}
+      className="fixed inset-0 z-[1300] flex items-center justify-center bg-(--shadow-overlay)"
       data-testid="settings-panel"
     >
       <SettingsBackdropCloseButton onClose={onClose} t={t} />
       <div
         ref={panelRef}
-        className="relative rounded-lg border border-border bg-background shadow-[0_18px_55px_var(--shadow-dialog)]"
-        style={{ width: 'min(960px, calc(100vw - 48px))', maxHeight: '86vh', display: 'flex', flexDirection: 'column' }}
+        className="relative flex max-h-[86vh] w-[min(960px,calc(100vw-48px))] flex-col rounded-lg border border-border bg-background shadow-[0_18px_55px_var(--shadow-dialog)]"
       >
         <SettingsHeader onClose={onClose} t={t} />
         <SettingsBodyFromDraft
@@ -486,10 +484,9 @@ function SettingsBackdropCloseButton({ onClose, t }: { onClose: () => void; t: T
 function SettingsHeader({ onClose, t }: { onClose: () => void; t: Translate }) {
   return (
     <div
-      className="flex items-center justify-between shrink-0"
-      style={{ height: 56, padding: '0 24px', borderBottom: '1px solid var(--border)' }}
+      className="flex h-[56px] shrink-0 items-center justify-between border-b border-solid border-border px-[24px]"
     >
-      <span className="text-(length:--text-title) leading-(--text-title--line-height)" style={{ fontWeight: 600, color: 'var(--foreground)' }}>{t('settings.title')}</span>
+      <span className="text-(length:--text-title) leading-(--text-title--line-height) font-semibold text-foreground">{t('settings.title')}</span>
       <Button
         variant="ghost"
         size="icon-sm"
