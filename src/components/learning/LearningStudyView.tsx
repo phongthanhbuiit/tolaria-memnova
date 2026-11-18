@@ -167,6 +167,21 @@ export function LearningStudyView({
       minutes < 60 ? 'minute' : minutes < 1440 ? 'hour' : 'day'
     )
   }
+  const undoButton = (
+    <Button
+      variant="ghost"
+      size="sm"
+      className={terminal ? 'study-secondary-action mr-auto' : 'study-secondary-action ml-auto'}
+      disabled={!session?.canUndo || study.busy || study.hasPending}
+      onClick={() => {
+        // Keep focus on the dialog before Undo replaces the snapshot.
+        scrollContainer.current?.focus({ preventScroll: true })
+        void study.undo()
+      }}
+    >
+      <ArrowUUpLeft aria-hidden="true" />{t('learning.undo')}
+    </Button>
+  )
   return (
     <Dialog
       open={study.open}
@@ -335,7 +350,8 @@ export function LearningStudyView({
         <footer className="learning-study-footer">
           <div className="flex flex-col gap-[8px]">
             {terminal && (
-              <div className="flex flex-wrap justify-end gap-2">
+              <div className="flex flex-wrap items-center justify-end gap-2">
+                {undoButton}
                 <Button variant={continueStudy ? 'outline' : 'default'} disabled={study.busy || study.hasPending} onClick={() => { void study.close() }}>
                   {t('learning.close')}
                 </Button>
@@ -386,19 +402,7 @@ export function LearningStudyView({
                   {t('editor.noteMemory.backToNote')}
                 </Button>
               )}
-              <Button
-                variant="ghost"
-                size="sm"
-                className="study-secondary-action ml-auto"
-                disabled={!session?.canUndo || study.busy || study.hasPending}
-                onClick={() => {
-                  // Retain focus before Undo disables controls or replaces the snapshot.
-                  scrollContainer.current?.focus({ preventScroll: true })
-                  void study.undo()
-                }}
-              >
-                <ArrowUUpLeft aria-hidden="true" />{t('learning.undo')}
-              </Button>
+              {!terminal && undoButton}
               {study.busy && (
                 <span role="status" className="text-sm text-muted-foreground">
                   {t('learning.saving')}

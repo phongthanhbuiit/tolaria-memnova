@@ -607,3 +607,8 @@ W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
 
 - P3 · "+ Thêm mối quan hệ" dùng dấu "+" chữ, các nút khác dùng icon; thứ tự 3 lối thêm/sửa ở cuối còn rời. Ảnh đối chiếu: W2-18-after-1440-light.
 - Đạt khi: Cùng kiểu icon; ba lối nằm một nhóm thẳng hàng.
+
+### F-077 · W3-11 · Tổng kết phiên
+
+- P3 · "Hoàn tác" nằm dưới nút "Đóng", lệch bố cục chân dialog. Ảnh đối chiếu: W2-13-after-light.
+- Đạt khi: Chân dialog một hàng: Hoàn tác bên trái (ghost), Đóng bên phải.
