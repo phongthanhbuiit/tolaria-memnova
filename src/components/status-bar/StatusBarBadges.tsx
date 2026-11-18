@@ -214,7 +214,7 @@ function CompactStatusActionBadge({
         <span style={ICON_STYLE}>
           {icon}
           {compact ? null : label}
-          {trailingWarning && <AlertTriangle size={10} style={{ marginLeft: 2 }} />}
+          {trailingWarning && <AlertTriangle size={10} className="ml-[2px]" />}
         </span>
       </StatusBarAction>
     </>
@@ -238,7 +238,7 @@ function getRemoteSummaryState(remoteStatus: GitRemoteStatus | null): RemoteSumm
 
 function RemoteSummaryLine({ children }: { children: ReactNode }) {
   return (
-    <div style={{ display: 'flex', gap: 12, marginBottom: 6, color: 'var(--muted-foreground)' }}>
+    <div className="mb-[6px] flex gap-[12px] text-muted-foreground">
       {children}
     </div>
   )
@@ -386,7 +386,7 @@ function RemoteStatusSummary({ remoteStatus, locale = 'en' }: { remoteStatus: Gi
   const state = getRemoteSummaryState(remoteStatus)
 
   if (state.kind === 'missing') {
-    return <div style={{ color: 'var(--muted-foreground)', marginBottom: 6 }}>{translate(locale, 'status.remote.noneConfigured')}</div>
+    return <div className="mb-[6px] text-muted-foreground">{translate(locale, 'status.remote.noneConfigured')}</div>
   }
 
   if (state.kind === 'inSync') {
@@ -415,7 +415,7 @@ function PullAction({
   if (!hasRemote(remoteStatus)) return null
 
   return (
-    <div style={{ display: 'flex', gap: 4, marginTop: 6, borderTop: '1px solid var(--border)', paddingTop: 6 }}>
+    <div className="mt-[6px] flex gap-[4px] border-t border-solid border-border pt-[6px]">
       <Button
         type="button"
         variant="outline"
@@ -452,24 +452,10 @@ function GitStatusPopup({
   return (
     <div
       data-testid="git-status-popup"
-      className="text-small"
-      style={{
-        position: 'absolute',
-        bottom: '100%',
-        left: 0,
-        marginBottom: 4,
-        background: 'var(--sidebar)',
-        border: '1px solid var(--border)',
-        borderRadius: 'var(--radius-lg)',
-        padding: 8,
-        minWidth: 220,
-        boxShadow: '0 4px 12px var(--shadow-dialog)',
-        zIndex: 1000,
-        color: 'var(--foreground)',
-      }}
+      className="absolute bottom-full left-0 z-[1000] mb-[4px] min-w-[220px] rounded-(--radius-lg) border border-solid border-border bg-sidebar p-[8px] text-small text-foreground [box-shadow:0_4px_12px_var(--shadow-dialog)]"
     >
       <RemoteStatusSummary remoteStatus={remoteStatus} locale={locale} />
-      <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4, color: 'var(--muted-foreground)' }}>
+      <div className="mb-[4px] flex items-center gap-[6px] text-muted-foreground">
         {translate(locale, 'status.sync.status', { status: syncStatusText(locale, status) })}
       </div>
       <PullAction remoteStatus={remoteStatus} locale={locale} onPull={onPull} onClose={onClose} />
@@ -485,7 +471,7 @@ export function CommitBadge({ info, locale = 'en' }: { info: LastCommitInfo; loc
       <Button variant="ghost" size="sm"
         type="button"
         onClick={() => openExternalUrl(commitUrl)}
-        style={{ ...ICON_STYLE, color: 'var(--muted-foreground)', textDecoration: 'none', cursor: 'pointer', padding: '2px 4px', background: 'transparent' }}
+        className="flex cursor-pointer items-center gap-[4px] bg-transparent px-[4px] py-[2px] text-muted-foreground no-underline hover:bg-transparent has-[>svg]:px-[4px] dark:hover:bg-transparent"
         title={translate(locale, 'status.commit.openOnGitHub', { hash: info.shortHash })}
         data-testid="status-commit-link"
         onMouseEnter={(event) => { event.currentTarget.style.color = 'var(--foreground)' }}
@@ -522,14 +508,7 @@ export function OfflineBadge({
     <>
       <StatusBarSeparator show={showSeparator} />
       <span
-        style={{
-          ...ICON_STYLE,
-          color: 'var(--destructive)',
-          background: 'var(--feedback-error-bg)',
-          borderRadius: 'var(--radius-sm)',
-          padding: '2px 6px',
-          fontWeight: 600,
-        }}
+        className="flex items-center gap-[4px] rounded-(--radius-sm) bg-(--feedback-error-bg) px-[6px] py-[2px] font-semibold text-destructive"
         title={translate(locale, 'status.offline.title')}
         data-testid="status-offline"
       >
@@ -606,14 +585,7 @@ export function NoRemoteBadge({
     <>
       <StatusBarSeparator show={showSeparator} />
       <span
-        style={{
-          ...ICON_STYLE,
-          color: 'var(--muted-foreground)',
-          background: 'var(--hover)',
-          borderRadius: 'var(--radius-sm)',
-          padding: '2px 6px',
-          fontWeight: 600,
-        }}
+        className="flex items-center gap-[4px] rounded-(--radius-sm) bg-(--hover) px-[6px] py-[2px] font-semibold text-muted-foreground"
         title={translate(locale, 'status.remote.noneDescription')}
         data-testid="status-no-remote"
       >
@@ -670,7 +642,7 @@ export function SyncBadge({
   }
 
   return (
-    <div ref={popupRef} style={{ position: 'relative' }}>
+    <div ref={popupRef} className="relative">
       <StatusBarAction copy={syncBadgeTooltipCopy(locale, status)} onClick={handleClick} testId="status-sync" compact={compact}>
         <span style={ICON_STYLE}>
           <SyncStatusIcon status={status} color={syncIconColor(status)} spinning={isSyncing} />
@@ -730,19 +702,9 @@ export function ChangesBadge({
       <StatusBarSeparator show={showSeparator} />
       <StatusBarAction copy={{ label: translate(locale, 'status.changes.view') }} onClick={onClick} testId="status-modified-count" compact={compact}>
         <span style={ICON_STYLE}>
-          <GitDiff size={13} style={{ color: 'var(--accent-orange)' }} />
+          <GitDiff size={13} className="text-(--accent-orange)" />
           <span
-            className="text-caption min-w-4"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: 'var(--accent-orange)',
-              color: 'var(--text-inverse)',
-              borderRadius: 'var(--radius-sm)',
-              padding: '0 5px',
-              fontWeight: 600,
-            }}
+            className="inline-flex min-w-4 items-center justify-center rounded-(--radius-sm) bg-(--accent-orange) px-[5px] font-semibold text-caption text-(--text-inverse)"
           >
             {count}
           </span>
