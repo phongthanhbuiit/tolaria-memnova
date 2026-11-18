@@ -1181,6 +1181,8 @@ Preview card properties retain nested metadata and relative media references. Th
 
 ## Durable learning sessions
 
+Terminal study snapshots include a read-only summary computed from the most recent non-undone review per card and the earliest current due date among active reviewed cards. The continuation action uses the existing study request for the same scope and lane when the refreshed Library still has due cards there.
+
 After cutover, native session/review operations use the existing SQLite session/review tables (ADR-0141), with no additional schema expansion. Session creation snapshots due active card UUIDs and a normalized page scope. A session can pause, resume, wait for a short learning deadline or finish. The current item includes a validated live Markdown page snapshot and fingerprint; a changed/missing source cannot be silently graded as a different lesson. The backend also validates the chosen maintained-engine outcome, counters and clocks.
 
 A rating uses an immediate transaction for the complete schedule, idempotent review receipt and queue cursor. No persisted review means no XP/progress. Again and other short-step outcomes reinsert the card and leave the session active until due. Imported legacy rows are never granted XP again. Last-review undo is revision-guarded, retains an undone history row and restores a fresh schedule revision to prevent stale writes. Session stats exclude undone rows. Typed frontend transport is implemented; interactive study controls and their mouse/keyboard/native QA remain the F-stage work.

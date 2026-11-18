@@ -844,6 +844,8 @@
   "learning.image": "Gambar",
   "learning.questionHelp": "Setiap kartu memiliki jadwal pengulangannya sendiri.",
   "learning.close": "Tutup",
+  "learning.session.nextReview": "Next review",
+  "learning.session.continue": "Continue review",
   "learning.skip": "Lewati",
   "learning.reload": "Muat ulang",
   "welcome.title": "Selamat datang di Memnova",

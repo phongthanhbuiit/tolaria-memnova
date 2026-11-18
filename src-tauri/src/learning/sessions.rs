@@ -2,7 +2,7 @@ pub use super::session_models::SessionScope;
 use super::{
     cards::read_card,
     note_snapshot::session_item,
-    session_models::{SessionRow, StoredQueue},
+    session_models::{SessionRow, StoredQueue, StudySummary},
     MigrationState, Store, StudySession,
 };
 use rusqlite::{params, Connection, OptionalExtension, TransactionBehavior};
@@ -90,6 +90,34 @@ fn select_ready(
 
 fn review_summary(connection: &Connection, id: &str) -> Result<(usize, usize), String> {
     connection.query_row("SELECT count(*),coalesce(sum(rating>=3),0) FROM reviews WHERE session_id=?1 AND undone_at IS NULL",[id],|row|Ok((row.get::<_,u32>(0)? as usize,row.get::<_,u32>(1)? as usize))).map_err(|error|error.to_string())
+}
+
+// The terminal display reads the last committed grade for each card in this session.
+fn study_summary(connection: &Connection, id: &str) -> rusqlite::Result<StudySummary> {
+    let mut query = connection.prepare(
+        "WITH latest AS (
+            SELECT max(rowid) AS review_row FROM reviews
+            WHERE session_id=?1 AND undone_at IS NULL GROUP BY card_id
+         )
+         SELECT r.rating, count(*),
+                min(CASE WHEN c.status='active' AND p.deleted_at IS NULL THEN s.due_ms END)
+         FROM latest JOIN reviews r ON r.rowid=latest.review_row
+         JOIN cards c ON c.id=r.card_id JOIN pages p ON p.id=c.page_id
+         LEFT JOIN schedules s ON s.card_id=c.id
+         GROUP BY r.rating",
+    )?;
+    let mut rows = query.query([id])?;
+    let mut result = StudySummary::default();
+    while let Some(row) = rows.next()? {
+        let rating = row.get::<_, u32>(0)? as usize;
+        if let Some(count) = result.grades.get_mut(rating.saturating_sub(1)) {
+            *count = row.get::<_, u32>(1)? as usize;
+        }
+        if let Some(due) = row.get::<_, Option<i64>>(2)? {
+            result.next_due_at = Some(result.next_due_at.map_or(due, |previous| previous.min(due)));
+        }
+    }
+    Ok(result)
 }
 
 fn last_review(connection: &Connection, row: &SessionRow) -> Result<Option<String>, String> {
@@ -183,6 +211,11 @@ impl Store {
             .transpose()?;
         let (review_count, correct_count) = review_summary(&transaction, id)?;
         let last_review_id = last_review(&transaction, &row)?;
+        let summary = if current.is_none() {
+            Some(study_summary(&transaction, id).map_err(|error| error.to_string())?)
+        } else {
+            None
+        };
         let result = StudySession {
             id: row.id,
             scope: row.scope,
@@ -202,6 +235,7 @@ impl Store {
             correct_count,
             can_undo: last_review_id.is_some(),
             last_review_id,
+            summary,
         };
         transaction.commit().map_err(|error| error.to_string())?;
         Ok(result)

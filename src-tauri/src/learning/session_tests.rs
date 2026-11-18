@@ -389,3 +389,46 @@ fn legacy_owner_only_receipts_remain_readable_and_replayable() {
     assert!(store.rate_card(legacy).unwrap().replayed);
     assert_eq!(store.study_stats().unwrap().today_reviews, 1);
 }
+
+#[test]
+fn completed_session_summary_reads_committed_grades_and_next_due() {
+    let (dir, mut store, page) = fixture();
+    card(&mut store, &page);
+    card(&mut store, &page);
+    let started = store
+        .start_session(SessionScope {
+            lane: None,
+            page_ids: Some(vec![page]),
+        })
+        .unwrap();
+    let first = request(&started, 3, false);
+    let midway = store.rate_card(first.clone()).unwrap().session;
+    let second = request(&midway, 4, false);
+    let finished = store.rate_card(second.clone()).unwrap().session;
+    let next_due = [first.schedule.due, second.schedule.due]
+        .iter()
+        .map(|due| {
+            chrono::DateTime::parse_from_rfc3339(due)
+                .unwrap()
+                .timestamp_millis()
+        })
+        .min();
+    let expected = serde_json::json!({ "grades": [0, 0, 1, 1], "nextDueAt": next_due });
+    assert_eq!(
+        serde_json::to_value(&finished).unwrap()["summary"],
+        expected
+    );
+    drop(store);
+    let mut store = Store::open(dir.path()).unwrap();
+    let reopened = store.get_session(&finished.id).unwrap();
+    assert_eq!(
+        serde_json::to_value(&reopened).unwrap()["summary"],
+        expected
+    );
+    assert_eq!(reopened.revision, finished.revision);
+    let undone = store
+        .undo_review(&finished.id, &second.review_id, finished.revision)
+        .unwrap();
+    assert_eq!(undone.review_count, 1);
+    assert!(serde_json::to_value(&undone).unwrap()["summary"].is_null());
+}

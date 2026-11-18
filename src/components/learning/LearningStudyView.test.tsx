@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react'
 import { expect, it, vi } from 'vitest'
 import { LearningStudyView } from './LearningStudyView'
 import type { useLearningStudy } from '../../hooks/useLearningStudy'
-const { renderer, previewClient } = vi.hoisted(() => ({
+const { renderer, previewClient, workspaceOverlay } = vi.hoisted(() => ({
   renderer: {
     ready: true,
     statuses: new Map<
@@ -12,9 +12,10 @@ const { renderer, previewClient } = vi.hoisted(() => ({
     >(),
   },
   previewClient: { readStudyPage: vi.fn() },
+  workspaceOverlay: { current: {} as Record<string, unknown> },
 }))
 vi.mock('./LearningContext', () => ({
-  useLearningWorkspace: () => ({ root: '/library', client: previewClient }),
+  useLearningWorkspace: () => ({ root: '/library', client: previewClient, ...workspaceOverlay.current }),
 }))
 vi.mock('../FlashcardStudyView', () => ({
   BlockNoteReadOnly: ({
@@ -443,4 +444,48 @@ it('shows a matching leading question heading once while retaining the prompt', 
   render(<LearningStudyView study={study} root="/library" locale="en" />)
   expect(screen.getAllByText('Lesson', { exact: true })).toHaveLength(1)
   expect(screen.getByText('Question text', { exact: true })).toBeVisible()
+})
+
+it('shows the committed grade counts and nearest due date at completion', () => {
+  const study = fixture()
+  const due = Date.UTC(2026, 10, 26, 12)
+  study.session = Object.assign(study.session!, {
+    current: null, status: 'completed', reviewCount: 3, completedCount: 2,
+    summary: { grades: [0, 0, 1, 1], nextDueAt: due },
+  })
+  render(<LearningStudyView study={study} root="/library" locale="en" />)
+  expect(screen.getByRole('dialog', { name: 'Done' })).toBeVisible()
+  expect(screen.getByText('Good', { exact: true })).toBeVisible()
+  expect(screen.getByText('Easy', { exact: true })).toBeVisible()
+  expect(screen.getAllByText('1', { exact: true })).toHaveLength(2)
+  expect(screen.getByText('Next review')).toBeVisible()
+  expect(screen.getByRole('button', { name: 'Close' })).toBeVisible()
+  expect(study.rate).not.toHaveBeenCalled()
+})
+
+
+it('continues only with due cards in the completed session lane and scope', () => {
+  const study = fixture()
+  const card = { ...study.session!.current!.card, status: 'active', pageId: 'page-b' }
+  study.session = Object.assign(study.session!, {
+    current: null, status: 'completed', scope: { lane: 'legacy', pageIds: ['page-a'] },
+  })
+  const requestStudy = vi.fn()
+  workspaceOverlay.current = {
+    phase: 'ready', requestStudy, notes: [], cards: [card], clock: Date.now(),
+    pages: [
+      { id: 'page-a', path: 'lesson-a.md', available: true },
+      { id: 'page-b', path: 'lesson-b.md', available: true },
+    ],
+  }
+  try {
+    const { rerender } = render(<LearningStudyView study={study} root="/library" locale="en" />)
+    expect(screen.queryByRole('button', { name: 'Continue review' })).not.toBeInTheDocument()
+    workspaceOverlay.current.cards = [{ ...card, pageId: 'page-a' }]
+    rerender(<LearningStudyView study={study} root="/library" locale="en" />)
+    fireEvent.click(screen.getByRole('button', { name: 'Continue review' }))
+    expect(requestStudy).toHaveBeenCalledWith(['page-a'], 'legacy')
+  } finally {
+    workspaceOverlay.current = {}
+  }
 })

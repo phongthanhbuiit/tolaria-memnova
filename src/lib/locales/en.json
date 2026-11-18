@@ -843,6 +843,8 @@
   "learning.image": "Image",
   "learning.questionHelp": "Each card has its own review schedule.",
   "learning.close": "Close",
+  "learning.session.nextReview": "Next review",
+  "learning.session.continue": "Continue review",
   "learning.skip": "Skip",
   "learning.reload": "Reload",
   "welcome.title": "Welcome to Memnova",

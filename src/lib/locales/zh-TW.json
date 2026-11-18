@@ -844,6 +844,8 @@
   "learning.image": "圖片",
   "learning.questionHelp": "每張卡片都有獨立的複習安排。",
   "learning.close": "關閉",
+  "learning.session.nextReview": "Next review",
+  "learning.session.continue": "Continue review",
   "learning.skip": "略過",
   "learning.reload": "重新載入",
   "welcome.title": "歡迎使用 Memnova",

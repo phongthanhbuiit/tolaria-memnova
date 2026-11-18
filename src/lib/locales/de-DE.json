@@ -844,6 +844,8 @@
   "learning.image": "Bild",
   "learning.questionHelp": "Jede Karte hat ihren eigenen Wiederholungsplan.",
   "learning.close": "Schließen",
+  "learning.session.nextReview": "Next review",
+  "learning.session.continue": "Continue review",
   "learning.skip": "Überspringen",
   "learning.reload": "Neu laden",
   "welcome.title": "Willkommen bei Memnova",

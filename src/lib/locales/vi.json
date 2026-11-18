@@ -844,6 +844,8 @@
   "learning.image": "Hình ảnh",
   "learning.questionHelp": "Mỗi thẻ có lịch ôn riêng.",
   "learning.close": "Đóng",
+  "learning.session.nextReview": "Lần ôn tiếp theo",
+  "learning.session.continue": "Ôn tiếp",
   "learning.skip": "Bỏ qua",
   "learning.reload": "Tải lại",
   "welcome.title": "Chào mừng đến với Memnova",

@@ -844,6 +844,8 @@
   "learning.image": "Imagem",
   "learning.questionHelp": "Cada cartão tem seu próprio calendário de revisão.",
   "learning.close": "Fechar",
+  "learning.session.nextReview": "Next review",
+  "learning.session.continue": "Continue review",
   "learning.skip": "Pular",
   "learning.reload": "Recarregar",
   "welcome.title": "Boas-vindas ao Memnova",

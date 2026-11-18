@@ -117,6 +117,7 @@ export interface StudySession {
   correctCount: number
   lastReviewId: string | null
   canUndo: boolean
+  summary?: { grades: readonly [number, number, number, number]; nextDueAt: number | null }
 }
 export interface RateRequest {
   reviewId: string

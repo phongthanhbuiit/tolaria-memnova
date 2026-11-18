@@ -73,6 +73,13 @@ pub struct StudyItem {
     pub content: super::StudyContent,
 }
 
+#[derive(Debug, Default, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct StudySummary {
+    pub grades: [usize; 4],
+    pub next_due_at: Option<i64>,
+}
+
 #[derive(Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct StudySession {
@@ -90,6 +97,8 @@ pub struct StudySession {
     pub correct_count: usize,
     pub last_review_id: Option<String>,
     pub can_undo: bool,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub summary: Option<StudySummary>,
 }
 
 #[derive(Clone, Debug, Deserialize, Serialize, PartialEq)]

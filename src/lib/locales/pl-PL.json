@@ -844,6 +844,8 @@
   "learning.image": "Obraz",
   "learning.questionHelp": "Każda fiszka ma własny harmonogram powtórek.",
   "learning.close": "Zamknij",
+  "learning.session.nextReview": "Next review",
+  "learning.session.continue": "Continue review",
   "learning.skip": "Pomiń",
   "learning.reload": "Wczytaj ponownie",
   "welcome.title": "Witaj w Memnova",

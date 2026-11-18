@@ -844,6 +844,8 @@
   "learning.image": "Immagine",
   "learning.questionHelp": "Ogni carta ha il proprio calendario di ripasso.",
   "learning.close": "Chiudi",
+  "learning.session.nextReview": "Next review",
+  "learning.session.continue": "Continue review",
   "learning.skip": "Salta",
   "learning.reload": "Ricarica",
   "welcome.title": "Benvenuto in Memnova",

@@ -8,3 +8,8 @@
 ## W2-08 (F-049)
 
 - `learning.legacyDrawingUnavailable`
+
+## W2-13 (F-052)
+
+- `learning.session.nextReview`
+- `learning.session.continue`

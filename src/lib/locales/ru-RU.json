@@ -844,6 +844,8 @@
   "learning.image": "Изображение",
   "learning.questionHelp": "У каждой карточки своё расписание повторений.",
   "learning.close": "Закрыть",
+  "learning.session.nextReview": "Next review",
+  "learning.session.continue": "Continue review",
   "learning.skip": "Пропустить",
   "learning.reload": "Обновить",
   "welcome.title": "Добро пожаловать в Memnova",

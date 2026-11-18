@@ -459,3 +459,10 @@ W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
 - P2 · **fixed (commit W2-12)**. [Ảnh gốc](review-shots/2026-11-18/13-flashcard-mat-truoc-light.png). Tên Whiteboard Test ở dialog và ở H1 đầu câu hỏi.
 - Đạt khi tên chỉ xuất hiện một lần và vẫn hiển thị các tiêu đề riêng trong câu hỏi.
 - Bỏ H1 đầu trùng tên trong nội dung hiển thị của thẻ legacy. Test RED → GREEN (18/18). Native [sáng](review-shots/2026-11-18/W2-12-after-light.png) · [tối](review-shots/2026-11-18/W2-12-after-dark.png).
+
+### F-052 · W2-13 · Thiếu tóm tắt khi hoàn thành phiên
+
+- P2 · **fixed (commit W2-13)**. [Ảnh gốc](review-shots/2026-11-18/15-flashcard-ket-thuc-phien-light.png). Phiên kết thúc chỉ có tổng lượt ôn, tiêu đề chung và nút Đóng.
+- Đạt khi hiện số thẻ theo mức chấm gần nhất trong phiên, hạn ôn sớm nhất và Ôn tiếp nếu còn thẻ đến hạn trong phạm vi vừa ôn.
+- Tóm tắt đọc lượt chấm chưa bị hoàn tác cuối cùng của mỗi thẻ và hạn sớm nhất của các thẻ còn hoạt động. Ôn tiếp dùng lối mở phiên hiện có, chỉ hiện khi còn thẻ đến hạn trong phạm vi. Không đổi cách lưu phiên hoặc tính lịch.
+- UI và Rust đều RED trước sửa. Vitest 20/20, Rust session 14/14. Native [sáng](review-shots/2026-11-18/W2-13-after-light.png) · [tối](review-shots/2026-11-18/W2-13-after-dark.png). QA chấm chuột, hoàn tác, lật Space và chấm phím 4 trong Library tạm.

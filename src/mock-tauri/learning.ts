@@ -52,6 +52,19 @@ function stats(data: Fixture): StudyStats {
   const combo = [...current].reverse().findIndex(review => review.request.rating < 3)
   return { totalXp: reviews.reduce((sum, review) => sum + review.xp, 0), dailyGoal: data.goal, todayReviews: current.length, todayCorrect: current.filter(review => review.request.rating >= 3).length, todayXp: current.reduce((sum, review) => sum + review.xp, 0), todayDurationMs: current.reduce((sum, review) => sum + review.request.durationMs, 0), heatmap: [...heatmap].map(([date, count]) => ({ date, count })), combo: combo < 0 ? current.length : combo, streak: current.length ? 1 : 0, lastStudyDate: current.length ? today : null }
 }
+function summarizeSession(data: Fixture, reviews: Fixture['reviews']): NonNullable<StudySession['summary']> {
+  const grades: [number, number, number, number] = [0, 0, 0, 0]
+  const lastByCard = new Map(reviews.map(({ request }) => [request.cardId, request.rating]))
+  let nextDueAt: number | null = null
+  for (const [id, rating] of lastByCard) {
+    grades[rating - 1]++
+    const card = data.cards.find(item => item.id === id && item.status === 'active')
+    if (!card) continue
+    const dueAt = Date.parse(card.schedule.due)
+    if (Number.isFinite(dueAt)) nextDueAt = nextDueAt === null ? dueAt : Math.min(nextDueAt, dueAt)
+  }
+  return { grades, nextDueAt }
+}
 async function snapshot(data: Fixture, row: FixtureSession, root: string, context: Context): Promise<StudySession> {
   const pending = row.ids.slice(row.index).map((id, offset) => ({ card: data.cards.find(card => card.id === id), index: row.index + offset })).filter(item => item.card?.status === 'active' && isMockBoundCard(data, item.card.id) === (row.scope.lane === 'notes') && (Date.parse(item.card.schedule.due) <= Date.now() || ['learning', 'relearning'].includes(item.card.schedule.state)))
   const ready = pending.find(item => item.card && Date.parse(item.card.schedule.due) <= Date.now())
@@ -78,7 +91,7 @@ async function snapshot(data: Fixture, row: FixtureSession, root: string, contex
   }
   const reviews = data.reviews.filter(review => !review.undone && review.request.sessionId === row.id)
   const last = [...data.reviews].reverse().find(review => !review.undone)
-  return { id: row.id, scope: row.scope, initialCount: row.initial, currentIndex: row.index, revision: row.revision, status: row.status, updatedAt: Date.now(), current, waitingUntil: current ? null : pending.length ? Math.min(...pending.map(item => Date.parse(item.card?.schedule.due ?? ''))) : null, completedCount: row.initial - pending.length, reviewCount: reviews.length, correctCount: reviews.filter(review => review.request.rating >= 3).length, lastReviewId: last?.request.sessionId === row.id ? last.request.reviewId : null, canUndo: last?.request.sessionId === row.id }
+  return { id: row.id, scope: row.scope, initialCount: row.initial, currentIndex: row.index, revision: row.revision, status: row.status, updatedAt: Date.now(), current, waitingUntil: current ? null : pending.length ? Math.min(...pending.map(item => Date.parse(item.card?.schedule.due ?? ''))) : null, completedCount: row.initial - pending.length, reviewCount: reviews.length, correctCount: reviews.filter(review => review.request.rating >= 3).length, lastReviewId: last?.request.sessionId === row.id ? last.request.reviewId : null, canUndo: last?.request.sessionId === row.id, summary: current ? undefined : summarizeSession(data, reviews) }
 }
 function required<T>(value: T | undefined): T { if (value === undefined) throw new Error('Missing QA learning record'); return value }
 function draft(value: unknown): CardDraft {
