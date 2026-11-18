@@ -28,7 +28,7 @@ test('a ten-note saved view studies its three due notes and resumes the same ses
       originals.set(file, source)
     }
     await openFixtureVaultDesktopHarness(page, root, {
-      expectedReadyTitle: 'Biology study list', preserveLearningState: true,
+      expectedReadyTitle: 'Biology study list', preserveLearningState: true, noteReviewFrontOrder: 'article',
       views: [{ filename: 'biology.yml', definition: { name: 'Biology study list', icon: null, color: null, sort: null,
         filters: { all: [{ field: 'course', op: 'equals', value: 'biology' }] } } }],
     })

@@ -8,7 +8,7 @@ import type { DocumentRenderStatus } from '../documentRenderGate'
 import { trackEvent } from '../../lib/telemetry'
 
 /** Snapshot-scoped acknowledgements and session-only camera/scroll lifetime. */
-export function useStudyFaces(key: string, isNote: boolean, open: boolean) {
+export function useStudyFaces(key: string, isNote: boolean, open: boolean, mnemonicFirst = false) {
   const [face, setFace] = useState({ key: '', revealed: false })
   const [shownBack, setShownBack] = useState('')
   const revealed = face.key === key && face.revealed
@@ -115,12 +115,12 @@ export function useStudyFaces(key: string, isNote: boolean, open: boolean) {
   const reveal = () => {
     setShownBack(key)
     changeFace(true)
-    if (isNote) trackEvent('memnova_note_study_mnemonic_shown')
+    if (isNote && !mnemonicFirst) trackEvent('memnova_note_study_mnemonic_shown')
   }
   const revealButton = useRef<HTMLButtonElement>(null)
   const returnToArticle = () => {
     changeFace(false)
-    trackEvent('memnova_note_study_article_returned')
+    if (!mnemonicFirst) trackEvent('memnova_note_study_article_returned')
   }
   return {
     revealed,

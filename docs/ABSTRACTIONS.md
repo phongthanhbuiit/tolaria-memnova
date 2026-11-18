@@ -1193,3 +1193,5 @@ Learning catalog visibility: `noteWorkspace.isPublicNotePath` excludes `.memnova
 `projectLegacyDrawingMarkdown` reuses the snippet fence scanner for the read-only renderer. It replaces legacy legacy canvas format/whiteboard fences with localized display text before parsing and in the text fallback. Card and note storage continue to use the original Markdown.
 
 The unsupported drawing Markdown codec preserves legacy fenced source for editor serialization. Read-only study renders the notice instead of passing the payload to BlockNote. `DrawingSourceContext` routes the rich editor's source action to its existing raw-mode controller.
+
+Note study front order is an app preference (`note_review_front_order`) with a per-session override in the renderer. Face readiness, keyboard rating and duplicate-review protection continue through the existing study session.

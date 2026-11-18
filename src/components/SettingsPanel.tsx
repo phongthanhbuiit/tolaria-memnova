@@ -1,3 +1,4 @@
+import { noteReviewFrontOrder, type NoteReviewFrontOrder } from '../lib/learning/noteReviewOrder'
 import { Copy, Cube, Monitor, Moon, Sun, X } from '@phosphor-icons/react'
 import {
   AI_AGENT_DEFINITIONS,
@@ -118,6 +119,7 @@ interface SettingsDraft {
   themeMode: ThemeMode
   uiLanguage: UiLanguagePreference
   dateDisplayFormat: DateDisplayFormat
+  noteFrontOrder: NoteReviewFrontOrder
   defaultNoteWidth: NoteWidthMode
   sidebarTypePluralizationEnabled: boolean
   initialH1AutoRename: boolean
@@ -161,7 +163,9 @@ interface SettingsBodyProps {
   uiLanguage: UiLanguagePreference
   setUiLanguage: (value: UiLanguagePreference) => void
   dateDisplayFormat: DateDisplayFormat
+  noteFrontOrder: NoteReviewFrontOrder
   setDateDisplayFormat: (value: DateDisplayFormat) => void
+  setNoteFrontOrder: (value: NoteReviewFrontOrder) => void
   defaultNoteWidth: NoteWidthMode
   setDefaultNoteWidth: (value: NoteWidthMode) => void
   sidebarTypePluralizationEnabled: boolean
@@ -220,6 +224,7 @@ function createSettingsDraft(
     releaseChannel: normalizeReleaseChannel(settings.release_channel),
     themeMode: resolveSettingsDraftThemeMode(settings.theme_mode),
     uiLanguage: settings.ui_language ?? SYSTEM_UI_LANGUAGE,
+    noteFrontOrder: noteReviewFrontOrder(settings.note_review_front_order),
     dateDisplayFormat: normalizeDateDisplayFormat(settings.date_display_format) ?? DEFAULT_DATE_DISPLAY_FORMAT,
     defaultNoteWidth: normalizeNoteWidthMode(settings.note_width_mode) ?? DEFAULT_NOTE_WIDTH_MODE,
     sidebarTypePluralizationEnabled: settings.sidebar_type_pluralization_enabled ?? true,
@@ -268,6 +273,7 @@ function buildSettingsFromDraft(settings: Settings, draft: SettingsDraft): Setti
     theme_mode: draft.themeMode,
     ui_language: serializeUiLanguagePreference(draft.uiLanguage),
     date_display_format: draft.dateDisplayFormat,
+    note_review_front_order: draft.noteFrontOrder,
     note_width_mode: draft.defaultNoteWidth,
     sidebar_type_pluralization_enabled: draft.sidebarTypePluralizationEnabled,
     initial_h1_auto_rename_enabled: draft.initialH1AutoRename,
@@ -571,6 +577,8 @@ function SettingsBodyFromDraft({
       setUiLanguage={(value) => updateDraft('uiLanguage', value)}
       dateDisplayFormat={draft.dateDisplayFormat}
       setDateDisplayFormat={(value) => updateDraft('dateDisplayFormat', value)}
+      noteFrontOrder={draft.noteFrontOrder}
+      setNoteFrontOrder={(value) => updateDraft('noteFrontOrder', value)}
       defaultNoteWidth={draft.defaultNoteWidth}
       setDefaultNoteWidth={(value) => updateDraft('defaultNoteWidth', value)}
       sidebarTypePluralizationEnabled={draft.sidebarTypePluralizationEnabled}
@@ -704,6 +712,8 @@ function SettingsContentSections({
   locale,
   dateDisplayFormat,
   setDateDisplayFormat,
+  noteFrontOrder,
+  setNoteFrontOrder,
   defaultNoteWidth,
   setDefaultNoteWidth,
   sidebarTypePluralizationEnabled,
@@ -722,6 +732,8 @@ function SettingsContentSections({
         locale={locale}
         dateDisplayFormat={dateDisplayFormat}
         setDateDisplayFormat={setDateDisplayFormat}
+        noteFrontOrder={noteFrontOrder}
+        setNoteFrontOrder={setNoteFrontOrder}
         defaultNoteWidth={defaultNoteWidth}
         setDefaultNoteWidth={setDefaultNoteWidth}
         sidebarTypePluralizationEnabled={sidebarTypePluralizationEnabled}

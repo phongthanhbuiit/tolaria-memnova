@@ -36,12 +36,14 @@ export function LearningStudyFaces({
   locale,
   faces,
   onOpenRawSource,
+  mnemonicFirst = false,
 }: {
   study: ReturnType<typeof useLearningStudy>
   root: string
   locale: AppLocale
   faces: FaceState
   onOpenRawSource?: (path: string) => void
+  mnemonicFirst?: boolean
 }) {
   const item = study.session?.current
   if (!item) return null
@@ -57,6 +59,8 @@ export function LearningStudyFaces({
     answerStatus,
   } = faces
   const isNote = item.content?.kind === 'note'
+  const articleHidden = isNote && (mnemonicFirst ? !revealed : revealed)
+  const mnemonicHidden = isNote && !articleHidden
   const noteDetails =
     item.content?.kind === 'note' ? item.content.details : null
   const answerPage = isNote
@@ -94,9 +98,13 @@ export function LearningStudyFaces({
       }}
     >
       <div
-        hidden={isNote && revealed}
-        inert={isNote && revealed}
-        aria-hidden={isNote && revealed ? true : undefined}
+        ref={mnemonicFirst ? mnemonicRegion : undefined}
+        tabIndex={mnemonicFirst ? -1 : undefined}
+        role={mnemonicFirst ? 'region' : undefined}
+        aria-label={mnemonicFirst ? t('learning.noteMemory.article') : undefined}
+        hidden={articleHidden}
+        inert={articleHidden}
+        aria-hidden={articleHidden || undefined}
         className="learning-study-face"
       >
         <p className="mb-[12px] text-caption uppercase tracking-wide text-text-secondary">
@@ -107,7 +115,7 @@ export function LearningStudyFaces({
             key={`${key}:question`}
             content={isNote ? (item.page?.content ?? '') : questionWithUniqueTitle(item.card.front, item.page?.title)}
             onReady={isNote ? undefined : questionRendered}
-            onRenderStatus={isNote ? questionStatus : undefined}
+            onRenderStatus={isNote ? (mnemonicFirst ? answerStatus : questionStatus) : undefined}
             verifiedMedia={isNote ? noteDetails?.frontMedia : undefined}
             preserveBody
             locale={locale}
@@ -154,15 +162,15 @@ export function LearningStudyFaces({
           </Button>
         </LearningError>
       )}
-      {(isNote ? backVisited : revealed) && sourceReady && (
+      {(isNote ? (mnemonicFirst || backVisited) : revealed) && sourceReady && (
         <div
-          ref={mnemonicRegion}
+          ref={!mnemonicFirst ? mnemonicRegion : undefined}
           tabIndex={-1}
           role="region"
           aria-label={t(isNote ? 'learning.noteMemory.mnemonic' : 'learning.back')}
-          hidden={isNote && !revealed}
-          inert={isNote && !revealed}
-          aria-hidden={isNote && !revealed ? true : undefined}
+          hidden={mnemonicHidden}
+          inert={mnemonicHidden}
+          aria-hidden={mnemonicHidden || undefined}
           className={isNote ? 'learning-study-face' : 'learning-study-face border-t pt-[24px]'}
         >
           <p className="mb-[12px] text-caption uppercase tracking-wide text-text-secondary">
@@ -173,7 +181,7 @@ export function LearningStudyFaces({
               key={`${key}:answer`}
               content={answer}
               onReady={isNote ? undefined : answerRendered}
-              onRenderStatus={isNote ? answerStatus : undefined}
+              onRenderStatus={isNote ? (mnemonicFirst ? questionStatus : answerStatus) : undefined}
               verifiedMedia={isNote ? noteDetails?.backMedia : undefined}
               preserveBody
               locale={locale}

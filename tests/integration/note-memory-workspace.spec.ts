@@ -20,7 +20,7 @@ test('explicit note enable, mnemonic editing, study and pause use the default wo
   const sourcePath = path.join(root, 'memory-fixtures/source.md')
   const source = fs.readFileSync(sourcePath, 'utf8')
   try {
-    await openFixtureVault(page, root, { preserveLearningState: true })
+    await openFixtureVault(page, root, { preserveLearningState: true, noteReviewFrontOrder: 'article' })
     const modifiedYear = new Date(fs.statSync(owner).mtimeMs).getFullYear().toString()
     await page.getByRole('button', { name: /^All Notes/ }).click()
     const alphaDate = page.getByTestId('note-title-row')
@@ -159,7 +159,7 @@ test(`ordinary note editing retains a literal two-face marker without enabling l
 })
 }
 
-test('Home creates and verifies a backup after editing a managed note', async ({ page }) => {
+test('Library settings create and verify a backup after editing a managed note', async ({ page }) => {
   const root = createNoteMemoryFixture()
   const owner = path.join(root, 'project/alpha-project.md')
   const latest = new Date(Date.now() + 60_000)
@@ -182,8 +182,10 @@ test('Home creates and verifies a backup after editing a managed note', async ({
     const saved = fs.readFileSync(owner, 'utf8')
     await page.getByRole('button', { name: 'Home', exact: true }).click()
     await expect(page.locator('.bn-editor')).toHaveCount(0)
-    await page.getByRole('button', { name: 'Advanced', exact: true }).click()
-    const backup = page.getByRole('region', { name: 'Backup history', exact: true })
+    await page.getByRole('button', { name: 'Open settings', exact: true }).click()
+    const settings = page.getByTestId('settings-panel')
+    await settings.getByRole('button', { name: 'Vaults', exact: true }).click()
+    const backup = settings.getByRole('region', { name: 'Backup history', exact: true })
     const selection = backup.getByRole('combobox', { name: 'Backup history', exact: true })
     const previous = await selection.count() ? await selection.innerText() : ''
     await backup.getByRole('button', { name: 'Create backup', exact: true }).click()

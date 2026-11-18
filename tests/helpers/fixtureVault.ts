@@ -13,6 +13,7 @@ const CLAUDE_CODE_ONBOARDING_DISMISSED_KEY = 'tolaria:claude-code-onboarding-dis
 type FixtureCommandArgs = Record<string, unknown> | undefined
 
 interface FixtureVaultPageArgs {
+  noteReviewFrontOrder?: 'article' | 'mnemonic'
   preserveLearningState?: boolean
   views?: ViewFile[]
   page: Page
@@ -26,6 +27,7 @@ interface FixturePageArgs {
 }
 
 interface FixtureVaultOptions {
+  noteReviewFrontOrder?: 'article' | 'mnemonic'
   preserveLearningState?: boolean
   views?: ViewFile[]
   isGitRepo?: boolean
@@ -75,8 +77,8 @@ export function removeFixtureVaultCopy(tempVaultDir: string | null | undefined):
   removeFixtureVaultDirectory({ tempVaultDir })
 }
 
-async function installFixtureVaultInitScript({ page, vaultPath, isGitRepo, folders, views = [], preserveLearningState }: FixtureVaultPageArgs): Promise<void> {
-  await page.addInitScript(({ dismissedKey, fixtureFolders, fixtureViews, initialIsGitRepo, resolvedVaultPath, keepLearningState }: { keepLearningState?: boolean; dismissedKey: string; fixtureFolders: FolderNode[]; fixtureViews: ViewFile[]; initialIsGitRepo: boolean; resolvedVaultPath: string }) => {
+async function installFixtureVaultInitScript({ page, vaultPath, isGitRepo, folders, views = [], preserveLearningState, noteReviewFrontOrder }: FixtureVaultPageArgs): Promise<void> {
+  await page.addInitScript(({ dismissedKey, fixtureFolders, fixtureViews, initialIsGitRepo, resolvedVaultPath, keepLearningState, frontOrder }: { frontOrder?: 'article' | 'mnemonic'; keepLearningState?: boolean; dismissedKey: string; fixtureFolders: FolderNode[]; fixtureViews: ViewFile[]; initialIsGitRepo: boolean; resolvedVaultPath: string }) => {
     const learningState = keepLearningState ? Object.entries(localStorage).filter(([key]) => key.startsWith('memnova:qa-learning:')) : []
     localStorage.clear()
     for (const [key, value] of learningState) localStorage.setItem(key, value)
@@ -309,6 +311,7 @@ async function installFixtureVaultInitScript({ page, vaultPath, isGitRepo, folde
         analytics_enabled: null,
         anonymous_id: null,
         release_channel: null,
+        note_review_front_order: frontOrder,
       }),
     })
 
@@ -457,6 +460,7 @@ async function installFixtureVaultInitScript({ page, vaultPath, isGitRepo, folde
     initialIsGitRepo: isGitRepo,
     resolvedVaultPath: vaultPath,
     keepLearningState: preserveLearningState,
+    frontOrder: noteReviewFrontOrder,
   })
 }
 
@@ -481,6 +485,7 @@ export async function openFixtureVault(
     folders: options.folders ?? [],
     views: options.views,
     preserveLearningState: options.preserveLearningState,
+    noteReviewFrontOrder: options.noteReviewFrontOrder,
   })
   await waitForFixtureVaultReady({
     page,

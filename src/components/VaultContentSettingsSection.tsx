@@ -1,3 +1,4 @@
+import { noteReviewFrontOrder, type NoteReviewFrontOrder } from '../lib/learning/noteReviewOrder'
 import { Article } from '@phosphor-icons/react'
 import type { AppLocale, TranslationKey, TranslationValues } from '../lib/i18n'
 import type { NoteWidthMode } from '../types'
@@ -18,6 +19,8 @@ interface VaultContentSettingsSectionProps {
   locale: AppLocale
   dateDisplayFormat: DateDisplayFormat
   setDateDisplayFormat: (value: DateDisplayFormat) => void
+  noteFrontOrder: NoteReviewFrontOrder
+  setNoteFrontOrder: (value: NoteReviewFrontOrder) => void
   defaultNoteWidth: NoteWidthMode
   setDefaultNoteWidth: (value: NoteWidthMode) => void
   sidebarTypePluralizationEnabled: boolean
@@ -61,6 +64,8 @@ export function VaultContentSettingsSection({
   locale,
   dateDisplayFormat,
   setDateDisplayFormat,
+  noteFrontOrder,
+  setNoteFrontOrder,
   defaultNoteWidth,
   setDefaultNoteWidth,
   sidebarTypePluralizationEnabled,
@@ -84,6 +89,19 @@ export function VaultContentSettingsSection({
       />
 
       <SettingsGroup>
+        <SettingsRow label={t('learning.noteOrder.preference')}>
+          <SelectControl
+            ariaLabel={t('learning.noteOrder.preference')}
+            value={noteFrontOrder}
+            onValueChange={value => setNoteFrontOrder(noteReviewFrontOrder(value))}
+            options={[
+              { value: 'mnemonic', label: t('learning.noteOrder.mnemonic') },
+              { value: 'article', label: t('learning.noteOrder.article') },
+            ]}
+            testId="settings-note-review-front-order"
+          />
+        </SettingsRow>
+
         <SettingsRow
           label={t('settings.dateDisplay.default')}
           description={t('settings.dateDisplay.defaultDescription')}

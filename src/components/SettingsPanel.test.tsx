@@ -740,6 +740,17 @@ describe('SettingsPanel', () => {
     expect(screen.getByTestId('settings-autogit-inactive-threshold')).toBeDisabled()
   })
 
+  it('defaults to mnemonic first and saves an explicit article-first study preference', () => {
+    render(<SettingsPanel open settings={emptySettings} onSave={onSave} onClose={onClose} />)
+    const select = screen.getByTestId('settings-note-review-front-order')
+    expect(select).toHaveTextContent('Mnemonic first')
+    fireEvent.pointerDown(select, { button: 0, pointerType: 'mouse' })
+    fireEvent.click(screen.getByRole('option', { name: 'Article first' }))
+    fireEvent.click(screen.getByTestId('settings-save'))
+    expect(onSave).toHaveBeenCalledWith(expect.objectContaining({ note_review_front_order: 'article' }))
+    expect(trackEventMock).toHaveBeenCalledWith('note_review_front_order_changed', { order: 'article', source: 'settings' })
+  })
+
   it('saves the initial H1 auto-rename preference when toggled off', () => {
     render(
       <SettingsPanel open={true} settings={emptySettings} onSave={onSave} onClose={onClose} />

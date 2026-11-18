@@ -3,6 +3,7 @@ import type { AiAgentPermissionMode } from './lib/aiAgentPermissionMode'
 import type { AiModelProvider } from './lib/aiTargets'
 import type { ThemeMode } from './lib/themeMode'
 import type { AppLocale } from './lib/i18n'
+import type { NoteReviewFrontOrder } from './lib/learning/noteReviewOrder'
 import type { DateDisplayFormat } from './utils/dateDisplay'
 
 export type VaultPropertyScalar = string | number | boolean | null
@@ -138,6 +139,7 @@ export interface Settings {
   release_channel: string | null
   theme_mode?: ThemeMode | null
   ui_language?: AppLocale | null
+  note_review_front_order?: NoteReviewFrontOrder | null
   date_display_format?: DateDisplayFormat | null
   note_width_mode?: NoteWidthMode | null
   sidebar_type_pluralization_enabled?: boolean | null

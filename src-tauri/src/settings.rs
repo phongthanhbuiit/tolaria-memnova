@@ -89,6 +89,7 @@ pub struct Settings {
     pub theme_mode: Option<String>,
     pub ui_language: Option<String>,
     pub date_display_format: Option<String>,
+    pub note_review_front_order: Option<String>,
     pub note_width_mode: Option<String>,
     pub sidebar_type_pluralization_enabled: Option<bool>,
     pub initial_h1_auto_rename_enabled: Option<bool>,
@@ -205,6 +206,9 @@ fn normalize_settings(settings: Settings) -> Settings {
         theme_mode: normalize_theme_mode(settings.theme_mode.as_deref()),
         ui_language: normalize_ui_language(settings.ui_language.as_deref()),
         date_display_format: normalize_date_display_format(settings.date_display_format.as_deref()),
+        note_review_front_order: settings
+            .note_review_front_order
+            .filter(|value| matches!(value.as_str(), "article" | "mnemonic")),
         note_width_mode: normalize_note_width_mode(settings.note_width_mode.as_deref()),
         sidebar_type_pluralization_enabled: settings.sidebar_type_pluralization_enabled,
         initial_h1_auto_rename_enabled: settings.initial_h1_auto_rename_enabled,
@@ -441,6 +445,7 @@ mod tests {
             theme_mode: Some("dark".to_string()),
             ui_language: Some("zh-Hans".to_string()),
             date_display_format: Some("iso".to_string()),
+            note_review_front_order: None,
             note_width_mode: Some("wide".to_string()),
             sidebar_type_pluralization_enabled: Some(false),
             initial_h1_auto_rename_enabled: Some(false),
@@ -639,6 +644,16 @@ mod tests {
             ..Default::default()
         });
         assert!(loaded.note_width_mode.is_none());
+    }
+
+    #[test]
+    fn note_review_front_order_round_trips_in_existing_settings() {
+        let settings: Settings = serde_json::from_value(serde_json::json!({
+            "note_review_front_order": "article",
+        }))
+        .unwrap();
+        let saved = serde_json::to_value(save_and_reload(settings)).unwrap();
+        assert_eq!(saved["note_review_front_order"], "article");
     }
 
     #[test]

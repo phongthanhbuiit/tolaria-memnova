@@ -1,3 +1,4 @@
+import { noteReviewFrontOrder, type NoteReviewFrontOrder } from '../lib/learning/noteReviewOrder'
 import type { Settings, NoteWidthMode } from '../types'
 import { trackEvent } from '../lib/telemetry'
 import {
@@ -20,6 +21,7 @@ export interface SettingsPreferenceDraft {
   analytics: boolean
   aiFeaturesEnabled: boolean
   dateDisplayFormat: DateDisplayFormat
+  noteFrontOrder: NoteReviewFrontOrder
   defaultNoteWidth: NoteWidthMode
   gitFeaturesEnabled: boolean
   multiWorkspaceEnabled: boolean
@@ -45,6 +47,10 @@ export function trackSettingsPreferenceChanges(settings: Settings, draft: Settin
   const previousDateDisplayFormat = normalizeDateDisplayFormat(settings.date_display_format) ?? DEFAULT_DATE_DISPLAY_FORMAT
   if (previousDateDisplayFormat !== draft.dateDisplayFormat) {
     trackDateDisplayFormatChanged(draft.dateDisplayFormat)
+  }
+
+  if (noteReviewFrontOrder(settings.note_review_front_order) !== draft.noteFrontOrder) {
+    trackEvent('note_review_front_order_changed', { order: draft.noteFrontOrder, source: 'settings' })
   }
 
   const previousNoteWidth = normalizeNoteWidthMode(settings.note_width_mode) ?? DEFAULT_NOTE_WIDTH_MODE

@@ -1,8 +1,13 @@
+import { BlockNoteReadOnly } from '../BlockNoteReadOnly'
+import { useDraftStudyArticle } from './useDraftStudyArticle'
+import { Switch } from '../ui/switch'
+import { trackEvent } from '../../lib/telemetry'
+import type { NoteReviewFrontOrder } from '../../lib/learning/noteReviewOrder'
 import { formatDateTimeForDisplay } from '../../utils/dateDisplay'
 import { useDateDisplayFormat } from '../../hooks/useAppPreferences'
 import { useLearningDialogFocus } from './useLearningDialogFocus'
 import './noteMemory.css'
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Button } from '../ui/button'
 import {
   Dialog,
@@ -79,11 +84,15 @@ export function LearningStudyView({
   root,
   locale,
   onOpenRawSource,
+  onAddMnemonic,
+  frontOrder = 'article',
 }: {
   study: ReturnType<typeof useLearningStudy>
   root: string
   locale: AppLocale
   onOpenRawSource?: (path: string) => void
+  onAddMnemonic?: (path: string) => void
+  frontOrder?: NoteReviewFrontOrder
 }) {
   const { onOpenAutoFocus, onCloseAutoFocus } = useLearningDialogFocus()
   const { open, busy, error, reload } = study
@@ -99,6 +108,20 @@ export function LearningStudyView({
     : item?.card.answerMode === 'page' && item.card.answerPageId
       ? item.answerPage
       : item?.page
+  const sessionKey = session ? `${study.libraryKey}:${session.id}` : ''
+  const [override, setOverride] = useState<{ sessionKey: string; order: NoteReviewFrontOrder; version: number } | null>(null)
+  const order = sessionKey && override?.sessionKey === sessionKey ? override.order : frontOrder
+  const missingMnemonic = isNote && order === 'mnemonic' && !answerPage?.content.trim()
+  const draftPageId = missingMnemonic && item?.sourceError === 'note-source-not-ready: Draft'
+    ? item.card.pageId : undefined
+  const draftArticle = useDraftStudyArticle(draftPageId, `${sessionKey}:${session?.revision}:${draftPageId}`)
+  const fallbackPath = missingMnemonic ? item?.page?.path ?? draftArticle?.path : undefined
+  const mnemonicFirst = isNote && !missingMnemonic && order === 'mnemonic'
+  const selectSessionOrder = (checked: boolean) => {
+    const next = checked ? 'mnemonic' : 'article'
+    setOverride(previous => ({ sessionKey, order: next, version: (previous?.version ?? 0) + 1 }))
+    trackEvent('note_review_front_order_changed', { order: next, source: 'session' })
+  }
   const sourceReady =
     !!item?.page &&
     !item.sourceError &&
@@ -106,9 +129,9 @@ export function LearningStudyView({
       ? !!noteDetails && !!answerPage
       : item.card.answerMode === 'inline' || !!answerPage)
   const key = item
-    ? `${root}:${study.libraryKey}:${noteDetails?.fingerprint}:${session?.id}:${session?.currentIndex}:${item.card.id}:${item.card.revision}:${item.card.schedule.revision}:${item.page?.fingerprint}:${item.answerPage?.fingerprint}`
+    ? `${root}:${study.libraryKey}:${noteDetails?.fingerprint}:${session?.id}:${session?.currentIndex}:${item.card.id}:${item.card.revision}:${item.card.schedule.revision}:${item.page?.fingerprint}:${item.answerPage?.fingerprint}:${mnemonicFirst}:${override?.sessionKey === sessionKey ? override.version : 0}`
     : ''
-  const faces = useStudyFaces(key, isNote, open)
+  const faces = useStudyFaces(key, isNote, open, mnemonicFirst)
   const {
     revealed,
     questionReady,
@@ -218,7 +241,7 @@ export function LearningStudyView({
             )
           )
             return
-          if (event.key === ' ' && !revealed) {
+          if (event.key === ' ' && !revealed && !missingMnemonic) {
             event.preventDefault()
             reveal()
           }
@@ -254,6 +277,13 @@ export function LearningStudyView({
             )}
           </div>
 
+          {isNote && (
+            <label className="flex items-center gap-2 px-6 pb-2 text-small text-text-secondary">
+              <Switch checked={order === 'mnemonic'} onCheckedChange={selectSessionOrder}
+                disabled={study.busy || study.hasPending} aria-label={t('learning.noteOrder.toggle')} />
+              {t('learning.noteOrder.toggle')}
+            </label>
+          )}
           {session && (
             <div
               className="learning-study-progress"
@@ -332,11 +362,30 @@ export function LearningStudyView({
               </p>
             </div>
           )}
+          {fallbackPath && (
+            <div className="flex flex-wrap items-center gap-2 text-body text-text-secondary">
+              <span>{t('learning.noteOrder.missing')}</span>
+              {onAddMnemonic && <Button variant="ghost" size="sm" disabled={study.busy || study.hasPending}
+                onClick={() => { void study.close().then(() => onAddMnemonic(`${root}/${fallbackPath}`)) }}>
+                {t('editor.noteMemory.addMnemonic')}
+              </Button>}
+            </div>
+          )}
+          {draftArticle && (
+            <div className="learning-study-face">
+              <p className="mb-3 text-caption uppercase tracking-wide text-text-secondary">{t('learning.noteMemory.article')}</p>
+              <div className="learning-study-copy">
+                <BlockNoteReadOnly content={draftArticle.content} locale={locale} vaultPath={root}
+                  notePath={`${root}/${draftArticle.path}`} verifiedMedia={draftArticle.media} preserveBody />
+              </div>
+            </div>
+          )}
           <LearningStudyFaces
             study={study}
             root={root}
             locale={locale}
             onOpenRawSource={onOpenRawSource}
+            mnemonicFirst={mnemonicFirst}
             faces={{
               snapshotKey: key,
               revealed,
@@ -365,7 +414,7 @@ export function LearningStudyView({
                 )}
               </div>
             )}
-            {item?.page && !revealed && (
+            {item?.page && !revealed && !missingMnemonic && (
               <Button
                 ref={revealButton}
                 size="study-reveal"
@@ -378,7 +427,7 @@ export function LearningStudyView({
                 {isNote && <Eye aria-hidden />}
                 {t(
                   isNote
-                    ? 'learning.noteMemory.showMnemonic'
+                    ? mnemonicFirst ? 'learning.noteOrder.showArticle' : 'learning.noteMemory.showMnemonic'
                     : 'learning.showAnswer'
                 )}
               </Button>
@@ -402,7 +451,7 @@ export function LearningStudyView({
                   onClick={returnToArticle}
                 >
                   <ArrowLeft aria-hidden="true" />
-                  {t('editor.noteMemory.backToNote')}
+                  {t(mnemonicFirst ? 'learning.noteOrder.backToMnemonic' : 'editor.noteMemory.backToNote')}
                 </Button>
               )}
               {!terminal && undoButton}

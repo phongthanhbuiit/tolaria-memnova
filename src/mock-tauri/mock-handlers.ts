@@ -541,6 +541,7 @@ export const mockHandlers: Record<string, (args: any) => any> = {
       theme_mode: s.theme_mode ?? null,
       ui_language: s.ui_language ?? null,
       date_display_format: s.date_display_format ?? null,
+      ...(s.note_review_front_order ? { note_review_front_order: s.note_review_front_order } : {}),
       note_width_mode: s.note_width_mode ?? null,
       sidebar_type_pluralization_enabled: s.sidebar_type_pluralization_enabled ?? null,
       initial_h1_auto_rename_enabled: s.initial_h1_auto_rename_enabled ?? null,

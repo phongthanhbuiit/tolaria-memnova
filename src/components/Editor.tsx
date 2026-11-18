@@ -1,3 +1,4 @@
+import { requestNoteMnemonicEditor } from './learning/noteMemoryEditorActions'
 import { notePathsMatch } from '../utils/notePathIdentity'
 import { DrawingSourceContext } from './drawingSourceContext'
 import { useRef, useEffect, useCallback, useMemo, memo, useState, type ReactNode } from 'react'
@@ -122,8 +123,8 @@ interface EditorProps {
   leftPanelsCollapsed?: boolean
   /** Mutable ref that Editor registers its raw-mode toggle into, for command palette access. */
   rawToggleRef?: React.MutableRefObject<() => void>
-  rawSourceRequest?: { path: string } | null
-  onRawSourceOpened?: () => void
+  sourceRequest?: { path: string; mnemonicRoot?: string } | null
+  onSourceOpened?: () => void
   /** Mutable ref that Editor registers editor find commands into, for shortcuts and menus. */
   findInNoteRef?: React.MutableRefObject<((options?: { replace?: boolean }) => void) | null>
   /** Mutable ref that Editor registers its diff-mode toggle into, for command palette access. */
@@ -708,14 +709,18 @@ export const Editor = memo(function Editor(props: EditorProps) {
     rawToggleRef: props.rawToggleRef,
     diffToggleRef: props.diffToggleRef,
   })
-  const { rawSourceRequest, onRawSourceOpened } = props
+  const { sourceRequest, onSourceOpened, onToast } = props
   const activeSourcePath = runtime.activeTab?.entry.path
   const { rawMode, handleToggleRawExclusive } = runtime
   useEffect(() => {
-    if (!rawSourceRequest || !notePathsMatch(rawSourceRequest.path, activeSourcePath)) return
-    if (!rawMode) handleToggleRawExclusive()
-    onRawSourceOpened?.()
-  }, [rawSourceRequest, activeSourcePath, rawMode, handleToggleRawExclusive, onRawSourceOpened])
+    if (!sourceRequest || !notePathsMatch(sourceRequest.path, activeSourcePath)) return
+    if (sourceRequest.mnemonicRoot) {
+      void requestNoteMnemonicEditor(sourceRequest.mnemonicRoot, sourceRequest.path).catch(error => onToast?.(String(error)))
+    } else if (!rawMode) {
+      handleToggleRawExclusive()
+    }
+    onSourceOpened?.()
+  }, [sourceRequest, activeSourcePath, rawMode, handleToggleRawExclusive, onSourceOpened, onToast])
   const findRequest = useEditorFindCommand({
     activeTab: runtime.activeTab,
     findInNoteRef: props.findInNoteRef,

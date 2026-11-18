@@ -2,6 +2,7 @@ import { act, fireEvent, render, screen, waitFor, within } from '@testing-librar
 import { useEffect, useRef } from 'react'
 import { expect, it, vi } from 'vitest'
 import { LearningStudyView } from './LearningStudyView'
+vi.mock('../BlockNoteReadOnly', () => ({ BlockNoteReadOnly: ({ content }: { content: string }) => <div>{content}</div> }))
 import type { useLearningStudy } from '../../hooks/useLearningStudy'
 const { renderer, previewClient, workspaceOverlay } = vi.hoisted(() => ({
   renderer: {
@@ -506,4 +507,82 @@ it('distinguishes the return-to-note and undo icons without changing their names
   expect(back).toHaveAttribute('aria-hidden', 'true')
   expect(undo).toHaveAttribute('aria-hidden', 'true')
   expect(back?.innerHTML).not.toBe(undo?.innerHTML)
+})
+
+it('starts on the mnemonic and reveals the article with Space before grading', () => {
+  const study = noteFixture()
+  render(<LearningStudyView study={study} root="/library" locale="en" frontOrder="mnemonic" />)
+  expect(screen.getByText('Live mnemonic canvas')).toBeVisible()
+  expect(screen.getByText('Live A4 article')).not.toBeVisible()
+  const dialog = screen.getByRole('dialog')
+  fireEvent.keyDown(dialog, { key: ' ' })
+  expect(screen.getByText('Live A4 article')).toBeVisible()
+  expect(screen.getByRole('button', { name: /^Good/ })).toBeEnabled()
+  fireEvent.keyDown(screen.getByRole('region', { name: 'Article' }), { key: '3' })
+  expect(study.rate).toHaveBeenCalledWith(3)
+})
+
+it('lets the learner change only the current session order', () => {
+  const study = noteFixture()
+  const { rerender } = render(<LearningStudyView study={study} root="/library" locale="en" frontOrder="mnemonic" />)
+  fireEvent.click(screen.getByRole('switch', { name: 'Mnemonic first in this session' }))
+  expect(screen.getByText('Live A4 article')).toBeVisible()
+  expect(screen.getByRole('button', { name: 'Show mnemonic' })).toBeEnabled()
+  expect(study.rate).not.toHaveBeenCalled()
+  const next = { ...study, session: { ...study.session!, id: 'next' } }
+  rerender(<LearningStudyView study={next} root="/library" locale="en" frontOrder="mnemonic" />)
+  expect(screen.getByText('Live mnemonic canvas')).toBeVisible()
+})
+
+it('falls back to the article and offers to add an absent mnemonic', async () => {
+  const study = noteFixture()
+  vi.mocked(study.close).mockResolvedValue(undefined)
+  study.session!.current!.answerPage = null
+  const add = vi.fn()
+  render(<LearningStudyView study={study} root="/library" locale="en" frontOrder="mnemonic" onAddMnemonic={add} />)
+  expect(screen.getByText('Live A4 article')).toBeVisible()
+  expect(screen.getByText('No mnemonic yet')).toBeVisible()
+  fireEvent.click(screen.getByRole('button', { name: 'Add mnemonic', exact: true }))
+  await waitFor(() => expect(add).toHaveBeenCalledWith('/library/lesson.md'))
+  expect(study.rate).not.toHaveBeenCalled()
+})
+
+it('reads the article without grading when native study reports an incomplete mnemonic', async () => {
+  const study = noteFixture()
+  vi.mocked(study.close).mockResolvedValue(undefined)
+  const item = study.session!.current!
+  item.content = { kind: 'note', details: null }
+  item.card.pageId = 'owner'
+  item.page = null
+  item.answerPage = null
+  item.sourceError = 'note-source-not-ready: Draft'
+  const readNoteFace = vi.fn().mockResolvedValue({
+    pageId: item.card.pageId, path: 'lesson.md', face: 'front', content: 'Draft article',
+    fingerprint: 'only-preview', media: [],
+  })
+  workspaceOverlay.current = { client: { readNoteFace } }
+  try {
+    const add = vi.fn()
+    render(<LearningStudyView study={study} root="/library" locale="en" frontOrder="mnemonic" onAddMnemonic={add} />)
+    expect(await screen.findByText('Draft article')).toBeVisible()
+    expect(readNoteFace).toHaveBeenCalledWith(item.card.pageId, 'front')
+    fireEvent.keyDown(screen.getByRole('dialog'), { key: '3' })
+    expect(study.rate).not.toHaveBeenCalled()
+    fireEvent.click(screen.getByRole('button', { name: 'Add mnemonic', exact: true }))
+    await waitFor(() => expect(add).toHaveBeenCalledWith('/library/lesson.md'))
+  } finally {
+    workspaceOverlay.current = {}
+  }
+})
+
+it('returns to the first face even when switching back to a previously revealed order', () => {
+  render(<LearningStudyView study={noteFixture()} root="/library" locale="en" frontOrder="mnemonic" />)
+  fireEvent.click(screen.getByRole('button', { name: 'Show article', exact: true }))
+  expect(screen.getByRole('button', { name: /^Good/ })).toBeEnabled()
+  const order = screen.getByRole('switch', { name: 'Mnemonic first in this session' })
+  fireEvent.click(order)
+  fireEvent.click(order)
+  expect(screen.getByText('Live mnemonic canvas')).toBeVisible()
+  expect(screen.getByRole('button', { name: 'Show article', exact: true })).toBeEnabled()
+  expect(screen.queryByRole('button', { name: /^Good/ })).not.toBeInTheDocument()
 })

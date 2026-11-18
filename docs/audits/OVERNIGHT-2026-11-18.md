@@ -185,3 +185,12 @@
 - Grep SPEC §8: 1 → 1 / 0 → 0. Grep tên engine cũ sạch ngoài ADR và audit. Câu hỏi cho người dùng: không có.
 - Review vòng 1 phát hiện fence trong blockquote/danh sách và ảnh sáng chưa cuộn tới câu trả lời. Hai regression bổ sung RED → GREEN, 20/20 test. Đã thay ảnh sáng hiển thị cả thông báo và nút.
 - Review vòng 3 ĐẠT. Regression blockquote lồng trong danh sách và code thụt bốn khoảng trắng RED → GREEN 21/21. Nút mở raw và ảnh native hai theme đã đối chiếu.
+
+## W4 · Pha 2 — W4-02
+
+- Cài đặt › Nội dung dùng kho Settings hiện có, mặc định Gợi nhớ trước. Phiên có công tắc riêng, fallback bài viết có thao tác Thêm gợi nhớ. Không đổi thuật toán, phím hay mô hình phiên. Sự kiện `note_review_front_order_changed` chỉ gửi thứ tự và nguồn.
+- RED 4 Vitest và 1 Rust, GREEN 80 Vitest và 37 test Settings của Rust. Grep SPEC §8: 1 → 1 / 0 → 0.
+- Native vi 1440×900 kiểm mặc định, công tắc, thao tác Xem bài viết, bốn mức đánh giá và chọn Bài viết trước trong Cài đặt. [Ảnh hai theme](review-shots/2026-11-19-W4/).
+- Review vòng 1 phát hiện case backend Draft thiếu cả hai mặt và ảnh sai cửa sổ. Vòng sửa dùng API `readNoteFace` chỉ đọc, giữ trạng thái chặn chấm điểm và thêm test đúng payload native (RED → GREEN 81/81). Đã chụp lại đúng cửa sổ W4, xác minh Space và giá trị `article` trong settings của Library QA.
+- Chromium: 5 ca đầu-cuối đạt. Ca sao lưu cũ tìm nút trong Trang chủ, đã chuyển test sang vị trí Cài đặt › Thư viện từ W2-15 và xác minh đạt, giữ kiểm chứng byte tệp.
+- Review vòng 3 ĐẠT. Đổi công tắc hai lần sau khi lật phải về mặt đầu mới. Regression RED → GREEN, 97/97 trong các suite tập trung. Câu hỏi cho người dùng: không có.
