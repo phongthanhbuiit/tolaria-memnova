@@ -516,3 +516,11 @@ W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
 - P2 · Mở Thuộc tính và xem cạnh các trường quan hệ trống. Ba chữ Thêm giống giá trị, thêm quan hệ và thêm/sửa thuộc tính nằm ở các vị trí khác nhau. Với ghi chú chưa có Loại, mục chuẩn bị chưa chỉ rõ bước tiếp theo. [Ảnh audit](review-shots/2026-11-18/07-thuoc-tinh-xem-light.png).
 - Đạt khi Thêm là nút ghost, các lối thêm và sửa gom ở cùng nhóm, hướng dẫn ngắn và nêu cụ thể thao tác cần làm.
 - **fixed (commit W2-18)**. Các nút thêm tham chiếu dùng ghost kèm dấu cộng. Thêm thuộc tính, thêm quan hệ và mở chỉnh sửa nằm trong cùng nhóm. Ghi chú chưa có thuộc tính được chỉ rõ cách đặt Loại mặc định. RED → GREEN 151 test tập trung. Native vi [1440 sáng](review-shots/2026-11-18/W2-18-after-1440-light.png) · [1440 tối](review-shots/2026-11-18/W2-18-after-1440-dark.png) · [1024 sáng](review-shots/2026-11-18/W2-18-after-1024-light.png) · [1024 tối](review-shots/2026-11-18/W2-18-after-1024-dark.png) · [chưa có Loại](review-shots/2026-11-18/W2-18-untyped-1440-dark.png). Ba khóa copy vào danh sách chờ đóng lô.
+
+## Đợt 2 · Lô 4
+
+### F-061 · W2-16 · Tên ứng dụng và mô tả kênh phát hành
+
+- P2 · Cài đặt còn tên Tolaria và mô tả Alpha theo thao tác đẩy lên nhánh phát triển. [Ảnh audit](review-shots/2026-11-18/17a-cai-dat-tab-dau-dark.png).
+- Đạt khi catalog en/vi dùng Memnova và giải thích sự khác nhau giữa bản ổn định và bản thử nghiệm.
+- **fixed (commit W2-16)**. Nhãn catalog dùng Memnova. Hai mô tả kênh phát hành chờ dịch ngoài en/vi. Validator đạt cả 18 catalog.

@@ -64,7 +64,7 @@ describe('WelcomeScreen', () => {
 
     it('shows the simplified template option description', () => {
       renderWelcome(<WelcomeScreen {...defaultProps} />)
-      expect(screen.getByText('Optional Tolaria template. Requires internet.')).toBeInTheDocument()
+      expect(screen.getByText('Optional Memnova template. Requires internet.')).toBeInTheDocument()
       expect(screen.queryByText(/~\/Documents\/Laputa/)).not.toBeInTheDocument()
     })
 

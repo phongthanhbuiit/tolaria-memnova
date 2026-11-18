@@ -126,7 +126,7 @@ describe('UpdateBanner', () => {
   it('shows progress bar during download', () => {
     renderBanner(makeDownloadingStatus())
 
-    expect(screen.getByText(/Downloading Tolaria Alpha 2026\.4\.16\.3/)).toBeTruthy()
+    expect(screen.getByText(/Downloading Memnova Alpha 2026\.4\.16\.3/)).toBeTruthy()
     expect(screen.getByText('65%')).toBeTruthy()
 
     const progressBar = screen.getByTestId('update-progress')
