@@ -453,3 +453,9 @@ W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
 - P2 · **fixed (commit W2-11)**. [Ảnh gốc](review-shots/2026-11-18/14-flashcard-da-lat-light.png). Mở Whiteboard Test trong Thẻ cũ, lật thẻ có câu hỏi dài. Muốn đọc câu trả lời phải cuộn thân dialog.
 - Đạt khi lật thẻ đưa câu trả lời vào vùng nhìn và giữ phím chấm 1–4.
 - Khi mặt sau dựng xong, focus vào vùng câu trả lời và cuộn tức thì. Test RED → GREEN (17/17), gồm phím chấm sau lật. Native vi 1440×900 [sáng](review-shots/2026-11-18/W2-11-after-light.png) · [tối](review-shots/2026-11-18/W2-11-after-dark.png).
+
+### F-051 · W2-12 · Tên thẻ lặp trong nội dung câu hỏi
+
+- P2 · **fixed (commit W2-12)**. [Ảnh gốc](review-shots/2026-11-18/13-flashcard-mat-truoc-light.png). Tên Whiteboard Test ở dialog và ở H1 đầu câu hỏi.
+- Đạt khi tên chỉ xuất hiện một lần và vẫn hiển thị các tiêu đề riêng trong câu hỏi.
+- Bỏ H1 đầu trùng tên trong nội dung hiển thị của thẻ legacy. Test RED → GREEN (18/18). Native [sáng](review-shots/2026-11-18/W2-12-after-light.png) · [tối](review-shots/2026-11-18/W2-12-after-dark.png).

@@ -436,3 +436,11 @@ it('moves to the revealed card answer and keeps grading keys active', async () =
   fireEvent.keyDown(answer, { key: '4' })
   expect(study.rate).toHaveBeenCalledWith(4)
 })
+
+it('shows a matching leading question heading once while retaining the prompt', () => {
+  const study = fixture()
+  study.session!.current!.card.front = '\n# Lesson\n\nQuestion text'
+  render(<LearningStudyView study={study} root="/library" locale="en" />)
+  expect(screen.getAllByText('Lesson', { exact: true })).toHaveLength(1)
+  expect(screen.getByText('Question text', { exact: true })).toBeVisible()
+})

@@ -11,6 +11,14 @@ import { LearningError } from './LearningError'
 import { MediaPreview } from './MediaPreview'
 import { learningMediaUrl } from '../../lib/learning/media'
 
+function questionWithUniqueTitle(question: string, title: string | undefined): string {
+  const heading = /^(?:[ \t]*\r?\n)* {0,3}#[ \t]+([^\r\n]+)(?:\r?\n|$)/u.exec(question)
+  const headingTitle = heading?.[1].replace(/[ \t]+#+[ \t]*$/u, '').trim()
+  return heading && headingTitle === title?.trim()
+    ? question.slice(heading[0].length).trimStart()
+    : question
+}
+
 interface FaceState {
   snapshotKey: string
   revealed: boolean
@@ -92,7 +100,7 @@ export function LearningStudyFaces({
         <div className="learning-study-copy">
           <BlockNoteReadOnly
             key={`${key}:question`}
-            content={isNote ? (item.page?.content ?? '') : item.card.front}
+            content={isNote ? (item.page?.content ?? '') : questionWithUniqueTitle(item.card.front, item.page?.title)}
             onReady={isNote ? undefined : questionRendered}
             onRenderStatus={isNote ? questionStatus : undefined}
             verifiedMedia={isNote ? noteDetails?.frontMedia : undefined}
