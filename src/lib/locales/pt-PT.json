@@ -702,7 +702,7 @@
   "status.history.onlyGit": "O histórico só está disponível para cofres com o Git ativado",
   "status.history.open": "Abrir histórico de alterações",
   "status.history.label": "Histórico",
-  "status.mcp.notConnected": "Ferramentas de IA externas não ligadas — clique para configurar",
+  "status.mcp.notConnected": "External AI tools are not connected to this Library",
   "status.mcp.unknown": "Estado do MCP desconhecido",
   "status.claude.missing": "Claude Code em falta",
   "status.claude.label": "Claude Code",
@@ -1166,5 +1166,6 @@
   "ai.guidance.geminiMissing": "GEMINI.md is missing. Choose Restore to create the guidance file.",
   "ai.guidance.geminiBroken": "Gemini guidance is damaged. Choose Restore to repair it.",
   "ai.guidance.custom": "Using custom {files}",
-  "ai.guidance.ready": "Memnova guidance is ready"
+  "ai.guidance.ready": "Memnova guidance is ready",
+  "status.mcp.setupHint": "External AI tools are not connected to this Library. Select MCP to open setup."
 }

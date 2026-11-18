@@ -614,7 +614,9 @@ describe('StatusBar', () => {
     render(
       <StatusBar noteCount={100} modifiedCount={5} vaultPath="/Users/luca/Laputa" vaults={vaults} onSwitchVault={vi.fn()} onClickPending={onClickPending} />
     )
-    fireEvent.click(screen.getByTestId('status-modified-count'))
+    const pending = screen.getByTestId('status-modified-count')
+    expect(within(pending).getByText('5')).toHaveClass('bg-muted', 'text-foreground')
+    fireEvent.click(pending)
     expect(onClickPending).toHaveBeenCalledOnce()
   })
 
@@ -630,7 +632,7 @@ describe('StatusBar', () => {
       <StatusBar noteCount={100} vaultPath="/Users/luca/Laputa" vaults={vaults} onSwitchVault={vi.fn()} mcpStatus="not_installed" />
     )
     expect(screen.getByTestId('status-mcp')).toBeInTheDocument()
-    await expectTooltip(screen.getByRole('button', { name: 'External AI tools not connected — click to set up' }), 'External AI tools not connected — click to set up')
+    await expectTooltip(screen.getByRole('button', { name: 'External AI tools are not connected to this Library' }), 'External AI tools are not connected to this Library')
   })
 
   it('hides MCP badge when status is installed', () => {
@@ -661,12 +663,14 @@ describe('StatusBar', () => {
     expect(screen.queryByTestId('status-mcp')).not.toBeInTheDocument()
   })
 
-  it('calls onInstallMcp when clicking MCP badge with not_installed status', () => {
+  it('describes the MCP setup action and opens setup on click', async () => {
     const onInstallMcp = vi.fn()
     render(
       <StatusBar noteCount={100} vaultPath="/Users/luca/Laputa" vaults={vaults} onSwitchVault={vi.fn()} mcpStatus="not_installed" onInstallMcp={onInstallMcp} />
     )
-    fireEvent.click(screen.getByTestId('status-mcp'))
+    const badge = screen.getByTestId('status-mcp')
+    await expectTooltip(badge, 'External AI tools are not connected to this Library. Select MCP to open setup.')
+    fireEvent.click(badge)
     expect(onInstallMcp).toHaveBeenCalledOnce()
   })
 

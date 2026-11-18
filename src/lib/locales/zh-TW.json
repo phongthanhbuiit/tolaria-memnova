@@ -702,7 +702,7 @@
   "status.history.onlyGit": "歷史僅適用於啟用 Git 的倉庫",
   "status.history.open": "開啟更改歷史",
   "status.history.label": "歷史",
-  "status.mcp.notConnected": "外部 AI 工具未連線 - 點選設定",
+  "status.mcp.notConnected": "External AI tools are not connected to this Library",
   "status.mcp.unknown": "MCP 狀態未知",
   "status.claude.missing": "缺少 Claude Code",
   "status.claude.label": "Claude Code",
@@ -1166,5 +1166,6 @@
   "ai.guidance.geminiMissing": "GEMINI.md is missing. Choose Restore to create the guidance file.",
   "ai.guidance.geminiBroken": "Gemini guidance is damaged. Choose Restore to repair it.",
   "ai.guidance.custom": "Using custom {files}",
-  "ai.guidance.ready": "Memnova guidance is ready"
+  "ai.guidance.ready": "Memnova guidance is ready",
+  "status.mcp.setupHint": "External AI tools are not connected to this Library. Select MCP to open setup."
 }

@@ -702,7 +702,7 @@
   "status.history.onlyGit": "Lịch sử chỉ khả dụng với các kho đã bật Git",
   "status.history.open": "Mở lịch sử thay đổi",
   "status.history.label": "Lịch sử",
-  "status.mcp.notConnected": "MCP chưa kết nối — nhấn để thiết lập",
+  "status.mcp.notConnected": "Công cụ AI bên ngoài chưa kết nối với thư viện này",
   "status.mcp.unknown": "Không rõ trạng thái MCP",
   "status.claude.missing": "Thiếu Claude Code",
   "status.claude.label": "Claude Code",
@@ -1166,5 +1166,6 @@
   "ai.guidance.geminiMissing": "Chưa có GEMINI.md. Chọn Khôi phục để tạo tệp hướng dẫn.",
   "ai.guidance.geminiBroken": "Tệp hướng dẫn Gemini bị lỗi. Chọn Khôi phục để sửa.",
   "ai.guidance.custom": "Đang dùng tệp tùy chỉnh {files}",
-  "ai.guidance.ready": "Hướng dẫn Memnova đã sẵn sàng"
+  "ai.guidance.ready": "Hướng dẫn Memnova đã sẵn sàng",
+  "status.mcp.setupHint": "Công cụ AI bên ngoài chưa kết nối với thư viện này. Chọn MCP để mở thiết lập."
 }

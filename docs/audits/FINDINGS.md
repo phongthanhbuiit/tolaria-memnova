@@ -540,3 +540,9 @@ W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
 
 - P3 · Kéo qua các nhãn Trang chủ. Chữ chrome bị bôi đen cùng lúc. Đạt khi kéo trong chrome không chọn chữ, còn nội dung ghi chú và trường nhập vẫn chọn được. [Ảnh audit](review-shots/2026-11-18/02-trang-chu-light.png).
 - **fixed (commit W2-23)**. Khóa chọn chữ ở chrome và bật lại cho nội dung ghi chú, rich/raw editor và trường nhập. Playwright Chromium/WebKit xác nhận các vùng áp dụng. Native vi [sáng](review-shots/2026-11-18/W2-23-after-light.png) · [tối](review-shots/2026-11-18/W2-23-after-dark.png).
+
+### F-065 · W2-24 · Cảnh báo MCP và bộ đếm thay đổi cùng dùng màu cảnh báo
+
+- P3 · Thanh trạng thái có MCP chưa kết nối và số thay đổi chờ lưu. Đạt khi tooltip MCP nói lý do, chỉ rõ cách mở thiết lập nếu khả dụng, còn bộ đếm dùng màu trung tính.
+- **fixed (commit W2-24)**. Tooltip giải thích tình trạng MCP và hiện lời chỉ dẫn khi có thể mở thiết lập. Số thay đổi có nền và chữ trung tính. Vitest RED → GREEN 69 test.
+- QA native tiếng Việt ở 1440×900. [Sáng](review-shots/2026-11-18/W2-24-after-light.png) · [Tối](review-shots/2026-11-18/W2-24-after-dark.png).

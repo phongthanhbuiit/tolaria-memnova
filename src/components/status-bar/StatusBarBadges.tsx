@@ -25,10 +25,6 @@ const SYNC_COLORS = new Map<SyncStatus, string>([
   ['pull_required', 'var(--accent-orange)'],
 ])
 
-const MCP_TOOLTIP_KEYS = new Map<McpStatus, TranslationKey>([
-  ['not_installed', 'status.mcp.notConnected'],
-])
-
 const CLAUDE_INSTALL_URL = 'https://docs.anthropic.com/en/docs/claude-code'
 
 function formatElapsedSync(locale: AppLocale, lastSyncTime: number | null): string {
@@ -99,7 +95,7 @@ function getMcpBadgeConfig(locale: AppLocale, status: McpStatus, onInstall?: () 
   const clickable = status === 'not_installed' && Boolean(onInstall)
   return {
     clickable,
-    tooltip: translate(locale, MCP_TOOLTIP_KEYS.get(status) ?? 'status.mcp.unknown'),
+    tooltip: translate(locale, clickable ? 'status.mcp.setupHint' : 'status.mcp.notConnected'),
     onClick: clickable ? onInstall : undefined,
   }
 }
@@ -702,9 +698,9 @@ export function ChangesBadge({
       <StatusBarSeparator show={showSeparator} />
       <StatusBarAction copy={{ label: translate(locale, 'status.changes.view') }} onClick={onClick} testId="status-modified-count" compact={compact}>
         <span style={ICON_STYLE}>
-          <GitDiff size={13} className="text-(--accent-orange)" />
+          <GitDiff size={13} aria-hidden="true" />
           <span
-            className="inline-flex min-w-4 items-center justify-center rounded-(--radius-sm) bg-(--accent-orange) px-[5px] font-semibold text-caption text-(--text-inverse)"
+            className="inline-flex min-w-4 items-center justify-center rounded-(--radius-sm) bg-muted px-[5px] font-semibold text-caption text-foreground"
           >
             {count}
           </span>

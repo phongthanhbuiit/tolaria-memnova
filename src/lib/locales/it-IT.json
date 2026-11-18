@@ -702,7 +702,7 @@
   "status.history.onlyGit": "La cronologia è disponibile solo per i vault abilitati per Git",
   "status.history.open": "Apri la cronologia delle modifiche",
   "status.history.label": "Cronologia",
-  "status.mcp.notConnected": "Strumenti di IA esterni non connessi — clicca per configurarli",
+  "status.mcp.notConnected": "External AI tools are not connected to this Library",
   "status.mcp.unknown": "Stato MCP sconosciuto",
   "status.claude.missing": "Claude Code mancante",
   "status.claude.label": "Claude Code",
@@ -1166,5 +1166,6 @@
   "ai.guidance.geminiMissing": "GEMINI.md is missing. Choose Restore to create the guidance file.",
   "ai.guidance.geminiBroken": "Gemini guidance is damaged. Choose Restore to repair it.",
   "ai.guidance.custom": "Using custom {files}",
-  "ai.guidance.ready": "Memnova guidance is ready"
+  "ai.guidance.ready": "Memnova guidance is ready",
+  "status.mcp.setupHint": "External AI tools are not connected to this Library. Select MCP to open setup."
 }

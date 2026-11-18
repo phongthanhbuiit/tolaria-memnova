@@ -12,3 +12,8 @@
 - `ai.guidance.geminiBroken`
 - `ai.guidance.custom`
 - `ai.guidance.ready`
+
+## W2-24 (F-065)
+
+- `status.mcp.notConnected`
+- `status.mcp.setupHint`

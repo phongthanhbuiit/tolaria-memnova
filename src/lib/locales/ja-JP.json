@@ -702,7 +702,7 @@
   "status.history.onlyGit": "履歴は、Gitが有効なボルトでのみ利用可能です。",
   "status.history.open": "変更履歴を開く",
   "status.history.label": "履歴",
-  "status.mcp.notConnected": "外部AIツールが接続されていません — クリックして設定してください",
+  "status.mcp.notConnected": "External AI tools are not connected to this Library",
   "status.mcp.unknown": "MCPステータス不明",
   "status.claude.missing": "Claude Codeがありません",
   "status.claude.label": "Claude Code",
@@ -1166,5 +1166,6 @@
   "ai.guidance.geminiMissing": "GEMINI.md is missing. Choose Restore to create the guidance file.",
   "ai.guidance.geminiBroken": "Gemini guidance is damaged. Choose Restore to repair it.",
   "ai.guidance.custom": "Using custom {files}",
-  "ai.guidance.ready": "Memnova guidance is ready"
+  "ai.guidance.ready": "Memnova guidance is ready",
+  "status.mcp.setupHint": "External AI tools are not connected to this Library. Select MCP to open setup."
 }

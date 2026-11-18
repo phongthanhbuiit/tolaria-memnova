@@ -702,7 +702,7 @@
   "status.history.onlyGit": "이력 기능은 Git이 활성화된 Vault에서만 사용할 수 있습니다.",
   "status.history.open": "변경 내역 열기",
   "status.history.label": "이력",
-  "status.mcp.notConnected": "외부 AI 도구가 연결되지 않음 — 클릭하여 설정하세요",
+  "status.mcp.notConnected": "External AI tools are not connected to this Library",
   "status.mcp.unknown": "MCP 상태 알 수 없음",
   "status.claude.missing": "Claude Code 누락",
   "status.claude.label": "Claude Code",
@@ -1166,5 +1166,6 @@
   "ai.guidance.geminiMissing": "GEMINI.md is missing. Choose Restore to create the guidance file.",
   "ai.guidance.geminiBroken": "Gemini guidance is damaged. Choose Restore to repair it.",
   "ai.guidance.custom": "Using custom {files}",
-  "ai.guidance.ready": "Memnova guidance is ready"
+  "ai.guidance.ready": "Memnova guidance is ready",
+  "status.mcp.setupHint": "External AI tools are not connected to this Library. Select MCP to open setup."
 }
