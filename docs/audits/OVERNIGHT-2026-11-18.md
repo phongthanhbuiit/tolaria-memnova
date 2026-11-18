@@ -2,12 +2,12 @@
 
 ## Tóm tắt buổi sáng
 
-- Tổng kết bước: **DONE** D3, E1; **PARTIAL** D4A, D4B (5 file F-032 đã xong; F-038 chờ native), E2; **SKIPPED** không. F-041/D2 đã hoàn tất trước log; không có lệnh dừng.
+- Tổng kết bước: **DONE** D3, E1, R-08; **PARTIAL** D4A, D4B (5 file F-032 đã xong; F-038 chờ native), E2; **SKIPPED** không. F-041/D2 đã hoàn tất trước log; không có lệnh dừng.
 - Đã đóng F: **001–004, 006, 008, 010, 013–019, 022–023, 025–031, 033–037, 039, 041** (30 finding; các finding nền tảng chỉ tính đúng phạm vi).
-- Đã đóng R: **01–07, 12**; R-05 chỉ sửa test, không phải nghiệm thu IME native. F-038 sửa mã nhưng **chờ QA native legacy**, chưa tính đã đóng.
+- Đã đóng R: **01–08, 12**; R-08 là P1 test-only. R-05 chỉ sửa test, không phải nghiệm thu IME native. F-038 sửa mã nhưng **chờ QA native legacy**, chưa tính đã đóng.
 - **P0** còn mở: không.
 - **P1** còn mở/partial: **F-005** (nhãn BlockNote), **F-024** (CSS/chữ kế thừa và native hiếm).
-- **P2** còn mở: **F-007, F-011, F-012, F-020, F-021, F-040; R-08, R-09, R-11, R-13, R-14**. Partial: **F-009** (tên mới), **F-032** (ngoài 5 file).
+- **P2** còn mở: **F-007, F-011, F-012, F-020, F-021, F-040; R-09, R-11, R-13, R-14**. Partial: **F-009** (tên mới), **F-032** (ngoài 5 file).
 - **P3** còn mở: **R-10** (Welcome vi tràn mô tả); **F-038: fixed — chờ QA native** (Home/Decks/FlashcardStudyView legacy).
 - Native còn chờ: **Telex AI + wikilink từ R-05/E2**; F-005 author-name combobox/ảnh trước tối; F-024 legacy/Linux/trạng thái hiếm; F-032 message/tool và F-038 legacy mới có fixture/diff/test.
 - Grep SPEC §8 hiện tại: **1 / 0**; match duy nhất `NoteTitleIcon.tsx:35` là fontSize glyph động đã giải trình, không phải đã sạch mọi cỡ chữ CSS/kế thừa.
@@ -96,3 +96,14 @@
 - Codacy CLI0.24 local:128→128warning,81Semgrepprops-spreading+47Lizardbaseline, không cảnh báo identity mới hoặc Critical/High mới được báo; ESLint9/Trivy0. Semgrep không parse PulseView cảbaseline/final,1fileNotAnalyzed; CLIexit1, không gọi scan hoàn toàn pass. Đã đọc diff file bị giới hạn, không đổi I/O/data. CodeScene: **not run (optional integration unavailable)**.
 - Localization:39keymới+4nhãnAIcũ,18catalog/1100Englishkeys validatorpass; dịch trực tiếp vì Lara credentials không có. PostHog:không eventmới vì hành động giữ nguyên. ADR/dependency mới:none; ABSTRACTIONS ghi variantbare. Demo-vault/demo-vault-v2 sạch; AGENTS giữ hash.
 - Câu hỏi cho người dùng / quyết định đã chọn: không hỏi/chờ duyệt. Theo yêu cầu hiện tại, F-006 mỗi finding một commit thay quy định cũ mỗi file. Chọn bare variants để giữ layout/SVG/typography của control cũ. Giữ editor dictionary/lifetime và input pipeline khi phát hiện R-13/R-14; theo audit skill “Thấy lỗi mới → ghi finding mới, không sửa.” Giữ F-005/E2partial. Với Telex chọn bảo thủ không thay cài đặt hệ thống, cần phiên QA có nguồn nhập truy cập được. Báo cáo: **docs/audits/STEP-E2-A11Y-FORMS.md**.
+
+## R-08 — DONE
+
+- Cổng an toàn đầu bước: fetch/status/rev-list exit 0, HEAD = origin/main = `de0c85bb`, 0 commit chờ push. Giữ AGENTS, .agents và PLAN/SPEC/OVERNIGHT-RULES của người dùng ngoài index.
+- Commit kiểm thử `71ee87bb`. Push mã: **ok**, `de0c85bb → 71ee87bb` qua hook bình thường trong 9 phút 43 giây. Biên bản và log nằm trong commit docs cuối bước.
+- Finding R-08 lên **P1** và đóng ở phạm vi kiểm thử. Ma trận **105 lượt** trong 7 commit, mỗi ca 5 lần, không retry. Baseline **12/15**, cuối D3 **9/15**. Cả ba lỗi tái hiện trên baseline, gồm ca Home ở probe riêng **19/20**. Các spec đợi Library và đúng caret trong editor model. Nghiệm thu **20/20 từng ca**, tổng **60/60**, không retry.
+- Check: Node 24.12.0. Lint/tsc/build/FE test/coverage exit 0. 5.041 test, 506 tệp, FE **87,84%** lines. Cargo test serial **1.241 unit + 1 integration** pass, 3 ignored có sẵn. Rust coverage **86,41%** lines, exit 0. Pre-commit 5/5 ca liên quan và 54/54 core, không retry. Pre-push core **54/54 trong 4,8 phút**, không retry.
+- Grep SPEC §8: **1 → 1 / 0 → 0**. QA native chưa chạy vì thay đổi nằm ở kiểm thử Playwright. Worktree QA đã dọn, demo-vault và demo-vault-v2 ở checkout chính sạch.
+- Codacy CLI 0.24.0 local, cấu hình release giữ exclusions. Scan bổ sung giới hạn đúng các tệp test thay đổi, **0 → 0** issues, không Critical/High mới. CodeScene: not run (optional integration unavailable). Localization: no UI copy changes, validator đạt 18 catalog và 1.100 khóa. PostHog: không cần event vì chỉ sửa kiểm thử. Refactor/ADR: không có.
+- Câu hỏi cho người dùng / quyết định đã chọn: test hay app D3. Chọn phạm vi test vì ba dấu hiệu có từ baseline và spec gốc phát lệnh trước readiness. Ca paste đợi ProseMirror xác nhận caret để giữ phím End thật và payload HTML. Bằng chứng Home đến từ desktop bridge fixture, chưa định lượng việc gõ trước readiness trên native.
+- [Biên bản](R-08-COMPLETION.md) · [Kết quả từng lượt](evidence/R-08-playwright.txt).

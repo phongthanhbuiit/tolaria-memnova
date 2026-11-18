@@ -5,20 +5,20 @@ Trạng thái: `open` · `partial` · `fixed — chờ QA native (phạm vi)` ·
 
 ## Tiến độ hiện tại — tổng kết đêm 18/11/2026
 
-Đối chiếu [log đêm](OVERNIGHT-2026-11-18.md) và bằng chứng đã có tại `809a4003`; đây là cập nhật tài liệu, không phải lượt QA mới. Các bảng theo đợt bên dưới giữ mô tả/số đếm baseline; trạng thái hiện tại ưu tiên bảng này. Tổng kết bước: **DONE D3/E1; PARTIAL D4A/D4B/E2; không SKIPPED**. D4B đã xong mã trong 5 file F-032, còn F-038 chờ native legacy.
+Đối chiếu [log đêm](OVERNIGHT-2026-11-18.md) và bằng chứng đã có tại `809a4003`; đây là cập nhật tài liệu, không phải lượt QA mới. Các bảng theo đợt bên dưới giữ mô tả/số đếm baseline; trạng thái hiện tại ưu tiên bảng này. Tổng kết bước: **DONE D3/E1/R-08; PARTIAL D4A/D4B/E2; không SKIPPED**. D4B đã xong mã trong 5 file F-032, còn F-038 chờ native legacy.
 
 | Mức | Open | Partial | Fixed — chờ QA native |
 |---|---|---|---|
 | P0 | Không | Không | Không |
 | P1 | Không | F-005, F-024 | Không |
-| P2 | F-007, F-011, F-012, F-020, F-021, F-040; R-08, R-09, R-11, R-13, R-14 | F-009, F-032 | Không |
+| P2 | F-007, F-011, F-012, F-020, F-021, F-040; R-09, R-11, R-13, R-14 | F-009, F-032 | Không |
 | P3 | R-10 | Không | F-038: Home/Decks/FlashcardStudyView legacy |
 
-**Đã đóng:** F-001–F-004, F-006, F-008, F-010, F-013–F-019, F-022–F-023, F-025–F-031, F-033–F-037, F-039, F-041 (**30 F**); R-01–R-07 và R-12 (**8 R**). F-023/F-025/F-030/F-031 là phần nền tảng A, không hàm ý các call site của F-024/F-032 đã sạch. R-05 là test-only; Telex native vẫn chưa được xác minh.
+**Đã đóng:** F-001–F-004, F-006, F-008, F-010, F-013–F-019, F-022–F-023, F-025–F-031, F-033–F-037, F-039, F-041 (**30 F**); R-01–R-08 và R-12 (**9 R**). F-023/F-025/F-030/F-031 là phần nền tảng A, không hàm ý các call site của F-024/F-032 đã sạch. R-05 là test-only; Telex native vẫn chưa được xác minh.
 
 **Còn chờ native/bằng chứng bổ sung:** F-005 (author-name combobox cuối, ảnh trước tối); F-024 (legacy/Linux/trạng thái hiếm); F-032 (message/tool chỉ có fixture); F-038 (các màn legacy không có route native); Telex trong AI và ô wikilink từ R-05/E2. F-005/F-024/F-032 vẫn partial vì ngoài QA còn phần mã/phạm vi chưa hoàn tất. F-038 đã sửa mã nhưng không tính đóng khi các màn legacy mới được kiểm bằng fixture/diff/test; đối chiếu giới hạn native trong [D4B](STEP-D4B-INLINE-STYLE.md).
 
-Coverage gần nhất: FE **87,83%**, Rust đầy đủ **86,41%** lines; grep SPEC §8 hiện tại **1 / 0**. Không đóng F-040 chỉ vì core E2 pass; chưa có điều tra nguyên nhân riêng theo tiêu chí finding.
+Coverage gần nhất (R-08): FE **87,84%**, Rust đầy đủ **86,41%** lines; grep SPEC §8 hiện tại **1 / 0**. Không đóng F-040 chỉ vì core E2 pass; chưa có điều tra nguyên nhân riêng theo tiêu chí finding.
 
 ## Đợt 0 — rà soát ban đầu (17/11/2026)
 
@@ -307,13 +307,13 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 - GREEN 2/2, 10,0s, retries=0. [Log](evidence/D3-R07-green.txt). Commit test riêng; không sửa F-040.
 
 
-## R-08 — Flaky create/paste regression, chưa phân loại test/app
+## R-08 — Flaky create/paste do readiness và selection của test
 
-- P2 · **open** · ngoài phần chrome được phép sửa; chưa đủ bằng chứng kết luận không liên quan D3 hoặc là bug native.
-- Lượt browser regression rộng: 45 passed + 3 flaky trên config retry cũ (không thêm retry): create-note-default-properties chưa có breadcrumb sau Cmd+N; new-note-heading-paste-regression paste vào giữa suffix; new-note-immediate-editability chưa thấy body trong file mong đợi. [Log đầy đủ](evidence/D3-R08-browser-regression.txt).
-- Probe không retry: baseline 707bac53 3/3 pass; mã cuối D3 1/3 pass (hai ca đầu fail). [Baseline](evidence/D3-R08-baseline-probe.txt), [D3](evidence/D3-R08-current-probe.txt). Không gọi các ca này là baseline failure đã tái hiện; cần phân loại riêng để giữ phạm vi D3/không sửa BlockNote.
-- Probe paste thêm quan sát selection pass, End chuyển offset20→24; quan sát ảnh hưởng timing nên không dùng làm cách sửa hoặc bằng chứng hết flaky. [Diagnostic](evidence/D3-R08-geometry.txt). Mã test instrumentation đã gỡ; không thêm sleep, retry hoặc thay assertion.
-- Chấp nhận: xác định root test hay app rồi đạt các luồng create/paste ổn định không retry; nếu là test phải chờ đúng readiness/selection, nếu là app cần regression RED riêng. Không sửa F-040 hoặc input editor trong D3. Gate curated cuối của D3 được ghi trong biên bản riêng, không thay thế bằng pass nhờ retry của các ca này.
+- P1 · **fixed (test-only, `71ee87bb`)**.
+- Probe ban đầu D3: baseline `707bac53` 3/3 pass, cuối D3 1/3. [Baseline](evidence/D3-R08-baseline-probe.txt), [D3](evidence/D3-R08-current-probe.txt).
+- Lượt regression rộng của D3 có 45 pass và 3 flaky trên config retry cũ. Probe selection trong D3 từng ghi End đổi offset 20 → 24. [Log regression](evidence/D3-R08-browser-regression.txt) · [Probe selection](evidence/D3-R08-geometry.txt).
+- Ma trận không retry trên 7 commit, 5 lần cho mỗi ca tại mỗi commit. Baseline 12/15, cuối D3 9/15. Cmd+N và dán giữa hậu tố tái hiện trong ma trận baseline. Probe Home riêng đạt 19/20 trên baseline, tái hiện cùng lỗi ký tự đầu vào thân bài. Chưa xác định được commit D3 gây hồi quy app.
+- Spec đợi Library fixture sẵn sàng và caret trong editor model trước khi gõ/dán. Giữ assertions về nội dung, filename, metadata và sau lưu. Chromium đạt **20/20 mỗi ca**, tổng **60/60**, không retry. [Biên bản](R-08-COMPLETION.md) · [Kết quả từng lượt](evidence/R-08-playwright.txt).
 
 
 ## R-09 — Ba ca browser mở rộng lỗi từ baseline D4A

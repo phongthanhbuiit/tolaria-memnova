@@ -1,0 +1,385 @@
+R-08 — Playwright Chromium, Node 24.12.0, 1 worker, retries=0
+Each row is one independent browser test execution. Timings are in seconds.
+D3 range is tested in commit order with the test source from each checkout.
+Exact cases: keyboard-created notes omit default status metadata; new-note first typing and rich heading paste remain stable through saves; the New Note command from Home opens a focused plain Markdown note.
+
+707bac53 | Cmd+N 3/5 | Paste H1 4/5 | Home 5/5 | 144.5s
+  Cmd+N #01 failed 10.1s
+    Error: expect(locator).toContainText(expected) failed
+    Locator: getByTestId('breadcrumb-filename-trigger')
+    Expected pattern: /untitled-note-\d+/i
+    Timeout: 5000ms
+    Error: element(s) not found
+  Cmd+N #02 passed 3.2s
+  Cmd+N #03 failed 7.3s
+    Error: expect(locator).toContainText(expected) failed
+    Locator: getByTestId('breadcrumb-filename-trigger')
+    Expected pattern: /untitled-note-\d+/i
+    Timeout: 5000ms
+    Error: element(s) not found
+  Cmd+N #04 passed 5.5s
+  Cmd+N #05 passed 5.3s
+  Paste H1 #01 passed 12.2s
+  Paste H1 #02 passed 11.5s
+  Paste H1 #03 passed 11.6s
+  Paste H1 #04 failed 15.3s
+    Error: expect(locator).toContainText(expected) failed
+    Locator: locator('.bn-editor [data-content-type="heading"]').first()
+    Expected substring: "Sentry Fresh Paste Guard Rich Paste Payload"
+    Received string:    "Sentry Fresh Paste G Rich Paste Payloaduard"
+    Timeout: 5000ms
+  Paste H1 #05 passed 11.3s
+  Home #01 passed 7.5s
+  Home #02 passed 8.3s
+  Home #03 passed 7.6s
+  Home #04 passed 7.8s
+  Home #05 passed 8.3s
+
+4878968e | Cmd+N 4/5 | Paste H1 4/5 | Home 4/5 | 138.3s
+  Cmd+N #01 failed 10.2s
+    Error: expect(locator).toContainText(expected) failed
+    Locator: getByTestId('breadcrumb-filename-trigger')
+    Expected pattern: /untitled-note-\d+/i
+    Timeout: 5000ms
+    Error: element(s) not found
+  Cmd+N #02 passed 2.8s
+  Cmd+N #03 passed 2.8s
+  Cmd+N #04 passed 5.8s
+  Cmd+N #05 passed 5.5s
+  Paste H1 #01 passed 11.5s
+  Paste H1 #02 failed 15.4s
+    Error: expect(locator).toContainText(expected) failed
+    Locator: locator('.bn-editor [data-content-type="heading"]').first()
+    Expected substring: "Sentry Fresh Paste Guard Rich Paste Payload"
+    Received string:    "Sentry Fresh Paste G Rich Paste Payloaduard"
+    Timeout: 5000ms
+  Paste H1 #03 passed 11.6s
+  Paste H1 #04 passed 11.9s
+  Paste H1 #05 passed 12.1s
+  Home #01 failed 7.6s
+    Error: expect(received).toContain(expected) // indexOf
+    Expected substring: "Ideas from the train."
+    Received string:    ""
+  Home #02 passed 7.7s
+  Home #03 passed 8.1s
+  Home #04 passed 8.1s
+  Home #05 passed 7.6s
+
+6b1e6200 | Cmd+N 1/5 | Paste H1 4/5 | Home 4/5 | 154.8s
+  Cmd+N #01 failed 9.2s
+    Error: expect(locator).toHaveAttribute(expected) failed
+    Locator: getByTestId('breadcrumb-filename-trigger')
+    Expected pattern: /untitled-note-\d+/i
+    Timeout: 5000ms
+    Error: element(s) not found
+  Cmd+N #02 failed 7.4s
+    Error: expect(locator).toHaveAttribute(expected) failed
+    Locator: getByTestId('breadcrumb-filename-trigger')
+    Expected pattern: /untitled-note-\d+/i
+    Timeout: 5000ms
+    Error: element(s) not found
+  Cmd+N #03 failed 7.1s
+    Error: expect(locator).toHaveAttribute(expected) failed
+    Locator: getByTestId('breadcrumb-filename-trigger')
+    Expected pattern: /untitled-note-\d+/i
+    Timeout: 5000ms
+    Error: element(s) not found
+  Cmd+N #04 failed 7.7s
+    Error: expect(locator).toHaveAttribute(expected) failed
+    Locator: getByTestId('breadcrumb-filename-trigger')
+    Expected pattern: /untitled-note-\d+/i
+    Timeout: 5000ms
+    Error: element(s) not found
+  Cmd+N #05 passed 5.5s
+  Paste H1 #01 passed 11.7s
+  Paste H1 #02 passed 11.5s
+  Paste H1 #03 failed 15.1s
+    Error: expect(locator).toContainText(expected) failed
+    Locator: locator('.bn-editor [data-content-type="heading"]').first()
+    Expected substring: "Sentry Fresh Paste Guard Rich Paste Payload"
+    Received string:    "Sentry Fresh Paste G Rich Paste Payloaduard"
+    Timeout: 5000ms
+  Paste H1 #04 passed 12.8s
+  Paste H1 #05 passed 12.4s
+  Home #01 failed 7.6s
+    Error: expect(received).toContain(expected) // indexOf
+    Expected substring: "Ideas from the train."
+    Received string:    ""
+  Home #02 passed 8.1s
+  Home #03 passed 8.3s
+  Home #04 passed 8.1s
+  Home #05 passed 7.6s
+
+247911cc | Cmd+N 0/5 | Paste H1 4/5 | Home 4/5 | 164.9s
+  Cmd+N #01 failed 11.8s
+    Error: expect(locator).toHaveAttribute(expected) failed
+    Locator: getByTestId('breadcrumb-filename-trigger')
+    Expected pattern: /untitled-note-\d+/i
+    Timeout: 5000ms
+    Error: element(s) not found
+  Cmd+N #02 failed 7.3s
+    Error: expect(locator).toHaveAttribute(expected) failed
+    Locator: getByTestId('breadcrumb-filename-trigger')
+    Expected pattern: /untitled-note-\d+/i
+    Timeout: 5000ms
+    Error: element(s) not found
+  Cmd+N #03 failed 7.0s
+    Error: expect(locator).toHaveAttribute(expected) failed
+    Locator: getByTestId('breadcrumb-filename-trigger')
+    Expected pattern: /untitled-note-\d+/i
+    Timeout: 5000ms
+    Error: element(s) not found
+  Cmd+N #04 failed 7.1s
+    Error: expect(locator).toHaveAttribute(expected) failed
+    Locator: getByTestId('breadcrumb-filename-trigger')
+    Expected pattern: /untitled-note-\d+/i
+    Timeout: 5000ms
+    Error: element(s) not found
+  Cmd+N #05 failed 7.4s
+    Error: expect(locator).toHaveAttribute(expected) failed
+    Locator: getByTestId('breadcrumb-filename-trigger')
+    Expected pattern: /untitled-note-\d+/i
+    Timeout: 5000ms
+    Error: element(s) not found
+  Paste H1 #01 passed 11.8s
+  Paste H1 #02 passed 11.6s
+  Paste H1 #03 passed 11.8s
+  Paste H1 #04 passed 12.0s
+  Paste H1 #05 failed 15.1s
+    Error: expect(locator).toContainText(expected) failed
+    Locator: locator('.bn-editor [data-content-type="heading"]').first()
+    Expected substring: "Sentry Fresh Paste Guard Rich Paste Payload"
+    Received string:    "Sentry Fresh Paste G Rich Paste Payloaduard"
+    Timeout: 5000ms
+  Home #01 passed 8.0s
+  Home #02 failed 7.7s
+    Error: expect(received).toContain(expected) // indexOf
+    Expected substring: "Ideas from the train."
+    Received string:    ""
+  Home #03 passed 8.6s
+  Home #04 passed 8.5s
+  Home #05 passed 8.6s
+
+bbdaf558 | Cmd+N 1/5 | Paste H1 5/5 | Home 5/5 | 155.2s
+  Cmd+N #01 passed 9.0s
+  Cmd+N #02 failed 7.1s
+    Error: expect(locator).toHaveAttribute(expected) failed
+    Locator: getByTestId('breadcrumb-filename-trigger')
+    Expected pattern: /untitled-note-\d+/i
+    Timeout: 5000ms
+    Error: element(s) not found
+  Cmd+N #03 failed 7.4s
+    Error: expect(locator).toHaveAttribute(expected) failed
+    Locator: getByTestId('breadcrumb-filename-trigger')
+    Expected pattern: /untitled-note-\d+/i
+    Timeout: 5000ms
+    Error: element(s) not found
+  Cmd+N #04 failed 7.1s
+    Error: expect(locator).toHaveAttribute(expected) failed
+    Locator: getByTestId('breadcrumb-filename-trigger')
+    Expected pattern: /untitled-note-\d+/i
+    Timeout: 5000ms
+    Error: element(s) not found
+  Cmd+N #05 failed 7.1s
+    Error: expect(locator).toHaveAttribute(expected) failed
+    Locator: getByTestId('breadcrumb-filename-trigger')
+    Expected pattern: /untitled-note-\d+/i
+    Timeout: 5000ms
+    Error: element(s) not found
+  Paste H1 #01 passed 12.2s
+  Paste H1 #02 passed 12.0s
+  Paste H1 #03 passed 12.0s
+  Paste H1 #04 passed 12.2s
+  Paste H1 #05 passed 12.8s
+  Home #01 passed 8.2s
+  Home #02 passed 8.0s
+  Home #03 passed 7.8s
+  Home #04 passed 8.2s
+  Home #05 passed 9.1s
+
+652b29af | Cmd+N 1/5 | Paste H1 3/5 | Home 5/5 | 168.1s
+  Cmd+N #01 failed 13.1s
+    Error: expect(locator).toHaveAttribute(expected) failed
+    Locator: getByTestId('breadcrumb-filename-trigger')
+    Expected pattern: /untitled-note-\d+/i
+    Timeout: 5000ms
+    Error: element(s) not found
+  Cmd+N #02 failed 7.2s
+    Error: expect(locator).toHaveAttribute(expected) failed
+    Locator: getByTestId('breadcrumb-filename-trigger')
+    Expected pattern: /untitled-note-\d+/i
+    Timeout: 5000ms
+    Error: element(s) not found
+  Cmd+N #03 failed 7.2s
+    Error: expect(locator).toHaveAttribute(expected) failed
+    Locator: getByTestId('breadcrumb-filename-trigger')
+    Expected pattern: /untitled-note-\d+/i
+    Timeout: 5000ms
+    Error: element(s) not found
+  Cmd+N #04 failed 7.1s
+    Error: expect(locator).toHaveAttribute(expected) failed
+    Locator: getByTestId('breadcrumb-filename-trigger')
+    Expected pattern: /untitled-note-\d+/i
+    Timeout: 5000ms
+    Error: element(s) not found
+  Cmd+N #05 passed 5.8s
+  Paste H1 #01 failed 16.1s
+    Error: expect(locator).toContainText(expected) failed
+    Locator: locator('.bn-editor [data-content-type="heading"]').first()
+    Expected substring: "Sentry Fresh Paste Guard Rich Paste Payload"
+    Received string:    "Sentry Fresh Paste G Rich Paste Payloaduard"
+    Timeout: 5000ms
+  Paste H1 #02 passed 12.4s
+  Paste H1 #03 failed 15.9s
+    Error: expect(locator).toContainText(expected) failed
+    Locator: locator('.bn-editor [data-content-type="heading"]').first()
+    Expected substring: "Sentry Fresh Paste Guard Rich Paste Payload"
+    Received string:    "Sentry Fresh Paste G Rich Paste Payloaduard"
+    Timeout: 5000ms
+  Paste H1 #04 passed 12.3s
+  Paste H1 #05 passed 12.2s
+  Home #01 passed 7.7s
+  Home #02 passed 8.3s
+  Home #03 passed 8.4s
+  Home #04 passed 8.1s
+  Home #05 passed 9.7s
+
+b95c7193 | Cmd+N 2/5 | Paste H1 2/5 | Home 5/5 | 167.8s
+  Cmd+N #01 passed 10.5s
+  Cmd+N #02 passed 5.7s
+  Cmd+N #03 failed 7.4s
+    Error: expect(locator).toHaveAttribute(expected) failed
+    Locator: getByTestId('breadcrumb-filename-trigger')
+    Expected pattern: /untitled-note-\d+/i
+    Timeout: 5000ms
+    Error: element(s) not found
+  Cmd+N #04 failed 7.1s
+    Error: expect(locator).toHaveAttribute(expected) failed
+    Locator: getByTestId('breadcrumb-filename-trigger')
+    Expected pattern: /untitled-note-\d+/i
+    Timeout: 5000ms
+    Error: element(s) not found
+  Cmd+N #05 failed 7.2s
+    Error: expect(locator).toHaveAttribute(expected) failed
+    Locator: getByTestId('breadcrumb-filename-trigger')
+    Expected pattern: /untitled-note-\d+/i
+    Timeout: 5000ms
+    Error: element(s) not found
+  Paste H1 #01 failed 16.4s
+    Error: expect(locator).toContainText(expected) failed
+    Locator: locator('.bn-editor [data-content-type="heading"]').first()
+    Expected substring: "Sentry Fresh Paste Guard Rich Paste Payload"
+    Received string:    "Sentry Fresh Paste G Rich Paste Payloaduard"
+    Timeout: 5000ms
+  Paste H1 #02 failed 15.4s
+    Error: expect(locator).toContainText(expected) failed
+    Locator: locator('.bn-editor [data-content-type="heading"]').first()
+    Expected substring: "Sentry Fresh Paste Guard Rich Paste Payload"
+    Received string:    "Sentry Fresh Paste G Rich Paste Payloaduard"
+    Timeout: 5000ms
+  Paste H1 #03 passed 11.7s
+  Paste H1 #04 failed 15.5s
+    Error: expect(locator).toContainText(expected) failed
+    Locator: locator('.bn-editor [data-content-type="heading"]').first()
+    Expected substring: "Sentry Fresh Paste Guard Rich Paste Payload"
+    Received string:    "Sentry Fresh Paste G Rich Paste Payloaduard"
+    Timeout: 5000ms
+  Paste H1 #05 passed 12.1s
+  Home #01 passed 8.3s
+  Home #02 passed 7.8s
+  Home #03 passed 8.1s
+  Home #04 passed 7.7s
+  Home #05 passed 8.3s
+
+Additional baseline 707bac53 — Home only | Home 19/20 | 199.0s
+  Home #01 passed 11.6s
+  Home #02 passed 7.8s
+  Home #03 passed 7.6s
+  Home #04 passed 8.4s
+  Home #05 passed 8.7s
+  Home #06 passed 8.4s
+  Home #07 passed 7.7s
+  Home #08 passed 8.1s
+  Home #09 failed 8.7s
+    Error: expect(received).toContain(expected) // indexOf
+    Expected substring: "Ideas from the train."
+    Received string:    ""
+  Home #10 passed 8.6s
+  Home #11 passed 8.7s
+  Home #12 passed 8.3s
+  Home #13 passed 8.6s
+  Home #14 passed 8.6s
+  Home #15 passed 8.5s
+  Home #16 passed 8.7s
+  Home #17 passed 7.9s
+  Home #18 passed 7.8s
+  Home #19 passed 8.4s
+  Home #20 passed 7.8s
+
+Acceptance on de0c85bb with R-08 test patch | Cmd+N 20/20 | Paste H1 20/20 | Home 20/20 | 511.8s
+  Cmd+N #01 passed 6.5s
+  Cmd+N #02 passed 3.6s
+  Cmd+N #03 passed 2.9s
+  Cmd+N #04 passed 3.0s
+  Cmd+N #05 passed 3.9s
+  Cmd+N #06 passed 4.0s
+  Cmd+N #07 passed 2.9s
+  Cmd+N #08 passed 3.1s
+  Cmd+N #09 passed 2.9s
+  Cmd+N #10 passed 3.0s
+  Cmd+N #11 passed 3.7s
+  Cmd+N #12 passed 3.9s
+  Cmd+N #13 passed 3.2s
+  Cmd+N #14 passed 3.7s
+  Cmd+N #15 passed 3.8s
+  Cmd+N #16 passed 3.4s
+  Cmd+N #17 passed 3.5s
+  Cmd+N #18 passed 4.0s
+  Cmd+N #19 passed 3.6s
+  Cmd+N #20 passed 3.6s
+  Paste H1 #01 passed 12.0s
+  Paste H1 #02 passed 12.2s
+  Paste H1 #03 passed 12.2s
+  Paste H1 #04 passed 11.6s
+  Paste H1 #05 passed 12.3s
+  Paste H1 #06 passed 11.9s
+  Paste H1 #07 passed 11.3s
+  Paste H1 #08 passed 12.0s
+  Paste H1 #09 passed 11.9s
+  Paste H1 #10 passed 12.0s
+  Paste H1 #11 passed 12.8s
+  Paste H1 #12 passed 11.6s
+  Paste H1 #13 passed 12.4s
+  Paste H1 #14 passed 12.0s
+  Paste H1 #15 passed 12.1s
+  Paste H1 #16 passed 11.9s
+  Paste H1 #17 passed 12.0s
+  Paste H1 #18 passed 12.9s
+  Paste H1 #19 passed 12.3s
+  Paste H1 #20 passed 12.2s
+  Home #01 passed 8.1s
+  Home #02 passed 7.7s
+  Home #03 passed 9.7s
+  Home #04 passed 8.0s
+  Home #05 passed 8.9s
+  Home #06 passed 8.1s
+  Home #07 passed 7.6s
+  Home #08 passed 7.6s
+  Home #09 passed 8.4s
+  Home #10 passed 8.4s
+  Home #11 passed 8.4s
+  Home #12 passed 8.6s
+  Home #13 passed 8.6s
+  Home #14 passed 8.2s
+  Home #15 passed 8.1s
+  Home #16 passed 8.2s
+  Home #17 passed 8.8s
+  Home #18 passed 8.6s
+  Home #19 passed 7.8s
+  Home #20 passed 8.6s
+
+DOM snapshot excerpt from Home baseline repeat 9 (707bac53)
+          - option "rdinary journal Ideas from the train. O November 18, 2026" [selected] [ref=e111] [cursor=pointer]:
+          - button "Filename rdinary-journal. Press Enter to rename" [ref=e209] [cursor=pointer]:
+            - heading "rdinary journal" [level=1] [ref=e238]
+            - paragraph [ref=e242]: Ideas from the train.
