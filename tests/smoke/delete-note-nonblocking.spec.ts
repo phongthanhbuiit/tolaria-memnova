@@ -45,9 +45,15 @@ test.describe('responsive note deletion', () => {
     await expect(progressNotice).toContainText('Deleting note...')
 
     await triggerShortcutCommand(page, APP_COMMAND_IDS.fileQuickOpen)
-    const quickOpenInput = page.locator('input[placeholder="Search notes..."]')
+    const quickOpen = page.getByTestId('quick-open-palette')
+    const quickOpenInput = quickOpen.getByRole('textbox')
     await expect(quickOpenInput).toBeVisible({ timeout: 5_000 })
     await quickOpenInput.fill('Note B')
+
+    // Filtering can render the result before Quick Open resets the highlighted index.
+    const highlightedResult = quickOpen.locator('.bg-accent').getByRole('button', { name: /^Note B\b/ })
+    await expect(highlightedResult).toBeVisible()
+    await expect(quickOpenInput).toBeFocused()
     await page.keyboard.press('Enter')
 
     await expect(page.getByRole('heading', { name: 'Note B', level: 1 })).toBeVisible({ timeout: 5_000 })
