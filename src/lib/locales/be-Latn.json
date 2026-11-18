@@ -1030,6 +1030,8 @@
   "filters.date.inputPlaceholder": "YYYY-MM-DD abo adnosnaja data",
   "editor.toolbar.fileActions": "Dziejańni z fajlam",
   "editor.schedule.dueToday": "Da paŭtareńnia siońnia",
+  "learning.noteMemory.overdueBy": "Praterminavana na {duration}",
+  "learning.noteMemory.dueIn": "Praz {duration}",
   "editor.schedule.due": "Da paŭtareńnia {date}",
   "editor.schedule.nextReview": "FSRS: nastupnaja data paŭtareńnia",
   "editor.schedule.reviewDeck": "Paŭtaryć kalodu",

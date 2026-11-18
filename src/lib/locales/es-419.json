@@ -1030,6 +1030,8 @@
   "filters.date.inputPlaceholder": "YYYY-MM-DD o una fecha relativa",
   "editor.toolbar.fileActions": "Acciones del archivo",
   "editor.schedule.dueToday": "Para hoy",
+  "learning.noteMemory.overdueBy": "Con {duration} de atraso",
+  "learning.noteMemory.dueIn": "En {duration}",
   "editor.schedule.due": "Para el {date}",
   "editor.schedule.nextReview": "FSRS: próxima fecha de repaso",
   "editor.schedule.reviewDeck": "Repasar mazo",

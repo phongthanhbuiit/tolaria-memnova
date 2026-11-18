@@ -1030,6 +1030,8 @@
   "filters.date.inputPlaceholder": "YYYY-MM-DD hoặc ngày tương đối",
   "editor.toolbar.fileActions": "Thao tác tệp",
   "editor.schedule.dueToday": "Đến hạn hôm nay",
+  "learning.noteMemory.overdueBy": "Quá hạn {duration}",
+  "learning.noteMemory.dueIn": "Còn {duration}",
   "editor.schedule.due": "Đến hạn {date}",
   "editor.schedule.nextReview": "FSRS: ngày ôn tập tiếp theo",
   "editor.schedule.reviewDeck": "Ôn bộ thẻ",

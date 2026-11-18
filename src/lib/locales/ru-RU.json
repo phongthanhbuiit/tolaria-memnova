@@ -1030,6 +1030,8 @@
   "filters.date.inputPlaceholder": "YYYY-MM-DD или относительная дата",
   "editor.toolbar.fileActions": "Действия с файлом",
   "editor.schedule.dueToday": "К повторению сегодня",
+  "learning.noteMemory.overdueBy": "Просрочено на {duration}",
+  "learning.noteMemory.dueIn": "Через {duration}",
   "editor.schedule.due": "К повторению {date}",
   "editor.schedule.nextReview": "FSRS: следующая дата повторения",
   "editor.schedule.reviewDeck": "Повторить колоду",

@@ -1030,6 +1030,8 @@
   "filters.date.inputPlaceholder": "YYYY-MM-DD or a relative date",
   "editor.toolbar.fileActions": "File actions",
   "editor.schedule.dueToday": "Due today",
+  "learning.noteMemory.overdueBy": "Overdue by {duration}",
+  "learning.noteMemory.dueIn": "In {duration}",
   "editor.schedule.due": "Due {date}",
   "editor.schedule.nextReview": "FSRS: next review date",
   "editor.schedule.reviewDeck": "Review Deck",

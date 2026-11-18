@@ -1030,6 +1030,8 @@
   "filters.date.inputPlaceholder": "YYYY-MM-DD atau tanggal relatif",
   "editor.toolbar.fileActions": "Tindakan berkas",
   "editor.schedule.dueToday": "Jatuh tempo hari ini",
+  "learning.noteMemory.overdueBy": "Terlambat {duration}",
+  "learning.noteMemory.dueIn": "Dalam {duration}",
   "editor.schedule.due": "Jatuh tempo {date}",
   "editor.schedule.nextReview": "FSRS: tanggal tinjauan berikutnya",
   "editor.schedule.reviewDeck": "Tinjau dek",

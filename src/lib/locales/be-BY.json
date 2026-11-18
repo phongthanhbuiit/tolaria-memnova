@@ -1030,6 +1030,8 @@
   "filters.date.inputPlaceholder": "YYYY-MM-DD або адносная дата",
   "editor.toolbar.fileActions": "Дзеянні з файлам",
   "editor.schedule.dueToday": "Да паўтарэння сёння",
+  "learning.noteMemory.overdueBy": "Пратэрмінавана на {duration}",
+  "learning.noteMemory.dueIn": "Праз {duration}",
   "editor.schedule.due": "Да паўтарэння {date}",
   "editor.schedule.nextReview": "FSRS: наступная дата паўтарэння",
   "editor.schedule.reviewDeck": "Паўтарыць калоду",

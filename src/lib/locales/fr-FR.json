@@ -1030,6 +1030,8 @@
   "filters.date.inputPlaceholder": "YYYY-MM-DD ou une date relative",
   "editor.toolbar.fileActions": "Actions sur le fichier",
   "editor.schedule.dueToday": "À réviser aujourd’hui",
+  "learning.noteMemory.overdueBy": "En retard de {duration}",
+  "learning.noteMemory.dueIn": "Dans {duration}",
   "editor.schedule.due": "À réviser le {date}",
   "editor.schedule.nextReview": "FSRS : prochaine date de révision",
   "editor.schedule.reviewDeck": "Réviser le paquet",

@@ -1030,6 +1030,8 @@
   "filters.date.inputPlaceholder": "YYYY-MM-DD lub data względna",
   "editor.toolbar.fileActions": "Operacje na pliku",
   "editor.schedule.dueToday": "Do powtórki dzisiaj",
+  "learning.noteMemory.overdueBy": "Po terminie o {duration}",
+  "learning.noteMemory.dueIn": "Za {duration}",
   "editor.schedule.due": "Do powtórki {date}",
   "editor.schedule.nextReview": "FSRS: następny termin powtórki",
   "editor.schedule.reviewDeck": "Powtórz talię",

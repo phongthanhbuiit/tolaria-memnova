@@ -1030,6 +1030,8 @@
   "filters.date.inputPlaceholder": "YYYY-MM-DD 또는 상대 날짜",
   "editor.toolbar.fileActions": "파일 작업",
   "editor.schedule.dueToday": "오늘 복습 예정",
+  "learning.noteMemory.overdueBy": "{duration} 연체",
+  "learning.noteMemory.dueIn": "{duration} 후",
   "editor.schedule.due": "복습 예정: {date}",
   "editor.schedule.nextReview": "FSRS: 다음 복습 날짜",
   "editor.schedule.reviewDeck": "덱 복습",

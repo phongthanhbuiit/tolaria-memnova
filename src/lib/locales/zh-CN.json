@@ -1030,6 +1030,8 @@
   "filters.date.inputPlaceholder": "YYYY-MM-DD 或相对日期",
   "editor.toolbar.fileActions": "文件操作",
   "editor.schedule.dueToday": "今天到期",
+  "learning.noteMemory.overdueBy": "已逾期{duration}",
+  "learning.noteMemory.dueIn": "还剩{duration}",
   "editor.schedule.due": "到期日期：{date}",
   "editor.schedule.nextReview": "FSRS：下次复习日期",
   "editor.schedule.reviewDeck": "复习卡组",

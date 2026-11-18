@@ -1030,6 +1030,8 @@
   "filters.date.inputPlaceholder": "YYYY-MM-DD oder relatives Datum",
   "editor.toolbar.fileActions": "Dateiaktionen",
   "editor.schedule.dueToday": "Heute fällig",
+  "learning.noteMemory.overdueBy": "Seit {duration} überfällig",
+  "learning.noteMemory.dueIn": "In {duration}",
   "editor.schedule.due": "Fällig am {date}",
   "editor.schedule.nextReview": "FSRS: nächster Wiederholungstermin",
   "editor.schedule.reviewDeck": "Stapel wiederholen",

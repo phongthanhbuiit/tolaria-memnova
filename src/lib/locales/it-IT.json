@@ -1030,6 +1030,8 @@
   "filters.date.inputPlaceholder": "YYYY-MM-DD o una data relativa",
   "editor.toolbar.fileActions": "Azioni file",
   "editor.schedule.dueToday": "In scadenza oggi",
+  "learning.noteMemory.overdueBy": "Scaduto da {duration}",
+  "learning.noteMemory.dueIn": "Tra {duration}",
   "editor.schedule.due": "Scadenza {date}",
   "editor.schedule.nextReview": "FSRS: prossima data di ripasso",
   "editor.schedule.reviewDeck": "Ripassa il mazzo",

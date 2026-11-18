@@ -23,7 +23,7 @@ import '../../src/App.css'
 import '../../src/components/EditorTheme.css'
 
 type Surface = 'panel' | 'dashboard' | 'conversion' | 'recovery' | 'source' | 'tabs' | 'whiteboard' | 'study' | 'toolbar' | 'inspector'
-interface LayoutCase { surface: Surface; locale: AppLocale; theme: 'light' | 'dark'; noteState?: NoteLearningState | 'future'; count?: number }
+interface LayoutCase { surface: Surface; locale: AppLocale; theme: 'light' | 'dark'; noteState?: NoteLearningState | 'future'; count?: number; due?: string; clock?: number }
 declare global { interface Window { setNoteLayoutCase?: (value: LayoutCase) => void } }
 const owner = '11111111-1111-4111-8111-111111111111', target = '22222222-2222-4222-8222-222222222222'
 const schedule = { state: 'review', due: '2020-01-01T00:00:00Z', stability: 12, difficulty: 4, elapsedDays: 1, scheduledDays: 3, reps: 7, lapses: 2, lastReview: null, learningSteps: 0, engine: 'legacy-fsrs5', revision: 0 }
@@ -69,13 +69,13 @@ export function Harness() {
   const { surface, locale } = value
   const selectedWorkspace = useMemo(() => {
     const state = value.noteState === 'future' ? 'ready' : value.noteState ?? 'ready'
-    const due = value.noteState === 'future' ? '2099-01-01T00:00:00Z' : schedule.due
+    const due = value.due ?? (value.noteState === 'future' ? '2099-01-01T00:00:00Z' : schedule.due)
     const chosenSchedule = { ...schedule, due }
     const count = value.count ?? 1
     const chosenPages = count > 1 ? Array.from({ length: count }, (_, index) => ({ ...pages[0], id: `fixture-${index}`, path: `Biology/Note-${index}.md`, title: `Memory article ${index}` })) : pages
     const chosenNotes = state === 'ordinary' ? [] : chosenPages.slice(0, count).map(item => ({ ...workspace.notes[0], view: { ...workspace.notes[0].view, pageId: item.id, path: item.path, state, hasBack: state !== 'draft', schedule: chosenSchedule, config: { ...config, enabled: state !== 'disabled' } }, card: { ...card, id: `card-${item.id}`, pageId: item.id, schedule: chosenSchedule } }))
-    return { ...workspace, pages: chosenPages, notes: chosenNotes, client: { ...client, readNoteMemory: async () => chosenNotes[0]?.view } } as unknown as LearningWorkspace
-  }, [value.noteState, value.count])
+    return { ...workspace, clock: value.clock ?? workspace.clock, pages: chosenPages, notes: chosenNotes, client: { ...client, readNoteMemory: async () => chosenNotes[0]?.view } } as unknown as LearningWorkspace
+  }, [value.noteState, value.count, value.due, value.clock])
   const study = { open, busy: false, error: null, pendingRating: null, close: async () => setOpen(false), reload: async () => {}, rate: async () => {}, undo: async () => {}, retry: async () => {}, skip: async () => {}, start: async () => {}, session: {
     id: 'session', scope: { lane: 'notes', pageIds: [owner] }, initialCount: 1, currentIndex: 0, status: 'active', revision: 0, updatedAt: 0, waitingUntil: null, completedCount: 0, reviewCount: 0, correctCount: 0, lastReviewId: null, canUndo: false,
     current: { card, page: { id: owner, path: page.path, title, content: source.repeat(6), fingerprint: 'a'.repeat(64) }, answerPage: { id: owner, path: page.path, title, content: '```excalidraw id="layout-study" height="360"\n' + JSON.stringify(snapshot) + '\n```', fingerprint: 'b'.repeat(64) }, sourceError: null, content: { kind: 'note', details: { fingerprint: 'c'.repeat(64), backSource: { pageId: owner, path: page.path, face: 'back' }, propertiesRaw: '', frontMedia: [], backMedia: [] } } },
