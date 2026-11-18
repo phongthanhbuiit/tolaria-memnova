@@ -1,0 +1,216 @@
+R-09 / F-040 — Playwright Chromium, Node 24.12.0
+All listed runs used one worker and --retries=0. Baseline 22952e90.
+The baseline and CPU probes used a separate disposable workspace.
+
+Baseline, four cases × ten repeats
+  ✘   1 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:11:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (10.6s)
+  ✓   2 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (3.0s)
+  ✘   3 [chromium] › tests/smoke/release-channel-settings.spec.ts:25:3 › Release channel settings › Settings panel defaults the release channel to Stable (8.3s)
+  ✘   4 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (8.5s)
+  ✘   5 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:11:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (9.8s)
+  ✓   6 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (3.0s)
+  ✘   7 [chromium] › tests/smoke/release-channel-settings.spec.ts:25:3 › Release channel settings › Settings panel defaults the release channel to Stable (8.4s)
+  ✘   8 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (8.6s)
+  ✘   9 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:11:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (9.8s)
+  ✓  10 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (3.0s)
+  ✘  11 [chromium] › tests/smoke/release-channel-settings.spec.ts:25:3 › Release channel settings › Settings panel defaults the release channel to Stable (8.4s)
+  ✘  12 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (8.4s)
+  ✘  13 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:11:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (10.0s)
+  ✓  14 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (3.5s)
+  ✘  15 [chromium] › tests/smoke/release-channel-settings.spec.ts:25:3 › Release channel settings › Settings panel defaults the release channel to Stable (8.5s)
+  ✘  16 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (8.5s)
+  ✘  17 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:11:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (9.9s)
+  ✓  18 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (3.0s)
+  ✘  19 [chromium] › tests/smoke/release-channel-settings.spec.ts:25:3 › Release channel settings › Settings panel defaults the release channel to Stable (8.3s)
+  ✘  20 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (8.6s)
+  ✘  21 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:11:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (10.0s)
+  ✓  22 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (3.7s)
+  ✘  23 [chromium] › tests/smoke/release-channel-settings.spec.ts:25:3 › Release channel settings › Settings panel defaults the release channel to Stable (8.6s)
+  ✘  24 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (8.6s)
+  ✘  25 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:11:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (9.0s)
+  ✓  26 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (3.1s)
+  ✘  27 [chromium] › tests/smoke/release-channel-settings.spec.ts:25:3 › Release channel settings › Settings panel defaults the release channel to Stable (8.5s)
+  ✘  28 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (8.6s)
+  ✘  29 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:11:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (9.0s)
+  ✓  30 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (2.9s)
+  ✘  31 [chromium] › tests/smoke/release-channel-settings.spec.ts:25:3 › Release channel settings › Settings panel defaults the release channel to Stable (8.4s)
+  ✘  32 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (8.5s)
+  ✘  33 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:11:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (9.3s)
+  ✓  34 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (3.6s)
+  ✘  35 [chromium] › tests/smoke/release-channel-settings.spec.ts:25:3 › Release channel settings › Settings panel defaults the release channel to Stable (8.4s)
+  ✘  36 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (8.5s)
+  ✘  37 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:11:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (9.1s)
+  ✓  38 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (2.9s)
+  ✘  39 [chromium] › tests/smoke/release-channel-settings.spec.ts:25:3 › Release channel settings › Settings panel defaults the release channel to Stable (8.4s)
+  ✘  40 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (8.6s)
+  30 failed
+  10 passed (5.5m)
+
+R-09, three cases × twenty repeats
+  ✓   1 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:13:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (7.4s)
+  ✓   2 [chromium] › tests/smoke/release-channel-settings.spec.ts:26:3 › Release channel settings › Settings panel defaults the release channel to Stable (3.2s)
+  ✓   3 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (4.3s)
+  ✓   4 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:13:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (4.5s)
+  ✓   5 [chromium] › tests/smoke/release-channel-settings.spec.ts:26:3 › Release channel settings › Settings panel defaults the release channel to Stable (3.3s)
+  ✓   6 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (5.0s)
+  ✓   7 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:13:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (5.0s)
+  ✓   8 [chromium] › tests/smoke/release-channel-settings.spec.ts:26:3 › Release channel settings › Settings panel defaults the release channel to Stable (3.6s)
+  ✓   9 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (5.8s)
+  ✓  10 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:13:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (6.7s)
+  ✓  11 [chromium] › tests/smoke/release-channel-settings.spec.ts:26:3 › Release channel settings › Settings panel defaults the release channel to Stable (3.4s)
+  ✓  12 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (4.3s)
+  ✓  13 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:13:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (5.0s)
+  ✓  14 [chromium] › tests/smoke/release-channel-settings.spec.ts:26:3 › Release channel settings › Settings panel defaults the release channel to Stable (3.4s)
+  ✓  15 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (4.2s)
+  ✓  16 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:13:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (5.2s)
+  ✓  17 [chromium] › tests/smoke/release-channel-settings.spec.ts:26:3 › Release channel settings › Settings panel defaults the release channel to Stable (2.6s)
+  ✓  18 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (4.0s)
+  ✓  19 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:13:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (5.5s)
+  ✓  20 [chromium] › tests/smoke/release-channel-settings.spec.ts:26:3 › Release channel settings › Settings panel defaults the release channel to Stable (3.3s)
+  ✓  21 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (4.2s)
+  ✓  22 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:13:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (6.0s)
+  ✓  23 [chromium] › tests/smoke/release-channel-settings.spec.ts:26:3 › Release channel settings › Settings panel defaults the release channel to Stable (3.6s)
+  ✓  24 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (4.3s)
+  ✓  25 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:13:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (4.3s)
+  ✓  26 [chromium] › tests/smoke/release-channel-settings.spec.ts:26:3 › Release channel settings › Settings panel defaults the release channel to Stable (3.2s)
+  ✓  27 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (4.0s)
+  ✓  28 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:13:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (4.4s)
+  ✓  29 [chromium] › tests/smoke/release-channel-settings.spec.ts:26:3 › Release channel settings › Settings panel defaults the release channel to Stable (3.1s)
+  ✓  30 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (4.0s)
+  ✓  31 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:13:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (4.4s)
+  ✓  32 [chromium] › tests/smoke/release-channel-settings.spec.ts:26:3 › Release channel settings › Settings panel defaults the release channel to Stable (3.1s)
+  ✓  33 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (4.9s)
+  ✓  34 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:13:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (4.6s)
+  ✓  35 [chromium] › tests/smoke/release-channel-settings.spec.ts:26:3 › Release channel settings › Settings panel defaults the release channel to Stable (3.3s)
+  ✓  36 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (4.1s)
+  ✓  37 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:13:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (6.0s)
+  ✓  38 [chromium] › tests/smoke/release-channel-settings.spec.ts:26:3 › Release channel settings › Settings panel defaults the release channel to Stable (3.3s)
+  ✓  39 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (4.0s)
+  ✓  40 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:13:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (5.5s)
+  ✓  41 [chromium] › tests/smoke/release-channel-settings.spec.ts:26:3 › Release channel settings › Settings panel defaults the release channel to Stable (3.2s)
+  ✓  42 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (3.9s)
+  ✓  43 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:13:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (4.0s)
+  ✓  44 [chromium] › tests/smoke/release-channel-settings.spec.ts:26:3 › Release channel settings › Settings panel defaults the release channel to Stable (3.1s)
+  ✓  45 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (4.1s)
+  ✓  46 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:13:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (4.4s)
+  ✓  47 [chromium] › tests/smoke/release-channel-settings.spec.ts:26:3 › Release channel settings › Settings panel defaults the release channel to Stable (3.1s)
+  ✓  48 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (4.1s)
+  ✓  49 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:13:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (4.3s)
+  ✓  50 [chromium] › tests/smoke/release-channel-settings.spec.ts:26:3 › Release channel settings › Settings panel defaults the release channel to Stable (3.1s)
+  ✓  51 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (4.0s)
+  ✓  52 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:13:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (4.4s)
+  ✓  53 [chromium] › tests/smoke/release-channel-settings.spec.ts:26:3 › Release channel settings › Settings panel defaults the release channel to Stable (3.2s)
+  ✓  54 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (4.0s)
+  ✓  55 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:13:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (4.5s)
+  ✓  56 [chromium] › tests/smoke/release-channel-settings.spec.ts:26:3 › Release channel settings › Settings panel defaults the release channel to Stable (3.1s)
+  ✓  57 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (3.5s)
+  ✓  58 [chromium] › tests/smoke/ai-panel-shortcut.spec.ts:13:3 › AI panel shortcut › Cmd+Shift+L opens the AI panel from the editor (5.1s)
+  ✓  59 [chromium] › tests/smoke/release-channel-settings.spec.ts:26:3 › Release channel settings › Settings panel defaults the release channel to Stable (2.6s)
+  ✓  60 [chromium] › tests/smoke/release-channel-settings.spec.ts:38:3 › Release channel settings › Release channel can be changed to alpha and saved (3.5s)
+  60 passed (4.7m)
+
+F-040, twenty repeats
+  ✓   1 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (5.9s)
+  ✓   2 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (3.0s)
+  ✓   3 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (2.9s)
+  ✓   4 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (2.9s)
+  ✓   5 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (3.6s)
+  ✓   6 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (3.7s)
+  ✓   7 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (3.0s)
+  ✓   8 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (3.7s)
+  ✓   9 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (3.6s)
+  ✓  10 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (3.1s)
+  ✓  11 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (3.9s)
+  ✓  12 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (3.6s)
+  ✓  13 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (3.9s)
+  ✓  14 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (3.9s)
+  ✓  15 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (4.0s)
+  ✓  16 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (3.8s)
+  ✓  17 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (4.0s)
+  ✓  18 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (4.1s)
+  ✓  19 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (5.6s)
+  ✓  20 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (4.8s)
+  20 passed (1.8m)
+
+F-040 baseline, CPU throttling 4× and Enter capture
+  ✓   1 [chromium] › tests/smoke/f040-probe.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (11.8s)
+  ✓   2 [chromium] › tests/smoke/f040-probe.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (13.4s)
+  ✘   3 [chromium] › tests/smoke/f040-probe.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (16.1s)
+  ✓   4 [chromium] › tests/smoke/f040-probe.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (12.1s)
+  ✓   5 [chromium] › tests/smoke/f040-probe.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (11.8s)
+  ✓   6 [chromium] › tests/smoke/f040-probe.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (11.8s)
+  ✓   7 [chromium] › tests/smoke/f040-probe.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (11.9s)
+  ✘   8 [chromium] › tests/smoke/f040-probe.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (15.0s)
+  ✓   9 [chromium] › tests/smoke/f040-probe.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (11.9s)
+  ✘  10 [chromium] › tests/smoke/f040-probe.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (15.1s)
+  3 failed
+  7 passed (2.4m)
+F040 {"event":"keydown","input":"Note B","focus":"<input data-slot=\"input\" spellcheck=\"false\" autocorrect=\"off\" autocomplete=\"off\" autocapitalize=\"off\" class=\"file:text-foreground placeholde","selected":"Note BNote","result":["Note BNote"]}
+F040 {"event":"keydown","input":"Note B","focus":"<input data-slot=\"input\" spellcheck=\"false\" autocorrect=\"off\" autocomplete=\"off\" autocapitalize=\"off\" class=\"file:text-foreground placeholde","selected":"Note BNote","result":["Note BNote"]}
+F040 {"event":"keydown","input":"Note B","focus":"<input data-slot=\"input\" spellcheck=\"false\" autocorrect=\"off\" autocomplete=\"off\" autocapitalize=\"off\" class=\"file:text-foreground placeholde","result":["Note BNote"]}
+F040 {"event":"keydown","input":"Note B","focus":"<input data-slot=\"input\" spellcheck=\"false\" autocorrect=\"off\" autocomplete=\"off\" autocapitalize=\"off\" class=\"file:text-foreground placeholde","selected":"Note BNote","result":["Note BNote"]}
+F040 {"event":"keydown","input":"Note B","focus":"<input data-slot=\"input\" spellcheck=\"false\" autocorrect=\"off\" autocomplete=\"off\" autocapitalize=\"off\" class=\"file:text-foreground placeholde","selected":"Note BNote","result":["Note BNote"]}
+F040 {"event":"keydown","input":"Note B","focus":"<input data-slot=\"input\" spellcheck=\"false\" autocorrect=\"off\" autocomplete=\"off\" autocapitalize=\"off\" class=\"file:text-foreground placeholde","selected":"Note BNote","result":["Note BNote"]}
+F040 {"event":"keydown","input":"Note B","focus":"<input data-slot=\"input\" spellcheck=\"false\" autocorrect=\"off\" autocomplete=\"off\" autocapitalize=\"off\" class=\"file:text-foreground placeholde","selected":"Note BNote","result":["Note BNote"]}
+F040 {"event":"keydown","input":"Note B","focus":"<input data-slot=\"input\" spellcheck=\"false\" autocorrect=\"off\" autocomplete=\"off\" autocapitalize=\"off\" class=\"file:text-foreground placeholde","result":["Note BNote"]}
+F040 {"event":"keydown","input":"Note B","focus":"<input data-slot=\"input\" spellcheck=\"false\" autocorrect=\"off\" autocomplete=\"off\" autocapitalize=\"off\" class=\"file:text-foreground placeholde","selected":"Note BNote","result":["Note BNote"]}
+F040 {"event":"keydown","input":"Note B","focus":"<input data-slot=\"input\" spellcheck=\"false\" autocorrect=\"off\" autocomplete=\"off\" autocapitalize=\"off\" class=\"file:text-foreground placeholde","result":["Note BNote"]}
+
+F-040 after fix, CPU throttling 4× and Enter capture
+  ✓   1 [chromium] › tests/smoke/f040-green-probe.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (23.0s)
+  ✓   2 [chromium] › tests/smoke/f040-green-probe.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (13.0s)
+  ✓   3 [chromium] › tests/smoke/f040-green-probe.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (13.3s)
+  ✓   4 [chromium] › tests/smoke/f040-green-probe.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (14.2s)
+  ✓   5 [chromium] › tests/smoke/f040-green-probe.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (14.0s)
+  ✓   6 [chromium] › tests/smoke/f040-green-probe.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (13.1s)
+  ✓   7 [chromium] › tests/smoke/f040-green-probe.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (13.4s)
+  ✓   8 [chromium] › tests/smoke/f040-green-probe.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (13.5s)
+  ✓   9 [chromium] › tests/smoke/f040-green-probe.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (12.9s)
+  ✓  10 [chromium] › tests/smoke/f040-green-probe.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (12.8s)
+  10 passed (2.7m)
+F040 {"event":"keydown","input":"Note B","focus":"<input data-slot=\"input\" spellcheck=\"false\" autocorrect=\"off\" autocomplete=\"off\" autocapitalize=\"off\" class=\"file:text-foreground placeholde","selected":"Note BNote","result":["Note BNote"]}
+F040 {"event":"keydown","input":"Note B","focus":"<input data-slot=\"input\" spellcheck=\"false\" autocorrect=\"off\" autocomplete=\"off\" autocapitalize=\"off\" class=\"file:text-foreground placeholde","selected":"Note BNote","result":["Note BNote"]}
+F040 {"event":"keydown","input":"Note B","focus":"<input data-slot=\"input\" spellcheck=\"false\" autocorrect=\"off\" autocomplete=\"off\" autocapitalize=\"off\" class=\"file:text-foreground placeholde","selected":"Note BNote","result":["Note BNote"]}
+F040 {"event":"keydown","input":"Note B","focus":"<input data-slot=\"input\" spellcheck=\"false\" autocorrect=\"off\" autocomplete=\"off\" autocapitalize=\"off\" class=\"file:text-foreground placeholde","selected":"Note BNote","result":["Note BNote"]}
+F040 {"event":"keydown","input":"Note B","focus":"<input data-slot=\"input\" spellcheck=\"false\" autocorrect=\"off\" autocomplete=\"off\" autocapitalize=\"off\" class=\"file:text-foreground placeholde","selected":"Note BNote","result":["Note BNote"]}
+F040 {"event":"keydown","input":"Note B","focus":"<input data-slot=\"input\" spellcheck=\"false\" autocorrect=\"off\" autocomplete=\"off\" autocapitalize=\"off\" class=\"file:text-foreground placeholde","selected":"Note BNote","result":["Note BNote"]}
+F040 {"event":"keydown","input":"Note B","focus":"<input data-slot=\"input\" spellcheck=\"false\" autocorrect=\"off\" autocomplete=\"off\" autocapitalize=\"off\" class=\"file:text-foreground placeholde","selected":"Note BNote","result":["Note BNote"]}
+F040 {"event":"keydown","input":"Note B","focus":"<input data-slot=\"input\" spellcheck=\"false\" autocorrect=\"off\" autocomplete=\"off\" autocapitalize=\"off\" class=\"file:text-foreground placeholde","selected":"Note BNote","result":["Note BNote"]}
+F040 {"event":"keydown","input":"Note B","focus":"<input data-slot=\"input\" spellcheck=\"false\" autocorrect=\"off\" autocomplete=\"off\" autocapitalize=\"off\" class=\"file:text-foreground placeholde","selected":"Note BNote","result":["Note BNote"]}
+F040 {"event":"keydown","input":"Note B","focus":"<input data-slot=\"input\" spellcheck=\"false\" autocorrect=\"off\" autocomplete=\"off\" autocapitalize=\"off\" class=\"file:text-foreground placeholde","selected":"Note BNote","result":["Note BNote"]}
+
+Settings routes with and without UI readiness
+  ✘  1 [chromium] › tests/smoke/stability-probe.spec.ts:5:3 › unready shortcut (6.7s)
+  ✓  2 [chromium] › tests/smoke/stability-probe.spec.ts:5:3 › original shortcut (5.3s)
+  ✓  3 [chromium] › tests/smoke/stability-probe.spec.ts:5:3 › ready shortcut (2.4s)
+  ✓  4 [chromium] › tests/smoke/stability-probe.spec.ts:5:3 › exact command (4.4s)
+  ✓  5 [chromium] › tests/smoke/stability-probe.spec.ts:5:3 › Settings button (2.6s)
+  1 failed
+  4 passed (27.3s)
+KEY {"key":",","prevented":false,"ready":false}
+KEY {"key":",","prevented":true,"ready":true}
+KEY {"key":",","prevented":true,"ready":true}
+command Open Settings⌘,
+
+Old Settings fallback runs the highlighted command
+  ✘  1 [chromium] › tests/smoke/settings-command-probe.spec.ts:4:1 › logs the command highlighted by the old Settings query (10.1s)
+  ✘  2 [chromium] › tests/smoke/settings-command-probe.spec.ts:4:1 › logs the command highlighted by the old Settings query (7.9s)
+  ✘  3 [chromium] › tests/smoke/settings-command-probe.spec.ts:4:1 › logs the command highlighted by the old Settings query (9.7s)
+  3 failed
+Original highlighted command: Use Dark Mode
+Original highlighted command: Use Dark Mode
+Original highlighted command: Use Dark Mode
+
+AI baseline accessibility snapshot excerpt
+            - button "Close AI workspace" [ref=e582] [cursor=pointer]:
+
+Infrastructure observations
+One intermediate R-09 run did not load the specs: Node required an import attribute for JSON.
+An initial F-040 after-fix probe passed six cases before its reused development server stopped.
+The four connection-refused results were infrastructure failures. The isolated rerun completed all ten.
+The baseline curated lane passed 54/54 without retry in 5.1m while other probes ran.
+
+Verified pre-push on 95106c09
+  ✓   4 [chromium] › tests/smoke/delete-note-nonblocking.spec.ts:21:3 › responsive note deletion › keyboard delete keeps the app responsive while deletion is in flight @smoke (2.8s)
+  54 passed (4.6m)
+No retry # entries. Push exit 0.

@@ -2,16 +2,16 @@
 
 ## Tóm tắt buổi sáng
 
-- Tổng kết bước: **DONE** D3, E1, R-08; **PARTIAL** D4A, D4B (5 file F-032 đã xong; F-038 chờ native), E2; **SKIPPED** không. F-041/D2 đã hoàn tất trước log; không có lệnh dừng.
-- Đã đóng F: **001–004, 006, 008, 010, 013–019, 022–023, 025–031, 033–037, 039, 041** (30 finding; các finding nền tảng chỉ tính đúng phạm vi).
-- Đã đóng R: **01–08, 12**; R-08 là P1 test-only. R-05 chỉ sửa test, không phải nghiệm thu IME native. F-038 sửa mã nhưng **chờ QA native legacy**, chưa tính đã đóng.
+- Tổng kết bước: **DONE** D3, E1, R-08, TEST-STABILITY; **PARTIAL** D4A, D4B (5 file F-032 đã xong; F-038 chờ native), E2; **SKIPPED** không. F-041/D2 đã hoàn tất trước log; không có lệnh dừng.
+- Đã đóng F: **001–004, 006, 008, 010, 013–019, 022–023, 025–031, 033–037, 039–041** (31 finding; các finding nền tảng chỉ tính đúng phạm vi).
+- Đã đóng R: **01–09, 12**; R-08 là P1 test-only. R-05 chỉ sửa test, không phải nghiệm thu IME native. F-038 sửa mã nhưng **chờ QA native legacy**, chưa tính đã đóng.
 - **P0** còn mở: không.
 - **P1** còn mở/partial: **F-005** (nhãn BlockNote), **F-024** (CSS/chữ kế thừa và native hiếm).
-- **P2** còn mở: **F-007, F-011, F-012, F-020, F-021, F-040; R-09, R-11, R-13, R-14**. Partial: **F-009** (tên mới), **F-032** (ngoài 5 file).
+- **P2** còn mở: **F-007, F-011, F-012, F-020, F-021; R-11, R-13, R-14**. Partial: **F-009** (tên mới), **F-032** (ngoài 5 file).
 - **P3** còn mở: **R-10** (Welcome vi tràn mô tả); **F-038: fixed — chờ QA native** (Home/Decks/FlashcardStudyView legacy).
 - Native còn chờ: **Telex AI + wikilink từ R-05/E2**; F-005 author-name combobox/ảnh trước tối; F-024 legacy/Linux/trạng thái hiếm; F-032 message/tool và F-038 legacy mới có fixture/diff/test.
 - Grep SPEC §8 hiện tại: **1 / 0**; match duy nhất `NoteTitleIcon.tsx:35` là fontSize glyph động đã giải trình, không phải đã sạch mọi cỡ chữ CSS/kế thừa.
-- Coverage gần nhất (E2): **FE 87,83% lines; Rust đầy đủ 86,41% lines**; 5.041 test/506 file, core 54/54 trong 4,5 phút không retry. Phiên này chỉ docs, không đo lại suite.
+- Coverage gần nhất (TEST-STABILITY) **FE 87,84% lines, Rust 86,41% lines**. 5.041 ca frontend trong 506 tệp. Core 54/54 trong 4,6 phút, 0 retry.
 - **Câu hỏi / lựa chọn đã gom** (đã chọn bảo thủ trong đêm; chi tiết/bằng chứng giữ ở các mục dưới):
   - D3: giữ `role=group`/Tab tự nhiên thay focusgroup; giữ vendor dictionary/editor pipeline; breadcrumb dùng title cho truy cập, vẫn giữ filename/byte/path riêng. R-08 cần phiên phân loại app/test; không suy diễn là lỗi baseline.
   - D4A: giữ glyph emoji ngoài thang chữ và F-024 partial; không ép route để chụp legacy/rare states hoặc sửa regression ngoài scope (R-09/R-10/F-040).
@@ -107,3 +107,14 @@
 - Codacy CLI 0.24.0 local, cấu hình release giữ exclusions. Scan bổ sung giới hạn đúng các tệp test thay đổi, **0 → 0** issues, không Critical/High mới. CodeScene: not run (optional integration unavailable). Localization: no UI copy changes, validator đạt 18 catalog và 1.100 khóa. PostHog: không cần event vì chỉ sửa kiểm thử. Refactor/ADR: không có.
 - Câu hỏi cho người dùng / quyết định đã chọn: test hay app D3. Chọn phạm vi test vì ba dấu hiệu có từ baseline và spec gốc phát lệnh trước readiness. Ca paste đợi ProseMirror xác nhận caret để giữ phím End thật và payload HTML. Bằng chứng Home đến từ desktop bridge fixture, chưa định lượng việc gõ trước readiness trên native.
 - [Biên bản](R-08-COMPLETION.md) · [Kết quả từng lượt](evidence/R-08-playwright.txt).
+
+## TEST-STABILITY — DONE
+
+- Cổng an toàn đầu bước: fetch/status/rev-list exit 0, HEAD = origin/main = `22952e90`, 0 commit chờ push. Các tệp riêng của người dùng ở ngoài index.
+- Commit F-040 `6074bb90` và R-09 `95106c09`. Push mã **ok**, `22952e90 → 95106c09` qua hook trong 8 phút 28 giây.
+- Findings → fixed test-only. R-09 RED 0/10 cả ba ca. Probe xác nhận nút workspace, readiness của Settings và fallback cũ chạy sai command. F-040 RED 7/10 dưới CPU chậm 4×, Enter tới trước selection. GREEN **20/20 từng ca**, tổng 80/80 không retry. Probe F-040 sau sửa 10/10 dưới CPU chậm.
+- Check: lint/tsc/build/test/coverage exit 0. FE **87,84%**, Rust **86,41%**. Pre-commit 5/5 ca đã sửa. Core 54/54 trong 4,6 phút, 0 retry.
+- Grep SPEC §8 **1 → 1 / 0 → 0**. QA native chưa chạy vì chỉ sửa Playwright. Worktree thử đã dọn và hai demo vault ở checkout chính sạch.
+- Codacy local: **0 → 0** vấn đề trên ba spec, không Critical/High mới. CodeScene: not run (optional integration unavailable). Localization: no UI copy changes, validator đạt. PostHog không cần event cho kiểm thử. Refactor và ADR: không có.
+- Câu hỏi cho người dùng / quyết định đã chọn: giữ hai đường mở Settings dưới dạng kiểm thử riêng. Với F-040 chờ đúng hàng được highlight rồi giữ thao tác bàn phím và toàn bộ assertion xóa.
+- [Biên bản](STEP-TEST-STABILITY.md) · [Kết quả từng lượt](evidence/TEST-STABILITY-playwright.txt).

@@ -5,20 +5,20 @@ Trạng thái: `open` · `partial` · `fixed — chờ QA native (phạm vi)` ·
 
 ## Tiến độ hiện tại — tổng kết đêm 18/11/2026
 
-Đối chiếu [log đêm](OVERNIGHT-2026-11-18.md) và bằng chứng đã có tại `809a4003`; đây là cập nhật tài liệu, không phải lượt QA mới. Các bảng theo đợt bên dưới giữ mô tả/số đếm baseline; trạng thái hiện tại ưu tiên bảng này. Tổng kết bước: **DONE D3/E1/R-08; PARTIAL D4A/D4B/E2; không SKIPPED**. D4B đã xong mã trong 5 file F-032, còn F-038 chờ native legacy.
+Đối chiếu [log đêm](OVERNIGHT-2026-11-18.md) và bằng chứng đã có tại `809a4003`; đây là cập nhật tài liệu, không phải lượt QA mới. Các bảng theo đợt bên dưới giữ mô tả/số đếm baseline; trạng thái hiện tại ưu tiên bảng này. Tổng kết bước: **DONE D3/E1/R-08/TEST-STABILITY; PARTIAL D4A/D4B/E2; không SKIPPED**. D4B đã xong mã trong 5 file F-032, còn F-038 chờ native legacy.
 
 | Mức | Open | Partial | Fixed — chờ QA native |
 |---|---|---|---|
 | P0 | Không | Không | Không |
 | P1 | Không | F-005, F-024 | Không |
-| P2 | F-007, F-011, F-012, F-020, F-021, F-040; R-09, R-11, R-13, R-14 | F-009, F-032 | Không |
+| P2 | F-007, F-011, F-012, F-020, F-021; R-11, R-13, R-14 | F-009, F-032 | Không |
 | P3 | R-10 | Không | F-038: Home/Decks/FlashcardStudyView legacy |
 
-**Đã đóng:** F-001–F-004, F-006, F-008, F-010, F-013–F-019, F-022–F-023, F-025–F-031, F-033–F-037, F-039, F-041 (**30 F**); R-01–R-08 và R-12 (**9 R**). F-023/F-025/F-030/F-031 là phần nền tảng A, không hàm ý các call site của F-024/F-032 đã sạch. R-05 là test-only; Telex native vẫn chưa được xác minh.
+**Đã đóng:** F-001–F-004, F-006, F-008, F-010, F-013–F-019, F-022–F-023, F-025–F-031, F-033–F-037, F-039–F-041 (**31 F**); R-01–R-09 và R-12 (**10 R**). F-023/F-025/F-030/F-031 là phần nền tảng A, không hàm ý các call site của F-024/F-032 đã sạch. R-05 là test-only; Telex native vẫn chưa được xác minh.
 
 **Còn chờ native/bằng chứng bổ sung:** F-005 (author-name combobox cuối, ảnh trước tối); F-024 (legacy/Linux/trạng thái hiếm); F-032 (message/tool chỉ có fixture); F-038 (các màn legacy không có route native); Telex trong AI và ô wikilink từ R-05/E2. F-005/F-024/F-032 vẫn partial vì ngoài QA còn phần mã/phạm vi chưa hoàn tất. F-038 đã sửa mã nhưng không tính đóng khi các màn legacy mới được kiểm bằng fixture/diff/test; đối chiếu giới hạn native trong [D4B](STEP-D4B-INLINE-STYLE.md).
 
-Coverage gần nhất (R-08): FE **87,84%**, Rust đầy đủ **86,41%** lines; grep SPEC §8 hiện tại **1 / 0**. Không đóng F-040 chỉ vì core E2 pass; chưa có điều tra nguyên nhân riêng theo tiêu chí finding.
+Coverage gần nhất (TEST-STABILITY): FE **87,84%**, Rust đầy đủ **86,41%** lines. Grep SPEC §8 hiện tại **1 / 0**.
 
 ## Đợt 0 — rà soát ban đầu (17/11/2026)
 
@@ -197,7 +197,7 @@ Nguồn: kiểm kê grep toàn `src/` + đọc `learning/LearningStudyView.tsx`,
 | F-037 | P2 | Mục sidebar đang chọn: huy hiệu số đổi sang đặc màu, mục khác thì không — hai kiểu "đang chọn" | ảnh `WRITE` vs `HOME` | SPEC §7 | fixed (`707bac53`) |
 | F-038 | P3 | Độ đậm chữ dùng cả 400/500/600/700 ngoài editor | `font-bold` 21 | SPEC §1 | fixed — chờ QA native (e1fed99d…9de3e360; Home/Decks/FlashcardStudyView legacy; [giới hạn](STEP-D4B-INLINE-STYLE.md)) |
 | F-039 | P2 | Core smoke wikilink không ổn định: Cmd+click xong H1 đích rỗng | `tests/smoke/wikilink-path-fix.spec.ts:63-70`, tái hiện cả baseline `f78b8fb9` | 90/90 không retry; full checks và pre-push dry-run sạch; [biên bản](F-039-COMPLETION.md) | fixed (`95176804`) |
-| F-040 | P2 | Core smoke keyboard delete/Quick Open phụ thuộc retry | `tests/smoke/delete-note-nonblocking.spec.ts:53`, log pre-push bước C | Xác định nguyên nhân trong lane đầy đủ; không coi retry là smoke sạch | open |
+| F-040 | P2 | Core smoke keyboard delete/Quick Open phụ thuộc retry | `tests/smoke/delete-note-nonblocking.spec.ts:53`, log pre-push bước C | Chờ Note B được chọn trước Enter | fixed test-only (`6074bb90`) |
 | F-041 | P1 | WebKit regression: render error react-virtuoso khi lưu ghi chú thường trước Command Palette | `note-memory-workspace.spec.ts:124-147`; HEAD trước sửa 20/20 fail | Marker 60/60, regression 10/10, lane WebKit 10/10, native chuột/bàn phím đạt; [biên bản](F-041-COMPLETION.md) | fixed (`4c46db3c`) |
 
 D2 hoàn tất F-008/F-010/F-033/F-037: typography toàn src 232 → 193, CSS data-slot 0 → 0; ngày hiển thị vẫn modified → created theo helper cũ. [Ma trận ảnh native và số đếm từng file](STEP-D2-HOME-LIST-SIDEBAR.md). F-024/F-032 tiếp tục open cho phần ngoài D2; không làm D3/D4 hoặc F-040.
@@ -228,7 +228,8 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 - Tái hiện đã quan sát: 1) `git push origin main` trên `dc29bf7d`. 2) Core smoke `delete-note-nonblocking.spec.ts:21` mở Quick Open khi deletion còn pending, nhập Note B và Enter. 3) Assertion heading Note B ở dòng 53 không tìm thấy trong 5 giây; retry pass.
 - Tác động: lane chỉ qua ca này nhờ retry, không phải smoke sạch. Không có bằng chứng mất dữ liệu; test dùng mock delete pending.
 - Bằng chứng: [pre-push](evidence/step-C-pre-push.txt). Chạy riêng không retry `--repeat-each=3`: [bản cuối 3/3 pass](evidence/F-040-delete-current.txt), [baseline f78b8fb9 3/3 pass](evidence/F-040-delete-baseline.txt); chưa tái hiện ngoài lane đầy đủ.
-- Chấp nhận: xác định nguyên nhân timing/fixture/app trong lane đầy đủ, chạy ổn định không retry; không tăng timeout/hạ assertion để che lỗi. Chưa sửa trong scope F-026.
+- Chấp nhận: xác định nguyên nhân và chạy ổn định không retry. Chưa sửa trong scope F-026.
+- 18/11/2026 · **fixed (test-only, `6074bb90`)**. Baseline 10/10 thường nhưng 7/10 khi CPU chậm 4×. Ba lượt lỗi ghi nhận Note B đã hiện nhưng chưa được highlight tại Enter. Spec đợi đúng hàng selected rồi giữ Enter, H1, delete pending và thông báo hoàn tất. Sau sửa đạt 20/20 thường và 10/10 dưới CPU chậm, không retry. [Biên bản](STEP-TEST-STABILITY.md).
 
 ## Regression review A–D1 — R-02 / R-03
 
@@ -318,10 +319,10 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 
 ## R-09 — Ba ca browser mở rộng lỗi từ baseline D4A
 
-- P2 · **open** · test/app chưa phân loại đầy đủ, ngoài typography F-024.
+- P2 · **fixed (test-only, `95106c09`)**.
 - `ai-panel-shortcut.spec.ts:16`: panel visible nhưng `getByTitle('Close AI panel')` không có. `release-channel-settings.spec.ts:14` (hai ca): helper không mở được settings-panel bằng shortcut hoặc command fallback. Không đổi selector/timeout/assertion của các ca này.
 - Tái hiện baseline độc lập `b95c7193` **3/3 fail**, và D4A **3/3 fail**, retries=0. [Baseline](evidence/D4A-R09-baseline.txt), [lượt D4A, kèm 5 ca pass](evidence/D4A-browser-regression.txt). Không dùng retry để che lỗi. Bằng chứng native D4A cho thấy Settings và AI panel mở qua chuột, chưa chứng minh mọi precondition browser đúng.
-- Chấp nhận: xác định helper/selector hay bug app rồi bảo vệ đúng hành vi bằng readiness và nhãn thật, không tăng timeout/retry/skip hoặc nới assertion. Chưa sửa vì không thuộc D4A; curated gate được ghi riêng trong biên bản.
+- 18/11/2026 · AI workspace và hai ca Settings gốc đều fail 10/10 không retry. AI mở được nhưng nút đúng là “Close AI workspace”, từ trước F-005. Cmd+, cũ đến trước readiness và probe fallback gửi Enter vào “Use Dark Mode”. Spec mới dùng role/tên truy cập, chờ Library và chạy riêng shortcut lẫn lệnh chính xác “Open Settings”. Mỗi ca đạt 20/20 không retry. [Biên bản](STEP-TEST-STABILITY.md).
 
 
 ## R-10 — Mô tả Welcome tiếng Việt vượt mép nút
