@@ -587,3 +587,8 @@ W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
 
 - P2 · Tiêu đề cột bị cắt "Chưa s..." dù còn chỗ (nút sắp xếp "Đã sửa đổi" chiếm chỗ). Ảnh đối chiếu: 05.
 - Đạt khi: Tiêu đề hiện đủ ở bề rộng mặc định; nút sắp xếp thu thành icon + tooltip khi chật.
+
+### F-073 · W3-07 · Cài đặt › Thư viện
+
+- P2 · Khối "Lịch sử sao lưu" nằm ngoài khung thẻ như các mục khác; hai nút bị tắt không nói lý do; nút "Khôi phục" tắt trông như nút xanh nhạt. Ảnh đối chiếu: 17a.
+- Đạt khi: Cùng kiểu thẻ với các mục khác; nút tắt có lý do (vd. "Chưa có bản sao lưu"); trạng thái tắt rõ ràng, giống các nút tắt khác.

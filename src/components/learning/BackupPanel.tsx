@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useId, useMemo, useRef, useState } from 'react'
 import { Button } from '../ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import type { BackupCatalogEntry } from '../../lib/learning/types'
@@ -8,6 +8,7 @@ import { useLearningWorkspace } from './LearningContext'
 import { LibraryBackupRecoveryClient } from '../../lib/learning/backupRecoveryClient'
 
 export function BackupPanel({ locale }: { locale: AppLocale }) {
+  const emptyHintId = useId()
   const workspace = useLearningWorkspace()
   const client = workspace?.client
   const root = workspace?.root ?? ''
@@ -62,14 +63,14 @@ export function BackupPanel({ locale }: { locale: AppLocale }) {
     finally { if (active.current === visit) { locked.current = false; setBusy(false) } }
   }
   const chosen = items.find(item => item.id === selected)
-  return <section className="note-memory-surface space-y-4" aria-label={t('learning.backupHistory')}>
+  return <section className="note-memory-surface space-y-4 rounded-md border border-border bg-card p-4" aria-label={t('learning.backupHistory')}>
     <h3 className="text-sm font-medium">{t('learning.backupHistory')}</h3>
     {busy && <p role="status" className="text-sm text-muted-foreground">{t('learning.loading')}</p>}
     {error && <div role="alert" className="rounded-md border border-destructive p-3 text-sm"><p>{t('learning.error')}</p><pre className="my-2 whitespace-pre-wrap break-words text-xs">{error}</pre><Button size="md" layout="responsive" variant="outline" disabled={busy} onClick={() => setAttempt(value => value + 1)}>{t('learning.retry')}</Button></div>}
-    {!busy && !error && !items.length && <p className="text-sm text-muted-foreground">{t('learning.noBackups')}</p>}
+    {!busy && !error && !items.length && <p id={emptyHintId} className="text-body text-text-secondary">{t('learning.noBackups')}</p>}
     {!!items.length && <Select value={chosen ? selected : ''} disabled={busy} onValueChange={value => { setSelected(value); setVerified(null); setError(null) }}><SelectTrigger size="md" layout="responsive" className="w-full max-w-xl" aria-label={t('learning.backupHistory')}><SelectValue /></SelectTrigger><SelectContent>{items.map(item => <SelectItem size="md" layout="responsive" key={item.id} value={item.id}>{item.descriptor ? new Intl.DateTimeFormat(locale, { dateStyle: 'medium', timeStyle: 'short' }).format(item.descriptor.createdAt) : t('learning.error')} · {item.id.slice(0, 8)}</SelectItem>)}</SelectContent></Select>}
     {chosen?.error && <p role="alert" className="break-words text-sm text-destructive">{chosen.error}</p>}
     {verified === selected && chosen && <p role="status" className="text-sm text-muted-foreground">{t('learning.backupVerified')}</p>}
-    <div className="flex flex-wrap gap-2">{client && <Button size="md" layout="responsive" variant="outline" disabled={busy} onClick={() => { void perform('create') }}>{t('learning.backup')}</Button>}<Button size="md" layout="responsive" variant="outline" disabled={busy || !chosen?.descriptor} onClick={() => { void perform('verify') }}>{t('learning.verifyBackup')}</Button><Button size="md" layout="responsive" disabled={busy || !chosen?.descriptor || verified !== selected} onClick={() => { void perform('restore') }}>{t('learning.restoreBackup')}</Button></div>
+    <div className="flex flex-wrap gap-2">{client && <Button size="md" layout="responsive" variant="outline" disabled={busy} onClick={() => { void perform('create') }}>{t('learning.backup')}</Button>}<Button size="md" layout="responsive" variant="outline" disabled={busy || !chosen?.descriptor} aria-describedby={!busy && !error && !items.length ? emptyHintId : undefined} onClick={() => { void perform('verify') }}>{t('learning.verifyBackup')}</Button><Button size="md" layout="responsive" variant={chosen?.descriptor && verified === selected ? 'default' : 'outline'} aria-describedby={!busy && !error && !items.length ? emptyHintId : undefined} disabled={busy || !chosen?.descriptor || verified !== selected} onClick={() => { void perform('restore') }}>{t('learning.restoreBackup')}</Button></div>
   </section>
 }
