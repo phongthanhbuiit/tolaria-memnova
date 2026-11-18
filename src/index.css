@@ -387,6 +387,9 @@
   --text-small: calc(12rem / 14);
   --text-small--line-height: 1.5;
   --text-small--font-weight: 400;
+  /* The legacy text-xs utility uses the small tier at the app's 14px root. */
+  --text-xs: var(--text-small);
+  --text-xs--line-height: var(--text-small--line-height);
   --text-body: calc(13rem / 14);
   --text-body--line-height: calc(20 / 13);
   --text-body--font-weight: 400;
@@ -512,10 +515,11 @@
   font-weight: 500;
 }
 
-/* t9: Overlines, category labels — 10px regular */
+/* t9: Overlines, category labels — caption size, regular weight */
 .font-mono-overline {
   font-family: 'Inter', sans-serif;
-  font-size: 10px;
+  font-size: var(--text-caption);
+  line-height: var(--text-caption--line-height);
   font-weight: 400;
   letter-spacing: 0.02em;
 }

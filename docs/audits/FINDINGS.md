@@ -5,18 +5,18 @@ Trạng thái: `open` · `partial` · `fixed — chờ QA native (phạm vi)` ·
 
 ## Tiến độ hiện tại — tổng kết đêm 18/11/2026
 
-Đối chiếu [tóm tắt buổi sáng](OVERNIGHT-2026-11-18.md#tóm-tắt-buổi-sáng) và bằng chứng của từng bước. Các bảng theo đợt bên dưới giữ mô tả và số đếm baseline. Bảng này ghi trạng thái hiện tại. Tổng kết **DONE D3/E1/R-08/TEST-STABILITY/R-10** và **PARTIAL D4A/D4B/E2/I18N-A11Y-2/LEARNING-COPY**. D4B đã xong mã trong 5 file F-032, còn F-038 chờ native legacy.
+Đối chiếu [tóm tắt buổi sáng](OVERNIGHT-2026-11-18.md#tóm-tắt-buổi-sáng) và bằng chứng của từng bước. Các bảng theo đợt bên dưới giữ mô tả và số đếm baseline. Bảng này ghi trạng thái hiện tại. Tổng kết **DONE D3/D4A/E1/R-08/TEST-STABILITY/R-10** và **PARTIAL D4B/E2/I18N-A11Y-2/LEARNING-COPY**. D4B đã xong mã trong 5 file F-032, còn F-038 chờ native legacy.
 
 | Mức | Open | Partial | Fixed — chờ QA native |
 |---|---|---|---|
 | P0 | Không | Không | Không |
-| P1 | Không | F-005, F-024 | Không |
+| P1 | Không | F-005 | Không |
 | P2 | F-021 | F-009, F-032 | F-012 (pending/invalid/deleted), R-11 (editor thuộc tính) |
 | P3 | Không | Không | F-038 (Home/Decks/FlashcardStudyView legacy) |
 
-**Đã đóng:** F-001–F-004, F-006–F-008, F-010–F-011, F-013–F-020, F-022–F-023, F-025–F-031, F-033–F-037, F-039–F-041 (**34 F**) và R-01–R-10, R-12–R-16 (**15 R**). F-023/F-025/F-030/F-031 là phần nền tảng A. R-05 là test-only. Telex native vẫn chưa được xác minh.
+**Đã đóng:** F-001–F-004, F-006–F-008, F-010–F-011, F-013–F-020, F-022–F-031, F-033–F-037, F-039–F-041 (**35 F**) và R-01–R-10, R-12–R-16 (**15 R**). F-023/F-025/F-030/F-031 là phần nền tảng A. R-05 là test-only. Telex native vẫn chưa được xác minh.
 
-**Còn chờ native/bằng chứng bổ sung:** F-005 (nhãn nội bộ Excalidraw còn tiếng Anh, ảnh trước tối của E2); F-024 (legacy/Linux/trạng thái hiếm); F-032 (message/tool chỉ có fixture); F-038 (các màn legacy không có route native); Telex trong AI và ô wikilink từ R-05/E2. F-005/F-024/F-032 vẫn partial vì ngoài QA còn phần mã/phạm vi chưa hoàn tất. F-038 đã sửa mã nhưng không tính đóng khi các màn legacy mới được kiểm bằng fixture/diff/test; đối chiếu giới hạn native trong [D4B](STEP-D4B-INLINE-STYLE.md).
+**Còn chờ native/bằng chứng bổ sung:** F-005 (nhãn nội bộ Excalidraw còn tiếng Anh, ảnh trước tối của E2); F-032 (message/tool chỉ có fixture); F-038 (các màn legacy không có route native); Telex trong AI và ô wikilink từ R-05/E2. F-005/F-032 vẫn partial vì ngoài QA còn phần mã/phạm vi chưa hoàn tất. F-038 đã sửa mã nhưng không tính đóng khi các màn legacy mới được kiểm bằng fixture/diff/test; đối chiếu giới hạn native trong [D4B](STEP-D4B-INLINE-STYLE.md).
 
 Coverage dòng gần nhất (R-10): FE **87,85%**, Rust đầy đủ **86,41%**. Grep SPEC §8 hiện tại **1 / 0**.
 
@@ -183,7 +183,7 @@ Nguồn: kiểm kê grep toàn `src/` + đọc `learning/LearningStudyView.tsx`,
 | ID | Mức | Tóm tắt | Bằng chứng | Sửa theo | Trạng thái |
 |---|---|---|---|---|---|
 | F-023 | P1 | Không có thang chữ: 15+ cỡ, đặt bằng 4 cách khác nhau | SPEC §0 | SPEC §1 | fixed (ddbeb0d2, nền tảng bước A) |
-| F-024 | P1 | ≥ 120 chỗ chữ 8–10px, khó đọc | `text-[10px]` 45, `text-[9px]` 6, `fontSize: 8/9/10` 12… | SPEC §1 | partial (D4A: 3310fdf3…2b7268e0, grep 160→1 ngoại lệ emoji icon; còn CSS/chữ kế thừa và native trạng thái hiếm; [biên bản](STEP-D4A-TYPOGRAPHY.md)) |
+| F-024 | P1 | ≥ 120 chỗ chữ 8–10px, khó đọc | `text-[10px]` 45, `text-[9px]` 6, `fontSize: 8/9/10` 12… | SPEC §1 | fixed (D4A và [đợt bổ sung CSS/chữ kế thừa](STEP-D4A-TYPOGRAPHY.md#bổ-sung-css-và-cỡ-chữ-kế-thừa)) |
 | F-025 | P1 | `--text-muted` #B4B4B4 (≈2.1:1) dùng cho nhãn đọc được; token màu chữ trùng giá trị | `src/index.css:86-90` | SPEC §2 | fixed (207e1294, nền tảng bước A) |
 | F-026 | P1 | CSS tính năng ghi đè component shadcn (`[data-slot=…]`) → cùng `Button`/`Switch` mà mỗi màn một cỡ | `learning/noteMemory.css:10-18,31,64,83-85` | SPEC §3 | fixed (a2428886) |
 | F-027 | P1 | Màn ôn thẻ: ba vùng lệch mép (`max-w-4xl` / `3xl` / `2xl`), hộp lồng hộp, nội dung cần nhớ yếu hơn tiêu đề | `LearningStudyView.tsx:138,296`, `LearningStudyFaces.tsx:71,87,149` | SPEC §6 | fixed (62053c7a + 96754f2a) |

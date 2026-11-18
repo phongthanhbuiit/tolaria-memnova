@@ -2,6 +2,15 @@
 
 Ngày 18/11/2026. FIX, chế độ đêm. Baseline `b95c7193`; mã cuối `2b7268e0`. Chỉ thay cỡ chữ/line-height trong 42 file TSX; giữ nguyên màu, độ đậm, bố cục, hành vi, phím tắt, dữ liệu và key danh sách theo path. Không thay nội dung BlockNote, F-040, D3 hoặc thiết kế D4 khác.
 
+## Bổ sung CSS và cỡ chữ kế thừa
+
+Đợt lô ngày 18/11/2026 đưa phần CSS còn lại của F-024 về SPEC §1. Bốn khai báo 10px cho nhãn tùy chỉnh loại, phím tắt menu slash và hai biến thể huy hiệu Wikilink dùng `caption` 11/16. Nhãn nhóm slash kế thừa 10,5px từ Mantine và hai khai báo `0.75rem` của dấu heading trong CodeMirror cũng dùng `caption`. Tiện ích `text-xs` lấy cỡ và chiều cao dòng mặc định từ `small` 12/18, đáp ứng ánh xạ trong SPEC và giữ các tiện ích `leading-*` được khai báo rõ.
+
+- Giữ `NoteTitleIcon.tsx` vì kích thước glyph emoji động phải khớp với nhánh SVG/ảnh trong cùng ô icon. SVG duy nhất do app khai báo có phần tử `text` là glyph cây trong favicon. Cỡ tương đối của sơ đồ Mermaid, công thức và bản vẽ thuộc nội dung ghi chú và theo renderer của nội dung.
+- Hai lệnh SPEC §8 giữ **1 → 1** (emoji) và **0 → 0** (CSS data-slot). Quét CSS ở root 14px còn **0** khai báo font-size trực tiếp dưới 11px bằng px hoặc rem. Playwright đo menu slash, tùy chỉnh loại và Cài đặt trước/sau. Đo bổ sung trên WebKit xác nhận huy hiệu Wikilink 11px/16px và đường dẫn kế thừa 12px/18px. CodeMirror thô mở được trong app hiện hành, còn nhánh CSS live preview cũ được đối chiếu theo khai báo.
+- QA macOS native dùng executable debug/incognito và Library tạm, cửa sổ **1440×900**, giao diện tiếng Việt, zoom mặc định. Mở tùy chỉnh loại bằng chuột, mở menu slash bằng phím và kiểm tra Cài đặt ở cả hai theme. Ảnh ghép giữ cửa sổ nguyên khung, trước ở trái, sau ở phải, tùy chỉnh loại ở trên và slash ở dưới. Kiểm tra này bao phủ các bề mặt macOS đã mở. Các đường legacy không có route và Linux không được chạy native. [Ảnh sáng](evidence/F-024-typography-compare-light.png) · [Ảnh tối](evidence/F-024-typography-compare-dark.png).
+- 41 test tập trung và hai spec Playwright liên quan đều qua. Thay đổi mã chỉ ở thuộc tính cỡ chữ và chiều cao dòng trong ba stylesheet.
+
 ## Kết quả và ngoại lệ
 
 Lệnh thứ nhất SPEC §8: **160 → 1 dòng** trên toàn `src` không tính test; **159 → 0 dòng chữ khớp grep** sau khi tách một ngoại lệ icon được phép. Không báo grep thô bằng 0. Lệnh CSS `[data-slot=…]`: **0 → 0**. Dòng giữ nguyên là `src/components/NoteTitleIcon.tsx:35`, `fontSize: size`: glyph emoji phải cùng kích thước hình học với nhánh SVG/image của icon. Đây không phải chữ giao diện: ví dụ `src/components/NoteIcon.tsx:37` truyền size26, ngoài thang chữ; ép icon vào thang sẽ đổi hình học và lệch nhánh SVG/image. Không chuyển literal sang chỗ khác để né grep.

@@ -43,8 +43,8 @@
 
 .wikilink-menu__type {
   flex-shrink: 0;
-  font-size: 10px;
-  line-height: 1.4;
+  font-size: var(--text-caption);
+  line-height: var(--text-caption--line-height);
   white-space: nowrap;
 }
 
@@ -58,8 +58,4 @@
 .wikilink-menu--filter .wikilink-menu__item {
   padding: 4px 8px;
   font-size: 12px;
-}
-
-.wikilink-menu--filter .wikilink-menu__type {
-  font-size: 10px;
 }

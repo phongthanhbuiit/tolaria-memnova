@@ -132,6 +132,8 @@ body.mac-chrome .app:not(:has(.app__sidebar)):not(:has(.app__note-list)) .breadc
 
 .editor__blocknote-container .bn-suggestion-menu-label {
   color: var(--text-secondary) !important;
+  font-size: var(--text-caption);
+  line-height: var(--text-caption--line-height);
 }
 
 .editor__blocknote-container .bn-suggestion-menu-item {
@@ -164,9 +166,9 @@ body.mac-chrome .app:not(:has(.app__sidebar)):not(:has(.app__note-list)) .breadc
   border-radius: 0 !important;
   background: transparent !important;
   color: var(--text-muted) !important;
-  font-size: 10px !important;
+  font-size: var(--text-caption) !important;
   font-weight: 500 !important;
-  line-height: 1.2 !important;
+  line-height: var(--text-caption--line-height) !important;
   text-transform: none !important;
 }
 
@@ -225,8 +227,8 @@ body.mac-chrome .app:not(:has(.app__sidebar)):not(:has(.app__note-list)) .breadc
   transform: translateY(-50%);
   right: 100%;
   padding-right: 4px;
-  font-size: 0.75rem !important;
-  line-height: 1;
+  font-size: var(--text-caption) !important;
+  line-height: var(--text-caption--line-height);
   opacity: 0;
   transition: opacity 0.15s ease-out !important;
   white-space: nowrap;
@@ -235,7 +237,7 @@ body.mac-chrome .app:not(:has(.app__sidebar)):not(:has(.app__note-list)) .breadc
 }
 
 .cm-heading-line .cm-formatting-block.cm-formatting-block-visible {
-  font-size: 0.75rem !important;
+  font-size: var(--text-caption) !important;
   opacity: 0.5;
   pointer-events: auto;
 }
