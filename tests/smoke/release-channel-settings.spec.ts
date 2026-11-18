@@ -1,52 +1,58 @@
-import { test, expect } from '@playwright/test'
-import { openCommandPalette, executeCommand } from './helpers'
+import { test, expect, type Page } from '@playwright/test'
+import { createFixtureVaultCopy, openFixtureVault, removeFixtureVaultCopy } from '../helpers/fixtureVault'
+import { sendShortcut } from './helpers'
 
-async function openSettings(page: import('@playwright/test').Page) {
-  await page.locator('body').click()
-  await page.keyboard.press('Meta+,')
-  const panel = page.locator('[data-testid="settings-panel"]')
-  try {
-    await panel.waitFor({ timeout: 2000 })
-    return panel
-  } catch {
-    await openCommandPalette(page)
-    await executeCommand(page, 'Settings')
-    await panel.waitFor({ timeout: 5000 })
-  }
-  return panel
+function releaseChannel(page: Page) {
+  return page.getByTestId('settings-panel').getByRole('combobox', {
+    name: 'Release channel',
+    exact: true,
+  })
 }
 
 test.describe('Release channel settings', () => {
+  test.use({ locale: 'en-US' })
+  let vault: string
+
   test.beforeEach(async ({ page }) => {
-    await page.goto('/')
-    await page.waitForLoadState('networkidle')
+    vault = createFixtureVaultCopy()
+    await openFixtureVault(page, vault)
+    await expect(page.getByRole('button', { name: 'Open settings', exact: true })).toBeVisible()
+  })
+
+  test.afterEach(() => {
+    removeFixtureVaultCopy(vault)
   })
 
   test('Settings panel defaults the release channel to Stable', async ({ page }) => {
-    await openSettings(page)
-
-    const trigger = page.locator('[data-testid="settings-release-channel"]')
+    await sendShortcut(page, ',', ['Control'])
+    const trigger = releaseChannel(page)
     await expect(trigger).toBeVisible()
     await expect(trigger).toHaveAttribute('data-value', 'stable')
 
     await trigger.click()
-    await expect(page.getByRole('option', { name: 'Stable' })).toBeVisible()
-    await expect(page.getByRole('option', { name: 'Alpha' })).toBeVisible()
+    await expect(page.getByRole('option', { name: 'Stable', exact: true })).toBeVisible()
+    await expect(page.getByRole('option', { name: 'Alpha', exact: true })).toBeVisible()
     await expect(page.getByRole('option', { name: 'Beta' })).toHaveCount(0)
   })
 
   test('Release channel can be changed to alpha and saved', async ({ page }) => {
-    await openSettings(page)
+    await sendShortcut(page, 'k', ['Control'])
+    const palette = page.locator('[data-command-palette="true"]')
+    const commandLabel = 'Open Settings'
+    await palette.getByRole('textbox').fill(commandLabel)
+    await palette.getByRole('button').filter({ has: page.getByText(commandLabel, { exact: true }) }).click()
 
-    const trigger = page.locator('[data-testid="settings-release-channel"]')
+    const trigger = releaseChannel(page)
+    await expect(trigger).toBeVisible()
     await trigger.click()
-    await page.getByRole('option', { name: 'Alpha' }).click()
+    await page.getByRole('option', { name: 'Alpha', exact: true }).click()
     await expect(trigger).toHaveAttribute('data-value', 'alpha')
 
-    await page.click('[data-testid="settings-save"]')
-    await page.waitForTimeout(500)
+    const panel = page.getByTestId('settings-panel')
+    await panel.getByRole('button', { name: 'Save', exact: true }).click()
+    await expect(panel).toBeHidden()
 
-    await openSettings(page)
-    await expect(page.locator('[data-testid="settings-release-channel"]')).toHaveAttribute('data-value', 'alpha')
+    await sendShortcut(page, ',', ['Control'])
+    await expect(trigger).toHaveAttribute('data-value', 'alpha')
   })
 })

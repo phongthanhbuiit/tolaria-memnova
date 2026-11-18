@@ -2,6 +2,8 @@ import { test, expect } from '@playwright/test'
 import { sendShortcut } from './helpers'
 
 test.describe('AI panel shortcut', () => {
+  test.use({ locale: 'en-US' })
+
   test.beforeEach(async ({ page }) => {
     await page.route('**/api/vault/ping', route => route.fulfill({ status: 503 }))
     await page.goto('/')
@@ -13,6 +15,10 @@ test.describe('AI panel shortcut', () => {
     await page.locator('.bn-editor').click()
     await sendShortcut(page, 'L', ['Meta', 'Shift'])
     await expect(page.getByTestId('ai-panel')).toBeVisible({ timeout: 3_000 })
-    await expect(page.getByTitle('Close AI panel')).toBeVisible()
+    const workspace = page.getByTestId('ai-workspace')
+    const closeButton = workspace.getByRole('button', { name: 'Close AI workspace', exact: true })
+    await expect(closeButton).toBeVisible()
+    await closeButton.click()
+    await expect(workspace).toBeHidden()
   })
 })
