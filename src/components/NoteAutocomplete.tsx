@@ -227,13 +227,13 @@ function NoteAutocompleteMenuItem({
       onClick={() => onSelect(item.selectionValue ?? item.title)}
       onMouseEnter={onHover}
     >
-      <span className="wikilink-menu__title" style={{ display: 'flex', alignItems: 'center', gap: 6, flex: 1, minWidth: 0 }}>
-        {item.TypeIcon && <item.TypeIcon width={14} height={14} style={{ color: item.typeColor, flexShrink: 0 }} />}
+      <span className="wikilink-menu__title flex min-w-0 flex-1 items-center gap-[6px]">
+        {item.TypeIcon && <item.TypeIcon width={14} height={14} className="shrink-0" style={{ color: item.typeColor }} />}
         <NoteTitleIcon icon={item.noteIcon} size={14} />
         <span className="min-w-0 flex-1 text-left"><span className="block truncate">{item.title}</span>{item.path && <span className="block truncate text-xs text-muted-foreground">{item.path}</span>}</span>
       </span>
       {item.noteType && (
-        <span className="wikilink-menu__type" style={{ color: item.typeColor, backgroundColor: item.typeLightColor, borderRadius: 9999, padding: '1px 8px' }}>
+        <span className="wikilink-menu__type rounded-[9999px] px-[8px] py-px" style={{ color: item.typeColor, backgroundColor: item.typeLightColor }}>
           {item.noteType}
         </span>
       )}
@@ -260,7 +260,7 @@ function NoteAutocompleteMenu({
   if (matches.length === 0) return null
 
   return (
-    <div className="wikilink-menu" ref={menuRef} style={{ position: 'absolute', top: '100%', left: 0, right: 0, marginTop: 2, minWidth: 'auto' }}>
+    <div className="wikilink-menu absolute inset-x-0 top-full mt-[2px] min-w-[auto]!" ref={menuRef}>
       {matches.map((item, index) => (
         <NoteAutocompleteMenuItem
           controlLayout={controlLayout}
@@ -331,15 +331,16 @@ export function NoteAutocomplete({ entries, typeEntryMap, value, onChange, onSel
   }, [handleSelect, matches, onEscape, open, selectedIndex, value])
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div className="relative">
       <Input
         layout={controlLayout}
         ref={inputRef}
         id={inputId}
         disabled={disabled}
         autoFocus={autoFocus}
-        className={controlLayout === 'responsive' ? 'flex-1 border-border px-2 text-body text-foreground shadow-none' : 'h-7 flex-1 rounded border border-border bg-transparent px-2 py-0.5 text-xs text-foreground shadow-none focus-visible:ring-1'}
-        style={{ borderRadius: 4, outline: 'none', minWidth: 0, width: '100%', boxSizing: 'border-box' }}
+        className={`box-border w-full min-w-0 rounded-[4px] outline-none focus-visible:outline-none ${controlLayout === 'responsive'
+          ? 'flex-1 border-border px-2 text-body text-foreground shadow-none'
+          : 'h-7 flex-1 border border-border bg-transparent px-2 py-0.5 text-xs text-foreground shadow-none focus-visible:ring-1'}`}
         placeholder={placeholder}
         value={value}
         onChange={handleChange}
