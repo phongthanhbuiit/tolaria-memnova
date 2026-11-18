@@ -91,10 +91,10 @@ function RelationshipSectionRow({ label, children, dataTestId, locale, placehold
   )
 }
 
-function RelationshipActionRow({ children }: { children: ReactNode }) {
+function RelationshipActionRow({ children, label }: { children: ReactNode; label: string }) {
   return (
     <div className={RELATIONSHIP_ACTION_ROW_CLASS_NAME} style={{ gridColumn: '1 / -1' }}>
-      <div className={RELATIONSHIP_SECTION_VALUE_CLASS_NAME}>{children}</div>
+      <div role="group" aria-label={label} className="grid min-w-0 gap-1">{children}</div>
     </div>
   )
 }
@@ -404,11 +404,11 @@ function InlineAddNote({ entries, sourceEntry, vaultPath, locale, onAdd, onCreat
   if (!active) {
     return (
       <Button layout="responsive" variant="ghost" size="sm" type="button"
-        className="w-full justify-start px-2 text-left text-text-secondary"
+        className="w-fit max-w-full justify-start px-2 text-left text-primary"
         onClick={() => setActive(true)}
         data-testid="add-relation-ref"
       >
-        {translate(locale, 'inspector.relationship.add')}
+        <Plus aria-hidden="true" />{translate(locale, 'inspector.relationship.add')}
       </Button>
     )
   }
@@ -723,7 +723,7 @@ interface AddRelationshipFormProps {
 
 function AddRelationshipButton({ locale, onClick }: { locale: AppLocale; onClick: () => void }) {
   return (
-    <Button layout="responsive" type="button" variant="outline" size="sm" className="mt-2 w-full justify-center px-3 py-0 text-body text-text-secondary" onClick={onClick}>
+    <Button layout="responsive" type="button" variant="ghost" size="sm" className="w-full justify-start px-2 text-text-secondary" onClick={onClick}>
       {translate(locale, 'inspector.relationship.addRelationship')}
     </Button>
   )
@@ -881,7 +881,7 @@ function updateRefsForAddition(refs: string[], refToAdd: string): FrontmatterVal
 
 function DisabledLinkButton({ locale }: { locale: AppLocale }) {
   return (
-    <Button layout="responsive" variant="outline" size="sm" type="button" className="mt-2 w-full text-center text-text-secondary" disabled>{translate(locale, 'inspector.relationship.addRelationship')}</Button>
+    <Button layout="responsive" variant="ghost" size="sm" type="button" className="w-full justify-start px-2" disabled>{translate(locale, 'inspector.relationship.addRelationship')}</Button>
   )
 }
 
@@ -909,7 +909,8 @@ function SuggestedRelationshipSlot({ label, entries, sourceEntry, vaultPath, loc
   )
 }
 
-export function DynamicRelationshipsPanel({ entry, frontmatter, entries, typeEntryMap, vaultPath, onNavigate, onAddProperty, onUpdateProperty, onDeleteProperty, onCreateAndOpenNote, locale = 'en' }: {
+export function DynamicRelationshipsPanel({ entry, frontmatter, entries, typeEntryMap, vaultPath, onNavigate, onAddProperty, onUpdateProperty, onDeleteProperty, onCreateAndOpenNote, actionsBefore, actionsAfter, locale = 'en' }: {
+  actionsBefore?: ReactNode; actionsAfter?: ReactNode
   entry?: VaultEntry; frontmatter: ParsedFrontmatter; entries: VaultEntry[]; typeEntryMap: Record<string, VaultEntry>; vaultPath?: string
   onNavigate: (target: string) => void
   onAddProperty?: (key: string, value: FrontmatterValue) => void
@@ -973,11 +974,13 @@ export function DynamicRelationshipsPanel({ entry, frontmatter, entries, typeEnt
           locale={locale}
         />
       ))}
-      <RelationshipActionRow>
+      <RelationshipActionRow label={translate(locale, 'inspector.title.properties')}>
+        {actionsBefore}
         {onAddProperty
           ? <AddRelationshipForm entries={entries} sourceEntry={entry} vaultPath={resolvedVaultPath} onAddProperty={onAddProperty} onCreateAndOpenNote={onCreateAndOpenNote} locale={locale} />
           : <DisabledLinkButton locale={locale} />
         }
+        {actionsAfter}
       </RelationshipActionRow>
     </div>
   )

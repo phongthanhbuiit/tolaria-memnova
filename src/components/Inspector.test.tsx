@@ -1,5 +1,5 @@
 import type { ComponentProps, ReactElement } from 'react'
-import { render as rtlRender, screen, fireEvent } from '@testing-library/react'
+import { render as rtlRender, screen, fireEvent, within } from '@testing-library/react'
 import { describe, it, expect, vi } from 'vitest'
 import { Inspector } from './Inspector'
 import type { VaultEntry, GitCommit, WorkspaceIdentity } from '../types'
@@ -248,6 +248,14 @@ Status: Evergreened
   it('shows a separator between properties and relationships', () => {
     render(<Inspector {...defaultProps} entry={mockEntry} content={mockContent} />)
     expect(screen.getByTestId('inspector-properties-relationships-separator')).toBeInTheDocument()
+  })
+
+  it('groups property and relationship actions after the editable values', () => {
+    render(<Inspector {...defaultProps} entry={mockEntry} content={mockContent} />)
+    const actions = within(screen.getByRole('group', { name: 'Properties', exact: true }))
+    expect(actions.getByRole('button', { name: 'Add property' })).toBeInTheDocument()
+    expect(actions.getByRole('button', { name: /add relationship/i })).toBeInTheDocument()
+    expect(actions.getByRole('button', { name: 'Edit properties' })).toBeInTheDocument()
   })
 
   it('shows relationships with clickable links', () => {

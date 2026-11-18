@@ -59,7 +59,7 @@ export function NoteMemorySwitch({ path, locale }: { path: string; locale: AppLo
         <Switch size="responsive" id={id} aria-describedby={hint ? `${id}-hint` : undefined} checked={Boolean(view?.config?.enabled)} disabled={busy || blocked} onCheckedChange={value => void change(value)} />
       </> : <>
         <span className="min-w-0 flex-1 whitespace-normal text-body font-medium text-text-secondary [overflow-wrap:anywhere]">{t('properties.spacedRepetition')}</span>
-        <Button layout="responsive" variant="ghost" size="sm" disabled={workspace.busy || workspace.phase === 'loading'} onClick={() => void workspace.openMigration()}>{t('learning.prepare')}</Button>
+        <Button layout="responsive" variant="ghost" size="sm" disabled={workspace.busy || workspace.phase === 'loading'} onClick={() => void workspace.openMigration()}>{t('properties.prepareLibrary')}</Button>
       </>}
     </div>
     {hint && <p id={`${id}-hint`} className="text-small text-text-secondary">{t(hint)}</p>}

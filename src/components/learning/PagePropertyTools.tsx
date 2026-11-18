@@ -59,11 +59,11 @@ export function PagePropertyTools({
     }
   }
   return (
-    <div className="note-memory-surface space-y-2 px-0 py-3">
+    <div className="note-memory-surface space-y-2">
       <Button layout="responsive"
-        variant="outline"
+        variant="ghost"
         size="sm"
-        className="w-full whitespace-normal"
+        className="w-full justify-start whitespace-normal px-2"
         disabled={!ready || busy || !onUpdate || !onRemove}
         onClick={() => void show()}
       >

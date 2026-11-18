@@ -1,5 +1,5 @@
 import { Plus } from '@phosphor-icons/react'
-import { useMemo, useCallback, useEffect, useState } from 'react'
+import { useMemo, useCallback, useEffect, useState, type ReactNode } from 'react'
 import { Button } from '@/components/ui/button'
 import type { VaultEntry, WorkspaceIdentity } from '../types'
 import type { FrontmatterValue } from './Inspector'
@@ -502,6 +502,7 @@ function DynamicPropertiesPanelContent({
   onStartPendingSuggestedEdit,
   onSaveSuggestedValue,
   onAddSuggestedProperty,
+  renderActions,
 }: {
   entry: VaultEntry
   propertyState: PropertyPanelState
@@ -519,12 +520,28 @@ function DynamicPropertiesPanelContent({
   onStartPendingSuggestedEdit: (key: string | null) => void
   onSaveSuggestedValue: (key: string, newValue: string) => void
   onAddSuggestedProperty: (key: string) => void
+  renderActions?: (addProperty: ReactNode) => ReactNode
 }) {
   const {
     editingKey, setEditingKey, showAddDialog, setShowAddDialog, displayOverrides,
     availableTypes, customColorKey, typeColorKeys, typeIconKeys, vaultStatuses, vaultTagsByKey, propertyEntries,
     typeDerivedPropertyEntries, handleSaveValue, handleSaveTypeDerivedValue, handleSaveList, handleAdd, handleDisplayModeChange,
   } = propertyState
+
+  const addProperty = showAddDialog ? (
+    <AddPropertyForm
+      onAdd={handleAdd}
+      onCancel={() => setShowAddDialog(false)}
+      vaultStatuses={vaultStatuses}
+      locale={locale}
+    />
+  ) : (
+    <AddPropertyButton
+      locale={locale}
+      onClick={() => setShowAddDialog(true)}
+      disabled={!onAddProperty}
+    />
+  )
 
   return (
     <div className="flex flex-col gap-3">
@@ -584,27 +601,15 @@ function DynamicPropertiesPanelContent({
           onDisplayModeChange={handleDisplayModeChange}
         />
         <SuggestedPropertyRows locale={locale} properties={missingSuggested} onAdd={onAddSuggestedProperty} />
-        {!showAddDialog && (
-          <AddPropertyButton
-            locale={locale}
-            onClick={() => setShowAddDialog(true)}
-            disabled={!onAddProperty}
-          />
-        )}
+        {!renderActions && !showAddDialog && addProperty}
       </div>
-      {showAddDialog && (
-        <AddPropertyForm
-          onAdd={handleAdd}
-          onCancel={() => setShowAddDialog(false)}
-          vaultStatuses={vaultStatuses}
-          locale={locale}
-        />
-      )}
+      {renderActions ? renderActions(addProperty) : showAddDialog && addProperty}
     </div>
   )
 }
 
 interface DynamicPropertiesPanelProps {
+  renderActions?: (addProperty: ReactNode) => ReactNode
   hiddenPropertyKeys?: readonly string[]
   entry: VaultEntry
   content?: string | null
@@ -623,7 +628,7 @@ interface DynamicPropertiesPanelProps {
 export function DynamicPropertiesPanel({
   entry, frontmatter, entries, hiddenPropertyKeys = [],
   onUpdateProperty, onDeleteProperty, onAddProperty, onNavigate, onCreateMissingType,
-  onChangeWorkspace, workspaces,
+  onChangeWorkspace, workspaces, renderActions,
   locale = 'en',
 }: DynamicPropertiesPanelProps) {
   const propertyState = usePropertyPanelState({ entries, entryIsA: entry.isA, frontmatter, onUpdateProperty, onDeleteProperty, onAddProperty })
@@ -674,6 +679,7 @@ export function DynamicPropertiesPanel({
       onStartPendingSuggestedEdit={handlePendingSuggestedEdit}
       onSaveSuggestedValue={handleSaveSuggestedValue}
       onAddSuggestedProperty={handleSuggestedAdd}
+      renderActions={renderActions}
     />
   )
 }

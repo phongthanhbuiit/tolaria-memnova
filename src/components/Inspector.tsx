@@ -1,4 +1,4 @@
-import { useMemo, useCallback } from 'react'
+import { useMemo, useCallback, type ReactNode } from 'react'
 import type { VaultEntry, GitCommit, WorkspaceIdentity } from '../types'
 import { cn } from '@/lib/utils'
 import { Separator } from './ui/separator'
@@ -106,6 +106,7 @@ function ValidFrontmatterPanels({
   onChangeWorkspace,
   workspaces,
   locale,
+  propertyTools,
 }: {
   entry: VaultEntry
   entries: VaultEntry[]
@@ -123,6 +124,7 @@ function ValidFrontmatterPanels({
   onChangeWorkspace?: (entry: VaultEntry, workspace: WorkspaceIdentity) => Promise<void> | void
   workspaces?: WorkspaceIdentity[]
   locale: AppLocale
+  propertyTools: ReactNode
 }) {
   const entryForWorkspaceActions = entryWithInferredWorkspace(entry, workspaces)
   return (
@@ -140,20 +142,26 @@ function ValidFrontmatterPanels({
         onChangeWorkspace={onChangeWorkspace ? (workspace) => onChangeWorkspace(entryForWorkspaceActions, workspace) : undefined}
         workspaces={workspaces}
         locale={locale}
-      />
-      <Separator data-testid="inspector-properties-relationships-separator" />
-      <DynamicRelationshipsPanel
-        entry={entry}
-        frontmatter={frontmatter}
-        entries={entries}
-        typeEntryMap={typeEntryMap}
-        vaultPath={vaultPath}
-        onNavigate={onNavigate}
-        onAddProperty={onAddProperty}
-        onUpdateProperty={onUpdateProperty}
-        onDeleteProperty={onDeleteProperty}
-        onCreateAndOpenNote={onCreateAndOpenNote}
-        locale={locale}
+        renderActions={addProperty => (
+          <>
+            <Separator data-testid="inspector-properties-relationships-separator" />
+            <DynamicRelationshipsPanel
+              entry={entry}
+              frontmatter={frontmatter}
+              entries={entries}
+              typeEntryMap={typeEntryMap}
+              vaultPath={vaultPath}
+              onNavigate={onNavigate}
+              onAddProperty={onAddProperty}
+              onUpdateProperty={onUpdateProperty}
+              onDeleteProperty={onDeleteProperty}
+              onCreateAndOpenNote={onCreateAndOpenNote}
+              actionsBefore={addProperty}
+              actionsAfter={propertyTools}
+              locale={locale}
+            />
+          </>
+        )}
       />
       <InstancesPanel entry={entry} entries={entries} typeEntryMap={typeEntryMap} onNavigate={onNavigate} />
       <ReferencedByPanel items={referencedBy} typeEntryMap={typeEntryMap} onNavigate={onNavigate} />
@@ -181,6 +189,7 @@ function PrimaryInspectorPanel({
   onChangeWorkspace,
   workspaces,
   locale,
+  propertyTools,
 }: {
   entry: VaultEntry
   frontmatterState: ReturnType<typeof detectFrontmatterState>
@@ -201,6 +210,7 @@ function PrimaryInspectorPanel({
   onChangeWorkspace?: (entry: VaultEntry, workspace: WorkspaceIdentity) => Promise<void> | void
   workspaces?: WorkspaceIdentity[]
   locale: AppLocale
+  propertyTools: ReactNode
 }) {
   if (frontmatterState === 'valid') {
     return (
@@ -221,15 +231,19 @@ function PrimaryInspectorPanel({
         onChangeWorkspace={onChangeWorkspace}
         workspaces={workspaces}
         locale={locale}
+        propertyTools={propertyTools}
       />
     )
   }
 
-  if (frontmatterState === 'invalid') {
-    return onToggleRawEditor ? <InvalidFrontmatterNotice locale={locale} onFix={onToggleRawEditor} /> : null
-  }
-
-  return onInitializeProperties ? <InitializePropertiesPrompt locale={locale} onClick={() => onInitializeProperties(entry.path)} /> : null
+  return (
+    <>
+      {frontmatterState === 'invalid'
+        ? onToggleRawEditor && <InvalidFrontmatterNotice locale={locale} onFix={onToggleRawEditor} />
+        : onInitializeProperties && <InitializePropertiesPrompt locale={locale} onClick={() => onInitializeProperties(entry.path)} />}
+      {propertyTools}
+    </>
+  )
 }
 
 function InspectorBody({
@@ -318,9 +332,9 @@ function InspectorBody({
           onChangeWorkspace={onChangeWorkspace}
           workspaces={workspaces}
           locale={locale}
+          propertyTools={<PagePropertyTools path={entry.path} content={content} frontmatter={frontmatter} locale={locale} onUpdate={handleUpdateProperty} onRemove={handleDeleteProperty} />}
         />
       )}
-      {supportsFrontmatter(entry) && <PagePropertyTools path={entry.path} content={content} frontmatter={frontmatter} locale={locale} onUpdate={handleUpdateProperty} onRemove={handleDeleteProperty} />}
       {supportsFrontmatter(entry) && <NoteMemorySwitch key={entry.path} path={entry.path} locale={locale} />}
       {supportsFrontmatter(entry) && <NoteLearningPanel key={`learning-${entry.path}`} path={entry.path} locale={locale} compact />}
       {supportsFrontmatter(entry) && <NoteMemoryInspector path={entry.path} content={content} locale={locale} />}
