@@ -22,6 +22,7 @@ import { useStudyFaces } from './useStudyFaces'
 import { useLearningWorkspace } from './LearningContext'
 import { workspaceDue } from '../../lib/learning/noteWorkspace'
 import type { StudySession } from '../../lib/learning/types'
+import { formatStudyInterval } from './reviewDueDisplay'
 import './learningStudy.css'
 
 const gradeLabels = ['learning.again', 'learning.hard', 'learning.good', 'learning.easy'] as const
@@ -153,10 +154,8 @@ export function LearningStudyView({
         (Date.parse(preview.outcomes[rating].due) - preview.at) / 60_000
       )
     )
-    return new Intl.RelativeTimeFormat(locale, {
-      numeric: 'always',
-      style: 'long',
-    }).format(
+    return formatStudyInterval(
+      locale,
       minutes < 60
         ? minutes
         : minutes < 1440

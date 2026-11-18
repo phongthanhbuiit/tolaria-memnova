@@ -15,6 +15,7 @@ import { createPortal } from 'react-dom'
 import { invoke } from '@tauri-apps/api/core'
 import { Books, CalendarBlank, Confetti, SpeakerHigh, Sparkle, X } from '@phosphor-icons/react'
 import { GradeButtons } from './learning/GradeButtons'
+import { formatStudyInterval } from './learning/reviewDueDisplay'
 import { Button } from '@/components/ui/button'
 import './EditorTheme.css'
 import { cn } from '@/lib/utils'
@@ -308,8 +309,8 @@ export const FlashcardStudyView = memo(function FlashcardStudyView({
   const formatInterval = (days: number) => {
     if (days === 0) return `< ${new Intl.NumberFormat(locale, { style: 'unit', unit: 'day', unitDisplay: 'long' }).format(1)}`
     const value = days < 7 ? days : days < 30 ? Math.round(days / 7) : Math.round(days / 30)
-    return new Intl.RelativeTimeFormat(locale, { numeric: 'always', style: 'long' }).format(
-      value, days < 7 ? 'day' : days < 30 ? 'week' : 'month'
+    return formatStudyInterval(
+      locale, value, days < 7 ? 'day' : days < 30 ? 'week' : 'month'
     )
   }
 

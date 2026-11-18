@@ -489,3 +489,11 @@ it('continues only with due cards in the completed session lane and scope', () =
     workspaceOverlay.current = {}
   }
 })
+
+it('uses a single future marker in Vietnamese grade intervals', () => {
+  render(<LearningStudyView study={fixture()} root="/library" locale="vi" />)
+  fireEvent.click(screen.getByRole('button', { name: 'Hiện câu trả lời' }))
+  const again = screen.getByRole('button', { name: /Học lại/ })
+  expect(again).toHaveTextContent('1 phút nữa')
+  expect(again).not.toHaveTextContent('sau 1 phút nữa')
+})

@@ -472,3 +472,9 @@ W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
 - P2 · **fixed (commit W2-14)**. Native vi 1440×900: tab sát mép trên, tab Thẻ cũ chứa hai tiêu đề Bộ thẻ, nhãn MEMNOVA và một khung trống quanh nút Nâng cao.
 - Đạt khi trang có đệm trên, một tiêu đề, tab Bộ thẻ dễ nhận diện và điều khiển Nâng cao có mũi tên báo trạng thái.
 - Trang có tiêu đề Ôn tập với lề như Trang chủ, tab Bộ thẻ và disclosure Nâng cao có mũi tên. Xác nhận mở/đóng bằng chuột. Vitest RED → GREEN 12/12. Native [trước tối](review-shots/2026-11-18/W2-14-before-dark.png) · [sau sáng](review-shots/2026-11-18/W2-14-after-light.png) · [sau tối](review-shots/2026-11-18/W2-14-after-dark.png).
+
+### F-054 · W2-20 · Nút chấm lặp từ chỉ tương lai
+
+- P3 · **fixed (commit W2-20)**. Native vi, nút Học lại hiện “sau 1 phút nữa” sau khi lật gợi nhớ.
+- Đạt khi nút hiện “1 phút nữa” từ Intl.RelativeTimeFormat và giữ nguyên mốc dự đoán.
+- Định dạng khoảng ôn dùng chung trên hai renderer. Với vi chỉ bỏ “sau” khi đầu ra Intl đồng thời có “nữa”. Vitest RED → GREEN 33/33. Native thấy “1 phút nữa”, “6 phút nữa”, “8 ngày nữa” [sáng](review-shots/2026-11-18/W2-20-after-light.png) · [tối](review-shots/2026-11-18/W2-20-after-dark.png).

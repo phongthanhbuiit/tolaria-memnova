@@ -37,3 +37,8 @@ export function createReviewDueFormatter(locale: AppLocale, clock: number) {
     return { absolute: absolute.format(date), relative: relativeLabel }
   }
 }
+
+export function formatStudyInterval(locale: AppLocale, amount: number, unit: Intl.RelativeTimeFormatUnit): string {
+  const label = new Intl.RelativeTimeFormat(locale, { numeric: 'always', style: 'long' }).format(amount, unit)
+  return locale === 'vi' ? label.replace(/^sau\s+(.+\s+nữa)$/u, '$1') : label
+}
