@@ -1,0 +1,173 @@
+{
+  "baseline": "a789503a0fc87da819360a659b9a3f05c197437e",
+  "tool": "Codacy Analysis CLI 0.24.0",
+  "excluded": "Project Codacy exclusions apply. Session Rust test module was included. Stylelint had no eligible paths.",
+  "before": {
+    "paths": [
+      "src-tauri/src/learning/session_models.rs",
+      "src-tauri/src/learning/session_tests.rs",
+      "src-tauri/src/learning/sessions.rs",
+      "src/App.tsx",
+      "src/components/AiPanel.tsx",
+      "src/components/AiPanelChrome.tsx",
+      "src/components/AiWorkspace.tsx",
+      "src/components/AiWorkspaceChrome.tsx",
+      "src/components/BlockNoteReadOnly.tsx",
+      "src/components/ConfirmDeleteDialog.tsx",
+      "src/components/DynamicPropertiesPanel.tsx",
+      "src/components/EditableValue.tsx",
+      "src/components/FlashcardStudyView.tsx",
+      "src/components/PropertyValueCells.tsx",
+      "src/components/QuickOpenPalette.tsx",
+      "src/components/TypeSelector.tsx",
+      "src/components/aiWorkspaceSizing.ts",
+      "src/components/learning/LearningDashboard.tsx",
+      "src/components/learning/LearningStudyFaces.tsx",
+      "src/components/learning/LearningStudyView.tsx",
+      "src/components/learning/NoteLearningDashboard.tsx",
+      "src/components/learning/NoteMemoryInspector.tsx",
+      "src/components/learning/PropertyValueEditor.tsx",
+      "src/components/learning/reviewDueDisplay.ts",
+      "src/components/learning/useStudyFaces.ts",
+      "src/components/ui/calendar.tsx",
+      "src/hooks/useDeleteActions.ts",
+      "src/lib/learning/types.ts",
+      "src/lib/locales/be-BY.json",
+      "src/lib/locales/be-Latn.json",
+      "src/lib/locales/de-DE.json",
+      "src/lib/locales/en.json",
+      "src/lib/locales/es-419.json",
+      "src/lib/locales/es-ES.json",
+      "src/lib/locales/fr-FR.json",
+      "src/lib/locales/id-ID.json",
+      "src/lib/locales/it-IT.json",
+      "src/lib/locales/ja-JP.json",
+      "src/lib/locales/ko-KR.json",
+      "src/lib/locales/pl-PL.json",
+      "src/lib/locales/pt-BR.json",
+      "src/lib/locales/pt-PT.json",
+      "src/lib/locales/ru-RU.json",
+      "src/lib/locales/vi.json",
+      "src/lib/locales/zh-CN.json",
+      "src/lib/locales/zh-TW.json",
+      "src/mock-tauri/learning.ts",
+      "src/utils/snippetMarkdown.ts",
+      "tests/smoke/delete-note-nonblocking.spec.ts",
+      "tests/smoke/multi-selection-shortcuts.spec.ts",
+      "tests/smoke/note-memory-lifecycle.spec.ts"
+    ],
+    "totals": {
+      "ESLint9": 0,
+      "Trivy": 0,
+      "Semgrep": 19,
+      "Lizard": 56
+    },
+    "severity": {
+      "warning": 75
+    },
+    "analyzerWarnings": [
+      {
+        "toolId": "Semgrep",
+        "phase": "toolInvoke",
+        "kind": "PartialParsing",
+        "message": "Syntax error `NoteOperationSummary[] } export interface NoteWriteRequest {…` was unexpected",
+        "level": "warning",
+        "filePath": "src/lib/learning/types.ts",
+        "fileNotAnalyzed": true
+      }
+    ]
+  },
+  "after": {
+    "paths": [
+      "src-tauri/src/learning/session_models.rs",
+      "src-tauri/src/learning/session_tests.rs",
+      "src-tauri/src/learning/sessions.rs",
+      "src/App.tsx",
+      "src/components/AiPanel.tsx",
+      "src/components/AiPanelChrome.tsx",
+      "src/components/AiWorkspace.tsx",
+      "src/components/AiWorkspaceChrome.tsx",
+      "src/components/BlockNoteReadOnly.tsx",
+      "src/components/ConfirmDeleteDialog.tsx",
+      "src/components/DynamicPropertiesPanel.tsx",
+      "src/components/EditableValue.tsx",
+      "src/components/FlashcardStudyView.tsx",
+      "src/components/PropertyValueCells.tsx",
+      "src/components/QuickOpenPalette.tsx",
+      "src/components/TypeSelector.tsx",
+      "src/components/aiWorkspaceSizing.ts",
+      "src/components/learning/LearningDashboard.tsx",
+      "src/components/learning/LearningStudyFaces.tsx",
+      "src/components/learning/LearningStudyView.tsx",
+      "src/components/learning/NoteLearningDashboard.tsx",
+      "src/components/learning/NoteMemoryInspector.tsx",
+      "src/components/learning/PropertyValueEditor.tsx",
+      "src/components/learning/reviewDueDisplay.ts",
+      "src/components/learning/useStudyFaces.ts",
+      "src/components/ui/alert-dialog.tsx",
+      "src/components/ui/calendar.tsx",
+      "src/hooks/useDeleteActions.ts",
+      "src/lib/learning/types.ts",
+      "src/lib/locales/be-BY.json",
+      "src/lib/locales/be-Latn.json",
+      "src/lib/locales/de-DE.json",
+      "src/lib/locales/en.json",
+      "src/lib/locales/es-419.json",
+      "src/lib/locales/es-ES.json",
+      "src/lib/locales/fr-FR.json",
+      "src/lib/locales/id-ID.json",
+      "src/lib/locales/it-IT.json",
+      "src/lib/locales/ja-JP.json",
+      "src/lib/locales/ko-KR.json",
+      "src/lib/locales/pl-PL.json",
+      "src/lib/locales/pt-BR.json",
+      "src/lib/locales/pt-PT.json",
+      "src/lib/locales/ru-RU.json",
+      "src/lib/locales/vi.json",
+      "src/lib/locales/zh-CN.json",
+      "src/lib/locales/zh-TW.json",
+      "src/mock-tauri/learning.ts",
+      "src/mock-tauri/session-summary.ts",
+      "src/utils/snippetMarkdown.ts",
+      "tests/smoke/delete-note-nonblocking.spec.ts",
+      "tests/smoke/multi-selection-shortcuts.spec.ts",
+      "tests/smoke/note-memory-lifecycle.spec.ts",
+      "tests/smoke/palette-typing.spec.ts"
+    ],
+    "totals": {
+      "ESLint9": 0,
+      "Trivy": 0,
+      "Semgrep": 21,
+      "Lizard": 55
+    },
+    "severity": {
+      "warning": 76
+    },
+    "analyzerWarnings": [
+      {
+        "toolId": "Semgrep",
+        "phase": "toolInvoke",
+        "kind": "PartialParsing",
+        "message": "Syntax error `NoteOperationSummary[] } export interface NoteWriteRequest {…` was unexpected",
+        "level": "warning",
+        "filePath": "src/lib/learning/types.ts",
+        "fileNotAnalyzed": true
+      }
+    ]
+  },
+  "added": [
+    {
+      "path": "src/components/QuickOpenPalette.tsx",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "severity": "warning",
+      "count": 1
+    },
+    {
+      "path": "src/components/ui/alert-dialog.tsx",
+      "rule": "Semgrep_typescript.react.best-practice.react-props-spreading.react-props-spreading",
+      "severity": "warning",
+      "count": 1
+    }
+  ],
+  "review": "Both new warnings are existing React prop-forwarding patterns in shared controls and Quick Open. No new Critical/High. Extracted browser fixture summary after the initial scan flagged its enclosing module."
+}

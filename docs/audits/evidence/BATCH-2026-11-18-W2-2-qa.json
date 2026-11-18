@@ -1,0 +1,83 @@
+{
+  "browser": "Chromium",
+  "viewport": [
+    1440,
+    900
+  ],
+  "suite": "4 passed, no retries",
+  "evidence": "Compared exact visible catalog strings and bounded text rectangles. Clicked the localized Continue button and reached the newly due legacy card in each language.",
+  "measurements": {
+    "en": {
+      "delete-single": [
+        "Delete this note permanently?",
+        "This note and its inline mnemonic will be deleted permanently. Linked source notes and attachments outside this note are kept. This cannot be undone.",
+        "Delete permanently"
+      ],
+      "delete-bulk": [
+        "Delete 6 notes permanently?",
+        "Delete permanently"
+      ],
+      "drawing": [
+        "This study session cannot display the legacy tldraw drawing."
+      ],
+      "summary": [
+        "Next review",
+        "Continue review"
+      ]
+    },
+    "vi": {
+      "delete-single": [
+        "Xóa vĩnh viễn ghi chú này?",
+        "Ghi chú này và mặt gợi nhớ bên trong sẽ bị xóa vĩnh viễn. Ghi chú nguồn liên kết và tệp đính kèm ngoài ghi chú này được giữ lại. Không thể hoàn tác.",
+        "Xóa vĩnh viễn"
+      ],
+      "delete-bulk": [
+        "Xóa vĩnh viễn 6 ghi chú?",
+        "Xóa vĩnh viễn"
+      ],
+      "drawing": [
+        "Phiên ôn này chưa hỗ trợ hiển thị bản vẽ tldraw cũ."
+      ],
+      "summary": [
+        "Lần ôn tiếp theo",
+        "Ôn tiếp"
+      ]
+    },
+    "de-DE": {
+      "delete-single": [
+        "Diese Notiz endgültig löschen?",
+        "Diese Notiz und ihre eingebettete Merkhilfe werden endgültig gelöscht. Verknüpfte Quellnotizen und Anhänge außerhalb dieser Notiz bleiben erhalten. Dies kann nicht rückgängig gemacht werden.",
+        "Endgültig löschen"
+      ],
+      "delete-bulk": [
+        "6 Notizen endgültig löschen?",
+        "Endgültig löschen"
+      ],
+      "drawing": [
+        "Diese Lernsitzung kann die alte tldraw-Zeichnung nicht anzeigen."
+      ],
+      "summary": [
+        "Nächste Wiederholung",
+        "Fortfahren"
+      ]
+    },
+    "ja-JP": {
+      "delete-single": [
+        "このノートを完全に削除しますか？",
+        "このノートとノート内に埋め込まれた記憶の手がかりは完全に削除されます。リンク先の元ノートや、このノートの外にある添付ファイルは保持されます。この操作は取り消せません。",
+        "完全に削除"
+      ],
+      "delete-bulk": [
+        "6件のノートを完全に削除しますか？",
+        "完全に削除"
+      ],
+      "drawing": [
+        "この復習セッションでは旧形式の tldraw 図を表示できません。"
+      ],
+      "summary": [
+        "次の復習",
+        "続ける"
+      ]
+    }
+  }
+}
