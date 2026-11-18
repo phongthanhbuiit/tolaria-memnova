@@ -172,12 +172,15 @@
 
 ## W4 · Pha 0 — DONE
 
+- Commit: `301b06fa` qua hook thường.
 - Mốc đầu `ac40a759` khớp origin/main, 0 commit chờ push. Dùng Node 24.12.0.
 - F-009 fixed ở `bec1cf64` (Lô 4), F-005 accepted theo quyết định 18/11. W2-09 chuyển sang W4-02. F-021/F-032 giữ nguyên.
 - Check: đối chiếu bảng, chi tiết và lịch sử Git. `git diff --check` đạt. Pha tài liệu.
 - Review chỉ đọc: vòng 1 thiếu tóm tắt F-042–078. Vòng 2 ĐẠT sau khi bổ sung dải trạng thái và dẫn commit F-056. Bằng chứng: FINDINGS.md:19,42,46,94,122,456,499,544,635.
 
-## W4 · Pha 1 — W4-01
+## W4 · Pha 1 — W4-01 · DONE
+
+- Commit: `6cb693ad` qua hook thường.
 
 - Excalidraw là renderer duy nhất. Dữ liệu fence cũ giữ nguyên để mở raw, không qua renderer bản vẽ. Fixture `demo-vault-v2/WhiteboardTest.md` chuyển có chủ đích sang nét vẽ Excalidraw tương đương. ADR-0166 kế thừa ADR-0107.
 - RED 4 ca, GREEN 18 ca ở `editorDurableMarkdown.test.ts` và `FlashcardStudyView.test.tsx`. Chromium `unsupported-drawing.spec.ts` xác nhận nút mở raw và tệp không đổi.
@@ -186,7 +189,9 @@
 - Review vòng 1 phát hiện fence trong blockquote/danh sách và ảnh sáng chưa cuộn tới câu trả lời. Hai regression bổ sung RED → GREEN, 20/20 test. Đã thay ảnh sáng hiển thị cả thông báo và nút.
 - Review vòng 3 ĐẠT. Regression blockquote lồng trong danh sách và code thụt bốn khoảng trắng RED → GREEN 21/21. Nút mở raw và ảnh native hai theme đã đối chiếu.
 
-## W4 · Pha 2 — W4-02
+## W4 · Pha 2 — W4-02 · DONE
+
+- Commit: `960d841e` qua hook thường.
 
 - Cài đặt › Nội dung dùng kho Settings hiện có, mặc định Gợi nhớ trước. Phiên có công tắc riêng, fallback bài viết có thao tác Thêm gợi nhớ. Không đổi thuật toán, phím hay mô hình phiên. Sự kiện `note_review_front_order_changed` chỉ gửi thứ tự và nguồn.
 - RED 4 Vitest và 1 Rust, GREEN 80 Vitest và 37 test Settings của Rust. Grep SPEC §8: 1 → 1 / 0 → 0.
@@ -195,25 +200,40 @@
 - Chromium: 5 ca đầu-cuối đạt. Ca sao lưu cũ tìm nút trong Trang chủ, đã chuyển test sang vị trí Cài đặt › Thư viện từ W2-15 và xác minh đạt, giữ kiểm chứng byte tệp.
 - Review vòng 3 ĐẠT. Đổi công tắc hai lần sau khi lật phải về mặt đầu mới. Regression RED → GREEN, 97/97 trong các suite tập trung. Câu hỏi cho người dùng: không có.
 
-## W4 · Pha 3 — W4-03
+## W4 · Pha 3 — W4-03 · DONE
+
+- Commit: `43cdea47` qua hook thường.
 
 - Lật thẻ giữ luồng chấm cũ. Bộ chọn theo Library/bộ thẻ, thông tin kiểu ôn vào tổng kết và PostHog. ADR-0167. Grep SPEC §8: 1 → 1 / 0 → 0.
 - RED thiếu bộ lưu lựa chọn, GREEN test phân biệt hai Bộ thẻ và hai Library. Ảnh và kiểm tra đủ kiểu ghép ở cuối Pha 3.
 
-## W4 · Pha 3 — W4-04
+## W4 · Pha 3 — W4-04 · DONE
+
+- Commit: `2b6990bb` qua hook thường.
 
 - Gõ đáp án có so sánh và gợi ý mức chấm. Chặn Enter trong IME và phím xác nhận IME đến muộn trên Safari; chỉ Enter tiếp theo hoặc 1–4 mới ghi lịch. Thẻ không đủ điều kiện giữ Lật thẻ.
 - RED logic/màn nhập trước khi thêm; kiểm phần tách dấu tiếng Việt, đề dài hoặc media, phím IME và xác nhận rõ ràng. Grep SPEC §8: 1 → 1 / 0 → 0.
 - GREEN 34/34 Vitest, Chromium kiểm không ghi điểm khi nhập IME và ghi rating 2 khi xác nhận Enter. Native vi 1440×900, sáng/tối nhận “ha noi” là Gần đúng. Mở lại phiên phải nhập lại đáp án, test RED → GREEN bảo vệ nút chấm.
 
-## W4 · Pha 3 — W4-05
+## W4 · Pha 3 — W4-05 · DONE
+
+- Commit: `3b451da0` qua hook thường.
 
 - Trắc nghiệm chọn ba đáp án nhiễu khác biệt trong bộ thẻ. A–D hoặc chuột chỉ hiện phản hồi. Chấm bằng luồng FSRS hiện có. Bộ không đủ đáp án có mô tả lý do và thẻ có media lật như cũ.
 - RED thiếu hàm chọn phương án, GREEN 33/33 Vitest. Chromium 2/2 kiểm bốn lựa chọn, ghi rating 4 chỉ sau khi bấm phím và trạng thái tắt của bộ ít thẻ. Grep SPEC §8: 1 → 1 / 0 → 0.
 
-## W4 · Pha 3 — W4-06
+## W4 · Pha 3 — W4-06 · DONE
+
+- Commit: `7b5475d0` qua hook thường.
 
 - Thử thách chạy 10 câu, 20 giây mỗi câu, tạm dừng, tính điểm và chuỗi đúng, tổng kết riêng. Không gọi API tạo phiên/chấm. Câu hỏi có thể lặp nếu bộ có ít hơn 10 thẻ đủ điều kiện. PostHog chỉ gửi số câu và số đúng.
 - RED thiếu mô hình; GREEN 33/33 Vitest. Chromium 2/2 chứng minh điểm/tạm dừng và reduced motion, so toàn bộ dữ liệu học trước/sau; kiểm bộ không đủ thẻ. Grep SPEC §8: 1 → 1 / 0 → 0.
 - Review Pha 3 vòng 1: đáp án Markdown lọt vào chấm chữ thuần, Thử thách thiếu đường dẫn ảnh/âm thanh mặt trước, tỷ lệ bỏ sót lượt chấm đã lưu khi phản hồi mất. RED 3 ca, GREEN 48/48 Vitest sau khi sửa. Căn lề Gõ đáp án/Trắc nghiệm theo SPEC §5 và chụp lại.
 - Chạy bản sửa: Playwright Chromium 11/11 (3 spec chế độ, 4 ô ma trận vi, 2 tổng kết đúng 75%). WebKit trước vòng sửa 9/9. Native vi 1440×900 sáng/tối và 1030×700 theo giới hạn cửa sổ; 1024×700 chính xác đạt trên Chromium và WebKit.
+
+
+## W4 · Pha 4 — DONE
+
+- Cổng đầu pha: origin/main `ac40a759`, 7 commit chờ push. Pha 0 đạt vòng 2, Pha 1/2/3 đạt vòng 3. Review Pha 3 vòng cuối bổ sung Setext, bảng GFM và công thức vào hồi quy RED → GREEN (48/48). WebKit ở lượt kiểm lại 9/9. Bảy commit qua hook thường, các sửa review được gộp về đúng mục trên cây Git đã đối chiếu.
+- Native ở chiều rộng nhỏ kiểm tại 1030×700. **BLOCKED native đúng 1024×700** vì app áp sàn 1030 px với bố cục QA. Ma trận vi 1024×700 và 1440×900, cả hai theme, đạt trên Chromium và WebKit. Ảnh native sáng/tối lưu theo mã W4.
+- Danh sách P0–P3 đã đối chiếu. Hai ô P5 phụ thuộc validator, scan, báo cáo, hook và SHA thực tế. Pha 5 có review toàn bộ riêng ngay trước push.
