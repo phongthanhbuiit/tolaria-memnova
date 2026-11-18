@@ -11,10 +11,10 @@ Trạng thái: `open` · `partial` · `fixed — chờ QA native (phạm vi)` ·
 |---|---|---|---|
 | P0 | Không | Không | Không |
 | P1 | Không | F-005, F-024 | Không |
-| P2 | F-021, R-15 | F-009, F-032 | F-012 (pending/invalid/deleted), R-11 (editor thuộc tính) |
+| P2 | F-021 | F-009, F-032 | F-012 (pending/invalid/deleted), R-11 (editor thuộc tính) |
 | P3 | Không | Không | F-038 (Home/Decks/FlashcardStudyView legacy) |
 
-**Đã đóng:** F-001–F-004, F-006–F-008, F-010–F-011, F-013–F-020, F-022–F-023, F-025–F-031, F-033–F-037, F-039–F-041 (**34 F**) và R-01–R-10, R-12–R-14, R-16 (**14 R**). F-023/F-025/F-030/F-031 là phần nền tảng A. R-05 là test-only. Telex native vẫn chưa được xác minh.
+**Đã đóng:** F-001–F-004, F-006–F-008, F-010–F-011, F-013–F-020, F-022–F-023, F-025–F-031, F-033–F-037, F-039–F-041 (**34 F**) và R-01–R-10, R-12–R-16 (**15 R**). F-023/F-025/F-030/F-031 là phần nền tảng A. R-05 là test-only. Telex native vẫn chưa được xác minh.
 
 **Còn chờ native/bằng chứng bổ sung:** F-005 (author-name combobox cuối, ảnh trước tối); F-024 (legacy/Linux/trạng thái hiếm); F-032 (message/tool chỉ có fixture); F-038 (các màn legacy không có route native); Telex trong AI và ô wikilink từ R-05/E2. F-005/F-024/F-032 vẫn partial vì ngoài QA còn phần mã/phạm vi chưa hoàn tất. F-038 đã sửa mã nhưng không tính đóng khi các màn legacy mới được kiểm bằng fixture/diff/test; đối chiếu giới hạn native trong [D4B](STEP-D4B-INLINE-STYLE.md).
 
@@ -363,8 +363,10 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 
 ## R-15 — Chuỗi tiếng Anh chưa đưa vào catalog
 
-- P2 · i18n · **open**. Trong native vi, toolbar tùy biến hiển thị “Paragraph”, bộ lọc Create View hiển thị “Match all conditions”, “Add filter”, “Add group”. Các chuỗi quan sát này nằm ngoài phép so khớp nguyên giá trị với catalog ở R-11. [AX native](evidence/I18N-A11Y-2-native-AX.txt).
-- Tái hiện bằng cách mở thanh định dạng của editor và hộp thoại tạo View bằng locale vi. Đưa các chuỗi giao diện này vào catalog và kiểm trên native cùng trình duyệt.
+- P2 · i18n · **fixed en/vi** (`:/^fix: R-15 localize formatting and view filter labels`). Native vi từng hiện “Paragraph”, “Match all conditions”, “Add filter” và “Add group”. Các chuỗi này nằm ngoài phép so khớp nguyên giá trị với catalog ở R-11. [AX ban đầu](evidence/I18N-A11Y-2-native-AX.txt).
+- Đưa 42 khóa vào catalog cho kiểu khối, nhãn và tooltip định dạng, toán tử, chế độ khớp, các nút, ô giá trị và trạng thái tìm trường rỗng. Tên trường Markdown, giá trị và payload `all`/`any` giữ nguyên. Dịch trực tiếp en/vi, dùng giá trị tiếng Anh tạm cho 16 catalog còn lại và ghi đủ khóa chờ đóng lô. Validator đạt 18 catalog, 1.151 khóa. [Khóa chờ dịch](L10N-PENDING.md).
+- Hai test hồi quy RED → GREEN. WKWebView native vi 1440×900 xác nhận menu kiểu khối, đổi VÀ/HOẶC, thêm điều kiện, thêm nhóm lồng, chọn toán tử bằng Down/Enter và đóng bằng Escape. SPEC §8 giữ **1 / 0**. [Thanh định dạng sáng trước](evidence/R-15-toolbar-before.png) · [sau](evidence/R-15-toolbar-after.png) · [tối trước](evidence/R-15-toolbar-before-dark.png) · [sau](evidence/R-15-toolbar-after-dark.png). [View sáng trước](evidence/R-15-filter-before.png) · [sau](evidence/R-15-filter-after.png) · [tối trước](evidence/R-15-filter-before-dark.png) · [sau](evidence/R-15-filter-after-dark.png).
+- Chromium kiểm nhãn vi và thanh định dạng en đạt. Hai ca trong `filter-wikilink-autocomplete.spec.ts` đều dừng ở bước mở View trên cả baseline `c89e0aa7` lẫn bản sửa. Bản chạy đối chiếu dùng nút Tạo View và ô chọn trường hiện hành trên fixture tạm, giữ nguyên assertion nhập văn bản/wikilink, đạt 2/2 không retry.
 
 ## R-16 — Smoke H1 đôi lúc vẫn thấy tiêu đề cũ trong danh sách
 

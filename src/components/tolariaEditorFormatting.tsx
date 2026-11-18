@@ -168,32 +168,6 @@ function useDeduplicatedFormattingToolbarStore(
   }, [store])
 }
 
-const TOLARIA_BASIC_TEXT_STYLE_TOOLTIPS = {
-  bold: {
-    label: 'Bold',
-    mainTooltip: 'Bold (persists in markdown)',
-    secondaryTooltip: '**strong**',
-  },
-  italic: {
-    label: 'Italic',
-    mainTooltip: 'Italic (persists in markdown)',
-    secondaryTooltip: '*emphasis*',
-  },
-  strike: {
-    label: 'Strikethrough',
-    mainTooltip: 'Strikethrough (persists in markdown)',
-    secondaryTooltip: '~~strike~~',
-  },
-  code: {
-    label: 'Inline code',
-    mainTooltip: 'Inline code (persists in markdown)',
-    secondaryTooltip: '`code`',
-  },
-} satisfies Record<
-  TolariaBasicTextStyle,
-  { label: string; mainTooltip: string; secondaryTooltip: string }
->
-
 const TOLARIA_BASIC_TEXT_STYLE_ICONS = {
   bold: Bold,
   italic: Italic,
@@ -360,8 +334,9 @@ function isSelectedBlockTypeItem(
 function getTolariaBlockTypeSelectOptions(
   editor: BlockNoteEditor<BlockSchema, InlineContentSchema, StyleSchema>,
   firstSelectedBlock: TolariaSelectedBlock,
+  locale: AppLocale,
 ) {
-  return getTolariaBlockTypeSelectItems()
+  return getTolariaBlockTypeSelectItems(locale)
     .filter((item) =>
       editorHasBlockWithType(
         editor,
@@ -442,7 +417,7 @@ function liveSelectedBlocks(
   return liveBlocks
 }
 
-function fileDownloadTooltip(dict: unknown, blockType: string): string {
+function fileDownloadTooltip(dict: unknown, blockType: string, locale: AppLocale): string {
   const tooltip = (dict as {
     formatting_toolbar?: {
       file_download?: {
@@ -451,7 +426,7 @@ function fileDownloadTooltip(dict: unknown, blockType: string): string {
     }
   }).formatting_toolbar?.file_download?.tooltip
 
-  return (tooltip ? Reflect.get(tooltip, blockType) as string | undefined : undefined) ?? tooltip?.file ?? 'Download file'
+  return tooltip?.[blockType] ?? tooltip?.file ?? translate(locale, 'editor.formatting.downloadFile')
 }
 
 function getFormattingToolbarAnchorElement(
@@ -490,8 +465,10 @@ function updateSelectedBlocksToType(
 
 function TolariaBasicTextStyleButton({
   basicTextStyle,
+  locale,
 }: {
   basicTextStyle: TolariaBasicTextStyle
+  locale: AppLocale
 }) {
   const Components = useComponentsContext()!
   const editor = useBlockNoteEditor<
@@ -511,12 +488,8 @@ function TolariaBasicTextStyleButton({
 
   if (buttonState === undefined) return null
 
-  const Icon = Reflect.get(TOLARIA_BASIC_TEXT_STYLE_ICONS, basicTextStyle) as PhosphorIcon
-  const copy = Reflect.get(TOLARIA_BASIC_TEXT_STYLE_TOOLTIPS, basicTextStyle) as {
-    label: string
-    mainTooltip: string
-    secondaryTooltip: string
-  }
+  const Icon = TOLARIA_BASIC_TEXT_STYLE_ICONS[basicTextStyle]
+  const copyKey = `editor.formatting.${basicTextStyle}` as const
 
   return (
     <Components.FormattingToolbar.Button
@@ -524,15 +497,15 @@ function TolariaBasicTextStyleButton({
       data-test={basicTextStyle}
       onClick={toggleStyle}
       isSelected={buttonState.active}
-      label={copy.label}
-      mainTooltip={copy.mainTooltip}
-      secondaryTooltip={copy.secondaryTooltip}
+      label={translate(locale, `${copyKey}.label`)}
+      mainTooltip={translate(locale, `${copyKey}.tooltip`)}
+      secondaryTooltip={translate(locale, `${copyKey}.example`)}
       icon={<Icon />}
     />
   )
 }
 
-function TolariaBlockTypeSelect() {
+function TolariaBlockTypeSelect({ locale }: { locale: AppLocale }) {
   const editor = useBlockNoteEditor<
     BlockSchema,
     InlineContentSchema,
@@ -546,10 +519,10 @@ function TolariaBlockTypeSelect() {
   const selectItems = useMemo(
     () => (
       firstSelectedBlock
-        ? getTolariaBlockTypeSelectOptions(editor, firstSelectedBlock)
+        ? getTolariaBlockTypeSelectOptions(editor, firstSelectedBlock, locale)
         : []
     ),
-    [editor, firstSelectedBlock],
+    [editor, firstSelectedBlock, locale],
   )
   const selectedItem = selectItems.find(
     (item): item is TolariaBlockTypeSelectOption => item.isSelected,
@@ -580,7 +553,7 @@ function TolariaBlockTypeSelect() {
       <MantineMenu.Dropdown className="bn-select">
         {selectItems.map((item) => (
           <MantineMenu.Item
-            key={item.name}
+            key={item.labelKey}
             onClick={() => {
               updateSelectedBlocksToType(editor, selectedBlocks, item)
             }}
@@ -597,7 +570,7 @@ function TolariaBlockTypeSelect() {
   )
 }
 
-function TolariaFileDownloadButton({ vaultPath }: { vaultPath?: string }) {
+function TolariaFileDownloadButton({ vaultPath, locale }: { vaultPath?: string; locale: AppLocale }) {
   const Components = useComponentsContext()!
   const dict = useDictionary()
   const editor = useBlockNoteEditor<
@@ -622,7 +595,7 @@ function TolariaFileDownloadButton({ vaultPath }: { vaultPath?: string }) {
 
   if (!selectedFileBlock || !editor.isEditable) return null
 
-  const label = fileDownloadTooltip(dict, selectedFileBlock.type)
+  const label = fileDownloadTooltip(dict, selectedFileBlock.type, locale)
   return (
     <Components.FormattingToolbar.Button
       className="bn-button"
@@ -636,26 +609,26 @@ function TolariaFileDownloadButton({ vaultPath }: { vaultPath?: string }) {
   )
 }
 
-function replaceToolbarControls(items: ReactElement[], vaultPath?: string) {
+function replaceToolbarControls(items: ReactElement[], locale: AppLocale, vaultPath?: string) {
   return items.flatMap((item) => {
     switch (String(item.key)) {
       case 'blockTypeSelect':
-        return [<TolariaBlockTypeSelect key={item.key} />]
+        return [<TolariaBlockTypeSelect key={item.key} locale={locale} />]
       case 'boldStyleButton':
-        return [<TolariaBasicTextStyleButton basicTextStyle="bold" key={item.key} />]
+        return [<TolariaBasicTextStyleButton basicTextStyle="bold" key={item.key} locale={locale} />]
       case 'italicStyleButton':
-        return [<TolariaBasicTextStyleButton basicTextStyle="italic" key={item.key} />]
+        return [<TolariaBasicTextStyleButton basicTextStyle="italic" key={item.key} locale={locale} />]
       case 'strikeStyleButton':
-        return [<TolariaBasicTextStyleButton basicTextStyle="strike" key={item.key} />]
+        return [<TolariaBasicTextStyleButton basicTextStyle="strike" key={item.key} locale={locale} />]
       case 'fileDownloadButton':
-        return [<TolariaFileDownloadButton key={item.key} vaultPath={vaultPath} />]
+        return [<TolariaFileDownloadButton key={item.key} vaultPath={vaultPath} locale={locale} />]
       default:
         return [item]
     }
   })
 }
 
-function insertInlineCodeButton(items: ReactElement[]) {
+function insertInlineCodeButton(items: ReactElement[], locale: AppLocale) {
   const strikeButtonIndex = items.findIndex(
     (item) => String(item.key) === 'strikeStyleButton',
   )
@@ -663,19 +636,21 @@ function insertInlineCodeButton(items: ReactElement[]) {
 
   return [
     ...items.slice(0, strikeButtonIndex + 1),
-    <TolariaBasicTextStyleButton basicTextStyle="code" key="codeStyleButton" />,
+    <TolariaBasicTextStyleButton basicTextStyle="code" key="codeStyleButton" locale={locale} />,
     ...items.slice(strikeButtonIndex + 1),
   ]
 }
 
-function getTolariaFormattingToolbarItems(vaultPath?: string) {
+function getTolariaFormattingToolbarItems(locale: AppLocale, vaultPath?: string) {
   return insertInlineCodeButton(
     replaceToolbarControls(
       filterTolariaFormattingToolbarItems(
         getFormattingToolbarItems(),
       ),
+      locale,
       vaultPath,
     ),
+    locale,
   )
 }
 
@@ -701,7 +676,7 @@ function CaptureSelectionButton({ locale }: { locale: AppLocale }) {
 }
 
 export function TolariaFormattingToolbar({ vaultPath, locale = 'en' }: { vaultPath?: string; locale?: AppLocale } = {}) {
-  return <FormattingToolbar>{[...getTolariaFormattingToolbarItems(vaultPath), <CaptureSelectionButton key="excerpt" locale={locale} />]}</FormattingToolbar>
+  return <FormattingToolbar>{[...getTolariaFormattingToolbarItems(locale, vaultPath), <CaptureSelectionButton key="excerpt" locale={locale} />]}</FormattingToolbar>
 }
 
 export function TolariaFormattingToolbarController(props: {

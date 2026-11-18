@@ -74,6 +74,33 @@ describe('FilterBuilder value inputs', () => {
     expect(screen.getByTestId('filter-value-input')).toHaveAttribute('placeholder', 'value')
   })
 
+  it('localizes filter controls without changing the condition or group payload', () => {
+    const condition = { field: 'title', op: 'contains', value: 'Alpha' } as const
+    render(
+      <AppPreferencesProvider locale="vi">
+        <FilterBuilder group={{ all: [condition] }} onChange={onChange} availableFields={['title']} />
+      </AppPreferencesProvider>,
+    )
+
+    expect(screen.getByText('Khớp tất cả điều kiện')).toBeVisible()
+    expect(screen.getByRole('combobox', { name: 'Toán tử lọc' })).toHaveTextContent('chứa')
+    const value = screen.getByRole('textbox', { name: 'Giá trị' })
+    expect(value).toHaveValue('Alpha')
+    expect(value).toHaveAttribute('placeholder', 'Giá trị')
+    fireEvent.click(screen.getByRole('button', { name: 'VÀ' }))
+    expect(onChange).toHaveBeenLastCalledWith({ any: [condition] })
+
+    fireEvent.click(screen.getByRole('button', { name: 'Thêm bộ lọc' }))
+    const newCondition = { field: 'title', op: 'equals', value: '' }
+    expect(onChange).toHaveBeenLastCalledWith({ all: [condition, newCondition] })
+    fireEvent.click(screen.getByRole('button', { name: 'Thêm nhóm' }))
+    expect(onChange).toHaveBeenLastCalledWith({ all: [condition, { all: [newCondition] }] })
+
+    const field = openFieldCombobox()
+    fireEvent.change(field, { target: { value: 'missing' } })
+    expect(screen.getByText('Không có kết quả')).toBeVisible()
+  })
+
   it('renders a regex toggle for supported text operators', () => {
     renderBuilder()
     expect(screen.getByTestId('filter-regex-toggle')).toBeInTheDocument()

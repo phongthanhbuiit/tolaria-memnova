@@ -30,13 +30,14 @@ import {
   type Icon as PhosphorIcon,
 } from '@phosphor-icons/react'
 import { trackEvent } from '../lib/telemetry'
+import { translate, type AppLocale, type TranslationKey } from '../lib/i18n'
 import { MATH_BLOCK_TYPE } from '../utils/mathMarkdown'
 import { MERMAID_BLOCK_TYPE, mermaidFenceSource } from '../utils/mermaidMarkdown'
 import { EXCALIDRAW_BLOCK_TYPE, EXCALIDRAW_DEFAULT_HEIGHT } from '../utils/excalidrawMarkdown'
 
 type TolariaSlashMenuItem = DefaultReactSuggestionItem & { key: string }
 type TolariaBlockTypeSelectItem = {
-  name: string
+  labelKey: TranslationKey
   type: string
   props?: Record<string, boolean | number | string>
   icon: PhosphorIcon
@@ -82,18 +83,18 @@ const UNSUPPORTED_SLASH_MENU_KEYS = new Set([
 ])
 
 const TOLARIA_BLOCK_TYPE_SELECT_ITEMS: TolariaBlockTypeSelectItem[] = [
-  { name: 'Paragraph', type: 'paragraph', icon: Paragraph },
-  { name: 'Heading 1', type: 'heading', props: { level: 1 }, icon: TextHOne },
-  { name: 'Heading 2', type: 'heading', props: { level: 2 }, icon: TextHTwo },
-  { name: 'Heading 3', type: 'heading', props: { level: 3 }, icon: TextHThree },
-  { name: 'Heading 4', type: 'heading', props: { level: 4 }, icon: TextHFour },
-  { name: 'Heading 5', type: 'heading', props: { level: 5 }, icon: TextHFive },
-  { name: 'Heading 6', type: 'heading', props: { level: 6 }, icon: TextHSix },
-  { name: 'Quote', type: 'quote', icon: Quotes },
-  { name: 'Bullet List', type: 'bulletListItem', icon: ListBullets },
-  { name: 'Numbered List', type: 'numberedListItem', icon: ListNumbers },
-  { name: 'Checklist', type: 'checkListItem', icon: ListChecks },
-  { name: 'Code Block', type: 'codeBlock', icon: CodeBlock },
+  { labelKey: 'editor.formatting.paragraph', type: 'paragraph', icon: Paragraph },
+  { labelKey: 'editor.formatting.heading1', type: 'heading', props: { level: 1 }, icon: TextHOne },
+  { labelKey: 'editor.formatting.heading2', type: 'heading', props: { level: 2 }, icon: TextHTwo },
+  { labelKey: 'editor.formatting.heading3', type: 'heading', props: { level: 3 }, icon: TextHThree },
+  { labelKey: 'editor.formatting.heading4', type: 'heading', props: { level: 4 }, icon: TextHFour },
+  { labelKey: 'editor.formatting.heading5', type: 'heading', props: { level: 5 }, icon: TextHFive },
+  { labelKey: 'editor.formatting.heading6', type: 'heading', props: { level: 6 }, icon: TextHSix },
+  { labelKey: 'editor.formatting.quote', type: 'quote', icon: Quotes },
+  { labelKey: 'editor.formatting.bulletList', type: 'bulletListItem', icon: ListBullets },
+  { labelKey: 'editor.formatting.numberedList', type: 'numberedListItem', icon: ListNumbers },
+  { labelKey: 'editor.formatting.checklist', type: 'checkListItem', icon: ListChecks },
+  { labelKey: 'editor.formatting.codeBlock', type: 'codeBlock', icon: CodeBlock },
 ]
 
 const TOLARIA_SLASH_MENU_ICONS: Partial<Record<string, PhosphorIcon>> = {
@@ -236,8 +237,11 @@ function createTolariaSlashMenuIcon(Icon: PhosphorIcon) {
   )
 }
 
-export function getTolariaBlockTypeSelectItems() {
-  return TOLARIA_BLOCK_TYPE_SELECT_ITEMS
+export function getTolariaBlockTypeSelectItems(locale: AppLocale = 'en') {
+  return TOLARIA_BLOCK_TYPE_SELECT_ITEMS.map(item => ({
+    ...item,
+    name: translate(locale, item.labelKey),
+  }))
 }
 
 export function filterTolariaFormattingToolbarItems<T extends ReactElement>(

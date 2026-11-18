@@ -10,16 +10,10 @@ import { compileSafeUserRegex } from '../utils/safeRegex'
 import { FilterFieldCombobox } from './FilterFieldCombobox'
 import { DateValueInput } from './filter-builder/DateValueInput'
 
-const OPERATORS: { value: FilterOp; label: string }[] = [
-  { value: 'equals', label: 'equals' },
-  { value: 'not_equals', label: 'does not equal' },
-  { value: 'contains', label: 'contains' },
-  { value: 'not_contains', label: 'does not contain' },
-  { value: 'is_empty', label: 'is empty' },
-  { value: 'is_not_empty', label: 'is not empty' },
-  { value: 'before', label: 'before' },
-  { value: 'after', label: 'after' },
-]
+const OPERATORS = [
+  'equals', 'not_equals', 'contains', 'not_contains',
+  'is_empty', 'is_not_empty', 'before', 'after',
+] as const satisfies readonly FilterOp[]
 
 const NO_VALUE_OPS = new Set<FilterOp>(['is_empty', 'is_not_empty'])
 const DATE_OPS = new Set<FilterOp>(['before', 'after'])
@@ -70,8 +64,8 @@ function OperatorSelect({ value, onChange }: {
         <SelectValue />
       </SelectTrigger>
       <SelectContent position="popper">
-        {OPERATORS.map((o) => (
-          <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
+        {OPERATORS.map((op) => (
+          <SelectItem key={op} value={op}>{translate(locale, `filters.operator.${op}`)}</SelectItem>
         ))}
       </SelectContent>
     </Select>
@@ -87,6 +81,7 @@ function TextValueInput({ value, onChange, regexEnabled, regexSupported, invalid
   onToggleRegex: () => void
 }) {
   const locale = useAppLocale()
+  const valueLabel = translate(locale, 'filters.value')
   return (
     <div className="flex flex-1 min-w-0 items-center gap-1">
       <div className="relative min-w-0 flex-1">
@@ -95,7 +90,8 @@ function TextValueInput({ value, onChange, regexEnabled, regexSupported, invalid
             'h-8 w-full min-w-0 text-sm',
             invalidRegex && 'border-destructive pr-7 focus-visible:ring-destructive/20',
           )}
-          placeholder="value"
+          placeholder={valueLabel}
+          aria-label={valueLabel}
           value={value}
           onChange={(e) => onChange(e.target.value)}
           data-testid="filter-value-input"
@@ -227,12 +223,14 @@ function FilterGroupView({ group, fields, depth, onChange, onRemove }: {
           size="sm"
           className="h-6 rounded-full px-2.5 text-(length:--text-caption) leading-(--text-caption--line-height) font-medium"
           onClick={toggleMode}
-          title={`Switch to ${mode === 'all' ? 'OR' : 'AND'}`}
+          title={translate(locale, 'filters.group.switchMode', {
+            mode: translate(locale, mode === 'all' ? 'filters.group.any' : 'filters.group.all'),
+          })}
         >
-          {mode === 'all' ? 'AND' : 'OR'}
+          {translate(locale, mode === 'all' ? 'filters.group.all' : 'filters.group.any')}
         </Button>
         <span className="text-(length:--text-caption) leading-(--text-caption--line-height) text-muted-foreground">
-          {mode === 'all' ? 'Match all conditions' : 'Match any condition'}
+          {translate(locale, mode === 'all' ? 'filters.group.matchAll' : 'filters.group.matchAny')}
         </span>
         {onRemove && (
           <Button
@@ -272,10 +270,10 @@ function FilterGroupView({ group, fields, depth, onChange, onRemove }: {
       </div>
       <div className="flex gap-2 mt-2">
         <Button type="button" variant="ghost" size="sm" className="h-7 text-xs" onClick={addCondition}>
-          <Plus size={12} className="mr-1" /> Add filter
+          <Plus size={12} className="mr-1" /> {translate(locale, 'filters.addCondition')}
         </Button>
         <Button type="button" variant="ghost" size="sm" className="h-7 text-xs" onClick={addGroup}>
-          <Plus size={12} className="mr-1" /> Add group
+          <Plus size={12} className="mr-1" /> {translate(locale, 'filters.addGroup')}
         </Button>
       </div>
     </div>

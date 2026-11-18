@@ -101,21 +101,14 @@ vi.mock('@mantine/core', () => ({
   ),
 }))
 
-vi.mock('@phosphor-icons/react', () => ({
+vi.mock('@phosphor-icons/react', async (importOriginal) => ({
+  ...await importOriginal<typeof import('@phosphor-icons/react')>(),
   ArrowSquareOut: MockIcon,
   CaretDown: MockIcon,
   Code: MockIcon,
   TextB: MockIcon,
   TextItalic: MockIcon,
   TextStrikethrough: MockIcon,
-}))
-
-vi.mock('./tolariaEditorFormattingConfig', () => ({
-  filterTolariaFormattingToolbarItems: (items: ReactNode[]) => items,
-  getTolariaBlockTypeSelectItems: () => [
-    { name: 'Paragraph', type: 'paragraph', props: {}, icon: MockIcon },
-    { name: 'Heading 1', type: 'heading', props: { level: 1 }, icon: MockIcon },
-  ],
 }))
 
 vi.mock('./blockNoteFormattingToolbarHoverGuard', () => ({
@@ -197,6 +190,16 @@ describe('tolariaEditorFormatting behavior', () => {
       'file-block',
       { type: 'heading', props: { level: 1 } },
     )
+  })
+
+  it('uses Vietnamese for the block type and inline formatting controls', () => {
+    useBlockNoteEditorMock.mockReturnValue(createMockEditor('paragraph'))
+    render(<TolariaFormattingToolbar locale="vi" />)
+
+    expect(screen.getAllByRole('button', { name: 'Đoạn văn' })).toHaveLength(2)
+    for (const name of ['Tiêu đề 1', 'In đậm', 'In nghiêng', 'Gạch ngang', 'Mã nội dòng']) {
+      expect(screen.getByRole('button', { name, exact: true })).toBeVisible()
+    }
   })
 
   it('ignores stale block-type clicks when the selected block disappeared before the action', () => {

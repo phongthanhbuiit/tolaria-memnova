@@ -1,4 +1,6 @@
 import { Button } from '@/components/ui/button'
+import { useAppLocale } from '@/hooks/useAppPreferences'
+import { translate } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 
 interface FieldGroup {
@@ -26,10 +28,11 @@ export function FilterFieldOptionsList({
   onHighlight: (index: number) => void
   onSelect: (field: string) => void
 }) {
+  const locale = useAppLocale()
   if (options.length === 0) {
     return (
       <div className="px-2 py-6 text-center text-sm text-muted-foreground" data-testid="filter-field-combobox-empty">
-        No results
+        {translate(locale, 'filters.fields.noResults')}
       </div>
     )
   }
