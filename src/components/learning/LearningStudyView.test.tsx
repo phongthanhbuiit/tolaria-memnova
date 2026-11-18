@@ -464,11 +464,11 @@ it('shows the committed grade counts and nearest due date at completion', () => 
 })
 
 
-it('continues only with due cards in the completed session lane and scope', () => {
+it.each([undefined, 'legacy'] as const)('continues only with due cards in the completed scope with lane %s', (lane) => {
   const study = fixture()
   const card = { ...study.session!.current!.card, status: 'active', pageId: 'page-b' }
   study.session = Object.assign(study.session!, {
-    current: null, status: 'completed', scope: { lane: 'legacy', pageIds: ['page-a'] },
+    current: null, status: 'completed', scope: lane ? { lane, pageIds: ['page-a'] } : { pageIds: ['page-a'] },
   })
   const requestStudy = vi.fn()
   workspaceOverlay.current = {

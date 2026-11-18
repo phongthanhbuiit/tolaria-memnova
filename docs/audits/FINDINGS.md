@@ -484,3 +484,9 @@ W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
 - P3 · **fixed (commit W2-22)**. Sau khi lật gợi nhớ, Quay lại ghi chú và Hoàn tác cùng dùng mũi tên gập. [Ảnh trước](review-shots/2026-11-18/W2-20-after-light.png).
 - Đạt khi biểu tượng chuyển về ghi chú và hoàn tác lượt chấm có hình khác nhau và giữ nguyên tên truy cập.
 - Quay lại ghi chú dùng mũi tên trái thẳng. Hoàn tác giữ mũi tên gập. SVG là trang trí, nhãn và handler giữ nguyên. Vitest RED → GREEN 22/22. Native [sáng](review-shots/2026-11-18/W2-22-after-light.png) · [tối](review-shots/2026-11-18/W2-22-after-dark.png).
+
+### F-056 · W2-13 · Ôn tiếp mở sai luồng khi phiên cũ lược trường lane
+
+- P2 · Playwright en, vi, de-DE, ja-JP. Trong Library tạm, mở phiên thẻ cũ có một thẻ, thêm thẻ đến hạn cùng ghi chú sau khi bắt đầu, chấm thẻ đầu rồi chọn Ôn tiếp. Phiên mới chọn luồng Ghi nhớ nên không nhận thẻ cũ đến hạn.
+- Đạt khi Ôn tiếp mở đúng luồng và phạm vi của phiên đã xong, kể cả khi scope đã lưu lược trường `lane` theo định dạng legacy.
+- UI mặc định luồng legacy trước khi kiểm thẻ đến hạn và mở phiên nối tiếp. Giữ scope lưu, thuật toán xếp lịch và phím ôn.

@@ -65,8 +65,8 @@ function useContinueStudy(session: StudySession | null) {
   if (session?.status !== 'completed' || workspace?.phase !== 'ready') return undefined
 
   const due = workspaceDue(workspace.pages, workspace.notes, workspace.cards, workspace.clock)
-  const { lane, pageIds } = session.scope
-  if (!due[lane ?? 'legacy'].some(card => pageIds === null || pageIds.includes(card.pageId))) return undefined
+  const { lane = 'legacy', pageIds } = session.scope
+  if (!due[lane].some(card => pageIds === null || pageIds.includes(card.pageId))) return undefined
 
   return () => workspace.requestStudy(pageIds ?? undefined, lane)
 }
