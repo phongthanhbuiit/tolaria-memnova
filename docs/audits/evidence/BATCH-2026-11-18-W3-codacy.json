@@ -1,0 +1,79 @@
+{
+  "baseline": "7404b961814dbdb3f042e091f5c3a2e751441683",
+  "tool": "Codacy Analysis CLI 0.24.0",
+  "paths": [
+    "src/App.tsx",
+    "src/components/NoteSearchList.tsx",
+    "src/components/QuickOpenPalette.tsx",
+    "src/components/SettingsPanel.tsx",
+    "src/components/SortDropdown.tsx",
+    "src/components/VaultContentSettingsSection.tsx",
+    "src/components/inspector/RelationshipsPanel.tsx",
+    "src/components/learning/BackupPanel.tsx",
+    "src/components/learning/LearningDashboard.tsx",
+    "src/components/learning/LearningStudyView.tsx",
+    "src/components/learning/NoteMemoryList.tsx",
+    "src/components/learning/reviewDueDisplay.ts",
+    "src/components/note-list/NoteListHeader.tsx",
+    "src/hooks/commands/localizeCommands.ts",
+    "src/index.css",
+    "src/lib/locales/be-BY.json",
+    "src/lib/locales/be-Latn.json",
+    "src/lib/locales/de-DE.json",
+    "src/lib/locales/en.json",
+    "src/lib/locales/es-419.json",
+    "src/lib/locales/es-ES.json",
+    "src/lib/locales/fr-FR.json",
+    "src/lib/locales/id-ID.json",
+    "src/lib/locales/it-IT.json",
+    "src/lib/locales/ja-JP.json",
+    "src/lib/locales/ko-KR.json",
+    "src/lib/locales/pl-PL.json",
+    "src/lib/locales/pt-BR.json",
+    "src/lib/locales/pt-PT.json",
+    "src/lib/locales/ru-RU.json",
+    "src/lib/locales/vi.json",
+    "src/lib/locales/zh-CN.json",
+    "src/lib/locales/zh-TW.json",
+    "tests/integration/note-review-due-label.spec.ts"
+  ],
+  "repositoryExclusions": ".codacy.yaml, includes test exclusions",
+  "before": {
+    "issuesByTool": {
+      "ESLint9": 0,
+      "Semgrep": 12,
+      "Lizard": 23,
+      "Trivy": 0,
+      "Stylelint": 129
+    },
+    "errors": []
+  },
+  "after": {
+    "issuesByTool": {
+      "ESLint9": 0,
+      "Semgrep": 12,
+      "Lizard": 25,
+      "Trivy": 0,
+      "Stylelint": 129
+    },
+    "errors": []
+  },
+  "newIssues": [
+    {
+      "path": "src/components/QuickOpenPalette.tsx",
+      "rule": "Lizard_nloc-medium",
+      "severity": "Warning",
+      "count": 1
+    },
+    {
+      "path": "src/hooks/commands/localizeCommands.ts",
+      "rule": "Lizard_ccn-medium",
+      "severity": "Warning",
+      "count": 1
+    }
+  ],
+  "mediumReview": {
+    "QuickOpenPalette.tsx": "Length warning after adding row icons and category labels. The affected block projects indexed entries to display rows. Unit tests cover file and saved view labels and Chromium verifies all three badge types.",
+    "localizeCommands.ts": "Complexity warning after translating the review label with and without a due count. This function selects labels for display. The command registry scan and localized Chromium QA passed."
+  }
+}

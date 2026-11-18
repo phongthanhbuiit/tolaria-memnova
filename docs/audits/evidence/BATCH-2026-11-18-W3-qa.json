@@ -1,0 +1,351 @@
+{
+  "browser": "Chromium (Playwright CLI)",
+  "viewport": [
+    1440,
+    900
+  ],
+  "settingsMaxDescriptionLines": 2,
+  "maximumHorizontalClippingPx": 2,
+  "results": {
+    "en": {
+      "settings": [
+        {
+          "text": "Choose Stable for regular releases or Preview to try new features early.",
+          "clipX": 0,
+          "lines": 2
+        },
+        {
+          "text": "Preview",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "Choose the language for menus, buttons, and dialogs. System follows macOS. Missing translations appear in English.",
+          "clipX": 0,
+          "lines": 2
+        },
+        {
+          "text": "Plural type names in sidebar",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "Show “Notes” instead of “Note”. Custom sidebar names stay as set.",
+          "clipX": 0,
+          "lines": 1
+        }
+      ],
+      "dates": [
+        {
+          "text": "US (5/11/2026)",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "European (11/5/2026)",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "Friendly (May 11, 2026)",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "ISO (2026-05-11)",
+          "clipX": 0,
+          "lines": 1
+        }
+      ],
+      "commands": [
+        {
+          "text": "Start Review Session",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "Copy File Path",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "Toggle Table of Contents",
+          "clipX": 0,
+          "lines": 1
+        }
+      ],
+      "quickOpen": [
+        {
+          "text": "View",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "File",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "Type",
+          "clipX": 0,
+          "lines": 1
+        }
+      ]
+    },
+    "vi": {
+      "settings": [
+        {
+          "text": "Chọn Ổn định hoặc dùng Thử nghiệm để trải nghiệm tính năng sớm.",
+          "clipX": 0,
+          "lines": 2
+        },
+        {
+          "text": "Thử nghiệm",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "Chọn ngôn ngữ cho menu, nút và hộp thoại. Chế độ Hệ thống theo macOS. Mục chưa dịch hiển thị tiếng Anh.",
+          "clipX": 0,
+          "lines": 2
+        },
+        {
+          "text": "Tên loại số nhiều ở thanh bên",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "Ví dụ, “Note” hiển thị thành “Notes”. Tên do bạn đặt vẫn giữ nguyên.",
+          "clipX": 0,
+          "lines": 1
+        }
+      ],
+      "dates": [
+        {
+          "text": "Kiểu Mỹ (5/11/2026)",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "Kiểu châu Âu (11/5/2026)",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "Dạng thân thiện (11 tháng 5, 2026)",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "ISO (2026-05-11)",
+          "clipX": 0,
+          "lines": 1
+        }
+      ],
+      "commands": [
+        {
+          "text": "Bắt đầu phiên ôn",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "Sao chép đường dẫn tệp",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "Bật/tắt mục lục",
+          "clipX": 0,
+          "lines": 1
+        }
+      ],
+      "quickOpen": [
+        {
+          "text": "Chế độ xem",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "Tệp",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "Loại",
+          "clipX": 0,
+          "lines": 1
+        }
+      ]
+    },
+    "de-DE": {
+      "settings": [
+        {
+          "text": "Wähle Stabil für reguläre Updates oder Vorschau für neue Funktionen vorab.",
+          "clipX": 0,
+          "lines": 2
+        },
+        {
+          "text": "Vorschau",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "Sprache für Menüs, Schaltflächen und Dialoge. „System“ folgt macOS. Ohne Übersetzung: Englisch.",
+          "clipX": 0,
+          "lines": 2
+        },
+        {
+          "text": "Typnamen in der Seitenleiste im Plural",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "Zeigt „Notizen“ statt „Notiz“. Eigene Namen bleiben erhalten.",
+          "clipX": 0,
+          "lines": 1
+        }
+      ],
+      "dates": [
+        {
+          "text": "US (5/11/2026)",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "Europäisch (11/5/2026)",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "Anschaulich (11. Mai 2026)",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "ISO (2026-05-11)",
+          "clipX": 0,
+          "lines": 1
+        }
+      ],
+      "commands": [
+        {
+          "text": "Lernsitzung starten",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "Dateipfad kopieren",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "Inhaltsverzeichnis ein- oder ausblenden",
+          "clipX": 0,
+          "lines": 1
+        }
+      ],
+      "quickOpen": [
+        {
+          "text": "Ansicht",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "Datei",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "Typ",
+          "clipX": 0,
+          "lines": 1
+        }
+      ]
+    },
+    "ja-JP": {
+      "settings": [
+        {
+          "text": "通常の更新には安定版、新機能を早めに試すにはプレビュー版を選びます。",
+          "clipX": 0,
+          "lines": 2
+        },
+        {
+          "text": "プレビュー版",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "メニュー、ボタン、ダイアログで使う言語を選びます。 「システム」はmacOSに従います。未翻訳の項目は英語で表示されます。",
+          "clipX": 0,
+          "lines": 2
+        },
+        {
+          "text": "サイドバーの種類名を複数形で表示",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "「Note」を「Notes」と表示します。独自の名前はそのままです。",
+          "clipX": 0,
+          "lines": 1
+        }
+      ],
+      "dates": [
+        {
+          "text": "US (5/11/2026)",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "欧州形式（11/5/2026）",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "フレンドリー（2026年5月11日）",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "ISO (2026-05-11)",
+          "clipX": 0,
+          "lines": 1
+        }
+      ],
+      "commands": [
+        {
+          "text": "復習を開始",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "ファイルのパスをコピー",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "目次の表示を切り替え",
+          "clipX": 0,
+          "lines": 1
+        }
+      ],
+      "quickOpen": [
+        {
+          "text": "ビュー",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "ファイル",
+          "clipX": 0,
+          "lines": 1
+        },
+        {
+          "text": "種類",
+          "clipX": 0,
+          "lines": 1
+        }
+      ]
+    }
+  }
+}

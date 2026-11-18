@@ -1,5 +1,7 @@
 # Memnova hiện tại
 
+**18/11/2026 — Đợt 3:** Nút AI nổi nhường chỗ cho Thuộc tính, ngày ôn dùng cùng bộ định dạng và Quick Open hiển thị biểu tượng cùng nhãn phân loại theo ngôn ngữ. Cài đặt rút gọn mô tả, Trang chủ dùng một nút chuẩn bị dữ liệu và tổng kết phiên đặt Hoàn tác cạnh Đóng. [Biên bản và QA bốn ngôn ngữ](audits/BATCH-2026-11-18-W3.md).
+
 **18/11/2026 — Đợt 2, Lô 4:** Cài đặt và cảnh báo hướng dẫn AI dùng tên Memnova và copy rõ hành động. Chrome giới hạn thao tác chọn chữ, thanh trạng thái phân biệt cảnh báo MCP với bộ đếm và biểu tượng Topics dễ đọc hơn ở theme tối. Bảng vẽ nhận ngôn ngữ ứng dụng. Danh sách và breadcrumb hiện “Chưa có tiêu đề” cho ghi chú mới chưa có H1. [Findings và ảnh QA](audits/FINDINGS.md#đợt-2--lô-4).
 
 **18/11/2026 — Đợt 2, Lô 3:** Khi mở đồng thời Thuộc tính và AI, cửa sổ chật tự thu danh sách ghi chú. AI chuyển sang dạng nổi khi không còn đủ chiều rộng cho bố cục song song. Tạo, xác minh và khôi phục bản sao lưu nằm trong Cài đặt › Thư viện. Chip ngày trong trình chỉnh thuộc tính và lịch ôn áp dụng tùy chọn hiển thị ngày. Panel Thuộc tính đặt các lối thêm và sửa cạnh nhau, với dấu cộng rõ trên nút thêm quan hệ. [Findings](audits/FINDINGS.md#đợt-2--lô-3).
