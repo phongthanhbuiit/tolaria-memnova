@@ -3,16 +3,9 @@ import { Button } from '../ui/button'
 import { useNoteMemoryInspector } from './useNoteMemoryInspector'
 import { NoteLegacyDetails } from './NoteLegacyDetails'
 import { translate, type AppLocale } from '../../lib/i18n'
+import { useDateDisplayFormat } from '../../hooks/useAppPreferences'
+import { formatDateTimeForDisplay } from '../../utils/dateDisplay'
 
-function dueLabel(due: string, locale: AppLocale): string {
-  const date = new Date(due)
-  return Number.isFinite(date.getTime())
-    ? new Intl.DateTimeFormat(locale, {
-        dateStyle: 'medium',
-        timeStyle: 'short',
-      }).format(date)
-    : '—'
-}
 /** One note owns editable properties; schedule and conversion snapshots are readonly. */
 export function NoteMemoryInspector({
   path,
@@ -23,6 +16,7 @@ export function NoteMemoryInspector({
   content: string | null
   locale: AppLocale
 }) {
+  const dateDisplayFormat = useDateDisplayFormat()
   const { visible, current, retry } = useNoteMemoryInspector(path, content)
   if (!visible) return null
   const t = (key: Parameters<typeof translate>[1]) => translate(locale, key)
@@ -56,7 +50,7 @@ export function NoteMemoryInspector({
         <dl className="grid grid-cols-[minmax(0,1fr)_auto] gap-x-3 gap-y-2 text-small">
           <dt className="col-span-full text-text-secondary">{t('properties.due')}</dt>
           <dd className="col-span-full -mt-1 wrap-anywhere">
-            {dueLabel(data.view.schedule.due, locale)}
+            {formatDateTimeForDisplay(new Date(data.view.schedule.due), dateDisplayFormat, locale) || '—'}
           </dd>
           <dt className="text-text-secondary">{t('properties.reps')}</dt>
           <dd className="text-right tabular-nums">{new Intl.NumberFormat(locale).format(data.view.schedule.reps)}</dd>

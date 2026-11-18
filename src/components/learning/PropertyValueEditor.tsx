@@ -1,3 +1,5 @@
+import { useDateDisplayFormat } from '../../hooks/useAppPreferences'
+import { formatDateValueForDisplay } from '../../utils/dateDisplay'
 import { EditorIconButton } from './EditorIconButton'
 import { CalendarBlank, Plus, X } from '@phosphor-icons/react'
 import { cardEditorStyles } from './cardEditorStyles'
@@ -58,6 +60,7 @@ function NumberValue({
   )
 }
 function DateValue({ name, value, disabled, onChange, locale }: Props) {
+  const dateDisplayFormat = useDateDisplayFormat()
   const [open, setOpen] = useState(false)
   const text = typeof value === 'string' ? value : ''
   const date = text ? new Date(`${text}T12:00:00`) : undefined
@@ -66,7 +69,7 @@ function DateValue({ name, value, disabled, onChange, locale }: Props) {
       <PopoverTrigger asChild>
         <Button size="md" layout="responsive" variant="outline" disabled={disabled} aria-label={name}>
           <CalendarBlank className={cardEditorStyles.icon} aria-hidden="true" />
-          {text || translate(locale, 'inspector.properties.pickDate')}
+          {text ? formatDateValueForDisplay(text, dateDisplayFormat, locale) : translate(locale, 'inspector.properties.pickDate')}
         </Button>
       </PopoverTrigger>
       <PopoverContent className={`${cardEditorStyles.portal} w-auto max-h-[calc(100vh-1rem)] max-w-(--radix-popover-content-available-width) overflow-auto p-0`} side="top">

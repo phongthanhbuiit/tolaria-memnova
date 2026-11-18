@@ -63,6 +63,19 @@ export function formatDateForDisplay(
   return formatDatePartsForDisplay(datePartsFromDate(date), format, locale)
 }
 
+export function formatDateTimeForDisplay(
+  date: Date,
+  format: DateDisplayFormat = DEFAULT_DATE_DISPLAY_FORMAT,
+  locale: AppLocale,
+): string {
+  const day = formatDateForDisplay(date, format, locale)
+  if (!day) return ''
+  const time = new Intl.DateTimeFormat(getLocaleDateLocale(locale), {
+    hour: 'numeric', minute: '2-digit',
+  }).format(date)
+  return `${day} · ${time}`
+}
+
 export function formatTimestampForDateDisplay(
   timestampSeconds: number | null | undefined,
   format: DateDisplayFormat = DEFAULT_DATE_DISPLAY_FORMAT,

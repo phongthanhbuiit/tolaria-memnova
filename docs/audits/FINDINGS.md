@@ -504,3 +504,9 @@ W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
 - P2 · Mở Trang chủ → Nâng cao. Công cụ sao lưu, xác minh và khôi phục ở cùng nhóm hành động trên Trang chủ. [Ảnh audit](review-shots/2026-11-18/02-trang-chu-light.png).
 - Đạt khi nhóm công cụ chuyển sang Cài đặt › Thư viện. Giữ thao tác, dữ liệu và khả năng khôi phục khi Library lỗi. Phạm vi chỉ gồm chuyển công cụ sao lưu và khôi phục.
 - **fixed (commit W2-15)**. Cùng bảng công cụ nằm trong Thư viện. Lối cứu hộ trên màn lỗi vẫn khả dụng. Playwright RED → GREEN cho tạo/xác minh, khóa khôi phục và tải lại. QA native tạo, xác minh, khôi phục vào Library tạm mới. SHA-256 ghi chú mẫu trùng bản gốc. [1440 sáng](review-shots/2026-11-18/W2-15-after-1440-light.png) · [1440 tối](review-shots/2026-11-18/W2-15-after-1440-dark.png) · [1024 sáng](review-shots/2026-11-18/W2-15-after-1024-light.png) · [1024 tối](review-shots/2026-11-18/W2-15-after-1024-dark.png).
+
+### F-059 · W2-17 · Ngày trong panel và chip dùng nhiều cách hiển thị
+
+- P2 · Mở Thuộc tính của ghi chú có ngày, lịch ôn và thuộc tính ngày hiển thị trong danh sách. Các bề mặt dùng ngày đầy đủ, ngày–giờ rút gọn và chuỗi ISO. [Ảnh audit](review-shots/2026-11-18/07-thuoc-tinh-xem-light.png).
+- Đạt khi ngày, ngày–giờ và chip dùng cùng formatter theo locale và cài đặt ngày. Giá trị lưu tiếp tục là ISO.
+- **fixed (commit W2-17)**. Chip ngày của hộp thoại và ngày đến hạn dùng formatter theo tùy chọn hiển thị. Vitest hai ca RED, 20 test GREEN gồm lịch và xuất ISO từ bộ chọn. Native vi chuyển từ dạng thân thiện sang châu Âu, kiểm [1440 sáng](review-shots/2026-11-18/W2-17-after-1440-light.png) · [1440 tối](review-shots/2026-11-18/W2-17-after-1440-dark.png) · [1024 sáng](review-shots/2026-11-18/W2-17-after-1024-light.png) · [1024 tối](review-shots/2026-11-18/W2-17-after-1024-dark.png). SHA-256 ghi chú mẫu giữ nguyên khi chỉ đổi tùy chọn.

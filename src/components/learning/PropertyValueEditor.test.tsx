@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { expect, it, vi } from 'vitest'
+import { AppPreferencesProvider } from '../../hooks/useAppPreferences'
 import { PropertyValueEditor } from './PropertyValueEditor'
 // The shared test setup stubs DayPicker; exercise the editor's date boundary here.
 vi.mock('../ui/calendar', () => ({
@@ -31,15 +32,19 @@ it('keeps list entries containing commas and removes an item without deleting th
 it('uses a calendar with local date strings instead of shifting through UTC', () => {
   const change = vi.fn()
   render(
-    <PropertyValueEditor
-      name="Deadline"
-      value="2028-02-29"
-      definition={{ valueKind: 'date' }}
-      locale="en"
-      disabled={false}
-      onChange={change}
-    />,
+    <AppPreferencesProvider locale="vi" dateDisplayFormat="european">
+      <PropertyValueEditor
+        name="Deadline"
+        value="2028-02-29"
+        definition={{ valueKind: 'date' }}
+        locale="vi"
+        disabled={false}
+        onChange={change}
+      />
+    </AppPreferencesProvider>,
   )
+  expect(screen.getByRole('button', { name: 'Deadline' })).toHaveTextContent('29/2/2028')
+  expect(change).not.toHaveBeenCalled()
   fireEvent.click(screen.getByRole('button', { name: 'Deadline' }))
   fireEvent.click(screen.getByRole('button', { name: /March 1st, 2028/ }))
   expect(change).toHaveBeenCalledWith('2028-03-01')

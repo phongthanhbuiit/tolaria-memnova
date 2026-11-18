@@ -7,6 +7,7 @@ import {
 } from '@testing-library/react'
 import { expect, it, vi } from 'vitest'
 import type { ReactNode } from 'react'
+import { AppPreferencesProvider } from '../../hooks/useAppPreferences'
 import { NoteMemoryInspector } from './NoteMemoryInspector'
 import { LearningContext, type LearningWorkspace } from './LearningContext'
 import {
@@ -152,4 +153,18 @@ it('uses the review schedule heading without internal read-only terminology in V
   const panel = await screen.findByRole('region', { name: 'Lịch ôn' })
   expect(within(panel).getByRole('heading', { name: 'Lịch ôn' })).toBeInTheDocument()
   expect(within(panel).queryByRole('textbox')).not.toBeInTheDocument()
+})
+
+it('uses the configured calendar format for a timed review date', async () => {
+  const data = fixture()
+  const due = new Date(2026, 10, 18, 13, 28).toISOString()
+  data.view.schedule = { ...data.page.candidates[0].card.schedule, due }
+  render(
+    <AppPreferencesProvider locale="vi" dateDisplayFormat="european">
+      <NoteMemoryInspector path="/qa/lesson.md" content={content} locale="vi" />
+    </AppPreferencesProvider>,
+    { wrapper: data.wrapper },
+  )
+  expect(await screen.findByText('18/11/2026 · 13:28')).toBeInTheDocument()
+  expect(data.view.schedule.due).toBe(due)
 })
