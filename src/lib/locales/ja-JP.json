@@ -133,7 +133,7 @@
   "settings.releaseChannelDescription": "Stable は昇格済みリリースを追跡し、Alpha は main へのすべての push を追跡します。",
   "settings.releaseStable": "Stable",
   "settings.releaseAlpha": "Alpha",
-  "settings.workspaces.title": "Vaults",
+  "settings.workspaces.title": "ライブラリ",
   "settings.workspaces.enable": "複数のVaultを同時に使用する",
   "settings.workspaces.enableDescription": "実験的機能：含まれる複数のVaultを1つのグラフに読み込む。一度に1つのボルトのみを使用する場合は、この設定をオフのままにしてください。",
   "settings.workspaces.name": "名前",

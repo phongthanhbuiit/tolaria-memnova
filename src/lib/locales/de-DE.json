@@ -133,7 +133,7 @@
   "settings.releaseChannelDescription": "Stable folgt freigegebenen Releases; Alpha folgt jedem Push auf main.",
   "settings.releaseStable": "Stable",
   "settings.releaseAlpha": "Alpha",
-  "settings.workspaces.title": "Vaults",
+  "settings.workspaces.title": "Bibliotheken",
   "settings.workspaces.enable": "Mehrere Vaults gleichzeitig verwenden",
   "settings.workspaces.enableDescription": "Experimentell: Enthaltene Vaults in einen einzigen Graphen laden. Deaktivieren Sie diese Option, um jeweils nur einen Vault zu verwenden.",
   "settings.workspaces.name": "Name",

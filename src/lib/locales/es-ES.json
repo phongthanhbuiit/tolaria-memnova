@@ -133,7 +133,7 @@
   "settings.releaseChannelDescription": "Stable sigue las versiones promocionadas; Alpha sigue cada push a main.",
   "settings.releaseStable": "Stable",
   "settings.releaseAlpha": "Alpha",
-  "settings.workspaces.title": "Vaults",
+  "settings.workspaces.title": "Bibliotecas",
   "settings.workspaces.enable": "Usar varios almacenes al mismo tiempo",
   "settings.workspaces.enableDescription": "Experimental: cargar los almacenes incluidos en un único grafo. Déjelo desactivado para usar un solo almacén cada vez.",
   "settings.workspaces.name": "Nombre",

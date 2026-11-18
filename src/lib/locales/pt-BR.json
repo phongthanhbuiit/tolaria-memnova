@@ -133,7 +133,7 @@
   "settings.releaseChannelDescription": "Stable acompanha versões promovidas; Alpha acompanha cada push para main.",
   "settings.releaseStable": "Stable",
   "settings.releaseAlpha": "Alpha",
-  "settings.workspaces.title": "Vaults",
+  "settings.workspaces.title": "Bibliotecas",
   "settings.workspaces.enable": "Usar vários cofres ao mesmo tempo",
   "settings.workspaces.enableDescription": "Experimental: carregar os cofres incluídos em um único grafo. Desative esta opção para usar um vault de cada vez.",
   "settings.workspaces.name": "Nome",
