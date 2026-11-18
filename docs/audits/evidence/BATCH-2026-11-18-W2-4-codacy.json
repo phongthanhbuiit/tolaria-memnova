@@ -1,0 +1,132 @@
+{
+  "baseline": "4ae659a5bd45988947b362de46f6d9939a869a75",
+  "tool": "Codacy Analysis CLI 0.24.0, auto config with repository exclusions. ESLint9, Semgrep, Lizard, Trivy and Stylelint.",
+  "before": {
+    "paths": [
+      "src/App.tsx",
+      "src/components/AiWorkspaceChrome.tsx",
+      "src/components/BreadcrumbBar.tsx",
+      "src/components/ExcalidrawWhiteboard.tsx",
+      "src/components/NoteItem.tsx",
+      "src/components/SidebarParts.tsx",
+      "src/components/status-bar/AiAgentsBadge.tsx",
+      "src/components/status-bar/StatusBarBadges.tsx",
+      "src/index.css",
+      "src/lib/locales/be-BY.json",
+      "src/lib/locales/be-Latn.json",
+      "src/lib/locales/de-DE.json",
+      "src/lib/locales/en.json",
+      "src/lib/locales/es-419.json",
+      "src/lib/locales/es-ES.json",
+      "src/lib/locales/fr-FR.json",
+      "src/lib/locales/id-ID.json",
+      "src/lib/locales/it-IT.json",
+      "src/lib/locales/ja-JP.json",
+      "src/lib/locales/ko-KR.json",
+      "src/lib/locales/pl-PL.json",
+      "src/lib/locales/pt-BR.json",
+      "src/lib/locales/pt-PT.json",
+      "src/lib/locales/ru-RU.json",
+      "src/lib/locales/vi.json",
+      "src/lib/locales/zh-CN.json",
+      "src/lib/locales/zh-TW.json",
+      "src/lib/vaultAiGuidance.ts",
+      "tests/integration/a11y-button-names.spec.ts",
+      "tests/integration/memnova-learning.spec.ts",
+      "tests/smoke/vault-ai-guidance-restore.spec.ts"
+    ],
+    "issuesByTool": {
+      "ESLint9": 0,
+      "Semgrep": 13,
+      "Lizard": 31,
+      "Trivy": 0,
+      "Stylelint": 127
+    },
+    "errors": [
+      {
+        "toolId": "Semgrep",
+        "phase": "toolInvoke",
+        "kind": "Syntax error",
+        "message": "Syntax error `import { memo, useCallback, useEffect, useImperativeHandle, …` was unexpected",
+        "level": "warning",
+        "filePath": "src/components/BreadcrumbBar.tsx",
+        "fileNotAnalyzed": true
+      }
+    ]
+  },
+  "after": {
+    "paths": [
+      "src/App.tsx",
+      "src/components/AiWorkspaceChrome.tsx",
+      "src/components/BreadcrumbBar.tsx",
+      "src/components/ExcalidrawWhiteboard.tsx",
+      "src/components/NoteItem.tsx",
+      "src/components/SidebarParts.tsx",
+      "src/components/status-bar/AiAgentsBadge.tsx",
+      "src/components/status-bar/StatusBarBadges.tsx",
+      "src/index.css",
+      "src/lib/locales/be-BY.json",
+      "src/lib/locales/be-Latn.json",
+      "src/lib/locales/de-DE.json",
+      "src/lib/locales/en.json",
+      "src/lib/locales/es-419.json",
+      "src/lib/locales/es-ES.json",
+      "src/lib/locales/fr-FR.json",
+      "src/lib/locales/id-ID.json",
+      "src/lib/locales/it-IT.json",
+      "src/lib/locales/ja-JP.json",
+      "src/lib/locales/ko-KR.json",
+      "src/lib/locales/pl-PL.json",
+      "src/lib/locales/pt-BR.json",
+      "src/lib/locales/pt-PT.json",
+      "src/lib/locales/ru-RU.json",
+      "src/lib/locales/vi.json",
+      "src/lib/locales/zh-CN.json",
+      "src/lib/locales/zh-TW.json",
+      "src/lib/vaultAiGuidance.ts",
+      "src/utils/untitledNoteDisplay.ts",
+      "tests/integration/a11y-button-names.spec.ts",
+      "tests/integration/memnova-learning.spec.ts",
+      "tests/smoke/vault-ai-guidance-restore.spec.ts"
+    ],
+    "issuesByTool": {
+      "ESLint9": 0,
+      "Semgrep": 13,
+      "Lizard": 33,
+      "Trivy": 0,
+      "Stylelint": 129
+    },
+    "errors": [
+      {
+        "toolId": "Semgrep",
+        "phase": "toolInvoke",
+        "kind": "Syntax error",
+        "message": "Syntax error `import { memo, useCallback, useEffect, useImperativeHandle, …` was unexpected",
+        "level": "warning",
+        "filePath": "src/components/BreadcrumbBar.tsx",
+        "fileNotAnalyzed": true
+      }
+    ]
+  },
+  "newIssuesByPathAndRule": [
+    {
+      "path": "src/components/BreadcrumbBar.tsx",
+      "rule": "Lizard_parameter-count-medium",
+      "severity": "Warning",
+      "count": 2
+    },
+    {
+      "path": "src/components/BreadcrumbBar.tsx",
+      "rule": "Lizard_nloc-medium",
+      "severity": "Warning",
+      "count": 1
+    },
+    {
+      "path": "src/index.css",
+      "rule": "Stylelint_property-no-vendor-prefix",
+      "severity": "Info",
+      "count": 2
+    }
+  ],
+  "review": "New medium counts are Lizard parameter/length reports after its segmentation of BreadcrumbBar changed; BreadcrumbActions and the outer BreadcrumbBar were not modified, and the file went from 1101 to 1089 counted lines. The new Stylelint notices are the explicit WebKit fallback for text selection. Semgrep could not parse BreadcrumbBar at either revision. ESLint9 and TypeScript checked the file."
+}

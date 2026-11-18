@@ -1,0 +1,233 @@
+{
+  "browser": "Chromium",
+  "viewport": [
+    1440,
+    900
+  ],
+  "passed": 4,
+  "retries": 0,
+  "method": "Disposable Library with mocked missing GEMINI.md and disconnected MCP. Checked visible text rectangles against clipping ancestors and viewport, plus the SDK zoom, more tools and help accessible names.",
+  "scopeNote": "The sync description exists in the translation catalog but has no active UI caller. Only the rendered release and pull-interval copy was measured.",
+  "measurements": {
+    "en": {
+      "settings": [
+        {
+          "text": "Release channel",
+          "clipped": 0
+        },
+        {
+          "text": "Stable receives approved releases. Alpha receives early builds more often and may be less stable.",
+          "clipped": 0
+        },
+        {
+          "text": "How often Memnova checks for remote vault changes.",
+          "clipped": 0
+        }
+      ],
+      "untitled": [
+        {
+          "text": "Untitled",
+          "clipped": 0
+        },
+        {
+          "text": "Untitled",
+          "clipped": 0
+        }
+      ],
+      "guidance": [
+        {
+          "text": "Library guidance needs attention: GEMINI.md is missing. Choose Restore to create the guidance file.",
+          "clipped": 0
+        },
+        {
+          "text": "Restore",
+          "clipped": 0
+        }
+      ],
+      "restored": [
+        {
+          "text": "Memnova AI guidance restored",
+          "clipped": 0
+        }
+      ],
+      "mcp": [
+        {
+          "text": "External AI tools are not connected to this Library. Select MCP to open setup.",
+          "clipped": 0
+        }
+      ],
+      "drawing": {
+        "zoom": "Zoom in",
+        "moreTools": "More tools",
+        "help": "Help",
+        "expectedTools": "More tools",
+        "expectedHelp": "Help"
+      }
+    },
+    "vi": {
+      "settings": [
+        {
+          "text": "Kênh phát hành",
+          "clipped": 0
+        },
+        {
+          "text": "Kênh Ổn định nhận các bản phát hành đã được duyệt. Kênh Alpha cập nhật bản thử nghiệm thường xuyên hơn và có thể kém ổn định.",
+          "clipped": 0
+        },
+        {
+          "text": "Tần suất Memnova kiểm tra các thay đổi kho từ xa.",
+          "clipped": 0
+        }
+      ],
+      "untitled": [
+        {
+          "text": "Chưa có tiêu đề",
+          "clipped": 0
+        },
+        {
+          "text": "Chưa có tiêu đề",
+          "clipped": 0
+        }
+      ],
+      "guidance": [
+        {
+          "text": "Hướng dẫn của thư viện cần được kiểm tra: Chưa có GEMINI.md. Chọn Khôi phục để tạo tệp hướng dẫn.",
+          "clipped": 0
+        },
+        {
+          "text": "Khôi phục",
+          "clipped": 0
+        }
+      ],
+      "restored": [
+        {
+          "text": "Đã khôi phục hướng dẫn AI của Memnova",
+          "clipped": 0
+        }
+      ],
+      "mcp": [
+        {
+          "text": "Công cụ AI bên ngoài chưa kết nối với thư viện này. Chọn MCP để mở thiết lập.",
+          "clipped": 0
+        }
+      ],
+      "drawing": {
+        "zoom": "Phóng to",
+        "moreTools": "Công cụ khác",
+        "help": "Trợ giúp",
+        "expectedTools": "Công cụ khác",
+        "expectedHelp": "Trợ giúp"
+      }
+    },
+    "de-DE": {
+      "settings": [
+        {
+          "text": "Release-Kanal",
+          "clipped": 0
+        },
+        {
+          "text": "Der stabile Kanal liefert freigegebene Versionen. Der Alpha-Kanal liefert häufiger Vorabversionen, die weniger stabil sein können.",
+          "clipped": 0
+        },
+        {
+          "text": "Wie oft Memnova nach entfernten Vault-Änderungen sucht.",
+          "clipped": 0
+        }
+      ],
+      "untitled": [
+        {
+          "text": "Ohne Titel",
+          "clipped": 0
+        },
+        {
+          "text": "Ohne Titel",
+          "clipped": 0
+        }
+      ],
+      "guidance": [
+        {
+          "text": "Die Bibliotheksanleitung muss geprüft werden: GEMINI.md fehlt. Wählen Sie „Wiederherstellen“, um die Anleitungsdatei zu erstellen.",
+          "clipped": 0
+        },
+        {
+          "text": "Wiederherstellen",
+          "clipped": 0
+        }
+      ],
+      "restored": [
+        {
+          "text": "Die KI-Anleitung von Memnova wurde wiederhergestellt",
+          "clipped": 0
+        }
+      ],
+      "mcp": [
+        {
+          "text": "Externe KI-Werkzeuge sind nicht mit dieser Bibliothek verbunden. Wählen Sie MCP, um die Einrichtung zu öffnen.",
+          "clipped": 0
+        }
+      ],
+      "drawing": {
+        "zoom": "Vergrößern",
+        "moreTools": "Weitere Werkzeuge",
+        "help": "Hilfe",
+        "expectedTools": "Weitere Werkzeuge",
+        "expectedHelp": "Hilfe"
+      }
+    },
+    "ja-JP": {
+      "settings": [
+        {
+          "text": "リリースチャネル",
+          "clipped": 0
+        },
+        {
+          "text": "安定版チャンネルでは承認済みのリリースを受け取ります。アルファ版チャンネルでは先行ビルドがより頻繁に配信され、動作が不安定な場合があります。",
+          "clipped": 0
+        },
+        {
+          "text": "Memnova がリモートのボールト変更を確認する頻度です。",
+          "clipped": 0
+        }
+      ],
+      "untitled": [
+        {
+          "text": "無題",
+          "clipped": 0
+        },
+        {
+          "text": "無題",
+          "clipped": 0
+        }
+      ],
+      "guidance": [
+        {
+          "text": "ライブラリのガイドを確認してください：GEMINI.md が見つかりません。「復元」を選択してガイドファイルを作成してください。",
+          "clipped": 0
+        },
+        {
+          "text": "復元",
+          "clipped": 0
+        }
+      ],
+      "restored": [
+        {
+          "text": "Memnova の AI ガイドを復元しました",
+          "clipped": 0
+        }
+      ],
+      "mcp": [
+        {
+          "text": "外部 AI ツールがこのライブラリに接続されていません。MCP を選択して設定を開いてください。",
+          "clipped": 0
+        }
+      ],
+      "drawing": {
+        "zoom": "拡大",
+        "moreTools": "その他のツール",
+        "help": "ヘルプ",
+        "expectedTools": "その他のツール",
+        "expectedHelp": "ヘルプ"
+      }
+    }
+  }
+}
