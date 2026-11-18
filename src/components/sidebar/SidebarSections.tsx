@@ -1,5 +1,5 @@
 import {
-  type CSSProperties, type Dispatch, type ReactNode, type Ref, type RefObject, type SetStateAction,
+  type Dispatch, type ReactNode, type Ref, type RefObject, type SetStateAction,
 } from 'react'
 import type {
   VaultEntry, SidebarSelection, ViewDefinition, ViewFile,
@@ -25,7 +25,6 @@ import { useDragRegion } from '../../hooks/useDragRegion'
 import { SidebarGroupHeader } from './SidebarGroupHeader'
 import { SidebarViewItem } from './SidebarViewItem'
 import { computeReorder } from './sidebarHooks'
-import { SIDEBAR_SECTION_CONTENT_PADDING_BOTTOM } from './sidebarStyles'
 import { countByFilter } from '../../utils/noteListHelpers'
 import { viewIdentityKey, viewSelectionForView } from '../../utils/viewIdentity'
 import { translate, type AppLocale } from '../../lib/i18n'
@@ -105,7 +104,7 @@ export function ViewsSection({
   )
 
   return (
-    <div className="border-b border-border" style={{ padding: '0 6px' }}>
+    <div className="border-b border-border px-[6px]">
       <SidebarGroupHeader label={translate(locale, 'sidebar.group.views')} collapsed={collapsed} onToggle={onToggle}>
         {onCreateView && (
           <Button
@@ -122,7 +121,7 @@ export function ViewsSection({
         )}
       </SidebarGroupHeader>
       {!collapsed && (
-        <div style={{ paddingBottom: SIDEBAR_SECTION_CONTENT_PADDING_BOTTOM }}>
+        <div className="pb-[8px]">
           {onReorderViews ? (
             <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleViewDragEnd}>
               <SortableContext items={viewIds} strategy={verticalListSortingStrategy}>
@@ -226,11 +225,11 @@ function SortableSection({
   return (
     <div
       ref={setNodeRef}
+      className="px-[6px]"
       style={{
         transform: CSS.Transform.toString(transform),
         transition,
         opacity: isDragging ? 0.5 : 1,
-        padding: '0 6px',
       }}
       {...attributes}
     >
@@ -278,7 +277,7 @@ export function TypesSection({
 }) {
   return (
     <div className="border-b border-border">
-      <div ref={customizeRef} style={{ position: 'relative', padding: '0 6px' }}>
+      <div ref={customizeRef} className="relative px-[6px]">
         <SidebarGroupHeader label={translate(locale, 'sidebar.group.types')} collapsed={collapsed} onToggle={onToggle}>
           <div className="flex items-center gap-1.5">
             <Button
@@ -320,7 +319,7 @@ export function TypesSection({
         )}
       </div>
       {!collapsed && (
-        <div style={{ paddingBottom: SIDEBAR_SECTION_CONTENT_PADDING_BOTTOM }}>
+        <div className="pb-[8px]">
           <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
             <SortableContext items={sectionIds} strategy={verticalListSortingStrategy}>
               {visibleSections.map((group) => (
@@ -397,10 +396,9 @@ export function SidebarTitleBar({
   return (
     <div
       ref={dragRegionRef}
-      className="shrink-0 flex items-center border-b border-border"
-      style={{ minHeight: 'calc(var(--control-sm) * 2)', padding: '0 8px', paddingLeft: 90, cursor: 'default', justifyContent: 'flex-start' }}
+      className="flex min-h-[calc(var(--control-sm)*2)] shrink-0 cursor-default items-center justify-start border-b border-border pr-[8px] pl-[90px]"
     >
-      <div className="flex items-center gap-5" style={{ WebkitAppRegion: 'no-drag' } as CSSProperties}>
+      <div className="flex items-center gap-5 [-webkit-app-region:no-drag]">
         {onCollapse && (
           <SidebarTitleBarAction label={collapseLabel} shortcut={SIDEBAR_COLLAPSE_SHORTCUT} onClick={onCollapse}>
             <SidebarSimple size={16} weight="regular" />
@@ -455,8 +453,8 @@ export function ContextMenuOverlay({
   return (
     <div
       ref={innerRef}
-      className="fixed z-50 rounded-lg border bg-popover p-1 shadow-md"
-      style={{ left: pos.x, top: pos.y, minWidth: 180 }}
+      className="fixed z-50 min-w-[180px] rounded-lg border bg-popover p-1 shadow-md"
+      style={{ left: pos.x, top: pos.y }}
     >
       <Button type="button" variant="ghost" size="sm" className={buttonClass} onClick={() => onStartRename(type)}>
         <PencilSimple size={14} />
@@ -502,7 +500,7 @@ export function CustomizeOverlay({
   const typeEntry = Reflect.get(typeEntryMap, target) as VaultEntry | undefined
 
   return (
-    <div ref={innerRef} className="fixed z-50" style={{ left: 20, top: 100 }}>
+    <div ref={innerRef} className="fixed top-[100px] left-[20px] z-50">
       <TypeCustomizePopover
         currentIcon={typeEntry?.icon ?? null}
         currentColor={typeEntry?.color ?? null}
