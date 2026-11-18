@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest'
 import { renderHook, act } from '@testing-library/react'
+import { useEditorSave } from './useEditorSave'
 import { useEditorSaveWithLinks } from './useEditorSaveWithLinks'
 
 const { startTransitionMock } = vi.hoisted(() => ({
@@ -281,6 +282,25 @@ describe('useEditorSaveWithLinks', () => {
       title: 'Renamed Note',
       hasH1: true,
     })
+  })
+
+  it('publishes the saved H1 with the note metadata while its draft transition is pending', () => {
+    const path = '/old-title.md'
+    const content = '# Saved heading\n\nBody'
+    startTransitionMock.mockImplementationOnce(() => {})
+    const { result } = renderHookWithLinks()
+
+    act(() => { result.current.handleContentChange(path, content) })
+    expect(updateEntry).not.toHaveBeenCalled()
+
+    const [{ updateVaultContent }] = vi.mocked(useEditorSave).mock.lastCall!
+    act(() => { updateVaultContent(path, content) })
+
+    expect(updateEntry).toHaveBeenCalledWith(path, expect.objectContaining({
+      title: 'Saved heading',
+      hasH1: true,
+      modifiedAt: expect.any(Number),
+    }))
   })
 
   it('spreads all properties from useEditorSave onto the return value', () => {

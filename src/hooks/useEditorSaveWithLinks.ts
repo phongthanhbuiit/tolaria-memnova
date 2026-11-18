@@ -70,6 +70,11 @@ function syncFrontmatterMetadata(options: {
   return frontmatterTitle
 }
 
+function displayTitleForPath(path: string, content: string, frontmatterTitle?: string | null) {
+  const filename = path.split('/').pop() ?? path
+  return deriveDisplayTitleState({ content, filename, frontmatterTitle })
+}
+
 function syncDisplayTitle(options: {
   content: string
   frontmatterTitle: string | null
@@ -78,8 +83,7 @@ function syncDisplayTitle(options: {
   updateEntry: UpdateEntry
 }): void {
   const { content, frontmatterTitle, path, prevTitleKeyRef, updateEntry } = options
-  const filename = path.split('/').pop() ?? path
-  const titlePatch = deriveDisplayTitleState({ content, filename, frontmatterTitle })
+  const titlePatch = displayTitleForPath(path, content, frontmatterTitle)
   const titleKey = JSON.stringify(titlePatch)
   if (titleKey === prevTitleKeyRef.current) return
 
@@ -106,6 +110,7 @@ export function useEditorSaveWithLinks(config: {
   const { updateEntry } = config
   const saveContent = useCallback((path: string, content: string) => {
     updateEntry(path, {
+      ...displayTitleForPath(path, content),
       outgoingLinks: extractOutgoingLinks(content),
       snippet: extractSnippet(content),
       wordCount: countWords(content),

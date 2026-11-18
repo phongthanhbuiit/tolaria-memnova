@@ -264,6 +264,41 @@ describe('useVaultLoader workspaces', () => {
     })
   })
 
+  it('keeps an edited title after switching to a workspace with overlapping scans', async () => {
+    const previous = { label: 'Previous', path: '/previous' }
+    const personal = { label: 'Personal', path: '/personal' }
+    const entry = entryForPath(personal.path)
+    const scans: ReturnType<typeof createDeferred<VaultEntry[]>>[] = []
+    backendInvokeFn.mockImplementation((command, args) => {
+      if (!isVaultLoadCommand(command) || args?.path !== personal.path) {
+        return defaultMockInvoke(command, args)
+      }
+      const scan = createDeferred<VaultEntry[]>()
+      scans.push(scan)
+      return scan.promise
+    })
+    const { result, rerender } = renderHook(
+      ({ vault }) => useVaultLoader(vault.path, [vault], vault.path),
+      { initialProps: { vault: previous } },
+    )
+    await waitForEntries(result)
+
+    rerender({ vault: personal })
+    await act(async () => {
+      // The active scan opens the note list while an older scan can still be pending.
+      scans.pop()?.resolve([entry])
+    })
+    expect(result.current.isLoading).toBe(false)
+    expect(result.current.entries[0]?.title).toBe(entry.title)
+
+    act(() => { result.current.updateEntry(entry.path, { title: 'Edited heading' }) })
+    await act(async () => {
+      for (const scan of scans) scan.resolve([entry])
+    })
+
+    expect(result.current.entries[0]?.title).toBe('Edited heading')
+  })
+
   it('reloads scoped folder roots when another mounted workspace is added', async () => {
     const brian = { label: 'Brian', path: '/brian', alias: 'brian', available: true, mounted: true }
     const laputa = { label: 'Laputa', path: '/laputa', alias: 'laputa', available: true, mounted: true }

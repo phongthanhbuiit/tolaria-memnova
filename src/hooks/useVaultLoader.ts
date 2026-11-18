@@ -1006,16 +1006,21 @@ function missingWorkspaceVaults({
   desiredWorkspacePaths,
   loadedPaths,
   loadingPaths,
+  vaultPath,
   vaults,
 }: {
   desiredWorkspacePaths: readonly string[]
   loadedPaths: Set<string>
   loadingPaths: Set<string>
+  vaultPath: string
   vaults?: VaultOption[]
 }): VaultOption[] {
   if (!vaults?.length) return []
+  // The initial loader owns the active Library scan. A second scan can return
+  // after editing starts and replace newer metadata with its older snapshot.
   return vaults.filter((vault) => (
-    desiredWorkspacePaths.includes(vault.path)
+    vault.path !== vaultPath
+    && desiredWorkspacePaths.includes(vault.path)
     && !loadedPaths.has(vault.path)
     && !loadingPaths.has(vault.path)
   ))
@@ -1040,10 +1045,7 @@ function loadMissingWorkspaceEntries({
   vaultPath: string
   vaults?: VaultOption[]
 }) {
-  void loadWorkspaceEntries(vault, defaultWorkspacePath, {
-    forceReload: vault.path === vaultPath,
-    reloadIfEmpty: true,
-  })
+  void loadWorkspaceEntries(vault, defaultWorkspacePath, { reloadIfEmpty: true })
     .then((loadedEntries) => {
       if (!isCurrentVaultPath(vaultPath)) return
       loadedPaths.add(vault.path)
@@ -1093,7 +1095,7 @@ function useMissingWorkspaceLoads({
 
     const loadedPaths = loadedWorkspacePathsRef.current
     const loadingPaths = loadingWorkspacePathsRef.current
-    const missingVaults = missingWorkspaceVaults({ desiredWorkspacePaths, loadedPaths, loadingPaths, vaults })
+    const missingVaults = missingWorkspaceVaults({ desiredWorkspacePaths, loadedPaths, loadingPaths, vaultPath, vaults })
     if (missingVaults.length === 0) return
 
     for (const vault of missingVaults) loadingPaths.add(vault.path)

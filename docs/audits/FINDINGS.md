@@ -11,10 +11,10 @@ Trạng thái: `open` · `partial` · `fixed — chờ QA native (phạm vi)` ·
 |---|---|---|---|
 | P0 | Không | Không | Không |
 | P1 | Không | F-005, F-024 | Không |
-| P2 | F-021, R-15, R-16 | F-009, F-032 | F-012 (pending/invalid/deleted), R-11 (editor thuộc tính) |
+| P2 | F-021, R-15 | F-009, F-032 | F-012 (pending/invalid/deleted), R-11 (editor thuộc tính) |
 | P3 | Không | Không | F-038 (Home/Decks/FlashcardStudyView legacy) |
 
-**Đã đóng:** F-001–F-004, F-006–F-008, F-010–F-011, F-013–F-020, F-022–F-023, F-025–F-031, F-033–F-037, F-039–F-041 (**34 F**) và R-01–R-10, R-12–R-14 (**13 R**). F-023/F-025/F-030/F-031 là phần nền tảng A. R-05 là test-only. Telex native vẫn chưa được xác minh.
+**Đã đóng:** F-001–F-004, F-006–F-008, F-010–F-011, F-013–F-020, F-022–F-023, F-025–F-031, F-033–F-037, F-039–F-041 (**34 F**) và R-01–R-10, R-12–R-14, R-16 (**14 R**). F-023/F-025/F-030/F-031 là phần nền tảng A. R-05 là test-only. Telex native vẫn chưa được xác minh.
 
 **Còn chờ native/bằng chứng bổ sung:** F-005 (author-name combobox cuối, ảnh trước tối); F-024 (legacy/Linux/trạng thái hiếm); F-032 (message/tool chỉ có fixture); F-038 (các màn legacy không có route native); Telex trong AI và ô wikilink từ R-05/E2. F-005/F-024/F-032 vẫn partial vì ngoài QA còn phần mã/phạm vi chưa hoàn tất. F-038 đã sửa mã nhưng không tính đóng khi các màn legacy mới được kiểm bằng fixture/diff/test; đối chiếu giới hạn native trong [D4B](STEP-D4B-INLINE-STYLE.md).
 
@@ -368,5 +368,7 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 
 ## R-16 — Smoke H1 đôi lúc vẫn thấy tiêu đề cũ trong danh sách
 
-- P2 · **open** · độ ổn định kiểm thử. Hook R-10 ghi một lần lỗi rồi đạt khi chạy lại theo cấu hình có sẵn. Snapshot ghi editor đã hiện “Alpha Project Fast Typing Flow”, hàng đã chọn vẫn hiện “Alpha Project”. [Kết quả và AX](evidence/R-16-smoke.txt).
-- Ca `tests/smoke/h1-title-decoupled.spec.ts:154` gõ nhanh H1, thay hậu tố rồi lưu bằng Cmd+S. Probe baseline `48f3955e` đạt 5/5 với retries=0. Chưa phân loại được cập nhật danh sách hay readiness của test. Chấp nhận tiêu đề mới xuất hiện trong editor và danh sách rồi còn đúng sau khi mở lại, với toàn bộ assertion và retries=0.
+- P2 · lỗi đồng bộ metadata trong app · **fixed** (`:/^fix: R-16 keep saved headings current in the note list`). Hook R-10 ghi editor đã hiện “Alpha Project Fast Typing Flow”, hàng đã chọn vẫn hiện “Alpha Project”. [Kết quả và AX ban đầu](evidence/R-16-smoke.txt).
+- Baseline `dcc809fd` đạt 5/5 khi chạy riêng và 5/5 với CPU chậm 4×. Giữ phản hồi nạp nền đầu tiên của Library fixture đến sau khi API lưu trả 200 tái hiện lỗi 5/5 ở assertion tên trong danh sách. Cả năm trace đều ghi yêu cầu lưu có H1 cuối. Mỗi lượt chạy một lần với `--retries=0`.
+- `useVaultLoader` giao việc nạp Library đang mở cho luồng khởi tạo. Luồng nền chỉ nạp các Library khác, tránh áp lại snapshot cũ sau khi người dùng sửa tiêu đề. Lượt kiểm sau thay đổi này đạt 9/10. Lượt lỗi có “Saved” và cảnh báo React về độ sâu cập nhật, toàn bộ phản hồi nạp danh sách đã về trước Cmd+S. `useEditorSaveWithLinks` cập nhật tên hiển thị từ nội dung vừa lưu trong cùng lần cập nhật metadata, kể cả khi transition của tiêu đề nháp còn chờ.
+- Hai test hồi quy Vitest đã RED rồi GREEN, tổng 161/161 ca liên quan đạt. Sau cả hai sửa đổi, Chromium đạt 10/10 với `--retries=0 --repeat-each=10` trên ca gốc ở dòng 154, giữ đủ assertion của editor, danh sách và mở lại. Cả 10 trace ghi API lưu trả 200 với H1 cuối.
