@@ -175,8 +175,8 @@ function buildVaultActions({
 
 function VaultMenuIcon({ isActive, unavailable }: { isActive: boolean; unavailable: boolean }) {
   if (isActive) return <Check size={12} />
-  if (unavailable) return <AlertTriangle size={12} style={{ color: 'var(--muted-foreground)' }} />
-  return <span style={{ width: 12 }} />
+  if (unavailable) return <AlertTriangle size={12} className="text-muted-foreground" />
+  return <span className="w-[12px]" />
 }
 
 function workspaceMountLabel(locale: AppLocale, vault: VaultOption): string {
@@ -653,19 +653,8 @@ function VaultMenuPopover({
 }) {
   return (
     <div
-      style={{
-        position: 'absolute',
-        bottom: '100%',
-        left: 0,
-        marginBottom: 4,
-        background: 'var(--sidebar)',
-        border: '1px solid var(--border)',
-        borderRadius: 'var(--radius-lg)',
-        padding: 4,
-        minWidth: menuMinWidth,
-        boxShadow: '0 4px 12px var(--shadow-dialog)',
-        zIndex: 1000,
-      }}
+      className="absolute bottom-full left-0 z-[1000] mb-[4px] rounded-(--radius-lg) border border-solid border-border bg-sidebar p-[4px] [box-shadow:0_4px_12px_var(--shadow-dialog)]"
+      style={{ minWidth: menuMinWidth }}
       data-testid="vault-menu-popover"
     >
       {multiWorkspaceEnabled && (
@@ -677,7 +666,7 @@ function VaultMenuPopover({
               setOpen(false)
             } : undefined}
           />
-          <div style={{ height: 1, background: 'var(--border)', margin: '2px 0 4px' }} />
+          <div className="mb-[4px] mt-[2px] h-px bg-border" />
         </>
       )}
       <VaultMenuList
@@ -693,7 +682,7 @@ function VaultMenuPopover({
         setVaultPendingRemoval={setVaultPendingRemoval}
         vaults={vaults}
       />
-      {actions.length > 0 && <div style={{ height: 1, background: 'var(--border)', margin: '4px 0' }} />}
+      {actions.length > 0 && <div className="my-[4px] h-px bg-border" />}
       {actions.map((action) => (
         <VaultMenuAction
           key={action.key}
@@ -755,7 +744,7 @@ export function VaultMenu(props: VaultMenuProps) {
   }, [multiWorkspaceEnabled, onCreateEmptyVault, onCloneGettingStarted, onCloneVault, onOpenLocalFolder])
 
   return (
-    <div ref={menuRef} style={{ position: 'relative' }}>
+    <div ref={menuRef} className="relative">
       <ActionTooltip copy={{ label: translate(locale, 'status.vault.switch') }} side="top">
         <Button
           type="button"
