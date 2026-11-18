@@ -237,3 +237,13 @@
 - Cổng đầu pha: origin/main `ac40a759`, 7 commit chờ push. Pha 0 đạt vòng 2, Pha 1/2/3 đạt vòng 3. Review Pha 3 vòng cuối bổ sung Setext, bảng GFM và công thức vào hồi quy RED → GREEN (48/48). WebKit ở lượt kiểm lại 9/9. Bảy commit qua hook thường, các sửa review được gộp về đúng mục trên cây Git đã đối chiếu.
 - Native ở chiều rộng nhỏ kiểm tại 1030×700. **BLOCKED native đúng 1024×700** vì app áp sàn 1030 px với bố cục QA. Ma trận vi 1024×700 và 1440×900, cả hai theme, đạt trên Chromium và WebKit. Ảnh native sáng/tối lưu theo mã W4.
 - Danh sách P0–P3 đã đối chiếu. Hai ô P5 phụ thuộc validator, scan, báo cáo, hook và SHA thực tế. Pha 5 có review toàn bộ riêng ngay trước push.
+
+
+## W4 · Pha 5 — Đóng lô
+
+- Cổng đầu pha origin/main `ac40a759`, 8 commit chờ push. Review Pha 4 chỉ đọc đạt tại `41edee2f`. Không stage tệp riêng của người dùng.
+- Bước 1 và 2 đạt. Validator đủ 18 catalog và 1.220 khóa, L10N-PENDING rỗng. en/vi soạn trực tiếp 38 khóa, 16 catalog dùng English đã duyệt. QA Chromium en/vi/de-DE/ja-JP 10/10 và WebKit vi 4/4 sau khi bật theme qua giao diện và kiểm `data-theme`.
+- Bước 3 đạt. Codacy CLI 0.24.0 local 33 → 34 issues, 0 Critical/High mới. Giữ hai warning Medium đếm tham số sau review. Không có lỗi analyzer. CodeScene: not run (optional integration unavailable).
+- Preflight coverage dòng frontend 87.59%, Rust 86.41% (87.42% theo lọc hook). `cargo test` đạt 1.243 unit + 1 integration. Grep SPEC §8 giữ 1 / 0. Hai demo vault sạch, fixture chủ đích duy nhất là WhiteboardTest.md. Đã dọn Library cấu hình thử.
+- Bước 4 chạy hook thường trên `git push origin main` sau review cuối. **BLOCKED trước push** đối chiếu SHA remote vì kết quả chỉ có sau khi hook và push thành công. Checklist local ghi đối chiếu sau push.
+- Bước 5 [báo cáo lô](BATCH-2026-11-19-W4.md) và bằng chứng được commit cùng log. Câu hỏi cho người dùng không có.

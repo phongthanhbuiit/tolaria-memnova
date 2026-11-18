@@ -1,0 +1,116 @@
+{
+  "baseline": "ac40a7599a71335ae1c98e8647018628ba154845",
+  "tool": "Codacy Analysis CLI 0.24.0, local",
+  "scope": [
+    "src-tauri/src/settings.rs",
+    "src/App.tsx",
+    "src/components/BlockNoteReadOnly.tsx",
+    "src/components/Editor.tsx",
+    "src/components/SettingsPanel.tsx",
+    "src/components/UnsupportedDrawing.tsx",
+    "src/components/VaultContentSettingsSection.tsx",
+    "src/components/drawingSourceContext.ts",
+    "src/components/editorSchema.tsx",
+    "src/components/learning/DeckStudyControls.tsx",
+    "src/components/learning/FlashcardChallenge.tsx",
+    "src/components/learning/LearningContext.ts",
+    "src/components/learning/LearningDashboard.tsx",
+    "src/components/learning/LearningStudyFaces.tsx",
+    "src/components/learning/LearningStudyView.tsx",
+    "src/components/learning/LegacyPageFlashcards.tsx",
+    "src/components/learning/MultipleChoiceStudy.tsx",
+    "src/components/learning/StudyChoiceOptions.tsx",
+    "src/components/learning/TypedStudyAnswer.tsx",
+    "src/components/learning/useDraftStudyArticle.ts",
+    "src/components/learning/useStudyFaces.ts",
+    "src/components/settingsPreferenceTracking.ts",
+    "src/hooks/useLearningStudy.ts",
+    "src/hooks/useWorkspaceStudyRequests.ts",
+    "src/lib/learning/flashcardAnswers.ts",
+    "src/lib/learning/flashcardChallenge.ts",
+    "src/lib/learning/flashcardQuestions.ts",
+    "src/lib/learning/flashcardStudyMode.ts",
+    "src/lib/learning/noteReviewOrder.ts",
+    "src/lib/locales/be-BY.json",
+    "src/lib/locales/be-Latn.json",
+    "src/lib/locales/de-DE.json",
+    "src/lib/locales/en.json",
+    "src/lib/locales/es-419.json",
+    "src/lib/locales/es-ES.json",
+    "src/lib/locales/fr-FR.json",
+    "src/lib/locales/id-ID.json",
+    "src/lib/locales/it-IT.json",
+    "src/lib/locales/ja-JP.json",
+    "src/lib/locales/ko-KR.json",
+    "src/lib/locales/pl-PL.json",
+    "src/lib/locales/pt-BR.json",
+    "src/lib/locales/pt-PT.json",
+    "src/lib/locales/ru-RU.json",
+    "src/lib/locales/vi.json",
+    "src/lib/locales/zh-CN.json",
+    "src/lib/locales/zh-TW.json",
+    "src/mock-tauri/mock-handlers.ts",
+    "src/types.ts",
+    "src/utils/durableMarkdownBlocks.ts",
+    "src/utils/editorDurableMarkdown.ts",
+    "src/utils/snippetMarkdown.ts",
+    "src/utils/unsupportedDrawingMarkdown.ts",
+    "tests/helpers/fixtureVault.ts",
+    "tests/helpers/flashcardModeFixture.ts",
+    "tests/integration/challenge-flashcard-study.spec.ts",
+    "tests/integration/choice-flashcard-study.spec.ts",
+    "tests/integration/note-memory-workspace.spec.ts",
+    "tests/integration/saved-view-study.spec.ts",
+    "tests/integration/typed-flashcard-study.spec.ts",
+    "tests/integration/unsupported-drawing.spec.ts"
+  ],
+  "excluded": "Repository .codacy.yaml; Stylelint found no matching files",
+  "before": {
+    "issues": 33,
+    "severity": {
+      "Warning": 32,
+      "Error": 1
+    },
+    "toolIssues": {
+      "ESLint9": 0,
+      "Semgrep": 10,
+      "Lizard": 23,
+      "Trivy": 0
+    },
+    "errors": []
+  },
+  "after": {
+    "issues": 34,
+    "severity": {
+      "Warning": 33,
+      "Error": 1
+    },
+    "toolIssues": {
+      "ESLint9": 0,
+      "Semgrep": 10,
+      "Lizard": 24,
+      "Trivy": 0
+    },
+    "errors": []
+  },
+  "baselineCritical": "EditorLayout has 81 parameters; same count before and after",
+  "newCriticalOrHigh": 0,
+  "newIssues": [
+    {
+      "file": "src/components/VaultContentSettingsSection.tsx",
+      "rule": "Lizard_parameter-count-medium",
+      "severity": "Warning",
+      "count": 1
+    },
+    {
+      "file": "src/components/learning/DeckStudyControls.tsx",
+      "rule": "Lizard_parameter-count-medium",
+      "severity": "Warning",
+      "count": 1
+    }
+  ],
+  "mediumReview": {
+    "VaultContentSettingsSection.tsx": "Parameter count warning. The two review-order props bind a shared select to existing Settings state and save path. Native and integration checks cover both settings values.",
+    "DeckStudyControls.tsx": "Parameter count warning. Props describe the study scope, card pool, note owners for question media, and a callback. Targeted and browser tests cover selector state, insufficient answers, and the distinct practice path."
+  }
+}

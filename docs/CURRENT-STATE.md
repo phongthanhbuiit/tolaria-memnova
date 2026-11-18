@@ -1,5 +1,7 @@
 # Memnova hiện tại
 
+**19/11/2026 — Đợt 4:** Cài đặt thứ tự mặt ôn ghi chú, mặc định Gợi nhớ trước. Bộ thẻ nhớ kiểu Lật thẻ, Gõ đáp án, Trắc nghiệm hoặc Thử thách. Thử thách chỉ luyện tập. Các kiểu ôn có lịch vẫn dùng FSRS hiện có. Bản vẽ định dạng cũ giữ nguồn trong tệp và có lối mở mã nguồn. [Biên bản và QA](audits/BATCH-2026-11-19-W4.md).
+
 **18/11/2026 — Đợt 3:** Nút AI nổi nhường chỗ cho Thuộc tính, ngày ôn dùng cùng bộ định dạng và Quick Open hiển thị biểu tượng cùng nhãn phân loại theo ngôn ngữ. Cài đặt rút gọn mô tả, Trang chủ dùng một nút chuẩn bị dữ liệu và tổng kết phiên đặt Hoàn tác cạnh Đóng. [Biên bản và QA bốn ngôn ngữ](audits/BATCH-2026-11-18-W3.md).
 
 **18/11/2026 — Đợt 2, Lô 4:** Cài đặt và cảnh báo hướng dẫn AI dùng tên Memnova và copy rõ hành động. Chrome giới hạn thao tác chọn chữ, thanh trạng thái phân biệt cảnh báo MCP với bộ đếm và biểu tượng Topics dễ đọc hơn ở theme tối. Bảng vẽ nhận ngôn ngữ ứng dụng. Danh sách và breadcrumb hiện “Chưa có tiêu đề” cho ghi chú mới chưa có H1. [Findings và ảnh QA](audits/FINDINGS.md#đợt-2--lô-4).
