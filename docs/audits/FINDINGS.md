@@ -379,3 +379,12 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 - Baseline `dcc809fd` đạt 5/5 khi chạy riêng và 5/5 với CPU chậm 4×. Giữ phản hồi nạp nền đầu tiên của Library fixture đến sau khi API lưu trả 200 tái hiện lỗi 5/5 ở assertion tên trong danh sách. Cả năm trace đều ghi yêu cầu lưu có H1 cuối. Mỗi lượt chạy một lần với `--retries=0`.
 - `useVaultLoader` giao việc nạp Library đang mở cho luồng khởi tạo. Luồng nền chỉ nạp các Library khác, tránh áp lại snapshot cũ sau khi người dùng sửa tiêu đề. Lượt kiểm sau thay đổi này đạt 9/10. Lượt lỗi có “Saved” và cảnh báo React về độ sâu cập nhật, toàn bộ phản hồi nạp danh sách đã về trước Cmd+S. `useEditorSaveWithLinks` cập nhật tên hiển thị từ nội dung vừa lưu trong cùng lần cập nhật metadata, kể cả khi transition của tiêu đề nháp còn chờ.
 - Hai test hồi quy Vitest đã RED rồi GREEN, tổng 161/161 ca liên quan đạt. Sau cả hai sửa đổi, Chromium đạt 10/10 với `--retries=0 --repeat-each=10` trên ca gốc ở dòng 154, giữ đủ assertion của editor, danh sách và mở lại. Cả 10 trace ghi API lưu trả 200 với H1 cuối.
+
+## Đợt 2 · Lô 1
+
+### F-042 · W2-01 · Quick Open ghi ký tự vào ghi chú
+
+- P1 · **fixed (commit W2-01)**. Trong Library QA native 1440×900, vi, tập trung editor và gõ `x` ngay sau phím tắt. Cmd+P: 5/5 ký tự lọt vào ghi chú, tệp Markdown tự lưu kết thúc bằng `xxxxx`. Cmd+K: 5/5 ký tự vào ô lệnh. Không retry.
+- Đạt khi ký tự gõ ngay sau cả hai phím tắt vào ô tìm kiếm/lệnh và giữ nguyên nội dung ghi chú, có regression test.
+- Nguyên nhân: Quick Open đợi timer 50 ms để focus. Ô tìm kiếm giờ nhận focus khi mount, trước khi vẽ. Chromium RED: Cmd+P thêm `x` vào editor, Cmd+K đạt. GREEN: 2/2, không retry, kiểm nội dung editor và byte tệp. Native sau sửa: 10/10 ở tối và một lượt đối chiếu ở sáng, tệp QA giữ nguyên ký tự từ lần tái hiện.
+- Ảnh native: [trước sáng](review-shots/2026-11-18/W2-01-before-light.png) · [trước tối](review-shots/2026-11-18/W2-01-before-dark.png) · [sau sáng](review-shots/2026-11-18/W2-01-after-light.png) · [sau tối](review-shots/2026-11-18/W2-01-after-dark.png).

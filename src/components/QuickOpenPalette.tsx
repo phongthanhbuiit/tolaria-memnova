@@ -77,7 +77,6 @@ function useQuickOpenCreateAction({
 }
 
 function useQuickOpenKeyboard({
-  open,
   results,
   selectedIndex,
   onSelect,
@@ -85,7 +84,6 @@ function useQuickOpenKeyboard({
   handleKeyDown,
   createFromQuery,
 }: {
-  open: boolean
   results: NoteSearchResult[]
   selectedIndex: number
   onSelect: (entry: VaultEntry) => void
@@ -94,7 +92,6 @@ function useQuickOpenKeyboard({
   createFromQuery: () => void | Promise<void>
 }) {
   useLayoutEffect(() => {
-    if (!open) return
     const handler = (e: KeyboardEvent) => {
       handleKeyDown(e)
       if (e.key === 'Escape') {
@@ -113,29 +110,27 @@ function useQuickOpenKeyboard({
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [open, results, selectedIndex, onSelect, onClose, handleKeyDown, createFromQuery])
+  }, [results, selectedIndex, onSelect, onClose, handleKeyDown, createFromQuery])
 }
 
-export function QuickOpenPalette({ open, entries, isLoading = false, onSelect, onCreateNote, onClose, locale = 'en' }: QuickOpenPaletteProps) {
+export function QuickOpenPalette({ open, ...props }: QuickOpenPaletteProps) {
+  return open ? <OpenQuickOpenPalette {...props} /> : null
+}
+
+function OpenQuickOpenPalette({ entries, isLoading = false, onSelect, onCreateNote, onClose, locale = 'en' }: Omit<QuickOpenPaletteProps, 'open'>) {
   const [query, setQuery] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
   const rootRef = useRef<HTMLDivElement>(null)
   const { results, selectedIndex, setSelectedIndex, handleKeyDown } = useNoteSearch(entries, query)
   const createAction = useQuickOpenCreateAction({ query, isLoading, resultCount: results.length, onCreateNote, onClose })
 
-  useEffect(() => {
-    if (open) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- reset on dialog open
-      setQuery('')
-      setSelectedIndex(0)
-      setTimeout(() => inputRef.current?.focus(), 50)
-    }
-  }, [open, setSelectedIndex])
+  useLayoutEffect(() => {
+    inputRef.current?.focus({ preventScroll: true })
+  }, [])
 
-  useQuickOpenKeyboard({ open, results, selectedIndex, onSelect, onClose, handleKeyDown, createFromQuery: createAction.create })
+  useQuickOpenKeyboard({ results, selectedIndex, onSelect, onClose, handleKeyDown, createFromQuery: createAction.create })
 
   useEffect(() => {
-    if (!open) return
     const root = rootRef.current
     if (!root) return
 
@@ -145,9 +140,7 @@ export function QuickOpenPalette({ open, entries, isLoading = false, onSelect, o
 
     root.addEventListener('click', handleRootClick)
     return () => root.removeEventListener('click', handleRootClick)
-  }, [open, onClose])
-
-  if (!open) return null
+  }, [onClose])
 
   return (
     <div
