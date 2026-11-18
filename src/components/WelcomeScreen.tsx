@@ -236,6 +236,7 @@ function OptionButton({
       type="button"
       variant="outline"
       size="lg"
+      layout="responsive"
       style={{
         ...OPTION_BTN_STYLE,
         background: hover ? 'var(--sidebar)' : 'var(--background)',
@@ -253,7 +254,7 @@ function OptionButton({
       <div style={{ ...OPTION_ICON_STYLE, background: iconBg }}>
         {loading ? <Loader2 size={18} className="animate-spin" style={{ color: 'var(--muted-foreground)' }} /> : icon}
       </div>
-      <div>
+      <div className="min-w-0 [overflow-wrap:break-word]">
         <p className="text-(length:--text-body-lg) leading-(--text-body-lg--line-height)" style={OPTION_LABEL_STYLE}>{loading ? (loadingLabel ?? label) : label}</p>
         <p className="text-(length:--text-small) leading-(--text-small--line-height)" style={OPTION_DESC_STYLE}>{loading ? (loadingDescription ?? description) : description}</p>
       </div>
@@ -383,6 +384,8 @@ export function WelcomeScreen({
 
   return (
     <OnboardingShell
+      className="items-start overflow-y-auto"
+      contentClassName="my-auto"
       style={{ background: 'var(--sidebar)' }}
       contentStyle={CARD_STYLE}
       testId="welcome-screen"

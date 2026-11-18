@@ -5,20 +5,20 @@ Trạng thái: `open` · `partial` · `fixed — chờ QA native (phạm vi)` ·
 
 ## Tiến độ hiện tại — tổng kết đêm 18/11/2026
 
-Đối chiếu [log đêm](OVERNIGHT-2026-11-18.md) và bằng chứng của từng bước. Các bảng theo đợt bên dưới giữ mô tả và số đếm baseline. Bảng này ghi trạng thái hiện tại. Tổng kết **DONE D3/E1/R-08/TEST-STABILITY** và **PARTIAL D4A/D4B/E2/I18N-A11Y-2/LEARNING-COPY**. D4B đã xong mã trong 5 file F-032, còn F-038 chờ native legacy.
+Đối chiếu [tóm tắt buổi sáng](OVERNIGHT-2026-11-18.md#tóm-tắt-buổi-sáng) và bằng chứng của từng bước. Các bảng theo đợt bên dưới giữ mô tả và số đếm baseline. Bảng này ghi trạng thái hiện tại. Tổng kết **DONE D3/E1/R-08/TEST-STABILITY/R-10** và **PARTIAL D4A/D4B/E2/I18N-A11Y-2/LEARNING-COPY**. D4B đã xong mã trong 5 file F-032, còn F-038 chờ native legacy.
 
 | Mức | Open | Partial | Fixed — chờ QA native |
 |---|---|---|---|
 | P0 | Không | Không | Không |
 | P1 | Không | F-005, F-024 | Không |
-| P2 | F-021; R-15 | F-009, F-032 | F-012: nhãn pending/invalid/deleted; R-11: editor thuộc tính |
-| P3 | R-10 | Không | F-038: Home/Decks/FlashcardStudyView legacy |
+| P2 | F-021, R-15, R-16 | F-009, F-032 | F-012 (pending/invalid/deleted), R-11 (editor thuộc tính) |
+| P3 | Không | Không | F-038 (Home/Decks/FlashcardStudyView legacy) |
 
-**Đã đóng:** F-001–F-004, F-006–F-008, F-010–F-011, F-013–F-020, F-022–F-023, F-025–F-031, F-033–F-037, F-039–F-041 (**34 F**) và R-01–R-09, R-12–R-14 (**12 R**). F-023/F-025/F-030/F-031 là phần nền tảng A. R-05 là test-only. Telex native vẫn chưa được xác minh.
+**Đã đóng:** F-001–F-004, F-006–F-008, F-010–F-011, F-013–F-020, F-022–F-023, F-025–F-031, F-033–F-037, F-039–F-041 (**34 F**) và R-01–R-10, R-12–R-14 (**13 R**). F-023/F-025/F-030/F-031 là phần nền tảng A. R-05 là test-only. Telex native vẫn chưa được xác minh.
 
 **Còn chờ native/bằng chứng bổ sung:** F-005 (author-name combobox cuối, ảnh trước tối); F-024 (legacy/Linux/trạng thái hiếm); F-032 (message/tool chỉ có fixture); F-038 (các màn legacy không có route native); Telex trong AI và ô wikilink từ R-05/E2. F-005/F-024/F-032 vẫn partial vì ngoài QA còn phần mã/phạm vi chưa hoàn tất. F-038 đã sửa mã nhưng không tính đóng khi các màn legacy mới được kiểm bằng fixture/diff/test; đối chiếu giới hạn native trong [D4B](STEP-D4B-INLINE-STYLE.md).
 
-Coverage gần nhất (TEST-STABILITY): FE **87,84%**, Rust đầy đủ **86,41%** lines. Grep SPEC §8 hiện tại **1 / 0**.
+Coverage dòng gần nhất (R-10): FE **87,85%**, Rust đầy đủ **86,41%**. Grep SPEC §8 hiện tại **1 / 0**.
 
 ## Đợt 0 — rà soát ban đầu (17/11/2026)
 
@@ -327,9 +327,9 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 
 ## R-10 — Mô tả Welcome tiếng Việt vượt mép nút
 
-- P3 · **open** · có sẵn ở baseline, ngoài thay cỡ chữ F-024; không sửa bố cục trong D4A.
+- P3 · **fixed**. Nút Welcome dùng layout responsive, phần chữ co lại và xuống dòng, màn Welcome cuộn theo chiều dọc khi cần. Giữ kích hoạt và focus. [QA R-10](OVERNIGHT-2026-11-18.md#r-10--done).
 - Native QA macOS1440×900, vi, sáng/tối: mô tả của nút tạo Library chạy vượt đường viền bên phải. Còn đọc được nhưng không nằm trong vùng hiển thị nút. [Baseline sáng](evidence/D4A-welcome-before-light.png), [đối chiếu tối](evidence/D4A-welcome-compare-dark.png). Hiện tượng có cả trước/sau thay token.
-- Tái hiện: mở app QA với preferences rỗng và ngôn ngữ vi → xem Welcome → quan sát dòng phụ nút tạo Library. Chấp nhận: mô tả nằm trong bề rộng nút, xuống dòng phù hợp, giữ luồng kích hoạt/focus. Cần thay bố cục/nowrap nên để bước riêng.
+- Tái hiện bằng profile QA rỗng, locale vi. Sau sửa, chữ nằm trong nút ở 1440×900, 1024×700 và 480×400. Ma trận vi/en/ru-RU trên Chromium/WebKit và cả hai theme đạt 36/36. [Trước](evidence/R-10-before-light.png) · [Sau](evidence/R-10-after-light.png).
 
 ## R-11 — Copy English còn ngoài các nhãn E1 được chỉ định
 
@@ -365,3 +365,8 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 
 - P2 · i18n · **open**. Trong native vi, toolbar tùy biến hiển thị “Paragraph”, bộ lọc Create View hiển thị “Match all conditions”, “Add filter”, “Add group”. Các chuỗi quan sát này nằm ngoài phép so khớp nguyên giá trị với catalog ở R-11. [AX native](evidence/I18N-A11Y-2-native-AX.txt).
 - Tái hiện bằng cách mở thanh định dạng của editor và hộp thoại tạo View bằng locale vi. Đưa các chuỗi giao diện này vào catalog và kiểm trên native cùng trình duyệt.
+
+## R-16 — Smoke H1 đôi lúc vẫn thấy tiêu đề cũ trong danh sách
+
+- P2 · **open** · độ ổn định kiểm thử. Hook R-10 ghi một lần lỗi rồi đạt khi chạy lại theo cấu hình có sẵn. Snapshot ghi editor đã hiện “Alpha Project Fast Typing Flow”, hàng đã chọn vẫn hiện “Alpha Project”. [Kết quả và AX](evidence/R-16-smoke.txt).
+- Ca `tests/smoke/h1-title-decoupled.spec.ts:154` gõ nhanh H1, thay hậu tố rồi lưu bằng Cmd+S. Probe baseline `48f3955e` đạt 5/5 với retries=0. Chưa phân loại được cập nhật danh sách hay readiness của test. Chấp nhận tiêu đề mới xuất hiện trong editor và danh sách rồi còn đúng sau khi mở lại, với toàn bộ assertion và retries=0.

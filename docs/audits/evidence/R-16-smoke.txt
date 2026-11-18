@@ -1,0 +1,16 @@
+18/11/2026 | R-16 | Chromium core smoke in the first R-10 pre-push hook.
+First run and existing retry:
+  ✘  20 [chromium] › tests/smoke/h1-title-decoupled.spec.ts:154:1 › @smoke rapid H1 typing stays stable while editing an existing note (8.4s)
+  ✓  21 [chromium] › tests/smoke/h1-title-decoupled.spec.ts:154:1 › @smoke rapid H1 typing stays stable while editing an existing note (retry #1) (3.6s)
+
+Failure accessibility snapshot excerpt:
+          - option "Alpha Project This is a test project that references other notes. See Note B for details and Note C for additional context. November 18, 2026" [selected] [ref=e110] [cursor=pointer]:
+            - heading "Alpha Project Fast Typing Flow" [level=1] [ref=e208]
+
+Isolated baseline probe at 48f3955e, five repetitions with --retries=0:
+  ✓  1 [chromium] › tests/smoke/h1-title-decoupled.spec.ts:154:1 › @smoke rapid H1 typing stays stable while editing an existing note (6.8s)
+  ✓  2 [chromium] › tests/smoke/h1-title-decoupled.spec.ts:154:1 › @smoke rapid H1 typing stays stable while editing an existing note (4.0s)
+  ✓  3 [chromium] › tests/smoke/h1-title-decoupled.spec.ts:154:1 › @smoke rapid H1 typing stays stable while editing an existing note (3.6s)
+  ✓  4 [chromium] › tests/smoke/h1-title-decoupled.spec.ts:154:1 › @smoke rapid H1 typing stays stable while editing an existing note (4.5s)
+  ✓  5 [chromium] › tests/smoke/h1-title-decoupled.spec.ts:154:1 › @smoke rapid H1 typing stays stable while editing an existing note (4.0s)
+  5 passed (31.1s)

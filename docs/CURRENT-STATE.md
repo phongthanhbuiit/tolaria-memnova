@@ -1,5 +1,7 @@
 # Memnova hiện tại
 
+**18/11/2026 — Welcome:** R-10 cho phép mô tả nút tạo Library xuống dòng trong nút, và màn hình chào cuộn được khi cửa sổ thấp. Kiểm vi, en và ru-RU ở 1440×900, 1024×700 và 480×400. [Ma trận QA và ảnh trước/sau](audits/OVERNIGHT-2026-11-18.md#r-10--done).
+
 **18/11/2026 — Copy ôn tập:** UI tiếng Việt dùng ghi chú, ôn tập/ôn, Ghi nhớ và thẻ theo thuật ngữ đã chọn. Hạn ôn hiển thị tương đối với mốc tuyệt đối trong tooltip. Các trạng thái cần phục hồi chỉ ra bước tiếp theo. Sidebar có mô tả cho Trang chủ và Ôn tập. [Biên bản, bảng thuật ngữ và ảnh đối chiếu](audits/STEP-LEARNING-COPY.md).
 
 **18/11/2026 — Tiếng Việt và tên truy cập:** R-11 dịch Lưu và tên nút đóng Quick Open, thêm quét nhãn tiếng Anh còn trùng catalog trên các bề mặt chính. Nút Lưu đã kiểm trên Chromium/WebKit, còn kiểm editor thuộc tính native. R-13 dùng dictionary BlockNote theo locale và giữ trạng thái editor khi đổi ngôn ngữ. R-14 bổ sung label tiếng Việt cho từng ô chọn trường trong bộ lọc. Các chuỗi tiếng Anh ngoài catalog quan sát trong bộ lọc và toolbar được ghi ở R-15. [Biên bản và bằng chứng](audits/STEP-I18N-A11Y-2.md).

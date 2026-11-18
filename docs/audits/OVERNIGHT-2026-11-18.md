@@ -2,6 +2,22 @@
 
 ## Tóm tắt buổi sáng
 
+- **R-10 đã đóng.** Mô tả nút tạo Library xuống dòng trong nút. **36/36** ca Playwright ở vi, en, ru-RU, ba kích thước và hai theme. Native xác minh thêm focus, cuộn và hộp chọn thư mục. [QA R-10](#r-10--done).
+- **DONE** D3, E1, R-08, TEST-STABILITY, R-10. **PARTIAL** D4A, D4B, E2, I18N-A11Y-2, LEARNING-COPY. Tổng cộng đã đóng 34 finding F và 13 finding R.
+
+| Mức | Open | Partial | Fixed — chờ QA native |
+|---|---|---|---|
+| P0 | Không | Không | Không |
+| P1 | Không | F-005, F-024 | Không |
+| P2 | F-021, R-15, R-16 | F-009, F-032 | F-012 (pending/invalid/deleted), R-11 (editor thuộc tính) |
+| P3 | Không | Không | F-038 (Home/Decks/FlashcardStudyView legacy) |
+
+- Telex trong AI và ô wikilink vẫn còn chờ xác minh native từ R-05/E2. [Trạng thái và phạm vi từng finding](FINDINGS.md).
+- R-16 ghi nhận một ca H1 không ổn định ở smoke. Ca đầu có tiêu đề mới trong editor nhưng danh sách vẫn hiện tên cũ. [Bằng chứng](evidence/R-16-smoke.txt).
+- Grep SPEC §8 **1 / 0**. Coverage dòng **FE 87,85%**, Rust **86,41%**.
+
+## Tóm tắt buổi sáng trước R-10
+
 - Tổng kết bước: **DONE** D3, E1, R-08, TEST-STABILITY; **PARTIAL** D4A, D4B (5 file F-032 đã xong; F-038 chờ native), E2; **SKIPPED** không. F-041/D2 đã hoàn tất trước log; không có lệnh dừng.
 - Đã đóng F: **001–004, 006, 008, 010, 013–019, 022–023, 025–031, 033–037, 039–041** (31 finding; các finding nền tảng chỉ tính đúng phạm vi).
 - Đã đóng R: **01–09, 12**; R-08 là P1 test-only. R-05 chỉ sửa test, không phải nghiệm thu IME native. F-038 sửa mã nhưng **chờ QA native legacy**, chưa tính đã đóng.
@@ -141,3 +157,15 @@
 - Grep SPEC §8 **1 → 1 / 0 → 0**. Codacy CLI local **9 → 9** Medium, 0 Critical/High mới. CodeScene: not run (optional integration unavailable). Dịch trực tiếp bảy key mới trong 18 catalog, validator đạt 1.109 khóa. PostHog không thêm event cho thay đổi trình bày.
 - Câu hỏi cho người dùng / quyết định đã chọn. Dùng ngày lịch địa phương và tháng tròn cho hạn lâu, mốc tuyệt đối giữ ở tooltip. Giữ “Trang chủ” cho Home và “gợi nhớ” cho mnemonic. Dùng ba nhãn hướng dẫn theo trạng thái và đường dẫn phục hồi hiện có. Dùng shared Tooltip và giữ đích điều hướng của sidebar.
 - [Biên bản và ảnh trước/sau](STEP-LEARNING-COPY.md) · [Bảng 201 key vi.json](GLOSSARY.md) · [AX native](evidence/LEARNING-COPY-native-AX.txt).
+
+## R-10 — DONE
+
+- Cổng an toàn đầu bước đạt. HEAD = origin/main = `48f3955e`, 0 commit chờ push. Dùng Node 24.12.0. Giữ AGENTS.md, .agents và PLAN/SPEC/OVERNIGHT-RULES ở ngoài index.
+- R-10 **fixed** trong commit duy nhất chứa mã, test, ảnh và bản tổng kết. Cổng đóng bước là `git push origin main` với hook thường.
+- RED Chromium **10/18 fail** ở baseline. Mô tả tiếng Việt tràn ở cả ba kích thước, en/ru-RU tràn ở 480×400. GREEN **18/18 Chromium + 18/18 WebKit**, không retry. Spec đo hình chữ thực tế từ DOM Range, kiểm xuống dòng khi cần, nút nằm trong vùng nhìn, chiều ngang không cuộn và nút tạo Library giữ focus. Ma trận gồm 1440×900, 1024×700 và cỡ cấu hình Tauri nhỏ nhất 480×400, ba locale và cả hai theme.
+- QA native trên bundle incognito riêng với profile rỗng. Xác minh vi ở 1440×900, ru ở 1030×700, en/vi ở 1030×400. App đặt bề rộng tối thiểu 1030 ở bố cục QA hiện tại, nên 1024×700 và 480×400 chính xác được kiểm trong hai engine trình duyệt. Đã cuộn tới Nâng cao rồi mở bằng chuột. Đã mở hộp chọn thư mục tạo Library và hủy bằng Escape. App QA đã thoát.
+- Ảnh Chromium 480×400 · vi sáng [trước](evidence/R-10-before-light.png) / [sau](evidence/R-10-after-light.png) · vi tối [trước](evidence/R-10-before-dark.png) / [sau](evidence/R-10-after-dark.png) · [en tối](evidence/R-10-after-en-dark.png) · [ru tối](evidence/R-10-after-ru-dark.png).
+- Lint, tsc và 5.045 test trong 506 tệp frontend đạt, coverage dòng **87,85%**. Rust `cargo test` đạt 1.241 unit + 1 integration, 3 ignored có sẵn. `cargo llvm-cov` đạt **86,41%** lines. Grep SPEC §8 **1 → 1 / 0 → 0**.
+- Codacy CLI local **5 → 5** cảnh báo Medium, **0 Critical/High mới**. CodeScene: not run (optional integration unavailable). Localization: no UI copy changes. Validator đạt 18 catalog và 1.109 khóa. PostHog không cần event cho chỉnh bố cục. Demo-vault và demo-vault-v2 sạch.
+- Câu hỏi cho người dùng / quyết định đã chọn. Dùng layout responsive của Button, cho khối chữ co lại và ưu tiên ngắt ở khoảng trắng. Welcome cuộn dọc khi thiếu chiều cao. Giữ token hiện có, kích thước cửa sổ và hành vi mở/tạo Library.
+- Hook push đầu phát hiện ca H1 lỗi ở lượt đầu và qua retry hiện có. Dừng lượt push trước khi công bố để ghi R-16 vào cùng commit rồi chạy lại hook. [Bằng chứng](evidence/R-16-smoke.txt).
