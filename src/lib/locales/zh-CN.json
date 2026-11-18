@@ -1167,5 +1167,7 @@
   "ai.guidance.geminiBroken": "Gemini guidance is damaged. Choose Restore to repair it.",
   "ai.guidance.custom": "Using custom {files}",
   "ai.guidance.ready": "Memnova guidance is ready",
-  "status.mcp.setupHint": "External AI tools are not connected to this Library. Select MCP to open setup."
+  "status.mcp.setupHint": "External AI tools are not connected to this Library. Select MCP to open setup.",
+  "a11y.whiteboardMoreTools": "More tools",
+  "a11y.whiteboardHelp": "Help"
 }

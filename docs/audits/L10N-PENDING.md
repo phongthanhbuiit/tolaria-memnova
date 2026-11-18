@@ -17,3 +17,8 @@
 
 - `status.mcp.notConnected`
 - `status.mcp.setupHint`
+
+## F-005 · Nhãn tiếng Việt của bảng vẽ
+
+- `a11y.whiteboardMoreTools`
+- `a11y.whiteboardHelp`
