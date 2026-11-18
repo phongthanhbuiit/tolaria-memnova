@@ -99,15 +99,6 @@ const CARD_STYLE: React.CSSProperties = {
   gap: 24,
 }
 
-const ICON_WRAP_STYLE: React.CSSProperties = {
-  width: 64,
-  height: 64,
-  borderRadius: 16,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}
-
 const BRAND_ICON_STYLE: React.CSSProperties = {
   width: 64,
   height: 64,
@@ -122,40 +113,10 @@ const TITLE_STYLE: React.CSSProperties = {
   margin: 0,
 }
 
-const SUBTITLE_STYLE: React.CSSProperties = {
-  color: 'var(--muted-foreground)',
-  textAlign: 'center',
-  margin: 0,
-}
-
 const DIVIDER_STYLE: React.CSSProperties = {
   width: '100%',
   height: 1,
   background: 'var(--border)',
-}
-
-const OPTION_BTN_STYLE: React.CSSProperties = {
-  width: '100%',
-  borderRadius: 8,
-  border: '1px solid var(--border)',
-  background: 'var(--background)',
-  cursor: 'pointer',
-  display: 'flex',
-  alignItems: 'center',
-  gap: 14,
-  padding: '14px 16px',
-  textAlign: 'left',
-  transition: 'background 0.15s',
-}
-
-const OPTION_ICON_STYLE: React.CSSProperties = {
-  width: 36,
-  height: 36,
-  borderRadius: 8,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  flexShrink: 0,
 }
 
 const OPTION_LABEL_STYLE: React.CSSProperties = {
@@ -238,7 +199,6 @@ function OptionButton({
       size="lg"
       layout="responsive"
       style={{
-        ...OPTION_BTN_STYLE,
         background: hover ? 'var(--sidebar)' : 'var(--background)',
         opacity: disabled ? 0.7 : 1,
       }}
@@ -248,11 +208,11 @@ function OptionButton({
       onMouseLeave={() => setHover(false)}
       data-testid={testId}
       autoFocus={autoFocus}
-      className="h-auto justify-start shadow-none"
+      className="flex h-auto w-full cursor-pointer items-center justify-start gap-[14px] rounded-[8px] border border-solid border-border px-[16px] py-[14px] text-left shadow-none [transition:background_0.15s] dark:border-border"
       ref={buttonRef}
     >
-      <div style={{ ...OPTION_ICON_STYLE, background: iconBg }}>
-        {loading ? <Loader2 size={18} className="animate-spin" style={{ color: 'var(--muted-foreground)' }} /> : icon}
+      <div className="flex size-[36px] shrink-0 items-center justify-center rounded-[8px]" style={{ background: iconBg }}>
+        {loading ? <Loader2 size={18} className="animate-spin text-muted-foreground" /> : icon}
       </div>
       <div className="min-w-0 [overflow-wrap:break-word]">
         <p className="text-(length:--text-body-lg) leading-(--text-body-lg--line-height)" style={OPTION_LABEL_STYLE}>{loading ? (loadingLabel ?? label) : label}</p>
@@ -266,7 +226,7 @@ function getWelcomeScreenPresentation(mode: WelcomeScreenProps['mode'], locale: 
   const t = (key: Parameters<typeof translate>[1]) => translate(locale, key)
   return {
     heroBackground: mode === 'welcome' ? 'transparent' : 'var(--accent-yellow-light)',
-    heroIcon: mode === 'welcome' ? <img src={tolariaIcon} alt="" style={BRAND_ICON_STYLE} /> : <AlertTriangle size={28} style={{ color: 'var(--accent-orange)' }} />,
+    heroIcon: mode === 'welcome' ? <img src={tolariaIcon} alt="" style={BRAND_ICON_STYLE} /> : <AlertTriangle size={28} className="text-(--accent-orange)" />,
     openFolderLabel: t('welcome.open'),
     subtitle: t(mode === 'welcome' ? 'welcome.subtitle' : 'welcome.missingHelp'),
     templateDescription: t('welcome.templateHelp'),
@@ -384,36 +344,33 @@ export function WelcomeScreen({
 
   return (
     <OnboardingShell
-      className="items-start overflow-y-auto"
+      className="items-start overflow-y-auto bg-sidebar"
       contentClassName="my-auto"
-      style={{ background: 'var(--sidebar)' }}
       contentStyle={CARD_STYLE}
       testId="welcome-screen"
     >
       <>
         <div
-          style={{
-            ...ICON_WRAP_STYLE,
-            background: presentation.heroBackground,
-          }}
+          className="flex size-[64px] items-center justify-center rounded-[16px]"
+          style={{ background: presentation.heroBackground }}
         >
           {presentation.heroIcon}
         </div>
 
-        <div style={{ textAlign: 'center' }}>
+        <div className="text-center">
           <h1 className="text-(length:--text-display) leading-(--text-display--line-height)" style={TITLE_STYLE}>{presentation.title}</h1>
-          <p className="text-(length:--text-body-lg) leading-(--text-body-lg--line-height)" style={{ ...SUBTITLE_STYLE, marginTop: 8 }}>
+          <p className="m-0 mt-[8px] text-center text-muted-foreground text-(length:--text-body-lg) leading-(--text-body-lg--line-height)">
             {presentation.subtitle}
           </p>
         </div>
 
         <div style={DIVIDER_STYLE} />
 
-        <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <div className="flex w-full flex-col gap-[10px]">
 
 
           <OptionButton
-            icon={<Plus size={18} style={{ color: 'var(--accent-blue)' }} />}
+            icon={<Plus size={18} className="text-(--accent-blue)" />}
             iconBg="var(--accent-blue-light)"
             label={t('welcome.create')}
             description={t('welcome.createHelp')}
@@ -428,7 +385,7 @@ export function WelcomeScreen({
           />
 
           <OptionButton
-            icon={<FolderOpen size={18} style={{ color: 'var(--accent-green)' }} />}
+            icon={<FolderOpen size={18} className="text-(--accent-green)" />}
             iconBg="var(--accent-green-light)"
             label={presentation.openFolderLabel}
             description={t('welcome.openHelp')}
@@ -439,7 +396,7 @@ export function WelcomeScreen({
           />
           <Button ref={advancedActionRef} variant="ghost" disabled={busy} aria-expanded={advanced} onClick={onToggleAdvanced}>{t('learning.advanced')}</Button>
           {advanced && <>          <OptionButton
-            icon={<Rocket size={18} style={{ color: 'var(--accent-purple)' }} />}
+            icon={<Rocket size={18} className="text-(--accent-purple)" />}
             iconBg="var(--accent-purple-light)"
             label={t('welcome.template')}
             description={presentation.templateDescription}
