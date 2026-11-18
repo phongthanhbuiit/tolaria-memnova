@@ -83,16 +83,11 @@ function RawEditorYamlErrorBanner({ error }: { error: string | null }) {
 
   return (
     <div
-      className="flex items-center gap-2 px-4 py-2 text-xs border-b shrink-0"
-      style={{
-        background: 'var(--feedback-warning-bg)',
-        borderColor: 'var(--feedback-warning-border)',
-        color: 'var(--feedback-warning-text)',
-      }}
+      className="flex shrink-0 items-center gap-2 border-b border-(--feedback-warning-border) bg-(--feedback-warning-bg) px-4 py-2 text-xs text-(--feedback-warning-text)"
       role="alert"
       data-testid="raw-editor-yaml-error"
     >
-      <span style={{ fontWeight: 600 }}>YAML error:</span>
+      <span className="font-semibold">YAML error:</span>
       <span>{error}</span>
     </div>
   )
@@ -111,13 +106,11 @@ function RawEditorAutocompleteDropdown({
 
   return (
     <div
-      className="fixed z-50 min-w-64 max-w-xs overflow-auto rounded-md border shadow-[0_12px_30px_var(--shadow-dialog)]"
+      className="fixed z-50 min-w-64 max-w-xs overflow-auto rounded-md border border-border bg-popover shadow-[0_12px_30px_var(--shadow-dialog)]"
       style={{
         top: position.top,
         left: position.left,
         maxHeight: DROPDOWN_MAX_HEIGHT,
-        background: 'var(--popover)',
-        borderColor: 'var(--border)',
       }}
       data-testid="raw-editor-wikilink-dropdown"
     >
@@ -473,8 +466,7 @@ export function RawEditorView({ content, path, entries, sourceEntry, onContentCh
   return (
     <div
       ref={rootRef}
-      className="flex flex-1 flex-col min-h-0 relative"
-      style={{ background: 'var(--background)' }}
+      className="relative flex min-h-0 flex-1 flex-col bg-background"
     >
       <RawEditorYamlErrorBanner error={pendingChanges.yamlError} />
       <RawEditorFindBar
