@@ -1,5 +1,7 @@
 # Memnova hiện tại
 
+**18/11/2026 — Đợt 2, Lô 4:** Cài đặt và cảnh báo hướng dẫn AI dùng tên Memnova và copy rõ hành động. Chrome giới hạn thao tác chọn chữ, thanh trạng thái phân biệt cảnh báo MCP với bộ đếm và biểu tượng Topics dễ đọc hơn ở theme tối. Bảng vẽ nhận ngôn ngữ ứng dụng. Danh sách và breadcrumb hiện “Chưa có tiêu đề” cho ghi chú mới chưa có H1. [Findings và ảnh QA](audits/FINDINGS.md#đợt-2--lô-4).
+
 **18/11/2026 — Đợt 2, Lô 3:** Khi mở đồng thời Thuộc tính và AI, cửa sổ chật tự thu danh sách ghi chú. AI chuyển sang dạng nổi khi không còn đủ chiều rộng cho bố cục song song. Tạo, xác minh và khôi phục bản sao lưu nằm trong Cài đặt › Thư viện. Chip ngày trong trình chỉnh thuộc tính và lịch ôn áp dụng tùy chọn hiển thị ngày. Panel Thuộc tính đặt các lối thêm và sửa cạnh nhau, với dấu cộng rõ trên nút thêm quan hệ. [Findings](audits/FINDINGS.md#đợt-2--lô-3).
 
 **18/11/2026 — Đợt 2, Lô 2:** Thẻ legacy tự cuộn tới câu trả lời và tránh lặp tên thẻ trong câu hỏi. Phiên hoàn tất hiện số thẻ theo mức chấm cuối và hạn ôn gần nhất. Trang Ôn tập có tiêu đề, tab Bộ thẻ và disclosure Nâng cao. Cách ghi khoảng ôn tiếng Việt và biểu tượng quay lại ghi chú rõ hơn. [Findings và ảnh nghiệm thu](audits/FINDINGS.md#đợt-2--lô-2).

@@ -359,6 +359,23 @@ describe('BreadcrumbBar — title in breadcrumb (always rendered, CSS-toggled)',
 })
 
 describe('BreadcrumbBar — filename controls', () => {
+  it('shows a localized title for a new note while editing its real filename', () => {
+    expectDisplayTitleState(
+      { title: 'Untitled Note 1794825081 2', filename: 'untitled-note-1794825081-2.md', hasH1: false },
+      { displayTitle: 'Chưa có tiêu đề', filenameStem: 'untitled-note-1794825081-2' },
+      { locale: 'vi', content: '# \n\nBody.' },
+    )
+    expect(startFilenameRename()).toHaveValue('untitled-note-1794825081-2')
+  })
+
+  it('uses the actual H1 as soon as it is written, even before a generated filename changes', () => {
+    expectDisplayTitleState(
+      { title: 'Untitled Note 1794825081', filename: 'untitled-note-1794825081.md', hasH1: false },
+      { displayTitle: 'Nhật ký', filenameStem: 'untitled-note-1794825081' },
+      { locale: 'vi', content: '# Nhật ký' },
+    )
+  })
+
   it('shows the legacy title while retaining the filename in the editing label', () => {
     expectDisplayTitleState(
       {

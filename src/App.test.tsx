@@ -677,7 +677,7 @@ describe('App', () => {
       await waitFor(() => {
         expect(window.__laputaTest?.activeTabPath).toBe('/vault/untitled-note-1700000000.md')
       })
-      expect(screen.getAllByText('Untitled Note 1700000000').length).toBeGreaterThan(0)
+      expect(screen.getByTestId('breadcrumb-display-title')).toHaveTextContent(/^Untitled$/)
     } finally {
       dateNow.mockRestore()
     }

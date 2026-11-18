@@ -22,3 +22,7 @@
 
 - `a11y.whiteboardMoreTools`
 - `a11y.whiteboardHelp`
+
+## F-009 · Tiêu đề ghi chú mới
+
+- `editor.untitledNote`

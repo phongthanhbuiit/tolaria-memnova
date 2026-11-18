@@ -1,6 +1,7 @@
 import { render, screen, fireEvent, within } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { NoteItem } from './NoteItem'
+import { AppPreferencesProvider } from '../hooks/useAppPreferences'
 import { makeEntry } from '../test-utils/noteListTestUtils'
 
 vi.mock('../utils/url', async () => {
@@ -17,6 +18,19 @@ const NOW_SECONDS = 1_744_286_400
 describe('NoteItem', () => {
   beforeEach(() => {
     openExternalUrl.mockClear()
+  })
+
+  it('shows a localized placeholder in the list only for the generated title', () => {
+    const entry = makeEntry({ title: 'Untitled Note 1794825081', filename: 'untitled-note-1794825081.md', hasH1: false })
+    const note = (hasH1: boolean) => (
+      <AppPreferencesProvider locale="vi">
+        <NoteItem entry={{ ...entry, hasH1 }} isSelected={false} typeEntryMap={{}} onClickNote={vi.fn()} />
+      </AppPreferencesProvider>
+    )
+    const { rerender } = render(note(false))
+    expect(screen.getByTestId('note-title-row')).toHaveTextContent('Chưa có tiêu đề')
+    rerender(note(true))
+    expect(screen.getByTestId('note-title-row')).toHaveTextContent(entry.title)
   })
 
   it('hides the legacy flashcard separator without changing the note data', () => {

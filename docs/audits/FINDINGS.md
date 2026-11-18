@@ -115,6 +115,8 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 - D2: hai hành động viết/duyệt ở header dùng outline lg; giữ nút ôn làm hành động chính. Không đổi callback hoặc thêm điều kiện theo lịch học. [Bằng chứng D2](STEP-D2-HOME-LIST-SIDEBAR.md).
 
 ### F-009 — Tên ghi chú mặc định
+- Lô 4 · Nhãn “Chưa có tiêu đề” cho ghi chú mới có tên sinh tự động và chưa có H1. Tên tệp vẫn dùng cho thao tác đổi tên và tự đồng bộ khi viết H1.
+- **Fixed phần Lô 4 (F-009)**. Danh sách và breadcrumb dùng nhãn ở lớp hiển thị. RED 2 ca → GREEN 183 test liên quan. Native tạo ghi chú, xác minh stem untitled-note-1794998298, nhập H1 rồi mở lại wave-four-qa-heading.md. [Sáng](review-shots/2026-11-18/F-009-after-light.png) · [Tối](review-shots/2026-11-18/F-009-after-dark.png) · [Sau khi nhập H1](review-shots/2026-11-18/F-009-after-h1-light.png).
 - Thực tế (`REVIEW`, `HOME`): tiêu đề "Untitled Note 1794825081", breadcrumb "untitled-note-1794825081"; (`WRITE`) breadcrumb "pomodoro" thay vì tiêu đề "Pomodoro".
 - Sửa: tiêu đề mặc định đã dịch ("Chưa đặt tên"), số chống trùng chỉ nằm ở tên file; breadcrumb hiện tiêu đề.
 - Lưu ý: chạm cách đặt tên file → đọc ADR liên quan trước, không đổi tên file đã có.

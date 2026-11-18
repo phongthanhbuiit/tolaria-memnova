@@ -17,6 +17,7 @@ import { ChangeNoteContent } from './note-item/ChangeNoteContent'
 import { workspaceForEntry } from '../utils/workspaces'
 import { WorkspaceInitialsBadge } from './WorkspaceInitialsBadge'
 import { useAppLocale, useDateDisplayFormat } from '../hooks/useAppPreferences'
+import { displayNoteTitle } from '../utils/untitledNoteDisplay'
 
 const TYPE_ICON_MAP: Record<string, ComponentType<SVGAttributes<SVGSVGElement>>> = {
   Project: Wrench,
@@ -293,6 +294,7 @@ function NoteTitleRow({
   isSelected: boolean
   noteStatus: NoteStatus
 }) {
+  const locale = useAppLocale()
   return (
     <div
       className={cn('truncate pr-5 text-body', isBinary ? 'text-muted-foreground' : 'text-foreground', 'font-medium')}
@@ -300,7 +302,7 @@ function NoteTitleRow({
     >
       {hasStatusDot(noteStatus) && !isBinary && <StatusDot noteStatus={noteStatus} />}
       <NoteTitleIcon icon={entry.icon} size={16} className="mr-1" testId="note-title-icon" />
-      {entry.title}
+      {displayNoteTitle(entry, locale)}
       {!isBinary && <StateBadge archived={entry.archived} />}
     </div>
   )

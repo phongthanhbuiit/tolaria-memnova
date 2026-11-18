@@ -38,6 +38,7 @@ import {
 } from '@phosphor-icons/react'
 import { slugify } from '../hooks/useNoteCreation'
 import { useDragRegion } from '../hooks/useDragRegion'
+import { displayNoteTitle } from '../utils/untitledNoteDisplay'
 
 interface BreadcrumbBarProps {
   entry: VaultEntry
@@ -588,31 +589,11 @@ function deriveSyncStem(entry: VaultEntry): string | null {
   return expectedStem
 }
 
-interface BreadcrumbDisplayTitleState {
-  hasH1: boolean
-  title: string
-}
-
-function deriveContentDisplayTitleState(content?: string | null): BreadcrumbDisplayTitleState | null {
-  if (typeof content !== 'string') return null
-  const h1Title = extractH1TitleFromContent(content)
-  if (h1Title) return { title: h1Title, hasH1: true }
-
-  const frontmatterTitle = extractFrontmatterTitleFromContent(content)
-  return frontmatterTitle ? { title: frontmatterTitle, hasH1: false } : null
-}
-
-function deriveEntryDisplayTitleState(entry: VaultEntry): BreadcrumbDisplayTitleState {
-  return {
-    title: entry.title.trim(),
-    hasH1: entry.hasH1,
-  }
-}
-
-function deriveBreadcrumbDisplayTitle(entry: VaultEntry, filenameStem: string, content?: string | null): string {
-  const displayState = deriveContentDisplayTitleState(content) ?? deriveEntryDisplayTitleState(entry)
-  const displayTitle = displayState.title.trim()
-  return displayTitle || filenameStem
+function deriveBreadcrumbDisplayTitle(entry: VaultEntry, filenameStem: string, locale: AppLocale, content?: string | null): string {
+  const contentTitle = typeof content === 'string'
+    ? extractH1TitleFromContent(content) || extractFrontmatterTitleFromContent(content)
+    : null
+  return contentTitle || displayNoteTitle(entry, locale).trim() || filenameStem
 }
 
 function FilenameInput({
@@ -719,7 +700,7 @@ function FilenameDisplay({
   entry,
   filenameStem,
   syncStem,
-  locale,
+  locale = 'en',
   onRenameFilename,
   onStartEditing,
 }: {
@@ -731,7 +712,7 @@ function FilenameDisplay({
   onRenameFilename?: (path: string, newFilenameStem: string) => void
   onStartEditing: () => void
 }) {
-  const displayTitle = deriveBreadcrumbDisplayTitle(entry, filenameStem, content)
+  const displayTitle = deriveBreadcrumbDisplayTitle(entry, filenameStem, locale, content)
 
   return (
     <div className="flex min-w-0 items-center gap-1">
