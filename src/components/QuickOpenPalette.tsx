@@ -1,3 +1,5 @@
+import { resolveNoteIcon } from '../utils/noteIcon'
+import { File, FileText, SlidersHorizontal } from '@phosphor-icons/react'
 import { useState, useRef, useEffect, useLayoutEffect, useCallback } from 'react'
 import type { VaultEntry } from '../types'
 import { NoteSearchList } from './NoteSearchList'
@@ -166,7 +168,18 @@ function OpenQuickOpenPalette({ entries, isLoading = false, onSelect, onCreateNo
           onChange={(e) => setQuery(e.target.value)}
         />
         <NoteSearchList
-          items={results}
+          items={results.map(result => {
+            const { entry } = result
+            const isView = entry.view || /(?:^|[\\/])views[\\/][^\\/]+\.ya?ml$/i.test(entry.path)
+            const kind = isView ? 'view' : entry.fileKind && entry.fileKind !== 'markdown' ? 'file' : entry.isA === 'Type' ? 'type' : null
+            const fallbackIcon = kind === 'view' ? SlidersHorizontal : kind === 'file' ? File : result.TypeIcon ?? FileText
+            return {
+              ...result,
+              noteType: kind ? translate(locale, `quickOpen.kind.${kind}`) : result.noteType,
+              TypeIcon: resolveNoteIcon(result.noteIcon).kind === 'none' ? fallbackIcon : undefined,
+            }
+          })}
+          neutralBadges
           selectedIndex={selectedIndex}
           getItemKey={(item) => item.entry.path}
           onItemClick={(item) => {

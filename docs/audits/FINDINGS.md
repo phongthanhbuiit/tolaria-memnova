@@ -577,3 +577,8 @@ W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
 
 - P2 · Tiêu đề trang là "Thư viện" trong khi sidebar ghi "Trang chủ"; "Chuẩn bị dữ liệu học tập" xuất hiện 3 lần (nút đầu mục, tiêu đề thẻ, nút trong thẻ). Ảnh đối chiếu: 02.
 - Đạt khi: Tiêu đề khớp mục sidebar; một lời kêu gọi duy nhất cho chuẩn bị dữ liệu.
+
+### F-071 · W3-05 · Quick Open
+
+- P2 · Hàng không đồng nhất: View "Active Projects" và tệp "laputa-reference.png" không có icon, lệch lề; nhãn "Type" tiếng Anh (do app sinh); nhãn Measure/Procedure chữ màu nhạt trên nền nhạt, khó đọc. Ảnh đối chiếu: 11a, 11c.
+- Đạt khi: Mọi hàng có icon và thẳng lề; nhãn do app sinh dịch ("Loại", "Chế độ xem", "Tệp"); tương phản nhãn ≥ 4.5:1 sáng/tối.

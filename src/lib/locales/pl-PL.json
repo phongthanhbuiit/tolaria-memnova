@@ -1178,5 +1178,8 @@
   "command.note.copyFilePath": "Copy File Path",
   "command.view.toggleTableOfContents": "Toggle Table of Contents",
   "command.navigation.startReview": "Start Review Session",
-  "command.navigation.startReviewCount": "Start Review Session ({count} due)"
+  "command.navigation.startReviewCount": "Start Review Session ({count} due)",
+  "quickOpen.kind.view": "View",
+  "quickOpen.kind.file": "File",
+  "quickOpen.kind.type": "Type"
 }

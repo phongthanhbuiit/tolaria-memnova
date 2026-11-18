@@ -1178,5 +1178,8 @@
   "command.note.copyFilePath": "Sao chép đường dẫn tệp",
   "command.view.toggleTableOfContents": "Bật/tắt mục lục",
   "command.navigation.startReview": "Bắt đầu phiên ôn",
-  "command.navigation.startReviewCount": "Bắt đầu phiên ôn ({count} đến hạn)"
+  "command.navigation.startReviewCount": "Bắt đầu phiên ôn ({count} đến hạn)",
+  "quickOpen.kind.view": "Chế độ xem",
+  "quickOpen.kind.file": "Tệp",
+  "quickOpen.kind.type": "Loại"
 }

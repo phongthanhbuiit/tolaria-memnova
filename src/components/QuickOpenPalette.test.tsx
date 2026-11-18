@@ -79,6 +79,14 @@ describe('QuickOpenPalette', () => {
     expect(items[1].textContent).toBe('Beta Notes')
   })
 
+  it('localizes a saved view and an attachment by their actual file kinds', () => {
+    const view = makeEntry({ path: '/vault/views/active-projects.yml', filename: 'active-projects.yml', title: 'Active Projects', isA: null, fileKind: 'text' })
+    const file = makeEntry({ path: '/vault/attachments/report.png', filename: 'report.png', title: 'report.png', isA: null, fileKind: 'binary' })
+    render(<QuickOpenPalette open entries={[view, file]} locale="vi" onSelect={onSelect} onClose={onClose} />)
+    expect(screen.getByRole('button', { name: /Active Projects\s*Chế độ xem/ })).toBeVisible()
+    expect(screen.getByRole('button', { name: /report\.png\s*Tệp/ })).toBeVisible()
+  })
+
   it('filters entries by fuzzy search', () => {
     render(<QuickOpenPalette open={true} entries={entries} onSelect={onSelect} onClose={onClose} />)
     const input = screen.getByPlaceholderText('Search notes...')

@@ -26,6 +26,7 @@ interface NoteSearchListProps<T extends NoteSearchResultItem> {
   activateOnMouseDown?: boolean
   emptyMessage?: string
   className?: string
+  neutralBadges?: boolean
 }
 
 interface NoteSearchListItemProps<T extends NoteSearchResultItem> {
@@ -35,6 +36,7 @@ interface NoteSearchListItemProps<T extends NoteSearchResultItem> {
   onItemClick: (item: T, index: number) => void
   onItemHover?: (index: number) => void
   activateOnMouseDown?: boolean
+  neutralBadges?: boolean
 }
 
 function NoteSearchListItem<T extends NoteSearchResultItem>({
@@ -44,6 +46,7 @@ function NoteSearchListItem<T extends NoteSearchResultItem>({
   onItemClick,
   onItemHover,
   activateOnMouseDown,
+  neutralBadges,
 }: NoteSearchListItemProps<T>) {
   const pressActivatedRef = useRef(false)
 
@@ -104,7 +107,7 @@ function NoteSearchListItem<T extends NoteSearchResultItem>({
               <Badge
                 variant="secondary"
                 className="shrink-0 text-(length:--text-caption) leading-(--text-caption--line-height)"
-                style={item.typeColor ? { color: item.typeColor, backgroundColor: item.typeLightColor } : undefined}
+                style={!neutralBadges && item.typeColor ? { color: item.typeColor, backgroundColor: item.typeLightColor } : undefined}
               >
                 {item.noteType}
               </Badge>
@@ -126,6 +129,7 @@ export function NoteSearchList<T extends NoteSearchResultItem>({
   activateOnMouseDown,
   emptyMessage = 'No results',
   className,
+  neutralBadges,
 }: NoteSearchListProps<T>) {
   const listRef = useRef<HTMLDivElement>(null)
 
@@ -154,6 +158,7 @@ export function NoteSearchList<T extends NoteSearchResultItem>({
           onItemClick={onItemClick}
           onItemHover={onItemHover}
           activateOnMouseDown={activateOnMouseDown}
+          neutralBadges={neutralBadges}
         />
       ))}
     </div>
