@@ -380,7 +380,7 @@ function DateValue({ value, onSave, locale = 'en', autoOpen = false, onCancel }:
           <span className={`min-w-0 wrap-anywhere${!formatted ? ' text-text-secondary' : ''}`}>{formatted || pickDateLabel}</span>
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-auto overflow-hidden p-0" align="end" side="bottom" data-testid="date-picker-popover">
+      <PopoverContent className="w-auto max-h-(--radix-popover-content-available-height) max-w-(--radix-popover-content-available-width) overflow-auto p-0" align="end" side="bottom" data-testid="date-picker-popover">
         <div className="border-b p-2">
           <Input controlSize="sm"
             className="w-full min-w-[8.75rem] border-ring bg-background px-2 py-0 text-left font-mono text-body tabular-nums"
@@ -397,20 +397,18 @@ function DateValue({ value, onSave, locale = 'en', autoOpen = false, onCancel }:
             data-testid="date-picker-input"
           />
         </div>
-        <div className="pb-8">
-          <Calendar
+        <Calendar
           appLocale={locale}
-            mode="single"
-            selected={selectedDate}
-            onSelect={handleSelect}
-            defaultMonth={selectedDate}
-            captionLayout="dropdown"
-            navLayout="after"
-            startMonth={datePickerStartMonth(selectedDate)}
-            endMonth={datePickerEndMonth(selectedDate)}
-            data-testid="date-picker-calendar"
-          />
-        </div>
+          mode="single"
+          selected={selectedDate}
+          onSelect={handleSelect}
+          defaultMonth={selectedDate}
+          captionLayout="dropdown"
+          navLayout="after"
+          startMonth={datePickerStartMonth(selectedDate)}
+          endMonth={datePickerEndMonth(selectedDate)}
+          data-testid="date-picker-calendar"
+        />
         {selectedDate && (
           <div className="relative bg-popover border-t px-3 py-2">
             <Button

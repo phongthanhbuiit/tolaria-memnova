@@ -69,7 +69,7 @@ function DateValue({ name, value, disabled, onChange, locale }: Props) {
           {text || translate(locale, 'inspector.properties.pickDate')}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className={`${cardEditorStyles.portal} w-auto p-0`}>
+      <PopoverContent className={`${cardEditorStyles.portal} w-auto max-h-[calc(100vh-1rem)] max-w-(--radix-popover-content-available-width) overflow-auto p-0`} side="top">
         <Calendar
           appLocale={locale}
           mode="single"

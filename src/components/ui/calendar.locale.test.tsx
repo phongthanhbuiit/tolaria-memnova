@@ -28,3 +28,12 @@ describe('R-01 Calendar locale', () => {
     expect(document.body.textContent).not.toMatch(/November|Nov\b/)
   })
 })
+
+it('keeps six calendar weeks for both short and long months', () => {
+  for (const displayed of [new Date(2027, 1, 1), new Date(2026, 10, 1)]) {
+    const view = render(<Calendar appLocale="vi" mode="single" defaultMonth={displayed} />)
+    const calendar = screen.getByRole('grid')
+    expect(calendar.querySelectorAll('tbody tr')).toHaveLength(6)
+    view.unmount()
+  }
+})

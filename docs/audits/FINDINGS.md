@@ -409,3 +409,10 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 - Đạt khi mỗi hàng Loại có vị trí riêng, không chồng nhãn Trạng thái khi mở hoặc đóng dialog, kể cả khi thu panel.
 - Hàng Loại dùng lưới riêng hai cột, chiếm cả hàng của lưới cha. Native vi 1440×900, panel hẹp, sáng/tối: Loại và Trạng thái tách rõ khi mở và đóng dialog.
 - Ảnh native: [trước sáng](review-shots/2026-11-18/W2-04-before-light.png) · [trước tối](review-shots/2026-11-18/W2-04-before-dark.png) · [sau sáng](review-shots/2026-11-18/W2-04-after-light.png) · [sau tối](review-shots/2026-11-18/W2-04-after-dark.png).
+
+### F-046 · W2-05 · Lịch bật ra cắt hàng tuần cuối
+
+- P1 · **fixed (commit W2-05)**. Native vi 1440×900, Chỉnh sửa thuộc tính → trường Ngày → tháng 11/2026. Hàng chứa ngày 30/11 nằm ngoài nền popover, dù có trong cây trợ năng.
+- Đạt khi đủ sáu hàng với mọi tháng và popover nằm trong cửa sổ.
+- Lịch luôn dựng sáu tuần. Ô ngày dùng kích thước cố định, nên WebKit đo đủ chiều cao bảng. Popover trong dialog ưu tiên phía trên và vẫn cho Radix đảo phía theo không gian. Native vi 1440×900 sáng/tối thấy hàng cuối đầy đủ, bấm và lưu được 30/11/2026. Test lịch RED trước sửa, GREEN 18/18, Playwright chọn và nhập ngày 3/3.
+- Ảnh native: [trước sáng](review-shots/2026-11-18/W2-05-before-light.png) · [trước tối](review-shots/2026-11-18/W2-05-before-dark.png) · [sau sáng](review-shots/2026-11-18/W2-05-after-light.png) · [sau tối](review-shots/2026-11-18/W2-05-after-dark.png).
