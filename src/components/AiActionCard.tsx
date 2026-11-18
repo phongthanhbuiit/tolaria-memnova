@@ -55,9 +55,9 @@ function StatusIndicator({ status }: { status: AiActionStatus }) {
     return <CircleNotch size={14} className="ai-spin text-muted-foreground" data-testid="status-pending" />
   }
   if (status === 'done') {
-    return <CheckCircle size={14} weight="fill" style={{ color: 'var(--accent-green)' }} data-testid="status-done" />
+    return <CheckCircle size={14} weight="fill" className="text-(--accent-green)" data-testid="status-done" />
   }
-  return <XCircle size={14} weight="fill" style={{ color: 'var(--destructive)' }} data-testid="status-error" />
+  return <XCircle size={14} weight="fill" className="text-destructive" data-testid="status-error" />
 }
 
 function truncateText(text: string): { text: string; truncated: boolean } {
@@ -115,14 +115,13 @@ function ActionCardHeader({
     <Button variant="bare"
       ref={setHeaderRef}
       type="button"
-      className="flex w-full items-center gap-2 border-0 bg-transparent text-left"
-      style={{ padding: '6px 10px', cursor: 'pointer' }}
+      className="flex w-full cursor-pointer items-center gap-2 border-0 bg-transparent px-[10px] py-[6px] text-left"
       aria-expanded={expanded}
       onClick={onClick}
       onKeyDown={onKeyDown}
       data-testid="action-card-header"
     >
-      <span className="shrink-0 text-muted-foreground" style={{ width: 14, display: 'flex' }}>
+      <span className="flex w-[14px] shrink-0 text-muted-foreground">
         <ActionIcon expanded={expanded} hasDetails={hasDetails} renderIcon={renderIcon} />
       </span>
       <span className="flex-1 truncate">{label}</span>
@@ -149,26 +148,15 @@ function DetailBlock({ label, content, isError }: {
 }) {
   const { text, truncated } = truncateText(content)
   return (
-    <div style={{ marginTop: 6 }}>
+    <div className="mt-[6px]">
       <div
-        className="text-muted-foreground text-(length:--text-caption) leading-(--text-caption--line-height)"
-        style={{ fontWeight: 600, marginBottom: 2 }}
+        className="mb-[2px] text-muted-foreground text-(length:--text-caption) leading-(--text-caption--line-height) font-semibold"
       >
         {label}
       </div>
-      <pre className="text-(length:--text-caption) leading-(--text-caption--line-height)"
+      <pre className="m-0 max-h-[200px] overflow-auto rounded-[4px] bg-muted px-[6px] py-[4px] whitespace-pre-wrap [word-break:break-word] text-(length:--text-caption) leading-(--text-caption--line-height)"
         data-testid={`detail-${label.toLowerCase()}`}
-        style={{
-          margin: 0,
-          padding: '4px 6px',
-          borderRadius: 4,
-          background: 'var(--muted)',
-          color: isError ? 'var(--destructive)' : 'var(--foreground)',
-          whiteSpace: 'pre-wrap',
-          wordBreak: 'break-word',
-          maxHeight: 200,
-          overflow: 'auto',
-        }}
+        style={{ color: isError ? 'var(--destructive)' : 'var(--foreground)' }}
       >
         {text}{truncated && <span className="text-muted-foreground">{'…'}</span>}
       </pre>
@@ -195,7 +183,7 @@ function ActionCardDetails({
   return (
     <div
       data-testid="action-card-details"
-      style={{ padding: '0 10px 8px 10px' }}
+      className="px-[10px] pb-[8px]"
     >
       {formattedInput && <DetailBlock label="Input" content={formattedInput} />}
       {output && (
