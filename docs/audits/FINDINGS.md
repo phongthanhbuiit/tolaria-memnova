@@ -5,16 +5,16 @@ Trạng thái: `open` · `partial` · `fixed — chờ QA native (phạm vi)` ·
 
 ## Tiến độ hiện tại — tổng kết đêm 18/11/2026
 
-Đối chiếu [log đêm](OVERNIGHT-2026-11-18.md) và bằng chứng đã có tại `809a4003`; đây là cập nhật tài liệu, không phải lượt QA mới. Các bảng theo đợt bên dưới giữ mô tả/số đếm baseline; trạng thái hiện tại ưu tiên bảng này. Tổng kết bước: **DONE D3/E1/R-08/TEST-STABILITY; PARTIAL D4A/D4B/E2; không SKIPPED**. D4B đã xong mã trong 5 file F-032, còn F-038 chờ native legacy.
+Đối chiếu [log đêm](OVERNIGHT-2026-11-18.md) và bằng chứng của từng bước. Các bảng theo đợt bên dưới giữ mô tả và số đếm baseline. Bảng này ghi trạng thái hiện tại. Tổng kết **DONE D3/E1/R-08/TEST-STABILITY** và **PARTIAL D4A/D4B/E2/I18N-A11Y-2**. D4B đã xong mã trong 5 file F-032, còn F-038 chờ native legacy.
 
 | Mức | Open | Partial | Fixed — chờ QA native |
 |---|---|---|---|
 | P0 | Không | Không | Không |
 | P1 | Không | F-005, F-024 | Không |
-| P2 | F-007, F-011, F-012, F-020, F-021; R-11, R-13, R-14 | F-009, F-032 | Không |
+| P2 | F-007, F-011, F-012, F-020, F-021; R-15 | F-009, F-032 | R-11: editor thuộc tính |
 | P3 | R-10 | Không | F-038: Home/Decks/FlashcardStudyView legacy |
 
-**Đã đóng:** F-001–F-004, F-006, F-008, F-010, F-013–F-019, F-022–F-023, F-025–F-031, F-033–F-037, F-039–F-041 (**31 F**); R-01–R-09 và R-12 (**10 R**). F-023/F-025/F-030/F-031 là phần nền tảng A, không hàm ý các call site của F-024/F-032 đã sạch. R-05 là test-only; Telex native vẫn chưa được xác minh.
+**Đã đóng:** F-001–F-004, F-006, F-008, F-010, F-013–F-019, F-022–F-023, F-025–F-031, F-033–F-037, F-039–F-041 (**31 F**) và R-01–R-09, R-12–R-14 (**12 R**). F-023/F-025/F-030/F-031 là phần nền tảng A. R-05 là test-only. Telex native vẫn chưa được xác minh.
 
 **Còn chờ native/bằng chứng bổ sung:** F-005 (author-name combobox cuối, ảnh trước tối); F-024 (legacy/Linux/trạng thái hiếm); F-032 (message/tool chỉ có fixture); F-038 (các màn legacy không có route native); Telex trong AI và ô wikilink từ R-05/E2. F-005/F-024/F-032 vẫn partial vì ngoài QA còn phần mã/phạm vi chưa hoàn tất. F-038 đã sửa mã nhưng không tính đóng khi các màn legacy mới được kiểm bằng fixture/diff/test; đối chiếu giới hạn native trong [D4B](STEP-D4B-INLINE-STYLE.md).
 
@@ -35,7 +35,7 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 | F-002 | P1 | C4 | Ngày trong danh sách ghi chú là tiếng Anh khi UI tiếng Việt | ảnh | fixed (9c951e78) |
 | F-003 | P1 | C4 | Nhãn Properties tiếng Anh lẫn trong UI tiếng Việt | ảnh | fixed (`1a262b64`) |
 | F-004 | P1 | C4 | Công tắc "Ôn tập ghi chú này" và nút "Ôn ghi chú này" gần như trùng tên | ảnh | fixed (`e8dfc0c2`) |
-| F-005 | P1 | C5 | Nút chỉ có icon thiếu `aria-label` (~58 chỗ) | mã | partial (E2 `f6601cbc`; còn R-13) |
+| F-005 | P1 | C5 | Nút chỉ có icon thiếu `aria-label` (~58 chỗ) | mã | partial (E2 `f6601cbc`); riêng R-13 đã sửa |
 | F-006 | P1 | C3 | 38 phần tử form HTML thô ngoài `ui/` (vi phạm AGENTS.md) | mã | fixed (`f5462464`) |
 | F-007 | P2 | C4 | Thuật ngữ học tập không nhất quán (trang/ghi chú, ghi nhớ/ôn/gợi nhớ) | ảnh | open |
 | F-008 | P2 | C3 | Hai nút chính màu xanh cạnh tranh trên Trang chủ | ảnh | fixed (`70212a69`) |
@@ -333,9 +333,10 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 
 ## R-11 — Copy English còn ngoài các nhãn E1 được chỉ định
 
+- **I18N-A11Y-2:** mã và test quét đã sửa trong `29e69743`. **fixed — chờ QA native (editor thuộc tính)**. Xác minh Quick Open bằng AX native và nút Lưu trên Chromium/WebKit. [Biên bản và danh sách khớp](STEP-I18N-A11Y-2.md#r-11--quét-tên-truy-cập-và-nhãn-tiếng-việt).
 - **E2:** phần accessible name Close quick open đã được dịch trong F-005 (`f6601cbc`); copy Save còn ngoài phạm vi E2, R-11 vẫn open.
 
-- P2 · C4 · **open**, có sẵn ở baseline. Không tuyên bố toàn app đã sạch English sau E1.
+- P2 · C4 · Có sẵn ở baseline E1.
 - Native vi: editor thuộc tính còn nút “Save” (`src/lib/locales/vi.json`, khóa `common.save`); Quick Open còn accessible name “Close quick open” (`src/components/QuickOpenPalette.tsx:160`). [Ảnh editor vi](evidence/F-022-editor-after.png); Quick Open AX đã được quan sát khi kiểm sentinel.
 - Tái hiện: chọn vi → mở Properties → Chỉnh sửa thuộc tính → xem nút Save; hoặc ⌘P → đọc accessible name nút đóng. Chấp nhận: đưa mọi nhãn vào source catalog/đủ bản dịch, giữ save/close handlers và phím tắt. Không đổi tên dữ liệu/thư mục thật. Để bước copy riêng, không mở rộng finding hệ thống Type/Status/quan hệ của F-003.
 
@@ -348,14 +349,19 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 
 ## R-13 — Nhãn icon nội bộ BlockNote vẫn tiếng Anh trong UI vi
 
-- P2 · copy/a11y dependency · **open**. Được thấy khi QA E2, F-005 toàn yêu cầu vẫn partial.
+- P2 · copy/a11y dependency · **fixed (`f91accb8`)**. Dictionary theo locale app, giữ nội dung, selection, draft và undo. Xác minh tên nút tiếng Việt trên native. [Biên bản](STEP-I18N-A11Y-2.md).
 - Native vi, UX verification → editor → hover vùng block: AX có button `Add block` và `Open block menu`. Hai nút có tên nhưng chưa được dịch. [AX đầy đủ](evidence/R-13-native-AX.txt), [ảnh ngữ cảnh](evidence/E2-editor-labels.png).
-- `src/components/Editor.tsx:243` tạo BlockNote không truyền dictionary; dictionary mặc định ở dependency. Chưa tích hợp runtime locale hoặc thay lifetime của editor trong đêm. Không sửa nội dung ghi chú hay mutation dictionary readonly.
+- Baseline E2 tạo BlockNote với dictionary mặc định của dependency.
 - Tác động: người dùng đọc màn hình tiếng Việt gặp tên hành động English trong editor. Chấp nhận: tên/tooltip hai nút và các control liên quan theo locale, có regression đổi locale mà không mất selection/draft; nguồn copy/catalog theo AGENTS. Không remount editor để đổi nhãn nếu làm mất trạng thái.
 
 ## R-14 — Ô chọn trường trong bộ lọc thiếu tên truy cập
 
-- P2 · a11y · **open**. Input đã dùng shared Input, không phải raw form tag còn sót của F-006.
+- P2 · a11y · **fixed (`c068a687`)**. Từng shared Input có label liên kết riêng. Xác minh hai hàng native và test Enter chỉ đổi hàng được chọn. [Biên bản](STEP-I18N-A11Y-2.md).
 - `src/components/FilterFieldCombobox.tsx:195`: input role combobox có aria-controls/expanded nhưng không có aria-label/labelledby hoặc label liên kết. Browser fixture E2 có hai điều kiện, sau khi sửa các button combobox vẫn còn 2 input combobox có accessible name rỗng. [DOM và phép đếm](evidence/E2-combobox-browser.txt), [fixture](evidence/E2-axe-fixture-source.txt).
 - Tái hiện: mở FilterBuilder với title/status → kiểm accessibility tree của hai ô chọn trường. Giá trị title/status không thay cho author name. Tác động: khó phân biệt ô chọn trường với các control lọc khác khi dùng screen reader; vẫn thao tác bàn phím được.
 - Chấp nhận: tên trường lọc đã dịch, liên kết đúng từng control; giữ query/property key, value, callbacks và phím. Không nới rule button-name để che lỗi input; bổ sung kiểm form naming riêng ở bước sau.
+
+## R-15 — Chuỗi tiếng Anh chưa đưa vào catalog
+
+- P2 · i18n · **open**. Trong native vi, toolbar tùy biến hiển thị “Paragraph”, bộ lọc Create View hiển thị “Match all conditions”, “Add filter”, “Add group”. Các chuỗi quan sát này nằm ngoài phép so khớp nguyên giá trị với catalog ở R-11. [AX native](evidence/I18N-A11Y-2-native-AX.txt).
+- Tái hiện bằng cách mở thanh định dạng của editor và hộp thoại tạo View bằng locale vi. Đưa các chuỗi giao diện này vào catalog và kiểm trên native cùng trình duyệt.

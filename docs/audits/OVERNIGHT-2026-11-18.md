@@ -118,3 +118,15 @@
 - Codacy local: **0 → 0** vấn đề trên ba spec, không Critical/High mới. CodeScene: not run (optional integration unavailable). Localization: no UI copy changes, validator đạt. PostHog không cần event cho kiểm thử. Refactor và ADR: không có.
 - Câu hỏi cho người dùng / quyết định đã chọn: giữ hai đường mở Settings dưới dạng kiểm thử riêng. Với F-040 chờ đúng hàng được highlight rồi giữ thao tác bàn phím và toàn bộ assertion xóa.
 - [Biên bản](STEP-TEST-STABILITY.md) · [Kết quả từng lượt](evidence/TEST-STABILITY-playwright.txt).
+
+## I18N-A11Y-2 — PARTIAL
+
+- Cổng an toàn đầu bước đạt. HEAD = origin/main = `e8e2b240`, 0 commit chờ push, không có lệnh dừng hàng đợi. AGENTS.md, .agents và các tệp PLAN/SPEC/OVERNIGHT-RULES riêng ở ngoài index.
+- Commit R-11 `29e69743`, R-13 `f91accb8` và R-14 `c068a687`. Push mã **ok**, `e8e2b240 → f91accb8` qua hook thường trong 8 phút 54 giây.
+- R-11 đã dịch Lưu và tên nút đóng Quick Open. Quét bề mặt chính trên Chromium/WebKit, mọi chuỗi còn trùng catalog đã có lý do trong evidence. Trạng thái **fixed — chờ QA native (editor thuộc tính)**. R-13 và R-14 **fixed**. Ghi R-15 cho toolbar và nhóm lọc có các chuỗi cứng ngoài catalog.
+- Lint/tsc/build/Vitest exit 0. Frontend 5.042 test trong 506 tệp, coverage **87,84%**. Rust 1.241 unit + 1 integration, 3 ignored baseline, coverage **86,41%**. Smoke curated **54/54 trong 4,7 phút**, không có lượt retry. R-11 và R-13 GREEN trên Chromium/WebKit với retries=0. R-14 21 ca kiểm tập trung GREEN.
+- Grep SPEC §8 **1 → 1 / 0 → 0**. Demo-vault và demo-vault-v2 sạch. Locale validator qua 18 catalog và 1.102 khóa. Dịch trực tiếp vì Lara credentials không có. Không có dependency/ADR mới. Không cần sự kiện PostHog cho nhãn và dictionary.
+- QA native bằng debug WKWebView riêng. Đã kiểm nút đóng Quick Open bằng Cmd+P, nhãn BlockNote bằng chuột và hai ô chọn trường với chuột và Down/Enter. Ảnh editor trong phiên CUA. Editor thuộc tính native tạm chưa sẵn sàng, nút Lưu đã kiểm trên Chromium/WebKit. Khởi động debug có migration trên Library tạm. App QA đã đóng.
+- Codacy CLI local 91 → 90 issues, Critical có sẵn ở EditorLayout và 0 Critical/High mới. ESLint9, Semgrep/Opengrep, Trivy, Stylelint và Lizard hoàn tất trong phạm vi tệp mã app. CodeScene: not run (optional integration unavailable).
+- Câu hỏi cho người dùng / quyết định đã chọn. Giữ identity của editor và ngữ nghĩa undo/selection khi đổi locale. Dùng `en` cho `be-BY`, `be-Latn` và `id-ID` do BlockNote thiếu dictionary. Dùng catalog hiện hành cho Quick Open và giữ nhãn dữ liệu fixture trong phép quét.
+- [Biên bản](STEP-I18N-A11Y-2.md) · [Bằng chứng native](evidence/I18N-A11Y-2-native-AX.txt).

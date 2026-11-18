@@ -1,0 +1,149 @@
+[
+  {
+    "kind": "heading",
+    "value": "Notes",
+    "surface": "editor",
+    "keys": [
+      "noteList.title.notes",
+      "sidebar.builtIn.Note"
+    ],
+    "retained": "Fixture Markdown heading"
+  },
+  {
+    "kind": "heading",
+    "value": "Notes",
+    "surface": "Properties form",
+    "keys": [
+      "noteList.title.notes",
+      "sidebar.builtIn.Note"
+    ],
+    "retained": "Fixture Markdown heading"
+  },
+  {
+    "kind": "button",
+    "value": "Active",
+    "surface": "Properties form",
+    "keys": [
+      "learning.active"
+    ],
+    "retained": "Fixture frontmatter value"
+  },
+  {
+    "kind": "text",
+    "value": "Events",
+    "surface": "Properties form",
+    "keys": [
+      "sidebar.builtIn.Event"
+    ],
+    "retained": "Fixture sidebarLabel"
+  },
+  {
+    "kind": "group",
+    "value": "Status",
+    "surface": "typed Properties editor",
+    "keys": [
+      "noteList.sort.status",
+      "learning.status",
+      "inspector.propertyLabel.status"
+    ],
+    "retained": "Fixture property key"
+  },
+  {
+    "kind": "text",
+    "value": "Status",
+    "surface": "typed Properties editor",
+    "keys": [
+      "noteList.sort.status",
+      "learning.status",
+      "inspector.propertyLabel.status"
+    ],
+    "retained": "Fixture property key"
+  },
+  {
+    "kind": "textbox",
+    "value": "Status",
+    "surface": "typed Properties editor",
+    "keys": [
+      "noteList.sort.status",
+      "learning.status",
+      "inspector.propertyLabel.status"
+    ],
+    "retained": "Fixture property key"
+  },
+  {
+    "kind": "group",
+    "value": "Related to",
+    "surface": "typed Properties editor",
+    "keys": [
+      "inspector.propertyLabel.relatedTo"
+    ],
+    "retained": "Fixture property key"
+  },
+  {
+    "kind": "text",
+    "value": "Related to",
+    "surface": "typed Properties editor",
+    "keys": [
+      "inspector.propertyLabel.relatedTo"
+    ],
+    "retained": "Fixture property key"
+  },
+  {
+    "kind": "text",
+    "value": "Git",
+    "surface": "view-command-palette",
+    "keys": [
+      "command.group.git",
+      "settings.autogit.title"
+    ],
+    "retained": "Git product name"
+  },
+  {
+    "kind": "button",
+    "value": "Git",
+    "surface": "app-settings",
+    "keys": [
+      "command.group.git",
+      "settings.autogit.title"
+    ],
+    "retained": "Git product name"
+  },
+  {
+    "kind": "text",
+    "value": "Git",
+    "surface": "app-settings",
+    "keys": [
+      "command.group.git",
+      "settings.autogit.title"
+    ],
+    "retained": "Git product name"
+  },
+  {
+    "kind": "heading",
+    "value": "Notes",
+    "surface": "AI workspace",
+    "keys": [
+      "noteList.title.notes",
+      "sidebar.builtIn.Note"
+    ],
+    "retained": "Fixture Markdown heading"
+  },
+  {
+    "kind": "button",
+    "value": "Active",
+    "surface": "AI workspace",
+    "keys": [
+      "learning.active"
+    ],
+    "retained": "Fixture frontmatter value"
+  },
+  {
+    "kind": "text",
+    "value": "Events",
+    "surface": "AI workspace",
+    "keys": [
+      "sidebar.builtIn.Event"
+    ],
+    "retained": "Fixture sidebarLabel"
+  }
+]

@@ -1,0 +1,25 @@
+18/11/2026 | Memnova I18N QA, net.memnova.qa.i18n2
+Debug incognito WKWebView, renderer localhost:5201, private fixture Library and preferences.
+Windows and AX queried through CUA. Selected excerpts below.
+
+R-11 · Cmd+P
+  button Đóng cửa sổ mở nhanh
+  text field (settable) Tìm ghi chú...
+  The focused UI element is 126 text field (settable) Tìm ghi chú...
+
+R-13 · Alpha Project, mouse drag within the first paragraph
+  68 button Thêm khối
+  69 button Mở trình đơn khối
+
+R-14 · Open Create View, click Add filter, focus row two, Down/Enter
+  13 combo box (collapsed, settable) Trường lọc, Value: type, Secondary Actions: Expand
+  21 combo box (collapsed, settable) Trường lọc, Value: status, Secondary Actions: Expand
+  The focused UI element is 21 combo box (collapsed, settable) Trường lọc, Value: status, Secondary Actions: Expand
+
+R-15 · App strings observed outside the English-catalog comparison
+  text Match all conditions Trường lọc
+  button Add filter
+  button Add group
+  Visual: Paragraph on the custom formatting toolbar.
+
+The disposable app was closed and its bundle was absent from the running-app inventory.

@@ -1,0 +1,227 @@
+[
+  {
+    "surface": "sidebar, list, empty editor and status",
+    "key": "noteList.title.notes",
+    "english": "Notes"
+  },
+  {
+    "surface": "sidebar, list, empty editor and status",
+    "key": "status.commit.label",
+    "english": "Commit"
+  },
+  {
+    "surface": "sidebar, list, empty editor and status",
+    "key": "sidebar.builtIn.Note",
+    "english": "Notes"
+  },
+  {
+    "surface": "editor",
+    "key": "noteList.title.notes",
+    "english": "Notes"
+  },
+  {
+    "surface": "editor",
+    "key": "status.commit.label",
+    "english": "Commit"
+  },
+  {
+    "surface": "editor",
+    "key": "sidebar.builtIn.Note",
+    "english": "Notes"
+  },
+  {
+    "surface": "Properties form",
+    "key": "noteList.title.notes",
+    "english": "Notes"
+  },
+  {
+    "surface": "Properties form",
+    "key": "status.commit.label",
+    "english": "Commit"
+  },
+  {
+    "surface": "Properties form",
+    "key": "learning.active",
+    "english": "Active"
+  },
+  {
+    "surface": "Properties form",
+    "key": "properties.kind.text",
+    "english": "Text"
+  },
+  {
+    "surface": "Properties form",
+    "key": "sidebar.builtIn.Note",
+    "english": "Notes"
+  },
+  {
+    "surface": "Properties form",
+    "key": "sidebar.builtIn.Event",
+    "english": "Events"
+  },
+  {
+    "surface": "typed Properties editor",
+    "key": "settings.save",
+    "english": "Save"
+  },
+  {
+    "surface": "typed Properties editor",
+    "key": "common.save",
+    "english": "Save"
+  },
+  {
+    "surface": "typed Properties editor",
+    "key": "noteList.sort.status",
+    "english": "Status"
+  },
+  {
+    "surface": "typed Properties editor",
+    "key": "learning.status",
+    "english": "Status"
+  },
+  {
+    "surface": "typed Properties editor",
+    "key": "inspector.propertyLabel.status",
+    "english": "Status"
+  },
+  {
+    "surface": "typed Properties editor",
+    "key": "inspector.propertyLabel.relatedTo",
+    "english": "Related to"
+  },
+  {
+    "surface": "Home",
+    "key": "status.commit.label",
+    "english": "Commit"
+  },
+  {
+    "surface": "saved view editor",
+    "key": "settings.workspaces.name",
+    "english": "Name"
+  },
+  {
+    "surface": "saved view editor",
+    "key": "settings.aiProviders.name",
+    "english": "Name"
+  },
+  {
+    "surface": "saved view editor",
+    "key": "common.create",
+    "english": "Create"
+  },
+  {
+    "surface": "saved view editor",
+    "key": "viewDialog.title.create",
+    "english": "Create View"
+  },
+  {
+    "surface": "saved view editor",
+    "key": "viewDialog.description.create",
+    "english": "Create a saved view by choosing a name and filter rules."
+  },
+  {
+    "surface": "saved view editor",
+    "key": "viewDialog.nameLabel",
+    "english": "Name"
+  },
+  {
+    "surface": "saved view editor",
+    "key": "viewDialog.namePlaceholder",
+    "english": "e.g. Active Projects, Reading List..."
+  },
+  {
+    "surface": "saved view editor",
+    "key": "viewDialog.filtersLabel",
+    "english": "Filters"
+  },
+  {
+    "surface": "file-quick-open",
+    "key": "status.commit.label",
+    "english": "Commit"
+  },
+  {
+    "surface": "view-command-palette",
+    "key": "command.group.git",
+    "english": "Git"
+  },
+  {
+    "surface": "view-command-palette",
+    "key": "command.view.defaultNoteWidthWide",
+    "english": "Use Wide Note Width by Default"
+  },
+  {
+    "surface": "view-command-palette",
+    "key": "settings.autogit.title",
+    "english": "Git"
+  },
+  {
+    "surface": "view-command-palette",
+    "key": "sidebar.action.revealFolderMenu",
+    "english": "Reveal in Finder"
+  },
+  {
+    "surface": "view-command-palette",
+    "key": "editor.toolbar.revealFile",
+    "english": "Reveal in Finder"
+  },
+  {
+    "surface": "view-command-palette",
+    "key": "status.commit.label",
+    "english": "Commit"
+  },
+  {
+    "surface": "app-settings",
+    "key": "command.group.git",
+    "english": "Git"
+  },
+  {
+    "surface": "app-settings",
+    "key": "settings.autogit.title",
+    "english": "Git"
+  },
+  {
+    "surface": "app-settings",
+    "key": "status.commit.label",
+    "english": "Commit"
+  },
+  {
+    "surface": "edit-find-in-vault",
+    "key": "status.commit.label",
+    "english": "Commit"
+  },
+  {
+    "surface": "AI workspace",
+    "key": "ai.permission.safe.control",
+    "english": "Vault Safe"
+  },
+  {
+    "surface": "AI workspace",
+    "key": "ai.panel.empty.missingDescription",
+    "english": "Install it or switch the default AI agent in Settings"
+  },
+  {
+    "surface": "AI workspace",
+    "key": "noteList.title.notes",
+    "english": "Notes"
+  },
+  {
+    "surface": "AI workspace",
+    "key": "status.commit.label",
+    "english": "Commit"
+  },
+  {
+    "surface": "AI workspace",
+    "key": "learning.active",
+    "english": "Active"
+  },
+  {
+    "surface": "AI workspace",
+    "key": "sidebar.builtIn.Note",
+    "english": "Notes"
+  },
+  {
+    "surface": "AI workspace",
+    "key": "sidebar.builtIn.Event",
+    "english": "Events"
+  }
+]
