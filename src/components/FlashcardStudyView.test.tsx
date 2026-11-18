@@ -281,6 +281,35 @@ it('keeps thematic breaks inside card answers instead of stripping them as front
   expect(parseMarkdown.mock.calls.at(-1)?.[0]).toContain('Answer')
 })
 
+it('replaces legacy drawing payloads in the read-only answer before parsing', async () => {
+  const answer = [
+    'Answer before the drawing',
+    '```tldraw id="test-board" height="520"',
+    '{"schema":{"storeVersion":4}}',
+    '```',
+    '```json',
+    '{"example":true}',
+    '```',
+    'Answer after the drawing',
+  ].join('\n')
+  render(<BlockNoteReadOnly content={answer} preserveBody locale="vi" />)
+  await screen.findByTestId('blocknote-view-raw')
+  const displayed = parseMarkdown.mock.lastCall?.[0]
+  expect(displayed).toContain('Phiên ôn này chưa hỗ trợ hiển thị bản vẽ tldraw cũ.')
+  expect(displayed).not.toContain('storeVersion')
+  expect(displayed).toContain('{"example":true}')
+  expect(displayed).toContain('Answer before the drawing')
+  expect(displayed).toContain('Answer after the drawing')
+})
+
+it('keeps legacy drawing payloads hidden if rich parsing fails', async () => {
+  parseMarkdown.mockRejectedValueOnce(new Error('Parser failed'))
+  const answer = '~~~whiteboard\n{"schema":{"storeVersion":4}}'
+  render(<BlockNoteReadOnly content={answer} preserveBody locale="vi" />)
+  expect(await screen.findByText('Phiên ôn này chưa hỗ trợ hiển thị bản vẽ tldraw cũ.')).toBeVisible()
+  expect(screen.queryByText(/storeVersion/)).not.toBeInTheDocument()
+})
+
 it('shows the original answer if rich Markdown rendering fails', async () => {
   parseMarkdown.mockRejectedValueOnce(new Error('Parser failed'))
   render(<BlockNoteReadOnly content="Important answer text" preserveBody locale="en" />)

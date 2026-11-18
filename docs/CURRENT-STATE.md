@@ -1,5 +1,7 @@
 # Memnova hiện tại
 
+**18/11/2026 — Đợt 2, Lô 1:** Quick Open nhận ký tự ngay khi mở và hiển thị trọn hàng kết quả. Thuộc tính xếp nhãn và giá trị dài trong chiều rộng panel, hàng Loại có lưới riêng, lịch hiển thị sáu tuần. Panel AI giữ trọn điều khiển khi thu cửa sổ. Dialog xóa ghi chú dùng câu số ít/số nhiều, đặt Hủy trước Xóa. Thẻ cũ chứa bản vẽ tldraw hiển thị thông báo tiếng Việt ở chế độ ôn, dữ liệu nguồn giữ nguyên. [Findings và ảnh nghiệm thu](audits/FINDINGS.md#đợt-2--lô-1).
+
 **18/11/2026 — Welcome:** R-10 cho phép mô tả nút tạo Library xuống dòng trong nút, và màn hình chào cuộn được khi cửa sổ thấp. Kiểm vi, en và ru-RU ở 1440×900, 1024×700 và 480×400. [Ma trận QA và ảnh trước/sau](audits/OVERNIGHT-2026-11-18.md#r-10--done).
 
 **18/11/2026 — Copy ôn tập:** UI tiếng Việt dùng ghi chú, ôn tập/ôn, Ghi nhớ và thẻ theo thuật ngữ đã chọn. Hạn ôn hiển thị tương đối với mốc tuyệt đối trong tooltip. Các trạng thái cần phục hồi chỉ ra bước tiếp theo. Sidebar có mô tả cho Trang chủ và Ôn tập. [Biên bản, bảng thuật ngữ và ảnh đối chiếu](audits/STEP-LEARNING-COPY.md).

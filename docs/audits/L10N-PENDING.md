@@ -4,3 +4,7 @@
 - `editor.noteMemory.deleteConfirmBulkTitle`
 - `editor.noteMemory.deleteConfirmTitle`
 - `editor.noteMemory.deleteConfirmationSingle`
+
+## W2-08 (F-049)
+
+- `learning.legacyDrawingUnavailable`

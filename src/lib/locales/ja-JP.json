@@ -826,6 +826,7 @@
   "learning.showAnswer": "答えを表示",
   "learning.undo": "元に戻す",
   "learning.retry": "再試行",
+  "learning.legacyDrawingUnavailable": "This study session cannot display the legacy tldraw drawing.",
   "learning.loading": "読み込み中…",
   "learning.saving": "保存中…",
   "learning.wait": "次の学習ステップを待っています",

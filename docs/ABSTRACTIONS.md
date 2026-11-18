@@ -1189,3 +1189,5 @@ Learning catalog visibility: `noteWorkspace.isPublicNotePath` excludes `.memnova
 ### Form controls with existing presentation
 
 `Button` and `Input` support `variant="bare"` for migrating existing styled controls without imposing default typography, dimensions or SVG sizing. They retain shared keyboard focus outlines and forward refs, values, native attributes and event handlers. New controls should use the standard variants; raw form implementations stay inside `src/components/ui/`.
+
+`projectLegacyDrawingMarkdown` reuses the snippet fence scanner for the read-only renderer. It replaces legacy tldraw/whiteboard fences with localized display text before parsing and in the text fallback. Card and note storage continue to use the original Markdown.

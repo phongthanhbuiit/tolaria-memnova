@@ -826,6 +826,7 @@
   "learning.showAnswer": "Hiện câu trả lời",
   "learning.undo": "Hoàn tác",
   "learning.retry": "Thử lại",
+  "learning.legacyDrawingUnavailable": "Phiên ôn này chưa hỗ trợ hiển thị bản vẽ tldraw cũ.",
   "learning.loading": "Đang tải…",
   "learning.saving": "Đang lưu…",
   "learning.wait": "Đang chờ bước học tiếp theo",

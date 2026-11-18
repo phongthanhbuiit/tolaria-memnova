@@ -826,6 +826,7 @@
   "learning.showAnswer": "Паказаць адказ",
   "learning.undo": "Адмяніць",
   "learning.retry": "Паўтарыць",
+  "learning.legacyDrawingUnavailable": "This study session cannot display the legacy tldraw drawing.",
   "learning.loading": "Загрузка…",
   "learning.saving": "Захаванне…",
   "learning.wait": "Чаканне наступнага кроку навучання",

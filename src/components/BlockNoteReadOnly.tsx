@@ -10,6 +10,7 @@ import { useEditorDictionary } from './editorDictionary'
 import { createArrowLigaturesExtension } from './arrowLigaturesExtension'
 import { createMathInputExtension } from './mathInputExtension'
 import { preProcessDurableEditorMarkdown, injectDurableEditorMarkdownBlocks } from '../utils/editorDurableMarkdown'
+import { projectLegacyDrawingMarkdown } from '../utils/snippetMarkdown'
 import { resolveImageUrls } from '../utils/vaultImages'
 import { preProcessWikilinks, injectWikilinks } from '../utils/wikilinks'
 import { preProcessMathMarkdown, injectMathInBlocks } from '../utils/mathMarkdown'
@@ -50,7 +51,11 @@ export function BlockNoteReadOnly(props: BlockNoteReadOnlyProps) {
   }, [verifiedMedia,vaultPath])
   const resolveVerified = verified?.resolve
   useRegisterEditorResources(editor,vaultPath ?? undefined,notePath,undefined,resolveVerified)
-  const [prevContent, setPrevContent] = useState(content)
+  const displayContent = useMemo(
+    () => projectLegacyDrawingMarkdown(content, translate(locale, 'learning.legacyDrawingUnavailable')),
+    [content, locale],
+  )
+  const [prevContent, setPrevContent] = useState(displayContent)
   const [ready, setReady] = useState(false)
   const [renderError, setRenderError] = useState(false)
   const [renderDocument,setRenderDocument] = useState<{ ids: string[]; notify: (status: DocumentRenderStatus) => void } | null>(null)
@@ -59,8 +64,8 @@ export function BlockNoteReadOnly(props: BlockNoteReadOnlyProps) {
   const onReadyRef = useRef(onReady)
   useEffect(() => { onReadyRef.current = onReady }, [onReady])
 
-  if (content !== prevContent) {
-    setPrevContent(content)
+  if (displayContent !== prevContent) {
+    setPrevContent(displayContent)
     setReady(false)
   }
 
@@ -81,7 +86,7 @@ export function BlockNoteReadOnly(props: BlockNoteReadOnlyProps) {
     report()
 
     // Strip frontmatter before parsing
-    const body = preserveBody ? content : content.replace(/^---[\s\S]*?---\n?/m, '').trim()
+    const body = preserveBody ? displayContent : displayContent.replace(/^---[\s\S]*?---\n?/m, '').trim()
 
     const parseAndSetBlocks = async () => {
       try {
@@ -130,7 +135,7 @@ export function BlockNoteReadOnly(props: BlockNoteReadOnlyProps) {
       cancelled = true
       stopMedia()
     }
-  }, [content, editor, vaultPath, notePath, preserveBody,resolveVerified,verified])
+  }, [displayContent, editor, vaultPath, notePath, preserveBody,resolveVerified,verified])
 
   if (!ready) {
     return (
@@ -141,7 +146,7 @@ export function BlockNoteReadOnly(props: BlockNoteReadOnlyProps) {
     )
   }
 
-  if (renderError) return <pre className="whitespace-pre-wrap break-words text-sm">{content}</pre>
+  if (renderError) return <pre className="whitespace-pre-wrap break-words text-sm">{displayContent}</pre>
 
   const handleEditorClick = (e: React.MouseEvent) => {
     const target = e.target as HTMLElement

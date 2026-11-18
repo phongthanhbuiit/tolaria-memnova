@@ -431,3 +431,15 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 - AlertDialog hiển thị Hủy trước Xóa vĩnh viễn và đặt focus ban đầu vào Hủy. Enter kích hoạt nút đang focus. Native vi 1440×900: xác nhận một ghi chú ở sáng và hai ghi chú ở tối, Hủy/Esc giữ ghi chú. Vitest 23/23, Playwright 6/6 qua các lần chạy riêng. Ca giữ gợi nhớ đổi bước mở editor từ tab cũ sang nút Sửa gợi nhớ đang dùng và giữ các assertion lưu/xóa.
 - Catalog en/vi hoàn tất, bốn khóa ghi vào [L10N-PENDING](L10N-PENDING.md), validator đạt 18 catalog. Dùng sự kiện `note_deleted` đã có.
 - Ảnh native: [trước sáng](review-shots/2026-11-18/W2-07-before-light.png) · [trước tối](review-shots/2026-11-18/W2-07-before-dark.png) · [một ghi chú sáng](review-shots/2026-11-18/W2-07-after-light.png) · [hai ghi chú tối](review-shots/2026-11-18/W2-07-after-dark.png).
+
+### F-049 · W2-08 · Mặt sau thẻ cũ hiển thị JSON tldraw
+
+- P1 · **fixed (commit W2-08)**. Native vi 1440×900: Ôn tập → Thẻ cũ → Bắt đầu ôn → Hiện câu trả lời. `Whiteboard Test` có một khối `tldraw` sau `FLASHCARD:BACK` trong Markdown. SQLite lưu nguyên khối ở `cards.back`. Renderer Excalidraw không nhận định dạng tldraw nên BlockNote hiện JSON như mã.
+- Đạt khi mặt sau hiển thị bản vẽ hoặc thông báo dễ hiểu, với tệp Markdown và dữ liệu thẻ giữ nguyên.
+- Khối tldraw/whiteboard được thay bằng thông báo bản địa hóa trong renderer chỉ đọc, kể cả nhánh lỗi parse. Excalidraw và các khối mã thông thường giữ renderer hiện tại. RED 2/2 trước sửa, GREEN 121/121 gồm renderer, LearningStudyView và Markdown. Native vi 1440×900, sáng/tối thấy thông báo thay cho JSON. Không chấm điểm và không có đường ghi dữ liệu trong bản sửa.
+- SHA-256 trùng trước/sau khi so tệp Markdown và hai mặt SQLite của thẻ QA:
+  - `markdown f55385b014d712110358204ff47262a62c6a82a6d56da6162c155e96ea378695`
+  - `front 9eda256c9a89994802aba6af7ed7bd328a986e3f7561c0079ea0ce479f33a70f`
+  - `back f0ffd6bdd71c6d4d5c5b21cee3616420b57c7884912d83577b84eb046e8af210`
+- Catalog en/vi hoàn tất, một khóa ghi vào [L10N-PENDING](L10N-PENDING.md).
+- Ảnh native: [trước sáng](review-shots/2026-11-18/W2-08-before-light.png) · [trước tối](review-shots/2026-11-18/W2-08-before-dark.png) · [sau sáng](review-shots/2026-11-18/W2-08-after-light.png) · [sau tối](review-shots/2026-11-18/W2-08-after-dark.png).

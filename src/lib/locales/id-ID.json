@@ -826,6 +826,7 @@
   "learning.showAnswer": "Tampilkan jawaban",
   "learning.undo": "Urungkan",
   "learning.retry": "Coba lagi",
+  "learning.legacyDrawingUnavailable": "This study session cannot display the legacy tldraw drawing.",
   "learning.loading": "Memuat…",
   "learning.saving": "Menyimpan…",
   "learning.wait": "Menunggu langkah belajar berikutnya",

@@ -826,6 +826,7 @@
   "learning.showAnswer": "Pakazac adkaz",
   "learning.undo": "Admianic",
   "learning.retry": "Paŭtaryc",
+  "learning.legacyDrawingUnavailable": "This study session cannot display the legacy tldraw drawing.",
   "learning.loading": "Zahruzka…",
   "learning.saving": "Zachavannie…",
   "learning.wait": "Čakannie nastupnaha kroku navučannia",

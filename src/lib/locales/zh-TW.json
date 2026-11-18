@@ -826,6 +826,7 @@
   "learning.showAnswer": "顯示答案",
   "learning.undo": "復原",
   "learning.retry": "重試",
+  "learning.legacyDrawingUnavailable": "This study session cannot display the legacy tldraw drawing.",
   "learning.loading": "正在載入…",
   "learning.saving": "正在儲存…",
   "learning.wait": "等待下一個學習步驟",

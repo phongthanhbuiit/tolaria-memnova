@@ -826,6 +826,7 @@
   "learning.showAnswer": "Mostra risposta",
   "learning.undo": "Annulla",
   "learning.retry": "Riprova",
+  "learning.legacyDrawingUnavailable": "This study session cannot display the legacy tldraw drawing.",
   "learning.loading": "Caricamento…",
   "learning.saving": "Salvataggio…",
   "learning.wait": "In attesa del prossimo passo di apprendimento",
