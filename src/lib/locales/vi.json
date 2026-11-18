@@ -1149,5 +1149,7 @@
   "filters.group.matchAny": "Khớp ít nhất một điều kiện",
   "filters.addCondition": "Thêm bộ lọc",
   "filters.addGroup": "Thêm nhóm",
-  "filters.fields.noResults": "Không có kết quả"
+  "filters.fields.noResults": "Không có kết quả",
+  "a11y.chooseIcon": "Chọn biểu tượng {icon}",
+  "a11y.whiteboardMenu": "Menu bảng vẽ"
 }

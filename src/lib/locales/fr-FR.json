@@ -1149,5 +1149,7 @@
   "filters.group.matchAny": "Match any condition",
   "filters.addCondition": "Add filter",
   "filters.addGroup": "Add group",
-  "filters.fields.noResults": "No results"
+  "filters.fields.noResults": "No results",
+  "a11y.chooseIcon": "Choose icon {icon}",
+  "a11y.whiteboardMenu": "Drawing menu"
 }

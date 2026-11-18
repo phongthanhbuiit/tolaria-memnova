@@ -46,3 +46,10 @@ Bản tiếng Anh và tiếng Việt đã có. Dịch các khóa dưới đây c
 - `filters.addCondition`
 - `filters.addGroup`
 - `filters.fields.noResults`
+
+## F-005 · Tên truy cập của nút icon
+
+Bản tiếng Anh và tiếng Việt đã có. Dịch hai khóa sau cho 16 catalog còn lại, giữ nguyên `{icon}` vì đây là mã trong bộ chọn biểu tượng.
+
+- `a11y.chooseIcon`
+- `a11y.whiteboardMenu`

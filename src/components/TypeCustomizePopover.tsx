@@ -146,7 +146,7 @@ function IconSection({
               )}
               onClick={() => onSelectIcon(name)}
               title={name}
-              aria-label={name}
+              aria-label={translate(locale, 'a11y.chooseIcon', { icon: name })}
             >
               <Icon size={ICON_PICKER_ICON_SIZE} className={ICON_PICKER_ICON_CLASS_NAME} />
             </Button>

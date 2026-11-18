@@ -18,6 +18,10 @@ import { TagsDropdown } from './TagsDropdown'
 import { NoteIcon } from './NoteIcon'
 import { AccentColorPicker } from './AccentColorPicker'
 import { EmojiPicker } from './EmojiPicker'
+import { IconEditableValue } from './IconEditableValue'
+import { SortDropdown } from './SortDropdown'
+import { TypeCustomizePopover } from './TypeCustomizePopover'
+import { FlashcardPanel } from './inspector/FlashcardPanel'
 import { HomePage } from './HomePage'
 import { DecksPage } from './DecksPage'
 import { PulseView } from './PulseView'
@@ -35,6 +39,16 @@ function mount(ui: ReactElement) {
 }
 function scan() {
   for (const button of document.querySelectorAll('button')) expect(button, button.outerHTML).not.toHaveAccessibleName('')
+  for (const field of screen.queryAllByRole('combobox')) {
+    expect(field, field.outerHTML).not.toHaveAccessibleName('')
+    const labels = (field as HTMLInputElement).labels
+    const hasAuthorName = Boolean(
+      field.getAttribute('aria-label')?.trim()
+      || field.getAttribute('aria-labelledby')?.trim()
+      || Array.from(labels ?? []).some(label => label.textContent?.trim()),
+    )
+    expect(hasAuthorName, field.outerHTML).toBe(true)
+  }
   expect(screen.queryAllByRole('button', { name: '' }).map(button => button.outerHTML)).toEqual([])
   for (const button of screen.queryAllByRole('button')) {
     const visible = button.cloneNode(true) as HTMLElement
@@ -74,3 +88,39 @@ it('F-005 scans status swatches after opening the color palette', () => { mount(
 it('F-005 scans filtered emoji choices without treating English catalog names as localized labels', () => { mount(<EmojiPicker onSelect={noop} onClose={noop} />); fireEvent.change(screen.getByRole('textbox'), { target: { value: 'rocket' } }); expect(screen.getAllByTestId('emoji-option').length).toBeGreaterThan(0); scan() })
 
 it('F-005 scans the shared dialog close icon in Vietnamese', () => { mount(<Dialog open><DialogContent><DialogTitle>Tùy chỉnh</DialogTitle></DialogContent></Dialog>); scan() })
+
+it('F-005 names both sort direction buttons when the sort menu opens', () => {
+  mount(<SortDropdown groupLabel="qa" current="modified" direction="desc" locale="vi" onChange={noop} />)
+  fireEvent.click(screen.getByTestId('sort-button-qa'))
+  expect(screen.getByTestId('sort-dir-asc-modified')).toHaveAttribute('aria-label', 'Tăng dần')
+  expect(screen.getByTestId('sort-dir-desc-modified')).toHaveAttribute('aria-label', 'Giảm dần')
+  scan()
+})
+
+it('F-005 names icon choices without changing the icon identifier', () => {
+  const onChangeIcon = vi.fn()
+  mount(<TypeCustomizePopover currentIcon={null} currentColor={null} currentTemplate={null} locale="vi"
+    onChangeIcon={onChangeIcon} onChangeColor={noop} onChangeTemplate={noop} onClose={noop} />)
+  fireEvent.change(screen.getByPlaceholderText('Tìm biểu tượng…'), { target: { value: 'book' } })
+  const button = screen.getByRole('button', { name: 'Chọn biểu tượng book', exact: true })
+  expect(button).toHaveAttribute('title', 'book')
+  fireEvent.click(button)
+  expect(onChangeIcon).toHaveBeenCalledWith('book')
+})
+
+it.each([['', 'Sửa biểu tượng'], ['📚', 'Sửa biểu tượng 📚']])('F-005 names the icon edit button for "%s"', (value, label) => {
+  mount(<IconEditableValue value={value} isEditing={false} onSave={noop} onCancel={noop} onStartEdit={noop} />)
+  expect(screen.getByTestId('icon-editable-display')).toHaveAttribute('aria-label', label)
+})
+
+it('F-005 gives the icon input an author-provided name', () => {
+  mount(<IconEditableValue value="book" isEditing onSave={noop} onCancel={noop} onStartEdit={noop} />)
+  expect(screen.getByRole('combobox', { name: 'Sửa biểu tượng' })).toBeInTheDocument()
+  scan()
+})
+
+it('F-005 gives the legacy flashcard type combobox an author-provided name', () => {
+  mount(<FlashcardPanel entry={makeEntry({ fsrsEnabled: true })} locale="vi" />)
+  const cardType = screen.getByRole('combobox', { name: 'Loại thẻ' })
+  expect(cardType).toHaveTextContent('Basic')
+})

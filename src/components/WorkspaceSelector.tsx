@@ -93,7 +93,7 @@ function reportWorkspaceChangeFailure(error: unknown) {
   console.error('Failed to change workspace:', error)
 }
 
-function WorkspaceRowLabel({ locale }: { locale: AppLocale }) {
+function WorkspaceRowLabel({ locale, id }: { locale: AppLocale; id?: string }) {
   return (
     <span className={PROPERTY_PANEL_LABEL_CLASS_NAME}>
       <span
@@ -102,7 +102,7 @@ function WorkspaceRowLabel({ locale }: { locale: AppLocale }) {
       >
         <Cube size={16} className="shrink-0" data-testid="workspace-row-icon" />
       </span>
-      <span className="min-w-0 truncate">{translate(locale, 'inspector.properties.workspace')}</span>
+      <span id={id} className="min-w-0 truncate">{translate(locale, 'inspector.properties.workspace')}</span>
     </span>
   )
 }
@@ -193,6 +193,8 @@ function EditableWorkspaceSelector({
   const inputRef = useRef<HTMLInputElement>(null)
   const listRef = useRef<HTMLDivElement>(null)
   const listboxId = useId()
+  const labelId = useId()
+  const valueId = useId()
   const options = useMemo(
     () => buildWorkspaceOptions({ currentWorkspace, query, workspaces }),
     [currentWorkspace, query, workspaces],
@@ -306,7 +308,7 @@ function EditableWorkspaceSelector({
       style={PROPERTY_PANEL_ROW_STYLE}
       data-testid="workspace-selector"
     >
-      <WorkspaceRowLabel locale={locale} />
+      <WorkspaceRowLabel locale={locale} id={labelId} />
       <div className="flex min-w-0 items-center justify-start">
         <Popover open={open} onOpenChange={handleOpenChange}>
           <PopoverAnchor asChild>
@@ -316,7 +318,7 @@ function EditableWorkspaceSelector({
                 variant="ghost"
                 size="sm"
                 role="combobox"
-                aria-label={currentWorkspace.label}
+                aria-labelledby={`${labelId} ${valueId}`}
                 aria-controls={listboxId}
                 aria-expanded={open}
                 aria-haspopup="listbox"
@@ -332,7 +334,7 @@ function EditableWorkspaceSelector({
                 onPointerDown={handleTriggerPointerDown}
                 onKeyDown={handleTriggerKeyDown}
               >
-                <span className="flex min-w-0 items-center truncate">
+                <span id={valueId} className="flex min-w-0 items-center truncate">
                   <WorkspaceSelectorValue currentWorkspace={currentWorkspace} locale={locale} />
                 </span>
                 <CaretUpDown size={16} aria-hidden="true" />

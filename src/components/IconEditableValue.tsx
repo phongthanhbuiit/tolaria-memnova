@@ -2,6 +2,8 @@ import { Button } from '@/components/ui/button'
 import { useId, useMemo, useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
+import { useAppLocale } from '../hooks/useAppPreferences'
+import { translate } from '../lib/i18n'
 import { isEmoji } from '../utils/emoji'
 import { ICON_OPTIONS } from '../utils/iconRegistry'
 
@@ -55,7 +57,8 @@ function IconEditableInput({
   value,
   onSave,
   onCancel,
-}: Pick<IconEditableValueProps, 'value' | 'onSave' | 'onCancel'>) {
+  label,
+}: Pick<IconEditableValueProps, 'value' | 'onSave' | 'onCancel'> & { label: string }) {
   const [editValue, setEditValue] = useState(value)
   const [highlightedIndex, setHighlightedIndex] = useState(0)
   const listboxId = useId()
@@ -111,6 +114,7 @@ function IconEditableInput({
         onBlur={commitTypedValue}
         autoFocus
         role="combobox"
+        aria-label={label}
         aria-autocomplete="list"
         aria-controls={listboxId}
         aria-expanded
@@ -165,8 +169,9 @@ export function IconEditableValue({
   isEditing,
   onStartEdit,
 }: IconEditableValueProps) {
+  const label = translate(useAppLocale(), 'a11y.editIcon')
   if (isEditing) {
-    return <IconEditableInput key={value} value={value} onSave={onSave} onCancel={onCancel} />
+    return <IconEditableInput key={value} value={value} onSave={onSave} onCancel={onCancel} label={label} />
   }
 
   return (
@@ -175,6 +180,7 @@ export function IconEditableValue({
       className="inline-flex min-w-0 max-w-full cursor-pointer items-center truncate rounded-md border-0 bg-transparent px-2 text-left text-body text-secondary-foreground transition-colors hover:bg-muted"
       onClick={onStartEdit}
       title={value || 'Click to edit'}
+      aria-label={[label, value].filter(Boolean).join(' ')}
       data-testid="icon-editable-display"
     >
       {value || '\u2014'}

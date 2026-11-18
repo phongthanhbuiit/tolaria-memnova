@@ -57,6 +57,12 @@ describe('WorkspaceSelector', () => {
     expect(trigger.getAttribute('style')).toContain('background: var(--accent-green-light)')
   })
 
+  it('names the combobox with the localized field label and current workspace', () => {
+    renderWorkspaceSelector({ locale: 'vi' })
+
+    expect(screen.getByRole('combobox', { name: 'Kho lưu trữ Personal' })).toBeInTheDocument()
+  })
+
   it('filters workspaces and selects a different workspace', () => {
     const { onChangeWorkspace } = renderWorkspaceSelector()
 

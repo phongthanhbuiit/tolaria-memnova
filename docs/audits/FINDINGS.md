@@ -16,7 +16,7 @@ Trạng thái: `open` · `partial` · `fixed — chờ QA native (phạm vi)` ·
 
 **Đã đóng:** F-001–F-004, F-006–F-008, F-010–F-011, F-013–F-020, F-022–F-023, F-025–F-031, F-033–F-037, F-039–F-041 (**34 F**) và R-01–R-10, R-12–R-16 (**15 R**). F-023/F-025/F-030/F-031 là phần nền tảng A. R-05 là test-only. Telex native vẫn chưa được xác minh.
 
-**Còn chờ native/bằng chứng bổ sung:** F-005 (author-name combobox cuối, ảnh trước tối); F-024 (legacy/Linux/trạng thái hiếm); F-032 (message/tool chỉ có fixture); F-038 (các màn legacy không có route native); Telex trong AI và ô wikilink từ R-05/E2. F-005/F-024/F-032 vẫn partial vì ngoài QA còn phần mã/phạm vi chưa hoàn tất. F-038 đã sửa mã nhưng không tính đóng khi các màn legacy mới được kiểm bằng fixture/diff/test; đối chiếu giới hạn native trong [D4B](STEP-D4B-INLINE-STYLE.md).
+**Còn chờ native/bằng chứng bổ sung:** F-005 (nhãn nội bộ Excalidraw còn tiếng Anh, ảnh trước tối của E2); F-024 (legacy/Linux/trạng thái hiếm); F-032 (message/tool chỉ có fixture); F-038 (các màn legacy không có route native); Telex trong AI và ô wikilink từ R-05/E2. F-005/F-024/F-032 vẫn partial vì ngoài QA còn phần mã/phạm vi chưa hoàn tất. F-038 đã sửa mã nhưng không tính đóng khi các màn legacy mới được kiểm bằng fixture/diff/test; đối chiếu giới hạn native trong [D4B](STEP-D4B-INLINE-STYLE.md).
 
 Coverage dòng gần nhất (R-10): FE **87,85%**, Rust đầy đủ **86,41%**. Grep SPEC §8 hiện tại **1 / 0**.
 
@@ -35,7 +35,7 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 | F-002 | P1 | C4 | Ngày trong danh sách ghi chú là tiếng Anh khi UI tiếng Việt | ảnh | fixed (9c951e78) |
 | F-003 | P1 | C4 | Nhãn Properties tiếng Anh lẫn trong UI tiếng Việt | ảnh | fixed (`1a262b64`) |
 | F-004 | P1 | C4 | Công tắc "Ôn tập ghi chú này" và nút "Ôn ghi chú này" gần như trùng tên | ảnh | fixed (`e8dfc0c2`) |
-| F-005 | P1 | C5 | Nút chỉ có icon thiếu `aria-label` (~58 chỗ) | mã | partial (E2 `f6601cbc`); riêng R-13 đã sửa |
+| F-005 | P1 | C5 | Nút chỉ có icon thiếu `aria-label` (~58 chỗ) | mã | partial — nút nội bộ Excalidraw còn tiếng Anh |
 | F-006 | P1 | C3 | 38 phần tử form HTML thô ngoài `ui/` (vi phạm AGENTS.md) | mã | fixed (`f5462464`) |
 | F-007 | P2 | C4 | Thuật ngữ học tập không nhất quán (trang/ghi chú, ghi nhớ/ôn/gợi nhớ) | ảnh | fixed (`25fdd409`) |
 | F-008 | P2 | C3 | Hai nút chính màu xanh cạnh tranh trên Trang chủ | ảnh | fixed (`70212a69`) |
@@ -87,6 +87,8 @@ Nguồn: 5 ảnh native baseline của commit `199e69de` + quét grep mã nguồ
 - Chấp nhận: hai nhãn không dùng chung động từ; mọi locale được cập nhật; `pnpm l10n:validate` pass.
 
 ### F-005 — Nút icon thiếu tên truy cập
+- **Bổ sung trong lô, 18/11/2026:** Quét JSX theo cả thuộc tính và nội dung nhiều dòng, mở thêm các trạng thái qua test quét. Đã bổ sung tên tiếng Việt cho mũi tên tăng/giảm của [menu sắp xếp](../../src/components/SortDropdown.tsx), [các nút chọn biểu tượng](../../src/components/TypeCustomizePopover.tsx), [nút và combobox sửa biểu tượng](../../src/components/IconEditableValue.tsx), [combobox loại thẻ legacy](../../src/components/inspector/FlashcardPanel.tsx) và [tên trường đi kèm giá trị trong combobox chọn kho lưu trữ](../../src/components/WorkspaceSelector.tsx). Combobox chọn trường lọc đã được R-14 gắn nhãn cho từng hàng, nay được quét lại cùng bộ chọn toán tử. R-13 đã dịch hai nút BlockNote và qua kiểm tra lại khi chuyển ngôn ngữ.
+- **Bảng vẽ nhúng:** Axe `button-name` phát hiện nút menu mặc định Excalidraw thiếu tên. [Lớp nhúng](../../src/components/ExcalidrawWhiteboard.tsx) giờ gắn nhãn catalog, còn nút và menu gốc vẫn xử lý chuột, Enter và Escape. Axe kiểm lại không báo vi phạm `button-name` trong các trạng thái bảng vẽ đã mở. Vẫn partial vì Excalidraw còn tên màn hình đọc tiếng Anh cho công cụ phụ, phóng to/thu nhỏ, hoàn tác/làm lại, trợ giúp và bộ chọn màu nền. SDK 0.18.1 áp dụng `langCode` cho cả nội dung hiển thị và thuộc tính ngôn ngữ của tài liệu. Bản sửa này chỉ gắn nhãn nút menu và giữ nguyên giao diện bảng vẽ.
 - **E2 — partial (`f6601cbc`), 18/11/2026:** nhãn/tooltip icon của app đã dịch đủ catalog; mở rộng test sang mọi HTML button kể cả role combobox, 22/22 GREEN. Axe app/learning không còn button-name violation trong các trạng thái đã quét. Native BlockNote vẫn có hai nhãn English, ghi R-13 nên chưa đóng yêu cầu mọi nút được dịch. [Biên bản E2](STEP-E2-A11Y-FORMS.md).
 - Thực tế: grep `size="icon` không kèm `aria-label` cùng dòng ≈ 58. Phép đếm một dòng nên có dương tính giả — mở từng file xác nhận.
 - Chấp nhận: axe qua Playwright không còn lỗi `button-name` trên S1–S11; mỗi nút icon có tooltip trùng `aria-label`.

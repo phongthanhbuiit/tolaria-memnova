@@ -1,6 +1,7 @@
 import { Excalidraw } from '@excalidraw/excalidraw'
 import '@excalidraw/excalidraw/index.css'
 import { useContext, useEffect, useRef, useState } from 'react'
+import { useAppLocale } from '../hooks/useAppPreferences'
 import { useDocumentThemeMode } from '../hooks/useDocumentThemeMode'
 import { DocumentRenderContext } from './documentRenderContext'
 import { readScene } from './excalidrawScene'
@@ -29,6 +30,8 @@ export default function ExcalidrawWhiteboard(props: Props) {
 }
 
 function DrawingSession({ source, blockId, readOnly, height, onSnapshotChange }: Props & { source: string }) {
+  const drawingRef = useRef<HTMLDivElement>(null)
+  const appLocale = useAppLocale()
   const [scene] = useState(() => readScene(source))
   const last = useRef(JSON.stringify({elements: scene?.elements, files: scene?.files}))
   const report = useContext(DocumentRenderContext)
@@ -38,8 +41,23 @@ function DrawingSession({ source, blockId, readOnly, height, onSnapshotChange }:
     if (!scene) report?.(blockId, 'error')
     return () => report?.(blockId, 'loading')
   }, [blockId, report, scene])
+  useEffect(() => {
+    const drawing = drawingRef.current
+    if (!drawing) return
+
+    // Excalidraw 0.18 renders the main menu trigger internally without a name.
+    const label = translate(appLocale, 'a11y.whiteboardMenu')
+    const nameMenu = () => {
+      const trigger = drawing.querySelector('button[data-testid="main-menu-trigger"]')
+      if (trigger && trigger.getAttribute('aria-label') !== label) trigger.setAttribute('aria-label', label)
+    }
+    const observer = new MutationObserver(nameMenu)
+    observer.observe(drawing, { childList: true, subtree: true })
+    nameMenu()
+    return () => observer.disconnect()
+  }, [appLocale])
   if (!scene) return <p role="alert">{translate(locale, 'editor.whiteboard.loadError')}</p>
-  return <div role="group" aria-label="Excalidraw" contentEditable={false} className="excalidraw-whiteboard w-full min-w-0 overflow-hidden rounded-md border" style={{height: Number(height) || 520}}>
+  return <div ref={drawingRef} role="group" aria-label="Excalidraw" contentEditable={false} className="excalidraw-whiteboard w-full min-w-0 overflow-hidden rounded-md border" style={{height: Number(height) || 520}}>
     <Excalidraw initialData={scene} theme={theme} viewModeEnabled={readOnly}
       handleKeyboardGlobally={false} validateEmbeddable={false}
       onChange={(elements, _appState, files) => {

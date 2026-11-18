@@ -472,6 +472,7 @@ export function FlashcardPanel({
           >
             <SelectTrigger size="sm"
               id={`fsrs-card-type-${entry.path}`}
+              aria-label={translate(locale, 'learning.cardType')}
               className="w-[100px] border-border bg-muted px-2 py-0 text-body shadow-none"
             >
               <SelectValue />

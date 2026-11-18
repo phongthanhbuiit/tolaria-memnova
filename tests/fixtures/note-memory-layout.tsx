@@ -4,6 +4,7 @@ import type { NoteLearningState } from '../../src/lib/learning/types'
 import { useEffect, useMemo, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { TooltipProvider } from '../../src/components/ui/tooltip'
+import { AppPreferencesProvider } from '../../src/hooks/useAppPreferences'
 import { LearningContext, type LearningWorkspace } from '../../src/components/learning/LearningContext'
 import { NoteLearningPanel } from '../../src/components/learning/NoteLearningPanel'
 import { NoteLearningDashboard } from '../../src/components/learning/NoteLearningDashboard'
@@ -89,7 +90,7 @@ export function Harness() {
     {surface === 'toolbar' && <NoteBackSourceToolbar back={{ kind: 'inline' }} ownerPath="/fixture/Biology/Article.md" ownerPageId={owner} locale={locale} onApplyBack={async () => {}} onNavigate={() => {}} />}
     {surface === 'inspector' && <NoteMemoryInspector path="/fixture/Biology/Article.md" content={`---\n_memnova_page_id: ${owner}\n_memnova_learning_version: 1\n_memnova_learning_enabled: true\n_memnova_back_kind: inline\n---\nArticle`} locale={locale} />}
     {surface === 'tabs' && face === 'back' && <NoteMemoryEditorTabs panelId="article" locale={locale} onReturn={() => setFace('front')} />}
-    {surface === 'whiteboard' && <div className="editor__blocknote-container"><ExcalidrawWhiteboard blockId="layout" height={size.height} snapshot={JSON.stringify(snapshot)} onSnapshotChange={() => {}} /></div>}
+    {surface === 'whiteboard' && <AppPreferencesProvider locale={locale}><div className="editor__blocknote-container"><ExcalidrawWhiteboard blockId="layout" height={size.height} snapshot={JSON.stringify(snapshot)} onSnapshotChange={() => {}} /></div></AppPreferencesProvider>}
     {surface === 'study' && <LearningStudyView key={generation} study={study} root="/fixture" locale={locale} />}
     {!open && <p role="status">Closed</p>}
   </div></LearningContext.Provider></TooltipProvider>

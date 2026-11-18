@@ -445,6 +445,8 @@ function SortDirectionButton({
   itemData: Record<string, string>
   locale: AppLocale
 }) {
+  const label = translate(locale, direction === 'asc' ? 'noteList.sort.ascending' : 'noteList.sort.descending')
+
   return (
     <Button variant="bare"
       type="button"
@@ -454,7 +456,8 @@ function SortDirectionButton({
         onSelect(value, direction)
       }}
       data-testid={`sort-dir-${direction}-${value}`}
-      title={translate(locale, direction === 'asc' ? 'noteList.sort.ascending' : 'noteList.sort.descending')}
+      title={label}
+      aria-label={label}
       {...itemData}
     >
       {icon}
