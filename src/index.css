@@ -463,6 +463,12 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  :where(input, textarea, [contenteditable="true"], [contenteditable="plaintext-only"], .editor__blocknote-container) {
+    -webkit-user-select: text;
+    user-select: text;
   }
   body.custom-window-chrome {
     padding-top: 32px;

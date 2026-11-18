@@ -535,3 +535,8 @@ W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
 
 - P3 · Mở phiên ôn Thẻ cũ. Ảnh audit cho thấy thanh trạng thái qua nền bán trong suốt. Đạt khi lớp phủ kéo tới mép dưới và nằm trên thanh trạng thái. [Ảnh audit](review-shots/2026-11-18/13-flashcard-mat-truoc-light.png).
 - **Đã đạt trên baseline**. Native vi 1440×900 cho thấy thanh trạng thái được làm tối trong [theme sáng](review-shots/2026-11-18/W2-21-verified-light.png) và [theme tối](review-shots/2026-11-18/W2-21-verified-dark.png). Playwright Chromium/WebKit đo overlay kín viewport ở zoom 80%, 100%, 150%. Thêm kiểm tra lớp phủ ở mép dưới trong luồng ôn của app.
+
+### F-064 · W2-23 · Có thể kéo chọn chữ trên giao diện
+
+- P3 · Kéo qua các nhãn Trang chủ. Chữ chrome bị bôi đen cùng lúc. Đạt khi kéo trong chrome không chọn chữ, còn nội dung ghi chú và trường nhập vẫn chọn được. [Ảnh audit](review-shots/2026-11-18/02-trang-chu-light.png).
+- **fixed (commit W2-23)**. Khóa chọn chữ ở chrome và bật lại cho nội dung ghi chú, rich/raw editor và trường nhập. Playwright Chromium/WebKit xác nhận các vùng áp dụng. Native vi [sáng](review-shots/2026-11-18/W2-23-after-light.png) · [tối](review-shots/2026-11-18/W2-23-after-dark.png).
