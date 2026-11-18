@@ -36,8 +36,8 @@ function NoteListLoadingRow({
 }) {
   return (
     <div
-      className="border-b border-border"
-      style={{ padding: '12px 12px 10px', background: selected ? 'var(--accent-green-light)' : undefined }}
+      className="border-b border-border px-[12px] pt-[12px] pb-[10px]"
+      style={{ background: selected ? 'var(--accent-green-light)' : undefined }}
     >
       <div className="mb-3 flex items-start justify-between gap-3">
         <NoteListLoadingBar width={title} />
@@ -125,7 +125,7 @@ function NoteListContent({
   | 'loading'
 >) {
   return (
-    <div className="flex-1 overflow-hidden" style={{ minHeight: 0 }}>
+    <div className="min-h-0 flex-1 overflow-hidden">
       {loading ? (
         <NoteListLoadingSkeleton />
       ) : entitySelection ? (
@@ -214,8 +214,7 @@ function NoteListBody({
   return (
     <div
       ref={noteListContainerRef}
-      className="relative flex flex-1 flex-col overflow-hidden outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:-outline-offset-2 focus-visible:outline-ring"
-      style={{ minHeight: 0 }}
+      className="relative flex min-h-0 flex-1 flex-col overflow-hidden outline-none focus-visible:outline-2 focus-visible:outline-solid focus-visible:-outline-offset-2 focus-visible:outline-ring"
       role="listbox"
       aria-label={translate(locale, 'noteList.title.notes')}
       tabIndex={0}
@@ -396,8 +395,7 @@ export function NoteListLayout({
   return (
     <div
       ref={noteListPanelRef}
-      className="flex flex-col select-none overflow-hidden border-r border-border bg-card text-foreground"
-      style={{ height: '100%' }}
+      className="flex h-full flex-col select-none overflow-hidden border-r border-border bg-card text-foreground"
       onBlurCapture={handleNoteListPanelBlurCapture}
       onFocusCapture={handleNoteListPanelFocusCapture}
     >
