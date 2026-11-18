@@ -143,8 +143,9 @@ export function LearningStudyFaces({
       {(isNote ? backVisited : revealed) && sourceReady && (
         <div
           ref={mnemonicRegion}
-          tabIndex={isNote ? -1 : undefined}
-          aria-label={isNote ? t('learning.noteMemory.mnemonic') : undefined}
+          tabIndex={-1}
+          role="region"
+          aria-label={t(isNote ? 'learning.noteMemory.mnemonic' : 'learning.back')}
           hidden={isNote && !revealed}
           inert={isNote && !revealed}
           aria-hidden={isNote && !revealed ? true : undefined}

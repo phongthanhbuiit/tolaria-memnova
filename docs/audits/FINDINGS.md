@@ -443,3 +443,13 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
   - `back f0ffd6bdd71c6d4d5c5b21cee3616420b57c7884912d83577b84eb046e8af210`
 - Catalog en/vi hoàn tất, một khóa ghi vào [L10N-PENDING](L10N-PENDING.md).
 - Ảnh native: [trước sáng](review-shots/2026-11-18/W2-08-before-light.png) · [trước tối](review-shots/2026-11-18/W2-08-before-dark.png) · [sau sáng](review-shots/2026-11-18/W2-08-after-light.png) · [sau tối](review-shots/2026-11-18/W2-08-after-dark.png).
+
+## Đợt 2 · Lô 2
+
+W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
+
+### F-050 · W2-11 · Mặt sau thẻ nằm ngoài vùng nhìn
+
+- P2 · **fixed (commit W2-11)**. [Ảnh gốc](review-shots/2026-11-18/14-flashcard-da-lat-light.png). Mở Whiteboard Test trong Thẻ cũ, lật thẻ có câu hỏi dài. Muốn đọc câu trả lời phải cuộn thân dialog.
+- Đạt khi lật thẻ đưa câu trả lời vào vùng nhìn và giữ phím chấm 1–4.
+- Khi mặt sau dựng xong, focus vào vùng câu trả lời và cuộn tức thì. Test RED → GREEN (17/17), gồm phím chấm sau lật. Native vi 1440×900 [sáng](review-shots/2026-11-18/W2-11-after-light.png) · [tối](review-shots/2026-11-18/W2-11-after-dark.png).

@@ -1,6 +1,5 @@
 import {
   useCallback,
-  useEffect,
   useLayoutEffect,
   useRef,
   useState,
@@ -98,13 +97,20 @@ export function useStudyFaces(key: string, isNote: boolean, open: boolean) {
   useLayoutEffect(() => {
     if (faceScroll.current.key !== key)
       faceScroll.current = { key, front: 0, back: 0 }
-    if (isNote && scrollContainer.current)
-      scrollContainer.current.scrollTop =
-        faceScroll.current[revealed ? 'back' : 'front']
+    if (scrollContainer.current && (isNote || !revealed))
+      scrollContainer.current.scrollTop = isNote
+        ? faceScroll.current[revealed ? 'back' : 'front']
+        : 0
   }, [isNote, revealed, key])
-  useEffect(() => {
-    if (open && isNote && revealed && answerReady)
-      mnemonicRegion.current?.focus({ preventScroll: true })
+  useLayoutEffect(() => {
+    const answer = mnemonicRegion.current
+    if (!open || !revealed || !answerReady || !answer) return
+    answer.focus({ preventScroll: true })
+    if (isNote) return
+    const frame = requestAnimationFrame(() => {
+      answer.scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'instant' })
+    })
+    return () => cancelAnimationFrame(frame)
   }, [open, isNote, revealed, answerReady, key])
   const reveal = () => {
     setShownBack(key)

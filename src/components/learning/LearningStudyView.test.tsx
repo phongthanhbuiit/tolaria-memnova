@@ -1,4 +1,4 @@
-import { act, fireEvent, render, screen, within } from '@testing-library/react'
+import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { useEffect, useRef } from 'react'
 import { expect, it, vi } from 'vitest'
 import { LearningStudyView } from './LearningStudyView'
@@ -421,4 +421,18 @@ it.each([1, 2, 3, 4])('retains focus synchronously after mouse Undo, then accept
   expect(document.activeElement).not.toBe(document.body)
   fireEvent.keyDown(document.activeElement!, { key: String(rating) })
   expect(study.rate).toHaveBeenCalledWith(rating)
+})
+
+
+it('moves to the revealed card answer and keeps grading keys active', async () => {
+  const study = fixture()
+  render(<LearningStudyView study={study} root="/library" locale="en" />)
+  fireEvent.click(screen.getByRole('button', { name: 'Show answer' }))
+  const answer = screen.getByRole('region', { name: 'Answer' })
+  const scroll = vi.fn()
+  answer.scrollIntoView = scroll
+  expect(answer).toHaveFocus()
+  await waitFor(() => expect(scroll).toHaveBeenCalledWith({ block: 'start', inline: 'nearest', behavior: 'instant' }))
+  fireEvent.keyDown(answer, { key: '4' })
+  expect(study.rate).toHaveBeenCalledWith(4)
 })
