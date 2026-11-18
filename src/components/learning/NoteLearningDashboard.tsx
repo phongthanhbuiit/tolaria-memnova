@@ -59,19 +59,24 @@ export function NoteLearningDashboard({
   return (
     <div ref={setScrollParent} className="note-memory-surface app-scrollbar h-full min-h-0 overflow-y-auto">
       {libraryHeader}
+      {mode === 'decks' && (
+        <header className="mx-auto max-w-5xl px-4 pb-4 pt-6 sm:px-8 sm:pt-8">
+          <h1 className="text-display font-semibold tracking-tight">{t('sidebar.nav.decks')}</h1>
+        </header>
+      )}
       <Tabs value={lane} activationMode="manual" onValueChange={value => {
         const selected = value === 'legacy' ? 'legacy' : 'notes'
         setLane(selected)
         trackEvent('memnova_learning_lane_selected', { lane: selected })
       }} className="gap-0">
         <div className="mx-auto w-full max-w-5xl border-b px-4 sm:px-8">
-          <TabsList variant="line" aria-label={t('learning.library')} className="max-w-full flex-wrap justify-start gap-2 p-0">
+          <TabsList variant="line" aria-label={t(mode === 'decks' ? 'sidebar.nav.decks' : 'learning.library')} className="max-w-full flex-wrap justify-start gap-2 p-0">
             <TabsTrigger value="notes" size="md" layout="responsive" className="rounded-none after:bg-transparent after:border-b after:border-current data-[state=active]:text-primary dark:data-[state=active]:text-primary">
               <Brain aria-hidden="true" />{t('learning.noteMemory.notes')} ·{' '}
               {translate(locale, 'decks.due', { n: due.notes.length })}
             </TabsTrigger>
             <TabsTrigger value="legacy" size="md" layout="responsive" className="rounded-none after:bg-transparent after:border-b after:border-current data-[state=active]:text-primary dark:data-[state=active]:text-primary">
-              <Stack aria-hidden="true" />{t('learning.noteMemory.legacyCards')} ·{' '}
+              <Stack aria-hidden="true" />{t('decks.title')} ·{' '}
               {translate(locale, 'decks.due', { n: due.legacy.length })}
             </TabsTrigger>
           </TabsList>
@@ -79,17 +84,17 @@ export function NoteLearningDashboard({
         <TabsContent value="legacy">{legacy}</TabsContent>
         <TabsContent value="notes">
         <main className="mx-auto max-w-5xl space-y-6 p-4 sm:p-8">
-          <header className="flex flex-wrap items-start justify-between gap-4">
-            <div className="min-w-0 space-y-1">
+          <header className="flex flex-wrap items-start justify-end gap-4">
+            {mode === 'home' && <div className="mr-auto min-w-0 space-y-1">
               <Heading className="text-title font-semibold">{t('learning.noteMemory.notes')}</Heading>
-              {mode === 'home' && workspace.stats && (
+              {workspace.stats && (
                 <p className="text-small tabular-nums text-muted-foreground">
                   {t('home.reviewed')}: {workspace.stats.todayReviews} ·{' '}
                   {t('home.daily_goal')}: {workspace.stats.todayReviews}/
                   {workspace.stats.dailyGoal}
                 </p>
               )}
-            </div>
+            </div>}
             <div className="flex flex-wrap items-center gap-2">
               <Button size="lg" layout="responsive"
                 disabled={!dueCount}

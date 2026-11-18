@@ -52,7 +52,7 @@ vi.mock('./NoteRecoveryDialog', () => ({
 }))
 vi.mock('./BackupPanel', () => ({ BackupPanel: () => null }))
 
-it('defaults to note learning, exposes old cards explicitly and never mixes the lanes', () => {
+it('defaults to note learning, exposes decks explicitly and never mixes the lanes', () => {
   render(
     <NoteLearningDashboard
       mode="home"
@@ -65,8 +65,8 @@ it('defaults to note learning, exposes old cards explicitly and never mixes the 
   expect(workspace.requestStudy).toHaveBeenCalledWith(['a', 'b'], 'notes')
   expect(screen.getByRole('tablist', { name: 'Library' })).toBeInTheDocument()
   expect(screen.getByRole('tab', { name: /Note memory/ })).toHaveAttribute('aria-selected', 'true')
-  fireEvent.mouseDown(screen.getByRole('tab', { name: /Old cards/ }), { button: 0, ctrlKey: false })
-  expect(screen.getByRole('tabpanel', { name: /Old cards/ })).toHaveTextContent('Old dashboard')
+  fireEvent.mouseDown(screen.getByRole('tab', { name: /Decks/ }), { button: 0, ctrlKey: false })
+  expect(screen.getByRole('tabpanel', { name: /Decks/ })).toHaveTextContent('Old dashboard')
   expect(screen.queryByRole('button', { name: /Study due notes/ })).not.toBeInTheDocument()
   fireEvent.mouseDown(screen.getByRole('tab', { name: /Note memory/ }), { button: 0, ctrlKey: false })
   expect(screen.getByRole('tabpanel', { name: /Note memory/ })).toBeInTheDocument()
@@ -238,4 +238,12 @@ it.each([false, true])('excludes retired records from catalog, search, count and
     workspace.pages.pop()
     workspace.notes = originalNotes
   }
+})
+
+it('gives the Study page one title and a clear Decks tab', () => {
+  render(<NoteLearningDashboard mode="decks" locale="en" onOpenPage={vi.fn()} legacy={<p>Deck collection</p>} />)
+  expect(screen.getByRole('heading', { level: 1, name: 'Study' })).toBeVisible()
+  expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1)
+  expect(screen.getByRole('tablist', { name: 'Study' })).toBeVisible()
+  expect(screen.getByRole('tab', { name: /Decks/ })).toBeVisible()
 })

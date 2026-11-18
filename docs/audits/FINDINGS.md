@@ -466,3 +466,9 @@ W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
 - Đạt khi hiện số thẻ theo mức chấm gần nhất trong phiên, hạn ôn sớm nhất và Ôn tiếp nếu còn thẻ đến hạn trong phạm vi vừa ôn.
 - Tóm tắt đọc lượt chấm chưa bị hoàn tác cuối cùng của mỗi thẻ và hạn sớm nhất của các thẻ còn hoạt động. Ôn tiếp dùng lối mở phiên hiện có, chỉ hiện khi còn thẻ đến hạn trong phạm vi. Không đổi cách lưu phiên hoặc tính lịch.
 - UI và Rust đều RED trước sửa. Vitest 20/20, Rust session 14/14. Native [sáng](review-shots/2026-11-18/W2-13-after-light.png) · [tối](review-shots/2026-11-18/W2-13-after-dark.png). QA chấm chuột, hoàn tác, lật Space và chấm phím 4 trong Library tạm.
+
+### F-053 · W2-14 · Trang Ôn tập thiếu phân cấp và mục Nâng cao chưa rõ
+
+- P2 · **fixed (commit W2-14)**. Native vi 1440×900: tab sát mép trên, tab Thẻ cũ chứa hai tiêu đề Bộ thẻ, nhãn MEMNOVA và một khung trống quanh nút Nâng cao.
+- Đạt khi trang có đệm trên, một tiêu đề, tab Bộ thẻ dễ nhận diện và điều khiển Nâng cao có mũi tên báo trạng thái.
+- Trang có tiêu đề Ôn tập với lề như Trang chủ, tab Bộ thẻ và disclosure Nâng cao có mũi tên. Xác nhận mở/đóng bằng chuột. Vitest RED → GREEN 12/12. Native [trước tối](review-shots/2026-11-18/W2-14-before-dark.png) · [sau sáng](review-shots/2026-11-18/W2-14-after-light.png) · [sau tối](review-shots/2026-11-18/W2-14-after-dark.png).
