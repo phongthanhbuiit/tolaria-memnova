@@ -39,3 +39,17 @@
 - `learning.choice.label`
 - `learning.choice.requiresCards`
 - `learning.challenge.timeout`
+
+## W4-06
+
+- `learning.challenge.practiceOnly`
+- `learning.challenge.finished`
+- `learning.challenge.results`
+- `learning.challenge.score`
+- `learning.challenge.current`
+- `learning.challenge.seconds`
+- `learning.challenge.paused`
+- `learning.challenge.pause`
+- `learning.challenge.resume`
+- `learning.challenge.next`
+- `learning.challenge.finish`

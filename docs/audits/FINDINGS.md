@@ -473,6 +473,7 @@ W2-09 được bỏ qua ở đợt 2 và chuyển thành tính năng W4-02 theo 
 - Đạt khi hiện số thẻ theo mức chấm gần nhất trong phiên, hạn ôn sớm nhất và Ôn tiếp nếu còn thẻ đến hạn trong phạm vi vừa ôn.
 - Tóm tắt đọc lượt chấm chưa bị hoàn tác cuối cùng của mỗi thẻ và hạn sớm nhất của các thẻ còn hoạt động. Ôn tiếp dùng lối mở phiên hiện có, chỉ hiện khi còn thẻ đến hạn trong phạm vi. Không đổi cách lưu phiên hoặc tính lịch.
 - UI và Rust đều RED trước sửa. Vitest 20/20, Rust session 14/14. Native [sáng](review-shots/2026-11-18/W2-13-after-light.png) · [tối](review-shots/2026-11-18/W2-13-after-dark.png). QA chấm chuột, hoàn tác, lật Space và chấm phím 4 trong Library tạm.
+- W4-03–06 bổ sung tên kiểu ôn vào tổng kết bộ thẻ và tỷ lệ đúng của các đáp án đã xác nhận trong lượt Gõ đáp án hoặc Trắc nghiệm. Thử thách có tổng kết riêng và chỉ luyện tập.
 
 ### F-053 · W2-14 · Trang Ôn tập thiếu phân cấp và mục Nâng cao chưa rõ
 

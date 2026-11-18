@@ -1201,3 +1201,5 @@ Note study front order is an app preference (`note_review_front_order`) with a p
 Typed flashcard feedback normalizes whitespace and case, then checks Vietnamese diacritics separately. An IME-safe answer input sends an assessment to the existing grade controls. Only an explicit grade commits the review.
 
 `flashcardQuestions` builds a deck-local pool of distinct short answers. `MultipleChoiceStudy` uses `StudyChoiceOptions` for pointer and A–D selection. Feedback feeds the same explicit grading and visit accuracy path as typed answers.
+
+`flashcardChallenge` generates ten practice rounds and reduces elapsed time, pause, streak and score entirely in renderer state. `FlashcardChallenge` handles keyboard and pointer input through the same choice controls. It has no review-client dependency.

@@ -210,3 +210,10 @@
 
 - Trắc nghiệm chọn ba đáp án nhiễu khác biệt trong bộ thẻ. A–D hoặc chuột chỉ hiện phản hồi. Chấm bằng luồng FSRS hiện có. Bộ không đủ đáp án có mô tả lý do và thẻ có media lật như cũ.
 - RED thiếu hàm chọn phương án, GREEN 33/33 Vitest. Chromium 2/2 kiểm bốn lựa chọn, ghi rating 4 chỉ sau khi bấm phím và trạng thái tắt của bộ ít thẻ. Grep SPEC §8: 1 → 1 / 0 → 0.
+
+## W4 · Pha 3 — W4-06
+
+- Thử thách chạy 10 câu, 20 giây mỗi câu, tạm dừng, tính điểm và chuỗi đúng, tổng kết riêng. Không gọi API tạo phiên/chấm. Câu hỏi có thể lặp nếu bộ có ít hơn 10 thẻ đủ điều kiện. PostHog chỉ gửi số câu và số đúng.
+- RED thiếu mô hình; GREEN 33/33 Vitest. Chromium 2/2 chứng minh điểm/tạm dừng và reduced motion, so toàn bộ dữ liệu học trước/sau; kiểm bộ không đủ thẻ. Grep SPEC §8: 1 → 1 / 0 → 0.
+- Review Pha 3 vòng 1: đáp án Markdown lọt vào chấm chữ thuần, Thử thách thiếu đường dẫn ảnh/âm thanh mặt trước, tỷ lệ bỏ sót lượt chấm đã lưu khi phản hồi mất. RED 3 ca, GREEN 48/48 Vitest sau khi sửa. Căn lề Gõ đáp án/Trắc nghiệm theo SPEC §5 và chụp lại.
+- Chạy bản sửa: Playwright Chromium 11/11 (3 spec chế độ, 4 ô ma trận vi, 2 tổng kết đúng 75%). WebKit trước vòng sửa 9/9. Native vi 1440×900 sáng/tối và 1030×700 theo giới hạn cửa sổ; 1024×700 chính xác đạt trên Chromium và WebKit.

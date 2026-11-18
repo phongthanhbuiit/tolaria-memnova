@@ -49,7 +49,7 @@ export function LegacyPageFlashcards({ path, locale }: { path: string; locale: A
   }
   return <section className="h-full overflow-y-auto bg-background p-4 sm:p-8" aria-label={t('learning.cards')}>
     <div className="mx-auto max-w-3xl space-y-5">
-      <header className="flex flex-wrap items-start justify-between gap-3"><div><h2 className="text-xl font-semibold">{t('learning.cards')}</h2><p className="mt-1 text-sm text-muted-foreground">{t('learning.questionHelp')}</p></div><div className="flex gap-2">{current ? <DeckStudyControls key={current.id} library={root} deck={current.id} cards={cards}
+      <header className="flex flex-wrap items-start justify-between gap-3"><div><h2 className="text-xl font-semibold">{t('learning.cards')}</h2><p className="mt-1 text-sm text-muted-foreground">{t('learning.questionHelp')}</p></div><div className="flex gap-2">{current ? <DeckStudyControls key={current.id} library={root} deck={current.id} cards={cards} pages={[current]}
         due={busy ? 0 : cards.filter(card => card.status === 'active' && Date.parse(card.schedule.due) <= workspace.clock).length}
         locale={locale} label={t('learning.study')} onStart={presentation => workspace.requestStudy([current.id], 'legacy', presentation)} />
         : <Button size="md" variant="outline" disabled>{t('learning.study')}</Button>}{!client?.supportsNoteMemory && <Button size="md" layout="responsive" disabled={!current || busy} onClick={() => setEditing('new')}>{t('learning.addCard')}</Button>}</div></header>
