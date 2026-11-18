@@ -1170,5 +1170,7 @@
   "status.mcp.setupHint": "Alat AI eksternal tidak terhubung ke pustaka ini. Pilih MCP untuk membuka pengaturan.",
   "a11y.whiteboardMoreTools": "Alat lainnya",
   "a11y.whiteboardHelp": "Bantuan",
-  "editor.untitledNote": "Tanpa judul"
+  "editor.untitledNote": "Tanpa judul",
+  "ai.guidance.restored": "Panduan AI Memnova telah dipulihkan",
+  "ai.guidance.restoreFailed": "Tidak dapat memulihkan panduan AI Memnova: {error}"
 }

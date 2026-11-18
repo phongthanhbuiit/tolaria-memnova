@@ -1170,5 +1170,7 @@
   "status.mcp.setupHint": "Źniešnija instrumienty ŠI nie padłučanyja da hetaj biblijateki. Vybierycie MCP, kab adkryć nałady padłučeńnia.",
   "a11y.whiteboardMoreTools": "Inšyja instrumienty",
   "a11y.whiteboardHelp": "Daviedka",
-  "editor.untitledNote": "Biez nazvy"
+  "editor.untitledNote": "Biez nazvy",
+  "ai.guidance.restored": "Instrukcyi Memnova dla ŠI adnoŭleny",
+  "ai.guidance.restoreFailed": "Nie ŭdałosia adnavić instrukcyi Memnova dla ŠI: {error}"
 }

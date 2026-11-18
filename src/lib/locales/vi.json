@@ -1170,5 +1170,7 @@
   "status.mcp.setupHint": "Công cụ AI bên ngoài chưa kết nối với thư viện này. Chọn MCP để mở thiết lập.",
   "a11y.whiteboardMoreTools": "Công cụ khác",
   "a11y.whiteboardHelp": "Trợ giúp",
-  "editor.untitledNote": "Chưa có tiêu đề"
+  "editor.untitledNote": "Chưa có tiêu đề",
+  "ai.guidance.restored": "Đã khôi phục hướng dẫn AI của Memnova",
+  "ai.guidance.restoreFailed": "Không thể khôi phục hướng dẫn AI của Memnova: {error}"
 }

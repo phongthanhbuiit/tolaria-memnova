@@ -1170,5 +1170,7 @@
   "status.mcp.setupHint": "External AI tools are not connected to this Library. Select MCP to open setup.",
   "a11y.whiteboardMoreTools": "More tools",
   "a11y.whiteboardHelp": "Help",
-  "editor.untitledNote": "Untitled"
+  "editor.untitledNote": "Untitled",
+  "ai.guidance.restored": "Memnova AI guidance restored",
+  "ai.guidance.restoreFailed": "Could not restore Memnova AI guidance: {error}"
 }

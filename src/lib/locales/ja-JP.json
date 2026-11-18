@@ -1170,5 +1170,7 @@
   "status.mcp.setupHint": "外部 AI ツールがこのライブラリに接続されていません。MCP を選択して設定を開いてください。",
   "a11y.whiteboardMoreTools": "その他のツール",
   "a11y.whiteboardHelp": "ヘルプ",
-  "editor.untitledNote": "無題"
+  "editor.untitledNote": "無題",
+  "ai.guidance.restored": "Memnova の AI ガイドを復元しました",
+  "ai.guidance.restoreFailed": "Memnova の AI ガイドを復元できませんでした：{error}"
 }

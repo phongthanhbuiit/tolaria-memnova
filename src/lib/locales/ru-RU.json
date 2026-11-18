@@ -1170,5 +1170,7 @@
   "status.mcp.setupHint": "Внешние инструменты ИИ не подключены к этой библиотеке. Выберите MCP, чтобы открыть настройки подключения.",
   "a11y.whiteboardMoreTools": "Другие инструменты",
   "a11y.whiteboardHelp": "Справка",
-  "editor.untitledNote": "Без названия"
+  "editor.untitledNote": "Без названия",
+  "ai.guidance.restored": "Инструкции Memnova для ИИ восстановлены",
+  "ai.guidance.restoreFailed": "Не удалось восстановить инструкции Memnova для ИИ: {error}"
 }

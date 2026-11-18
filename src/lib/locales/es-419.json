@@ -1170,5 +1170,7 @@
   "status.mcp.setupHint": "Las herramientas de IA externas no están conectadas a esta biblioteca. Selecciona MCP para abrir la configuración.",
   "a11y.whiteboardMoreTools": "Más herramientas",
   "a11y.whiteboardHelp": "Ayuda",
-  "editor.untitledNote": "Sin título"
+  "editor.untitledNote": "Sin título",
+  "ai.guidance.restored": "Se restauraron las instrucciones de IA de Memnova",
+  "ai.guidance.restoreFailed": "No se pudieron restaurar las instrucciones de IA de Memnova: {error}"
 }

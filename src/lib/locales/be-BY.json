@@ -1170,5 +1170,7 @@
   "status.mcp.setupHint": "Знешнія інструменты ШІ не падлучаныя да гэтай бібліятэкі. Выберыце MCP, каб адкрыць налады падлучэння.",
   "a11y.whiteboardMoreTools": "Іншыя інструменты",
   "a11y.whiteboardHelp": "Даведка",
-  "editor.untitledNote": "Без назвы"
+  "editor.untitledNote": "Без назвы",
+  "ai.guidance.restored": "Інструкцыі Memnova для ШІ адноўлены",
+  "ai.guidance.restoreFailed": "Не ўдалося аднавіць інструкцыі Memnova для ШІ: {error}"
 }

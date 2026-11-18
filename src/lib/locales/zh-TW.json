@@ -1170,5 +1170,7 @@
   "status.mcp.setupHint": "外部 AI 工具未連線到此資料庫。選取 MCP 以開啟設定。",
   "a11y.whiteboardMoreTools": "更多工具",
   "a11y.whiteboardHelp": "說明",
-  "editor.untitledNote": "未命名"
+  "editor.untitledNote": "未命名",
+  "ai.guidance.restored": "已還原 Memnova AI 指引",
+  "ai.guidance.restoreFailed": "無法還原 Memnova AI 指引：{error}"
 }

@@ -1202,18 +1202,18 @@ function MainApp({ noteWindowParams }: { noteWindowParams: NoteWindowParams | nu
     }
   }, [refreshVaultAiGuidance, resolvedPath, vault])
 
-  const restoreVaultAiGuidance = useCallback(async (successToast: string | null = 'Tolaria AI guidance restored') => {
+  const restoreVaultAiGuidance = useCallback(async () => {
     if (!resolvedPath) return
     try {
       const tauriInvoke = isTauri() ? invoke : mockInvoke
       await tauriInvoke('restore_vault_ai_guidance', { vaultPath: resolvedPath })
       await vault.reloadVault()
       await refreshVaultAiGuidance()
-      if (successToast) setToastMessage(successToast)
+      setToastMessage(translate(appLocale, 'ai.guidance.restored'))
     } catch (err) {
-      setToastMessage(`Failed to restore Tolaria AI guidance: ${err}`)
+      setToastMessage(translate(appLocale, 'ai.guidance.restoreFailed', { error: String(err) }))
     }
-  }, [refreshVaultAiGuidance, resolvedPath, vault])
+  }, [appLocale, refreshVaultAiGuidance, resolvedPath, vault])
 
   const activeCommandEntry = useMemo(() => {
     if (!notes.activeTabPath) return null
