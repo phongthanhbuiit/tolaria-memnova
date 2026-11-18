@@ -28,7 +28,7 @@ export function SettingsSection({
   showDivider?: boolean
 }) {
   return (
-    <div id={id} className="scroll-mt-4" style={{ display: 'flex', flexDirection: 'column', gap: 14, padding: '18px 0' }}>
+    <div id={id} className="flex scroll-mt-4 flex-col gap-[14px] py-[18px]">
       {children}
     </div>
   )
@@ -45,12 +45,7 @@ export function SectionHeading({
   return (
     <div className="flex items-center gap-2">
       {icon ? <span className="flex size-5 items-center justify-center text-muted-foreground">{icon}</span> : null}
-      <div className="text-(length:--text-body-lg) leading-(--text-body-lg--line-height)"
-        style={{
-          fontWeight: 600,
-          color: 'var(--foreground)',
-        }}
-      >
+      <div className="text-(length:--text-body-lg) leading-(--text-body-lg--line-height) font-semibold text-foreground">
         {title}
       </div>
     </div>
@@ -208,8 +203,8 @@ export function LabeledSelect({
   const triggerId = useId()
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-      <label className="text-(length:--text-small) leading-(--text-small--line-height)" htmlFor={triggerId} style={{ fontWeight: 500, color: 'var(--foreground)' }}>{label}</label>
+    <div className="flex flex-col gap-[6px]">
+      <label className="text-(length:--text-small) leading-(--text-small--line-height) font-medium text-foreground" htmlFor={triggerId}>{label}</label>
       <SelectControl
         id={triggerId}
         value={value}
@@ -237,8 +232,8 @@ export function LabeledNumberInput({
   disabled?: boolean
 }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-      <label className="text-(length:--text-small) leading-(--text-small--line-height)" style={{ fontWeight: 500, color: 'var(--foreground)' }} htmlFor={testId}>{label}</label>
+    <div className="flex flex-col gap-[6px]">
+      <label className="text-(length:--text-small) leading-(--text-small--line-height) font-medium text-foreground" htmlFor={testId}>{label}</label>
       <NumberInputControl
         value={value}
         onValueChange={onValueChange}
