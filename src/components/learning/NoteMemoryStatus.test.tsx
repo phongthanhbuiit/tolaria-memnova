@@ -16,9 +16,18 @@ it('keeps an ordinary note ordinary and labels non-ready states with text as wel
   const { container, rerender } = render(<NoteMemoryStatus state="ordinary" locale="en" />)
   expect(container).toBeEmptyDOMElement()
   rerender(<NoteMemoryStatus state="pending" locale="en" />)
-  expect(screen.getByText('Needs attention')).toHaveAttribute('data-tone', 'warning')
+  expect(screen.getByText('Recover the draft from Advanced')).toHaveAttribute('data-tone', 'warning')
   rerender(<NoteMemoryStatus state="invalid" locale="en" />)
-  expect(screen.getByText('Needs attention')).toHaveAttribute('data-tone', 'error')
+  expect(screen.getByText('Check the note file or its permissions')).toHaveAttribute('data-tone', 'error')
   rerender(<NoteMemoryStatus state="draft" locale="vi" />)
   expect(container).not.toBeEmptyDOMElement()
+})
+
+it.each([
+  ['pending', 'Phục hồi bản nháp trong Nâng cao', 'warning'],
+  ['invalid', 'Kiểm tra tệp ghi chú hoặc quyền truy cập', 'error'],
+  ['deleted', 'Khôi phục tệp ghi chú từ bản sao lưu', 'error'],
+] as const)('gives the %s state an actionable Vietnamese label', (state, action, tone) => {
+  render(<NoteMemoryStatus state={state} locale="vi" />)
+  expect(screen.getByText(action)).toHaveAttribute('data-tone', tone)
 })

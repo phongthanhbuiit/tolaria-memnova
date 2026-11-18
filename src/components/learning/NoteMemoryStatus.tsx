@@ -7,8 +7,9 @@ function status(state: NoteLearningState, due: string | null | undefined, clock:
   if (state === 'disabled') return { label: 'learning.noteMemory.paused', tone: 'neutral', Icon: Pause } as const
   if (state === 'draft') return { label: 'learning.draft', tone: 'warning', Icon: PencilSimpleLine } as const
   if (state === 'conversionRequired' || state === 'retained') return { label: 'learning.noteMemory.title', tone: 'warning', Icon: Swap } as const
-  if (state === 'pending') return { label: 'learning.noteMemory.pendingOperations', tone: 'warning', Icon: WarningCircle } as const
-  if (state === 'invalid' || state === 'deleted') return { label: 'learning.noteMemory.pendingOperations', tone: 'error', Icon: WarningCircle } as const
+  if (state === 'pending') return { label: 'learning.noteMemory.pendingAction', tone: 'warning', Icon: WarningCircle } as const
+  if (state === 'invalid') return { label: 'learning.noteMemory.invalidAction', tone: 'error', Icon: WarningCircle } as const
+  if (state === 'deleted') return { label: 'learning.noteMemory.deletedAction', tone: 'error', Icon: WarningCircle } as const
   if (due && Number.isFinite(Date.parse(due))) return Date.parse(due) <= clock
     ? { label: 'decks.filter.due', tone: 'due', Icon: Brain } as const
     : { label: 'learning.noteMemory.scheduled', tone: 'neutral', Icon: Clock } as const
