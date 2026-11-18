@@ -204,7 +204,7 @@
   --sidebar: var(--surface-sidebar);
   --sidebar-foreground: var(--text-primary);
   --sidebar-primary: var(--accent-blue);
-  --sidebar-primary-foreground: var(--text-inverse);
+  --sidebar-primary-foreground: var(--primary-foreground);
   --sidebar-accent: var(--state-hover);
   --sidebar-accent-foreground: var(--text-primary);
   --sidebar-border: var(--border-default);
@@ -355,7 +355,7 @@
   --sidebar: var(--surface-sidebar);
   --sidebar-foreground: var(--text-primary);
   --sidebar-primary: var(--accent-blue);
-  --sidebar-primary-foreground: var(--text-inverse);
+  --sidebar-primary-foreground: var(--primary-foreground);
   --sidebar-accent: var(--state-hover);
   --sidebar-accent-foreground: var(--text-primary);
   --sidebar-border: var(--border-default);

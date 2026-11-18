@@ -592,3 +592,8 @@ W2-09 bỏ qua vì mục Quyết định còn ghi “chưa quyết”.
 
 - P2 · Khối "Lịch sử sao lưu" nằm ngoài khung thẻ như các mục khác; hai nút bị tắt không nói lý do; nút "Khôi phục" tắt trông như nút xanh nhạt. Ảnh đối chiếu: 17a.
 - Đạt khi: Cùng kiểu thẻ với các mục khác; nút tắt có lý do (vd. "Chưa có bản sao lưu"); trạng thái tắt rõ ràng, giống các nút tắt khác.
+
+### F-074 · W3-08 · Nút chính tối
+
+- P3 · Ở theme tối, nút "Lưu" chữ trắng trên nền xanh nhạt (tương phản thấp), trong khi nút chính ở Trang chủ dùng chữ tối. Ảnh đối chiếu: 17a-dark, 02-dark.
+- Đạt khi: Một token primary-foreground cho theme tối; tương phản ≥ 4.5:1.
