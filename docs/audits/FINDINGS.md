@@ -388,3 +388,10 @@ Bước D1: push cuối sau khi cập nhật assertion màu Properties vẫn b�
 - Đạt khi ký tự gõ ngay sau cả hai phím tắt vào ô tìm kiếm/lệnh và giữ nguyên nội dung ghi chú, có regression test.
 - Nguyên nhân: Quick Open đợi timer 50 ms để focus. Ô tìm kiếm giờ nhận focus khi mount, trước khi vẽ. Chromium RED: Cmd+P thêm `x` vào editor, Cmd+K đạt. GREEN: 2/2, không retry, kiểm nội dung editor và byte tệp. Native sau sửa: 10/10 ở tối và một lượt đối chiếu ở sáng, tệp QA giữ nguyên ký tự từ lần tái hiện.
 - Ảnh native: [trước sáng](review-shots/2026-11-18/W2-01-before-light.png) · [trước tối](review-shots/2026-11-18/W2-01-before-dark.png) · [sau sáng](review-shots/2026-11-18/W2-01-after-light.png) · [sau tối](review-shots/2026-11-18/W2-01-after-dark.png).
+
+### F-043 · W2-02 · Quick Open cắt hàng kết quả
+
+- P1 · **fixed (commit W2-02)**. [Ảnh gốc](review-shots/2026-11-18/11a-quick-open-light.png) cho thấy thanh cuộn ngang trong danh sách chỉ có một kết quả. Kiểm lại trên native thấy danh sách dài bị cắt ngang hàng cuối ở đáy. Kết quả đơn của fixture hiện đủ.
+- Đạt khi từ một đến khoảng tám hàng hiển thị đầy đủ ở cả hai theme, kết quả tiếp theo cuộn theo chiều dọc.
+- Danh sách dùng vùng cuộn dọc với giới hạn tám hàng theo chiều cao điều khiển hiện tại. Native vi 1440×900: tám hàng thấy đủ ở hai theme, truy vấn đúng tên thấy một hàng trọn vẹn.
+- Ảnh native: [trước sáng](review-shots/2026-11-18/W2-02-before-light.png) · [trước tối](review-shots/2026-11-18/W2-02-before-dark.png) · [sau sáng](review-shots/2026-11-18/W2-02-after-light.png) · [sau tối](review-shots/2026-11-18/W2-02-after-dark.png) · [một kết quả](review-shots/2026-11-18/W2-02-after-single-light.png).

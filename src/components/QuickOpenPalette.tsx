@@ -155,11 +155,11 @@ function OpenQuickOpenPalette({ entries, isLoading = false, onSelect, onCreateNo
         onClick={onClose}
       />
       <div
-        className="relative z-10 flex w-[500px] max-w-[90vw] max-h-[400px] flex-col self-start overflow-hidden rounded-xl border border-[var(--border-dialog)] bg-popover shadow-[0_8px_32px_var(--shadow-dialog)]"
+        className="relative z-10 flex w-[500px] max-w-[90vw] max-h-[min(400px,80vh)] flex-col self-start overflow-hidden rounded-xl border border-[var(--border-dialog)] bg-popover shadow-[0_8px_32px_var(--shadow-dialog)]"
       >
         <Input
           ref={inputRef}
-          className="h-auto rounded-none border-0 border-b border-border px-4 py-3 text-(length:--text-body-lg) leading-(--text-body-lg--line-height) shadow-none focus-visible:ring-0"
+          className="h-auto shrink-0 rounded-none border-0 border-b border-border px-4 py-3 text-(length:--text-body-lg) leading-(--text-body-lg--line-height) shadow-none focus-visible:ring-0"
           type="text"
           placeholder={translate(locale, 'noteList.searchPlaceholder')}
           value={query}
@@ -175,7 +175,7 @@ function OpenQuickOpenPalette({ entries, isLoading = false, onSelect, onCreateNo
           }}
           onItemHover={(i) => setSelectedIndex(i)}
           emptyMessage={quickOpenEmptyMessage(isLoading, locale)}
-          className="flex-1 overflow-y-auto"
+          className="app-scrollbar min-h-0 max-h-[calc(8*var(--control-md)+2*var(--spacing))] overflow-x-hidden overflow-y-auto"
         />
         {createAction.canCreate && (
           <QuickOpenCreateAction
