@@ -656,5 +656,5 @@ W2-09 được bỏ qua ở đợt 2 và chuyển thành tính năng W4-02 theo 
 
 ### F-082 · Nút Tiếp tục thiếu phân cấp khi tạm dừng
 
-- P2 · **open**. Lúc Thử thách tạm dừng, nút Tiếp tục hiện như hành động phụ. [Ảnh trước](review-shots/2026-11-19-W4/W4-06-after-light.png).
-- Đạt khi Tiếp tục là nút chính trong trạng thái tạm dừng.
+- P2 · **fixed (commit F-082)**. Lúc Thử thách tạm dừng, nút Tiếp tục hiện như hành động phụ. [Ảnh trước](review-shots/2026-11-19-W4/W4-06-after-light.png).
+- Đạt khi Tiếp tục là nút chính trong trạng thái tạm dừng. Playwright RED → GREEN, 2/2 ca Thử thách. Native vi 1440×900 [sáng](evidence/F-082-after-light.png) · [tối](evidence/F-082-after-dark.png).

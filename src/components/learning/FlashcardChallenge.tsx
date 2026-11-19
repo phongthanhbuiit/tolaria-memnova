@@ -78,7 +78,7 @@ export function FlashcardChallenge({ questions, vaultPath, locale, onClose }: {
           <div className="flex flex-wrap justify-end gap-2">
             <Button variant="ghost" onClick={onClose}>{t('learning.close')}</Button>
             {(status === 'running' || status === 'paused') && (
-              <Button variant="outline" onClick={() => dispatch({ kind: status === 'paused' ? 'resume' : 'pause', now: Date.now() })}>
+              <Button variant={status === 'paused' ? 'default' : 'outline'} onClick={() => dispatch({ kind: status === 'paused' ? 'resume' : 'pause', now: Date.now() })}>
                 {t(status === 'paused' ? 'learning.challenge.resume' : 'learning.challenge.pause')}
               </Button>
             )}

@@ -18,7 +18,9 @@ test('a paused ten-question challenge completes without changing any durable lea
     const time = await timer.innerText()
     await page.clock.runFor(25_000)
     await expect(timer).toHaveText(time)
-    await dialog.getByRole('button', { name: 'Resume', exact: true }).click()
+    const resume = dialog.getByRole('button', { name: 'Resume', exact: true })
+    await expect(resume).toHaveAttribute('data-variant', 'default')
+    await resume.click()
     for (let round = 1; round <= 10; round++) {
       await dialog.getByRole('group', { name: 'Multiple-choice answers' }).getByRole('button').first().click()
       await dialog.getByRole('button', { name: round === 10 ? 'Finish challenge' : 'Next question', exact: true }).click()
