@@ -10,8 +10,28 @@
 .study-grade[data-note-grade='2'] { --note-grade-color: var(--accent-orange); }
 .study-grade[data-note-grade='3'] { --note-grade-color: var(--accent-green); }
 .study-grade[data-note-grade='4'] { --note-grade-color: var(--accent-blue); }
-.study-grade-heading { display: flex; align-items: center; gap: 6px; }
-.study-grade-dot { width: 8px; height: 8px; flex-shrink: 0; border-radius: 50%; background: var(--note-grade-color); }
+/* Equal space on each side keeps the label centered with the interval below it. */
+.study-grade-heading {
+  display: grid;
+  grid-template-columns: 1ch minmax(0, 1fr) 1ch;
+  align-items: center;
+  column-gap: 4px;
+}
+.study-grade-label {
+  grid-column: 2;
+  min-width: 0;
+  text-align: center;
+  overflow-wrap: break-word;
+}
+.study-grade-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-inline-end: 6px;
+  vertical-align: middle;
+  border-radius: 50%;
+  background: var(--note-grade-color);
+}
 .study-grade:hover:not(:disabled) {
   background: color-mix(in srgb, var(--note-grade-color) 8%, var(--background));
   border-color: color-mix(in srgb, var(--note-grade-color) 40%, var(--border));

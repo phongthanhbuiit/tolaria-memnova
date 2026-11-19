@@ -35,8 +35,14 @@ export function GradeButtons({ locale, disabled, interval, onGrade, buttonProps,
           <Button key={rating} ref={rating === focusRating ? suggestedButton : undefined} type="button" variant="outline" size="study-grade" data-note-grade={rating}
             className="study-grade flex-col items-stretch gap-0 whitespace-normal text-text-primary"
             disabled={disabled} onClick={event => onGrade(rating, event)} {...buttonProps?.(rating, next)}>
-            <span className="study-grade-heading"><span className="study-grade-dot" aria-hidden="true" />{translate(locale, labels[rating])}{' '}<kbd className="ml-auto text-caption text-text-secondary">{rating}</kbd></span>
-            <span className="text-small font-normal text-text-secondary">{next}</span>
+            <span className="study-grade-heading">
+              <span className="study-grade-label">
+                <span className="study-grade-dot" aria-hidden="true" />
+                {translate(locale, labels[rating])}
+              </span>
+              <kbd className="justify-self-end text-caption text-text-secondary">{rating}</kbd>
+            </span>
+            <span className="break-words text-center text-small font-normal text-text-secondary">{next}</span>
           </Button>
         )
       })}

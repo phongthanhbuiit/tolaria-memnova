@@ -660,3 +660,9 @@ W2-09 được bỏ qua ở đợt 2 và chuyển thành tính năng W4-02 theo 
 
 - P2 · **fixed (`b52412c2`)**. Lúc Thử thách tạm dừng, nút Tiếp tục hiện như hành động phụ. [Ảnh trước](review-shots/2026-11-19-W4/W4-06-after-light.png).
 - Đạt khi Tiếp tục là nút chính trong trạng thái tạm dừng. Playwright RED → GREEN, 2/2 ca Thử thách. Native vi 1440×900 [sáng](evidence/F-082-after-light.png) · [tối](evidence/F-082-after-dark.png).
+
+### F-083 · Hai dòng trong nút chấm lệch trục
+
+- P3 · **fixed (commit F-083)**. Dòng chấm màu và tên mức chấm nằm lệch trái so với thời gian ôn. Ảnh trước [sáng](evidence/F-083-before-light.png) · [tối](evidence/F-083-before-dark.png).
+- Đạt khi cụm chấm màu và tên mức chấm cùng trục giữa với thời gian. Số phím tắt vẫn ở mép phải và chữ dài có chỗ xuống dòng.
+- Native vi 1440×900 [sáng](evidence/F-083-after-light.png) · [tối](evidence/F-083-after-dark.png). Phím 4 chuyển đúng sang thẻ kế. Playwright kiểm trục giữa và tràn chữ ở 320, 519, 520 và 1440 px với vi/de-DE/ja-JP. Vitest 45/45.
