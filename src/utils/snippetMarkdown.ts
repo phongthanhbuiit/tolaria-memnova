@@ -45,11 +45,15 @@ export function projectMarkdownFences(
   content: string,
   replacementFor: (language: string, closed: boolean, source: () => string) => string | undefined,
   nested = false,
+  preserveIndentedCode = false,
 ): string {
   const lines = content.split('\n')
   for (let index = 0; index < lines.length;) {
     const fence = opening(lines[index], nested)
-    if (!fence) { index++; continue }
+    if (!fence || (preserveIndentedCode && !fence.quotes && !fence.listed && !opening(lines[index], false))) {
+      index++
+      continue
+    }
     let end = index + 1
     while (end < lines.length && !leavesContainer(lines[end], fence) && !closes(lines[end], fence, nested)) end++
     const closed = end < lines.length && !leavesContainer(lines[end], fence)
@@ -67,5 +71,10 @@ export function projectMarkdownFences(
 
 /** Display projection only. Ordinary and unclosed fences retain their snippet semantics. */
 export function snippetMarkdown(content: string): string {
-  return projectMarkdownFences(content, (language, closed) => closed && language === 'excalidraw' ? '' : undefined)
+  const drawingLanguage = /^(?:excalidraw|whiteboard|tl(?:draw))$/u
+  return projectMarkdownFences(content,
+    (language, closed) => closed && drawingLanguage.test(language) ? '' : undefined,
+    true,
+    true,
+  )
 }

@@ -651,8 +651,8 @@ W2-09 được bỏ qua ở đợt 2 và chuyển thành tính năng W4-02 theo 
 
 ### F-081 · Snippet ghi chú hiện mã bản vẽ
 
-- P2 · **open**. Hàng Legacy drawing QA hiển thị payload bản vẽ. [Ảnh trước](review-shots/2026-11-19-W4/W4-02-after-light.png).
-- Đạt khi đoạn xem trước bỏ khối whiteboard, tldraw và Excalidraw, kể cả sau khi mở lại hoặc lưu ghi chú. Giữ văn xuôi và mã nguồn ghi chú.
+- P2 · **fixed (commit F-081)**. Hàng Legacy drawing QA hiển thị payload bản vẽ. [Ảnh trước](review-shots/2026-11-19-W4/W4-02-after-light.png).
+- Đạt khi đoạn xem trước bỏ khối whiteboard, tldraw và Excalidraw, kể cả sau khi mở lại hoặc lưu ghi chú. Giữ văn xuôi và mã nguồn ghi chú. Hai pipeline Rust/TypeScript cùng qua corpus RED → GREEN. Cache snippet được tạo lại. Native vi tái hiện [sáng](evidence/F-081-before-light.png) · [tối](evidence/F-081-before-dark.png), xác minh sau sửa [sáng](evidence/F-081-after-light.png) · [tối](evidence/F-081-after-dark.png). SHA-256 ghi chú thử giữ nguyên.
 
 ### F-082 · Nút Tiếp tục thiếu phân cấp khi tạm dừng
 

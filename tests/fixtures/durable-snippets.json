@@ -48,5 +48,25 @@
     "name": "closer with info is not closing",
     "source": "# Canvas\n```excalidraw\n```js\n{\"store\":{}}\n```\nAfter.",
     "expected": "After."
+  },
+  {
+    "name": "closed legacy drawings and following prose",
+    "source": "# Legacy drawing QA\r\n```whiteboard\r\n{\"store\":1}\r\n```\r\n~~~TLDRAW id=\"two\"\r\n{\"store\":2}\r\n~~~\r\nVisible prose.",
+    "expected": "Visible prose."
+  },
+  {
+    "name": "legacy drawings alone",
+    "source": "# Canvas\n```whiteboard\n{\"store\":{}}\n```\n",
+    "expected": ""
+  },
+  {
+    "name": "drawings nested in quotes and lists",
+    "source": "# Canvas\n> ```excalidraw\n> payload one\n> ```\n- ~~~whiteboard\n  payload two\n  ~~~\nAfter.",
+    "expected": "After."
+  },
+  {
+    "name": "indented code is not a drawing fence",
+    "source": "# Code\n    ```whiteboard\n    ordinary example\n    ```\nAfter.",
+    "expected": "ordinary example After."
   }
 ]
