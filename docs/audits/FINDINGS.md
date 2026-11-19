@@ -16,6 +16,8 @@ Trạng thái: `open` · `partial` · `fixed — chờ QA native (phạm vi)` ·
 
 **Đã đóng:** F-001–F-004, F-006–F-011, F-013–F-020, F-022–F-031, F-033–F-037, F-039–F-041 (**36 F**) và F-005 (**accepted**, xem chi tiết) và R-01–R-10, R-12–R-16 (**15 R**). F-023/F-025/F-030/F-031 là phần nền tảng A. R-05 là test-only. Telex native vẫn chưa được xác minh.
 
+**Sau nghiệm thu W4:** F-079–F-082 đã sửa. [Báo cáo](BATCH-2026-11-19-W4-FOLLOWUP.md).
+
 **Đợt 2–3:** F-042–F-062 và F-064–F-077 đã sửa. F-063 đạt trên baseline. F-078 rejected sau đối chiếu WebKit và native.
 
 **Còn chờ native/bằng chứng bổ sung:** F-032 (message/tool chỉ có fixture); F-038 (các màn legacy không có route native); Telex trong AI và ô wikilink từ R-05/E2. F-032 vẫn partial vì ngoài QA còn phần mã/phạm vi chưa hoàn tất. F-038 đã sửa mã nhưng không tính đóng khi các màn legacy mới được kiểm bằng fixture/diff/test; đối chiếu giới hạn native trong [D4B](STEP-D4B-INLINE-STYLE.md).
@@ -641,20 +643,20 @@ W2-09 được bỏ qua ở đợt 2 và chuyển thành tính năng W4-02 theo 
 
 ### F-079 · Tab Bộ thẻ lặp điều khiển ôn
 
-- P2 · **fixed (commit F-079)**. Đầu tab có bộ chọn và nút ôn toàn bộ, trong khi mỗi bộ đã có điều khiển riêng. [Ảnh trước](review-shots/2026-11-19-W4/W4-03-after-light.png).
+- P2 · **fixed (`e7ad9654`)**. Đầu tab có bộ chọn và nút ôn toàn bộ, trong khi mỗi bộ đã có điều khiển riêng. [Ảnh trước](review-shots/2026-11-19-W4/W4-03-after-light.png).
 - Đạt khi đầu tab Bộ thẻ hết bộ chọn và nút ôn, từng bộ vẫn có cả hai điều khiển. Playwright RED → GREEN. Native vi 1440×900 [sáng](evidence/F-079-after-light.png) · [tối](evidence/F-079-after-dark.png).
 
 ### F-080 · Phản hồi Trắc nghiệm trông như ô nhập
 
-- P1 · **fixed (commit F-080)**. Sau khi chọn đáp án, vòng focus bao quanh dòng phản hồi thay vì nút chấm. [Ảnh trước](review-shots/2026-11-19-W4/W4-05-after-light.png).
+- P1 · **fixed (`36ab8a0b`)**. Sau khi chọn đáp án, vòng focus bao quanh dòng phản hồi thay vì nút chấm. [Ảnh trước](review-shots/2026-11-19-W4/W4-05-after-light.png).
 - Đạt khi focus vào mức chấm gợi ý, dòng phản hồi là văn bản với `role=status`, các phím chấm tiếp tục hoạt động. Playwright RED → GREEN, 5/5 ca ôn. Native vi 1440×900 [sáng](evidence/F-080-after-light.png) · [tối](evidence/F-080-after-dark.png).
 
 ### F-081 · Snippet ghi chú hiện mã bản vẽ
 
-- P2 · **fixed (commit F-081)**. Hàng Legacy drawing QA hiển thị payload bản vẽ. [Ảnh trước](review-shots/2026-11-19-W4/W4-02-after-light.png).
+- P2 · **fixed (`d2833782`)**. Hàng Legacy drawing QA hiển thị payload bản vẽ. [Ảnh trước](review-shots/2026-11-19-W4/W4-02-after-light.png).
 - Đạt khi đoạn xem trước bỏ khối whiteboard, tldraw và Excalidraw, kể cả sau khi mở lại hoặc lưu ghi chú. Giữ văn xuôi và mã nguồn ghi chú. Hai pipeline Rust/TypeScript cùng qua corpus RED → GREEN. Cache snippet được tạo lại. Native vi tái hiện [sáng](evidence/F-081-before-light.png) · [tối](evidence/F-081-before-dark.png), xác minh sau sửa [sáng](evidence/F-081-after-light.png) · [tối](evidence/F-081-after-dark.png). SHA-256 ghi chú thử giữ nguyên.
 
 ### F-082 · Nút Tiếp tục thiếu phân cấp khi tạm dừng
 
-- P2 · **fixed (commit F-082)**. Lúc Thử thách tạm dừng, nút Tiếp tục hiện như hành động phụ. [Ảnh trước](review-shots/2026-11-19-W4/W4-06-after-light.png).
+- P2 · **fixed (`b52412c2`)**. Lúc Thử thách tạm dừng, nút Tiếp tục hiện như hành động phụ. [Ảnh trước](review-shots/2026-11-19-W4/W4-06-after-light.png).
 - Đạt khi Tiếp tục là nút chính trong trạng thái tạm dừng. Playwright RED → GREEN, 2/2 ca Thử thách. Native vi 1440×900 [sáng](evidence/F-082-after-light.png) · [tối](evidence/F-082-after-dark.png).

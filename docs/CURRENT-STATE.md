@@ -1,5 +1,7 @@
 # Memnova hiện tại
 
+**19/11/2026 — QA bổ sung Đợt 4:** Tab Bộ thẻ của Ôn tập đặt điều khiển trên từng bộ. Trắc nghiệm chuyển focus đến mức chấm gợi ý. Đoạn xem trước bỏ dữ liệu bản vẽ và Thử thách nhấn mạnh nút Tiếp tục khi tạm dừng. [Biên bản](audits/BATCH-2026-11-19-W4-FOLLOWUP.md).
+
 **19/11/2026 — Đợt 4:** Cài đặt thứ tự mặt ôn ghi chú, mặc định Gợi nhớ trước. Bộ thẻ nhớ kiểu Lật thẻ, Gõ đáp án, Trắc nghiệm hoặc Thử thách. Thử thách chỉ luyện tập. Các kiểu ôn có lịch vẫn dùng FSRS hiện có. Bản vẽ định dạng cũ giữ nguồn trong tệp và có lối mở mã nguồn. [Biên bản và QA](audits/BATCH-2026-11-19-W4.md).
 
 **18/11/2026 — Đợt 3:** Nút AI nổi nhường chỗ cho Thuộc tính, ngày ôn dùng cùng bộ định dạng và Quick Open hiển thị biểu tượng cùng nhãn phân loại theo ngôn ngữ. Cài đặt rút gọn mô tả, Trang chủ dùng một nút chuẩn bị dữ liệu và tổng kết phiên đặt Hoàn tác cạnh Đóng. [Biên bản và QA bốn ngôn ngữ](audits/BATCH-2026-11-18-W3.md).

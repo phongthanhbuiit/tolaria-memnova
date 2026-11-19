@@ -1,0 +1,40 @@
+{
+  "baseline": "a3d0aaf9e2d549404cbe774e3a617319cbb0cc50",
+  "tool": "Codacy Analysis CLI 0.24.0",
+  "scope": [
+    "src-tauri/src/vault/cache.rs",
+    "src-tauri/src/vault/snippet.rs",
+    "src/components/learning/FlashcardChallenge.tsx",
+    "src/components/learning/GradeButtons.tsx",
+    "src/components/learning/LearningDashboard.tsx",
+    "src/components/learning/LearningStudyView.tsx",
+    "src/components/learning/MultipleChoiceStudy.tsx",
+    "src/components/learning/StudyChoiceOptions.tsx",
+    "src/utils/snippetMarkdown.ts",
+    "tests/fixtures/durable-snippets.json",
+    "tests/integration/challenge-flashcard-study.spec.ts",
+    "tests/integration/choice-flashcard-study.spec.ts",
+    "tests/integration/deck-study-controls.spec.ts"
+  ],
+  "before": {
+    "findings": 6,
+    "errors": [],
+    "tools": {
+      "ESLint9": 0,
+      "Semgrep": 1,
+      "Lizard": 5,
+      "Trivy": 0
+    }
+  },
+  "after": {
+    "findings": 6,
+    "errors": [],
+    "tools": {
+      "ESLint9": 0,
+      "Semgrep": 1,
+      "Lizard": 5,
+      "Trivy": 0
+    }
+  },
+  "newIssues": []
+}
