@@ -636,3 +636,25 @@ W2-09 được bỏ qua ở đợt 2 và chuyển thành tính năng W4-02 theo 
 - **rejected**. Kiểm tra 5 lượt bằng WebKit, tiếng Việt ở 1440×900. Hai nút Trang chủ khả dụng và nút Tất cả ghi chú mở được danh sách. Mở Thuộc tính vẫn thấy sidebar và danh sách. Đối chiếu thêm trên native ở hai theme. [WebKit Trang chủ](review-shots/2026-11-18-sau-W2/W3-12-after-webkit-light-home.png) · [WebKit Thuộc tính](review-shots/2026-11-18-sau-W2/W3-12-after-webkit-light-properties.png).
 - Native 1440×900. [Trang chủ sáng](review-shots/2026-11-18-sau-W2/W3-12-after-native-light-home.png) · [Trang chủ tối](review-shots/2026-11-18-sau-W2/W3-12-after-native-dark-home.png) · [Thuộc tính sáng](review-shots/2026-11-18-sau-W2/W3-12-after-native-light-properties.png) · [Thuộc tính tối](review-shots/2026-11-18-sau-W2/W3-12-after-native-dark-properties.png).
 - **Viên tím — rejected làm lỗi giao diện app.** Khi có viên tím, macOS báo hai cửa sổ riêng, cửa sổ phụ 66×20 trùng vùng viên tím. Khi vừa mở app, chỉ thấy cửa sổ chính với ba nút macOS. Tổ hợp Cmd+Shift+4 đã thử nhưng không tạo được tệp ảnh. Ảnh bằng chứng lấy từ công cụ chụp macOS. [Lúc khởi động](review-shots/2026-11-18-sau-W2/W3-12-after-native-titlebar-startup.png) · [Có lớp phủ](review-shots/2026-11-18-sau-W2/W3-12-after-native-titlebar-overlay.png).
+
+## Đợt 4 · Sửa sau nghiệm thu
+
+### F-079 · Tab Bộ thẻ lặp điều khiển ôn
+
+- P2 · **fixed (commit F-079)**. Đầu tab có bộ chọn và nút ôn toàn bộ, trong khi mỗi bộ đã có điều khiển riêng. [Ảnh trước](review-shots/2026-11-19-W4/W4-03-after-light.png).
+- Đạt khi đầu tab Bộ thẻ hết bộ chọn và nút ôn, từng bộ vẫn có cả hai điều khiển. Playwright RED → GREEN. Native vi 1440×900 [sáng](evidence/F-079-after-light.png) · [tối](evidence/F-079-after-dark.png).
+
+### F-080 · Phản hồi Trắc nghiệm trông như ô nhập
+
+- P1 · **open**. Sau khi chọn đáp án, vòng focus bao quanh dòng phản hồi thay vì nút chấm. [Ảnh trước](review-shots/2026-11-19-W4/W4-05-after-light.png).
+- Đạt khi focus vào mức chấm gợi ý, dòng phản hồi là văn bản với `role=status`, các phím chấm tiếp tục hoạt động.
+
+### F-081 · Snippet ghi chú hiện mã bản vẽ
+
+- P2 · **open**. Hàng Legacy drawing QA hiển thị payload bản vẽ. [Ảnh trước](review-shots/2026-11-19-W4/W4-02-after-light.png).
+- Đạt khi đoạn xem trước bỏ khối whiteboard, tldraw và Excalidraw, kể cả sau khi mở lại hoặc lưu ghi chú. Giữ văn xuôi và mã nguồn ghi chú.
+
+### F-082 · Nút Tiếp tục thiếu phân cấp khi tạm dừng
+
+- P2 · **open**. Lúc Thử thách tạm dừng, nút Tiếp tục hiện như hành động phụ. [Ảnh trước](review-shots/2026-11-19-W4/W4-06-after-light.png).
+- Đạt khi Tiếp tục là nút chính trong trạng thái tạm dừng.

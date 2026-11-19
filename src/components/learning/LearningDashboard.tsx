@@ -66,7 +66,7 @@ function LegacyLearningDashboard({ mode, locale, onOpenPage, embedded }: Dashboa
     finally { setBusy(false) }
   }
   return <main className="mx-auto max-w-5xl space-y-6 p-4 sm:p-8">
-    <header className="flex flex-wrap items-center justify-between gap-4"><div>{!embedded && <Heading className="text-display font-semibold">{translate(locale, 'sidebar.nav.decks')}</Heading>}<p className="mt-2 text-muted-foreground">{translate(locale, 'learning.questionHelp')}</p></div>{workspace.phase === 'ready' && (
+    <header className="flex flex-wrap items-center justify-between gap-4"><div>{!embedded && <Heading className="text-display font-semibold">{translate(locale, 'sidebar.nav.decks')}</Heading>}<p className="mt-2 text-muted-foreground">{translate(locale, 'learning.questionHelp')}</p></div>{mode === 'home' && workspace.phase === 'ready' && (
       <DeckStudyControls library={workspace.root} deck="all" cards={cards} due={due.length} locale={locale}
         label={translate(locale, 'home.start_review')} primary onStart={presentation => workspace.requestStudy(undefined, 'legacy', presentation)} />
     )}
