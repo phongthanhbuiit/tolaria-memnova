@@ -646,8 +646,8 @@ W2-09 được bỏ qua ở đợt 2 và chuyển thành tính năng W4-02 theo 
 
 ### F-080 · Phản hồi Trắc nghiệm trông như ô nhập
 
-- P1 · **open**. Sau khi chọn đáp án, vòng focus bao quanh dòng phản hồi thay vì nút chấm. [Ảnh trước](review-shots/2026-11-19-W4/W4-05-after-light.png).
-- Đạt khi focus vào mức chấm gợi ý, dòng phản hồi là văn bản với `role=status`, các phím chấm tiếp tục hoạt động.
+- P1 · **fixed (commit F-080)**. Sau khi chọn đáp án, vòng focus bao quanh dòng phản hồi thay vì nút chấm. [Ảnh trước](review-shots/2026-11-19-W4/W4-05-after-light.png).
+- Đạt khi focus vào mức chấm gợi ý, dòng phản hồi là văn bản với `role=status`, các phím chấm tiếp tục hoạt động. Playwright RED → GREEN, 5/5 ca ôn. Native vi 1440×900 [sáng](evidence/F-080-after-light.png) · [tối](evidence/F-080-after-dark.png).
 
 ### F-081 · Snippet ghi chú hiện mã bản vẽ
 

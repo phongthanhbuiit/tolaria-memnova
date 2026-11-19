@@ -6,21 +6,22 @@ import { cn } from '../../lib/utils'
 
 const choicesKeys = 'ABCD'
 
-export function StudyChoiceOptions({ choices, selected, disabled, locale, onChoose, revealOnTimeout = false }: {
+export function StudyChoiceOptions({ choices, selected, disabled, locale, onChoose, revealOnTimeout = false, focusFeedback = true }: {
   choices: readonly StudyChoice[]
   selected: number | null
   disabled: boolean
   locale: AppLocale
   onChoose: (index: number) => void
   revealOnTimeout?: boolean
+  focusFeedback?: boolean
 }) {
   const first = useRef<HTMLButtonElement>(null)
   const feedback = useRef<HTMLParagraphElement>(null)
   const complete = selected !== null || revealOnTimeout
   useLayoutEffect(() => {
-    if (complete) feedback.current?.focus({ preventScroll: true })
-    else if (!disabled) first.current?.focus({ preventScroll: true })
-  }, [complete, disabled, choices])
+    if (complete && focusFeedback) feedback.current?.focus({ preventScroll: true })
+    if (!complete && !disabled) first.current?.focus({ preventScroll: true })
+  }, [complete, disabled, choices, focusFeedback])
 
   return (
     <div className="space-y-3" role="group" aria-label={translate(locale, 'learning.choice.label')} onKeyDown={event => {
@@ -48,11 +49,10 @@ export function StudyChoiceOptions({ choices, selected, disabled, locale, onChoo
           )
         })}
       </div>
-      {complete && (
-        <p ref={feedback} tabIndex={-1} role="status" className="text-body text-text-secondary">
-          {translate(locale, selected === null ? 'learning.challenge.timeout' : choices[selected]?.correct ? 'learning.answers.correct' : 'learning.answers.wrong')}
-        </p>
-      )}
+      <p ref={feedback} tabIndex={focusFeedback && complete ? -1 : undefined} role="status"
+        className={complete ? 'text-body text-text-secondary' : 'sr-only'}>
+        {complete && translate(locale, selected === null ? 'learning.challenge.timeout' : choices[selected]?.correct ? 'learning.answers.correct' : 'learning.answers.wrong')}
+      </p>
     </div>
   )
 }

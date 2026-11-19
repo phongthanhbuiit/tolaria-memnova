@@ -267,8 +267,10 @@ export function LearningStudyView({
             !questionReady
           )
             return
+          const target = event.target as HTMLElement
+          const onChoiceGrade = choiceQuestion && target.closest('button[data-note-grade]')
           if (
-            (event.target as HTMLElement).closest(
+            !onChoiceGrade && target.closest(
               'input,textarea,select,button,a,[role="button"],[role="combobox"],[role="textbox"],[contenteditable="true"],.tl-container,.excalidraw-whiteboard'
             )
           )
@@ -277,7 +279,7 @@ export function LearningStudyView({
             event.preventDefault()
             reveal()
           }
-          if (revealed && answerReady && suggest !== null && event.key === 'Enter') {
+          if (!onChoiceGrade && revealed && answerReady && suggest !== null && event.key === 'Enter') {
             event.preventDefault()
             grade(suggest)
           }
@@ -488,6 +490,7 @@ export function LearningStudyView({
               <GradeButtons
                 locale={locale}
                 interval={interval}
+                focusRating={choiceQuestion ? suggest ?? undefined : undefined}
                 disabled={study.busy || study.hasPending || !!study.error || !preview || !sourceReady || !questionReady || !answerReady}
                 onGrade={grade}
               />

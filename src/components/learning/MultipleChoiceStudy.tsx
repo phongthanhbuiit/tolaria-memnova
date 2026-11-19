@@ -13,7 +13,7 @@ export function MultipleChoiceStudy({ question, disabled, locale, onResult }: {
   const [selected, setSelected] = useState<number | null>(null)
   return (
     <div className="mx-6 mb-6">
-      <StudyChoiceOptions choices={question.choices} selected={selected} disabled={disabled} locale={locale}
+      <StudyChoiceOptions choices={question.choices} selected={selected} disabled={disabled} locale={locale} focusFeedback={false}
         onChoose={index => {
           if (selected !== null || disabled) return
           setSelected(index)

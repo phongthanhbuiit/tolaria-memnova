@@ -13,7 +13,11 @@ test('the deck offers four distinct answers and waits for a scheduled grade', as
     await expect(options.first()).toBeEnabled()
     await options.first().focus()
     await page.keyboard.press('D')
-    await expect(group.getByRole('status')).toBeVisible()
+    const feedback = group.getByRole('status')
+    await expect(feedback).toHaveText(/^(Correct|Incorrect)$/)
+    await expect(feedback).not.toHaveAttribute('tabindex')
+    const result = (await feedback.innerText()) === 'Correct' ? 3 : 1
+    await expect(dialog.locator(`[data-note-grade="${result}"]`)).toBeFocused()
     const ratings = () => page.evaluate(root => {
       const data = JSON.parse(localStorage.getItem(`memnova:qa-learning:${root}`) ?? '{}')
       return (data.reviews ?? []).map((review: { request: { rating: number } }) => review.request.rating)
